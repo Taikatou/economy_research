@@ -1,0 +1,3 @@
+﻿The lootbox system is wonderful code created by Hyper Fox Studios
+
+https://hyperfoxstudios.com/loot-drop-table-implementation-unity3d/

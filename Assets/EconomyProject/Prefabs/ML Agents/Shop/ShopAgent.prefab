@@ -1,0 +1,201 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6220377510714029038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3219537685212485374}
+  - component: {fileID: 2058060824390224692}
+  - component: {fileID: 4563505960450716024}
+  - component: {fileID: 568787241}
+  - component: {fileID: 1698003909039440842}
+  - component: {fileID: 8868528098903630128}
+  - component: {fileID: 2053566769}
+  - component: {fileID: 1690807225}
+  - component: {fileID: 7495793412378739832}
+  - component: {fileID: 2696612896792117499}
+  m_Layer: 0
+  m_Name: ShopAgent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3219537685212485374
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6220377510714029038}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 693.30505, y: 454.88535, z: -3245.3262}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2058060824390224692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6220377510714029038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3322fb099c53c348b8beccbece0a5ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shopItems:
+  - inventoryItem: {fileID: 11400000, guid: ff61c0520e17b43429b1c5e7c3cd505d, type: 2}
+    price: 10
+    stock: 3
+  - inventoryItem: {fileID: 11400000, guid: ba1044b1ad3be3440a274303fe22f8cb, type: 2}
+    price: 10
+    stock: 3
+  - inventoryItem: {fileID: 11400000, guid: 220a652df168f054b8b6564ab9e67f7f, type: 2}
+    price: 10
+    stock: 3
+  - inventoryItem: {fileID: 11400000, guid: ecd492c3b2f26eb428a3a267c2e78659, type: 2}
+    price: 10
+    stock: 3
+  - inventoryItem: {fileID: 11400000, guid: 995af46e8ce3ad84a9491f7e65b0c666, type: 2}
+    price: 10
+    stock: 3
+  - inventoryItem: {fileID: 11400000, guid: f2ee4c3d87136284f911c5dc145ee12c, type: 2}
+    price: 10
+    stock: 3
+--- !u!114 &4563505960450716024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6220377510714029038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f617471791d546b4298d88923d578558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentId: 0
+--- !u!114 &568787241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6220377510714029038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce000fa4147eec844b7cdd831ec766ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startMoney: 100
+--- !u!114 &1698003909039440842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6220377510714029038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef49ebaf2c1d3e34d80a0c97fe600c07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  craftingRequirement:
+  - choice: 1
+    resource: {fileID: 11400000, guid: 96cd0142b35188d4aa2db4488fb21c8b, type: 2}
+  - choice: 2
+    resource: {fileID: 11400000, guid: 483294a08902a8749bdaf8a29d4e2b79, type: 2}
+  - choice: 3
+    resource: {fileID: 11400000, guid: 54c8682cbd889354685ced1aa476b060, type: 2}
+  - choice: 4
+    resource: {fileID: 11400000, guid: 5f2a182caacd88e428019f74abf0bacb, type: 2}
+  - choice: 5
+    resource: {fileID: 11400000, guid: 129ebd3159db0a04cbd032fdc2deab77, type: 2}
+--- !u!114 &8868528098903630128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6220377510714029038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f002c2d191232e4d847ecc768fab97a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2053566769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6220377510714029038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfe44ab26e9b99c4388ec065bf6b9cc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  craftsMan: {fileID: 2696612896792117499}
+--- !u!114 &1690807225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6220377510714029038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf88a2c3c27c9b4b804eeb1c5a32011, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startInventory: []
+--- !u!114 &7495793412378739832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6220377510714029038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    VectorObservationSize: 4
+    NumStackedVectorObservations: 1
+    VectorActionSize: 010000000100000001000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: Shop Agent
+  TeamId: 0
+  m_UseChildSensors: 1
+  m_ObservableAttributeHandling: 0
+--- !u!114 &2696612896792117499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6220377510714029038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 061c8941b752e46498e3d796c3fc60f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  requestSystem: {fileID: 0}
