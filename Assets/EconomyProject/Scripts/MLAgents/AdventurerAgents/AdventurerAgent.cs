@@ -7,7 +7,7 @@ using UnityEngine;
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 {
     // Main and Shop is not used by agent
-    public enum AgentScreen { Main, Quest, Auction, Shop }
+    public enum AgentScreen { Main, Quest, Auction, Request }
 
     public enum AuctionChoice { Ignore, Bid }
     

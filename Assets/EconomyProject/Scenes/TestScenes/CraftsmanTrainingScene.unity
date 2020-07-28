@@ -1018,6 +1018,11 @@ PrefabInstance:
       propertyPath: craftsmanMenu
       value: 
       objectReference: {fileID: 721265916}
+    - target: {fileID: 1340313980257823140, guid: c56f53c14fa475e4e9b01b23cf8632f4,
+        type: 3}
+      propertyPath: craftsmanMenu
+      value: 
+      objectReference: {fileID: 721265916}
     - target: {fileID: 1622777458186111069, guid: c56f53c14fa475e4e9b01b23cf8632f4,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1300,7 +1305,7 @@ PrefabInstance:
       objectReference: {fileID: 1558139375}
     - target: {fileID: 1089776317, guid: 3c797386b92562740896eda4336a2bb2, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4076455654097727618, guid: 3c797386b92562740896eda4336a2bb2,
         type: 3}
@@ -1653,6 +1658,26 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 721265916}
+    - target: {fileID: 7904986460526861739, guid: 036597889439c684a9f5147167afecc8,
+        type: 3}
+      propertyPath: getCurrentAgent
+      value: 
+      objectReference: {fileID: 721265915}
+    - target: {fileID: 7904986460526861739, guid: 036597889439c684a9f5147167afecc8,
+        type: 3}
+      propertyPath: requestSystem
+      value: 
+      objectReference: {fileID: 1128639609}
+    - target: {fileID: 8869519688658473586, guid: 036597889439c684a9f5147167afecc8,
+        type: 3}
+      propertyPath: requestSystem
+      value: 
+      objectReference: {fileID: 1128639609}
+    - target: {fileID: 8869519688658473586, guid: 036597889439c684a9f5147167afecc8,
+        type: 3}
+      propertyPath: getCurrentAgent
+      value: 
+      objectReference: {fileID: 721265915}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 036597889439c684a9f5147167afecc8, type: 3}
 --- !u!224 &6101204408415589085 stripped

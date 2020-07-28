@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ContentModelStore">
     <e p="C:\Users\Conor\.Rider2019.2\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Conor\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_economy_research.1907129904.00" t="ExcludeRecursive" />
-    <e p="D:\economy_research" t="IncludeRecursive">
+    <e p="C:\Users\Conor\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_economy_research.-598306824.00" t="ExcludeRecursive" />
+    <e p="D:\EconomyBalance\economy_research" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
@@ -31,6 +31,7 @@
                 <e p="Requests" t="Include">
                   <e p="AdventurerRequestTaker.cs" t="Include" />
                   <e p="CraftsmanRequestTaker.cs" t="Include" />
+                  <e p="RequestAdventurerSystem.cs" t="Include" />
                   <e p="RequestRecord.cs" t="Include" />
                   <e p="RequestShopSystem.cs" t="Include" />
                   <e p="RequestSystem.cs" t="Include" />

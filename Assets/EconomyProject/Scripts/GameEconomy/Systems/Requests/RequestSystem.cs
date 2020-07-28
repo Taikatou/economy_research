@@ -12,7 +12,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         public CraftingResources Resource { get; }
         public CraftingInventory Inventory { get; }
         public int Number { get; set; }
-        
         public int Price { get; set; }
 
         private static readonly Dictionary<CraftingResources, int> _defaultPrice = new Dictionary<CraftingResources, int> {
@@ -35,7 +34,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             if (!_resourceAdded)
             {
                 _resourceAdded = true;
-                Inventory.AddResource(Resource, 1);
+                Inventory.AddResource(Resource, Number);
             }
         }
     }
