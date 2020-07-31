@@ -14,7 +14,6 @@ namespace EconomyProject.Scripts.MLAgents.Shop
         public ShopInput shopInput;
         public List<ShopItem> ItemList => GetComponent<ShopAbility>().shopItems;
         public EconomyWallet Wallet => GetComponent<EconomyWallet>();
-        public CraftingAbility CraftingAbility => GetComponent<CraftingAbility>();
         public CraftingInventory CraftingInventory => GetComponent<CraftingInventory>();
         public AgentInventory AgentInventory => GetComponent<AgentInventory>();
         public override EShopScreen ChosenScreen => shopInput.GetScreen(this, EShopScreen.Main);

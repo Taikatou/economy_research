@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2058060824390224692}
   - component: {fileID: 4563505960450716024}
   - component: {fileID: 568787241}
-  - component: {fileID: 1698003909039440842}
   - component: {fileID: 8868528098903630128}
   - component: {fileID: 2053566769}
   - component: {fileID: 1690807225}
@@ -96,29 +95,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startMoney: 100
---- !u!114 &1698003909039440842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6220377510714029038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef49ebaf2c1d3e34d80a0c97fe600c07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  craftingRequirement:
-  - choice: 1
-    resource: {fileID: 11400000, guid: 96cd0142b35188d4aa2db4488fb21c8b, type: 2}
-  - choice: 2
-    resource: {fileID: 11400000, guid: 483294a08902a8749bdaf8a29d4e2b79, type: 2}
-  - choice: 3
-    resource: {fileID: 11400000, guid: 54c8682cbd889354685ced1aa476b060, type: 2}
-  - choice: 4
-    resource: {fileID: 11400000, guid: 5f2a182caacd88e428019f74abf0bacb, type: 2}
-  - choice: 5
-    resource: {fileID: 11400000, guid: 129ebd3159db0a04cbd032fdc2deab77, type: 2}
 --- !u!114 &8868528098903630128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,4 +174,4 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  requestSystem: {fileID: 0}
+  shopInput: {fileID: 0}

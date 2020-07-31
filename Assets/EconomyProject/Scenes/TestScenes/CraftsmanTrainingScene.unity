@@ -123,6 +123,62 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &34231415
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 34231416}
+  - component: {fileID: 34231417}
+  m_Layer: 0
+  m_Name: CraftingSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &34231416
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34231415}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1411903607}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &34231417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34231415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef49ebaf2c1d3e34d80a0c97fe600c07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agents: {fileID: 721265912}
+  playerInput: {fileID: 0}
+  craftingRequirement:
+  - choice: 1
+    resource: {fileID: 11400000, guid: 96cd0142b35188d4aa2db4488fb21c8b, type: 2}
+  - choice: 2
+    resource: {fileID: 11400000, guid: 483294a08902a8749bdaf8a29d4e2b79, type: 2}
+  - choice: 3
+    resource: {fileID: 11400000, guid: 54c8682cbd889354685ced1aa476b060, type: 2}
+  - choice: 4
+    resource: {fileID: 11400000, guid: 5f2a182caacd88e428019f74abf0bacb, type: 2}
+  - choice: 5
+    resource: {fileID: 11400000, guid: 129ebd3159db0a04cbd032fdc2deab77, type: 2}
 --- !u!1 &681653245
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,7 +406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shopSystem: {fileID: 974467279}
-  craftSystem: {fileID: 867087297}
+  craftSystem: {fileID: 34231417}
   requestSystem: {fileID: 1128639609}
   shopMarketPlace: {fileID: 2029881380}
 --- !u!4 &861727212
@@ -400,6 +456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agents: {fileID: 1121020426}
   playerInput: {fileID: 0}
+  <ShopInput>k__BackingField: {fileID: 0}
 --- !u!4 &867087298
 Transform:
   m_ObjectHideFlags: 0
@@ -1153,6 +1210,16 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1622777458788856319, guid: c56f53c14fa475e4e9b01b23cf8632f4,
+        type: 3}
+      propertyPath: craftingSystem
+      value: 
+      objectReference: {fileID: 34231417}
+    - target: {fileID: 1622777458788856319, guid: c56f53c14fa475e4e9b01b23cf8632f4,
+        type: 3}
+      propertyPath: getCurrentAgent
+      value: 
+      objectReference: {fileID: 721265915}
     - target: {fileID: 1863524030573228399, guid: c56f53c14fa475e4e9b01b23cf8632f4,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1218,6 +1285,11 @@ PrefabInstance:
       propertyPath: getCurrentAgent
       value: 
       objectReference: {fileID: 721265915}
+    - target: {fileID: 3345728761026067231, guid: c56f53c14fa475e4e9b01b23cf8632f4,
+        type: 3}
+      propertyPath: craftingSystem
+      value: 
+      objectReference: {fileID: 34231417}
     - target: {fileID: 8622772467429069530, guid: c56f53c14fa475e4e9b01b23cf8632f4,
         type: 3}
       propertyPath: m_AnchorMax.x

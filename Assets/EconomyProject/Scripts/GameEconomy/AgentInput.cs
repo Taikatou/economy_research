@@ -26,7 +26,7 @@ namespace EconomyProject.Scripts.GameEconomy
         public float GetProgress(TAgent agent)
         {
             var system = GetEconomySystem(agent);
-            return system.Progress;
+            return system.Progress(agent);
         }
 
         public void Start()

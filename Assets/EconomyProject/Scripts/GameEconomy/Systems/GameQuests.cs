@@ -25,7 +25,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         private float _currentTime;
 
-        public override float Progress => _currentTime / spawnTime;
+        public override float Progress(AdventurerAgent agent)  => _currentTime / spawnTime;
 
         protected override AgentScreen ActionChoice => AgentScreen.Quest;
 

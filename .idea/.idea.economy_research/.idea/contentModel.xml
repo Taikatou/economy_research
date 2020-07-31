@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ContentModelStore">
     <e p="C:\Users\Conor\.Rider2019.2\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Conor\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_economy_research.-598306824.00" t="ExcludeRecursive" />
-    <e p="D:\EconomyBalance\economy_research" t="IncludeRecursive">
+    <e p="C:\Users\Conor\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_economy_research.1706634326.00" t="ExcludeRecursive" />
+    <e p="D:\economy_research\economy_research" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
@@ -23,7 +23,6 @@
               <e p="ResetScript.cs" t="Include" />
               <e p="ShopInput.cs" t="Include" />
               <e p="Systems" t="Include">
-                <e p="CraftSystem.cs" t="Include" />
                 <e p="EconomySystem.cs" t="Include" />
                 <e p="GameAuction.cs" t="Include" />
                 <e p="GameQuests.cs" t="Include" />
@@ -68,8 +67,8 @@
               <e p="AgentSpawner.cs" t="Include" />
               <e p="BaseAgentSpawner.cs" t="Include" />
               <e p="Craftsman" t="Include">
-                <e p="CraftingAbility.cs" t="Include" />
                 <e p="CraftingInventory.cs" t="Include" />
+                <e p="CraftingSystem.cs" t="Include" />
                 <e p="CraftsmanAgentSpawner.cs" t="Include" />
                 <e p="Requirements" t="Include">
                   <e p="CraftingRequirements.cs" t="Include" />
@@ -107,7 +106,6 @@
                 </e>
                 <e p="CraftsmanMenu.cs" t="Include" />
                 <e p="CraftsmanUIControls.cs" t="Include" />
-                <e p="CraftSystem.cs" t="Include" />
                 <e p="Request" t="Include">
                   <e p="Buttons" t="Include">
                     <e p="CraftingCurrentRequestButton.cs" t="Include" />

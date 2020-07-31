@@ -14,6 +14,8 @@ namespace EconomyProject.Scripts.UI
         public UiAccessor accessor;
         
         private GameAuction GameAuction => accessor.GameAuction;
+        
+        public GetCurrentAdventurerAgent currentAdventurerAgent;
 
         private void Update()
         {
@@ -30,6 +32,6 @@ namespace EconomyProject.Scripts.UI
             }
         }
 
-        public float Progress => GameAuction.Progress;
+        public float Progress => GameAuction.Progress(currentAdventurerAgent.CurrentAgent);
     }
 }

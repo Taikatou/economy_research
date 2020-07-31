@@ -1,4 +1,5 @@
-﻿using EconomyProject.Scripts.UI.Adventurer;
+﻿using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+using EconomyProject.Scripts.UI.Adventurer;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,8 @@ namespace EconomyProject.Scripts.UI
         public Slider slider;
 
         public UiAccessor accessor;
+
+        public GetCurrentAdventurerAgent currentAdventurerAgent;
 
         private void Update()
         {
@@ -29,6 +32,6 @@ namespace EconomyProject.Scripts.UI
             return retVal;
         }
 
-        public float Progress => accessor.GameQuests.Progress;
+        public float Progress => accessor.GameQuests.Progress(currentAdventurerAgent.CurrentAgent);
     }
 }

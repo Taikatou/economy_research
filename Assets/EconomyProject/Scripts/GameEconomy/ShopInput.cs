@@ -1,5 +1,6 @@
 ﻿using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
+using EconomyProject.Scripts.MLAgents.Craftsman;
 using EconomyProject.Scripts.MLAgents.Shop;
 
 namespace EconomyProject.Scripts.GameEconomy
@@ -7,7 +8,7 @@ namespace EconomyProject.Scripts.GameEconomy
     public class ShopInput : AgentInput<ShopAgent, EShopScreen>
     {
         public ShopSystem shopSystem;
-        public CraftSystem craftSystem;
+        public CraftingSystem craftSystem;
         public RequestShopSystem requestSystem;
         public ShopMarketPlace shopMarketPlace;
         protected override EconomySystem<ShopAgent, EShopScreen> GetEconomySystem(ShopAgent agent)

@@ -33,7 +33,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public int ItemCount => _inventoryItems.Count;
 
-        public override float Progress => currentAuctionTime / auctionTime;
+        public override float Progress(AdventurerAgent agent) => currentAuctionTime / auctionTime;
 
         private DataLogger Logger => GetComponent<DataLogger>();
 

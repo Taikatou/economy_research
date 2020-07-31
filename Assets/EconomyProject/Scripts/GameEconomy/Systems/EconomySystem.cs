@@ -14,7 +14,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public abstract bool CanMove(TAgent agent);
         
-        public virtual float Progress => 0.0f;
+        public virtual float Progress(TAgent agent) => 0.0f;
 
         public TAgent[] CurrentPlayers
         {
