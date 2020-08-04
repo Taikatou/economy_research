@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
+using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.MLAgents.Craftsman;
 using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
@@ -28,7 +30,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Crafting
         }
         public override void SelectItem(CraftingInfo item, int number = 1)
         {
-            craftingSystem.SetCraftingItem(item.craftingMap.choice, Agent);
+            craftingSystem.MakeRequest(Agent, (int) item.craftingMap.choice);
             LastUpdated.Refresh();
         }
     }

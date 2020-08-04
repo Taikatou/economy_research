@@ -3,7 +3,7 @@ using EconomyProject.Scripts.MLAgents.Shop;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {
-    public class ShopSystem : EconomySystem<ShopAgent, EShopScreen>
+    public class MainShopSystem : EconomySystem<ShopAgent, EShopScreen>
     {
         enum MainChoices { Main = EShopScreen.Main, Craft = EShopScreen.Craft, Request = EShopScreen.Request }
         protected override EShopScreen ActionChoice => EShopScreen.Main;

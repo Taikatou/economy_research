@@ -8,15 +8,14 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.MLAgents.Shop
 {
-    public enum EShopScreen {Main = 0, Request = 1, Craft = 2, MarketPlace = 3}
+    public enum EShopScreen {Main = 0, Request = 1, Craft = 2}
     public class ShopAgent : AgentScreen<EShopScreen>
     {
         public ShopInput shopInput;
-        public List<ShopItem> ItemList => GetComponent<ShopAbility>().shopItems;
-        public EconomyWallet Wallet => GetComponent<EconomyWallet>();
+        private EconomyWallet Wallet => GetComponent<EconomyWallet>();
         public CraftingInventory CraftingInventory => GetComponent<CraftingInventory>();
-        public AgentInventory AgentInventory => GetComponent<AgentInventory>();
         public override EShopScreen ChosenScreen => shopInput.GetScreen(this, EShopScreen.Main);
+        public AgentInventory AgentInventory => GetComponent<AgentInventory>();
 
         public override void Heuristic(float[] actionsOut)
         {
@@ -29,7 +28,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop
             shopInput.SetAction(this, action);
         }
 
-        public void RemoveItem(ShopItem itemToRemove)
+        /*public void RemoveItem(ShopItem itemToRemove)
         {
             var sellersItem = FindItem(itemToRemove);
             Debug.Log(sellersItem.stock);
@@ -64,7 +63,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop
             }
 
             return null;
-        }
+        }*/
 
         public override void CollectObservations(VectorSensor sensor)
         {

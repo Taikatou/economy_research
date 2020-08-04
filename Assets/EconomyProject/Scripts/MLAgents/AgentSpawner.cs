@@ -6,9 +6,7 @@ namespace EconomyProject.Scripts.MLAgents
     public class AgentSpawner : BaseAgentSpawner
     {
         public GameObject learningAgentPrefab;
-
-        public MarketPlace marketPlace;
-
+        
         public int numSpawn;
         private void Start()
         {

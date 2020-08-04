@@ -1,4 +1,6 @@
-﻿using EconomyProject.Scripts.MLAgents.Craftsman;
+﻿using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
+using EconomyProject.Scripts.GameEconomy.Systems.Requests;
+using EconomyProject.Scripts.MLAgents.Craftsman;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +11,6 @@ namespace EconomyProject.Scripts.UI.Craftsman.Crafting
         public Slider slider;
         public CraftingSystem craftingSystem;
         public GetCurrentShopAgent getCurrentAgent;
-        private CraftsmanUIControls CraftsmanUiControls => GetComponentInParent<CraftsmanUIControls>();
 
         private void Update()
         {

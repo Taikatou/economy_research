@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using EconomyProject.Scripts.Inventory;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
@@ -26,10 +27,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         public float addChance = 0.3f;
 
         public float maxInventory = 50;
+        
+        public List<ItemMap> auctionBasePrices;
 
         private List<InventoryItem> _inventoryItems;
 
         private bool _auctionOn;
+        
+        private ItemMapper _itemMapper;
 
         public int ItemCount => _inventoryItems.Count;
 
@@ -51,9 +56,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         private void Start()
         {
             _inventoryItems = new List<InventoryItem>();
+            _itemMapper = new ItemMapper(auctionBasePrices);
         }
 
-        public void SetAuctionItem()
+        private void SetAuctionItem()
         {
             if (!_auctionOn)
             {
@@ -61,14 +67,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                 if (_auctionOn)
                 {
                     var rnd = new System.Random();
-
                     var index = rnd.Next(_inventoryItems.Count);
 
                     auctionedItem = _inventoryItems[index];
-
                     currentAuctionTime = 0.0f;
-
-                    currentItemPrice = auctionedItem.baseBidPrice;
+                    currentItemPrice = _itemMapper.GetValue(auctionedItem);
                 }
 
                 _currentHighestBidder = null;

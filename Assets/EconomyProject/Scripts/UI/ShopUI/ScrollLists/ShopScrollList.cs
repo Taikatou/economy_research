@@ -3,10 +3,8 @@ using EconomyProject.Scripts.UI.ShopUI.Buttons;
 
 namespace EconomyProject.Scripts.UI.ShopUI.ScrollLists
 {
-    public abstract class ShopScrollList : AbstractScrollList<ShopItem, ShopButton>
+    public abstract class ShopScrollList : AbstractScrollList<ShopDetails, ShopButton>
     {
-        public MarketPlace marketPlace;
-
-        public override LastUpdate LastUpdated => marketPlace;
+        
     }
 }

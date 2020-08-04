@@ -12,7 +12,7 @@ namespace EconomyProject.Scripts.MLAgents.Craftsman.Requirements
     }
     public enum CraftingResources { Wood, Metal, Gem, DragonScale }
 
-    [System.Serializable]
+    [Serializable]
     public struct ResourceRequirement
     {
         public CraftingResources type;

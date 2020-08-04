@@ -19,14 +19,22 @@
               <e p="AgentInput.cs" t="Include" />
               <e p="AgentScreen.cs" t="Include" />
               <e p="DataLogger.cs" t="Include" />
+              <e p="ItemMapper.cs" t="Include" />
               <e p="PlayerInput.cs" t="Include" />
               <e p="ResetScript.cs" t="Include" />
               <e p="ShopInput.cs" t="Include" />
               <e p="Systems" t="Include">
+                <e p="Craftsman" t="Include">
+                  <e p="AgentShop.cs" t="Include" />
+                  <e p="AgentShopSystem.cs" t="Include" />
+                  <e p="CraftingSystem.cs" t="Include" />
+                  <e p="ShopSystem.cs" t="Include" />
+                </e>
                 <e p="EconomySystem.cs" t="Include" />
                 <e p="GameAuction.cs" t="Include" />
                 <e p="GameQuests.cs" t="Include" />
                 <e p="MainMenuSystem.cs" t="Include" />
+                <e p="MainShopSystem.cs" t="Include" />
                 <e p="Requests" t="Include">
                   <e p="AdventurerRequestTaker.cs" t="Include" />
                   <e p="CraftsmanRequestTaker.cs" t="Include" />
@@ -37,7 +45,7 @@
                   <e p="RequestTaker.cs" t="Include" />
                   <e p="TestRequestTaker.cs" t="Include" />
                 </e>
-                <e p="ShopSystem.cs" t="Include" />
+                <e p="StateEconomySystem.cs" t="Include" />
               </e>
             </e>
             <e p="Inventory" t="Include">
@@ -68,7 +76,6 @@
               <e p="BaseAgentSpawner.cs" t="Include" />
               <e p="Craftsman" t="Include">
                 <e p="CraftingInventory.cs" t="Include" />
-                <e p="CraftingSystem.cs" t="Include" />
                 <e p="CraftsmanAgentSpawner.cs" t="Include" />
                 <e p="Requirements" t="Include">
                   <e p="CraftingRequirements.cs" t="Include" />
@@ -78,11 +85,9 @@
               <e p="NumberKeyboardPoller.cs" t="Include" />
               <e p="PredictorAcademy.cs" t="Include" />
               <e p="Shop" t="Include">
-                <e p="MarketPlace.cs" t="Include" />
-                <e p="ShopAbility.cs" t="Include" />
                 <e p="ShopAcademy.cs" t="Include" />
                 <e p="ShopAgent.cs" t="Include" />
-                <e p="ShopMarketPlace.cs" t="Include" />
+                <e p="ShopDetails.cs" t="Include" />
                 <e p="ShopSpawner.cs" t="Include" />
               </e>
             </e>
@@ -125,8 +130,8 @@
               <e p="GetCurrentAgent.cs" t="Include" />
               <e p="GetCurrentShopAgent.cs" t="Include" />
               <e p="Inventory" t="Include">
-                <e p="InventoryScrollButton.cs" t="Include" />
                 <e p="InventoryScrollView.cs" t="Include" />
+                <e p="ShopInventoryScrollButton.cs" t="Include" />
               </e>
               <e p="QuestMenu.cs" t="Include" />
               <e p="ShopUI" t="Include">
@@ -136,8 +141,6 @@
                 </e>
                 <e p="ScrollLists" t="Include">
                   <e p="AbstractScrollList.cs" t="Include" />
-                  <e p="AgentShopScrollList.cs" t="Include" />
-                  <e p="PooledShopScrollList.cs" t="Include" />
                   <e p="ShopScrollList.cs" t="Include" />
                 </e>
                 <e p="ShopAgentDropDown.cs" t="Include" />

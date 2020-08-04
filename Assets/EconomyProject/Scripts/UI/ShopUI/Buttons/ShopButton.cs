@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace EconomyProject.Scripts.UI.ShopUI.Buttons
 {
-    public class ShopButton : SampleButton<ShopItem>
+    public class ShopButton : SampleButton<ShopDetails>
     {
         public Text nameLabel;
         public Image iconImage;
@@ -12,7 +12,7 @@ namespace EconomyProject.Scripts.UI.ShopUI.Buttons
 
         protected override void SetupButton()
         {
-            nameLabel.text = ItemDetails.ItemName;
+            //nameLabel.text = ItemDetails.ItemName;
             //iconImage.sprite = _item.icon;
             priceText.text = ItemDetails.price.ToString();
             stockText.text = "x" + ItemDetails.stock;

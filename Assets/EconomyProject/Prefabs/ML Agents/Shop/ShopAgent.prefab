@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3219537685212485374}
-  - component: {fileID: 2058060824390224692}
   - component: {fileID: 4563505960450716024}
   - component: {fileID: 568787241}
   - component: {fileID: 8868528098903630128}
@@ -38,37 +37,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2058060824390224692
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6220377510714029038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3322fb099c53c348b8beccbece0a5ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shopItems:
-  - inventoryItem: {fileID: 11400000, guid: ff61c0520e17b43429b1c5e7c3cd505d, type: 2}
-    price: 10
-    stock: 3
-  - inventoryItem: {fileID: 11400000, guid: ba1044b1ad3be3440a274303fe22f8cb, type: 2}
-    price: 10
-    stock: 3
-  - inventoryItem: {fileID: 11400000, guid: 220a652df168f054b8b6564ab9e67f7f, type: 2}
-    price: 10
-    stock: 3
-  - inventoryItem: {fileID: 11400000, guid: ecd492c3b2f26eb428a3a267c2e78659, type: 2}
-    price: 10
-    stock: 3
-  - inventoryItem: {fileID: 11400000, guid: 995af46e8ce3ad84a9491f7e65b0c666, type: 2}
-    price: 10
-    stock: 3
-  - inventoryItem: {fileID: 11400000, guid: f2ee4c3d87136284f911c5dc145ee12c, type: 2}
-    price: 10
-    stock: 3
 --- !u!114 &4563505960450716024
 MonoBehaviour:
   m_ObjectHideFlags: 0

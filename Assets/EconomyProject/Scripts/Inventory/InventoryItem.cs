@@ -6,11 +6,7 @@ namespace EconomyProject.Scripts.Inventory
     public class InventoryItem : ScriptableObject
     {
         public string itemName;
-
-        public float baseBidPrice;
-
-        public float rewardPrice;
-
+        
         public int baseDurability;
 
         [HideInInspector]
@@ -31,13 +27,11 @@ namespace EconomyProject.Scripts.Inventory
 
         public void Init(InventoryItem item)
         {
-            baseBidPrice = item.baseBidPrice;
             itemName = item.itemName;
             baseDurability = item.baseDurability;
             efficiency = item.efficiency;
             unBreakable = item.unBreakable;
             durability = item.durability;
-            rewardPrice = item.rewardPrice;
             numLootSpawns = item.numLootSpawns;
         }
 

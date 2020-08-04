@@ -11,8 +11,7 @@ namespace EconomyProject.Scripts.UI.ShopUI
         public Button saveButton;
         public InputField newPriceField;
 
-        private ShopItem _shopItem;
-        private MarketPlace _marketPlace;
+        private ShopDetails _shopDetails; 
         private ShopAgent _seller;
 
         private void Start()
@@ -22,33 +21,30 @@ namespace EconomyProject.Scripts.UI.ShopUI
             saveButton.onClick.AddListener(SaveButton);
         }
 
-        public void SetVisible(ShopItem item, MarketPlace marketPlace, ShopAgent seller)
+        public void SetVisible(ShopDetails details, ShopAgent seller)
         {
-            _shopItem = item;
+            _shopDetails = details;
             gameObject.SetActive(true);
 
-            _marketPlace = marketPlace;
             _seller = seller;
-            newPriceField.text = item.price.ToString();
+            newPriceField.text = details.price.ToString();
         }
 
         private void CloseUi()
         {
-            _marketPlace.Refresh();
             gameObject.SetActive(false);
         }
 
         private void MoveToMarketPlace()
         {
             SaveButton();
-            _marketPlace.TransferToShop(_shopItem, _seller);
+            //_marketPlace.TransferToShop(_shopItem, _seller);
             CloseUi();
         }
 
         private void SaveButton()
         {
-            _marketPlace.Refresh();
-            _shopItem.price = int.Parse(newPriceField.text);
+            _shopDetails.price = int.Parse(newPriceField.text);
         }
     }
 }

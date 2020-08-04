@@ -7,13 +7,13 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
-    public class RequestShopSystem : EconomySystem<ShopAgent, EShopScreen>
+    public enum RequestActions { Quit=CraftingResources.DragonScale, SetInput, RemoveRequest, IncreasePrice,  DecreasePrice}
+    public class RequestShopSystem : StateEconomySystem<RequestActions, ShopAgent, EShopScreen>
     {
-        enum RequestActions { Quit = 6, SetInput=7, RemoveRequest=8, IncreasePrice=9,  DecreasePrice=10}
-
-        private RequestActions _inputMode = RequestActions.SetInput;
         public RequestSystem requestSystem;
         protected override EShopScreen ActionChoice => EShopScreen.Request;
+
+        protected override RequestActions DefaultState => RequestActions.SetInput;
         public override bool CanMove(ShopAgent agent)
         {
             return true;
@@ -25,20 +25,27 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             {
                 if (Enum.IsDefined(typeof(RequestActions), input))
                 {
-                    _inputMode = (RequestActions) input;
-                    Debug.Log(_inputMode);
+                    SetInputMode(agent, (RequestActions) input);
+                    Debug.Log((RequestActions) input);
                 }
                 else
                 {
-                    var craftingResources = CraftingUtils.CraftingResources.ToList();
-                    MakeChoice(agent, craftingResources[input]);
+                    
+                    MakeChoice(agent, input);
                 }
             }
         }
 
+        protected override void MakeChoice(ShopAgent agent, int input)
+        {
+            var craftingResources = CraftingUtils.CraftingResources.ToList()[input];
+            MakeChoice(agent, craftingResources);
+        }
+
         public void MakeChoice(ShopAgent agent, CraftingResources craftingResources)
         {
-            switch (_inputMode)
+            
+            switch (GetInputMode(agent))
             {
                 case RequestActions.Quit:
                     ShopInput.ChangeScreen(agent, EShopScreen.Main);

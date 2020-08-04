@@ -10,8 +10,6 @@ namespace EconomyProject.Scripts.Inventory
 
         public List<InventoryItem> startInventory;
 
-        public int ItemCount => Items.Count;
-
         private void Start()
         {
             ResetInventory();

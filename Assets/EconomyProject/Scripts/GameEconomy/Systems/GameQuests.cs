@@ -1,4 +1,5 @@
-﻿using EconomyProject.Scripts.Inventory;
+﻿using System.Collections.Generic;
+using EconomyProject.Scripts.Inventory;
 using EconomyProject.Scripts.Inventory.LootBoxes.Generated;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using UnityEngine;
@@ -21,9 +22,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public GenericLootDropTableGameObject lootDropTable;
 
+        public List<ItemMap> rewardMap;
+
         private bool _shouldReturn;
 
         private float _currentTime;
+        
+        private ItemMapper _itemMapper;
 
         public override float Progress(AdventurerAgent agent)  => _currentTime / spawnTime;
 
@@ -39,6 +44,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             lootDropTable.ValidateTable();
             _currentTime = 0.0f;
             _shouldReturn = autoReturn;
+            _itemMapper = new ItemMapper(rewardMap);
         }
 
         private void FixedUpdate()
@@ -111,7 +117,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
                 if (generatedItem != null)
                 {
-                    totalPrice += generatedItem.rewardPrice;
+                    totalPrice += _itemMapper.GetValue(generatedItem);
                 }
             }
             return totalPrice;

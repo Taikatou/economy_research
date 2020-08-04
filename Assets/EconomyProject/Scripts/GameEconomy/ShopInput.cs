@@ -1,38 +1,42 @@
 ﻿using EconomyProject.Scripts.GameEconomy.Systems;
+using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
-using EconomyProject.Scripts.MLAgents.Craftsman;
 using EconomyProject.Scripts.MLAgents.Shop;
+using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy
 {
     public class ShopInput : AgentInput<ShopAgent, EShopScreen>
     {
+        public MainShopSystem mainSystem;
         public ShopSystem shopSystem;
-        public CraftingSystem craftSystem;
         public RequestShopSystem requestSystem;
-        public ShopMarketPlace shopMarketPlace;
+
+        public override void Start()
+        {
+            base.Start();
+            Application.targetFrameRate = 60;
+            QualitySettings.vSyncCount = 1;
+        }
         protected override EconomySystem<ShopAgent, EShopScreen> GetEconomySystem(ShopAgent agent)
         {
             switch (GetScreen(agent, EShopScreen.Main))
             {
                 case EShopScreen.Main:
-                    return shopSystem;
+                    return mainSystem;
                 case EShopScreen.Craft:
-                    return craftSystem;
+                    return shopSystem;
                 case EShopScreen.Request:
                     return requestSystem;
-                case EShopScreen.MarketPlace:
-                    return shopMarketPlace;
             }
             return null;
         }
 
         protected override void SetupScreens()
         {
+            mainSystem.ShopInput = this;
             shopSystem.ShopInput = this;
-            craftSystem.ShopInput = this;
             requestSystem.ShopInput = this;
-            shopMarketPlace.ShopInput = this;
         }
 
         public void SetAction(ShopAgent agent, int action)

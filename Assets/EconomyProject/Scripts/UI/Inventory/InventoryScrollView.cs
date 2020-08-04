@@ -1,21 +1,38 @@
 ﻿using System.Collections.Generic;
+using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.Inventory;
-using EconomyProject.Scripts.UI.Craftsman;
+using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
 
 namespace EconomyProject.Scripts.UI.Inventory
 {
-    public class InventoryScrollView : AbstractScrollList<InventoryItem, InventoryScrollButton>
+    public struct ShopItem
     {
-        // Start is called before the first frame update
-        public override List<InventoryItem> ItemList => AgentInventory.Items;
+        public InventoryItem Item;
+        public ShopDetails ShopDetails;
+    }
+    public class InventoryScrollView : AbstractScrollList<ShopItem, ShopInventoryScrollButton>
+    {
+        public AgentShopSystem shopSystem;
+
+        public GetCurrentShopAgent shopAgent;
+        private AgentInventory AgentInventory => shopAgent.CurrentAgent.AgentInventory;
         public override LastUpdate LastUpdated => AgentInventory;
+        public override List<ShopItem> ItemList
+        {
+            get
+            {
+                var itemList = new List<ShopItem>();
+                foreach (var item in AgentInventory.Items)
+                {
+                    var shopDetails = shopSystem.GetShopDetails(shopAgent.CurrentAgent, item);
+                    itemList.Add(new ShopItem {Item = item, ShopDetails = shopDetails});
+                }
+                return itemList;
+            }
+        }
 
-        public CraftsmanUIControls craftsmanMenu;
-
-        private AgentInventory AgentInventory => craftsmanMenu.CraftsmanAgent.AgentInventory;
-
-        public override void SelectItem(InventoryItem item, int number = 1)
+        public override void SelectItem(ShopItem item, int number = 1)
         {
             throw new System.NotImplementedException();
         }

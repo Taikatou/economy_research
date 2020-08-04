@@ -54,9 +54,7 @@ namespace EconomyProject.Scripts.Inventory.LootBoxes
                 {
                     lootDropItem.probabilityPercent = ((lootDropItem.probabilityWeight) / _probabilityTotalWeight) * 100;
                 }
-
             }
-
         }
 
         /// <summary>

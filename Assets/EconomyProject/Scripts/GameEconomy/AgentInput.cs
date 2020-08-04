@@ -29,7 +29,7 @@ namespace EconomyProject.Scripts.GameEconomy
             return system.Progress(agent);
         }
 
-        public void Start()
+        public virtual void Start()
         {
             EconomyScreens = new Dictionary<TAgent, TScreen>();
             SetupScreens();
