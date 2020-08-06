@@ -7,24 +7,24 @@ namespace EconomyProject.Scripts.GameEconomy
     [Serializable]
     public struct ItemMap
     {
-        public InventoryItem item;
+        public UsableItem item;
         public float map;
     }
 
     public class ItemMapper
     {
-        private readonly Dictionary<InventoryItem, float> _map;
+        private readonly Dictionary<UsableItem, float> _map;
 
         public ItemMapper(List<ItemMap> itemMaps)
         {
-            _map = new Dictionary<InventoryItem, float>();
+            _map = new Dictionary<UsableItem, float>();
             foreach (var item in itemMaps)
             {
                 _map.Add(item.item, item.map);
             }
         }
 
-        public float GetValue(InventoryItem item)
+        public float GetValue(UsableItem item)
         {
             if (_map.ContainsKey(item))
             {

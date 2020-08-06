@@ -12,7 +12,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
     {
         public RequestSystem requestSystem;
         protected override EShopScreen ActionChoice => EShopScreen.Request;
-
+        protected override RequestActions IsBackState => RequestActions.Quit;
         protected override RequestActions DefaultState => RequestActions.SetInput;
         public override bool CanMove(ShopAgent agent)
         {
@@ -30,10 +30,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                 }
                 else
                 {
-                    
                     MakeChoice(agent, input);
                 }
             }
+        }
+
+        protected override void GoBack(ShopAgent agent)
+        {
+            ShopInput.ChangeScreen(agent, EShopScreen.Main);
         }
 
         protected override void MakeChoice(ShopAgent agent, int input)
@@ -44,12 +48,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
         public void MakeChoice(ShopAgent agent, CraftingResources craftingResources)
         {
-            
             switch (GetInputMode(agent))
             {
-                case RequestActions.Quit:
-                    ShopInput.ChangeScreen(agent, EShopScreen.Main);
-                    break;
                 case RequestActions.SetInput:
                     Debug.Log("Make Request");
                     requestSystem.MakeRequest(craftingResources, agent.CraftingInventory);

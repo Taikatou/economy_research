@@ -6,7 +6,7 @@ namespace EconomyProject.Scripts.Experiments
 {
     public class ResetOnItem : MonoBehaviour
     {
-        public InventoryItem endItem;
+        public UsableItem endItem;
 
         public bool resetOnComplete = false;
 

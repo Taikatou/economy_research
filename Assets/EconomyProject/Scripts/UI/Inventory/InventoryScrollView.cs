@@ -1,40 +1,34 @@
 ﻿using System.Collections.Generic;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
-using EconomyProject.Scripts.Inventory;
 using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
+using UnityEngine;
 
 namespace EconomyProject.Scripts.UI.Inventory
 {
-    public struct ShopItem
-    {
-        public InventoryItem Item;
-        public ShopDetails ShopDetails;
-    }
     public class InventoryScrollView : AbstractScrollList<ShopItem, ShopInventoryScrollButton>
     {
         public AgentShopSystem shopSystem;
 
         public GetCurrentShopAgent shopAgent;
-        private AgentInventory AgentInventory => shopAgent.CurrentAgent.AgentInventory;
-        public override LastUpdate LastUpdated => AgentInventory;
-        public override List<ShopItem> ItemList
+        protected override LastUpdate LastUpdated => shopAgent.CurrentAgent.AgentInventory;
+
+        protected override List<ShopItem> GetItemList()
         {
-            get
+            var itemList = new List<ShopItem>();
+            Debug.Log(shopAgent.CurrentAgent.AgentInventory.Items.Keys.Count);
+            foreach (var item in shopAgent.CurrentAgent.AgentInventory.Items)
             {
-                var itemList = new List<ShopItem>();
-                foreach (var item in AgentInventory.Items)
-                {
-                    var shopDetails = shopSystem.GetShopDetails(shopAgent.CurrentAgent, item);
-                    itemList.Add(new ShopItem {Item = item, ShopDetails = shopDetails});
-                }
-                return itemList;
+                var price = shopSystem.GetCurrentPrice(shopAgent.CurrentAgent, item.Value.Item);
+                var shopDetails = new ShopDetails { price = price, stock = item.Value.Number };
+                itemList.Add(new ShopItem { item = item.Value.Item, shopDetails = shopDetails });
             }
+            return itemList;
         }
 
-        public override void SelectItem(ShopItem item, int number = 1)
+        public override void SelectItem(ShopItem shopItem, int number = 1)
         {
-            throw new System.NotImplementedException();
+            shopSystem.SubmitToShop(shopAgent.CurrentAgent, shopItem.item, shopItem.shopDetails.stock);
         }
     }
 }

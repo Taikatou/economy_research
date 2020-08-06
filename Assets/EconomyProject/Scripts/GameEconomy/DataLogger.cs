@@ -14,14 +14,14 @@ namespace EconomyProject.Scripts.GameEconomy
 
     struct AuctionItem
     {
-        public InventoryItem item;
+        public UsableItem item;
         public float price;
         public int agentId;
         public string currentTime;
 
         public string Name => item.itemName;
 
-        public AuctionItem(InventoryItem item, float price, int agentId, string currentTime) : this()
+        public AuctionItem(UsableItem item, float price, int agentId, string currentTime) : this()
         {
             this.item = item;
             this.price = price;
@@ -42,7 +42,7 @@ namespace EconomyProject.Scripts.GameEconomy
 
         private List<AuctionItem> _auctionItems;
 
-        private Dictionary<InventoryItem, List<float>> _itemPrices;
+        private Dictionary<UsableItem, List<float>> _itemPrices;
 
         public string CurrentTime
         {
@@ -63,10 +63,10 @@ namespace EconomyProject.Scripts.GameEconomy
             staticLoggerId++;
             loggerId = staticLoggerId;
             _auctionItems = new List<AuctionItem>();
-            _itemPrices = new Dictionary<InventoryItem, List<float>>();
+            _itemPrices = new Dictionary<UsableItem, List<float>>();
         }
 
-        public void AddAuctionItem(InventoryItem item, float price, AdventurerAgent agent)
+        public void AddAuctionItem(UsableItem item, float price, AdventurerAgent agent)
         {
             
             AuctionItem newItem = new AuctionItem(item, price, agent.GetComponent<AgentID>().agentId, CurrentTime);

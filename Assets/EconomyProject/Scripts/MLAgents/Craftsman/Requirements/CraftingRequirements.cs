@@ -22,7 +22,7 @@ namespace EconomyProject.Scripts.MLAgents.Craftsman.Requirements
     [CreateAssetMenu]
     public class CraftingRequirements : ScriptableObject
     {
-        public InventoryItem resultingItem;
+        public UsableItem resultingItem;
 
         public float timeToCreation = 3;
 

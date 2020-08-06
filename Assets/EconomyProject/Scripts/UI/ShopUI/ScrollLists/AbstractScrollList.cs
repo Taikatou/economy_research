@@ -27,18 +27,18 @@ namespace EconomyProject.Scripts.UI.ShopUI.ScrollLists
 
         private DateTime _lastUpdated;
 
-        public abstract List<T> ItemList { get; }
-        public abstract LastUpdate LastUpdated { get; }
+        protected abstract List<T> GetItemList();
+        protected abstract LastUpdate LastUpdated { get; }
 
         public abstract void SelectItem(T item, int number=1);
 
-        public virtual bool RefreshDisplay()
+        private bool RefreshDisplay()
         {
             RemoveButtons();
             return AddButtons();
         }
 
-        public void RemoveButtons()
+        private void RemoveButtons()
         {
             while (contentPanel.childCount > 0)
             {
@@ -47,12 +47,13 @@ namespace EconomyProject.Scripts.UI.ShopUI.ScrollLists
             }
         }
 
-        protected bool AddButtons()
+        private bool AddButtons()
         {
-            var valid = ItemList != null;
+            var itemList = GetItemList();
+            var valid = itemList != null;
             if (valid)
             {
-                foreach (var item in ItemList)
+                foreach (var item in itemList)
                 {
                     var newButton = buttonObjectPool.GetObject();
                     newButton.transform.SetParent(contentPanel);

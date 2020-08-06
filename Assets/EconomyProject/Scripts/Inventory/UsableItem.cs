@@ -3,7 +3,7 @@
 namespace EconomyProject.Scripts.Inventory
 {
     [CreateAssetMenu]
-    public class InventoryItem : ScriptableObject
+    public class UsableItem : ScriptableObject
     {
         public string itemName;
         
@@ -25,7 +25,7 @@ namespace EconomyProject.Scripts.Inventory
             durability = baseDurability;
         }
 
-        public void Init(InventoryItem item)
+        public void Init(UsableItem item)
         {
             itemName = item.itemName;
             baseDurability = item.baseDurability;
@@ -43,10 +43,10 @@ namespace EconomyProject.Scripts.Inventory
             }
         }
 
-        public static InventoryItem GenerateItem(InventoryItem selectedItem)
+        public static UsableItem GenerateItem(UsableItem selectedItem)
         {
-            var generatedItem = CreateInstance("InventoryItem") as InventoryItem;
-            generatedItem?.Init(selectedItem);
+            var generatedItem = CreateInstance<UsableItem>();
+            generatedItem.Init(selectedItem);
             return generatedItem;
         }
     }

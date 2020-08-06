@@ -27,24 +27,21 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
         private ShopAgent CraftsmanAgent => getCurrentAgent.CurrentAgent;
 
         // Start is called before the first frame update
-        public override List<CraftingResourceUi> ItemList
+        protected override List<CraftingResourceUi> GetItemList()
         {
-            get
+            if (CraftsmanAgent)
             {
-                if (CraftsmanAgent)
+                var items = new List<CraftingResourceUi>();
+                var resources = CraftingUtils.CraftingResources;
+                foreach (var resource in resources)
                 {
-                    var items = new List<CraftingResourceUi>();
-                    var resources = CraftingUtils.CraftingResources;
-                    foreach (var resource in resources)
-                    {
-                        var inventoryNumber = CraftsmanAgent.CraftingInventory.GetResourceNumber(resource);
-                        var resourceUi = new CraftingResourceUi(resource, inventoryNumber);
-                        items.Add(resourceUi);
-                    }
-                    return items;
+                    var inventoryNumber = CraftsmanAgent.CraftingInventory.GetResourceNumber(resource);
+                    var resourceUi = new CraftingResourceUi(resource, inventoryNumber);
+                    items.Add(resourceUi);
                 }
-                return null;
+                return items;
             }
+            return null;
         } 
 
         public override void SelectItem(CraftingResourceUi item, int number = 1)

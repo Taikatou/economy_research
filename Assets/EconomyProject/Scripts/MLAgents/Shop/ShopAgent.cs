@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using EconomyProject.Scripts.GameEconomy;
+﻿using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.Inventory;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Craftsman;
@@ -27,43 +26,6 @@ namespace EconomyProject.Scripts.MLAgents.Shop
             var action = Mathf.FloorToInt(vectorAction[0]);
             shopInput.SetAction(this, action);
         }
-
-        /*public void RemoveItem(ShopItem itemToRemove)
-        {
-            var sellersItem = FindItem(itemToRemove);
-            Debug.Log(sellersItem.stock);
-            var toRemove = sellersItem.DeductStock(itemToRemove.stock);
-            if (toRemove)
-            {
-                ItemList.Remove(sellersItem);
-            }
-        }
-
-        public void AddItem(ShopItem addItem)
-        {
-            var foundItem = FindItem(addItem);
-            if (foundItem != null)
-            {
-                foundItem.IncreaseStock(addItem.stock);
-            }
-            else
-            {
-                ItemList.Add(addItem);
-            }
-        }
-
-        private ShopItem FindItem(ShopItem toCompare)
-        {
-            foreach (var item in ItemList)
-            {
-                if (ShopItem.Compare(item, toCompare))
-                {
-                    return item;
-                }
-            }
-
-            return null;
-        }*/
 
         public override void CollectObservations(VectorSensor sensor)
         {

@@ -10,7 +10,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
     public class GameAuction : EconomySystem<AdventurerAgent, AgentScreen>
     {
         [HideInInspector]
-        public InventoryItem auctionedItem;
+        public UsableItem auctionedItem;
 
         [HideInInspector]
         public float currentItemPrice;
@@ -30,7 +30,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         
         public List<ItemMap> auctionBasePrices;
 
-        private List<InventoryItem> _inventoryItems;
+        private List<UsableItem> _inventoryItems;
 
         private bool _auctionOn;
         
@@ -55,7 +55,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         private void Start()
         {
-            _inventoryItems = new List<InventoryItem>();
+            _inventoryItems = new List<UsableItem>();
             _itemMapper = new ItemMapper(auctionBasePrices);
         }
 
@@ -83,7 +83,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public virtual float AddChance => Mathf.Lerp(addChance, 0.005f, _inventoryItems.Count / maxInventory);
 
-        public void AddAuctionItem(InventoryItem item)
+        public void AddAuctionItem(UsableItem item)
         {
             var rand = new System.Random();
             var randValue = rand.NextDouble();

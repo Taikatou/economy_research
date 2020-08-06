@@ -28,7 +28,7 @@
                   <e p="AgentShop.cs" t="Include" />
                   <e p="AgentShopSystem.cs" t="Include" />
                   <e p="CraftingSystem.cs" t="Include" />
-                  <e p="ShopSystem.cs" t="Include" />
+                  <e p="ShopCraftingSystem.cs" t="Include" />
                 </e>
                 <e p="EconomySystem.cs" t="Include" />
                 <e p="GameAuction.cs" t="Include" />
@@ -51,7 +51,6 @@
             <e p="Inventory" t="Include">
               <e p="AdventurerInventory.cs" t="Include" />
               <e p="AgentInventory.cs" t="Include" />
-              <e p="InventoryItem.cs" t="Include" />
               <e p="LootBoxes" t="Include">
                 <e p="CREDITS.txt" t="Include" />
                 <e p="Generated" t="Include">
@@ -61,6 +60,7 @@
                 <e p="GeneratedLootDropItem.cs" t="Include" />
                 <e p="GenericLootDropTable.cs" t="Include" />
               </e>
+              <e p="UsableItem.cs" t="Include" />
             </e>
             <e p="MLAgents" t="Include">
               <e p="AdventurerAgents" t="Include">
@@ -132,6 +132,7 @@
               <e p="Inventory" t="Include">
                 <e p="InventoryScrollView.cs" t="Include" />
                 <e p="ShopInventoryScrollButton.cs" t="Include" />
+                <e p="ShopScrollView.cs" t="Include" />
               </e>
               <e p="QuestMenu.cs" t="Include" />
               <e p="ShopUI" t="Include">

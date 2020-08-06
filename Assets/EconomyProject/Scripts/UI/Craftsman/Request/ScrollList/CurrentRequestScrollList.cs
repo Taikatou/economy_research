@@ -11,7 +11,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
         private RequestTaker RequestTaker => getCurrentAgent.CurrentAgent.GetComponent<RequestTaker>();
 
         // Start is called before the first frame update
-        public override List<ResourceRequest> ItemList => requestSystem.requestSystem.GetAllCraftingRequests();
+        protected override List<ResourceRequest> GetItemList() => requestSystem.requestSystem.GetAllCraftingRequests();
 
         public override void SelectItem(ResourceRequest item, int number = 1)
         {

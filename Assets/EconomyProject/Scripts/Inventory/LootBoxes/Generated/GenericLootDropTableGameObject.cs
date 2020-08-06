@@ -5,7 +5,7 @@ using EconomyProject.Scripts.GameEconomy;
 namespace EconomyProject.Scripts.Inventory.LootBoxes.Generated
 {
     [System.Serializable]
-    public class GenericLootDropTableGameObject : GenericLootDropTable<GeneratedLootItemScriptableObject, InventoryItem>
+    public class GenericLootDropTableGameObject : GenericLootDropTable<GeneratedLootItemScriptableObject, UsableItem>
     {
         public List<ItemMap> itemMap;
 

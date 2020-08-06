@@ -1,4 +1,5 @@
-﻿using EconomyProject.Scripts.UI.ShopUI.Buttons;
+﻿using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
+using EconomyProject.Scripts.UI.ShopUI.Buttons;
 using UnityEngine.UI;
 
 namespace EconomyProject.Scripts.UI.Inventory
@@ -11,9 +12,9 @@ namespace EconomyProject.Scripts.UI.Inventory
 
         protected override void SetupButton()
         {
-            nameLabel.text = ItemDetails.Item.itemName;
-            priceText.text = ItemDetails.ShopDetails.price.ToString();
-            stockText.text = ItemDetails.ShopDetails.stock.ToString();
+            nameLabel.text = ItemDetails.item.itemName;
+            priceText.text = ItemDetails.shopDetails.price.ToString();
+            stockText.text = ItemDetails.shopDetails.stock.ToString();
         }
     }
 }

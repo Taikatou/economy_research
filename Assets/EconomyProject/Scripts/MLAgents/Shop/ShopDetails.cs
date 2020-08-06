@@ -15,18 +15,12 @@
 
         public void AddStock(int number)
         {
-            if (number > 0)
-            {
-                stock += number;
-            }
+            stock += number;
         }
 
-        public void SetPrice(int increase)
+        public void SetPrice(int newPrice)
         {
-            if (increase > 0)
-            {
-                price += increase; 
-            }
+            price = newPrice;
         }
     }
 }

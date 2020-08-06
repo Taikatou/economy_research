@@ -13,20 +13,17 @@ namespace EconomyProject.Scripts.UI.Craftsman.Crafting
         public CraftingSystem craftingSystem;
         public GetCurrentShopAgent getCurrentAgent;
         private ShopAgent Agent => getCurrentAgent.CurrentAgent;
-        public override LastUpdate LastUpdated => GetComponent<CraftingLastUpdate>();
+        protected override LastUpdate LastUpdated => GetComponent<CraftingLastUpdate>();
 
-        public override List<CraftingInfo> ItemList
+        protected override List<CraftingInfo> GetItemList()
         {
-            get
+            var itemList = new List<CraftingInfo>();
+            foreach (var item in craftingSystem.craftingRequirement)
             {
-                var itemList = new List<CraftingInfo>();
-                foreach (var item in craftingSystem.craftingRequirement)
-                {
-                    var craftInfo = new CraftingInfo(item, Agent.CraftingInventory);
-                    itemList.Add(craftInfo);
-                }
-                return itemList;
+                var craftInfo = new CraftingInfo(item, Agent.CraftingInventory);
+                itemList.Add(craftInfo);
             }
+            return itemList;
         }
         public override void SelectItem(CraftingInfo item, int number = 1)
         {

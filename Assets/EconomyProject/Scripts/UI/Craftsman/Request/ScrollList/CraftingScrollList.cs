@@ -6,7 +6,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
 {
     public abstract class CraftingScrollList<T, TQ> : AbstractScrollList<T, TQ> where TQ : SampleButton<T>
     {
-        public override LastUpdate LastUpdated => requestSystem.requestSystem;
+        protected override LastUpdate LastUpdated => requestSystem.requestSystem;
 
         public RequestShopSystem requestSystem;
     }

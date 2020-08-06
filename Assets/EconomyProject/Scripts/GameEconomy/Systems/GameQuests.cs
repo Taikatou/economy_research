@@ -103,7 +103,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             agent.adventurerInventory.DecreaseDurability();
         }
 
-        private float GenerateItem(InventoryItem attackWeapon)
+        private float GenerateItem(UsableItem attackWeapon)
         {
             var totalPrice = 0.0f;
 
@@ -112,7 +112,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             for (var i = 0; i < numSpawns && (multipleLootDrops || i==0); i++)
             {
                 var selectedItem = lootDropTable.PickLootDropItem();
-                var generatedItem = InventoryItem.GenerateItem(selectedItem.item);
+                var generatedItem = UsableItem.GenerateItem(selectedItem.item);
                 auction.AddAuctionItem(generatedItem);
 
                 if (generatedItem != null)

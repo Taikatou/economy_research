@@ -38,9 +38,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
                 if (_shopRequests[agent].Complete)
                 {
                     Debug.Log("Complete");
-                    var generatedItem = InventoryItem.GenerateItem(_shopRequests[agent].CraftingRequirements.resultingItem);
-                    var agentInventory = agent.GetComponent<AgentInventory>();
-                    agentInventory.AddItem(generatedItem);
+                    var generatedItem = UsableItem.GenerateItem(_shopRequests[agent].CraftingRequirements.resultingItem);
+                    agent.AgentInventory.AddItem(generatedItem);
 
                     toRemove.Add(agent);
                 }

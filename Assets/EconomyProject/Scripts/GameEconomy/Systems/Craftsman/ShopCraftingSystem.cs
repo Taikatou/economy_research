@@ -28,16 +28,19 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         public bool Complete => CraftingTime >= CraftingRequirements.timeToCreation;
     }
 
-    public enum CraftingInput { CraftItem = CraftingChoice.UltimateSwordOfPower+1, IncreasePrice, DecreasePrice}
+    public enum CraftingInput { CraftItem = CraftingChoice.UltimateSwordOfPower+1, IncreasePrice, DecreasePrice, SubmitToShop, Quit}
 
     public enum CraftingChoice { BeginnerSword, IntermediateSword, AdvancedSword, EpicSword, UltimateSwordOfPower }
 
-    public class ShopSystem : StateEconomySystem<CraftingInput, ShopAgent, EShopScreen>
+    public class ShopCraftingSystem : StateEconomySystem<CraftingInput, ShopAgent, EShopScreen>
     {
         protected override EShopScreen ActionChoice => EShopScreen.Craft;
+        protected override CraftingInput IsBackState => CraftingInput.Quit;
         protected override CraftingInput DefaultState => CraftingInput.CraftItem;
 
         public CraftingSystem craftingSubSystem;
+
+        public AgentShopSystem shopSubSystem;
 
         public override bool CanMove(ShopAgent agent)
         {
@@ -51,12 +54,22 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
                     craftingSubSystem.MakeRequest(shopAgent, input);
                     break;
                 case CraftingInput.IncreasePrice:
+                    shopSubSystem.SetCurrentPrice(shopAgent, input, 1);
                     break;
                 case CraftingInput.DecreasePrice:
+                    shopSubSystem.SetCurrentPrice(shopAgent, input, -1);
+                    break;
+                case CraftingInput.SubmitToShop:
+                    shopSubSystem.SubmitToShop(shopAgent, input);
                     break;
             }
         }
-        
+
+        protected override void GoBack(ShopAgent agent)
+        {
+            ShopInput.ChangeScreen(agent, EShopScreen.Main);
+        }
+
         private void Update()
         {
             RequestDecisions();

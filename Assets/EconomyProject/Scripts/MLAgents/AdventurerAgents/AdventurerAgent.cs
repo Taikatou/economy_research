@@ -44,7 +44,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             // WUCC check for errors. 
         }
 
-        public void BoughtItem(InventoryItem item, float cost)
+        public void BoughtItem(UsableItem item, float cost)
         {
             inventory.AddItem(item);
             wallet.SpendMoney(cost);

@@ -9,7 +9,7 @@ namespace EconomyProject.Scripts.GameEconomy
     public class ShopInput : AgentInput<ShopAgent, EShopScreen>
     {
         public MainShopSystem mainSystem;
-        public ShopSystem shopSystem;
+        public ShopCraftingSystem shopCraftingSystem;
         public RequestShopSystem requestSystem;
 
         public override void Start()
@@ -25,7 +25,7 @@ namespace EconomyProject.Scripts.GameEconomy
                 case EShopScreen.Main:
                     return mainSystem;
                 case EShopScreen.Craft:
-                    return shopSystem;
+                    return shopCraftingSystem;
                 case EShopScreen.Request:
                     return requestSystem;
             }
@@ -35,7 +35,7 @@ namespace EconomyProject.Scripts.GameEconomy
         protected override void SetupScreens()
         {
             mainSystem.ShopInput = this;
-            shopSystem.ShopInput = this;
+            shopCraftingSystem.ShopInput = this;
             requestSystem.ShopInput = this;
         }
 
