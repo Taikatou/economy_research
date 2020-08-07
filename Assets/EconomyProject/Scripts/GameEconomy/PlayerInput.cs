@@ -13,6 +13,8 @@ namespace EconomyProject.Scripts.GameEconomy
 
         public MainMenuSystem mainMenuSystem;
 
+        public AdventurerShopSystem adventurerShopSystem;
+
         protected override EconomySystem<AdventurerAgent, AgentScreen> GetEconomySystem(AdventurerAgent agent)
         {
             switch (GetScreen(agent, AgentScreen.Main))
@@ -23,6 +25,8 @@ namespace EconomyProject.Scripts.GameEconomy
                     return gameQuests;
                 case AgentScreen.Auction:
                     return gameAuction;
+                case AgentScreen.Shop:
+                    return adventurerShopSystem;
             }
             return null;
         }

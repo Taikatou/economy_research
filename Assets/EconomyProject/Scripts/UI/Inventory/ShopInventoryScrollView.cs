@@ -2,11 +2,10 @@
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
-using UnityEngine;
 
 namespace EconomyProject.Scripts.UI.Inventory
 {
-    public class InventoryScrollView : AbstractScrollList<ShopItem, ShopInventoryScrollButton>
+    public class ShopInventoryScrollView : AbstractScrollList<ShopItem, ShopInventoryScrollButton>
     {
         public AgentShopSystem shopSystem;
 
@@ -16,7 +15,6 @@ namespace EconomyProject.Scripts.UI.Inventory
         protected override List<ShopItem> GetItemList()
         {
             var itemList = new List<ShopItem>();
-            Debug.Log(shopAgent.CurrentAgent.AgentInventory.Items.Keys.Count);
             foreach (var item in shopAgent.CurrentAgent.AgentInventory.Items)
             {
                 var price = shopSystem.GetCurrentPrice(shopAgent.CurrentAgent, item.Value.Item);

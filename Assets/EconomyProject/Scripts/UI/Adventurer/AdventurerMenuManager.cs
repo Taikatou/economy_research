@@ -14,6 +14,8 @@ namespace EconomyProject.Scripts.UI.Adventurer
 
         public GameObject mainMenu;
 
+        public GameObject shopMenu;
+
         public GetCurrentAdventurerAgent getCurrentAgent;
 
         public UiAccessor uiAccessor;
@@ -24,9 +26,10 @@ namespace EconomyProject.Scripts.UI.Adventurer
 
         protected override Dictionary<AgentScreen, OpenedMenu> OpenedMenus => new Dictionary<AgentScreen, OpenedMenu>
         {
-            { AgentScreen.Auction, new OpenedMenu(new List<GameObject>{auctionMenu}, new List<GameObject>{questMenu, mainMenu}) },
-            { AgentScreen.Main, new OpenedMenu(new List<GameObject>{mainMenu}, new List<GameObject>{questMenu, auctionMenu}) },
-            { AgentScreen.Quest, new OpenedMenu(new List<GameObject>{questMenu}, new List<GameObject>{mainMenu, auctionMenu}) }
+            { AgentScreen.Auction, new OpenedMenu(new List<GameObject>{auctionMenu}, new List<GameObject>{questMenu, mainMenu, shopMenu}) },
+            { AgentScreen.Main, new OpenedMenu(new List<GameObject>{mainMenu}, new List<GameObject>{questMenu, auctionMenu, shopMenu}) },
+            { AgentScreen.Quest, new OpenedMenu(new List<GameObject>{questMenu}, new List<GameObject>{mainMenu, auctionMenu, shopMenu}) },
+            { AgentScreen.Shop, new OpenedMenu(new List<GameObject>{shopMenu}, new List<GameObject>{mainMenu, auctionMenu, questMenu}) }
         };
 
         protected override bool Compare(AgentScreen a, AgentScreen b)
@@ -58,6 +61,11 @@ namespace EconomyProject.Scripts.UI.Adventurer
         public void MainMenu()
         {
             PlayerInput.ChangeScreen(AdventurerAgent, AgentScreen.Main);
+        }
+
+        public void ShopMenu()
+        {
+            PlayerInput.ChangeScreen(AdventurerAgent, AgentScreen.Shop);
         }
 
         public void Bid()

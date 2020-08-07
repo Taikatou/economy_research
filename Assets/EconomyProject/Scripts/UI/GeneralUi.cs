@@ -21,24 +21,15 @@ namespace EconomyProject.Scripts.UI
 
         public UiAccessor accessor;
 
-        public GetCurrentAgent<Agent> getAgent;
+        public GetCurrentAdventurerAgent getAgent;
 
-        public Dropdown dropDown;
-
-        private HashSet<string> _agentIds;
-
-        public AdventurerAgent AdventurerAgent
+        private AdventurerAgent AdventurerAgent
         {
             get
             {
                 var adventurer = getAgent.CurrentAgent.GetComponent<AdventurerAgent>();
                 return adventurer;
             }
-        }
-
-        private void Start()
-        {
-            _agentIds = new HashSet<string>();
         }
 
         // Update is called once per frame
@@ -63,18 +54,6 @@ namespace EconomyProject.Scripts.UI
                     efficiencyText.text = "EFFICIENCY: " + item.efficiency;
                 }
             }
-
-            // todo add this to dropdown text
-            /*foreach (var agent in AdventurerAgent.GetAgents)
-            {
-                string agentId = agent.GetComponent<AgentID>().agentId.ToString();
-                if (!_agentIds.Contains(agentId))
-                {
-                    _agentIds.Add(agentId);
-                    dropDown.options.Add(new Dropdown.OptionData(agentId));
-                }
-            }
-            AdventurerAgent.Index = dropDown.value;*/
         }
     }
 }

@@ -27,7 +27,6 @@ namespace EconomyProject.Scripts.GameEconomy
 
         public TScreen GetScreen(TAgent agent, TScreen defaultTScreen)
         {
-            Debug.Log((EconomyScreens == null) + "\t" + (agent == null));
             if (!EconomyScreens.ContainsKey(agent))
             {
                 EconomyScreens.Add(agent, defaultTScreen);

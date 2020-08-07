@@ -24,6 +24,7 @@
               <e p="ResetScript.cs" t="Include" />
               <e p="ShopInput.cs" t="Include" />
               <e p="Systems" t="Include">
+                <e p="AdventurerShopSystem.cs" t="Include" />
                 <e p="Craftsman" t="Include">
                   <e p="AgentShop.cs" t="Include" />
                   <e p="AgentShopSystem.cs" t="Include" />
@@ -94,6 +95,7 @@
             </e>
             <e p="UI" t="Include">
               <e p="Adventurer" t="Include">
+                <e p="AdventurerAgentDropDown.cs" t="Include" />
                 <e p="AdventurerMenuManager.cs" t="Include" />
                 <e p="UiAccessor.cs" t="Include" />
               </e>
@@ -128,8 +130,8 @@
               <e p="GetCurrentAgent.cs" t="Include" />
               <e p="GetCurrentShopAgent.cs" t="Include" />
               <e p="Inventory" t="Include">
+                <e p="AdventurerInventoryScrollButton.cs" t="Include" />
                 <e p="AdventurerInventoryScrollView.cs" t="Include" />
-                <e p="InventoryScrollView.cs" t="Include" />
                 <e p="ShopInventoryScrollButton.cs" t="Include" />
                 <e p="ShopInventoryScrollView.cs" t="Include" />
                 <e p="ShopScrollView.cs" t="Include" />

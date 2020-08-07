@@ -8,7 +8,6 @@ namespace EconomyProject.Scripts.UI.Inventory
     {
         public AgentShopSystem shopSystem;
         public GetCurrentShopAgent shopAgent;
-
         protected override LastUpdate LastUpdated => shopSystem;
         // Update is called once per frame
         protected override List<ShopItem> GetItemList() => shopSystem.GetShopItems(shopAgent.CurrentAgent);
