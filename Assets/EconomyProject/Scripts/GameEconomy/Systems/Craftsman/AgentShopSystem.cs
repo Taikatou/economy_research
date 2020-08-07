@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using EconomyProject.Scripts.Inventory;
+using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
 using UnityEngine;
@@ -94,6 +95,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         private void SetCurrentPrice(ShopAgent shopAgent, UsableItem item, int increment)
         {
             GetShop(shopAgent).SetCurrentPrice(item, increment);
+        }
+
+        public void PurchaseItem(ShopAgent shopAgent, UsableItem item, EconomyWallet wallet, AgentInventory inventory)
+        {
+            GetShop(shopAgent).PurchaseItems(item, wallet, inventory);
         }
     }
 }

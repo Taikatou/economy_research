@@ -132,6 +132,7 @@
               <e p="Inventory" t="Include">
                 <e p="AdventurerInventoryScrollButton.cs" t="Include" />
                 <e p="AdventurerInventoryScrollView.cs" t="Include" />
+                <e p="AdventurerShopScrollView.cs" t="Include" />
                 <e p="ShopInventoryScrollButton.cs" t="Include" />
                 <e p="ShopInventoryScrollView.cs" t="Include" />
                 <e p="ShopScrollView.cs" t="Include" />
@@ -150,6 +151,7 @@
                 <e p="SimpleObjectPool.cs" t="Include" />
                 <e p="UpdateItemUi.cs" t="Include" />
               </e>
+              <e p="ToggleButton.cs" t="Include" />
             </e>
           </e>
         </e>

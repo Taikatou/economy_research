@@ -33,6 +33,12 @@ namespace EconomyProject.Scripts.Inventory
             Refresh();
         }
 
+        public void AddNewItem(UsableItem usableItem, int addNumber = 1)
+        {
+            var newItem = UsableItem.GenerateItem(usableItem);
+            AddItem(newItem, addNumber);
+        }
+
         public void ResetInventory()
         {
             if (Items == null)

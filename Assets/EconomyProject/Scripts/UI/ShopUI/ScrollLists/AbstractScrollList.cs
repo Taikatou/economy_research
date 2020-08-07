@@ -55,6 +55,7 @@ namespace EconomyProject.Scripts.UI.ShopUI.ScrollLists
             {
                 foreach (var item in itemList)
                 {
+                    Debug.Log("AddButton");
                     var newButton = buttonObjectPool.GetObject();
                     newButton.transform.SetParent(contentPanel);
 

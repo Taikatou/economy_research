@@ -872,6 +872,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CraftsmanCraftingUI
       objectReference: {fileID: 0}
+    - target: {fileID: 1622777458452053468, guid: c56f53c14fa475e4e9b01b23cf8632f4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1622777458649227418, guid: c56f53c14fa475e4e9b01b23cf8632f4,
         type: 3}
       propertyPath: m_AnchorMax.x
