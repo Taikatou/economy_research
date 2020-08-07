@@ -10,19 +10,9 @@ namespace EconomyProject.Scripts.GameEconomy
         protected abstract EconomySystem<TAgent, TScreen> GetEconomySystem(TAgent agent);
         
         protected Dictionary<TAgent, TScreen> EconomyScreens;
-        
-        private bool _canSeeDistribution = true;
-        
-        private int GetSeeDistributionNumber(int value)
-        {
-            return _canSeeDistribution ? value : -1;
-        }
-        
-        public int GetNumberInSystem(EconomySystem<TAgent, TScreen> system)
-        {
-            return GetSeeDistributionNumber(system.CurrentPlayers.Length);
-        }
-        
+
+        protected virtual void SetupScreens() { }
+
         public float GetProgress(TAgent agent)
         {
             var system = GetEconomySystem(agent);
@@ -35,10 +25,9 @@ namespace EconomyProject.Scripts.GameEconomy
             SetupScreens();
         }
 
-        protected virtual void SetupScreens() { }
-
         public TScreen GetScreen(TAgent agent, TScreen defaultTScreen)
         {
+            Debug.Log((EconomyScreens == null) + "\t" + (agent == null));
             if (!EconomyScreens.ContainsKey(agent))
             {
                 EconomyScreens.Add(agent, defaultTScreen);

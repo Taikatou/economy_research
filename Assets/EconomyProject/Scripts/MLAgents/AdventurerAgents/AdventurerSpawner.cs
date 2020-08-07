@@ -10,7 +10,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         public GameAuction gameAuction;
 
         public PlayerInput playerInput;
-
         public override GameObject Spawn(GameObject toSpawnPrefab)
         {
             var agent = base.Spawn(toSpawnPrefab);

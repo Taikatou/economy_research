@@ -10,13 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23bec5fbd5edd9b4ab62e476059b76fd, type: 3}
-  m_Name: MasterSword
+  m_Name: 5_MasterSword
   m_EditorClassIdentifier: 
   itemName: Master Sword
-  baseBidPrice: 10
-  rewardPrice: 25
   baseDurability: 20
-  durability: 10
+  durability: 20
   unBreakable: 0
   efficiency: 75
   numLootSpawns: 4

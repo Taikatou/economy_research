@@ -18,6 +18,7 @@ namespace EconomyProject.Scripts.GameEconomy
             Application.targetFrameRate = 60;
             QualitySettings.vSyncCount = 1;
         }
+        
         protected override EconomySystem<ShopAgent, EShopScreen> GetEconomySystem(ShopAgent agent)
         {
             switch (GetScreen(agent, EShopScreen.Main))

@@ -10,13 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23bec5fbd5edd9b4ab62e476059b76fd, type: 3}
-  m_Name: AdvancedSword
+  m_Name: 0_Unarmed
   m_EditorClassIdentifier: 
-  itemName: Advanced Sword
-  baseBidPrice: 8
-  rewardPrice: 14
-  baseDurability: 20
+  itemName: UnArmed
+  baseDurability: 10
   durability: 10
-  unBreakable: 0
-  efficiency: 45
-  numLootSpawns: 3
+  unBreakable: 1
+  efficiency: 50
+  numLootSpawns: 1

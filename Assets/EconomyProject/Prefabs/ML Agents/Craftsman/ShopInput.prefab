@@ -1,0 +1,231 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8771747927877783290
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8771747927877783289}
+  - component: {fileID: 8771747927877783288}
+  m_Layer: 0
+  m_Name: MainSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8771747927877783289
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8771747927877783290}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8771747928024111067}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8771747927877783288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8771747927877783290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb11c6af55561e4aa6dafc27dbb4b4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agents: {fileID: 0}
+  playerInput: {fileID: 0}
+--- !u!1 &8771747928024111069
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8771747928024111067}
+  - component: {fileID: 8771747928024111068}
+  m_Layer: 0
+  m_Name: ShopInput
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8771747928024111067
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8771747928024111069}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 8771747927877783289}
+  - {fileID: 8771747928817789519}
+  - {fileID: 8771747928399019956}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8771747928024111068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8771747928024111069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29f6b2fd4b77ad04e8c0bb786db43db9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainSystem: {fileID: 8771747927877783288}
+  shopCraftingSystem: {fileID: 8771747928817789517}
+  requestSystem: {fileID: 0}
+--- !u!1 &8771747928399019957
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8771747928399019956}
+  - component: {fileID: 8771747928399019955}
+  m_Layer: 0
+  m_Name: AgentShopSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8771747928399019956
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8771747928399019957}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 686.95245, y: 446.55472, z: -128.69846}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8771747928024111067}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8771747928399019955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8771747928399019957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 239faeffa21c2b44e8a8c069456c592f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basePrices:
+  - item: {fileID: 11400000, guid: ff61c0520e17b43429b1c5e7c3cd505d, type: 2}
+    shopDetails:
+      price: 5
+      stock: 0
+  - item: {fileID: 11400000, guid: ba1044b1ad3be3440a274303fe22f8cb, type: 2}
+    shopDetails:
+      price: 5
+      stock: 0
+  - item: {fileID: 11400000, guid: 220a652df168f054b8b6564ab9e67f7f, type: 2}
+    shopDetails:
+      price: 5
+      stock: 0
+  - item: {fileID: 11400000, guid: ecd492c3b2f26eb428a3a267c2e78659, type: 2}
+    shopDetails:
+      price: 5
+      stock: 0
+  - item: {fileID: 11400000, guid: f2ee4c3d87136284f911c5dc145ee12c, type: 2}
+    shopDetails:
+      price: 5
+      stock: 0
+--- !u!1 &8771747928817789504
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8771747928817789519}
+  - component: {fileID: 8771747928817789517}
+  - component: {fileID: 8771747928817789518}
+  m_Layer: 0
+  m_Name: CraftShopSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8771747928817789519
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8771747928817789504}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 686.95245, y: 446.55472, z: -128.69846}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8771747928024111067}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8771747928817789517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8771747928817789504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef49ebaf2c1d3e34d80a0c97fe600c07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agents: {fileID: 0}
+  playerInput: {fileID: 0}
+  craftingSubSystem: {fileID: 8771747928817789518}
+  shopSubSystem: {fileID: 8771747928399019955}
+--- !u!114 &8771747928817789518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8771747928817789504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3fd94bc391f465499ffae68a93b04b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  craftingRequirement:
+  - choice: 0
+    resource: {fileID: 11400000, guid: 96cd0142b35188d4aa2db4488fb21c8b, type: 2}
+  - choice: 1
+    resource: {fileID: 11400000, guid: 483294a08902a8749bdaf8a29d4e2b79, type: 2}
+  - choice: 2
+    resource: {fileID: 11400000, guid: 54c8682cbd889354685ced1aa476b060, type: 2}
+  - choice: 3
+    resource: {fileID: 11400000, guid: 5f2a182caacd88e428019f74abf0bacb, type: 2}
+  - choice: 4
+    resource: {fileID: 11400000, guid: 129ebd3159db0a04cbd032fdc2deab77, type: 2}

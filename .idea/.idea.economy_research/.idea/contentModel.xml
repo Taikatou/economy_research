@@ -81,16 +81,14 @@
                   <e p="CraftingRequirements.cs" t="Include" />
                 </e>
               </e>
-              <e p="EconomyAcademy.cs" t="Include" />
               <e p="NumberKeyboardPoller.cs" t="Include" />
-              <e p="PredictorAcademy.cs" t="Include" />
               <e p="Shop" t="Include">
-                <e p="ShopAcademy.cs" t="Include" />
                 <e p="ShopAgent.cs" t="Include" />
                 <e p="ShopDetails.cs" t="Include" />
                 <e p="ShopSpawner.cs" t="Include" />
               </e>
             </e>
+            <e p="SystemSpawner.cs" t="Include" />
             <e p="Trained" t="Include">
               <e p="SpeedUpEnvironment.cs" t="Include" />
             </e>
@@ -130,8 +128,10 @@
               <e p="GetCurrentAgent.cs" t="Include" />
               <e p="GetCurrentShopAgent.cs" t="Include" />
               <e p="Inventory" t="Include">
+                <e p="AdventurerInventoryScrollView.cs" t="Include" />
                 <e p="InventoryScrollView.cs" t="Include" />
                 <e p="ShopInventoryScrollButton.cs" t="Include" />
+                <e p="ShopInventoryScrollView.cs" t="Include" />
                 <e p="ShopScrollView.cs" t="Include" />
               </e>
               <e p="QuestMenu.cs" t="Include" />
