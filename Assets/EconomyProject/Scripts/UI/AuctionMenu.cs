@@ -22,8 +22,8 @@ namespace EconomyProject.Scripts.UI
             if (GameAuction.ItemCount > 0 && GameAuction.auctionedItem)
             {
                 slider.value = Progress;
-                itemText.text = "Name: " + GameAuction.auctionedItem.itemName +
-                                " efficiency" + GameAuction.auctionedItem.efficiency +
+                itemText.text = "Name: " + GameAuction.auctionedItem.itemDetails.itemName +
+                                " efficiency" + GameAuction.auctionedItem.itemDetails.efficiency +
                                 " Bid price: " + GameAuction.currentItemPrice;
             }
             else

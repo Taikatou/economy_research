@@ -9,7 +9,7 @@ namespace EconomyProject.Scripts.Inventory
     public class AdventurerInventory : MonoBehaviour
     {
         public AgentInventory agentInventory;
-        private Dictionary<string, InventoryItem> Items => agentInventory.Items;
+        private Dictionary<string, List<UsableItem>> Items => agentInventory.Items;
 
         public UsableItem EquipedItem
         {
@@ -19,9 +19,9 @@ namespace EconomyProject.Scripts.Inventory
                 {
                     if (Items.Count > 0)
                     {
-                        var max = Items.Max(x => x.Value.Item.efficiency);
-                        var maxWeapon = Items.First(x => Math.Abs(x.Value.Item.efficiency - max) < 0.01);
-                        return maxWeapon.Value.Item;
+                        var max = Items.Max(x => x.Value[0].itemDetails.efficiency);
+                        var maxWeapon = Items.First(x => Math.Abs(x.Value[0].itemDetails.efficiency - max) < 0.01);
+                        return maxWeapon.Value[0];
                     }
                     else
                     {

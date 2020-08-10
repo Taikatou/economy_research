@@ -1,12 +1,11 @@
 ﻿using EconomyProject.Scripts.MLAgents.Shop;
+using EconomyProject.Scripts.UI.Inventory;
 using UnityEngine.UI;
 
 namespace EconomyProject.Scripts.UI.ShopUI.Buttons
 {
-    public class ShopButton : SampleButton<ShopDetails>
+    public class ShopButton : SampleButton<ShopItemUi>
     {
-        public Text nameLabel;
-        public Image iconImage;
         public Text priceText;
         public Text stockText;
 
@@ -14,8 +13,8 @@ namespace EconomyProject.Scripts.UI.ShopUI.Buttons
         {
             //nameLabel.text = ItemDetails.ItemName;
             //iconImage.sprite = _item.icon;
-            priceText.text = ItemDetails.price.ToString();
-            stockText.text = "x" + ItemDetails.stock;
+            priceText.text = ItemDetails.Price.ToString();
+            stockText.text = "x" + ItemDetails.Number;
         }
     }
 }

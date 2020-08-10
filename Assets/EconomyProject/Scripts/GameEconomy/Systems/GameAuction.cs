@@ -129,7 +129,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             _inventoryItems.Remove(auctionedItem);
             if (BidLast)
             {
-                Debug.Log("Sold Weapon: " + auctionedItem.itemName + " for " + currentItemPrice);
+                Debug.Log("Sold Weapon: " + auctionedItem.itemDetails.itemName + " for " + currentItemPrice);
                 _currentHighestBidder.BoughtItem(auctionedItem, currentItemPrice);
                 Logger.AddAuctionItem(auctionedItem, currentItemPrice, _currentHighestBidder);
             }

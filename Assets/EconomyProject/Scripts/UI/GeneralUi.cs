@@ -49,9 +49,9 @@ namespace EconomyProject.Scripts.UI
                 {
                     durabilityText.text = "DURABILITY: " + (item.unBreakable? "∞" : item.durability.ToString());
 
-                    currentItemText.text = "CURRENT ITEM: " + item.itemName;
+                    currentItemText.text = "CURRENT ITEM: " + item.itemDetails.itemName;
 
-                    efficiencyText.text = "EFFICIENCY: " + item.efficiency;
+                    efficiencyText.text = "EFFICIENCY: " + item.itemDetails.efficiency;
                 }
             }
         }

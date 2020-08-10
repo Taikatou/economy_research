@@ -6,9 +6,9 @@ namespace EconomyProject.Scripts.UI.Inventory
     {
         public GetCurrentAdventurerAgent currentAdventurerAgent;
         
-        public override void SelectItem(ShopItem item, int number = 1)
+        public override void SelectItem(ShopItemUi item, int number = 1)
         {
-            shopSystem.PurchaseItem(shopAgent.CurrentAgent, item.item, currentAdventurerAgent.CurrentAgent.wallet,
+            shopSystem.PurchaseItem(shopAgent.CurrentAgent, item.Item.itemDetails, currentAdventurerAgent.CurrentAgent.wallet,
                 currentAdventurerAgent.CurrentAgent.adventurerInventory.agentInventory);
         }
     }

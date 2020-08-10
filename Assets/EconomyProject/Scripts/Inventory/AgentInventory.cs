@@ -4,46 +4,32 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.Inventory
 {
-    public struct InventoryItem
-    {
-        public UsableItem Item;
-        public int Number;
-    }
     public class AgentInventory : LastUpdate
     {
         public List<UsableItem> startInventory;
-        public Dictionary<string, InventoryItem> Items { get; private set; }
+        public Dictionary<string, List<UsableItem>> Items { get; private set; }
         
         private void Start()
         {
             ResetInventory();
         }
 
-        public void AddItem(UsableItem usableItem, int addNumber=1)
+        public void AddItem(UsableItem usableItem)
         {
-            if (!Items.ContainsKey(usableItem.itemName))
+            if (!Items.ContainsKey(usableItem.ToString()))
             {
-                Items.Add(usableItem.itemName, new InventoryItem{Item = usableItem, Number = addNumber});
+                Items.Add(usableItem.ToString(), new List<UsableItem>());
             }
-            else
-            {
-                var number = Items[usableItem.itemName].Number + addNumber;
-                Items[usableItem.itemName] = new InventoryItem{Item = usableItem, Number = number};
-            }
-            Refresh();
-        }
 
-        public void AddNewItem(UsableItem usableItem, int addNumber = 1)
-        {
-            var newItem = UsableItem.GenerateItem(usableItem);
-            AddItem(newItem, addNumber);
+            Items[usableItem.ToString()].Add(usableItem);
+            Refresh();
         }
 
         public void ResetInventory()
         {
             if (Items == null)
             {
-                Items = new Dictionary<string, InventoryItem>();
+                Items = new Dictionary<string, List<UsableItem>>();
             }
             else
             {
@@ -66,7 +52,7 @@ namespace EconomyProject.Scripts.Inventory
 
         public void DecreaseDurability(UsableItem item)
         {
-            if (Items.ContainsKey(item.itemName))
+            if (Items.ContainsKey(item.ToString()))
             {
                 item.DecreaseDurability();
                 if (item.Broken)
@@ -78,11 +64,11 @@ namespace EconomyProject.Scripts.Inventory
 
         public void RemoveItem(UsableItem usableItem, int number=1)
         {
-            var item = Items[usableItem.itemName];
-            item.Number -= number;
-            if (item.Number <= 0)
+            var item = Items[usableItem.ToString()];
+            Destroy(item[0]);
+            if (item.Count <= 0)
             {
-                Items.Remove(usableItem.itemName);
+                Items.Remove(usableItem.ToString());
             }
             Refresh();
         }
@@ -92,7 +78,7 @@ namespace EconomyProject.Scripts.Inventory
             var found = false;
             foreach (var item in Items)
             {
-                if (item.Key == searchItem.itemName)
+                if (item.Key == searchItem.ToString())
                 {
                     found = true;
                 }

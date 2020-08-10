@@ -1,4 +1,5 @@
-﻿using EconomyProject.Scripts.MLAgents.Shop;
+﻿using EconomyProject.Scripts.Inventory;
+using EconomyProject.Scripts.MLAgents.Shop;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ namespace EconomyProject.Scripts.UI.ShopUI
         public Button saveButton;
         public InputField newPriceField;
 
-        private ShopDetails _shopDetails; 
+        private UsableItemDetails _shopDetails; 
         private ShopAgent _seller;
 
         private void Start()
@@ -21,13 +22,13 @@ namespace EconomyProject.Scripts.UI.ShopUI
             saveButton.onClick.AddListener(SaveButton);
         }
 
-        public void SetVisible(ShopDetails details, ShopAgent seller)
+        public void SetVisible(UsableItemDetails details, ShopAgent seller)
         {
             _shopDetails = details;
             gameObject.SetActive(true);
 
             _seller = seller;
-            newPriceField.text = details.price.ToString();
+            newPriceField.text = details.ToString();
         }
 
         private void CloseUi()
@@ -44,7 +45,7 @@ namespace EconomyProject.Scripts.UI.ShopUI
 
         private void SaveButton()
         {
-            _shopDetails.price = int.Parse(newPriceField.text);
+            //_shopDetails.price = int.Parse(newPriceField.text);
         }
     }
 }

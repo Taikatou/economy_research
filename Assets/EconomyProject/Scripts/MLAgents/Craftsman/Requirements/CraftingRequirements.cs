@@ -28,6 +28,6 @@ namespace EconomyProject.Scripts.MLAgents.Craftsman.Requirements
 
         public List<ResourceRequirement> resourcesRequirements = new List<ResourceRequirement>();
 
-        public string ResultingItemName => resultingItem ? resultingItem.itemName : "";
+        public string ResultingItemName => resultingItem ? resultingItem.itemDetails.itemName : "";
     }
 }

@@ -1,38 +1,48 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace EconomyProject.Scripts.Inventory
 {
-    [CreateAssetMenu]
-    public class UsableItem : ScriptableObject
+    [Serializable]
+    public struct UsableItemDetails
     {
         public string itemName;
         
         public int baseDurability;
+        
+        public float efficiency;
 
+        public UsableItemDetails(UsableItemDetails itemDetails)
+        {
+            itemName = itemDetails.itemName;
+            baseDurability = itemDetails.baseDurability;
+            efficiency = itemDetails.efficiency;
+        }
+
+        public int numLootSpawns => 0;
+    }
+    
+    [CreateAssetMenu]
+    public class UsableItem : ScriptableObject
+    {
         [HideInInspector]
         public int durability;
 
         public bool unBreakable;
 
+        public UsableItemDetails itemDetails;
         public bool Broken => !unBreakable && durability <= 0;
-
-        public float efficiency;
-
-        public int numLootSpawns = 1;
 
         private void OnEnable()
         {
-            durability = baseDurability;
+            durability = itemDetails.baseDurability;
         }
 
         public void Init(UsableItem item)
         {
-            itemName = item.itemName;
-            baseDurability = item.baseDurability;
-            efficiency = item.efficiency;
             unBreakable = item.unBreakable;
             durability = item.durability;
-            numLootSpawns = item.numLootSpawns;
+            itemDetails = new UsableItemDetails(item.itemDetails);
         }
 
         public void DecreaseDurability()
@@ -48,6 +58,11 @@ namespace EconomyProject.Scripts.Inventory
             var generatedItem = CreateInstance<UsableItem>();
             generatedItem.Init(selectedItem);
             return generatedItem;
+        }
+
+        public override string ToString()
+        {
+            return itemDetails.itemName;
         }
     }
 }

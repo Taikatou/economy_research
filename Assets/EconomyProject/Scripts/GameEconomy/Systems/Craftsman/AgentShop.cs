@@ -1,87 +1,98 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using EconomyProject.Scripts.Inventory;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
-using EconomyProject.Scripts.MLAgents.Shop;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 {
+    [Serializable]
+    public struct BaseItemPrices
+    {
+        public UsableItem item;
+        public int price;
+    }
     public class AgentShop
     {
         private readonly Dictionary<string, int> _defaultPrices;
-        private readonly Dictionary<string, ShopDetails> _stockItems;
-        private readonly Dictionary<string, UsableItem> _shopItems;
+        private readonly Dictionary<string, int> _stockPrices;
+        private readonly Dictionary<string, List<UsableItem>> _shopItems;
 
-        public AgentShop(List<ShopItem> basePrices)
+        public AgentShop(IEnumerable<BaseItemPrices> items)
         {
-            _shopItems = new Dictionary<string, UsableItem>();
-            _stockItems = new Dictionary<string, ShopDetails>();
+            _shopItems = new Dictionary<string, List<UsableItem>>();
+            _stockPrices = new Dictionary<string, int>();
             
             _defaultPrices = new Dictionary<string, int>();
-            foreach (var item in basePrices)
+            foreach(var item in items)
             {
-                _defaultPrices.Add(item.item.itemName, item.shopDetails.price);
+                _defaultPrices.Add(item.item.ToString(), item.price);
             }
         }
 
-        private void ChangeItem(UsableItem item, ShopDetails details)
+        private void ChangeItem(UsableItem item, int price)
         {
-            if (!_stockItems.ContainsKey(item.itemName))
+            if (!_stockPrices.ContainsKey(item.ToString()))
             {
-                _stockItems.Add(item.itemName, details);
-                _shopItems.Add(item.itemName, item);
+                _stockPrices.Add(item.ToString(), price);
+                _shopItems.Add(item.ToString(), new List<UsableItem>{item});
             }
             else
             {
-                var stockDetails = _stockItems[item.itemName];
-                stockDetails.price = details.price;
-                stockDetails.stock += details.stock;
+                _stockPrices[item.ToString()] = price;
+                _shopItems[item.ToString()].Add(item);
             }
         }
 
-        public void SubmitToShop(UsableItem item, ShopDetails details)
+        public void SubmitToShop(UsableItem item, int price)
         {
-            ChangeItem(item, details);
+            ChangeItem(item, price);
 
-            Debug.Log(_stockItems[item.itemName].price + "\t" + _stockItems[item.itemName].stock);
+            Debug.Log(_stockPrices[item.ToString()] + "\t" + _shopItems[item.ToString()].Count);
         }
 
-        public void PurchaseItems(UsableItem item, EconomyWallet wallet, AgentInventory inventory)
+        public void PurchaseItems(UsableItemDetails itemDetails, EconomyWallet wallet, AgentInventory inventory)
         {
-            var price = _stockItems[item.itemName].price;
-            if (wallet.Money >= price)
+            var price = _stockPrices[itemDetails.itemName];
+
+            int GetStock()
             {
-                var numItem = _stockItems[item.itemName].stock - 1;
-                _stockItems[item.itemName] = new ShopDetails{price=price, stock=numItem};
+                return _shopItems[itemDetails.itemName].Count;
+            }
+            if (wallet.Money >= price && GetStock() > 0)
+            {
+                inventory.AddItem(_shopItems[itemDetails.itemName][0]);
+                _shopItems[itemDetails.itemName].RemoveAt(0);
                 
-                inventory.AddNewItem(_shopItems[item.itemName]);
-                
-                if (_stockItems[item.itemName].stock <= 0)
+                _stockPrices[itemDetails.itemName] = price;
+
+                if (GetStock() <= 0)
                 {
-                    _stockItems.Remove(item.itemName);
-                    _shopItems.Remove(item.itemName);
+                    _stockPrices.Remove(itemDetails.itemName);
+                    _shopItems.Remove(itemDetails.itemName);
                 }
                 
                 wallet.SpendMoney(price);
             }
         }
 
-        public List<ShopItem> GetShopItems()
+        public int GetPrice(UsableItemDetails itemDetails)
         {
-            var output = new List<ShopItem>();
-            foreach(var entry in _stockItems)
+            return _stockPrices[itemDetails.itemName];
+        }
+
+        public List<UsableItem> GetShopItems()
+        {
+            var output = new List<UsableItem>();
+            foreach(var entry in _shopItems)
             {
-                output.Add(new ShopItem
-                {
-                    item = _shopItems[entry.Key],
-                    shopDetails = entry.Value
-                });
+                output.Add(entry.Value[0]);
             }
 
             return output;
         }
 
-        public int GetCurrentPrice(UsableItem item)
+        public int GetCurrentPrice(UsableItemDetails item)
         {
             if (_defaultPrices.ContainsKey(item.itemName))
             {
@@ -90,10 +101,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             return 0;
         }
 
-        public void SetCurrentPrice(UsableItem item, int increment)
+        public void SetCurrentPrice(UsableItemDetails item, int increment)
         {
             var price = _defaultPrices[item.itemName];
-            _defaultPrices[item.itemName] = price + increment;
+            _defaultPrices[item.ToString()] = price + increment;
         }
     }
 }

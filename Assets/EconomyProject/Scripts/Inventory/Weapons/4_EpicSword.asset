@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23bec5fbd5edd9b4ab62e476059b76fd, type: 3}
   m_Name: 4_EpicSword
   m_EditorClassIdentifier: 
-  itemName: Epic Sword
-  baseDurability: 20
-  durability: 20
+  durability: 0
   unBreakable: 0
-  efficiency: 65
-  numLootSpawns: 3
+  itemDetails:
+    itemName: Epic Sword
+    baseDurability: 5
+    efficiency: 5

@@ -19,7 +19,7 @@ namespace EconomyProject.Scripts.GameEconomy
         public int agentId;
         public string currentTime;
 
-        public string Name => item.itemName;
+        public string Name => item.itemDetails.itemName;
 
         public AuctionItem(UsableItem item, float price, int agentId, string currentTime) : this()
         {
