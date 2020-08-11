@@ -57,19 +57,28 @@ namespace EconomyProject.Scripts.Inventory
                 item.DecreaseDurability();
                 if (item.Broken)
                 {
-                    RemoveItem(item);
+                    DestroyItem(item);
                 }
             }
         }
 
-        public void RemoveItem(UsableItem usableItem, int number=1)
+        private void DestroyItem(UsableItem item)
         {
-            var item = Items[usableItem.ToString()];
-            Destroy(item[0]);
-            if (item.Count <= 0)
+            RemoveItem(item);
+            Destroy(item);
+        }
+
+        public void RemoveItem(UsableItem usableItem)
+        {
+            var key = usableItem.ToString();
+            var usableItems = Items[key];
+            usableItems.RemoveAll(x => x.UniqueId == usableItem.UniqueId);
+
+            if (usableItems.Count == 0)
             {
-                Items.Remove(usableItem.ToString());
+                Items.Remove(key);
             }
+
             Refresh();
         }
 

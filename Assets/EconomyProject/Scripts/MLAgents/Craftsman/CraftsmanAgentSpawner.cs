@@ -8,7 +8,8 @@ namespace EconomyProject.Scripts.MLAgents.Craftsman
     public class CraftsmanAgentSpawner : AgentSpawner
     {
         public ShopInput shopInput;
-        public override GameObject Spawn(GameObject toSpawnPrefab)
+
+        protected override GameObject Spawn(GameObject toSpawnPrefab)
         {
             var agent = base.Spawn(toSpawnPrefab);
             var craftsman = agent.GetComponent<ShopAgent>();

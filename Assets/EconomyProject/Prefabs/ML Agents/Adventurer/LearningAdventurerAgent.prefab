@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1817350387931501863}
   - component: {fileID: 2072330097273742403}
   - component: {fileID: 5616954730062649782}
+  - component: {fileID: 3175469178531096349}
   m_Layer: 0
   m_Name: LearningAdventurerAgent
   m_TagString: Untagged
@@ -48,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce000fa4147eec844b7cdd831ec766ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startMoney: 0
+  startMoney: 100
 --- !u!114 &5620581771315865838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,16 +103,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    vectorObservationSize: 19
-    numStackedVectorObservations: 1
-    vectorActionSize: 02000000
-    vectorActionDescriptions: []
-    vectorActionSpaceType: 0
+    VectorObservationSize: 19
+    NumStackedVectorObservations: 1
+    VectorActionSize: 02000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: Adventurer
-  m_useChildSensors: 1
+  TeamId: 0
+  m_UseChildSensors: 1
+  m_ObservableAttributeHandling: 0
 --- !u!114 &5616954730062649782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,11 +129,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agentParameters:
     maxStep: 10000
-    resetOnDone: 1
-    onDemandDecision: 1
-    numberOfActionsBetweenDecisions: 5
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 10000
   inventory: {fileID: 1817350387931501863}
   adventurerInventory: {fileID: 4250931923004593224}
   wallet: {fileID: -4706628768726033178}
   gameAuction: {fileID: 0}
   playerInput: {fileID: 0}
+--- !u!114 &3175469178531096349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7707616417561859250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fedbbfa33a0403e4f8304a75d17c2150, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recordSystem: {fileID: 0}

@@ -60,8 +60,8 @@ namespace EconomyProject.Scripts.UI.ShopUI.ScrollLists
                     newButton.transform.SetParent(contentPanel);
 
                     var sampleButton = newButton.GetComponent<TQ>();
-                    Debug.Log(sampleButton != null);
-                    Debug.Log(item != null);
+                    Debug.Log(sampleButton == null);
+                    Debug.Log(item == null);
                     sampleButton.Setup(item, this);
                 }
             }

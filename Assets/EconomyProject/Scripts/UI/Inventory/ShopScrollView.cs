@@ -20,7 +20,8 @@ namespace EconomyProject.Scripts.UI.Inventory
                 toReturn.Add(new ShopItemUi
                 {
                     Item = item,
-                    Price = shopSystem.GetCurrentPrice(shopAgent.CurrentAgent, item.itemDetails)
+                    Price = shopSystem.GetPrice(shopAgent.CurrentAgent, item.itemDetails),
+                    Number = shopSystem.GetNumber(shopAgent.CurrentAgent, item.itemDetails)
                 });
             }
 

@@ -32,6 +32,8 @@ namespace EconomyProject.Scripts.Inventory
 
         public UsableItemDetails itemDetails;
         public bool Broken => !unBreakable && durability <= 0;
+        
+        public Guid UniqueId { get; private set; }
 
         private void OnEnable()
         {
@@ -40,6 +42,7 @@ namespace EconomyProject.Scripts.Inventory
 
         public void Init(UsableItem item)
         {
+            UniqueId = Guid.NewGuid();
             unBreakable = item.unBreakable;
             durability = item.durability;
             itemDetails = new UsableItemDetails(item.itemDetails);

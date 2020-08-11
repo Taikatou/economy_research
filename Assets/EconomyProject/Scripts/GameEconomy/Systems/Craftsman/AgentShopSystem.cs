@@ -52,7 +52,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             if (item < items.Count)
             {
                 var shopItem = items[item];
-                SubmitToShop(agent, shopItem, 1);   
+                SubmitToShop(agent, shopItem);   
             }
             else
             {
@@ -60,30 +60,23 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             }
         }
 
-        public void SubmitToShop(ShopAgent agent, UsableItem item, int stock)
+        public void SubmitToShop(ShopAgent agent, UsableItem item)
         {
             var shop = GetShop(agent);
-            var price = GetCurrentPrice(agent, item.itemDetails);
-
-            shop.SubmitToShop(item, price);
-            agent.AgentInventory.RemoveItem(item, stock);
+            shop.SubmitToShop(item);
+            agent.AgentInventory.RemoveItem(item);
             
             Refresh();
         }
 
-        public int GetCurrentPrice(ShopAgent shopAgent, UsableItemDetails item)
+        public int GetPrice(ShopAgent shopAgent, UsableItemDetails item)
         {
-            return GetShop(shopAgent).GetCurrentPrice(item);
+            return GetShop(shopAgent).GetPrice(item);
         }
 
         public List<UsableItem> GetShopItems(ShopAgent shopAgent)
         {
             return GetShop(shopAgent).GetShopItems();
-        }
-
-        public int GetItemPrice(ShopAgent shopAgent, UsableItemDetails itemDetails)
-        {
-            return GetShop(shopAgent).GetPrice(itemDetails);
         }
 
         public void SetCurrentPrice(ShopAgent shopAgent, int item, int increment)
@@ -99,11 +92,18 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         private void SetCurrentPrice(ShopAgent shopAgent, UsableItemDetails item, int increment)
         {
             GetShop(shopAgent).SetCurrentPrice(item, increment);
+            Refresh();
+        }
+
+        public int GetNumber(ShopAgent shopAgent, UsableItemDetails item)
+        {
+            return GetShop(shopAgent).GetNumber(item);
         }
 
         public void PurchaseItem(ShopAgent shopAgent, UsableItemDetails item, EconomyWallet wallet, AgentInventory inventory)
         {
             GetShop(shopAgent).PurchaseItems(item, wallet, inventory);
+            Refresh();
         }
     }
 }

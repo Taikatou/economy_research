@@ -141,25 +141,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePrices:
   - item: {fileID: 11400000, guid: ff61c0520e17b43429b1c5e7c3cd505d, type: 2}
-    shopDetails:
-      price: 5
-      stock: 0
+    price: 5
   - item: {fileID: 11400000, guid: ba1044b1ad3be3440a274303fe22f8cb, type: 2}
-    shopDetails:
-      price: 5
-      stock: 0
+    price: 5
   - item: {fileID: 11400000, guid: 220a652df168f054b8b6564ab9e67f7f, type: 2}
-    shopDetails:
-      price: 5
-      stock: 0
+    price: 5
+  - item: {fileID: 11400000, guid: 995af46e8ce3ad84a9491f7e65b0c666, type: 2}
+    price: 5
   - item: {fileID: 11400000, guid: ecd492c3b2f26eb428a3a267c2e78659, type: 2}
-    shopDetails:
-      price: 5
-      stock: 0
+    price: 5
   - item: {fileID: 11400000, guid: f2ee4c3d87136284f911c5dc145ee12c, type: 2}
-    shopDetails:
-      price: 5
-      stock: 0
+    price: 5
 --- !u!1 &8771747928817789504
 GameObject:
   m_ObjectHideFlags: 0

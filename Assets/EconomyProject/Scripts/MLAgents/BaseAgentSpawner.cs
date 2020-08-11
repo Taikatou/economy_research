@@ -13,7 +13,7 @@ namespace EconomyProject.Scripts.MLAgents
             }
         }
 
-        public virtual GameObject Spawn(GameObject toSpawnPrefab)
+        protected virtual GameObject Spawn(GameObject toSpawnPrefab)
         {
             var agentPrefab = Instantiate(toSpawnPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             agentPrefab.transform.parent = gameObject.transform;

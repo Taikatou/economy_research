@@ -161,16 +161,20 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             Refresh();
         }
 
-        public bool TakeRequest(RequestTaker requestTaker, ResourceRequest takeRequest)
+        public void TakeRequest(RequestTaker requestTaker, ResourceRequest takeRequest)
         {
-            if (_craftingNumber[takeRequest.Inventory].ContainsKey(takeRequest.Resource))
+            var craftingNumber = _craftingNumber[takeRequest.Inventory];
+            var containsResource = craftingNumber.ContainsKey(takeRequest.Resource);
+            Debug.Log("Contains resource " + containsResource);
+            
+            if (containsResource)
             {
+                Debug.Log("Took request");
                 requestRecord.AddRequest(requestTaker, takeRequest);
-                _craftingNumber[takeRequest.Inventory].Remove(takeRequest.Resource);
+                craftingNumber.Remove(takeRequest.Resource);
             }
 
             Refresh();
-            return true;
         }
 
         public void CompleteRequest(RequestTaker taker, ResourceRequest request)

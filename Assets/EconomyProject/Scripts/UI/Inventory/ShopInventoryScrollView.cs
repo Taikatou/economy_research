@@ -28,7 +28,7 @@ namespace EconomyProject.Scripts.UI.Inventory
             var itemList = new List<ShopItemUi>();
             foreach (var item in shopAgent.CurrentAgent.AgentInventory.Items)
             {
-                var price = shopSystem.GetCurrentPrice(shopAgent.CurrentAgent, item.Value[0].itemDetails);
+                var price = shopSystem.GetPrice(shopAgent.CurrentAgent, item.Value[0].itemDetails);
                 itemList.Add(new ShopItemUi { Item=item.Value[0], Number=item.Value.Count, Price=price});
             }
             return itemList;
@@ -36,7 +36,7 @@ namespace EconomyProject.Scripts.UI.Inventory
 
         public override void SelectItem(ShopItemUi shopItem, int number = 1)
         {
-            shopSystem.SubmitToShop(shopAgent.CurrentAgent, shopItem.Item, shopItem.Number);
+            shopSystem.SubmitToShop(shopAgent.CurrentAgent, shopItem.Item);
         }
     }
 }

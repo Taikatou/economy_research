@@ -15,6 +15,8 @@ namespace EconomyProject.Scripts.UI.Adventurer
         public GameObject mainMenu;
 
         public GameObject shopMenu;
+        
+        public GameObject requestMenu;
 
         public GetCurrentAdventurerAgent getCurrentAgent;
 
@@ -26,10 +28,11 @@ namespace EconomyProject.Scripts.UI.Adventurer
 
         protected override Dictionary<AgentScreen, OpenedMenu> OpenedMenus => new Dictionary<AgentScreen, OpenedMenu>
         {
-            { AgentScreen.Auction, new OpenedMenu(new List<GameObject>{auctionMenu}, new List<GameObject>{questMenu, mainMenu, shopMenu}) },
-            { AgentScreen.Main, new OpenedMenu(new List<GameObject>{mainMenu}, new List<GameObject>{questMenu, auctionMenu, shopMenu}) },
-            { AgentScreen.Quest, new OpenedMenu(new List<GameObject>{questMenu}, new List<GameObject>{mainMenu, auctionMenu, shopMenu}) },
-            { AgentScreen.Shop, new OpenedMenu(new List<GameObject>{shopMenu}, new List<GameObject>{mainMenu, auctionMenu, questMenu}) }
+            { AgentScreen.Auction, new OpenedMenu(new List<GameObject>{auctionMenu}, new List<GameObject>{questMenu, mainMenu, shopMenu, requestMenu}) },
+            { AgentScreen.Main, new OpenedMenu(new List<GameObject>{mainMenu}, new List<GameObject>{questMenu, auctionMenu, shopMenu, requestMenu}) },
+            { AgentScreen.Quest, new OpenedMenu(new List<GameObject>{questMenu}, new List<GameObject>{mainMenu, auctionMenu, shopMenu, requestMenu}) },
+            { AgentScreen.Shop, new OpenedMenu(new List<GameObject>{shopMenu}, new List<GameObject>{mainMenu, auctionMenu, questMenu, requestMenu}) },
+            { AgentScreen.Request, new OpenedMenu(new List<GameObject>{requestMenu}, new List<GameObject>{shopMenu, mainMenu, auctionMenu, questMenu}) }
         };
 
         protected override bool Compare(AgentScreen a, AgentScreen b)
@@ -66,6 +69,11 @@ namespace EconomyProject.Scripts.UI.Adventurer
         public void ShopMenu()
         {
             PlayerInput.ChangeScreen(AdventurerAgent, AgentScreen.Shop);
+        }
+        
+        public void RequestMenu()
+        {
+            PlayerInput.ChangeScreen(AdventurerAgent, AgentScreen.Request);
         }
 
         public void Bid()
