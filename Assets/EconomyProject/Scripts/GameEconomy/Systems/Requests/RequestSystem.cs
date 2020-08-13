@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Craftsman;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
@@ -6,58 +7,26 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
-    public class ResourceRequest
-    {
-        private bool _resourceAdded;
-        public CraftingResources Resource { get; }
-        public CraftingInventory Inventory { get; }
-        public int Number { get; set; }
-        public int Price { get; set; }
-
-        private static readonly Dictionary<CraftingResources, int> _defaultPrice = new Dictionary<CraftingResources, int> {
-            {CraftingResources.Wood, 5},
-            {CraftingResources.Metal, 6},
-            {CraftingResources.Gem, 7},
-            {CraftingResources.DragonScale, 8}
-        };
-
-        public ResourceRequest(CraftingResources resource, CraftingInventory inventory, int number = 1)
-        {
-            Resource = resource;
-            Inventory = inventory;
-            Number = number;
-            Price = _defaultPrice[resource];
-        }
-
-        public void TransferResource()
-        {
-            if (!_resourceAdded)
-            {
-                _resourceAdded = true;
-                Inventory.AddResource(Resource, Number);
-            }
-        }
-    }
-
     public class RequestSystem : LastUpdate
     {
-        public RequestRecord requestRecord;
+        public int maxRequests = 2;
+        public CraftingRequestRecord craftingRequestRecord;
 
-        private Dictionary<CraftingInventory, Dictionary<CraftingResources, ResourceRequest>> _craftingNumber;
+        private Dictionary<CraftingInventory, Dictionary<CraftingResources, CraftingResourceRequest>> _craftingNumber;
 
-        public Dictionary<CraftingResources, ResourceRequest> GetCraftingRequests(CraftingInventory inventory)
+        public Dictionary<CraftingResources, CraftingResourceRequest> GetCraftingRequests(CraftingInventory inventory)
         {
             if (_craftingNumber.ContainsKey(inventory))
             {
                 return _craftingNumber[inventory];
             }
 
-            return new Dictionary<CraftingResources, ResourceRequest>();
+            return new Dictionary<CraftingResources, CraftingResourceRequest>();
         }
 
-        public List<ResourceRequest> GetAllCraftingRequests()
+        public List<CraftingResourceRequest> GetAllCraftingRequests()
         {
-            var returnList = new List<ResourceRequest>();
+            var returnList = new List<CraftingResourceRequest>();
             foreach (var entry in _craftingNumber)
             {
                 foreach (var entry2 in entry.Value)
@@ -94,61 +63,91 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
         private void Start()
         {
-            _craftingNumber = new Dictionary<CraftingInventory, Dictionary<CraftingResources, ResourceRequest>>();
+            _craftingNumber = new Dictionary<CraftingInventory, Dictionary<CraftingResources, CraftingResourceRequest>>();
             Refresh();
         }
-
-        public bool MakeRequest(CraftingResources resources, CraftingInventory inventory)
+        
+        public void MakeRequest(CraftingResources resources, CraftingInventory inventory, EconomyWallet wallet)
         {
+            void CheckExchange(CraftingResourceRequest request)
+            {
+                if(request.Price <= wallet.Money)
+                {
+                    if (_craftingNumber[inventory].ContainsKey(resources))
+                    {
+                        _craftingNumber[inventory][resources].Number++;
+                    }
+                    else
+                    {
+                        _craftingNumber[inventory].Add(resources, request);   
+                    }
+                    wallet.SpendMoney(request.Price);
+                }
+            }
             CheckInventory(inventory);
 
             var requestNumber = GetRequestNumber(inventory, resources);
             var canRequest = requestNumber < 5;
+
             if (canRequest)
             {
                 var containsKey = _craftingNumber[inventory].ContainsKey(resources);
                 if (!containsKey)
                 {
-                    _craftingNumber[inventory].Add(resources, new ResourceRequest(resources, inventory));
+                    var newResource = new CraftingResourceRequest(resources, inventory);
+
+                    CheckExchange(newResource);
                 }
                 else
                 {
-                    _craftingNumber[inventory][resources].Number++;
+                    CheckExchange(_craftingNumber[inventory][resources]);
                 }
             }
 
             Refresh();
-            return canRequest;
         }
-
         private void CheckInventory(CraftingInventory inventory)
         {
             if (!_craftingNumber.ContainsKey(inventory))
             {
-                _craftingNumber.Add(inventory, new Dictionary<CraftingResources, ResourceRequest>());
+                _craftingNumber.Add(inventory, new Dictionary<CraftingResources, CraftingResourceRequest>());
             }
         }
 
-        public void IncreasePrice(CraftingResources resources, CraftingInventory inventory)
-        {
-            ChangePrice(resources, inventory, 1);
-        }
-        
-        public void DecreasePrice(CraftingResources resources, CraftingInventory inventory)
-        {
-            ChangePrice(resources, inventory, -1);
-        }
-
-        private void ChangePrice(CraftingResources resources, CraftingInventory inventory, int number)
+        public void ChangePrice(CraftingResources resources, CraftingInventory inventory, EconomyWallet wallet, int change)
         {
             CheckInventory(inventory);
-            var containsKey = _craftingNumber[inventory].ContainsKey(resources);
+            var craftingInventory = _craftingNumber[inventory];
+            var containsKey = craftingInventory.ContainsKey(resources);
             if (containsKey)
             {
-                if(_craftingNumber[inventory].ContainsKey(resources))
+                if(craftingInventory.ContainsKey(resources))
                 {
-                    _craftingNumber[inventory][resources].Price += number;
-                    Debug.Log("price change");
+                    var newPrice = craftingInventory[resources].Price + change;
+                    var newReward = craftingInventory[resources].GetReward(newPrice);
+
+                    var rewardDifference = newReward - craftingInventory[resources].Reward;
+
+                    var validTransaction = false;
+                    if (rewardDifference > 0)
+                    {
+                        if (rewardDifference <= wallet.Money)
+                        {
+                            wallet.SpendMoney(rewardDifference);
+                            validTransaction = true;
+                        }
+                    }
+                    else
+                    {
+                        wallet.EarnMoney(Mathf.Abs(rewardDifference));
+                        validTransaction = true;
+                    }
+
+                    if (validTransaction)
+                    {
+                        craftingInventory[resources].Price = newPrice;
+                        Debug.Log("price change");   
+                    }
                 }
             }
             Refresh();
@@ -161,25 +160,27 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             Refresh();
         }
 
-        public void TakeRequest(RequestTaker requestTaker, ResourceRequest takeRequest)
+        public void TakeRequest(RequestTaker requestTaker, CraftingResourceRequest takeRequest)
         {
             var craftingNumber = _craftingNumber[takeRequest.Inventory];
             var containsResource = craftingNumber.ContainsKey(takeRequest.Resource);
             Debug.Log("Contains resource " + containsResource);
-            
-            if (containsResource)
+
+            var currentRequests = craftingRequestRecord.GetCurrentRequests(requestTaker);
+            var validRequests = currentRequests.Count < maxRequests;
+            if (containsResource && validRequests)
             {
                 Debug.Log("Took request");
-                requestRecord.AddRequest(requestTaker, takeRequest);
+                craftingRequestRecord.AddRequest(requestTaker, takeRequest);
                 craftingNumber.Remove(takeRequest.Resource);
             }
 
             Refresh();
         }
 
-        public void CompleteRequest(RequestTaker taker, ResourceRequest request)
+        public void CompleteRequest(RequestTaker taker, CraftingResourceRequest request)
         {
-            requestRecord.CompleteRequest(taker, request);
+            craftingRequestRecord.CompleteRequest(taker, request);
             if (_craftingNumber.ContainsKey(request.Inventory))
             {
                 if (_craftingNumber[request.Inventory].ContainsKey(request.Resource))

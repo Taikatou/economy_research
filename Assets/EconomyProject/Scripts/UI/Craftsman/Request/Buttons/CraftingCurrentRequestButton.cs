@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace EconomyProject.Scripts.UI.Craftsman.Request.Buttons
 {
-    public class CraftingCurrentRequestButton : SampleButton<ResourceRequest>
+    public class CraftingCurrentRequestButton : SampleButton<CraftingResourceRequest>
     {
         public Text nameLabel;
         public Text stockText;

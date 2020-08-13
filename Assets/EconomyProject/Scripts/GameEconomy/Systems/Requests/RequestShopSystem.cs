@@ -52,24 +52,26 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             {
                 case RequestActions.SetInput:
                     Debug.Log("Make Request");
-                    requestSystem.MakeRequest(craftingResources, agent.CraftingInventory);
+                    requestSystem.MakeRequest(craftingResources, agent.craftingInventory, agent.wallet);
                     break;
                 case RequestActions.RemoveRequest:
-                    requestSystem.RemoveRequest(craftingResources, agent.CraftingInventory);
+                    Debug.Log("Remove Request");
+                    requestSystem.RemoveRequest(craftingResources, agent.craftingInventory);
                     break;
                 case RequestActions.IncreasePrice:
                     Debug.Log("IncreasePrice");
-                    requestSystem.IncreasePrice(craftingResources, agent.CraftingInventory);   
+                    requestSystem.ChangePrice(craftingResources, agent.craftingInventory, agent.wallet, 1);   
                     break;
                 case RequestActions.DecreasePrice:
                     Debug.Log("DecreasePrice");
-                    requestSystem.DecreasePrice(craftingResources, agent.CraftingInventory);   
+                    requestSystem.ChangePrice(craftingResources, agent.craftingInventory, agent.wallet, -1);   
                     break;
             }
         }
         
         private void Update()
         {
+            Debug.Log(CurrentPlayers.Length);
             RequestDecisions();
         }
     }

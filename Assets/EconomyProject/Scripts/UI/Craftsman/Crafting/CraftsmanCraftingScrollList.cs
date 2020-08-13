@@ -20,7 +20,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Crafting
             var itemList = new List<CraftingInfo>();
             foreach (var item in craftingSystem.craftingRequirement)
             {
-                var craftInfo = new CraftingInfo(item, Agent.CraftingInventory);
+                var craftInfo = new CraftingInfo(item, Agent.craftingInventory);
                 itemList.Add(craftInfo);
             }
             return itemList;

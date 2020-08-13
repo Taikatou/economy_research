@@ -136,6 +136,7 @@ MonoBehaviour:
   wallet: {fileID: -4706628768726033178}
   gameAuction: {fileID: 0}
   playerInput: {fileID: 0}
+  requestTaker: {fileID: 3175469178531096349}
 --- !u!114 &3175469178531096349
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -16,7 +16,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         
         public virtual float Progress(TAgent agent) => 0.0f;
 
-        public TAgent[] CurrentPlayers
+        protected TAgent[] CurrentPlayers
         {
             get
             {

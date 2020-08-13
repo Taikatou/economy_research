@@ -27,7 +27,7 @@
                 <e p="AdventurerShopSystem.cs" t="Include" />
                 <e p="Craftsman" t="Include">
                   <e p="AgentShop.cs" t="Include" />
-                  <e p="AgentShopSystem.cs" t="Include" />
+                  <e p="AgentShopSubSystem.cs" t="Include" />
                   <e p="CraftingSystem.cs" t="Include" />
                   <e p="ShopCraftingSystem.cs" t="Include" />
                 </e>
@@ -38,9 +38,10 @@
                 <e p="MainShopSystem.cs" t="Include" />
                 <e p="Requests" t="Include">
                   <e p="AdventurerRequestTaker.cs" t="Include" />
+                  <e p="CraftingRequestRecord.cs" t="Include" />
+                  <e p="CraftingResourceRequest.cs" t="Include" />
                   <e p="CraftsmanRequestTaker.cs" t="Include" />
                   <e p="RequestAdventurerSystem.cs" t="Include" />
-                  <e p="RequestRecord.cs" t="Include" />
                   <e p="RequestShopSystem.cs" t="Include" />
                   <e p="RequestSystem.cs" t="Include" />
                   <e p="RequestTaker.cs" t="Include" />
@@ -97,6 +98,8 @@
               <e p="Adventurer" t="Include">
                 <e p="AdventurerAgentDropDown.cs" t="Include" />
                 <e p="AdventurerMenuManager.cs" t="Include" />
+                <e p="AdventurerRequestScrollView.cs" t="Include" />
+                <e p="RequestDebugUI.cs" t="Include" />
                 <e p="UiAccessor.cs" t="Include" />
               </e>
               <e p="AgentDropDown.cs" t="Include" />
@@ -117,10 +120,11 @@
                     <e p="CraftingMakeRequestButton.cs" t="Include" />
                   </e>
                   <e p="CraftsmanUi.cs" t="Include" />
+                  <e p="DebugText.cs" t="Include" />
                   <e p="ScrollList" t="Include">
-                    <e p="CraftingScrollList.cs" t="Include" />
-                    <e p="CraftsManMakeRequestScrollList.cs" t="Include" />
-                    <e p="CurrentRequestScrollList.cs" t="Include" />
+                    <e p="CraftsManMakeShopRequestScrollList.cs" t="Include" />
+                    <e p="CurrentShopRequestScrollList.cs" t="Include" />
+                    <e p="ShopRequestScrollList.cs" t="Include" />
                   </e>
                 </e>
               </e>

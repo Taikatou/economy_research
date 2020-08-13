@@ -40,7 +40,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public CraftingSystem craftingSubSystem;
 
-        public AgentShopSystem shopSubSystem;
+        public AgentShopSubSystem shopSubSubSystem;
 
         public override bool CanMove(ShopAgent agent)
         {
@@ -54,13 +54,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
                     craftingSubSystem.MakeRequest(shopAgent, input);
                     break;
                 case CraftingInput.IncreasePrice:
-                    shopSubSystem.SetCurrentPrice(shopAgent, input, 1);
+                    shopSubSubSystem.SetCurrentPrice(shopAgent, input, 1);
                     break;
                 case CraftingInput.DecreasePrice:
-                    shopSubSystem.SetCurrentPrice(shopAgent, input, -1);
+                    shopSubSubSystem.SetCurrentPrice(shopAgent, input, -1);
                     break;
                 case CraftingInput.SubmitToShop:
-                    shopSubSystem.SubmitToShop(shopAgent, input);
+                    shopSubSubSystem.SubmitToShop(shopAgent, input);
                     break;
             }
         }

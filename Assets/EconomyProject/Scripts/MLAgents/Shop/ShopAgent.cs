@@ -11,10 +11,19 @@ namespace EconomyProject.Scripts.MLAgents.Shop
     public class ShopAgent : AgentScreen<EShopScreen>
     {
         public ShopInput shopInput;
-        private EconomyWallet Wallet => GetComponent<EconomyWallet>();
-        public CraftingInventory CraftingInventory => GetComponent<CraftingInventory>();
-        public override EShopScreen ChosenScreen => shopInput.GetScreen(this, EShopScreen.Main);
-        public AgentInventory AgentInventory => GetComponent<AgentInventory>();
+        public EconomyWallet wallet;
+        public CraftingInventory craftingInventory;
+        public AgentInventory agentInventory;
+
+        public override EShopScreen ChosenScreen
+        {
+            get
+            {
+                var screen = shopInput.GetScreen(this, EShopScreen.Main);
+                Debug.Log(screen);
+                return screen;
+            }
+        }
 
         public override void Heuristic(float[] actionsOut)
         {
@@ -29,10 +38,10 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 
         public override void CollectObservations(VectorSensor sensor)
         {
-            sensor.AddObservation((float)Wallet.EarnedMoney);
-            sensor.AddObservation((float)Wallet.SpentMoney);
-            sensor.AddObservation((float)Wallet.Money);
-            Wallet.ResetStep();
+            sensor.AddObservation((float)wallet.EarnedMoney);
+            sensor.AddObservation((float)wallet.SpentMoney);
+            sensor.AddObservation((float)wallet.Money);
+            wallet.ResetStep();
         }
     }
 }

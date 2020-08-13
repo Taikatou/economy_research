@@ -2,18 +2,17 @@
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.UI.Craftsman.Request.Buttons;
 using UnityEngine;
-using ResourceRequest = EconomyProject.Scripts.GameEconomy.Systems.Requests.ResourceRequest;
 
 namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
 {
-    public class CurrentRequestScrollList : CraftingScrollList<ResourceRequest, CraftingCurrentRequestButton>
+    public class CurrentShopRequestScrollList : ShopRequestScrollList<CraftingResourceRequest, CraftingCurrentRequestButton>
     {
         public GetCurrentAdventurerAgent getCurrentAgent;
 
         // Start is called before the first frame update
-        protected override List<ResourceRequest> GetItemList() => requestSystem.requestSystem.GetAllCraftingRequests();
+        protected override List<CraftingResourceRequest> GetItemList() => requestSystem.GetAllCraftingRequests();
 
-        public override void SelectItem(ResourceRequest item, int number = 1)
+        public override void SelectItem(CraftingResourceRequest item, int number = 1)
         {
             var requestTaker = getCurrentAgent.CurrentAgent.GetComponent<RequestTaker>();
             Debug.Log(requestTaker == null);

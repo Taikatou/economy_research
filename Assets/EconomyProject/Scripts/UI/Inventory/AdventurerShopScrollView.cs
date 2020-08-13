@@ -8,7 +8,7 @@ namespace EconomyProject.Scripts.UI.Inventory
         
         public override void SelectItem(ShopItemUi item, int number = 1)
         {
-            shopSystem.PurchaseItem(shopAgent.CurrentAgent, item.Item.itemDetails, currentAdventurerAgent.CurrentAgent.wallet,
+            shopSubSystem.PurchaseItem(shopAgent.CurrentAgent, item.Item.itemDetails, currentAdventurerAgent.CurrentAgent.wallet,
                 currentAdventurerAgent.CurrentAgent.adventurerInventory.agentInventory);
         }
     }

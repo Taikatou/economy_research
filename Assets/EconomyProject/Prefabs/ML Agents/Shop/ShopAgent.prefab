@@ -143,3 +143,6 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   shopInput: {fileID: 0}
+  wallet: {fileID: 568787241}
+  craftingInventory: {fileID: 8868528098903630128}
+  agentInventory: {fileID: 1690807225}

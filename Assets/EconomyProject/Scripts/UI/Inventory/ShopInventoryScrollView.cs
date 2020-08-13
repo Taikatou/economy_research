@@ -18,17 +18,17 @@ namespace EconomyProject.Scripts.UI.Inventory
     }
     public class ShopInventoryScrollView : AbstractScrollList<ShopItemUi, ShopInventoryScrollButton>
     {
-        public AgentShopSystem shopSystem;
+        public AgentShopSubSystem shopSubSystem;
 
         public GetCurrentShopAgent shopAgent;
-        protected override LastUpdate LastUpdated => shopAgent.CurrentAgent.AgentInventory;
+        protected override LastUpdate LastUpdated => shopAgent.CurrentAgent.agentInventory;
 
         protected override List<ShopItemUi> GetItemList()
         {
             var itemList = new List<ShopItemUi>();
-            foreach (var item in shopAgent.CurrentAgent.AgentInventory.Items)
+            foreach (var item in shopAgent.CurrentAgent.agentInventory.Items)
             {
-                var price = shopSystem.GetPrice(shopAgent.CurrentAgent, item.Value[0].itemDetails);
+                var price = shopSubSystem.GetPrice(shopAgent.CurrentAgent, item.Value[0].itemDetails);
                 itemList.Add(new ShopItemUi { Item=item.Value[0], Number=item.Value.Count, Price=price});
             }
             return itemList;
@@ -36,7 +36,7 @@ namespace EconomyProject.Scripts.UI.Inventory
 
         public override void SelectItem(ShopItemUi shopItem, int number = 1)
         {
-            shopSystem.SubmitToShop(shopAgent.CurrentAgent, shopItem.Item);
+            shopSubSystem.SubmitToShop(shopAgent.CurrentAgent, shopItem.Item);
         }
     }
 }

@@ -4,10 +4,9 @@ using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
 
 namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
 {
-    public abstract class CraftingScrollList<T, TQ> : AbstractScrollList<T, TQ> where TQ : SampleButton<T>
+    public abstract class ShopRequestScrollList<T, TQ> : AbstractScrollList<T, TQ> where TQ : SampleButton<T>
     {
-        protected override LastUpdate LastUpdated => requestSystem.requestSystem;
-
-        public RequestShopSystem requestSystem;
+        public RequestSystem requestSystem;
+        protected override LastUpdate LastUpdated => requestSystem;
     }
 }

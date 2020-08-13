@@ -3,6 +3,7 @@ using EconomyProject.Scripts.UI.Craftsman.Request.Buttons;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.MLAgents.Shop;
 using Unity.MLAgents;
 using UnityEngine;
@@ -20,10 +21,10 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
             InventoryNumber = inventoryNumber;
         }
     }
-    public class CraftsManMakeRequestScrollList : CraftingScrollList<CraftingResourceUi, CraftingMakeRequestButton>
+    public class CraftsManMakeShopRequestScrollList : ShopRequestScrollList<CraftingResourceUi, CraftingMakeRequestButton>
     {
+        public RequestShopSystem requestShopSystem;
         public GetCurrentShopAgent getCurrentAgent;
-
         private ShopAgent CraftsmanAgent => getCurrentAgent.CurrentAgent;
 
         // Start is called before the first frame update
@@ -35,7 +36,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
                 var resources = CraftingUtils.CraftingResources;
                 foreach (var resource in resources)
                 {
-                    var inventoryNumber = CraftsmanAgent.CraftingInventory.GetResourceNumber(resource);
+                    var inventoryNumber = CraftsmanAgent.craftingInventory.GetResourceNumber(resource);
                     var resourceUi = new CraftingResourceUi(resource, inventoryNumber);
                     items.Add(resourceUi);
                 }
@@ -46,7 +47,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
 
         public override void SelectItem(CraftingResourceUi item, int number = 1)
         {
-            requestSystem.MakeChoice(CraftsmanAgent, item.ResourceType);
+            requestShopSystem.MakeChoice(CraftsmanAgent, item.ResourceType);
         }
     }
 }

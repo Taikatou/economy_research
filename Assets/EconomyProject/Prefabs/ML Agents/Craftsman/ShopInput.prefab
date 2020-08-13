@@ -75,7 +75,6 @@ Transform:
   m_Children:
   - {fileID: 8771747927877783289}
   - {fileID: 8771747928817789519}
-  - {fileID: 8771747928399019956}
   - {fileID: 1597588315868552423}
   - {fileID: 8771747929458667463}
   m_Father: {fileID: 0}
@@ -107,7 +106,7 @@ GameObject:
   - component: {fileID: 8771747928399019956}
   - component: {fileID: 8771747928399019955}
   m_Layer: 0
-  m_Name: AgentShopSystem
+  m_Name: AgentShopSubSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,11 +120,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8771747928399019957}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 686.95245, y: 446.55472, z: -128.69846}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 8771747928024111067}
-  m_RootOrder: 2
+  m_Father: {fileID: 8771747928817789519}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8771747928399019955
 MonoBehaviour:
@@ -180,7 +179,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 686.95245, y: 446.55472, z: -128.69846}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 8771747928399019956}
   m_Father: {fileID: 8771747928024111067}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -199,7 +199,7 @@ MonoBehaviour:
   agents: {fileID: 1597588315868552422}
   playerInput: {fileID: 0}
   craftingSubSystem: {fileID: 8771747928817789518}
-  shopSubSystem: {fileID: 8771747928399019955}
+  shopSubSubSystem: {fileID: 8771747928399019955}
 --- !u!114 &8771747928817789518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,10 +230,19 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8771747928024111067}
     m_Modifications:
+    - target: {fileID: 1089776315, guid: 3c797386b92562740896eda4336a2bb2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1128639609, guid: 3c797386b92562740896eda4336a2bb2, type: 3}
       propertyPath: agents
       value: 
       objectReference: {fileID: 8771747928399019957}
+    - target: {fileID: 4076455654097727618, guid: 3c797386b92562740896eda4336a2bb2,
+        type: 3}
+      propertyPath: craftingRequestRecord
+      value: 
+      objectReference: {fileID: 8771747929458667462}
     - target: {fileID: 4076455654097727619, guid: 3c797386b92562740896eda4336a2bb2,
         type: 3}
       propertyPath: m_Name
@@ -277,7 +286,7 @@ PrefabInstance:
     - target: {fileID: 4076455654097727645, guid: 3c797386b92562740896eda4336a2bb2,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4076455654097727645, guid: 3c797386b92562740896eda4336a2bb2,
         type: 3}
@@ -302,6 +311,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4695557408154869594}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8771747929458667462 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4076455654097727644, guid: 3c797386b92562740896eda4336a2bb2,
+    type: 3}
+  m_PrefabInstance: {fileID: 4695557408154869594}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cea5ebd6791c154a9b9540143ff4a09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4695557409182315299 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1128639609, guid: 3c797386b92562740896eda4336a2bb2,
@@ -364,7 +385,7 @@ PrefabInstance:
     - target: {fileID: 6935161826844880657, guid: ae793167431df2142ba141be495088e7,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6935161826844880657, guid: ae793167431df2142ba141be495088e7,
         type: 3}

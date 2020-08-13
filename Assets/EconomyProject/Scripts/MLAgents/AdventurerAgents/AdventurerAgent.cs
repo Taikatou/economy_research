@@ -1,5 +1,6 @@
 ﻿using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.GameEconomy.Systems;
+using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.Inventory;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
@@ -22,6 +23,8 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         public GameAuction gameAuction;
 
         public PlayerInput playerInput;
+
+        public RequestTaker requestTaker; 
 
         public override AgentScreen ChosenScreen => playerInput.GetScreen(this, AgentScreen.Main);
 

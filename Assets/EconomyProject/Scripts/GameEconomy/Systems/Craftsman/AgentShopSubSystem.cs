@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using EconomyProject.Scripts.Inventory;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Shop;
@@ -8,7 +7,7 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 {
-    public class AgentShopSystem : LastUpdate
+    public class AgentShopSubSystem : LastUpdate
     {
         public List<BaseItemPrices> basePrices;
         private Dictionary<ShopAgent, AgentShop> _shopSystems;
@@ -20,14 +19,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         private AgentShop GetShop(ShopAgent shopAgent)
         {
-            var items = new List<UsableItem>();
-            var prices = new List<int>();
-            foreach (var item in basePrices)
-            {
-                items.Add(item.item);
-                prices.Add(item.price);
-            }
-            
             if (!_shopSystems.ContainsKey(shopAgent))
             {
                 _shopSystems.Add(shopAgent, new AgentShop(basePrices));
@@ -39,7 +30,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         private List<UsableItem> GetItems(ShopAgent shopAgent)
         {
             var itemList = new List<UsableItem>();
-            foreach (var item in shopAgent.AgentInventory.Items)
+            foreach (var item in shopAgent.agentInventory.Items)
             {
                 itemList.Add(item.Value[0]);
             }
@@ -64,7 +55,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         {
             var shop = GetShop(agent);
             shop.SubmitToShop(item);
-            agent.AgentInventory.RemoveItem(item);
+            agent.agentInventory.RemoveItem(item);
             
             Refresh();
         }

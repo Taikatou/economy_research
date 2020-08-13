@@ -15,7 +15,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             RequestDecisions();
         }
 
-        public void MakeChoice(AdventurerAgent agent, ResourceRequest request)
+        public void MakeChoice(AdventurerAgent agent, CraftingResourceRequest request)
         {
             var requestTaker = agent.GetComponent<RequestTaker>();
             requestTaker.TakeRequest(request);
