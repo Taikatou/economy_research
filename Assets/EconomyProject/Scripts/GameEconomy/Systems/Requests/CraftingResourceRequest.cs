@@ -13,9 +13,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         public int Price { get; set; }
         public int Reward => GetReward(Price);
 
-        public int GetReward(int price)
+        public int GetReward(int newPrice)
         {
-            return Number * Price;
+            return Number * newPrice;
         }
 
         private static readonly Dictionary<CraftingResources, int> _defaultPrice = new Dictionary<CraftingResources, int> {

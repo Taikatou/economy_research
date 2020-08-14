@@ -1,11 +1,12 @@
 ﻿using System;
 using EconomyProject.Scripts.MLAgents.Shop;
+using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {
     public class MainShopSystem : EconomySystem<ShopAgent, EShopScreen>
     {
-        enum MainChoices { Main = EShopScreen.Main, Craft = EShopScreen.Craft, Request = EShopScreen.Request }
+        enum MainChoices { Craft = EShopScreen.Craft, Request = EShopScreen.Request }
         protected override EShopScreen ActionChoice => EShopScreen.Main;
         
         public override bool CanMove(ShopAgent agent)
@@ -20,6 +21,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                 var i = (MainChoices) input;
             
                 ShopInput.ChangeScreen(agent, (EShopScreen) i);    
+            }
+            else if(input >= 0)
+            {
+                Debug.Log(input);
             }
         }
         

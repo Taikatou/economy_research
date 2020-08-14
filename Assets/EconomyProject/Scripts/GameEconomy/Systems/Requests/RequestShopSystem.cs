@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
-    public enum RequestActions { Quit=CraftingResources.DragonScale, SetInput, RemoveRequest, IncreasePrice,  DecreasePrice}
+    public enum RequestActions { Quit=CraftingResources.DragonScale+1, SetInput, RemoveRequest, IncreasePrice,  DecreasePrice}
     public class RequestShopSystem : StateEconomySystem<RequestActions, ShopAgent, EShopScreen>
     {
         public RequestSystem requestSystem;
@@ -42,8 +42,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
         protected override void MakeChoice(ShopAgent agent, int input)
         {
-            var craftingResources = CraftingUtils.CraftingResources.ToList()[input];
-            MakeChoice(agent, craftingResources);
+            var resources = CraftingUtils.CraftingResources.ToList();
+            if (input < resources.Count)
+            {
+                var craftingResources = resources[input];
+                MakeChoice(agent, craftingResources);   
+            }
         }
 
         public void MakeChoice(ShopAgent agent, CraftingResources craftingResources)
@@ -71,7 +75,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         
         private void Update()
         {
-            Debug.Log(CurrentPlayers.Length);
             RequestDecisions();
         }
     }

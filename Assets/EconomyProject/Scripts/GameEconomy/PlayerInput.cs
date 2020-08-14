@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using EconomyProject.Scripts.GameEconomy.Systems;
+using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using UnityEngine;
 
@@ -15,6 +16,8 @@ namespace EconomyProject.Scripts.GameEconomy
 
         public AdventurerShopSystem adventurerShopSystem;
 
+        public RequestAdventurerSystem requestSystem;
+
         protected override EconomySystem<AdventurerAgent, AgentScreen> GetEconomySystem(AdventurerAgent agent)
         {
             switch (GetScreen(agent, AgentScreen.Main))
@@ -27,6 +30,8 @@ namespace EconomyProject.Scripts.GameEconomy
                     return gameAuction;
                 case AgentScreen.Shop:
                     return adventurerShopSystem;
+                case AgentScreen.Request:
+                    return requestSystem;
             }
             return null;
         }

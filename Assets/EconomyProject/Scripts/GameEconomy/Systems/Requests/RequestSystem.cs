@@ -13,6 +13,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         public CraftingRequestRecord craftingRequestRecord;
 
         private Dictionary<CraftingInventory, Dictionary<CraftingResources, CraftingResourceRequest>> _craftingNumber;
+        private Dictionary<CraftingResourceRequest, EconomyWallet> _requestWallets;
 
         public Dictionary<CraftingResources, CraftingResourceRequest> GetCraftingRequests(CraftingInventory inventory)
         {
@@ -64,6 +65,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         private void Start()
         {
             _craftingNumber = new Dictionary<CraftingInventory, Dictionary<CraftingResources, CraftingResourceRequest>>();
+            _requestWallets = new Dictionary<CraftingResourceRequest, EconomyWallet>();
             Refresh();
         }
         
@@ -95,7 +97,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                 if (!containsKey)
                 {
                     var newResource = new CraftingResourceRequest(resources, inventory);
-
+                    _requestWallets.Add(newResource, wallet);
                     CheckExchange(newResource);
                 }
                 else
@@ -127,7 +129,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                     var newReward = craftingInventory[resources].GetReward(newPrice);
 
                     var rewardDifference = newReward - craftingInventory[resources].Reward;
-
                     var validTransaction = false;
                     if (rewardDifference > 0)
                     {
@@ -146,7 +147,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                     if (validTransaction)
                     {
                         craftingInventory[resources].Price = newPrice;
-                        Debug.Log("price change");   
                     }
                 }
             }
@@ -155,9 +155,18 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
         public void RemoveRequest(CraftingResources resource, CraftingInventory inventory)
         {
-            _craftingNumber[inventory].Remove(resource);
-
-            Refresh();
+            if (_craftingNumber.ContainsKey(inventory))
+            {
+                if (_craftingNumber[inventory].ContainsKey(resource))
+                {
+                    var request = _craftingNumber[inventory][resource];
+                    _requestWallets[request].EarnMoney(request.Reward);
+                    _craftingNumber[inventory].Remove(resource);
+                    _requestWallets.Remove(request);
+            
+                    Refresh();
+                }
+            }
         }
 
         public void TakeRequest(RequestTaker requestTaker, CraftingResourceRequest takeRequest)
