@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace TurnBased
+namespace TurnBased.Scripts
 {
 	public class BattleHud : MonoBehaviour
 	{

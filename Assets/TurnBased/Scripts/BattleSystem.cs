@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TurnBased
+namespace TurnBased.Scripts
 {
 	public enum BattleState { Start, PlayerTurn, EnemyTurn, Won, Lost }
 

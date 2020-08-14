@@ -320,11 +320,13 @@
           </e>
         </e>
         <e p="TurnBased" t="Include">
-          <e p="BattleHUD.cs" t="Include" />
-          <e p="BattleSystem.cs" t="Include" />
-          <e p="FighterUnit.cs" t="Include" />
           <e p="Scenes" t="Include">
             <e p="csc.rsp" t="Include" />
+          </e>
+          <e p="Scripts" t="Include">
+            <e p="BattleHUD.cs" t="Include" />
+            <e p="BattleSystem.cs" t="Include" />
+            <e p="FighterUnit.cs" t="Include" />
           </e>
         </e>
       </e>
