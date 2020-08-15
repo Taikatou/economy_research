@@ -24,6 +24,7 @@
               <e p="ShopInput.cs" t="Include" />
               <e p="Systems" t="Include">
                 <e p="AdventurerShopSystem.cs" t="Include" />
+                <e p="AdventurerSystem.cs" t="Include" />
                 <e p="Craftsman" t="Include">
                   <e p="AgentShop.cs" t="Include" />
                   <e p="AgentShopSubSystem.cs" t="Include" />
@@ -324,9 +325,15 @@
             <e p="csc.rsp" t="Include" />
           </e>
           <e p="Scripts" t="Include">
+            <e p="BattleActivator.cs" t="Include" />
             <e p="BattleHUD.cs" t="Include" />
-            <e p="BattleSystem.cs" t="Include" />
+            <e p="BattleSubSystem.cs" t="Include" />
             <e p="FighterUnit.cs" t="Include" />
+            <e p="UI" t="Include">
+              <e p="BattleUi.cs" t="Include" />
+              <e p="CharacterUi.cs" t="Include" />
+              <e p="CombatButtonsUi.cs" t="Include" />
+            </e>
           </e>
         </e>
       </e>

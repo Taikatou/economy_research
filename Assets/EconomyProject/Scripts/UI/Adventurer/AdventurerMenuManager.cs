@@ -1,22 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.UI.Adventurer
 {
+    [Serializable]
+    public struct MenuGameObject
+    {
+        public GameObject menu;
+        public AgentScreen screen;
+    }
 
     public class AdventurerMenuManager : BaseMenuManager<AgentScreen>
     {
-        public GameObject auctionMenu;
-
-        public GameObject questMenu;
-
-        public GameObject mainMenu;
-
-        public GameObject shopMenu;
-        
-        public GameObject requestMenu;
+        public List<MenuGameObject> menuGameObjects;
 
         public GetCurrentAdventurerAgent getCurrentAgent;
 
@@ -26,14 +25,26 @@ namespace EconomyProject.Scripts.UI.Adventurer
 
         private PlayerInput PlayerInput => uiAccessor.PlayerInput;
 
-        protected override Dictionary<AgentScreen, OpenedMenu> OpenedMenus => new Dictionary<AgentScreen, OpenedMenu>
+        private Dictionary<AgentScreen, OpenedMenu> _openedMenus;
+
+        protected override Dictionary<AgentScreen, OpenedMenu> OpenedMenus => _openedMenus;
+
+        private void Start()
         {
-            { AgentScreen.Auction, new OpenedMenu(new List<GameObject>{auctionMenu}, new List<GameObject>{questMenu, mainMenu, shopMenu, requestMenu}) },
-            { AgentScreen.Main, new OpenedMenu(new List<GameObject>{mainMenu}, new List<GameObject>{questMenu, auctionMenu, shopMenu, requestMenu}) },
-            { AgentScreen.Quest, new OpenedMenu(new List<GameObject>{questMenu}, new List<GameObject>{mainMenu, auctionMenu, shopMenu, requestMenu}) },
-            { AgentScreen.Shop, new OpenedMenu(new List<GameObject>{shopMenu}, new List<GameObject>{mainMenu, auctionMenu, questMenu, requestMenu}) },
-            { AgentScreen.Request, new OpenedMenu(new List<GameObject>{requestMenu}, new List<GameObject>{shopMenu, mainMenu, auctionMenu, questMenu}) }
-        };
+            _openedMenus = new Dictionary<AgentScreen, OpenedMenu>();
+            foreach(var menu in menuGameObjects)
+            {
+                var closedMenus = new List<GameObject>();
+                foreach (var menu2 in menuGameObjects)
+                {
+                    if (menu2.menu != menu.menu)
+                    {
+                        closedMenus.Add(menu2.menu);
+                    }
+                }
+                _openedMenus.Add(menu.screen, new OpenedMenu(new List<GameObject>{menu.menu}, closedMenus));
+            }
+        }
 
         protected override bool Compare(AgentScreen a, AgentScreen b)
         {
@@ -74,6 +85,11 @@ namespace EconomyProject.Scripts.UI.Adventurer
         public void RequestMenu()
         {
             PlayerInput.ChangeScreen(AdventurerAgent, AgentScreen.Request);
+        }
+
+        public void BattleMenu()
+        {
+            PlayerInput.ChangeScreen(AdventurerAgent, AgentScreen.Battle);
         }
 
         public void Bid()

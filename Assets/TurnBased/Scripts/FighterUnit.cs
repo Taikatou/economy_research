@@ -2,31 +2,56 @@
 
 namespace TurnBased.Scripts
 {
-	public class FighterUnit : MonoBehaviour
+	[CreateAssetMenu]
+	public class FighterUnit : ScriptableObject
 	{
 		public string unitName;
-		public int unitLevel;
-
+		public int maxHp;
 		public int damage;
 
-		public int maxHp;
-		public int currentHp;
+		public Sprite sprite;
+		public int CurrentHp { get; private set; }
+
+		public void Awake()
+		{
+			ResetHp();
+		}
 
 		public bool TakeDamage(int dmg)
 		{
-			currentHp -= dmg;
+			CurrentHp -= dmg;
 
-			return currentHp <= 0;
+			return CurrentHp <= 0;
 		}
 
 		public void Heal(int amount)
 		{
-			currentHp += amount;
-			if (currentHp > maxHp)
+			CurrentHp += amount;
+			if (CurrentHp > maxHp)
 			{
-				currentHp = maxHp;	
+				CurrentHp = maxHp;	
 			}
 		}
 
+		private void Init(FighterUnit fighterUnit)
+		{
+			unitName = fighterUnit.unitName;
+			maxHp = fighterUnit.maxHp;
+			sprite = fighterUnit.sprite;
+			
+			ResetHp();
+		}
+
+		private void ResetHp()
+		{
+			CurrentHp = maxHp;
+		}
+
+		public static FighterUnit GenerateItem(FighterUnit selectedItem)
+		{
+			var generatedItem = CreateInstance<FighterUnit>();
+			generatedItem.Init(selectedItem);
+			return generatedItem;
+		}
 	}
 }
