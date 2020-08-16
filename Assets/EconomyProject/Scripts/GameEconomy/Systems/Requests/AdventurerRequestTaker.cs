@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {

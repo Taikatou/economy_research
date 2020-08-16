@@ -90,7 +90,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         {
             var item = agent.adventurerInventory.EquipedItem;
             
-            var questSuccess = Random.value < (item.itemDetails.efficiency / 100);
+            var questSuccess = Random.value < (item.itemDetails.damage / 100);
             if(questSuccess)
             {
                 var money = GenerateItem(item) / 2;

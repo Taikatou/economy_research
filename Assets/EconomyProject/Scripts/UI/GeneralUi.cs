@@ -51,7 +51,7 @@ namespace EconomyProject.Scripts.UI
 
                     currentItemText.text = "CURRENT ITEM: " + item.itemDetails.itemName;
 
-                    efficiencyText.text = "EFFICIENCY: " + item.itemDetails.efficiency;
+                    efficiencyText.text = "EFFICIENCY: " + item.itemDetails.damage;
                 }
             }
         }

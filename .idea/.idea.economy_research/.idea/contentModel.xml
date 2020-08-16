@@ -71,6 +71,7 @@
             <e p="MLAgents" t="Include">
               <e p="AdventurerAgents" t="Include">
                 <e p="AdventurerAgent.cs" t="Include" />
+                <e p="AdventurerFighterData.cs" t="Include" />
                 <e p="AdventurerSpawner.cs" t="Include" />
                 <e p="EconomyPredictorAgent.cs" t="Include" />
                 <e p="EconomyWallet.cs" t="Include" />

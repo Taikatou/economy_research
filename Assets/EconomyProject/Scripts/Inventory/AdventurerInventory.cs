@@ -19,8 +19,8 @@ namespace EconomyProject.Scripts.Inventory
                 {
                     if (Items.Count > 0)
                     {
-                        var max = Items.Max(x => x.Value[0].itemDetails.efficiency);
-                        var maxWeapon = Items.First(x => Math.Abs(x.Value[0].itemDetails.efficiency - max) < 0.01);
+                        var max = Items.Max(x => x.Value[0].itemDetails.damage);
+                        var maxWeapon = Items.First(x => Math.Abs(x.Value[0].itemDetails.damage - max) < 0.01);
                         return maxWeapon.Value[0];
                     }
                     else

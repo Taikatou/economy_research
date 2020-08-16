@@ -25,7 +25,7 @@ namespace EconomyProject.Scripts.MLAgents.Craftsman
             return 0;
         }
 
-            public void AddResource(CraftingResources resource, int count)
+        public void AddResource(CraftingResources resource, int count)
         {
             var hasResource = _numResources.ContainsKey(resource);
             if (!hasResource)

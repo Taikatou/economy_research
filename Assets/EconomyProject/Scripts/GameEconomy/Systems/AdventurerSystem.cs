@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+using EconomyProject.Scripts.MLAgents.Craftsman;
 using TurnBased.Scripts;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
@@ -9,8 +10,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
     public class AdventurerSystem : StateEconomySystem<AdventureStates, AdventurerAgent, AgentScreen>
     {
         public PlayerInput playerInput;
-        public FighterUnit playerUnit;
-
         public TravelSubSystem travelSubsystem;
 
         public Dictionary<AdventurerAgent, BattleSubSystem> battleSystems;
@@ -49,10 +48,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                 battleSystems.Remove(agent);
             }
 
-            var newPlayer = FighterUnit.GenerateItem(playerUnit);
+            var playerData = agent.GetComponent<AdventurerFighterData>().FighterData;
             var newEnemy = FighterUnit.GenerateItem(enemyFighter);
             
-            var newSystem = new BattleSubSystem(newPlayer.data, newEnemy.data);
+            var newSystem = new BattleSubSystem(playerData, newEnemy.data, newEnemy.fighterDropTable);
             battleSystems.Add(agent, newSystem);
             
             SetInputMode(agent, AdventureStates.InBattle);
@@ -76,13 +75,29 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                         
                         break;
                     case AdventureStates.InBattle:
-                        var battleSystem = battleSystems[player];
-                        if (battleSystem.GameOver())
-                        {
-                            SetInputMode(player, AdventureStates.OutOfBattle);
-                        }
+                        CheckInBattle(player);
                         break;
                 }
+            }
+        }
+
+        private void CheckInBattle(AdventurerAgent agent)
+        {
+            var battleSystem = battleSystems[agent];
+            if (battleSystem.GameOver())
+            {
+                switch (battleSystem.CurrentState)
+                {
+                    case BattleState.Lost:
+                        break;
+                    case BattleState.Won:
+                        var craftingDrop = battleSystem.GetCraftingDropItem();
+                        var craftingInventory = agent.GetComponent<CraftingInventory>();
+                        
+                        craftingInventory.AddResource(craftingDrop.Resource, craftingDrop.Count);
+                        break;
+                }
+                SetInputMode(agent, AdventureStates.OutOfBattle);
             }
         }
 

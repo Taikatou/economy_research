@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agents: {fileID: 0}
-  playerInput: {fileID: 0}
 --- !u!1 &8771747927877783290
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,7 +88,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agents: {fileID: 1597588315868552422}
-  playerInput: {fileID: 0}
 --- !u!1 &8771747928024111069
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,7 +240,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agents: {fileID: 1597588315868552422}
-  playerInput: {fileID: 0}
   craftingSubSystem: {fileID: 8771747928817789518}
   shopSubSubSystem: {fileID: 8771747928399019955}
 --- !u!114 &8771747928817789518
@@ -391,6 +388,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CraftsmanAgents
+      objectReference: {fileID: 0}
+    - target: {fileID: 6935161826844880656, guid: ae793167431df2142ba141be495088e7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6935161826844880657, guid: ae793167431df2142ba141be495088e7,
         type: 3}

@@ -10,13 +10,13 @@ namespace EconomyProject.Scripts.Inventory
         
         public int baseDurability;
         
-        public float efficiency;
+        public int damage;
 
         public UsableItemDetails(UsableItemDetails itemDetails)
         {
             itemName = itemDetails.itemName;
             baseDurability = itemDetails.baseDurability;
-            efficiency = itemDetails.efficiency;
+            damage = itemDetails.damage;
         }
 
         public int numLootSpawns => 0;
@@ -32,7 +32,7 @@ namespace EconomyProject.Scripts.Inventory
 
         public UsableItemDetails itemDetails;
         public bool Broken => !unBreakable && durability <= 0;
-        
+
         public Guid UniqueId { get; private set; }
 
         private void OnEnable()

@@ -15,16 +15,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         private Dictionary<CraftingInventory, Dictionary<CraftingResources, CraftingResourceRequest>> _craftingNumber;
         private Dictionary<CraftingResourceRequest, EconomyWallet> _requestWallets;
 
-        public Dictionary<CraftingResources, CraftingResourceRequest> GetCraftingRequests(CraftingInventory inventory)
-        {
-            if (_craftingNumber.ContainsKey(inventory))
-            {
-                return _craftingNumber[inventory];
-            }
-
-            return new Dictionary<CraftingResources, CraftingResourceRequest>();
-        }
-
         public List<CraftingResourceRequest> GetAllCraftingRequests()
         {
             var returnList = new List<CraftingResourceRequest>();

@@ -23,7 +23,7 @@ namespace EconomyProject.Scripts.UI
             {
                 slider.value = Progress;
                 itemText.text = "Name: " + GameAuction.auctionedItem.itemDetails.itemName +
-                                " efficiency" + GameAuction.auctionedItem.itemDetails.efficiency +
+                                " efficiency" + GameAuction.auctionedItem.itemDetails.damage +
                                 " Bid price: " + GameAuction.currentItemPrice;
             }
             else

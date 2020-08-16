@@ -60,6 +60,7 @@ namespace TurnBased.Scripts
 		private void Init(FighterUnit fighterUnit)
 		{
 			data = new FighterData(fighterUnit.data);
+			fighterDropTable = fighterUnit.fighterDropTable;
 			fighterDropTable.ValidateTable();
 		}
 

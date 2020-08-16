@@ -1,4 +1,7 @@
-﻿namespace TurnBased.Scripts
+﻿using System.Collections.Generic;
+using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
+
+namespace TurnBased.Scripts
 {
 	public enum BattleState { Start, PlayerTurn, EnemyTurn, Won, Lost }
 
@@ -7,9 +10,9 @@
 		public BattleState CurrentState { get; private set; }
 		public FighterData PlayerFighterUnit { get; }
 		public FighterData EnemyFighterUnit { get; }
-
+		private readonly FighterDropTable _fighterDropTable;
 		public string DialogueText { get; private set; }
-		public BattleSubSystem(FighterData playerUnit, FighterData enemyUnit)
+		public BattleSubSystem(FighterData playerUnit, FighterData enemyUnit, FighterDropTable fighterDropTable)
 		{
 			CurrentState = BattleState.Start;
 			PlayerFighterUnit = playerUnit;
@@ -17,6 +20,8 @@
 
 			CurrentState = BattleState.PlayerTurn;
 			PlayerTurn();
+
+			_fighterDropTable = fighterDropTable;
 		}
 
 		public bool GameOver()
@@ -99,6 +104,11 @@
 				return;
 
 			PlayerHeal();
+		}
+
+		public CraftingDropReturn GetCraftingDropItem()
+		{
+			return _fighterDropTable.GenerateItems();
 		}
 	}
 }
