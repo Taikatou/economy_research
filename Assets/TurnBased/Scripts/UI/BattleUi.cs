@@ -24,7 +24,7 @@ namespace TurnBased.Scripts.UI
         
         private BattleSubSystem _cachedSubSystem;
         
-        public void SetupBattle(FighterData playerUnit, FighterData enemyUnit)
+        public void SetupBattle(BaseFighterData playerUnit, BaseFighterData enemyUnit)
         {
             var playerGo = Instantiate(characterPrefab, playerBattleStation);
             var playerCharacterUi = playerGo.GetComponent<CharacterUi>();
@@ -34,7 +34,7 @@ namespace TurnBased.Scripts.UI
             var enemyCharacterUi = enemyGo.GetComponent<CharacterUi>();
             enemyCharacterUi.UpdateCharacter(enemyUnit);
             
-            dialogueText.text = "A wild " + enemyUnit.unitName + " approaches...";
+            dialogueText.text = "A wild " + enemyUnit.UnitName + " approaches...";
 
             playerHud.SetHud(playerUnit);
             enemyHud.SetHud(enemyUnit);

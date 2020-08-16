@@ -6,54 +6,48 @@ namespace EconomyProject.Scripts.Inventory
     [Serializable]
     public struct UsableItemDetails
     {
+        public bool unBreakable;
+        
         public string itemName;
         
         public int baseDurability;
         
         public int damage;
+        
+        [HideInInspector]
+        public int durability;
+        
+        public bool Broken => !unBreakable && durability <= 0;
 
         public UsableItemDetails(UsableItemDetails itemDetails)
         {
             itemName = itemDetails.itemName;
             baseDurability = itemDetails.baseDurability;
             damage = itemDetails.damage;
+            durability = itemDetails.durability;
+            unBreakable = itemDetails.unBreakable;
         }
-
-        public int numLootSpawns => 0;
-    }
-    
-    [CreateAssetMenu]
-    public class UsableItem : ScriptableObject
-    {
-        [HideInInspector]
-        public int durability;
-
-        public bool unBreakable;
-
-        public UsableItemDetails itemDetails;
-        public bool Broken => !unBreakable && durability <= 0;
-
-        public Guid UniqueId { get; private set; }
-
-        private void OnEnable()
-        {
-            durability = itemDetails.baseDurability;
-        }
-
-        public void Init(UsableItem item)
-        {
-            UniqueId = Guid.NewGuid();
-            unBreakable = item.unBreakable;
-            durability = item.durability;
-            itemDetails = new UsableItemDetails(item.itemDetails);
-        }
-
+        
         public void DecreaseDurability()
         {
             if(!unBreakable)
             {
                 durability--;
             }
+        }
+    }
+    
+    [CreateAssetMenu]
+    public class UsableItem : ScriptableObject
+    {
+        public UsableItemDetails itemDetails;
+
+        public Guid UniqueId { get; private set; }
+
+        public void Init(UsableItem item)
+        {
+            UniqueId = Guid.NewGuid();
+            itemDetails = new UsableItemDetails(item.itemDetails);
         }
 
         public static UsableItem GenerateItem(UsableItem selectedItem)

@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: Rock
   m_EditorClassIdentifier: 
   data:
-    unitName: Rock
-    maxHp: 10
+    MaxHp: 10
     damage: 5
-    sprite: {fileID: 21300000, guid: 3f3a5ea5ace79004eba15d892dcc01a3, type: 3}
   fighterDropTable:
     lootDropItems:
     - item:

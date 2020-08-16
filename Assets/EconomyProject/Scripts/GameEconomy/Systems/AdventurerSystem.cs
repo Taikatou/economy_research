@@ -49,9 +49,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             }
 
             var playerData = agent.GetComponent<AdventurerFighterData>().FighterData;
-            var newEnemy = FighterUnit.GenerateItem(enemyFighter);
+            var enemyData = new FighterData(enemyFighter.data);
             
-            var newSystem = new BattleSubSystem(playerData, newEnemy.data, newEnemy.fighterDropTable);
+            var newSystem = new BattleSubSystem(playerData, enemyData, enemyFighter.fighterDropTable);
             battleSystems.Add(agent, newSystem);
             
             SetInputMode(agent, AdventureStates.InBattle);

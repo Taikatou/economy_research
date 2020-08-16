@@ -6,9 +6,9 @@ namespace TurnBased.Scripts.UI
     {
         public SpriteRenderer spriteRenderer;
 
-        public void UpdateCharacter(FighterData fighterUnit)
+        public void UpdateCharacter(BaseFighterData fighterUnit)
         {
-            spriteRenderer.sprite = fighterUnit.sprite;
+            spriteRenderer.sprite = fighterUnit.Sprite;
         }
     }
 }

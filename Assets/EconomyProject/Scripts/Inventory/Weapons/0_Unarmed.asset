@@ -17,4 +17,4 @@ MonoBehaviour:
   itemDetails:
     itemName: Unarmed
     baseDurability: 0
-    efficiency: 10
+    damage: 5

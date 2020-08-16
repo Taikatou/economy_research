@@ -108,7 +108,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             var totalPrice = 0.0f;
 
             var r = new System.Random();
-            var numSpawns = r.Next(1, attackWeapon.itemDetails.numLootSpawns);
+            var numSpawns = r.Next(1, 1);
             for (var i = 0; i < numSpawns && (multipleLootDrops || i==0); i++)
             {
                 var selectedItem = lootDropTable.PickLootDropItem();

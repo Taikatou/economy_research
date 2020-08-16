@@ -10,14 +10,14 @@ namespace TurnBased.Scripts
 		public Text levelText;
 		public Slider hpSlider;
 
-		private FighterData _fighterUnit;
+		private BaseFighterData _fighterUnit;
 
-		public void SetHud(FighterData fighterUnit)
+		public void SetHud(BaseFighterData fighterUnit)
 		{
 			_fighterUnit = fighterUnit;
-			nameText.text = fighterUnit.unitName;
+			nameText.text = fighterUnit.UnitName;
 			levelText.text = "Lvl ?";
-			hpSlider.maxValue = fighterUnit.maxHp;
+			hpSlider.maxValue = fighterUnit.MaxHp;
 			hpSlider.value = fighterUnit.CurrentHp;
 		}
 

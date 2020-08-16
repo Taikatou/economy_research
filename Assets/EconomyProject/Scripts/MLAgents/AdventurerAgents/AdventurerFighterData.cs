@@ -6,13 +6,12 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 {
     public class AdventurerFighterData : MonoBehaviour
     {
-        public FighterData FighterData =>
-            new FighterData
+        public BaseFighterData FighterData =>
+            new PlayerFighterData
                 (sprite,
                 "Player",
                 hp,
-                hp,
-                adventurerInventory.EquipedItem.itemDetails.damage);
+                adventurerInventory);
 
         public AdventurerInventory adventurerInventory;
 

@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startInventory:
-  - {fileID: 11400000, guid: 91bd7ff49920f4841b311f0aad3678e3, type: 2}
+  - {fileID: 11400000, guid: ff61c0520e17b43429b1c5e7c3cd505d, type: 2}
 --- !u!114 &2072330097273742403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,6 +176,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2ff084ce61324a4f9b84839d0b10828, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adventurerInventory: {fileID: 0}
+  adventurerInventory: {fileID: 4250931923004593224}
   hp: 20
   sprite: {fileID: 21300000, guid: eadcbc87c8ef09a41ae6012707b3d60c, type: 3}

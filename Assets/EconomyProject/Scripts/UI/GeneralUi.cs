@@ -47,7 +47,7 @@ namespace EconomyProject.Scripts.UI
                 var item = AdventurerAgent.adventurerInventory.EquipedItem;
                 if(item)
                 {
-                    durabilityText.text = "DURABILITY: " + (item.unBreakable? "∞" : item.durability.ToString());
+                    durabilityText.text = "DURABILITY: " + (item.itemDetails.unBreakable? "∞" : item.itemDetails.durability.ToString());
 
                     currentItemText.text = "CURRENT ITEM: " + item.itemDetails.itemName;
 

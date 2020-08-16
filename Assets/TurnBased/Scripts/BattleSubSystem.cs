@@ -8,11 +8,11 @@ namespace TurnBased.Scripts
 	public class BattleSubSystem
 	{
 		public BattleState CurrentState { get; private set; }
-		public FighterData PlayerFighterUnit { get; }
-		public FighterData EnemyFighterUnit { get; }
+		public BaseFighterData PlayerFighterUnit { get; }
+		public BaseFighterData EnemyFighterUnit { get; }
 		private readonly FighterDropTable _fighterDropTable;
 		public string DialogueText { get; private set; }
-		public BattleSubSystem(FighterData playerUnit, FighterData enemyUnit, FighterDropTable fighterDropTable)
+		public BattleSubSystem(BaseFighterData playerUnit, BaseFighterData enemyUnit, FighterDropTable fighterDropTable)
 		{
 			CurrentState = BattleState.Start;
 			PlayerFighterUnit = playerUnit;
@@ -31,7 +31,8 @@ namespace TurnBased.Scripts
 
 		private void PlayerAttack()
 		{
-			var isDead = EnemyFighterUnit.TakeDamage(PlayerFighterUnit.damage);
+			var isDead = EnemyFighterUnit.TakeDamage(PlayerFighterUnit.Damage);
+			PlayerFighterUnit.AfterAttack();
 			
 			DialogueText = "The attack is successful!";
 
@@ -48,9 +49,9 @@ namespace TurnBased.Scripts
 
 		private void EnemyTurn()
 		{
-			DialogueText = EnemyFighterUnit.unitName + " attacks!";
+			DialogueText = EnemyFighterUnit.UnitName + " attacks!";
 
-			var isDead = PlayerFighterUnit.TakeDamage(EnemyFighterUnit.damage);
+			var isDead = PlayerFighterUnit.TakeDamage(EnemyFighterUnit.Damage);
 
 			if(isDead)
 			{

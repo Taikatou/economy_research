@@ -54,8 +54,8 @@ namespace EconomyProject.Scripts.Inventory
         {
             if (Items.ContainsKey(item.ToString()))
             {
-                item.DecreaseDurability();
-                if (item.Broken)
+                item.itemDetails.DecreaseDurability();
+                if (item.itemDetails.Broken)
                 {
                     DestroyItem(item);
                 }
