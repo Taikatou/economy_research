@@ -52,7 +52,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             var newPlayer = FighterUnit.GenerateItem(playerUnit);
             var newEnemy = FighterUnit.GenerateItem(enemyFighter);
             
-            var newSystem = new BattleSubSystem(newPlayer, newEnemy);
+            var newSystem = new BattleSubSystem(newPlayer.data, newEnemy.data);
             battleSystems.Add(agent, newSystem);
             
             SetInputMode(agent, AdventureStates.InBattle);

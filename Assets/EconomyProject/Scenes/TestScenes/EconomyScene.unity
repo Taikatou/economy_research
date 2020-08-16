@@ -167,6 +167,19 @@ MonoBehaviour:
         probabilityRangeFrom: 0
         probabilityRangeTo: 0
     environment: 0
+  - lootBox:
+      lootDropItems:
+      - item: {fileID: 11400000, guid: 76906e398f799eb48bc12c41a9722636, type: 2}
+        probabilityWeight: 1
+        probabilityPercent: 50
+        probabilityRangeFrom: 0
+        probabilityRangeTo: 0
+      - item: {fileID: 11400000, guid: 76906e398f799eb48bc12c41a9722636, type: 2}
+        probabilityWeight: 1
+        probabilityPercent: 50
+        probabilityRangeFrom: 0
+        probabilityRangeTo: 0
+    environment: 1
 --- !u!1 &173319107
 GameObject:
   m_ObjectHideFlags: 0

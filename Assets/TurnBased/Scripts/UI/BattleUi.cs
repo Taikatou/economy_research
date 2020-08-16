@@ -24,7 +24,7 @@ namespace TurnBased.Scripts.UI
         
         private BattleSubSystem _cachedSubSystem;
         
-        public void SetupBattle(FighterUnit playerUnit, FighterUnit enemyUnit)
+        public void SetupBattle(FighterData playerUnit, FighterData enemyUnit)
         {
             var playerGo = Instantiate(characterPrefab, playerBattleStation);
             var playerCharacterUi = playerGo.GetComponent<CharacterUi>();

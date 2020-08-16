@@ -334,6 +334,7 @@
             <e p="BattleActivator.cs" t="Include" />
             <e p="BattleHUD.cs" t="Include" />
             <e p="BattleSubSystem.cs" t="Include" />
+            <e p="FighterDropTable.cs" t="Include" />
             <e p="FighterUnit.cs" t="Include" />
             <e p="UI" t="Include">
               <e p="BattleUi.cs" t="Include" />

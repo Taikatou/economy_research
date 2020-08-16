@@ -10,9 +10,9 @@ namespace TurnBased.Scripts
 		public Text levelText;
 		public Slider hpSlider;
 
-		private FighterUnit _fighterUnit;
+		private FighterData _fighterUnit;
 
-		public void SetHud(FighterUnit fighterUnit)
+		public void SetHud(FighterData fighterUnit)
 		{
 			_fighterUnit = fighterUnit;
 			nameText.text = fighterUnit.unitName;
@@ -23,9 +23,9 @@ namespace TurnBased.Scripts
 
 		private void Update()
 		{
-			if (_fighterUnit)
+			if (_fighterUnit != null)
 			{
-				hpSlider.value = _fighterUnit.CurrentHp;
+				hpSlider.value = _fighterUnit.CurrentHp;	
 			}
 		}
 	}

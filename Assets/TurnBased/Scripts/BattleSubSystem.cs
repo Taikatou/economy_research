@@ -5,11 +5,11 @@
 	public class BattleSubSystem
 	{
 		public BattleState CurrentState { get; private set; }
-		public FighterUnit PlayerFighterUnit { get; private set; }
-		public FighterUnit EnemyFighterUnit { get; private set; }
+		public FighterData PlayerFighterUnit { get; }
+		public FighterData EnemyFighterUnit { get; }
 
 		public string DialogueText { get; private set; }
-		public BattleSubSystem(FighterUnit playerUnit, FighterUnit enemyUnit)
+		public BattleSubSystem(FighterData playerUnit, FighterData enemyUnit)
 		{
 			CurrentState = BattleState.Start;
 			PlayerFighterUnit = playerUnit;
@@ -43,19 +43,19 @@
 
 		private void EnemyTurn()
 		{
-			/*DialogueText = EnemyFighterUnit.unitName + " attacks!";
+			DialogueText = EnemyFighterUnit.unitName + " attacks!";
 
 			var isDead = PlayerFighterUnit.TakeDamage(EnemyFighterUnit.damage);
 
 			if(isDead)
 			{
-				_currentState = BattleState.Lost;
+				CurrentState = BattleState.Lost;
 				EndBattle();
 			} else
 			{
-				_currentState = BattleState.PlayerTurn;
+				CurrentState = BattleState.PlayerTurn;
 				PlayerTurn();
-			}*/
+			}
 			CurrentState = BattleState.PlayerTurn;
 		}
 

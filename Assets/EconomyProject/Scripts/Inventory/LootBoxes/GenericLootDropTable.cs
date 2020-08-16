@@ -21,7 +21,6 @@ namespace EconomyProject.Scripts.Inventory.LootBoxes
         /// </summary>	
         public void ValidateTable()
         {
-
             // Prevent editor from "crying" when the item list is empty :)
             if (lootDropItems != null && lootDropItems.Count > 0)
             {

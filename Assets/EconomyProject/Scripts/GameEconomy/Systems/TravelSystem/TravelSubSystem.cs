@@ -24,6 +24,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.TravelSystem
             _environmentLootTable = new Dictionary<BattleEnvironments, BattleLootBox>();
             foreach (var item in environmentBattleLootBoxes)
             {
+                item.lootBox.ValidateTable();
                 _environmentLootTable.Add(item.environment, item.lootBox);
             }
         }

@@ -1,17 +1,37 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace TurnBased.Scripts
 {
-	[CreateAssetMenu]
-	public class FighterUnit : ScriptableObject
+	[Serializable]
+	public class FighterData
 	{
 		public string unitName;
 		public int maxHp;
 		public int damage;
 
 		public Sprite sprite;
+		
 		public int CurrentHp { get; private set; }
 
+		public FighterData(Sprite sprite, string unitName, int maxHp, int currentHp, int damage)
+		{
+			this.sprite = sprite;
+			this.unitName = unitName;
+			this.maxHp = maxHp;
+			this.damage = damage;
+			CurrentHp = currentHp;
+		}
+		
+		public FighterData(FighterData original)
+		{
+			sprite = original.sprite;
+			unitName = original.unitName;
+			maxHp = original.maxHp;
+			damage = original.damage;
+			CurrentHp = original.maxHp;
+		}
+		
 		public bool TakeDamage(int dmg)
 		{
 			Debug.Log(CurrentHp + "\t" + dmg);
@@ -28,20 +48,19 @@ namespace TurnBased.Scripts
 				CurrentHp = maxHp;	
 			}
 		}
+	}
+	
+	[CreateAssetMenu]
+	public class FighterUnit : ScriptableObject
+	{
+		public FighterData data;
 
+		public FighterDropTable fighterDropTable;
+		
 		private void Init(FighterUnit fighterUnit)
 		{
-			unitName = fighterUnit.unitName;
-			maxHp = fighterUnit.maxHp;
-			sprite = fighterUnit.sprite;
-			damage = fighterUnit.damage;
-			
-			ResetHp();
-		}
-
-		private void ResetHp()
-		{
-			CurrentHp = maxHp;
+			data = new FighterData(fighterUnit.data);
+			fighterDropTable.ValidateTable();
 		}
 
 		public static FighterUnit GenerateItem(FighterUnit selectedItem)
