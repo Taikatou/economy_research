@@ -16,6 +16,12 @@ namespace EconomyProject.Scripts.UI
             _closedMenus = closedMenus;
         }
 
+        public OpenedMenu(GameObject openedMenus, List<GameObject> closedMenus)
+        {
+            _openedMenus = new List<GameObject> {openedMenus};
+            _closedMenus = closedMenus;
+        }
+
         public void Activate()
         {
             OpenClose(true, _openedMenus);

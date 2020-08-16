@@ -153,7 +153,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             _auctionOn = false;
             foreach (var agent in CurrentPlayers)
             {
-                playerInput.ChangeScreen(agent, AgentScreen.Main);
+                // playerInput.ChangeScreen(agent, AgentScreen.Main);
             }
         }
 

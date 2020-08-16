@@ -12,13 +12,9 @@ namespace TurnBased.Scripts
 		public Sprite sprite;
 		public int CurrentHp { get; private set; }
 
-		public void Awake()
-		{
-			ResetHp();
-		}
-
 		public bool TakeDamage(int dmg)
 		{
+			Debug.Log(CurrentHp + "\t" + dmg);
 			CurrentHp -= dmg;
 
 			return CurrentHp <= 0;
@@ -38,6 +34,7 @@ namespace TurnBased.Scripts
 			unitName = fighterUnit.unitName;
 			maxHp = fighterUnit.maxHp;
 			sprite = fighterUnit.sprite;
+			damage = fighterUnit.damage;
 			
 			ResetHp();
 		}

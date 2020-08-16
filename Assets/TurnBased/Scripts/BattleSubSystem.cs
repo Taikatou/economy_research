@@ -1,22 +1,19 @@
-﻿using EconomyProject.Scripts.MLAgents.AdventurerAgents;
-
-namespace TurnBased.Scripts
+﻿namespace TurnBased.Scripts
 {
 	public enum BattleState { Start, PlayerTurn, EnemyTurn, Won, Lost }
 
 	public class BattleSubSystem
 	{
-		public BattleState CurrentState;
-		
-		private readonly FighterUnit _playerFighterUnit;
-		private readonly FighterUnit _enemyFighterUnit;
+		public BattleState CurrentState { get; private set; }
+		public FighterUnit PlayerFighterUnit { get; private set; }
+		public FighterUnit EnemyFighterUnit { get; private set; }
 
 		public string DialogueText { get; private set; }
 		public BattleSubSystem(FighterUnit playerUnit, FighterUnit enemyUnit)
 		{
 			CurrentState = BattleState.Start;
-			_playerFighterUnit = playerUnit;
-			_enemyFighterUnit = enemyUnit;
+			PlayerFighterUnit = playerUnit;
+			EnemyFighterUnit = enemyUnit;
 
 			CurrentState = BattleState.PlayerTurn;
 			PlayerTurn();
@@ -29,7 +26,7 @@ namespace TurnBased.Scripts
 
 		private void PlayerAttack()
 		{
-			var isDead = _enemyFighterUnit.TakeDamage(_playerFighterUnit.damage);
+			var isDead = EnemyFighterUnit.TakeDamage(PlayerFighterUnit.damage);
 			
 			DialogueText = "The attack is successful!";
 
@@ -46,19 +43,20 @@ namespace TurnBased.Scripts
 
 		private void EnemyTurn()
 		{
-			DialogueText = _enemyFighterUnit.unitName + " attacks!";
+			/*DialogueText = EnemyFighterUnit.unitName + " attacks!";
 
-			var isDead = _playerFighterUnit.TakeDamage(_enemyFighterUnit.damage);
+			var isDead = PlayerFighterUnit.TakeDamage(EnemyFighterUnit.damage);
 
 			if(isDead)
 			{
-				CurrentState = BattleState.Lost;
+				_currentState = BattleState.Lost;
 				EndBattle();
 			} else
 			{
-				CurrentState = BattleState.PlayerTurn;
+				_currentState = BattleState.PlayerTurn;
 				PlayerTurn();
-			}
+			}*/
+			CurrentState = BattleState.PlayerTurn;
 		}
 
 		private void EndBattle()
@@ -79,7 +77,7 @@ namespace TurnBased.Scripts
 
 		private void PlayerHeal()
 		{
-			_playerFighterUnit.Heal(5);
+			PlayerFighterUnit.Heal(5);
 			
 			DialogueText = "You feel renewed strength!";
 
@@ -91,7 +89,7 @@ namespace TurnBased.Scripts
 		{
 			if (CurrentState != BattleState.PlayerTurn)
 				return;
-
+			
 			PlayerAttack();
 		}
 

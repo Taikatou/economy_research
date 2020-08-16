@@ -23,7 +23,10 @@ namespace TurnBased.Scripts
 
 		private void Update()
 		{
-			hpSlider.value = _fighterUnit.CurrentHp;
+			if (_fighterUnit)
+			{
+				hpSlider.value = _fighterUnit.CurrentHp;
+			}
 		}
 	}
 }

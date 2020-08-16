@@ -48,6 +48,10 @@
                   <e p="TestRequestTaker.cs" t="Include" />
                 </e>
                 <e p="StateEconomySystem.cs" t="Include" />
+                <e p="TravelSystem" t="Include">
+                  <e p="BattleLootBox.cs" t="Include" />
+                  <e p="TravelSubSystem.cs" t="Include" />
+                </e>
               </e>
             </e>
             <e p="Inventory" t="Include">
@@ -97,9 +101,11 @@
             <e p="UI" t="Include">
               <e p="Adventurer" t="Include">
                 <e p="AdventurerAgentDropDown.cs" t="Include" />
+                <e p="AdventurerBattleMenu.cs" t="Include" />
                 <e p="AdventurerMenuManager.cs" t="Include" />
                 <e p="AdventurerRequestScrollView.cs" t="Include" />
                 <e p="RequestDebugUI.cs" t="Include" />
+                <e p="TravelMenu.cs" t="Include" />
                 <e p="UiAccessor.cs" t="Include" />
               </e>
               <e p="AgentDropDown.cs" t="Include" />

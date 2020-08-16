@@ -1,12 +1,15 @@
-﻿using UnityEngine;
+﻿using EconomyProject.Scripts.GameEconomy.Systems;
+using EconomyProject.Scripts.UI;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace TurnBased.Scripts.UI
 {
     public class BattleUi : MonoBehaviour
     {
-        public BattleSubSystem battleSubSystem;
-        
+        public AdventurerSystem adventurerSystem;
+        public GetCurrentAdventurerAgent currentAgent;
+
         public GameObject characterPrefab;
         
         public Transform playerBattleStation;
@@ -16,7 +19,11 @@ namespace TurnBased.Scripts.UI
 
         public BattleHud playerHud;
         public BattleHud enemyHud;
-
+        
+        private BattleSubSystem BattleSubSystem => adventurerSystem.GetSubSystem(currentAgent.CurrentAgent);
+        
+        private BattleSubSystem _cachedSubSystem;
+        
         public void SetupBattle(FighterUnit playerUnit, FighterUnit enemyUnit)
         {
             var playerGo = Instantiate(characterPrefab, playerBattleStation);
@@ -35,9 +42,14 @@ namespace TurnBased.Scripts.UI
 
         private void Update()
         {
-            if (battleSubSystem != null)
+            if (BattleSubSystem != null)
             {
-                dialogueText.text = battleSubSystem.DialogueText;
+                dialogueText.text = BattleSubSystem.DialogueText;
+                if (_cachedSubSystem != BattleSubSystem)
+                {
+                    _cachedSubSystem = BattleSubSystem;
+                    SetupBattle(BattleSubSystem.PlayerFighterUnit, BattleSubSystem.EnemyFighterUnit);
+                }
             }
         }
     }

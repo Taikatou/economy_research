@@ -34,7 +34,7 @@ namespace EconomyProject.Scripts.GameEconomy
                     return adventurerShopSystem;
                 case AgentScreen.Request:
                     return requestSystem;
-                case AgentScreen.Battle:
+                case AgentScreen.Adventurer:
                     return battleSystem;
             }
             return null;

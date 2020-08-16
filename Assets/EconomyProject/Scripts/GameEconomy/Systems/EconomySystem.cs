@@ -6,9 +6,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
     public abstract class EconomySystem<TAgent, TScreen> : MonoBehaviour where TAgent : AgentScreen<TScreen> where TScreen : Enum
     {
         public GameObject agents;
-        
-        public AgentInput<TAgent, TScreen> playerInput;
-
         public ShopInput ShopInput { get; set; }
         protected abstract TScreen ActionChoice { get; }
 

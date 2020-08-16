@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using TurnBased.Scripts;
 
@@ -8,10 +8,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
     public enum AdventureStates { OutOfBattle, InBattle, Quit }
     public class AdventurerSystem : StateEconomySystem<AdventureStates, AdventurerAgent, AgentScreen>
     {
+        public PlayerInput playerInput;
         public FighterUnit playerUnit;
-        public FighterUnit enemyUnit;
+
+        public TravelSubSystem travelSubsystem;
+
         public Dictionary<AdventurerAgent, BattleSubSystem> battleSystems;
-        protected override AgentScreen ActionChoice => AgentScreen.Battle;
+        protected override AgentScreen ActionChoice => AgentScreen.Adventurer;
         protected override AdventureStates IsBackState => AdventureStates.Quit;
         protected override AdventureStates DefaultState => AdventureStates.OutOfBattle;
 
@@ -30,20 +33,34 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             
         }
 
-        private void SetupNewBattle(AdventurerAgent agent)
+        public BattleSubSystem GetSubSystem(AdventurerAgent agent)
+        {
+            if (battleSystems.ContainsKey(agent))
+            {
+                return battleSystems[agent];
+            }
+            return null;
+        }
+
+        private void SetupNewBattle(AdventurerAgent agent, FighterUnit enemyFighter)
         {
             if (battleSystems.ContainsKey(agent))
             {
                 battleSystems.Remove(agent);
             }
+
+            var newPlayer = FighterUnit.GenerateItem(playerUnit);
+            var newEnemy = FighterUnit.GenerateItem(enemyFighter);
             
-            var newSystem = new BattleSubSystem(playerUnit, enemyUnit);
+            var newSystem = new BattleSubSystem(newPlayer, newEnemy);
             battleSystems.Add(agent, newSystem);
+            
+            SetInputMode(agent, AdventureStates.InBattle);
         }
 
         protected override void GoBack(AdventurerAgent agent)
         {
-            throw new NotImplementedException();
+            playerInput.ChangeScreen(agent, AgentScreen.Main);
         }
 
         private void Update()
@@ -56,8 +73,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                 switch (state)
                 {
                     case AdventureStates.OutOfBattle:
-                        SetupNewBattle(player);
-                        SetInputMode(player, AdventureStates.InBattle);
+                        
                         break;
                     case AdventureStates.InBattle:
                         var battleSystem = battleSystems[player];
@@ -68,6 +84,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                         break;
                 }
             }
+        }
+
+        public void StartBattle(AdventurerAgent agent, BattleEnvironments battleEnvironments)
+        {
+            var fighter = travelSubsystem.GetBattle(battleEnvironments);
+
+            SetupNewBattle(agent, fighter);
         }
 
         public void OnAttackButton(AdventurerAgent agent)

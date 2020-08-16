@@ -50,7 +50,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             }
         }
 
-        protected TState GetInputMode(TAgent agent)
+        public TState GetInputMode(TAgent agent)
         {
             if (_inputMode.ContainsKey(agent))
             {

@@ -76,7 +76,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                         foreach (var agent in CurrentPlayers)
                         {
                             Debug.Log("Exit Quest");
-                            playerInput.ChangeScreen(agent, AgentScreen.Main);
+                            // playerInput.ChangeScreen(agent, AgentScreen.Main);
                         }
                         _shouldReturn = true;
                     }

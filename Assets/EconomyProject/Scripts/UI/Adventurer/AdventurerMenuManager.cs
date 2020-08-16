@@ -42,7 +42,7 @@ namespace EconomyProject.Scripts.UI.Adventurer
                         closedMenus.Add(menu2.menu);
                     }
                 }
-                _openedMenus.Add(menu.screen, new OpenedMenu(new List<GameObject>{menu.menu}, closedMenus));
+                _openedMenus.Add(menu.screen, new OpenedMenu(menu.menu, closedMenus));
             }
         }
 
@@ -89,7 +89,7 @@ namespace EconomyProject.Scripts.UI.Adventurer
 
         public void BattleMenu()
         {
-            PlayerInput.ChangeScreen(AdventurerAgent, AgentScreen.Battle);
+            PlayerInput.ChangeScreen(AdventurerAgent, AgentScreen.Adventurer);
         }
 
         public void Bid()
