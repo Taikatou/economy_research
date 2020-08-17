@@ -29,12 +29,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.TravelSystem
             }
         }
 
-        public FighterUnit GetBattle(BattleEnvironments environment)
+        public FighterObject GetBattle(BattleEnvironments environment)
         {
             if (_environmentLootTable.ContainsKey(environment))
             {
                 var battle = _environmentLootTable[environment].PickLootDropItem();
-                return battle.item;
+
+                var newFighter = FighterObject.GenerateItem(battle.item);
+                return newFighter;
             }
             return null;
         }

@@ -958,6 +958,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 152633999, guid: a20c16da6c0ea1640b3b57af20fd8de0, type: 3}
+      propertyPath: environmentBattleLootBoxes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 152633999, guid: a20c16da6c0ea1640b3b57af20fd8de0, type: 3}
+      propertyPath: environmentBattleLootBoxes.Array.data[0].lootBox.lootDropItems.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 152633999, guid: a20c16da6c0ea1640b3b57af20fd8de0, type: 3}
+      propertyPath: environmentBattleLootBoxes.Array.data[0].environment
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 152633999, guid: a20c16da6c0ea1640b3b57af20fd8de0, type: 3}
+      propertyPath: environmentBattleLootBoxes.Array.data[0].lootBox.lootDropItems.Array.data[0].probabilityWeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 152633999, guid: a20c16da6c0ea1640b3b57af20fd8de0, type: 3}
+      propertyPath: environmentBattleLootBoxes.Array.data[0].lootBox.lootDropItems.Array.data[0].probabilityPercent
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 152633999, guid: a20c16da6c0ea1640b3b57af20fd8de0, type: 3}
+      propertyPath: environmentBattleLootBoxes.Array.data[0].lootBox.lootDropItems.Array.data[0].item
+      value: 
+      objectReference: {fileID: 11400000, guid: 9478bd521271f8b4db9165c8b763fe46,
+        type: 2}
     - target: {fileID: 1522409388, guid: a20c16da6c0ea1640b3b57af20fd8de0, type: 3}
       propertyPath: toCheck
       value: 

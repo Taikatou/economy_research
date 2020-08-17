@@ -41,18 +41,18 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return null;
         }
 
-        private void SetupNewBattle(AdventurerAgent agent, FighterUnit enemyFighter)
+        private void SetupNewBattle(AdventurerAgent agent, FighterObject enemyFighter)
         {
             if (battleSystems.ContainsKey(agent))
             {
                 battleSystems.Remove(agent);
             }
 
-            var playerData = agent.GetComponent<AdventurerFighterData>().FighterData;
-            var enemyData = new FighterData(enemyFighter.data);
+            //var playerData = agent.GetComponent<AdventurerFighterData>().FighterData;
+            //var enemyData = new FighterData(enemyFighter.Data);
             
-            var newSystem = new BattleSubSystem(playerData, enemyData, enemyFighter.fighterDropTable);
-            battleSystems.Add(agent, newSystem);
+            //var newSystem = new BattleSubSystem(playerData, enemyData, enemyFighter.FighterDropTable);
+            //battleSystems.Add(agent, newSystem);
             
             SetInputMode(agent, AdventureStates.InBattle);
         }
@@ -104,7 +104,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         public void StartBattle(AdventurerAgent agent, BattleEnvironments battleEnvironments)
         {
             var fighter = travelSubsystem.GetBattle(battleEnvironments);
-
+            
             SetupNewBattle(agent, fighter);
         }
 

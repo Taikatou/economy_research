@@ -7,13 +7,21 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 475d8d7ed9646504888a5702b5d7ed33, type: 3}
-  m_Name: Player
+  m_Name: DefaultFighter
   m_EditorClassIdentifier: 
   data:
-    MaxHp: 10
-    damage: 5
+    MaxHp: 20
+    damage: 10
   fighterDropTable:
-    lootDropItems: []
+    lootDropItems:
+    - item:
+        resource: 1
+        minDrop: 0
+        maxDrop: 3
+      probabilityWeight: 1
+      probabilityPercent: 50
+      probabilityRangeFrom: 0
+      probabilityRangeTo: 0

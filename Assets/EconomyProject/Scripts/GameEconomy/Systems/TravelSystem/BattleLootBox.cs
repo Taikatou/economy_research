@@ -5,10 +5,10 @@ using TurnBased.Scripts;
 namespace EconomyProject.Scripts.GameEconomy.Systems.TravelSystem
 {
     [Serializable]
-    public class GeneratedBattleScriptableObject : GenericLootDropItem<FighterUnit> { }
+    public class GeneratedBattleScriptableObject : GenericLootDropItem<FighterObject> { }
     
     [Serializable]
-    public class BattleLootBox : GenericLootDropTable<GeneratedBattleScriptableObject, FighterUnit>
+    public class BattleLootBox : GenericLootDropTable<GeneratedBattleScriptableObject, FighterObject>
     {
         
     }
