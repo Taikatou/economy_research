@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using EconomyProject.Scripts.Inventory.LootBoxes;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 
@@ -54,20 +53,6 @@ namespace TurnBased.Scripts
 
             var count = item.GenerateNumber();
             return new CraftingDropReturn { Resource = item.resource, Count=count };
-        }
-        
-        public static FighterDropTable CloneData(FighterDropTable original)
-        {
-            var clone = new FighterDropTable();
-            foreach (var lootDrop in original.lootDropItems)
-            {
-                var newFighter = GeneratedFighterScriptableObject.Clone(lootDrop);
-                clone.lootDropItems.Add(newFighter);
-            }
-            
-            clone.ValidateTable();
-
-            return clone;
         }
     }
     

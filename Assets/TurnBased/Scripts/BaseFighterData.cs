@@ -4,25 +4,14 @@ namespace TurnBased.Scripts
 {
     public abstract class BaseFighterData
     {
-        public readonly string UnitName;
-        
-        public readonly Sprite Sprite;
-        
+        public string UnitName;
+        public Sprite Sprite;
         public int MaxHp;
-        
-        public int CurrentHp { get; protected set; }
+        public int CurrentHp { get; set; }
 
         public abstract int Damage { get; }
-
         public abstract void AfterAttack();
-        protected BaseFighterData(Sprite sprite, string unitName, int maxHp)
-        {
-            Sprite = sprite;
-            UnitName = unitName;
-            MaxHp = maxHp;
-            CurrentHp = MaxHp;
-        }
-        
+
         public bool TakeDamage(int dmg)
         {
             Debug.Log(CurrentHp + "\t" + dmg);

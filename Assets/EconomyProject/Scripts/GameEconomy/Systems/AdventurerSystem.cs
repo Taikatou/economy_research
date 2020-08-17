@@ -48,11 +48,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                 battleSystems.Remove(agent);
             }
 
-            //var playerData = agent.GetComponent<AdventurerFighterData>().FighterData;
-            //var enemyData = new FighterData(enemyFighter.Data);
+            var playerData = agent.GetComponent<AdventurerFighterData>().FighterData;
+            var enemyData = FighterData.Clone(enemyFighter.data);
             
-            //var newSystem = new BattleSubSystem(playerData, enemyData, enemyFighter.FighterDropTable);
-            //battleSystems.Add(agent, newSystem);
+            var newSystem = new BattleSubSystem(playerData, enemyData, enemyFighter.fighterDropTable);
+            battleSystems.Add(agent, newSystem);
             
             SetInputMode(agent, AdventureStates.InBattle);
         }

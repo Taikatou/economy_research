@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine;
 
 namespace TurnBased.Scripts
 {
@@ -15,15 +14,17 @@ namespace TurnBased.Scripts
             
         }
 
-        public FighterData(Sprite sprite, string unitName, int maxHp, int currentHp, int damage) : base(sprite, unitName, maxHp)
+        public static FighterData Clone(FighterData original)
         {
-            this.damage = damage;
-        }
-		
-        public FighterData(FighterData original) : base(original.Sprite, original.UnitName, original.MaxHp)
-        {
-            MaxHp = original.MaxHp;
-            damage = original.damage;
+            var data = new FighterData
+            {
+                damage = original.damage,
+                Sprite = original.Sprite,
+                UnitName = original.UnitName,
+                MaxHp = original.MaxHp,
+                CurrentHp = original.MaxHp
+            };
+            return data;
         }
     }
 }

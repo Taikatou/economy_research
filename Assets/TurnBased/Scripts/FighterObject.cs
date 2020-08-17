@@ -8,16 +8,12 @@ namespace TurnBased.Scripts
 		public FighterData data;
 
 		public FighterDropTable fighterDropTable;
-		
-		public void Awake()
-		{
-			fighterDropTable.ValidateTable();
-		}
 
 		private void Init(FighterObject fighter)
 		{
-			data = new FighterData(fighter.data);
-			fighterDropTable = FighterDropTable.CloneData(fighter.fighterDropTable);
+			data = FighterData.Clone(fighter.data);
+			fighterDropTable = fighter.fighterDropTable;
+			fighterDropTable.ValidateTable();
 		}
 		
 		public static FighterObject GenerateItem(FighterObject selectedItem)

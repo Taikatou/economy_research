@@ -8,10 +8,13 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
     {
         public BaseFighterData FighterData =>
             new PlayerFighterData
-                (sprite,
-                "Player",
-                hp,
-                adventurerInventory);
+            {
+                Sprite = sprite,
+                UnitName = "Player",
+                MaxHp = hp,
+                CurrentHp = hp,
+                AgentInventory=adventurerInventory
+            };
 
         public AdventurerInventory adventurerInventory;
 

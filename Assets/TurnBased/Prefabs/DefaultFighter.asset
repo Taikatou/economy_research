@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: DefaultFighter
   m_EditorClassIdentifier: 
   data:
+    UnitName: Fighter
+    Sprite: {fileID: 21300000, guid: 3f3a5ea5ace79004eba15d892dcc01a3, type: 3}
     MaxHp: 20
     damage: 10
   fighterDropTable:
