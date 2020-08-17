@@ -91,6 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startInventory:
+  - {fileID: 11400000, guid: 91bd7ff49920f4841b311f0aad3678e3, type: 2}
   - {fileID: 11400000, guid: ff61c0520e17b43429b1c5e7c3cd505d, type: 2}
 --- !u!114 &2072330097273742403
 MonoBehaviour:

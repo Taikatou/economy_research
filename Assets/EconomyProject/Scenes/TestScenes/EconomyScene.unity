@@ -411,6 +411,56 @@ PrefabInstance:
       propertyPath: shopAgent
       value: 
       objectReference: {fileID: 1754627098}
+    - target: {fileID: 7559496406634951552, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559496406634951552, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559496406634951552, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559496406866126355, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559496406866126355, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559496406866126355, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559496407805696721, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559496407805696721, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559496407905042294, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559496407905042294, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
 --- !u!224 &275464624 stripped

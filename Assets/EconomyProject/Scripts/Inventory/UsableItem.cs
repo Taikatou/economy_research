@@ -24,7 +24,8 @@ namespace EconomyProject.Scripts.Inventory
             itemName = itemDetails.itemName;
             baseDurability = itemDetails.baseDurability;
             damage = itemDetails.damage;
-            durability = itemDetails.durability;
+            durability = itemDetails.baseDurability;
+            baseDurability = itemDetails.durability;
             unBreakable = itemDetails.unBreakable;
         }
         
@@ -34,6 +35,11 @@ namespace EconomyProject.Scripts.Inventory
             {
                 durability--;
             }
+        }
+
+        public void ResetDurability()
+        {
+            durability = baseDurability;
         }
     }
     
