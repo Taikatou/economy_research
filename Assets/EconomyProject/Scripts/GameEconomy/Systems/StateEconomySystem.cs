@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using EconomyProject.Scripts.MLAgents.Shop;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems

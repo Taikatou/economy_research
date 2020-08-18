@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
-using EconomyProject.Scripts.Inventory;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Shop;
 
@@ -12,6 +10,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
     public class AdventurerShopSystem : StateEconomySystem<AdventureShopChoices, AdventurerAgent, AgentScreen>
     {
         public AgentShopSubSystem agentShopSubSystem;
+        
         public ShopChooserSubSystem shopChooserSubSystem;
         protected override AgentScreen ActionChoice => AgentScreen.Shop;
         protected override AdventureShopChoices IsBackState => AdventureShopChoices.Back;

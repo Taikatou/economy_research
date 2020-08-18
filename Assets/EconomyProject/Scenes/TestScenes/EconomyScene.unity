@@ -416,6 +416,11 @@ PrefabInstance:
       propertyPath: shopAgent
       value: 
       objectReference: {fileID: 1754627098}
+    - target: {fileID: 2810845863312687352, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: adventurerShopSystem
+      value: 
+      objectReference: {fileID: 763818428}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
 --- !u!224 &275464624 stripped
@@ -577,6 +582,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &413937574
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 413937575}
+  - component: {fileID: 413937576}
+  m_Layer: 0
+  m_Name: ShopChooserSubSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &413937575
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413937574}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 763818427}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &413937576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413937574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74c74fa29712e1d44a8421d60c2153ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParent: {fileID: 908848911}
 --- !u!114 &446621926 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6502335148018714179, guid: a20c16da6c0ea1640b3b57af20fd8de0,
@@ -703,6 +752,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c3fd94bc391f465499ffae68a93b04b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &763818427 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400384756, guid: a20c16da6c0ea1640b3b57af20fd8de0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1522409361}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &763818428 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 400384757, guid: a20c16da6c0ea1640b3b57af20fd8de0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1522409361}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d751a1704098ae442913cd1e60abedf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &840330053 stripped
@@ -980,6 +1047,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 400384757, guid: a20c16da6c0ea1640b3b57af20fd8de0, type: 3}
+      propertyPath: agentShopSubSystem
+      value: 
+      objectReference: {fileID: 1913037736}
+    - target: {fileID: 400384757, guid: a20c16da6c0ea1640b3b57af20fd8de0, type: 3}
+      propertyPath: shopChooserSubSystem
+      value: 
+      objectReference: {fileID: 413937576}
     - target: {fileID: 1522409388, guid: a20c16da6c0ea1640b3b57af20fd8de0, type: 3}
       propertyPath: toCheck
       value: 
