@@ -35,9 +35,9 @@ namespace EconomyProject.Scripts.GameEconomy
 
         protected override void SetupScreens()
         {
-            mainSystem.ShopInput = this;
-            shopCraftingSystem.ShopInput = this;
-            requestSystem.ShopInput = this;
+            mainSystem.AgentInput = this;
+            shopCraftingSystem.AgentInput = this;
+            requestSystem.AgentInput = this;
         }
 
         public void SetAction(ShopAgent agent, int action)

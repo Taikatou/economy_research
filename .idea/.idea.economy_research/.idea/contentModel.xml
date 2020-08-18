@@ -25,7 +25,6 @@
               <e p="Systems" t="Include">
                 <e p="AdventurerShopSystem.cs" t="Include" />
                 <e p="AdventurerSystem.cs" t="Include" />
-                <e p="AdventureSystem.cs" t="Include" />
                 <e p="Craftsman" t="Include">
                   <e p="AgentShop.cs" t="Include" />
                   <e p="AgentShopSubSystem.cs" t="Include" />
@@ -33,8 +32,6 @@
                   <e p="ShopCraftingSystem.cs" t="Include" />
                 </e>
                 <e p="EconomySystem.cs" t="Include" />
-                <e p="GameAuction.cs" t="Include" />
-                <e p="GameQuests.cs" t="Include" />
                 <e p="MainMenuSystem.cs" t="Include" />
                 <e p="MainShopSystem.cs" t="Include" />
                 <e p="Requests" t="Include">
@@ -111,7 +108,6 @@
                 <e p="UiAccessor.cs" t="Include" />
               </e>
               <e p="AgentDropDown.cs" t="Include" />
-              <e p="AuctionMenu.cs" t="Include" />
               <e p="BaseMenuManager.cs" t="Include" />
               <e p="Craftsman" t="Include">
                 <e p="Crafting" t="Include">
@@ -149,7 +145,6 @@
                 <e p="ShopInventoryScrollView.cs" t="Include" />
                 <e p="ShopScrollView.cs" t="Include" />
               </e>
-              <e p="QuestMenu.cs" t="Include" />
               <e p="ShopUI" t="Include">
                 <e p="Buttons" t="Include">
                   <e p="SampleButton.cs" t="Include" />

@@ -67,7 +67,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         protected override void GoBack(ShopAgent agent)
         {
-            ShopInput.ChangeScreen(agent, EShopScreen.Main);
+            AgentInput.ChangeScreen(agent, EShopScreen.Main);
         }
 
         private void Update()

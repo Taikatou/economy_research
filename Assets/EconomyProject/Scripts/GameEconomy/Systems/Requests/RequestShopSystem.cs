@@ -37,7 +37,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
         protected override void GoBack(ShopAgent agent)
         {
-            ShopInput.ChangeScreen(agent, EShopScreen.Main);
+            AgentInput.ChangeScreen(agent, EShopScreen.Main);
         }
 
         protected override void MakeChoice(ShopAgent agent, int input)

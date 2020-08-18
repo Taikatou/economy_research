@@ -9,9 +9,7 @@ using UnityEngine;
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 {
     // Main and Shop is not used by agent
-    public enum AgentScreen { Main, Request, Shop, Adventurer, Quest, Auction }
-
-    public enum AuctionChoice { Ignore, Bid }
+    public enum AgentScreen { Main=0, Request=1, Shop=2, Adventurer=3 }
     
     public class AdventurerAgent : AgentScreen<AgentScreen>
     {
@@ -20,9 +18,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         public AdventurerInventory adventurerInventory;
 
         public EconomyWallet wallet;
-
-        public GameAuction gameAuction;
-
+        
         public PlayerInput playerInput;
 
         public RequestTaker requestTaker; 
@@ -71,15 +67,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             sensor.AddObservation(playerInput.GetProgress(this));
             //sensor.AddObservation(playerInput.gameAuction.getnu);
             //sensor.AddObservation(playerInput.GetNumberInQuest());
-            
-            // Auction Observations
-            var highestBidder = gameAuction.IsHighestBidder(this);
-            
-            sensor.AddObservation(gameAuction.auctionedItem);
-            sensor.AddObservation(highestBidder);
-            sensor.AddObservation(gameAuction.currentItemPrice);
-            sensor.AddObservation(gameAuction.BidLast);
-            sensor.AddObservation(gameAuction.BidOn);
         }
     }
 }

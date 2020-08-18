@@ -20,7 +20,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             {
                 var i = (MainChoices) input;
             
-                ShopInput.ChangeScreen(agent, (EShopScreen) i);    
+                AgentInput.ChangeScreen(agent, (EShopScreen) i);    
             }
             else if(input >= 0)
             {

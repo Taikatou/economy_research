@@ -8,8 +8,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 {
     public class AdventurerSpawner : BaseAgentSpawner
     {
-        public GameAuction gameAuction;
-
         public PlayerInput playerInput;
 
         public RequestSystem requestSystem;
@@ -19,8 +17,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         protected override GameObject Spawn(GameObject toSpawnPrefab)
         {
             var agent = base.Spawn(toSpawnPrefab);
-            var adventurer = agent.GetComponent<AdventurerAgent>();
-            adventurer.gameAuction = gameAuction;
+            var adventurer = agent.GetComponent<AdventurerAgent>(); 
             adventurer.playerInput = playerInput;
 
             var taker = adventurer.GetComponent<AdventurerRequestTaker>();

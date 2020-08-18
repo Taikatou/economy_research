@@ -62,16 +62,6 @@ namespace EconomyProject.Scripts.UI.Adventurer
             }
         }
 
-        public void StartAuction()
-        {
-            PlayerInput.ChangeScreen(AdventurerAgent, AgentScreen.Auction);
-        }
-
-        public void StartQuest()
-        {
-            PlayerInput.ChangeScreen(AdventurerAgent, AgentScreen.Quest);
-        }
-
         public void MainMenu()
         {
             PlayerInput.ChangeScreen(AdventurerAgent, AgentScreen.Main);

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using EconomyProject.Scripts.GameEconomy.Systems;
+﻿using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 
@@ -15,8 +13,7 @@ namespace EconomyProject.Scripts.GameEconomy
         public RequestAdventurerSystem requestSystem;
 
         public AdventurerSystem battleSystem;
-
-
+        
         protected override EconomySystem<AdventurerAgent, AgentScreen> GetEconomySystem(AdventurerAgent agent)
         {
             switch (GetScreen(agent, AgentScreen.Main))
@@ -35,35 +32,21 @@ namespace EconomyProject.Scripts.GameEconomy
 
         public void SetAgentAction(AdventurerAgent agent, int action)
         {
-            switch (GetScreen(agent, AgentScreen.Main))
-            {
-                
-            }
-        }
-
-        enum MainAction {Stay = 0, Auction = 1, Quest = 2}
-
-        private readonly Dictionary<MainAction, AgentScreen> _mainActionScreenMap = new Dictionary<MainAction, AgentScreen>
-        {
-            {MainAction.Auction, AgentScreen.Auction},
-            {MainAction.Quest, AgentScreen.Quest},
-        };
-        
-        private void SetMainAction(AdventurerAgent agent, int choice)
-        {
-            if (choice >= 0)
-            {
-                var action = (MainAction)choice;
-                if (_mainActionScreenMap.ContainsKey(action))
-                {
-                    ChangeScreen(agent, _mainActionScreenMap[action]);   
-                }
-            }
+            var system = GetEconomySystem(agent);
+            system.SetChoice(agent, action);
         }
 
         public void Reset()
         {
             EconomyScreens.Clear();
+        }
+        
+        protected override void SetupScreens()
+        {
+            mainMenuSystem.AgentInput = this;
+            adventurerShopSystem.AgentInput = this;
+            requestSystem.AgentInput = this;
+            battleSystem.AgentInput = this;
         }
     }
 }

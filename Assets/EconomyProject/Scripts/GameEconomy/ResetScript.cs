@@ -14,9 +14,6 @@ namespace EconomyProject.Scripts.GameEconomy
                 agent.ResetEconomyAgent();
             }
 
-            var gameAuction = GetComponentInChildren<GameAuction>();
-            gameAuction?.Reset();
-
             var dLogger = GetComponentInChildren<DataLogger>();
             dLogger?.Reset();
         }
