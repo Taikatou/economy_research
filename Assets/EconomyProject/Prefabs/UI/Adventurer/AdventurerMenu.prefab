@@ -3232,11 +3232,11 @@ MonoBehaviour:
   - menu: {fileID: 2011312969291620456}
     screen: 0
   - menu: {fileID: 6271343864038612016}
-    screen: 4
+    screen: 2
   - menu: {fileID: 2678565285365336451}
-    screen: 3
+    screen: 1
   - menu: {fileID: 1759824689}
-    screen: 5
+    screen: 3
   getCurrentAgent: {fileID: 1140675890918039831}
   uiAccessor: {fileID: 2011312968382217257}
 --- !u!114 &275464626
@@ -3806,11 +3806,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0738565ec3fac32448579041d6845094, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyText: {fileID: 0}
   durabilityText: {fileID: 2011312969667336890}
   currentItemText: {fileID: 2011312968742089164}
-  efficiencyText: {fileID: 0}
-  accessor: {fileID: 2011312968382217257}
   getAgent: {fileID: 1140675890918039831}
 --- !u!1 &2011312970250671554
 GameObject:

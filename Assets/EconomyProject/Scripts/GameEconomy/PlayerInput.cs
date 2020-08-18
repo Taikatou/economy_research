@@ -12,11 +12,12 @@ namespace EconomyProject.Scripts.GameEconomy
 
         public RequestAdventurerSystem requestSystem;
 
-        public AdventurerSystem battleSystem;
+        public AdventurerSystem adventurerSystem;
         
         protected override EconomySystem<AdventurerAgent, AgentScreen> GetEconomySystem(AdventurerAgent agent)
         {
-            switch (GetScreen(agent, AgentScreen.Main))
+            var screen = GetScreen(agent, AgentScreen.Main);
+            switch (screen)
             {
                 case AgentScreen.Main:
                     return mainMenuSystem;
@@ -25,7 +26,7 @@ namespace EconomyProject.Scripts.GameEconomy
                 case AgentScreen.Request:
                     return requestSystem;
                 case AgentScreen.Adventurer:
-                    return battleSystem;
+                    return adventurerSystem;
             }
             return null;
         }
@@ -46,7 +47,7 @@ namespace EconomyProject.Scripts.GameEconomy
             mainMenuSystem.AgentInput = this;
             adventurerShopSystem.AgentInput = this;
             requestSystem.AgentInput = this;
-            battleSystem.AgentInput = this;
+            adventurerSystem.AgentInput = this;
         }
     }
 }

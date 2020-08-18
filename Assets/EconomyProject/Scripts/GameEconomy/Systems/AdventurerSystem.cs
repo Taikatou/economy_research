@@ -35,6 +35,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                     StartBattle(agent, (BattleEnvironments) input);
                     break;
                 case AdventureStates.InBattle:
+                    var battleSystem = GetSubSystem(agent);
+                    battleSystem?.SetInput((BattleAction) input);
                     break;
             }
         }
@@ -133,6 +135,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public void OnFleeButton(AdventurerAgent agent)
         {
+            if (battleSystems.ContainsKey(agent))
+            {
+                battleSystems[agent].OnFleeButton();
+            }
+
             SetInputMode(agent, AdventureStates.OutOfBattle);
         }
     }
