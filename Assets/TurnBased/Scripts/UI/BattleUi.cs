@@ -1,4 +1,5 @@
-﻿using EconomyProject.Scripts.GameEconomy.Systems;
+﻿using System.Collections.Generic;
+using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,23 +24,43 @@ namespace TurnBased.Scripts.UI
         private BattleSubSystem BattleSubSystem => adventurerSystem.GetSubSystem(currentAgent.CurrentAgent);
         
         private BattleSubSystem _cachedSubSystem;
-        
-        public void SetupBattle(BaseFighterData playerUnit, BaseFighterData enemyUnit)
-        {
-            var playerGo = Instantiate(characterPrefab, playerBattleStation);
-            var playerCharacterUi = playerGo.GetComponent<CharacterUi>();
-            playerCharacterUi.UpdateCharacter(playerUnit);
 
-            var enemyGo = Instantiate(characterPrefab, enemyBattleStation);
-            var enemyCharacterUi = enemyGo.GetComponent<CharacterUi>();
-            enemyCharacterUi.UpdateCharacter(enemyUnit);
+        public List<GameObject> uiGameObjects;
+
+        public void Start()
+        {
+            uiGameObjects = new List<GameObject>();
+        }
+
+        private void SpawnCharacter(BaseFighterData fighterData, Transform location)
+        {
+            var characterGo = Instantiate(characterPrefab, location);
+            var playerCharacterUi = characterGo.GetComponent<CharacterUi>();
+            playerCharacterUi.UpdateCharacter(fighterData);
+            uiGameObjects.Add(characterGo);
+        }
+
+        private void ClearGameObjects()
+        {
+            foreach (var item in uiGameObjects)
+            {
+                Destroy(item);    
+            }
+        }
+
+        private void SetupBattle(BaseFighterData playerUnit, BaseFighterData enemyUnit)
+        {
+            ClearGameObjects();
+
+            SpawnCharacter(playerUnit, playerBattleStation);
+            SpawnCharacter(enemyUnit, enemyBattleStation);
             
             dialogueText.text = "A wild " + enemyUnit.UnitName + " approaches...";
 
             playerHud.SetHud(playerUnit);
             enemyHud.SetHud(enemyUnit);
         }
-
+        
         private void Update()
         {
             if (BattleSubSystem != null)

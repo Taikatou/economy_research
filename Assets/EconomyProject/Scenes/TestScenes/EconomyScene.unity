@@ -411,56 +411,6 @@ PrefabInstance:
       propertyPath: shopAgent
       value: 
       objectReference: {fileID: 1754627098}
-    - target: {fileID: 7559496406634951552, guid: 7984588dcb920ef4d82ce338990a333a,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7559496406634951552, guid: 7984588dcb920ef4d82ce338990a333a,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7559496406634951552, guid: 7984588dcb920ef4d82ce338990a333a,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7559496406866126355, guid: 7984588dcb920ef4d82ce338990a333a,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7559496406866126355, guid: 7984588dcb920ef4d82ce338990a333a,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7559496406866126355, guid: 7984588dcb920ef4d82ce338990a333a,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7559496407805696721, guid: 7984588dcb920ef4d82ce338990a333a,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7559496407805696721, guid: 7984588dcb920ef4d82ce338990a333a,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7559496407905042294, guid: 7984588dcb920ef4d82ce338990a333a,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7559496407905042294, guid: 7984588dcb920ef4d82ce338990a333a,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
 --- !u!224 &275464624 stripped
@@ -634,6 +584,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b34397b5aef4f4390c347a975e7e18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &518531061 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8771747929458667462, guid: 6bf88d751f8c06d46a6ae748d77326d1,
+    type: 3}
+  m_PrefabInstance: {fileID: 848789777}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cea5ebd6791c154a9b9540143ff4a09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &735828725
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,6 +723,11 @@ PrefabInstance:
       propertyPath: agents
       value: 
       objectReference: {fileID: 1522409362}
+    - target: {fileID: 1597588315868552422, guid: 6bf88d751f8c06d46a6ae748d77326d1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8771747928024111067, guid: 6bf88d751f8c06d46a6ae748d77326d1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1008,31 +975,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 152633999, guid: a20c16da6c0ea1640b3b57af20fd8de0, type: 3}
-      propertyPath: environmentBattleLootBoxes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 152633999, guid: a20c16da6c0ea1640b3b57af20fd8de0, type: 3}
-      propertyPath: environmentBattleLootBoxes.Array.data[0].lootBox.lootDropItems.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 152633999, guid: a20c16da6c0ea1640b3b57af20fd8de0, type: 3}
-      propertyPath: environmentBattleLootBoxes.Array.data[0].environment
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 152633999, guid: a20c16da6c0ea1640b3b57af20fd8de0, type: 3}
-      propertyPath: environmentBattleLootBoxes.Array.data[0].lootBox.lootDropItems.Array.data[0].probabilityWeight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 152633999, guid: a20c16da6c0ea1640b3b57af20fd8de0, type: 3}
-      propertyPath: environmentBattleLootBoxes.Array.data[0].lootBox.lootDropItems.Array.data[0].probabilityPercent
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 152633999, guid: a20c16da6c0ea1640b3b57af20fd8de0, type: 3}
-      propertyPath: environmentBattleLootBoxes.Array.data[0].lootBox.lootDropItems.Array.data[0].item
-      value: 
-      objectReference: {fileID: 11400000, guid: 9478bd521271f8b4db9165c8b763fe46,
-        type: 2}
     - target: {fileID: 1522409388, guid: a20c16da6c0ea1640b3b57af20fd8de0, type: 3}
       propertyPath: toCheck
       value: 
@@ -1047,6 +989,11 @@ PrefabInstance:
       propertyPath: requestSystem
       value: 
       objectReference: {fileID: 31092770}
+    - target: {fileID: 5803332211051719870, guid: a20c16da6c0ea1640b3b57af20fd8de0,
+        type: 3}
+      propertyPath: requestRecord
+      value: 
+      objectReference: {fileID: 518531061}
     - target: {fileID: 5803332212511212224, guid: a20c16da6c0ea1640b3b57af20fd8de0,
         type: 3}
       propertyPath: m_Name

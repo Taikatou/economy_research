@@ -13,6 +13,8 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         public PlayerInput playerInput;
 
         public RequestSystem requestSystem;
+
+        public CraftingRequestRecord requestRecord;
         
         protected override GameObject Spawn(GameObject toSpawnPrefab)
         {
@@ -22,7 +24,8 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             adventurer.playerInput = playerInput;
 
             var taker = adventurer.GetComponent<AdventurerRequestTaker>();
-            taker.recordSystem = requestSystem;
+            taker.requestSystem = requestSystem;
+            taker.requestRecord = requestRecord;
             return agent;
         }
     }

@@ -19,5 +19,10 @@ namespace TurnBased.Scripts.UI
         {
             adventurerSystem.OnHealButton(adventurerAgent.CurrentAgent);
         }
+
+        public void OnFleeButton()
+        {
+            adventurerSystem.OnFleeButton(adventurerAgent.CurrentAgent);
+        }
     }
 }

@@ -25,6 +25,7 @@
               <e p="Systems" t="Include">
                 <e p="AdventurerShopSystem.cs" t="Include" />
                 <e p="AdventurerSystem.cs" t="Include" />
+                <e p="AdventureSystem.cs" t="Include" />
                 <e p="Craftsman" t="Include">
                   <e p="AgentShop.cs" t="Include" />
                   <e p="AgentShopSubSystem.cs" t="Include" />

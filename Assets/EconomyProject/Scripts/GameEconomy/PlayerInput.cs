@@ -1,17 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
-using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy
 {
     public class PlayerInput : AgentInput<AdventurerAgent, AgentScreen>
     {
-        public GameAuction gameAuction;
-
-        public GameQuests gameQuests;
-
         public MainMenuSystem mainMenuSystem;
 
         public AdventurerShopSystem adventurerShopSystem;
@@ -20,16 +16,13 @@ namespace EconomyProject.Scripts.GameEconomy
 
         public AdventurerSystem battleSystem;
 
+
         protected override EconomySystem<AdventurerAgent, AgentScreen> GetEconomySystem(AdventurerAgent agent)
         {
             switch (GetScreen(agent, AgentScreen.Main))
             {
                 case AgentScreen.Main:
                     return mainMenuSystem;
-                case AgentScreen.Quest:
-                    return gameQuests;
-                case AgentScreen.Auction:
-                    return gameAuction;
                 case AgentScreen.Shop:
                     return adventurerShopSystem;
                 case AgentScreen.Request:
@@ -44,35 +37,7 @@ namespace EconomyProject.Scripts.GameEconomy
         {
             switch (GetScreen(agent, AgentScreen.Main))
             {
-                case AgentScreen.Auction:
-                    SetAuctionChoice(agent, action);
-                        break;
-                case AgentScreen.Main:
-                    SetMainAction(agent, action);
-                    break;
-                case AgentScreen.Quest:
-                    break;
-            }
-        }
-
-        private void SetAuctionChoice(AdventurerAgent agent, int choice)
-        {
-            if (choice >= 0)
-            {
-                var action = (AuctionChoice) choice;
-                SetAuctionChoice(agent, action);
-            }
-        }
-
-        public void SetAuctionChoice(AdventurerAgent agent, AuctionChoice choice)
-        {
-            switch (choice)
-            {
-                case AuctionChoice.Ignore:
-                    break;
-                case AuctionChoice.Bid:
-                    gameAuction.Bid(agent);
-                    break;
+                
             }
         }
 

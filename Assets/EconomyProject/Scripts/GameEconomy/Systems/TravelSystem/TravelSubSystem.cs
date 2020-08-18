@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using TurnBased.Scripts;
 using UnityEngine;
 

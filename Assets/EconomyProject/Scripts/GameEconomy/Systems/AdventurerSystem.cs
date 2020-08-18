@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
-using EconomyProject.Scripts.MLAgents.Craftsman;
 using TurnBased.Scripts;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
@@ -29,7 +29,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         }
         protected override void MakeChoice(AdventurerAgent agent, int input)
         {
-            
+            switch (GetInputMode(agent))
+            {
+                case AdventureStates.OutOfBattle:
+                    StartBattle(agent, (BattleEnvironments) input);
+                    break;
+                case AdventureStates.InBattle:
+                    break;
+            }
         }
 
         public BattleSubSystem GetSubSystem(AdventurerAgent agent)
@@ -92,9 +99,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                         break;
                     case BattleState.Won:
                         var craftingDrop = battleSystem.GetCraftingDropItem();
-                        var craftingInventory = agent.GetComponent<CraftingInventory>();
+                        var craftingInventory = agent.GetComponent<AdventurerRequestTaker>();
                         
-                        craftingInventory.AddResource(craftingDrop.Resource, craftingDrop.Count);
+                        craftingInventory.CheckItemAdd(craftingDrop.Resource, craftingDrop.Count);
                         break;
                 }
                 SetInputMode(agent, AdventureStates.OutOfBattle);
@@ -122,6 +129,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             {
                 battleSystems[agent].OnHealButton();
             }
+        }
+
+        public void OnFleeButton(AdventurerAgent agent)
+        {
+            SetInputMode(agent, AdventureStates.OutOfBattle);
         }
     }
 }

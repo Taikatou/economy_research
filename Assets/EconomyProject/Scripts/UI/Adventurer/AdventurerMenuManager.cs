@@ -91,10 +91,5 @@ namespace EconomyProject.Scripts.UI.Adventurer
         {
             PlayerInput.ChangeScreen(AdventurerAgent, AgentScreen.Adventurer);
         }
-
-        public void Bid()
-        {
-            PlayerInput.SetAuctionChoice(AdventurerAgent, AuctionChoice.Bid);
-        }
     }
 }
