@@ -98,6 +98,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                 switch (battleSystem.CurrentState)
                 {
                     case BattleState.Lost:
+                        SpendMoney(agent);
+                        
                         break;
                     case BattleState.Won:
                         var craftingDrop = battleSystem.GetCraftingDropItem();
@@ -108,6 +110,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                 }
                 SetInputMode(agent, AdventureStates.OutOfBattle);
             }
+        }
+
+        private void SpendMoney(AdventurerAgent agent)
+        {
+            agent.wallet.SpendMoney(5);
         }
 
         public void StartBattle(AdventurerAgent agent, BattleEnvironments battleEnvironments)

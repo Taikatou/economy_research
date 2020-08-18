@@ -984,6 +984,11 @@ PrefabInstance:
       propertyPath: requestSystem
       value: 
       objectReference: {fileID: 2064513282}
+    - target: {fileID: 1644154546455500952, guid: a20c16da6c0ea1640b3b57af20fd8de0,
+        type: 3}
+      propertyPath: adventurerSystem
+      value: 
+      objectReference: {fileID: 446621926}
     - target: {fileID: 5803332211051719870, guid: a20c16da6c0ea1640b3b57af20fd8de0,
         type: 3}
       propertyPath: requestSystem

@@ -6,20 +6,21 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 {
     public class AdventurerFighterData : MonoBehaviour
     {
-        public BaseFighterData FighterData =>
-            new PlayerFighterData
+        public int startHp = 20;
+        public Sprite sprite;
+        public PlayerFighterData playerData;
+        public AdventurerInventory adventurerInventory;
+        public void Start()
+        {
+            playerData = new PlayerFighterData
             {
                 Sprite = sprite,
                 UnitName = "Player",
-                MaxHp = hp,
-                CurrentHp = hp,
+                MaxHp = startHp,
+                CurrentHp = startHp,
                 AgentInventory=adventurerInventory
             };
-
-        public AdventurerInventory adventurerInventory;
-
-        public int hp = 20;
-
-        public Sprite sprite;
+        }
+        public BaseFighterData FighterData => playerData;
     }
 }
