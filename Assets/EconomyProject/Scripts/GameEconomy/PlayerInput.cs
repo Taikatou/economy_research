@@ -1,5 +1,6 @@
 ﻿using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
+using EconomyProject.Scripts.GameEconomy.Systems.Shop;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 
 namespace EconomyProject.Scripts.GameEconomy
@@ -40,6 +41,11 @@ namespace EconomyProject.Scripts.GameEconomy
         public void Reset()
         {
             EconomyScreens.Clear();
+        }
+
+        public float[] GetSense(AdventurerAgent agent)
+        {
+            return GetEconomySystem(agent).GetSenses(agent);
         }
         
         protected override void SetupScreens()

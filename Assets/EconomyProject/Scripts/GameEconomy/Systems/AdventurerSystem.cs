@@ -27,6 +27,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         {
             return GetInputMode(agent) != AdventureStates.InBattle;
         }
+
+        public override float[] GetSenses(AdventurerAgent agent)
+        {
+            return new[] {(float) GetInputMode(agent)};
+        }
+
         protected override void MakeChoice(AdventurerAgent agent, int input)
         {
             switch (GetInputMode(agent))

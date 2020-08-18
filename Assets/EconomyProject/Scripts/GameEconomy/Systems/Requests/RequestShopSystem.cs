@@ -19,6 +19,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return true;
         }
 
+        public override float[] GetSenses(ShopAgent agent)
+        {
+            return new[] {0.0f};
+        }
+
         public override void SetChoice(ShopAgent agent, int input)
         {
             if (input >= 0)

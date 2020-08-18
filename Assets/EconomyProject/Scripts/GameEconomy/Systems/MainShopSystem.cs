@@ -14,6 +14,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return true;
         }
 
+        public override float[] GetSenses(ShopAgent agent)
+        {
+            return new float [0] ;
+        }
+
         public override void SetChoice(ShopAgent agent, int input)
         {
             if (Enum.IsDefined(typeof(MainChoices), input))

@@ -10,6 +10,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         protected abstract TScreen ActionChoice { get; }
 
         public abstract bool CanMove(TAgent agent);
+
+        public abstract float [] GetSenses(TAgent agent);
         
         public virtual float Progress(TAgent agent) => 0.0f;
 
@@ -22,7 +24,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             }
         }
 
-        protected virtual void RequestDecisions()
+        protected void RequestDecisions()
         {
             foreach(var agent in CurrentPlayers)
             {

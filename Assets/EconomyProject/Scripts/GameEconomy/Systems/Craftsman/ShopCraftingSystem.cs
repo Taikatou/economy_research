@@ -46,6 +46,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         {
             return !craftingSubSystem.HasRequest(agent);
         }
+
+        public override float[] GetSenses(ShopAgent agent)
+        {
+            return new[] {(float) GetInputMode(agent)};
+        }
+
         protected override void MakeChoice(ShopAgent shopAgent, int input)
         {
             switch (GetInputMode(shopAgent))

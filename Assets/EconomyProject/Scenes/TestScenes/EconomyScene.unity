@@ -396,6 +396,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: AdventurerMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 2011312968382217253, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2011312968382217257, guid: 7984588dcb920ef4d82ce338990a333a,
         type: 3}
       propertyPath: coreGameSystem
@@ -726,7 +731,7 @@ PrefabInstance:
     - target: {fileID: 1597588315868552422, guid: 6bf88d751f8c06d46a6ae748d77326d1,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8771747928024111067, guid: 6bf88d751f8c06d46a6ae748d77326d1,
         type: 3}

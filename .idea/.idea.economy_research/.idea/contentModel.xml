@@ -23,7 +23,6 @@
               <e p="ResetScript.cs" t="Include" />
               <e p="ShopInput.cs" t="Include" />
               <e p="Systems" t="Include">
-                <e p="AdventurerShopSystem.cs" t="Include" />
                 <e p="AdventurerSystem.cs" t="Include" />
                 <e p="Craftsman" t="Include">
                   <e p="AgentShop.cs" t="Include" />
@@ -44,6 +43,11 @@
                   <e p="RequestSystem.cs" t="Include" />
                   <e p="RequestTaker.cs" t="Include" />
                   <e p="TestRequestTaker.cs" t="Include" />
+                </e>
+                <e p="Shop" t="Include">
+                  <e p="AdventurerShopSystem.cs" t="Include" />
+                  <e p="IShopSubSystem.cs" t="Include" />
+                  <e p="ShopChooserSubSystem.cs" t="Include" />
                 </e>
                 <e p="StateEconomySystem.cs" t="Include" />
                 <e p="TravelSystem" t="Include">

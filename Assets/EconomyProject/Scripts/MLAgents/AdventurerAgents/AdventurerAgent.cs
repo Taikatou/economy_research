@@ -40,14 +40,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         public override void Heuristic(float[] actionsOut)
         {
             actionsOut[0] = NumberKey;
-
-            // WUCC check for errors. 
-        }
-
-        public void BoughtItem(UsableItem item, float cost)
-        {
-            inventory.AddItem(item);
-            wallet.SpendMoney(cost);
         }
 
         public override void OnActionReceived(float[] vectorAction)
@@ -61,12 +53,12 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             // Player Observations
             sensor.AddObservation((int)ChosenScreen);
             sensor.AddObservation(wallet ? (float)wallet.Money : 0.0f);
-            sensor.AddObservation(adventurerInventory.EquipedItem);
+            sensor.AddObservation(adventurerInventory.EquipedItem.itemDetails.damage);
             
             // Player Input Observations
             sensor.AddObservation(playerInput.GetProgress(this));
-            //sensor.AddObservation(playerInput.gameAuction.getnu);
-            //sensor.AddObservation(playerInput.GetNumberInQuest());
+            
+            
         }
     }
 }

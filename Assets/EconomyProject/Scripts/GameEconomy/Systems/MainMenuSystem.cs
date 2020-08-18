@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
@@ -9,6 +10,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         public override bool CanMove(AdventurerAgent agent)
         {
             return true;
+        }
+
+        public override float [] GetSenses(AdventurerAgent agent)
+        {
+            return new float [0];
         }
 
         public override void SetChoice(AdventurerAgent agent, int input)
