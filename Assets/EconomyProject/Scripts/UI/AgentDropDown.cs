@@ -9,29 +9,22 @@ namespace EconomyProject.Scripts.UI
     public abstract class AgentDropDown<TAgent, T> : MonoBehaviour where TAgent : AgentScreen<T>
     {
         public Dropdown dropDown;
-
-        private readonly HashSet<string> _agentIds = new HashSet<string>();
-
         private bool _setOption;
 
+        private TAgent[] AgentList => GetCurrentAgent.GetAgents;
         protected abstract GetCurrentAgent<TAgent> GetCurrentAgent { get; }
 
-        private TAgent[] AgentList => GetCurrentAgent.GetAgents;
-
         // Update is called once per frame
-        private void Update()
+        protected virtual void Update()
         {
+            dropDown.ClearOptions();
             foreach (var agent in AgentList)
             {
                 var agentId = agent.GetComponent<AgentID>();
                 if (agentId != null)
                 {
                     var agentIdStr = agentId.agentId.ToString();
-                    if (!_agentIds.Contains(agentIdStr))
-                    {
-                        _agentIds.Add(agentIdStr);
-                        dropDown.options.Add(new Dropdown.OptionData(agentIdStr));
-                    }
+                    dropDown.options.Add(new Dropdown.OptionData(agentIdStr));
                 }
             }
 
@@ -49,7 +42,7 @@ namespace EconomyProject.Scripts.UI
             });
         }
 
-        protected void HandleChange()
+        private void HandleChange()
         {
             var id = dropDown.options[dropDown.value].text;
             foreach (var agent in AgentList)
@@ -62,7 +55,7 @@ namespace EconomyProject.Scripts.UI
             }
         }
 
-        protected void UpdateAgent(TAgent agent)
+        protected virtual void UpdateAgent(TAgent agent)
         {
             GetCurrentAgent.UpdateAgent(agent);
         }

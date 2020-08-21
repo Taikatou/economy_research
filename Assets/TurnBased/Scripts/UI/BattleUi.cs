@@ -13,8 +13,8 @@ namespace TurnBased.Scripts.UI
 
         public GameObject characterPrefab;
         
-        public Transform playerBattleStation;
-        public Transform enemyBattleStation;
+        public BattleStation playerBattleStation;
+        public BattleStation enemyBattleStation;
         
         public Text dialogueText;
 
@@ -32,11 +32,11 @@ namespace TurnBased.Scripts.UI
             uiGameObjects = new List<GameObject>();
         }
 
-        private void SpawnCharacter(BaseFighterData fighterData, Transform location)
+        private void SpawnCharacter(BaseFighterData fighterData, BattleStation station)
         {
-            var characterGo = Instantiate(characterPrefab, location);
+            var characterGo = Instantiate(characterPrefab, station.transform);
             var playerCharacterUi = characterGo.GetComponent<CharacterUi>();
-            playerCharacterUi.UpdateCharacter(fighterData);
+            playerCharacterUi.UpdateCharacter(fighterData, station.flipped);
             uiGameObjects.Add(characterGo);
         }
 

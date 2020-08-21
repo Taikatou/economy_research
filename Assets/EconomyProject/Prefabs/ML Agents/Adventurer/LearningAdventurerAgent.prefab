@@ -137,7 +137,6 @@ MonoBehaviour:
   inventory: {fileID: 1817350387931501863}
   adventurerInventory: {fileID: 4250931923004593224}
   wallet: {fileID: -4706628768726033178}
-  gameAuction: {fileID: 0}
   playerInput: {fileID: 0}
   requestTaker: {fileID: 3175469178531096349}
 --- !u!114 &3175469178531096349
@@ -152,7 +151,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fedbbfa33a0403e4f8304a75d17c2150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordSystem: {fileID: 0}
+  requestSystem: {fileID: 0}
+  requestRecord: {fileID: 0}
 --- !u!114 &8133029727072223212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,6 +177,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2ff084ce61324a4f9b84839d0b10828, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startHp: 20
+  sprite: {fileID: 21300000, guid: 3f3a5ea5ace79004eba15d892dcc01a3, type: 3}
   adventurerInventory: {fileID: 4250931923004593224}
-  hp: 20
-  sprite: {fileID: 21300000, guid: eadcbc87c8ef09a41ae6012707b3d60c, type: 3}

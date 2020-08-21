@@ -6,9 +6,10 @@ namespace TurnBased.Scripts.UI
     {
         public SpriteRenderer spriteRenderer;
 
-        public void UpdateCharacter(BaseFighterData fighterUnit)
+        public void UpdateCharacter(BaseFighterData fighterUnit, bool flipped)
         {
             spriteRenderer.sprite = fighterUnit.Sprite;
+            spriteRenderer.flipX = flipped;
         }
     }
 }

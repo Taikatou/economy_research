@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agents: {fileID: 0}
+  requestSystem: {fileID: 0}
 --- !u!1 &8771747927877783290
 GameObject:
   m_ObjectHideFlags: 0

@@ -150,6 +150,7 @@
                 <e p="ShopScrollView.cs" t="Include" />
               </e>
               <e p="ShopUI" t="Include">
+                <e p="AdventurerShopDropDown.cs" t="Include" />
                 <e p="Buttons" t="Include">
                   <e p="SampleButton.cs" t="Include" />
                   <e p="ShopButton.cs" t="Include" />
@@ -341,6 +342,7 @@
             <e p="FighterObject.cs" t="Include" />
             <e p="PlayerFighterData.cs" t="Include" />
             <e p="UI" t="Include">
+              <e p="BattleStation.cs" t="Include" />
               <e p="BattleUi.cs" t="Include" />
               <e p="CharacterUi.cs" t="Include" />
               <e p="CombatButtonsUi.cs" t="Include" />

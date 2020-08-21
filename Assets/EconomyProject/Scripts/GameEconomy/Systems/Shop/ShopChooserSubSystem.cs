@@ -21,11 +21,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             switch (choice)
             {
                 case AdventureShopInput.Up:
-                    MoveInput(agent, 1);
+                    MovePosition(agent, 1);
                     break;
                 
                 case AdventureShopInput.Down:
-                    MoveInput(agent, -1);
+                    MovePosition(agent, -1);
                     break;
                 
                 case AdventureShopInput.Select:
@@ -43,12 +43,30 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             return GetAgents[_currentShop[agent]];
         }
 
-        private void MoveInput(AdventurerAgent agent, int movement)
+        private void MovePosition(AdventurerAgent agent, int movement)
         {
             var newPosition = _currentShop[agent] + movement;
+            ChangePosition(agent, newPosition);
+        }
+
+        private void ChangePosition(AdventurerAgent agent, int newPosition)
+        {
             if (newPosition < GetAgents.Length && newPosition >= 0)
             {
                 _currentShop[agent] = newPosition;
+            }
+        }
+
+        public void SetShopAgent(AdventurerAgent adventurerAgent, ShopAgent shopAgent)
+        {
+            var found = false;
+            for (var i = 0; i < GetAgents.Length && !found; i++)
+            {
+                if (GetAgents[i] == shopAgent)
+                {
+                    found = true;
+                    _currentShop[adventurerAgent] = i;
+                }
             }
         }
     }
