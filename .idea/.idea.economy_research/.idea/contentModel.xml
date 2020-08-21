@@ -25,7 +25,7 @@
               <e p="Systems" t="Include">
                 <e p="AdventurerSystem.cs" t="Include" />
                 <e p="Craftsman" t="Include">
-                  <e p="AgentShop.cs" t="Include" />
+                  <e p="AgentData.cs" t="Include" />
                   <e p="AgentShopSubSystem.cs" t="Include" />
                   <e p="CraftingSystem.cs" t="Include" />
                   <e p="ShopCraftingSystem.cs" t="Include" />
@@ -45,6 +45,7 @@
                   <e p="TestRequestTaker.cs" t="Include" />
                 </e>
                 <e p="Shop" t="Include">
+                  <e p="AdventurerShopSubSystem.cs" t="Include" />
                   <e p="AdventurerShopSystem.cs" t="Include" />
                   <e p="IShopSubSystem.cs" t="Include" />
                   <e p="ShopChooserSubSystem.cs" t="Include" />

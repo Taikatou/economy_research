@@ -12,13 +12,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         public UsableItem item;
         public int price;
     }
-    public class AgentShop
+    public class AgentData
     {
         private readonly Dictionary<string, int> _defaultPrices;
         private readonly Dictionary<string, int> _stockPrices;
         private readonly Dictionary<string, List<UsableItem>> _shopItems;
 
-        public AgentShop(IEnumerable<BaseItemPrices> items)
+        public AgentData(IEnumerable<BaseItemPrices> items)
         {
             _shopItems = new Dictionary<string, List<UsableItem>>();
             _stockPrices = new Dictionary<string, int>();

@@ -1,7 +1,5 @@
 ﻿using System;
-using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
-using EconomyProject.Scripts.MLAgents.Shop;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 {
@@ -9,17 +7,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
     public enum AdventureShopChoices { SetShop, PurchaseItem, Back }
     public class AdventurerShopSystem : StateEconomySystem<AdventureShopChoices, AdventurerAgent, AgentScreen>
     {
-        public AgentShopSubSystem agentShopSubSystem;
-        
+        public AdventurerShopSubSystem adventurerShopSubSystem;
+
         public ShopChooserSubSystem shopChooserSubSystem;
         protected override AgentScreen ActionChoice => AgentScreen.Shop;
         protected override AdventureShopChoices IsBackState => AdventureShopChoices.Back;
         protected override AdventureShopChoices DefaultState => AdventureShopChoices.SetShop;
-
-        public ShopAgent GetCurrentShop(AdventurerAgent agent)
-        {
-            return shopChooserSubSystem.GetCurrentShop(agent);
-        }
         
         public override bool CanMove(AdventurerAgent agent)
         {
@@ -42,7 +35,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
                         shopChooserSubSystem.SetInput(agent, agentInput);
                         break;
                     case AdventureShopChoices.PurchaseItem:
-                        
+                        adventurerShopSubSystem.SetInput(agent, agentInput);
                         break;
                 }
             }

@@ -10,18 +10,18 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
     public class AgentShopSubSystem : LastUpdate
     {
         public List<BaseItemPrices> basePrices;
-        private Dictionary<ShopAgent, AgentShop> _shopSystems;
+        private Dictionary<ShopAgent, AgentData> _shopSystems;
 
         private void Start()
         {
-            _shopSystems = new Dictionary<ShopAgent, AgentShop>();
+            _shopSystems = new Dictionary<ShopAgent, AgentData>();
         }
 
-        private AgentShop GetShop(ShopAgent shopAgent)
+        private AgentData GetShop(ShopAgent shopAgent)
         {
             if (!_shopSystems.ContainsKey(shopAgent))
             {
-                _shopSystems.Add(shopAgent, new AgentShop(basePrices));
+                _shopSystems.Add(shopAgent, new AgentData(basePrices));
             }
 
             return _shopSystems[shopAgent];
