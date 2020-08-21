@@ -33,7 +33,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
             if (CraftsmanAgent)
             {
                 var items = new List<CraftingResourceUi>();
-                var resources = CraftingUtils.CraftingResources;
+                var resources = CraftingUtils.GetCraftingResources();
                 foreach (var resource in resources)
                 {
                     var inventoryNumber = CraftsmanAgent.craftingInventory.GetResourceNumber(resource);

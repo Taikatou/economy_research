@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy
 {
-    public class ShopInput : AgentInput<ShopAgent, EShopScreen>
+    public class ShopInput : AgentInput<ShopAgent, EShopScreen>, IShopSense
     {
         public MainShopSystem mainSystem;
         public ShopCraftingSystem shopCraftingSystem;
@@ -43,6 +43,11 @@ namespace EconomyProject.Scripts.GameEconomy
         public void SetAction(ShopAgent agent, int action)
         {
             GetEconomySystem(agent).SetChoice(agent, action);
+        }
+
+        public float[] GetSenses(ShopAgent agent)
+        {
+            return GetEconomySystem(agent).GetSenses(agent);
         }
     }
 }

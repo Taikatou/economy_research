@@ -8,8 +8,15 @@ namespace EconomyProject.Scripts.MLAgents.Craftsman.Requirements
 {
     public static class CraftingUtils
     {
-        public static IEnumerable<CraftingResources> CraftingResources => Enum.GetValues(typeof(CraftingResources)).Cast<CraftingResources>();
+        public static List<CraftingResources> GetCraftingResources()
+        {
+            var resources = Enum.GetValues(typeof(CraftingResources)).Cast<CraftingResources>();
+            var list = resources.ToList();
+            list.Remove(CraftingResources.Nothing);
+            return list;
+        }
     }
+
     public enum CraftingResources { Nothing, Wood, Metal, Gem, DragonScale }
 
     [Serializable]

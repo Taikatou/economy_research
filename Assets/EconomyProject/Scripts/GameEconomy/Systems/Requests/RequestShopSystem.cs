@@ -21,7 +21,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
         public override float[] GetSenses(ShopAgent agent)
         {
-            return new[] {0.0f};
+            var outputSenses = new float[CraftingResourceRequest.SensorCount + 1];
+            outputSenses[0] = (float) GetInputMode(agent);
+            var requestSense = requestSystem.GetSenses(agent);
+            requestSense.CopyTo(outputSenses, 1);
+            return outputSenses;
         }
 
         public override void SetChoice(ShopAgent agent, int input)
@@ -47,7 +51,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
         protected override void MakeChoice(ShopAgent agent, int input)
         {
-            var resources = CraftingUtils.CraftingResources.ToList();
+            var resources = CraftingUtils.GetCraftingResources();
             if (input < resources.Count)
             {
                 var craftingResources = resources[input];

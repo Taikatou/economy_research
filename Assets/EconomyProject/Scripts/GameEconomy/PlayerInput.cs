@@ -5,7 +5,7 @@ using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 
 namespace EconomyProject.Scripts.GameEconomy
 {
-    public class PlayerInput : AgentInput<AdventurerAgent, AgentScreen>
+    public class PlayerInput : AgentInput<AdventurerAgent, AgentScreen>, IAdventureSense
     {
         public MainMenuSystem mainMenuSystem;
 
@@ -42,11 +42,7 @@ namespace EconomyProject.Scripts.GameEconomy
         {
             EconomyScreens.Clear();
         }
-
-        public float[] GetSense(AdventurerAgent agent)
-        {
-            return GetEconomySystem(agent).GetSenses(agent);
-        }
+        
         
         protected override void SetupScreens()
         {
@@ -54,6 +50,11 @@ namespace EconomyProject.Scripts.GameEconomy
             adventurerShopSystem.AgentInput = this;
             requestSystem.AgentInput = this;
             adventurerSystem.AgentInput = this;
+        }
+
+        public float[] GetSenses(AdventurerAgent agent)
+        {
+            return GetEconomySystem(agent).GetSenses(agent);
         }
     }
 }

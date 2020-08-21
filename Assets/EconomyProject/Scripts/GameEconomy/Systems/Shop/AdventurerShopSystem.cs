@@ -24,6 +24,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             //var items = shopSubSystem.GetShopItems(_currentShop);
             return new[] {0.0f};
         }
+        
         protected override void MakeChoice(AdventurerAgent agent, int input)
         {
             if (Enum.IsDefined(typeof(AdventureShopInput), input))

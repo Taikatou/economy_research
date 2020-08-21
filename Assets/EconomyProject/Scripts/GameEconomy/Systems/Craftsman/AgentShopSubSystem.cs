@@ -96,5 +96,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             GetShop(shopAgent).PurchaseItems(item, wallet, inventory);
             Refresh();
         }
+
+        public float[] GetSenses(ShopAgent agent, List<UsableItem> items)
+        {
+            return GetShop(agent).GetSenses(items);
+        }
+
+        public int SenseCount => AgentData.SenseCount;
     }
 }

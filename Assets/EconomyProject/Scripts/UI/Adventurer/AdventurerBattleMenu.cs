@@ -43,7 +43,7 @@ namespace EconomyProject.Scripts.UI.Adventurer
         
         private void Update()
         {
-            var state = adventurerSystem.GetInputMode(getCurrentAdventurerAgent.CurrentAgent);
+            var state = adventurerSystem.GetAdventureStates(getCurrentAdventurerAgent.CurrentAgent);
             
             SwitchMenu(state);
         }

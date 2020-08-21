@@ -26,6 +26,17 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         public float Progress => CraftingTime / CraftingRequirements.timeToCreation;
 
         public bool Complete => CraftingTime >= CraftingRequirements.timeToCreation;
+
+        public float[] GetSenses()
+        {
+            return new float [SenseCount]
+            {
+                Progress,
+                Complete? 1f : 0f
+            };
+        }
+
+        public const int SenseCount = 2;
     }
 
     public enum CraftingInput { CraftItem = CraftingChoice.UltimateSwordOfPower+1, IncreasePrice, DecreasePrice, SubmitToShop, Quit}
@@ -42,6 +53,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public AgentShopSubSystem shopSubSubSystem;
 
+        public List<UsableItem> usableItems;
         public override bool CanMove(ShopAgent agent)
         {
             return !craftingSubSystem.HasRequest(agent);
@@ -49,7 +61,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public override float[] GetSenses(ShopAgent agent)
         {
-            return new[] {(float) GetInputMode(agent)};
+            var outputs = new float [1 + shopSubSubSystem.SenseCount + craftingSubSystem.SenseCount];
+            outputs[0] = (float) GetInputMode(agent);
+            var sensesA = shopSubSubSystem.GetSenses(agent, usableItems);
+            sensesA.CopyTo(outputs, 1);
+            var sensesB = craftingSubSystem.GetSenses(agent);
+            sensesB.CopyTo(outputs, 1 + sensesA.Length);
+            return outputs;
         }
 
         protected override void MakeChoice(ShopAgent shopAgent, int input)

@@ -9,6 +9,8 @@ namespace TurnBased.Scripts
         public int MaxHp;
         public int CurrentHp { get; set; }
 
+        public float HpPercent => (float)CurrentHp / MaxHp;
+
         public abstract int Damage { get; }
         public abstract void AfterAttack();
 

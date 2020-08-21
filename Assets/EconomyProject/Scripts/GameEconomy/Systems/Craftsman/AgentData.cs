@@ -30,6 +30,24 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             }
         }
 
+        public float[] GetSenses(List<UsableItem> items)
+        {
+            var output = new float[SenseCount];
+            for (var i = 0; i < items.Count; i++)
+            {
+                var name = items[i].itemDetails.itemName;
+                if (_stockPrices.ContainsKey(name))
+                {
+                    output[i*2] = _stockPrices[name];
+                    output[i*2 + 1] = _shopItems[name].Count;
+                }
+            }
+
+            return output;
+        }
+
+        public const int SenseCount = 6 * 2;
+
         private void ChangeItem(UsableItem item, int price)
         {
             if (!_stockPrices.ContainsKey(item.ToString()))

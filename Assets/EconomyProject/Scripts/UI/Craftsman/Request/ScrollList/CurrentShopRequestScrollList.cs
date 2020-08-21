@@ -7,10 +7,10 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
 {
     public class CurrentShopRequestScrollList : ShopRequestScrollList<CraftingResourceRequest, CraftingCurrentRequestButton>
     {
-        public GetCurrentAdventurerAgent getCurrentAgent;
+        public GetCurrentShopAgent getCurrentAgent;
 
         // Start is called before the first frame update
-        protected override List<CraftingResourceRequest> GetItemList() => requestSystem.GetAllCraftingRequests();
+        protected override List<CraftingResourceRequest> GetItemList() => requestSystem.GetAllCraftingRequests(getCurrentAgent.CurrentAgent.craftingInventory);
 
         public override void SelectItem(CraftingResourceRequest item, int number = 1)
         {

@@ -21,7 +21,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         
         public PlayerInput playerInput;
 
-        public RequestTaker requestTaker; 
+        public AdventurerRequestTaker requestTaker; 
 
         public override AgentScreen ChosenScreen => playerInput.GetScreen(this, AgentScreen.Main);
 
@@ -57,8 +57,16 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             
             // Player Input Observations
             sensor.AddObservation(playerInput.GetProgress(this));
-            
-            
+
+            foreach (var sense in requestTaker.GetSenses())
+            {
+                sensor.AddObservation(sense);
+            }
+
+            foreach (var sense in playerInput.GetSenses(this))
+            {
+                sensor.AddObservation(sense);
+            }
         }
     }
 }

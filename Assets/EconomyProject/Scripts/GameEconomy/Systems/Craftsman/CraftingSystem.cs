@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 {
-    public class CraftingSystem : MonoBehaviour
+    public class CraftingSystem : MonoBehaviour, IShopSense
     {
         public List<CraftingMap> craftingRequirement;
         private Dictionary<ShopAgent, CraftingRequest> _shopRequests;
@@ -67,5 +67,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
                 }
             }
         }
+
+        public float[] GetSenses(ShopAgent agent)
+        {
+            return _shopRequests[agent].GetSenses();
+        }
+
+        public int SenseCount => CraftingRequest.SenseCount;
     }
 }

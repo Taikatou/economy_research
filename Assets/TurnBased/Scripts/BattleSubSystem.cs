@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using EconomyProject.Scripts.GameEconomy.Systems;
+using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 
 namespace TurnBased.Scripts
@@ -6,7 +8,7 @@ namespace TurnBased.Scripts
 	public enum BattleState { Start, PlayerTurn, EnemyTurn, Won, Lost, Flee }
 	public enum BattleAction { Attack, Heal, Flee }
 
-	public class BattleSubSystem
+	public class BattleSubSystem : IAdventureSense
 	{
 		public BattleState CurrentState { get; private set; }
 		public BaseFighterData PlayerFighterUnit { get; }
@@ -89,6 +91,7 @@ namespace TurnBased.Scripts
 			DialogueText = "You feel renewed strength!";
 
 			CurrentState = BattleState.EnemyTurn;
+			
 			EnemyTurn();
 		}
 
@@ -136,5 +139,16 @@ namespace TurnBased.Scripts
 		{
 			return _fighterDropTable.GenerateItems();
 		}
+
+		public float[] GetSenses(AdventurerAgent agent)
+		{
+			return new float[GetSenseSize]
+			{
+				PlayerFighterUnit.Damage, PlayerFighterUnit.HpPercent,
+				EnemyFighterUnit.Damage, EnemyFighterUnit.HpPercent
+			};
+		}
+
+		public const int GetSenseSize = 4;
 	}
 }

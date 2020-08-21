@@ -5,6 +5,7 @@ namespace EconomyProject.Scripts.GameEconomy
 {
     public abstract class AgentScreen<TScreen> : Agent
     {
+        private int _previousDown = -1;
         public abstract TScreen ChosenScreen { get; }
         
         private readonly KeyCode[] _keyCodes = {
@@ -19,21 +20,31 @@ namespace EconomyProject.Scripts.GameEconomy
             KeyCode.Alpha8,
             KeyCode.Alpha9,
         };
-
+        
         protected int NumberKey
         {
             get
             {
+                var found = false;
                 var action = -1;
-                for(var i = 0 ; i < _keyCodes.Length; i ++ )
+                for(var i = 0 ; i < _keyCodes.Length && !found; i ++ )
                 {
                     if (Input.GetKeyDown(_keyCodes[i]) || Input.GetKey(_keyCodes[i]))
                     {
-                        action = i;
-                        break;
+                        if (_previousDown != i)
+                        {
+                            action = i;
+                            _previousDown = i;
+                        }
+                        found = true;
                     }
                 }
-                Debug.Log(action);
+
+                if (!found)
+                {
+                    _previousDown = -1;
+                }
+                
                 return action;   
             }
         }

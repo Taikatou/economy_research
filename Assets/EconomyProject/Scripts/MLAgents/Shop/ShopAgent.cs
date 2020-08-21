@@ -20,7 +20,6 @@ namespace EconomyProject.Scripts.MLAgents.Shop
             get
             {
                 var screen = shopInput.GetScreen(this, EShopScreen.Main);
-                Debug.Log(screen);
                 return screen;
             }
         }
@@ -38,10 +37,16 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 
         public override void CollectObservations(VectorSensor sensor)
         {
-            sensor.AddObservation((float)wallet.EarnedMoney);
-            sensor.AddObservation((float)wallet.SpentMoney);
-            sensor.AddObservation((float)wallet.Money);
-            wallet.ResetStep();
+            // Player Observations
+            sensor.AddObservation((int)ChosenScreen);
+            sensor.AddObservation(wallet ? (float)wallet.Money : 0.0f);
+            // Player Input Observations
+            sensor.AddObservation(shopInput.GetProgress(this));
+
+            foreach (var sense in shopInput.GetSenses(this))
+            {
+                sensor.AddObservation(sense);
+            }
         }
     }
 }

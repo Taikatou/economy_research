@@ -1,21 +1,22 @@
-﻿using EconomyProject.Scripts.GameEconomy.Systems;
-using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+﻿using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy
 {
     public class ResetScript : MonoBehaviour
     {
+        public DataLogger dataLogger;
+        public GameObject agentParents;
         public void Reset()
         {
-            var agents = GetComponentsInChildren<AdventurerAgent>();
+            var agents = agentParents.GetComponentsInChildren<AdventurerAgent>();
             foreach (var agent in agents)
             {
                 agent.ResetEconomyAgent();
             }
 
-            var dLogger = GetComponentInChildren<DataLogger>();
-            dLogger?.Reset();
+            var dLogger = dataLogger.GetComponentInChildren<DataLogger>();
+            dLogger.Reset();
         }
     }
 }

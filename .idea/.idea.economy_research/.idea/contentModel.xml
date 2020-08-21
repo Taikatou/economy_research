@@ -28,9 +28,12 @@
                   <e p="AgentData.cs" t="Include" />
                   <e p="AgentShopSubSystem.cs" t="Include" />
                   <e p="CraftingSystem.cs" t="Include" />
+                  <e p="ShopCraftingSensor.cs" t="Include" />
                   <e p="ShopCraftingSystem.cs" t="Include" />
                 </e>
                 <e p="EconomySystem.cs" t="Include" />
+                <e p="IAdventureSense.cs" t="Include" />
+                <e p="IShopSense.cs" t="Include" />
                 <e p="MainMenuSystem.cs" t="Include" />
                 <e p="MainShopSystem.cs" t="Include" />
                 <e p="Requests" t="Include">
@@ -41,6 +44,7 @@
                   <e p="RequestAdventurerSystem.cs" t="Include" />
                   <e p="RequestShopSystem.cs" t="Include" />
                   <e p="RequestSystem.cs" t="Include" />
+                  <e p="RequestSystemAdventureSense.cs" t="Include" />
                   <e p="RequestTaker.cs" t="Include" />
                   <e p="TestRequestTaker.cs" t="Include" />
                 </e>

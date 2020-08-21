@@ -2,12 +2,13 @@
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Craftsman;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
+using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
-    public class RequestSystem : LastUpdate
+    public class RequestSystem : LastUpdate, IAdventureSense, IShopSense
     {
         public int maxRequests = 2;
         public CraftingRequestRecord craftingRequestRecord;
@@ -21,6 +22,20 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             foreach (var entry in _craftingNumber)
             {
                 foreach (var entry2 in entry.Value)
+                {
+                    returnList.Add(entry2.Value);
+                }
+            }
+
+            return returnList;
+        }
+        
+        public List<CraftingResourceRequest> GetAllCraftingRequests(CraftingInventory inventory)
+        {
+            var returnList = new List<CraftingResourceRequest>();
+            if (_craftingNumber.ContainsKey(inventory))
+            {
+                foreach (var entry2 in _craftingNumber[inventory])
                 {
                     returnList.Add(entry2.Value);
                 }
@@ -192,6 +207,19 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                     }
                 }
             }
+        }
+
+        public float[] GetSenses(AdventurerAgent agent)
+        {
+            var craftingRequests = GetAllCraftingRequests();
+            
+            return CraftingResourceRequest.GetSenses(craftingRequests, 5);
+        }
+
+        public float[] GetSenses(ShopAgent agent)
+        {
+            var craftingRequests = GetAllCraftingRequests(agent.craftingInventory);
+            return CraftingResourceRequest.GetSenses(craftingRequests, 5);
         }
     }
 }
