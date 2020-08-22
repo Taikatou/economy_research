@@ -5,13 +5,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
     public abstract class RequestTaker : MonoBehaviour
     {
-        public abstract List<CraftingResourceRequest> ItemList { get; }
+        public abstract List<CraftingResourceRequest> GetItemList();
 
         public abstract void TakeRequest(CraftingResourceRequest request);
 
-        public virtual void CompleteRequest()
-        {
-
-        }
+        public abstract void CompleteRequest(int reward);
     }
 }

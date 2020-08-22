@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fedbbfa33a0403e4f8304a75d17c2150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wallet: {fileID: -4706628768726033178}
   requestSystem: {fileID: 0}
   requestRecord: {fileID: 0}
 --- !u!114 &8133029727072223212

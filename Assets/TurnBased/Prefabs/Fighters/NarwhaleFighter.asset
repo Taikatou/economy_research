@@ -21,7 +21,7 @@ MonoBehaviour:
     lootDropItems:
     - item:
         resource: 0
-        minDrop: 0
+        minDrop: 1
         maxDrop: 1
       probabilityWeight: 1
       probabilityPercent: 50
@@ -29,7 +29,7 @@ MonoBehaviour:
       probabilityRangeTo: 0
     - item:
         resource: 1
-        minDrop: 0
+        minDrop: 1
         maxDrop: 1
       probabilityWeight: 1
       probabilityPercent: 50

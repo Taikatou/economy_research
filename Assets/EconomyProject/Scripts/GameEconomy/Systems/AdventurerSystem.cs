@@ -142,12 +142,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                     {
                         case BattleState.Lost:
                             SpendMoney(agent);
-                        
+                            var fighterData = agent.GetComponent<AdventurerFighterData>();
+                            fighterData.ResetHp();
+                            
                             break;
                         case BattleState.Won:
                             var craftingDrop = battleSystem.GetCraftingDropItem();
                             var craftingInventory = agent.GetComponent<AdventurerRequestTaker>();
-                        
+                            Debug.Log(craftingDrop.Count);
                             craftingInventory.CheckItemAdd(craftingDrop.Resource, craftingDrop.Count);
                             break;
                     }

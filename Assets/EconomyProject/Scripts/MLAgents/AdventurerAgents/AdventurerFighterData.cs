@@ -1,4 +1,5 @@
-﻿using EconomyProject.Scripts.Inventory;
+﻿using System;
+using EconomyProject.Scripts.Inventory;
 using TurnBased.Scripts;
 using UnityEngine;
 
@@ -21,6 +22,12 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
                 AgentInventory=adventurerInventory
             };
         }
+
+        public void ResetHp()
+        {
+            playerData.CurrentHp = playerData.MaxHp;
+        }
+
         public BaseFighterData FighterData => playerData;
     }
 }

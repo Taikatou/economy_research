@@ -37,7 +37,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             {
                 if (_currentRequests[taker].Contains(request))
                 {
-                    taker.CompleteRequest();
+                    taker.CompleteRequest(request.Reward);
                     request.TransferResource();
 
                     _currentRequests[taker].Remove(request);

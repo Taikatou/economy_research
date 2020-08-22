@@ -15,8 +15,8 @@ namespace TurnBased.Scripts
 
         public int GenerateNumber()
         {
-            var generator = new System.Random();
-            return generator.Next(minDrop, maxDrop);
+            var generator = new Random();
+            return generator.Next(minDrop, maxDrop + 1);
         }
 
         public BattleDrop(BattleDrop original)

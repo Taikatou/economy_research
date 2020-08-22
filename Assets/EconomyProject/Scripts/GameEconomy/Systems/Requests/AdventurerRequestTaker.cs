@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
+using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
@@ -35,16 +37,17 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
     
     public class AdventurerRequestTaker : RequestTaker
     {
+        public EconomyWallet wallet;
         public RequestSystem requestSystem;
         public CraftingRequestRecord requestRecord;
 
-        private Dictionary<CraftingResources, TakenCraftingResourceRequest> _currentActiveRequests;
+        private Dictionary<CraftingResources, TakenCraftingResourceRequest> _currentRequestData;
 
-        public override List<CraftingResourceRequest> ItemList => requestRecord.GetCurrentRequests(this);
+        public override List<CraftingResourceRequest> GetItemList() => requestRecord.GetCurrentRequests(this);
         
         public void Start()
         {
-            _currentActiveRequests = new Dictionary<CraftingResources, TakenCraftingResourceRequest>();
+            _currentRequestData = new Dictionary<CraftingResources, TakenCraftingResourceRequest>();
         }
         
         public override void TakeRequest(CraftingResourceRequest request)
@@ -52,37 +55,48 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             requestSystem.TakeRequest(this, request);
         }
 
+        public override void CompleteRequest(int reward)
+        {
+            wallet.EarnMoney(reward);
+        }
+
         public void CheckItemAdd(CraftingResources resource, int amount)
         {
-            var found = _currentActiveRequests.ContainsKey(resource);
-            if (!found)
+            var itemList = GetItemList();
+            foreach (var item in itemList)
             {
-                var foundRequest = ItemList.FirstOrDefault(i => i.Resource == resource);
-                if (foundRequest != null)
-                {
-                    var craftingRequest = new TakenCraftingResourceRequest {Request = foundRequest, CurrentAmount = 0};
-                    _currentActiveRequests.Add(resource, craftingRequest);
-                    found = true;
-                }
+                Debug.Log(item.Resource);
             }
+            Debug.Log("Resource: " + resource);
+            var foundRequest = itemList.FirstOrDefault(i => i.Resource == resource);
             
-            if(found)
+            // Check if we have current request for this resource
+            if (foundRequest != null)
             {
-                _currentActiveRequests[resource].AddAmount(amount);
-                if (_currentActiveRequests[resource].Complete)
+                if (!_currentRequestData.ContainsKey(resource))
                 {
-                    requestRecord.CompleteRequest(this, _currentActiveRequests[resource].Request);
-                    _currentActiveRequests.Remove(resource);
+                    var craftingRequest = new TakenCraftingResourceRequest {Request = foundRequest, CurrentAmount = amount};
+                    _currentRequestData.Add(resource, craftingRequest);
                 }
+                else
+                {
+                    _currentRequestData[resource].AddAmount(amount);
+                }
+                if (_currentRequestData[resource].Complete)
+                {
+                    requestRecord.CompleteRequest(this, _currentRequestData[resource].Request);
+                    _currentRequestData.Remove(resource);
+                }
+                requestSystem.Refresh();
             }
         }
 
         public int GetCurrentStock(CraftingResources resource)
         {
             var amount = 0;
-            if (_currentActiveRequests.ContainsKey(resource))
+            if (_currentRequestData.ContainsKey(resource))
             {
-                amount = _currentActiveRequests[resource].CurrentAmount;
+                amount = _currentRequestData[resource].CurrentAmount;
             }
             return amount;
         }
@@ -94,7 +108,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             var output = new float[outputSize];
             for (var i = 0; i < resources.Count; i++ )
             {
-                var senses = TakenCraftingResourceRequest.GetSenses(_currentActiveRequests, resources[i]);
+                var senses = TakenCraftingResourceRequest.GetSenses(_currentRequestData, resources[i]);
                 for (var j = 0; j < senses.Length; j++)
                 {
                     var index = i*TakenCraftingResourceRequest.SensorCount + j;

@@ -16,8 +16,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         public override float[] GetSenses(AdventurerAgent agent)
         {
             var input = new float[CraftingResourceRequest.SensorCount + CraftingResourceRequest.SensorCount];
-            
-            var senseA = CraftingResourceRequest.GetSenses(agent.requestTaker.ItemList, 5);
+
+            var itemList = agent.requestTaker.GetItemList();
+            var senseA = CraftingResourceRequest.GetSenses(itemList, 5);
             senseA.CopyTo(input, 0);
             var senseB = requestSystem.GetSenses(agent);
             senseB.CopyTo(input, senseA.Length);
