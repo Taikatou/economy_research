@@ -5,18 +5,28 @@ using EconomyProject.Scripts.UI.Craftsman.Request.ScrollList;
 
 namespace EconomyProject.Scripts.UI.Adventurer
 {
-    public class AdventurerRequestScrollView : ShopRequestScrollList<CraftingResourceRequest, CraftingCurrentRequestButton>
+    public class AdventurerRequestScrollView : ShopRequestScrollList<AdventurerCraftingResourceRequest, AdventurerCurrentRequestButton>
     {
         public GetCurrentAdventurerAgent currentAdventurerAgent;
-        protected override List<CraftingResourceRequest> GetItemList()
+        
+        private AdventurerRequestTaker GetCurrentRequestTaker => currentAdventurerAgent.CurrentAgent.requestTaker;
+
+        protected override List<AdventurerCraftingResourceRequest> GetItemList()
         {
-            var requestTaker = currentAdventurerAgent.CurrentAgent.requestTaker;
-            return requestSystem.craftingRequestRecord.GetCurrentRequests(requestTaker);
+            var items = requestSystem.craftingRequestRecord.GetCurrentRequests(GetCurrentRequestTaker);
+            var toReturn = new List<AdventurerCraftingResourceRequest>();
+            foreach (var item in items)
+            {
+                var amount = GetCurrentRequestTaker.GetCurrentStock(item.Resource);
+                var request = new AdventurerCraftingResourceRequest {Request = item, CurrentNumber = amount};
+                toReturn.Add(request);
+            }
+            return toReturn;
         }
 
-        public override void SelectItem(CraftingResourceRequest item, int number = 1)
+        public override void SelectItem(AdventurerCraftingResourceRequest item, int number = 1)
         {
-            throw new System.NotImplementedException();
+            GetCurrentRequestTaker.TakeRequest(item.Request);
         }
     }
 }

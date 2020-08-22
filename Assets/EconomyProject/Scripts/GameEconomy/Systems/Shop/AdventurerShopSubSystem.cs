@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 {
-    public class AdventurerShopSubSystem : MonoBehaviour, IShopSubSystem
+    public class AdventurerShopSubSystem : MonoBehaviour, IShopSubSystem, IAdventureSense
     {
         public AgentShopSubSystem agentShopSubSystem;
         public ShopChooserSubSystem shopChooserSubSystem;
@@ -48,6 +48,20 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             {
                 _currentLocation[agent] = newPosition;
             }
+        }
+
+        public float[] GetSenses(AdventurerAgent agent)
+        {
+            var shop = shopChooserSubSystem.GetCurrentShop(agent);
+            var senseA = agentShopSubSystem.GetSenses(shop);
+            var output = new float [1 + agentShopSubSystem.SenseCount + shopChooserSubSystem.SenseCount];
+            output[0] = _currentLocation[agent];
+            senseA.CopyTo(output, 1);
+
+            var senseB = shopChooserSubSystem.GetSenses(agent);
+            senseB.CopyTo(output, 1 + agentShopSubSystem.SenseCount);
+
+            return output;
         }
     }
 }

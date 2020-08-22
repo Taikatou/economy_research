@@ -5,7 +5,7 @@ using EconomyProject.Scripts.UI;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 {
-    public class ShopChooserSubSystem : GetCurrentAgent<ShopAgent>, IShopSubSystem
+    public class ShopChooserSubSystem : GetCurrentShopAgent, IShopSubSystem, IAdventureSense
     {
         private Dictionary<AdventurerAgent, int> _currentShop;
 
@@ -69,5 +69,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
                 }
             }
         }
+
+        public float[] GetSenses(AdventurerAgent agent)
+        {
+            return new float [] {_currentShop.Count};
+        }
+
+        public int SenseCount => 1;
     }
 }

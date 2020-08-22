@@ -129,12 +129,14 @@
                 <e p="CraftsmanUIControls.cs" t="Include" />
                 <e p="Request" t="Include">
                   <e p="Buttons" t="Include">
+                    <e p="AdventurerCurrentRequestButton.cs" t="Include" />
                     <e p="CraftingCurrentRequestButton.cs" t="Include" />
                     <e p="CraftingMakeRequestButton.cs" t="Include" />
                   </e>
                   <e p="CraftsmanUi.cs" t="Include" />
                   <e p="DebugText.cs" t="Include" />
                   <e p="ScrollList" t="Include">
+                    <e p="AdventurerTakeRequestScrollList.cs" t="Include" />
                     <e p="CraftsManMakeShopRequestScrollList.cs" t="Include" />
                     <e p="CurrentShopRequestScrollList.cs" t="Include" />
                     <e p="ShopRequestScrollList.cs" t="Include" />

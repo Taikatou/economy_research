@@ -10,13 +10,17 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
         public GetCurrentShopAgent getCurrentAgent;
 
         // Start is called before the first frame update
-        protected override List<CraftingResourceRequest> GetItemList() => requestSystem.GetAllCraftingRequests(getCurrentAgent.CurrentAgent.craftingInventory);
+        protected override List<CraftingResourceRequest> GetItemList()
+        {
+            var inventory = getCurrentAgent.CurrentAgent.craftingInventory;
+            Debug.Log(inventory + "\t" + requestSystem);
+            var items = requestSystem.GetAllCraftingRequests(inventory);
+            return items;
+        }
 
         public override void SelectItem(CraftingResourceRequest item, int number = 1)
         {
-            var requestTaker = getCurrentAgent.CurrentAgent.GetComponent<RequestTaker>();
-            Debug.Log(requestTaker == null);
-            requestTaker.TakeRequest(item);
+            throw new System.NotImplementedException();
         }
     }
 }

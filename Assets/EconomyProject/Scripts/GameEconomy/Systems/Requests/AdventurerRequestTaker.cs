@@ -77,6 +77,16 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             }
         }
 
+        public int GetCurrentStock(CraftingResources resource)
+        {
+            var amount = 0;
+            if (_currentActiveRequests.ContainsKey(resource))
+            {
+                amount = _currentActiveRequests[resource].CurrentAmount;
+            }
+            return amount;
+        }
+
         public float[] GetSenses()
         {
             var resources = CraftingUtils.GetCraftingResources();

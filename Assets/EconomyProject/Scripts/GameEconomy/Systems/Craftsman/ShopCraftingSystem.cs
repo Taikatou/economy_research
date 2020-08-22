@@ -53,7 +53,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public AgentShopSubSystem shopSubSubSystem;
 
-        public List<UsableItem> usableItems;
         public override bool CanMove(ShopAgent agent)
         {
             return !craftingSubSystem.HasRequest(agent);
@@ -63,7 +62,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         {
             var outputs = new float [1 + shopSubSubSystem.SenseCount + craftingSubSystem.SenseCount];
             outputs[0] = (float) GetInputMode(agent);
-            var sensesA = shopSubSubSystem.GetSenses(agent, usableItems);
+            var sensesA = shopSubSubSystem.GetSenses(agent);
             sensesA.CopyTo(outputs, 1);
             var sensesB = craftingSubSystem.GetSenses(agent);
             sensesB.CopyTo(outputs, 1 + sensesA.Length);

@@ -9,8 +9,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 {
     public class AgentShopSubSystem : LastUpdate
     {
+        public List<UsableItem> usableItems;
         public List<BaseItemPrices> basePrices;
         private Dictionary<ShopAgent, AgentData> _shopSystems;
+        
+        public int SenseCount => AgentData.SenseCount;
 
         private void Start()
         {
@@ -97,11 +100,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             Refresh();
         }
 
-        public float[] GetSenses(ShopAgent agent, List<UsableItem> items)
+        public float[] GetSenses(ShopAgent agent)
         {
-            return GetShop(agent).GetSenses(items);
+            return GetShop(agent).GetSenses(usableItems);
         }
-
-        public int SenseCount => AgentData.SenseCount;
     }
 }
