@@ -24,7 +24,7 @@ MonoBehaviour:
         minDrop: 1
         maxDrop: 2
       probabilityWeight: 1
-      probabilityPercent: 50
+      probabilityPercent: 33
       probabilityRangeFrom: 0
       probabilityRangeTo: 0
     - item:
@@ -32,6 +32,14 @@ MonoBehaviour:
         minDrop: 1
         maxDrop: 1
       probabilityWeight: 1
-      probabilityPercent: 50
+      probabilityPercent: 33
+      probabilityRangeFrom: 0
+      probabilityRangeTo: 0
+    - item:
+        resource: 3
+        minDrop: 1
+        maxDrop: 1
+      probabilityWeight: 1
+      probabilityPercent: 33
       probabilityRangeFrom: 0
       probabilityRangeTo: 0

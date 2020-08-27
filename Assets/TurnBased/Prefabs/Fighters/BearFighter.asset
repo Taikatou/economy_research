@@ -16,21 +16,21 @@ MonoBehaviour:
     UnitName: Bear
     Sprite: {fileID: 21300000, guid: 455ed83fe105a1e49a7058359070b123, type: 3}
     MaxHp: 15
-    damage: 4
+    damage: 5
   fighterDropTable:
     lootDropItems:
     - item:
-        resource: 0
+        resource: 1
         minDrop: 1
-        maxDrop: 1
+        maxDrop: 2
       probabilityWeight: 1
       probabilityPercent: 50
       probabilityRangeFrom: 0
       probabilityRangeTo: 0
     - item:
-        resource: 1
+        resource: 2
         minDrop: 1
-        maxDrop: 1
+        maxDrop: 2
       probabilityWeight: 1
       probabilityPercent: 50
       probabilityRangeFrom: 0

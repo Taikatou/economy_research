@@ -15,7 +15,7 @@ MonoBehaviour:
   data:
     UnitName: Snake
     Sprite: {fileID: 21300000, guid: 132fd18194cf278448317e841451f39c, type: 3}
-    MaxHp: 50
+    MaxHp: 20
     damage: 5
   fighterDropTable:
     lootDropItems:

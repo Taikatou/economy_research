@@ -15,8 +15,8 @@ MonoBehaviour:
   data:
     UnitName: Elephant
     Sprite: {fileID: 21300000, guid: 91bad3282df0b304bbd9a48b1e875a0b, type: 3}
-    MaxHp: 40
-    damage: 5
+    MaxHp: 25
+    damage: 6
   fighterDropTable:
     lootDropItems:
     - item:
@@ -24,7 +24,7 @@ MonoBehaviour:
         minDrop: 1
         maxDrop: 2
       probabilityWeight: 1
-      probabilityPercent: 50
+      probabilityPercent: 33
       probabilityRangeFrom: 0
       probabilityRangeTo: 0
     - item:
@@ -32,6 +32,14 @@ MonoBehaviour:
         minDrop: 1
         maxDrop: 1
       probabilityWeight: 1
-      probabilityPercent: 50
+      probabilityPercent: 33
+      probabilityRangeFrom: 0
+      probabilityRangeTo: 0
+    - item:
+        resource: 4
+        minDrop: 1
+        maxDrop: 2
+      probabilityWeight: 1
+      probabilityPercent: 33
       probabilityRangeFrom: 0
       probabilityRangeTo: 0

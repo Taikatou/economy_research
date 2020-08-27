@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23bec5fbd5edd9b4ab62e476059b76fd, type: 3}
   m_Name: 2_IntermidateSword
   m_EditorClassIdentifier: 
-  durability: 5
-  unBreakable: 0
   itemDetails:
+    unBreakable: 0
     itemName: Intermedite Sword
-    baseDurability: 5
-    damage: 8
+    baseDurability: 6
+    damage: 9
+    durability: 0

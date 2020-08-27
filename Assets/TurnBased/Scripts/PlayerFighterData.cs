@@ -11,9 +11,14 @@ namespace TurnBased.Scripts
         
         public override int Damage => UsableItem.itemDetails.damage;
         
-        public override void AfterAttack()
+        protected override void AfterAttack()
         {
             AgentInventory.DecreaseDurability();
+        }
+        
+        public void ResetHp()
+        {
+            CurrentHp = MaxHp;
         }
     }
 }

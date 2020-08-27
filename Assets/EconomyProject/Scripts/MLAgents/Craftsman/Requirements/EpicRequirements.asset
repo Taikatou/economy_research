@@ -15,11 +15,11 @@ MonoBehaviour:
   resultingItem: {fileID: 11400000, guid: 995af46e8ce3ad84a9491f7e65b0c666, type: 2}
   timeToCreation: 3
   resourcesRequirements:
-  - type: 0
-    number: 2
   - type: 1
     number: 2
   - type: 2
     number: 2
   - type: 3
+    number: 2
+  - type: 4
     number: 1

@@ -12,14 +12,19 @@ namespace TurnBased.Scripts
         public float HpPercent => (float)CurrentHp / MaxHp;
 
         public abstract int Damage { get; }
-        public abstract void AfterAttack();
+        protected abstract void AfterAttack();
+        
+        public bool IsDead => CurrentHp <= 0;
 
-        public bool TakeDamage(int dmg)
+        private void TakeDamage(int dmg)
         {
-            Debug.Log(CurrentHp + "\t" + dmg);
-            CurrentHp -= dmg;
+            var newDmg = CurrentHp - dmg;
+            if (newDmg < 0)
+            {
+                newDmg = 0;
+            }
 
-            return CurrentHp <= 0;
+            CurrentHp = newDmg;
         }
 
         public void Heal(int amount)
@@ -29,6 +34,12 @@ namespace TurnBased.Scripts
             {
                 CurrentHp = MaxHp;	
             }
+        }
+
+        public void Attack(BaseFighterData enemy)
+        {
+            enemy.TakeDamage(Damage);
+            AfterAttack();
         }
     }
 }

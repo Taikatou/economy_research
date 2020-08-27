@@ -20,17 +20,17 @@ MonoBehaviour:
   fighterDropTable:
     lootDropItems:
     - item:
-        resource: 0
+        resource: 1
         minDrop: 1
-        maxDrop: 1
+        maxDrop: 2
       probabilityWeight: 1
       probabilityPercent: 50
       probabilityRangeFrom: 0
       probabilityRangeTo: 1
     - item:
-        resource: 1
+        resource: 2
         minDrop: 1
-        maxDrop: 2
+        maxDrop: 1
       probabilityWeight: 1
       probabilityPercent: 50
       probabilityRangeFrom: 1

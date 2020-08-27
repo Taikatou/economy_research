@@ -15,9 +15,9 @@ MonoBehaviour:
   resultingItem: {fileID: 11400000, guid: 220a652df168f054b8b6564ab9e67f7f, type: 2}
   timeToCreation: 3
   resourcesRequirements:
-  - type: 0
-    number: 2
   - type: 1
     number: 2
   - type: 2
+    number: 2
+  - type: 3
     number: 2

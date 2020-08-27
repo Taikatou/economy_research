@@ -9,7 +9,7 @@ namespace TurnBased.Scripts
 
         public override int Damage => damage;
         
-        public override void AfterAttack()
+        protected override void AfterAttack()
         {
             
         }

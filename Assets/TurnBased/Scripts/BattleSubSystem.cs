@@ -34,16 +34,16 @@ namespace TurnBased.Scripts
 
 		private void PlayerAttack()
 		{
-			var isDead = EnemyFighterUnit.TakeDamage(PlayerFighterUnit.Damage);
-			PlayerFighterUnit.AfterAttack();
-			
+			PlayerFighterUnit.Attack(EnemyFighterUnit);
+
 			DialogueText = "The attack is successful!";
 
-			if(isDead)
+			if(EnemyFighterUnit.IsDead)
 			{
 				CurrentState = BattleState.Won;
 				EndBattle();
-			} else
+			}
+			else
 			{
 				CurrentState = BattleState.EnemyTurn;
 				EnemyTurn();
@@ -52,28 +52,28 @@ namespace TurnBased.Scripts
 
 		private void EnemyTurn()
 		{
+			EnemyFighterUnit.Attack(PlayerFighterUnit);
 			DialogueText = EnemyFighterUnit.UnitName + " attacks!";
 
-			var isDead = PlayerFighterUnit.TakeDamage(EnemyFighterUnit.Damage);
-
-			if(isDead)
+			if(PlayerFighterUnit.IsDead)
 			{
 				CurrentState = BattleState.Lost;
 				EndBattle();
-			} else
+			}
+			else
 			{
 				CurrentState = BattleState.PlayerTurn;
 				PlayerTurn();
 			}
-			CurrentState = BattleState.PlayerTurn;
 		}
 
 		private void EndBattle()
 		{
-			if(CurrentState == BattleState.Won)
+			if (CurrentState == BattleState.Won)
 			{
 				DialogueText = "You won the battle!";
-			} else if (CurrentState == BattleState.Lost)
+			}
+			else if (CurrentState == BattleState.Lost)
 			{
 				DialogueText = "You were defeated.";
 			}

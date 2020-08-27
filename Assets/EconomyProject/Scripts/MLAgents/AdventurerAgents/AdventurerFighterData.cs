@@ -23,11 +23,11 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             };
         }
 
-        public void ResetHp()
-        {
-            playerData.CurrentHp = playerData.MaxHp;
-        }
-
         public BaseFighterData FighterData => playerData;
+
+        public void Update()
+        {
+            Debug.Log(playerData.CurrentHp);
+        }
     }
 }
