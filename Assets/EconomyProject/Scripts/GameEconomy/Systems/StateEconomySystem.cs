@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
@@ -14,8 +15,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         protected abstract void MakeChoice(TAgent agent, int input);
 
-        public virtual void Start()
+        public override void Start()
         {
+            base.Start();
             _inputMode = new Dictionary<TAgent, TState>();
         }
         
@@ -49,7 +51,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             }
         }
 
-        public TState GetInputMode(TAgent agent)
+        protected TState GetInputMode(TAgent agent)
         {
             if (_inputMode.ContainsKey(agent))
             {

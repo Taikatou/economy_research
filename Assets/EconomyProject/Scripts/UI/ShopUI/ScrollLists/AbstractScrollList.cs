@@ -16,7 +16,7 @@ namespace EconomyProject.Scripts.UI.ShopUI.ScrollLists
         public DateTime LastUpdated { get; private set; }
         public void Refresh()
         {
-            LastUpdated = DateTime.Now;;
+            LastUpdated = DateTime.Now;
         }
     }
 

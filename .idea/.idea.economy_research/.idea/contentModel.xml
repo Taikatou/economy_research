@@ -15,11 +15,11 @@
               <e p="ResetOnItem.cs" t="Include" />
             </e>
             <e p="GameEconomy" t="Include">
+              <e p="AdventurerInput.cs" t="Include" />
               <e p="AgentInput.cs" t="Include" />
               <e p="AgentScreen.cs" t="Include" />
               <e p="DataLogger.cs" t="Include" />
               <e p="ItemMapper.cs" t="Include" />
-              <e p="PlayerInput.cs" t="Include" />
               <e p="ResetScript.cs" t="Include" />
               <e p="ShopInput.cs" t="Include" />
               <e p="Systems" t="Include">
@@ -27,7 +27,7 @@
                 <e p="Craftsman" t="Include">
                   <e p="AgentData.cs" t="Include" />
                   <e p="AgentShopSubSystem.cs" t="Include" />
-                  <e p="CraftingSystem.cs" t="Include" />
+                  <e p="CraftingSubSystem.cs" t="Include" />
                   <e p="ShopCraftingSensor.cs" t="Include" />
                   <e p="ShopCraftingSystem.cs" t="Include" />
                 </e>
@@ -148,6 +148,7 @@
               <e p="GetCurrentAdventurerAgent.cs" t="Include" />
               <e p="GetCurrentAgent.cs" t="Include" />
               <e p="GetCurrentShopAgent.cs" t="Include" />
+              <e p="InputModeText.cs" t="Include" />
               <e p="Inventory" t="Include">
                 <e p="AdventurerInventoryScrollButton.cs" t="Include" />
                 <e p="AdventurerInventoryScrollView.cs" t="Include" />

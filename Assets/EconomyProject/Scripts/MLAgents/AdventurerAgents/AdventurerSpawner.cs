@@ -8,7 +8,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 {
     public class AdventurerSpawner : BaseAgentSpawner
     {
-        public PlayerInput playerInput;
+        public AdventurerInput adventurerInput;
 
         public RequestSystem requestSystem;
 
@@ -18,7 +18,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         {
             var agent = base.Spawn(toSpawnPrefab);
             var adventurer = agent.GetComponent<AdventurerAgent>(); 
-            adventurer.playerInput = playerInput;
+            adventurer.adventurerInput = adventurerInput;
 
             var taker = adventurer.GetComponent<AdventurerRequestTaker>();
             taker.requestSystem = requestSystem;

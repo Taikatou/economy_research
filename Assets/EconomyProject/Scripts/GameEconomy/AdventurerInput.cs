@@ -5,7 +5,7 @@ using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 
 namespace EconomyProject.Scripts.GameEconomy
 {
-    public class PlayerInput : AgentInput<AdventurerAgent, AgentScreen>, IAdventureSense
+    public class AdventurerInput : AgentInput<AdventurerAgent, EAdventurerScreen>, IAdventureSense
     {
         public MainMenuSystem mainMenuSystem;
 
@@ -15,18 +15,18 @@ namespace EconomyProject.Scripts.GameEconomy
 
         public AdventurerSystem adventurerSystem;
         
-        protected override EconomySystem<AdventurerAgent, AgentScreen> GetEconomySystem(AdventurerAgent agent)
+        public override EconomySystem<AdventurerAgent, EAdventurerScreen> GetEconomySystem(AdventurerAgent agent)
         {
-            var screen = GetScreen(agent, AgentScreen.Main);
+            var screen = GetScreen(agent, EAdventurerScreen.Main);
             switch (screen)
             {
-                case AgentScreen.Main:
+                case EAdventurerScreen.Main:
                     return mainMenuSystem;
-                case AgentScreen.Shop:
+                case EAdventurerScreen.Shop:
                     return adventurerShopSystem;
-                case AgentScreen.Request:
+                case EAdventurerScreen.Request:
                     return requestSystem;
-                case AgentScreen.Adventurer:
+                case EAdventurerScreen.Adventurer:
                     return adventurerSystem;
             }
             return null;

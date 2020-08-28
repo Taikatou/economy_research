@@ -9,13 +9,13 @@ namespace EconomyProject.Scripts.UI.Craftsman.Crafting
     public class CraftingSlider : MonoBehaviour
     {
         public Slider slider;
-        public CraftingSystem craftingSystem;
+        public CraftingSubSystem craftingSubSystem;
         public GetCurrentShopAgent getCurrentAgent;
 
         private void Update()
         {
             Time.timeScale = 1.0f;
-            slider.value = craftingSystem.Progress(getCurrentAgent.CurrentAgent);
+            slider.value = craftingSubSystem.Progress(getCurrentAgent.CurrentAgent);
         }
     }
 }

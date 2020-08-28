@@ -10,17 +10,17 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 {
     public enum AgentAdventureInput{Quit=BattleEnvironments.Volcano+1}
     public enum AdventureStates { OutOfBattle, InBattle}
-    public class AdventurerSystem : EconomySystem<AdventurerAgent, AgentScreen>
-    {
-        public PlayerInput playerInput;
+    public class AdventurerSystem : EconomySystem<AdventurerAgent, EAdventurerScreen>
+    { 
         public TravelSubSystem travelSubsystem;
 
         public Dictionary<AdventurerAgent, BattleSubSystem> battleSystems;
         public Dictionary<AdventurerAgent, AdventureStates> adventureStates;
-        protected override AgentScreen ActionChoice => AgentScreen.Adventurer;
+        public override EAdventurerScreen ActionChoice => EAdventurerScreen.Adventurer;
 
-        public void Start()
+        public override void Start()
         {
+            base.Start();
             adventureStates = new Dictionary<AdventurerAgent, AdventureStates>();
             battleSystems = new Dictionary<AdventurerAgent, BattleSubSystem>();
         }
@@ -45,6 +45,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             {
                 adventureStates[agent] = state;
             }
+            Refresh(agent);
         }
         
         public override bool CanMove(AdventurerAgent agent)
@@ -66,11 +67,27 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return battleState;
         }
 
+        public override InputAction[] GetInputOptions(AdventurerAgent agent)
+        {
+            var outputs = new List<InputAction>();
+            switch (GetAdventureStates(agent))
+            {
+                case AdventureStates.OutOfBattle:
+                    outputs.AddRange(EconomySystemUtils.GetStateInput<BattleEnvironments>());
+                    break;
+                case AdventureStates.InBattle:
+                    outputs.AddRange(EconomySystemUtils.GetStateInput<BattleAction>());
+                    break;
+            }
+            outputs.AddRange(EconomySystemUtils.GetStateInput<AgentAdventureInput>());
+            return outputs.ToArray();
+        }
+
         public override void SetChoice(AdventurerAgent agent, int input)
         {
             if (Enum.IsDefined(typeof(AgentAdventureInput), input))
             {
-                playerInput.ChangeScreen(agent, AgentScreen.Main);
+                AgentInput.ChangeScreen(agent, EAdventurerScreen.Main);
             }
             else
             {
@@ -172,7 +189,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
             if (fighter)
             {
-                SetupNewBattle(agent, fighter);   
+                SetupNewBattle(agent, fighter);
             }
         }
 

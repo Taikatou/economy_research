@@ -10,7 +10,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Crafting
 {
     public class CraftsmanCraftingScrollList : AbstractScrollList<CraftingInfo, CraftingRequestButton>
     {
-        public CraftingSystem craftingSystem;
+        public CraftingSubSystem craftingSubSystem;
         public GetCurrentShopAgent getCurrentAgent;
         private ShopAgent Agent => getCurrentAgent.CurrentAgent;
         protected override LastUpdate LastUpdated => GetComponent<CraftingLastUpdate>();
@@ -18,7 +18,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Crafting
         protected override List<CraftingInfo> GetItemList()
         {
             var itemList = new List<CraftingInfo>();
-            foreach (var item in craftingSystem.craftingRequirement)
+            foreach (var item in craftingSubSystem.craftingRequirement)
             {
                 var craftInfo = new CraftingInfo(item, Agent.craftingInventory);
                 itemList.Add(craftInfo);
@@ -27,7 +27,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Crafting
         }
         public override void SelectItem(CraftingInfo item, int number = 1)
         {
-            craftingSystem.MakeRequest(Agent, (int) item.craftingMap.choice);
+            craftingSubSystem.MakeRequest(Agent, (int) item.craftingMap.choice);
             LastUpdated.Refresh();
         }
     }

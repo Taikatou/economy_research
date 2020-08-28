@@ -45,28 +45,36 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
     public class ShopCraftingSystem : StateEconomySystem<CraftingInput, ShopAgent, EShopScreen>
     {
-        protected override EShopScreen ActionChoice => EShopScreen.Craft;
+        public override EShopScreen ActionChoice => EShopScreen.Craft;
         protected override CraftingInput IsBackState => CraftingInput.Quit;
         protected override CraftingInput DefaultState => CraftingInput.CraftItem;
 
-        public CraftingSystem craftingSubSystem;
+        public CraftingSubSystem craftingSubSubSystem;
 
         public AgentShopSubSystem shopSubSubSystem;
 
         public override bool CanMove(ShopAgent agent)
         {
-            return !craftingSubSystem.HasRequest(agent);
+            return !craftingSubSubSystem.HasRequest(agent);
         }
 
         public override float[] GetSenses(ShopAgent agent)
         {
-            var outputs = new float [1 + shopSubSubSystem.SenseCount + craftingSubSystem.SenseCount];
+            var outputs = new float [1 + shopSubSubSystem.SenseCount + craftingSubSubSystem.SenseCount];
             outputs[0] = (float) GetInputMode(agent);
             var sensesA = shopSubSubSystem.GetSenses(agent);
             sensesA.CopyTo(outputs, 1);
-            var sensesB = craftingSubSystem.GetSenses(agent);
+            var sensesB = craftingSubSubSystem.GetSenses(agent);
             sensesB.CopyTo(outputs, 1 + sensesA.Length);
             return outputs;
+        }
+
+        public override InputAction[] GetInputOptions(ShopAgent agent)
+        {
+            var outputs = new List<InputAction>();
+            outputs.AddRange(EconomySystemUtils.GetStateInput<CraftingInput>());
+            outputs.AddRange(EconomySystemUtils.GetStateInput<CraftingChoice>());
+            return outputs.ToArray();
         }
 
         protected override void MakeChoice(ShopAgent shopAgent, int input)
@@ -74,7 +82,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             switch (GetInputMode(shopAgent))
             {
                 case CraftingInput.CraftItem:
-                    craftingSubSystem.MakeRequest(shopAgent, input);
+                    craftingSubSubSystem.MakeRequest(shopAgent, input);
                     break;
                 case CraftingInput.IncreasePrice:
                     shopSubSubSystem.SetCurrentPrice(shopAgent, input, 1);

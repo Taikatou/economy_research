@@ -10,10 +10,10 @@ namespace EconomyProject.Scripts.UI.Adventurer
     public struct MenuGameObject
     {
         public GameObject menu;
-        public AgentScreen screen;
+        public EAdventurerScreen screen;
     }
 
-    public class AdventurerMenuManager : BaseMenuManager<AgentScreen>
+    public class AdventurerMenuManager : BaseMenuManager<EAdventurerScreen>
     {
         public List<MenuGameObject> menuGameObjects;
 
@@ -23,15 +23,15 @@ namespace EconomyProject.Scripts.UI.Adventurer
 
         private AdventurerAgent AdventurerAgent => getCurrentAgent.CurrentAgent.GetComponent<AdventurerAgent>();
 
-        private PlayerInput PlayerInput => uiAccessor.PlayerInput;
+        private AdventurerInput AdventurerInput => uiAccessor.AdventurerInput;
 
-        private Dictionary<AgentScreen, OpenedMenu> _openedMenus;
+        private Dictionary<EAdventurerScreen, OpenedMenu> _openedMenus;
 
-        protected override Dictionary<AgentScreen, OpenedMenu> OpenedMenus => _openedMenus;
+        protected override Dictionary<EAdventurerScreen, OpenedMenu> OpenedMenus => _openedMenus;
 
         private void Start()
         {
-            _openedMenus = new Dictionary<AgentScreen, OpenedMenu>();
+            _openedMenus = new Dictionary<EAdventurerScreen, OpenedMenu>();
             foreach(var menu in menuGameObjects)
             {
                 var closedMenus = new List<GameObject>();
@@ -46,17 +46,17 @@ namespace EconomyProject.Scripts.UI.Adventurer
             }
         }
 
-        protected override bool Compare(AgentScreen a, AgentScreen b)
+        protected override bool Compare(EAdventurerScreen a, EAdventurerScreen b)
         {
             return a == b;
         }
 
         private void Update()
         {
-            var playerInput = PlayerInput;
+            var playerInput = AdventurerInput;
             if (getCurrentAgent.CurrentAgent != null && playerInput != null)
             {
-                var screen = playerInput.GetScreen(AdventurerAgent, AgentScreen.Main);
+                var screen = playerInput.GetScreen(AdventurerAgent, EAdventurerScreen.Main);
                 
                 SwitchMenu(screen);
             }
@@ -64,22 +64,22 @@ namespace EconomyProject.Scripts.UI.Adventurer
 
         public void MainMenu()
         {
-            PlayerInput.ChangeScreen(AdventurerAgent, AgentScreen.Main);
+            AdventurerInput.ChangeScreen(AdventurerAgent, EAdventurerScreen.Main);
         }
 
         public void ShopMenu()
         {
-            PlayerInput.ChangeScreen(AdventurerAgent, AgentScreen.Shop);
+            AdventurerInput.ChangeScreen(AdventurerAgent, EAdventurerScreen.Shop);
         }
         
         public void RequestMenu()
         {
-            PlayerInput.ChangeScreen(AdventurerAgent, AgentScreen.Request);
+            AdventurerInput.ChangeScreen(AdventurerAgent, EAdventurerScreen.Request);
         }
 
         public void BattleMenu()
         {
-            PlayerInput.ChangeScreen(AdventurerAgent, AgentScreen.Adventurer);
+            AdventurerInput.ChangeScreen(AdventurerAgent, EAdventurerScreen.Adventurer);
         }
     }
 }

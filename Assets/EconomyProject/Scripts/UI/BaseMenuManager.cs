@@ -54,7 +54,6 @@ namespace EconomyProject.Scripts.UI
                 CacheAgentScreen = whichMenu;
                 var openedMenu = OpenedMenus[whichMenu];
                 openedMenu.Activate();
-                Debug.Log(openedMenu);
             }
         }
     }

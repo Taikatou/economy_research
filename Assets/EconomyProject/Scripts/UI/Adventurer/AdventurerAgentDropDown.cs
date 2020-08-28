@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.UI.Adventurer
 {
-    public class AdventurerAgentDropDown : AgentDropDown<AdventurerAgent, AgentScreen>
+    public class AdventurerAgentDropDown : AgentDropDown<AdventurerAgent, EAdventurerScreen>
     {
         public GetCurrentAdventurerAgent currentAdventurerAgent;
         

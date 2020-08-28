@@ -40,8 +40,6 @@ namespace EconomyProject.Scripts.MLAgents.Shop
             // Player Observations
             sensor.AddObservation((int)ChosenScreen);
             sensor.AddObservation(wallet ? (float)wallet.Money : 0.0f);
-            // Player Input Observations
-            sensor.AddObservation(shopInput.GetProgress(this));
 
             foreach (var sense in shopInput.GetSenses(this))
             {

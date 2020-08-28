@@ -5,12 +5,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 {
     public enum AdventureShopInput {Up = AdventureShopChoices.Back + 1, Down, Select}
     public enum AdventureShopChoices { SetShop, PurchaseItem, Back }
-    public class AdventurerShopSystem : StateEconomySystem<AdventureShopChoices, AdventurerAgent, AgentScreen>
+    public class AdventurerShopSystem : StateEconomySystem<AdventureShopChoices, AdventurerAgent, EAdventurerScreen>
     {
         public AdventurerShopSubSystem adventurerShopSubSystem;
 
         public ShopChooserSubSystem shopChooserSubSystem;
-        protected override AgentScreen ActionChoice => AgentScreen.Shop;
+        public override EAdventurerScreen ActionChoice => EAdventurerScreen.Shop;
         protected override AdventureShopChoices IsBackState => AdventureShopChoices.Back;
         protected override AdventureShopChoices DefaultState => AdventureShopChoices.SetShop;
         
@@ -23,7 +23,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
         {
             return new[] {0.0f};
         }
-        
+
+        public override InputAction[] GetInputOptions(AdventurerAgent agent)
+        {
+            return EconomySystemUtils.GetStateInput<AdventureShopInput>().ToArray();
+        }
+
         protected override void MakeChoice(AdventurerAgent agent, int input)
         {
             if (Enum.IsDefined(typeof(AdventureShopInput), input))
@@ -43,7 +48,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 
         protected override void GoBack(AdventurerAgent agent)
         {
-            AgentInput.ChangeScreen(agent, AgentScreen.Main);
+            AgentInput.ChangeScreen(agent, EAdventurerScreen.Main);
         }
 
         public void Update()

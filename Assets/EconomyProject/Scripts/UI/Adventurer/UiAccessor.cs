@@ -8,6 +8,6 @@ namespace EconomyProject.Scripts.UI.Adventurer
     {
         public GameObject coreGameSystem;
 
-        public PlayerInput PlayerInput => coreGameSystem.GetComponentInChildren<PlayerInput>();
+        public AdventurerInput AdventurerInput => coreGameSystem.GetComponentInChildren<AdventurerInput>();
     }
 }

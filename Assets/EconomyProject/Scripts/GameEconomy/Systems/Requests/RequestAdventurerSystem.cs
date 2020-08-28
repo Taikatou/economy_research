@@ -1,13 +1,14 @@
 ﻿using System;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+using EconomyProject.Scripts.MLAgents.Shop;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
     public enum AdventurerRequestInput {Back}
-    public class RequestAdventurerSystem : EconomySystem<AdventurerAgent, AgentScreen>
+    public class RequestAdventurerSystem : EconomySystem<AdventurerAgent, EAdventurerScreen>
     {
         public RequestSystem requestSystem;
-        protected override AgentScreen ActionChoice => AgentScreen.Request;
+        public override EAdventurerScreen ActionChoice => EAdventurerScreen.Request;
         public override bool CanMove(AdventurerAgent agent)
         {
             return true;
@@ -25,6 +26,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return requestSystem.GetSenses(agent);
         }
 
+        public override InputAction[] GetInputOptions(AdventurerAgent agent)
+        {
+            return EconomySystemUtils.GetStateInput<AdventurerRequestInput>().ToArray();
+        }
+
         private void Update()
         {
             RequestDecisions();
@@ -34,7 +40,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         {
             if (Enum.IsDefined(typeof(AdventurerRequestInput), input))
             {
-                AgentInput.ChangeScreen(agent, AgentScreen.Main);
+                AgentInput.ChangeScreen(agent, EAdventurerScreen.Main);
             }
             else
             {

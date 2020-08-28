@@ -4,9 +4,9 @@ using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {
-    public class MainMenuSystem : EconomySystem<AdventurerAgent, AgentScreen>
+    public class MainMenuSystem : EconomySystem<AdventurerAgent, EAdventurerScreen>
     { 
-        protected override AgentScreen ActionChoice => AgentScreen.Main;
+        public override EAdventurerScreen ActionChoice => EAdventurerScreen.Main;
         public override bool CanMove(AdventurerAgent agent)
         {
             return true;
@@ -17,11 +17,17 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return new float [0];
         }
 
+        public override InputAction[] GetInputOptions(AdventurerAgent agent)
+        {
+            var agentScreen = EconomySystemUtils.GetStateInput<EAdventurerScreen>();
+            return agentScreen.ToArray();
+        }
+
         public override void SetChoice(AdventurerAgent agent, int input)
         {
-            if (Enum.IsDefined(typeof(AgentScreen), input))
+            if (Enum.IsDefined(typeof(EAdventurerScreen), input))
             {
-                AgentInput.ChangeScreen(agent, (AgentScreen) input);
+                AgentInput.ChangeScreen(agent, (EAdventurerScreen) input);
             }
         }
 

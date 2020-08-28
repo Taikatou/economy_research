@@ -19,7 +19,7 @@ namespace EconomyProject.Scripts.GameEconomy
             QualitySettings.vSyncCount = 1;
         }
         
-        protected override EconomySystem<ShopAgent, EShopScreen> GetEconomySystem(ShopAgent agent)
+        public override EconomySystem<ShopAgent, EShopScreen> GetEconomySystem(ShopAgent agent)
         {
             switch (GetScreen(agent, EShopScreen.Main))
             {

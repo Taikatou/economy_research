@@ -9,9 +9,9 @@ using UnityEngine;
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 {
     // Main and Shop is not used by agent
-    public enum AgentScreen { Main=0, Request=1, Shop=2, Adventurer=3 }
+    public enum EAdventurerScreen { Main=0, Request=1, Shop=2, Adventurer=3 }
     
-    public class AdventurerAgent : AgentScreen<AgentScreen>
+    public class AdventurerAgent : AgentScreen<EAdventurerScreen>
     {
         public AgentInventory inventory;
 
@@ -19,11 +19,11 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 
         public EconomyWallet wallet;
         
-        public PlayerInput playerInput;
+        public AdventurerInput adventurerInput;
 
         public AdventurerRequestTaker requestTaker; 
 
-        public override AgentScreen ChosenScreen => playerInput.GetScreen(this, AgentScreen.Main);
+        public override EAdventurerScreen ChosenScreen => adventurerInput.GetScreen(this, EAdventurerScreen.Main);
 
         public override void OnEpisodeBegin()
         {
@@ -45,7 +45,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         public override void OnActionReceived(float[] vectorAction)
         {
             var action = Mathf.FloorToInt(vectorAction[0]);
-            playerInput.SetAgentAction(this, action);
+            adventurerInput.SetAgentAction(this, action);
         }
 
         public override void CollectObservations(VectorSensor sensor)
@@ -54,16 +54,13 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             sensor.AddObservation((int)ChosenScreen);
             sensor.AddObservation(wallet ? (float)wallet.Money : 0.0f);
             sensor.AddObservation(adventurerInventory.EquipedItem.itemDetails.damage);
-            
-            // Player Input Observations
-            sensor.AddObservation(playerInput.GetProgress(this));
 
             foreach (var sense in requestTaker.GetSenses())
             {
                 sensor.AddObservation(sense);
             }
 
-            foreach (var sense in playerInput.GetSenses(this))
+            foreach (var sense in adventurerInput.GetSenses(this))
             {
                 sensor.AddObservation(sense);
             }

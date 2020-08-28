@@ -1,5 +1,4 @@
-﻿using System;
-using EconomyProject.Scripts.Inventory;
+﻿using EconomyProject.Scripts.Inventory;
 using TurnBased.Scripts;
 using UnityEngine;
 
@@ -11,6 +10,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         public Sprite sprite;
         public PlayerFighterData playerData;
         public AdventurerInventory adventurerInventory;
+        public BaseFighterData FighterData => playerData;
         public void Start()
         {
             playerData = new PlayerFighterData
@@ -21,13 +21,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
                 CurrentHp = startHp,
                 AgentInventory=adventurerInventory
             };
-        }
-
-        public BaseFighterData FighterData => playerData;
-
-        public void Update()
-        {
-            Debug.Log(playerData.CurrentHp);
         }
     }
 }

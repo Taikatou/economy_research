@@ -12,14 +12,19 @@ namespace EconomyProject.Scripts.UI
 
         private void Start()
         {
-            SwitchButton();
+            UpdateMenu();
         }
 
         public void SwitchButton()
         {
+            craftActive = !craftActive;
+            UpdateMenu();
+        }
+
+        private void UpdateMenu()
+        {
             craftMenu.SetActive(craftActive);
             adventurerMenu.SetActive(!craftActive);
-            craftActive = !craftActive;
         }
     }
 }

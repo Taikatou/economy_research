@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using EconomyProject.Scripts.MLAgents.Craftsman;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
@@ -11,7 +12,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
     public class RequestShopSystem : StateEconomySystem<RequestActions, ShopAgent, EShopScreen>
     {
         public RequestSystem requestSystem;
-        protected override EShopScreen ActionChoice => EShopScreen.Request;
+        public override EShopScreen ActionChoice => EShopScreen.Request;
         protected override RequestActions IsBackState => RequestActions.Quit;
         protected override RequestActions DefaultState => RequestActions.SetInput;
         public override bool CanMove(ShopAgent agent)
@@ -26,6 +27,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             var requestSense = requestSystem.GetSenses(agent);
             requestSense.CopyTo(outputSenses, 1);
             return outputSenses;
+        }
+
+        public override InputAction[] GetInputOptions(ShopAgent agent)
+        {
+            var toReturn = new List<InputAction>();
+            toReturn.AddRange(EconomySystemUtils.GetStateInput<RequestActions>());
+            toReturn.AddRange(EconomySystemUtils.GetStateInput(CraftingUtils.GetCraftingResources()));
+            return toReturn.ToArray();
         }
 
         public override void SetChoice(ShopAgent agent, int input)

@@ -7,17 +7,11 @@ namespace EconomyProject.Scripts.GameEconomy
 {
     public abstract class AgentInput<TAgent, TScreen> : MonoBehaviour where TAgent : AgentScreen<TScreen> where TScreen : Enum
     {
-        protected abstract EconomySystem<TAgent, TScreen> GetEconomySystem(TAgent agent);
+        public abstract EconomySystem<TAgent, TScreen> GetEconomySystem(TAgent agent);
         
         protected Dictionary<TAgent, TScreen> EconomyScreens;
 
         protected virtual void SetupScreens() { }
-
-        public float GetProgress(TAgent agent)
-        {
-            var system = GetEconomySystem(agent);
-            return system.Progress(agent);
-        }
 
         public virtual void Start()
         {

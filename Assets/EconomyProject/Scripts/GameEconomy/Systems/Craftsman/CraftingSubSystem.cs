@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 {
-    public class CraftingSystem : MonoBehaviour, IShopSense
+    public class CraftingSubSystem : MonoBehaviour, IShopSense
     {
         public List<CraftingMap> craftingRequirement;
         private Dictionary<ShopAgent, CraftingRequest> _shopRequests;
