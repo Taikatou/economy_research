@@ -13,6 +13,11 @@ namespace EconomyProject.Scripts.MLAgents.Craftsman
             _numResources = new Dictionary<CraftingResources, int>();
         }
 
+        public void ResetInventory()
+        {
+            _numResources = new Dictionary<CraftingResources, int>();
+        }
+
         public int GetResourceNumber(CraftingResources key)
         {
             if (_numResources != null)

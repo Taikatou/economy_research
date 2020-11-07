@@ -1,5 +1,4 @@
-﻿using EconomyProject.Scripts.MLAgents.Shop;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace EconomyProject.Scripts.MLAgents
 {
@@ -11,6 +10,7 @@ namespace EconomyProject.Scripts.MLAgents
         private void Start()
         {
             SpawnAgents(learningAgentPrefab, numSpawn);
+            Refresh();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.MLAgents;
 using UnityEngine;
@@ -14,10 +14,21 @@ namespace EconomyProject.Scripts.UI
         private TAgent[] AgentList => GetCurrentAgent.GetAgents;
         protected abstract GetCurrentAgent<TAgent> GetCurrentAgent { get; }
 
+        private DateTime _lastUpdate;
+        
         // Update is called once per frame
         protected virtual void Update()
         {
+            if (GetCurrentAgent.LastUpdated != _lastUpdate)
+            {
+                SetDropdown();
+            }
+        }
+
+        private void SetDropdown()
+        {
             dropDown.ClearOptions();
+            
             foreach (var agent in AgentList)
             {
                 var agentId = agent.GetComponent<AgentID>();
@@ -33,10 +44,14 @@ namespace EconomyProject.Scripts.UI
                 _setOption = true;
                 dropDown.value = 0;
             }
+
+            _lastUpdate = GetCurrentAgent.LastUpdated;
         }
 
         private void Start()
         {
+            SetDropdown();
+            
             dropDown.onValueChanged.AddListener(delegate {
                 HandleChange();
             });

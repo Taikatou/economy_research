@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+using Sirenix.Utilities;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 {
@@ -26,7 +28,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 
         public override InputAction[] GetInputOptions(AdventurerAgent agent)
         {
-            return EconomySystemUtils.GetStateInput<AdventureShopInput>().ToArray();
+            var output = new List<InputAction>();
+            var shopInput = EconomySystemUtils.GetStateInput<AdventureShopInput>();
+            output.AddRange(shopInput);
+            var choiceInput = EconomySystemUtils.GetStateInput<AdventureShopChoices>();
+            output.AddRange(choiceInput);
+            return output.ToArray();
         }
 
         protected override void MakeChoice(AdventurerAgent agent, int input)

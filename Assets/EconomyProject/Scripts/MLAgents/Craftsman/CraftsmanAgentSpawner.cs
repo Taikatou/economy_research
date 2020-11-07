@@ -1,5 +1,4 @@
 ﻿using EconomyProject.Scripts.GameEconomy;
-using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.MLAgents.Shop;
 using UnityEngine;
 
@@ -11,10 +10,10 @@ namespace EconomyProject.Scripts.MLAgents.Craftsman
 
         protected override GameObject Spawn(GameObject toSpawnPrefab)
         {
-            var agent = base.Spawn(toSpawnPrefab);
-            var craftsman = agent.GetComponent<ShopAgent>();
+            var prefabGo = base.Spawn(toSpawnPrefab);
+            var craftsman = prefabGo.GetComponent<ShopAgent>();
             craftsman.shopInput = shopInput;
-            return agent;
+            return prefabGo;
         }
     }
 }

@@ -12,7 +12,6 @@ namespace EconomyProject.Scripts.UI.ShopUI
         protected override void Update()
         {
             shopChooserSubSystem.GetCurrentShop(currentAdventurerAgent.CurrentAgent);
-            base.Update();
         }
 
         protected override void UpdateAgent(ShopAgent agent)

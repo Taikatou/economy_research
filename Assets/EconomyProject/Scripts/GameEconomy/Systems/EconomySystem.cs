@@ -57,7 +57,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         protected void Refresh(TAgent agent)
         {
-            if (_refreshTime.ContainsKey(agent))
+            if (!_refreshTime.ContainsKey(agent))
             {
                 _refreshTime.Add(agent, DateTime.Now);
             }

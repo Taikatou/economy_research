@@ -69,7 +69,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             ChangeItem(item, price);
         }
 
-        public void PurchaseItems(UsableItemDetails itemDetails, EconomyWallet wallet, AgentInventory inventory)
+        public bool PurchaseItems(UsableItemDetails itemDetails, EconomyWallet wallet, AgentInventory inventory)
         {
             var price = _stockPrices[itemDetails.itemName];
 
@@ -92,8 +92,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
                 }
                 
                 wallet.SpendMoney(price);
+                return true;
             }
-            
+
+            return false;
         }
         public List<UsableItem> GetShopItems()
         {

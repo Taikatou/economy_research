@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Shop;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
-    public enum AdventurerRequestInput {Back}
+    public enum AdventurerRequestInput {Back=0}
     public class RequestAdventurerSystem : EconomySystem<AdventurerAgent, EAdventurerScreen>
     {
         public RequestSystem requestSystem;
@@ -28,7 +29,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
         public override InputAction[] GetInputOptions(AdventurerAgent agent)
         {
-            return EconomySystemUtils.GetStateInput<AdventurerRequestInput>().ToArray();
+            var output = new List<InputAction>();
+            var adventurerRequestInput = EconomySystemUtils.GetStateInput<AdventurerRequestInput>();
+            output.AddRange(adventurerRequestInput);
+
+            var requestInput = GetRequestInput();
+            output.AddRange(requestInput);
+            return output.ToArray();
         }
 
         private void Update()
@@ -52,6 +59,20 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                     requestTaker.TakeRequest(requests[input]);
                 }   
             }
+        }
+
+        private List<InputAction> GetRequestInput()
+        {
+            var output = new List<InputAction>();
+            var requests = requestSystem.GetAllCraftingRequests();
+            var i = 1;
+            foreach (var req in requests)
+            {
+                output.Add(new InputAction{Action = req.ToString(), ActionNumber = i});
+                i++;
+            }
+
+            return output;
         }
     }
 }

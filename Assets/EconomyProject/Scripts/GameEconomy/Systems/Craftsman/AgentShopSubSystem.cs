@@ -12,6 +12,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         public List<UsableItem> usableItems;
         public List<BaseItemPrices> basePrices;
         private Dictionary<ShopAgent, AgentData> _shopSystems;
+
+        public UsableItem endItem;
         
         public int SenseCount => AgentData.SenseCount;
 
@@ -96,7 +98,15 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public void PurchaseItem(ShopAgent shopAgent, UsableItemDetails item, EconomyWallet wallet, AgentInventory inventory)
         {
-            GetShop(shopAgent).PurchaseItems(item, wallet, inventory);
+            var success = GetShop(shopAgent).PurchaseItems(item, wallet, inventory);
+            if (success)
+            {
+                if (item.itemName == endItem.itemDetails.itemName)
+                {
+                    var requester = FindObjectOfType<EnvironmentReset>();
+                    requester.ResetScript();
+                }
+            }
             Refresh();
         }
 

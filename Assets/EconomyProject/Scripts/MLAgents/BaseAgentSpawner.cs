@@ -1,15 +1,19 @@
-﻿using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+﻿using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.MLAgents
 {
-    public class BaseAgentSpawner : MonoBehaviour
+    public class BaseAgentSpawner : LastUpdate
     {
+        private int _counter = 0;
         public void SpawnAgents(GameObject learningAgentPrefab, int numLearningAgents)
         {
             for (var i = 0; i < numLearningAgents; i++)
             {
-                var agentPrefab = Spawn(learningAgentPrefab);
+                var agent = Spawn(learningAgentPrefab);
+                var agentId = agent.GetComponent<AgentID>();
+                agentId.agentId = _counter;
+                _counter++;
             }
         }
 

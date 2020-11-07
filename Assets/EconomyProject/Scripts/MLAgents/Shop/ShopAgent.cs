@@ -24,6 +24,19 @@ namespace EconomyProject.Scripts.MLAgents.Shop
             }
         }
 
+        public override void OnEpisodeBegin()
+        {
+            base.OnEpisodeBegin();
+            agentInventory.ResetInventory();
+            craftingInventory.ResetInventory();
+            wallet.Reset();
+        }
+
+        public void ResetEconomyAgent()
+        {
+            EndEpisode();
+        }
+
         public override void Heuristic(float[] actionsOut)
         {
             actionsOut[0] = NumberKey;

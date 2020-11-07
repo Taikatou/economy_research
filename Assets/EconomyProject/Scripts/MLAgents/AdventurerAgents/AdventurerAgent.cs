@@ -14,13 +14,9 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
     public class AdventurerAgent : AgentScreen<EAdventurerScreen>
     {
         public AgentInventory inventory;
-
         public AdventurerInventory adventurerInventory;
-
         public EconomyWallet wallet;
-        
         public AdventurerInput adventurerInput;
-
         public AdventurerRequestTaker requestTaker; 
 
         public override EAdventurerScreen ChosenScreen => adventurerInput.GetScreen(this, EAdventurerScreen.Main);
@@ -54,6 +50,16 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             sensor.AddObservation((int)ChosenScreen);
             sensor.AddObservation(wallet ? (float)wallet.Money : 0.0f);
             sensor.AddObservation(adventurerInventory.EquipedItem.itemDetails.damage);
+            
+            var requests = requestTaker.requestSystem.craftingRequestRecord.GetCurrentRequests(requestTaker);
+            foreach (var request in requests)
+            {
+                sensor.AddObservation((int)request.Resource);
+                sensor.AddObservation(request.Number);
+                
+                var amount = requestTaker.GetCurrentStock(request.Resource);
+                sensor.AddObservation(amount);
+            }
 
             foreach (var sense in requestTaker.GetSenses())
             {

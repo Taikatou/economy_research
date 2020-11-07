@@ -1,12 +1,10 @@
 ﻿using EconomyProject.Scripts.GameEconomy;
-using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
-using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 {
-    public class AdventurerSpawner : BaseAgentSpawner
+    public class AdventurerSpawner : AgentSpawner
     {
         public AdventurerInput adventurerInput;
 

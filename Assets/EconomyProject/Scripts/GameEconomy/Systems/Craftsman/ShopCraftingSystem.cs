@@ -31,12 +31,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         {
             return new float [SenseCount]
             {
-                Progress,
-                Complete? 1f : 0f
+                Progress
             };
         }
 
-        public const int SenseCount = 2;
+        public const int SenseCount = 1;
     }
 
     public enum CraftingInput { CraftItem = CraftingChoice.UltimateSwordOfPower+1, IncreasePrice, DecreasePrice, SubmitToShop, Quit}
