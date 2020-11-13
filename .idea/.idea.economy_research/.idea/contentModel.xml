@@ -469,7 +469,7 @@
         <e p="CameraSensor.cs" t="Include" />
         <e p="CameraSensorComponent.cs" t="Include" />
         <e p="ISensor.cs" t="Include" />
-        <e p="Observation.cs" t="Include" />
+        <e p="ISparseChannelSensor.cs" t="Include" />
         <e p="ObservationWriter.cs" t="Include" />
         <e p="RayPerceptionSensor.cs" t="Include" />
         <e p="RayPerceptionSensorComponent2D.cs" t="Include" />
