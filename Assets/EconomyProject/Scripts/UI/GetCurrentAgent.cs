@@ -12,7 +12,7 @@ namespace EconomyProject.Scripts.UI
         private int Index { get; set; }
         public TAgent[] GetAgents => agentParent.GetComponentsInChildren<TAgent>();
 
-        public AgentSpawner agentSpawner;
+        public BaseAgentSpawner agentSpawner;
 
         private DateTime _updateTime;
 

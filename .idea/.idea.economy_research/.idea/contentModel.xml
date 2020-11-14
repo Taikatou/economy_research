@@ -86,7 +86,6 @@
                 <e p="WeaponId.cs" t="Include" />
               </e>
               <e p="AgentID.cs" t="Include" />
-              <e p="AgentSpawner.cs" t="Include" />
               <e p="BaseAgentSpawner.cs" t="Include" />
               <e p="Craftsman" t="Include">
                 <e p="CraftingInventory.cs" t="Include" />
@@ -99,7 +98,6 @@
               <e p="Shop" t="Include">
                 <e p="ShopAgent.cs" t="Include" />
                 <e p="ShopDetails.cs" t="Include" />
-                <e p="ShopSpawner.cs" t="Include" />
               </e>
             </e>
             <e p="SystemSpawner.cs" t="Include" />
@@ -157,6 +155,7 @@
                 <e p="ShopInventoryScrollView.cs" t="Include" />
                 <e p="ShopScrollView.cs" t="Include" />
               </e>
+              <e p="OverViewMenu.cs" t="Include" />
               <e p="ShopUI" t="Include">
                 <e p="AdventurerShopDropDown.cs" t="Include" />
                 <e p="Buttons" t="Include">
@@ -463,6 +462,7 @@
         <e p="IPolicy.cs" t="Include" />
         <e p="RemotePolicy.cs" t="Include" />
       </e>
+      <e p="RecursionChecker.cs" t="Include" />
       <e p="Sampler.cs" t="Include" />
       <e p="SensorHelper.cs" t="Include" />
       <e p="Sensors" t="Include">

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 {
-    public class AdventurerSpawner : AgentSpawner
+    public class AdventurerSpawner : BaseAgentSpawner
     {
         public AdventurerInput adventurerInput;
 

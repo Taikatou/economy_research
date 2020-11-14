@@ -10,13 +10,55 @@ namespace EconomyProject.Scripts.GameEconomy
         public abstract EconomySystem<TAgent, TScreen> GetEconomySystem(TAgent agent);
         
         protected Dictionary<TAgent, TScreen> EconomyScreens;
+        private Dictionary<TScreen, int> _economyCount;
 
         protected virtual void SetupScreens() { }
 
         public virtual void Start()
         {
             EconomyScreens = new Dictionary<TAgent, TScreen>();
+            _economyCount = new Dictionary<TScreen, int>();
             SetupScreens();
+        }
+
+        public int GetCount(TScreen screen)
+        {
+            if (_economyCount.ContainsKey(screen))
+            {
+                return _economyCount[screen];
+            }
+            return 0;
+        }
+
+        private void ChangeEconomyScreen(TAgent agent, TScreen newScreen)
+        {
+            var oldScreen = EconomyScreens[agent];
+            EconomyScreens[agent] = newScreen;
+            AddToEconomyCount(newScreen);
+            RemoveEconomyCount(oldScreen);
+        }
+
+        private void AddToEconomyCount(TScreen screen)
+        {
+            if (!_economyCount.ContainsKey(screen))
+            {
+                _economyCount.Add(screen, 1);
+            }
+            else
+            {
+                _economyCount[screen]++;
+            }
+        }
+
+        private void RemoveEconomyCount(TScreen screen)
+        {
+            if (_economyCount.ContainsKey(screen))
+            {
+                if (_economyCount[screen] > 0)
+                {
+                    _economyCount[screen]--;
+                }
+            }
         }
 
         public TScreen GetScreen(TAgent agent, TScreen defaultTScreen)
@@ -24,6 +66,7 @@ namespace EconomyProject.Scripts.GameEconomy
             if (!EconomyScreens.ContainsKey(agent))
             {
                 EconomyScreens.Add(agent, defaultTScreen);
+                AddToEconomyCount(defaultTScreen);
             }
             return EconomyScreens[agent];
         }
@@ -34,7 +77,7 @@ namespace EconomyProject.Scripts.GameEconomy
             var canChange = system.CanMove(agent);
             if (canChange)
             {
-                EconomyScreens[agent] = choice;
+                ChangeEconomyScreen(agent, choice);
             }
         }
     }

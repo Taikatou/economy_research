@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace EconomyProject.Scripts.UI
 {
@@ -10,8 +11,11 @@ namespace EconomyProject.Scripts.UI
 
         public bool craftActive;
 
+        private bool showPlayMenus;
+
         private void Start()
         {
+            showPlayMenus = Math.Abs(Time.timeScale - 1) < 0.01f;
             UpdateMenu();
         }
 
@@ -23,8 +27,11 @@ namespace EconomyProject.Scripts.UI
 
         private void UpdateMenu()
         {
-            craftMenu.SetActive(craftActive);
-            adventurerMenu.SetActive(!craftActive);
+            if (showPlayMenus)
+            {
+                craftMenu.SetActive(craftActive);
+                adventurerMenu.SetActive(!craftActive);   
+            }
         }
     }
 }

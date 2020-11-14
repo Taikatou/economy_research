@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.MLAgents.Craftsman
 {
-    public class CraftsmanAgentSpawner : AgentSpawner
+    public class CraftsmanAgentSpawner : BaseAgentSpawner
     {
         public ShopInput shopInput;
 

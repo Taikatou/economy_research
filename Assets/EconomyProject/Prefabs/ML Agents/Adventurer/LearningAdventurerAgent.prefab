@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 25
+    VectorObservationSize: 40
     NumStackedVectorObservations: 1
     VectorActionSize: 02000000
     VectorActionDescriptions: []
@@ -117,6 +117,7 @@ MonoBehaviour:
   m_BehaviorName: Adventurer
   TeamId: 0
   m_UseChildSensors: 1
+  m_UseChildActuators: 1
   m_ObservableAttributeHandling: 0
 --- !u!114 &5616954730062649782
 MonoBehaviour:
@@ -137,7 +138,7 @@ MonoBehaviour:
   inventory: {fileID: 1817350387931501863}
   adventurerInventory: {fileID: 4250931923004593224}
   wallet: {fileID: -4706628768726033178}
-  playerInput: {fileID: 0}
+  adventurerInput: {fileID: 0}
   requestTaker: {fileID: 3175469178531096349}
 --- !u!114 &3175469178531096349
 MonoBehaviour:

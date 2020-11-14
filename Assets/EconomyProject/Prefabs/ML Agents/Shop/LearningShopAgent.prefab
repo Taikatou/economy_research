@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7495793412378739832}
   - component: {fileID: 2696612896792117499}
   m_Layer: 0
-  m_Name: ShopAgent
+  m_Name: LearningShopAgent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,9 +114,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 4
+    VectorObservationSize: 18
     NumStackedVectorObservations: 1
-    VectorActionSize: 010000000100000001000000
+    VectorActionSize: 0a000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
   m_Model: {fileID: 0}
