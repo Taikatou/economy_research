@@ -18,6 +18,17 @@ namespace EconomyProject.Scripts.MLAgents.Craftsman
             _numResources = new Dictionary<CraftingResources, int>();
         }
 
+        public int GetResourceNumber()
+        {
+            var count = 0;
+            foreach (var entry in _numResources)
+            {
+                count += entry.Value;
+            }
+
+            return count;
+        }
+
         public int GetResourceNumber(CraftingResources key)
         {
             if (_numResources != null)

@@ -3,6 +3,7 @@ using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.Inventory;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 {
@@ -35,8 +36,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
                     MovePosition(agent, shopItems, -1);
                     break;
                 case AdventureShopInput.Select:
-                    var shopDetails = shopItems[_currentLocation[agent]].itemDetails;
-                    agentShopSubSystem.PurchaseItem(shopAgent, shopDetails, agent.wallet, agent.inventory);
+                    if (_currentLocation[agent] < shopItems.Count)
+                    {
+                        var shopDetails = shopItems[_currentLocation[agent]].itemDetails;
+                        agentShopSubSystem.PurchaseItem(shopAgent, shopDetails, agent.wallet, agent.inventory);
+                    }
                     break;
             }
         }

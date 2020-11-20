@@ -113,6 +113,16 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return null;
         }
 
+        public int GetBattleCount()
+        {
+            var count = 0;
+            foreach (var entry in battleSystems)
+            {
+                count++;
+            }
+            return count;
+        }
+
         private void SetupNewBattle(AdventurerAgent agent, FighterObject enemyFighter)
         {
             if (battleSystems.ContainsKey(agent))

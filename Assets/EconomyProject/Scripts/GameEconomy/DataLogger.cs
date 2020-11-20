@@ -97,9 +97,15 @@ namespace EconomyProject.Scripts.GameEconomy
                 sb.AppendLine(string.Join(delimiter, output[index]));
 
 
-            string filePath = GetPath(fileName);
+            var filePath = GetPath(fileName);
 
-            StreamWriter outStream = System.IO.File.CreateText(filePath);
+            var exists = Directory.Exists(filePath);
+            if (!exists)
+            {
+                Directory.CreateDirectory(filePath);   
+            }
+            
+            StreamWriter outStream = File.CreateText(filePath);
             outStream.WriteLine(sb);
             outStream.Close();
         }

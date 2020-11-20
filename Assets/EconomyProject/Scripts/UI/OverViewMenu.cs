@@ -1,5 +1,6 @@
 ﻿using System;
 using EconomyProject.Scripts.GameEconomy;
+using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.GameEconomy.Systems.Shop;
@@ -12,7 +13,8 @@ namespace EconomyProject.Scripts.UI
 {
     public class OverViewMenu : MonoBehaviour
     {
-        public Text currentRequestsText, requestScreenTextAdv, requestScreenTextCrft, shopText;
+        public Text currentRequestsText, requestScreenTextAdv, requestScreenTextCrft, shopText, shopItems,
+        agentsInBattleText, advInAdventureText;
 
         public RequestSystem requestSystem;
 
@@ -21,6 +23,8 @@ namespace EconomyProject.Scripts.UI
         public ShopInput shopInput;
 
         public AgentShopSubSystem agentShopSubSystem;
+
+        public AdventurerSystem adventurerSystem;
 
         private void Start()
         {
@@ -35,7 +39,7 @@ namespace EconomyProject.Scripts.UI
         private void Update()
         {
             var currentRequests = requestSystem.GetAllCraftingRequests().Count;
-            currentRequestsText.text = "Requests: " + currentRequests;
+            currentRequestsText.text = "Open Requests: " + currentRequests;
 
             var requestScreenAdv = adventurerInput.GetCount(EAdventurerScreen.Request);
             requestScreenTextAdv.text = "Agents in request Screen: " + requestScreenAdv;
@@ -43,15 +47,23 @@ namespace EconomyProject.Scripts.UI
             var requestScreenCraft = shopInput.GetCount(EShopScreen.Craft);
             requestScreenTextCrft.text = "Craft in request Screen: " + requestScreenCraft;
 
-            var counter = 0;
+            var resourceCount = 0;
+            var itemCount = 0;
             var shopAgent = FindObjectsOfType<ShopAgent>();
             foreach (var agent in shopAgent)
             {
                 var shopItems = agentShopSubSystem.GetShopItems(agent);
-                counter += shopItems.Count;
+                itemCount += shopItems.Count;
+                resourceCount += agent.craftingInventory.GetResourceNumber();
             }
 
-            shopText.text = "Shop item count: " + counter;
+            shopText.text = "Shop item count: " + itemCount;
+
+            shopItems.text = "Resource Count: " + resourceCount;
+
+            agentsInBattleText.text = "In Battle: " + adventurerSystem.GetBattleCount();
+            
+            advInAdventureText.text = "In Adventure: " + adventurerInput.GetCount(EAdventurerScreen.Adventurer);
         }
     }
 }

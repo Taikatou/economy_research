@@ -25,11 +25,11 @@ namespace TurnBased.Scripts.UI
         
         private BattleSubSystem _cachedSubSystem;
 
-        public List<GameObject> uiGameObjects;
+        private List<GameObject> _uiGameObjects;
 
         public void Start()
         {
-            uiGameObjects = new List<GameObject>();
+            _uiGameObjects = new List<GameObject>();
         }
 
         private void SpawnCharacter(BaseFighterData fighterData, BattleStation station)
@@ -37,12 +37,12 @@ namespace TurnBased.Scripts.UI
             var characterGo = Instantiate(characterPrefab, station.transform);
             var playerCharacterUi = characterGo.GetComponent<CharacterUi>();
             playerCharacterUi.UpdateCharacter(fighterData, station.flipped);
-            uiGameObjects.Add(characterGo);
+            _uiGameObjects.Add(characterGo);
         }
 
         private void ClearGameObjects()
         {
-            foreach (var item in uiGameObjects)
+            foreach (var item in _uiGameObjects)
             {
                 Destroy(item);    
             }
