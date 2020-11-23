@@ -156,6 +156,7 @@
                 <e p="ShopScrollView.cs" t="Include" />
               </e>
               <e p="OverViewMenu.cs" t="Include" />
+              <e p="OverviewVariables.cs" t="Include" />
               <e p="ShopUI" t="Include">
                 <e p="AdventurerShopDropDown.cs" t="Include" />
                 <e p="Buttons" t="Include">

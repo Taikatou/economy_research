@@ -3,6 +3,7 @@ using System.Linq;
 using EconomyProject.Scripts.Inventory;
 using EconomyProject.Scripts.MLAgents.Craftsman;
 using EconomyProject.Scripts.MLAgents.Shop;
+using EconomyProject.Scripts.UI;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
@@ -12,6 +13,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         public List<CraftingMap> craftingRequirement;
         private Dictionary<ShopAgent, CraftingRequest> _shopRequests;
         private List<ShopAgent> _shopAgents;
+        
+        public int SenseCount => CraftingRequest.SenseCount;
         
         public float Progress(ShopAgent agent)
         {
@@ -40,6 +43,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
                     Debug.Log("Complete");
                     var generatedItem = UsableItem.GenerateItem(_shopRequests[agent].CraftingRequirements.resultingItem);
                     agent.agentInventory.AddItem(generatedItem);
+                    OverviewVariables.CraftItem();
 
                     toRemove.Add(agent);
                 }
@@ -78,7 +82,5 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             }
             return output;
         }
-
-        public int SenseCount => CraftingRequest.SenseCount;
     }
 }

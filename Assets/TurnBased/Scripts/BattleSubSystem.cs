@@ -2,6 +2,7 @@
 using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
+using EconomyProject.Scripts.UI;
 
 namespace TurnBased.Scripts
 {
@@ -41,6 +42,7 @@ namespace TurnBased.Scripts
 			if(EnemyFighterUnit.IsDead)
 			{
 				CurrentState = BattleState.Won;
+				OverviewVariables.WonBattle();
 				EndBattle();
 			}
 			else

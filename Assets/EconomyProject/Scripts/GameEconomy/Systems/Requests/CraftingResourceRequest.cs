@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using EconomyProject.Scripts.MLAgents.Craftsman;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
+using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
     public class CraftingResourceRequest
     {
+        public readonly float CreationTime;
         private bool _resourceAdded;
         public CraftingResources Resource { get; }
         public CraftingInventory Inventory { get; }
@@ -31,6 +33,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             Resource = resource;
             Inventory = inventory;
             Price = _defaultPrice[resource];
+
+            CreationTime = Time.time;
         }
 
         public void TransferResource()

@@ -2,6 +2,7 @@
 using EconomyProject.Scripts.Inventory;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Shop;
+using EconomyProject.Scripts.UI;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
 using UnityEngine;
 
@@ -98,9 +99,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public void PurchaseItem(ShopAgent shopAgent, UsableItemDetails item, EconomyWallet wallet, AgentInventory inventory)
         {
-            var success = GetShop(shopAgent).PurchaseItems(item, wallet, inventory);
+            var shop = GetShop(shopAgent);
+            var success = shop.PurchaseItems(item, wallet, inventory);
             if (success)
             {
+                OverviewVariables.SoldItem();
+                
                 if (item.itemName == endItem.itemDetails.itemName)
                 {
                     var requester = FindObjectOfType<EnvironmentReset>();

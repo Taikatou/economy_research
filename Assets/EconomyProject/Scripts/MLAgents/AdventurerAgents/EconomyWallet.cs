@@ -5,11 +5,10 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 {
     public class EconomyWallet : MonoBehaviour
     {
-        public double startMoney;
-
-        public double EarnedMoney { get; private set; }
-        public double SpentMoney { get; private set; }
-        public double Money { get; private set; }
+        public int startMoney;
+        private int EarnedMoney { get; set; }
+        private int SpentMoney { get; set; }
+        public int Money { get; private set; }
 
         // Start is called before the first frame update
         void Start()
@@ -17,25 +16,25 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             Money = startMoney;
         }
 
-        public void EarnMoney(double amount)
+        public void EarnMoney(int amount)
         {
             if (amount > 0)
             {
-                Money = Math.Round(Money + amount);
+                Money += amount;
                 EarnedMoney += amount;
             }
         }
 
-        public void LoseMoney(double amount)
+        public void LoseMoney(int amount)
         {
             if (amount < 0)
             {
-                Money = Math.Round(Money + amount);
+                Money -= amount;
                 SpentMoney += amount;
             }
         }
 
-        public void SpendMoney(double amount)
+        public void SpendMoney(int amount)
         {
             if (amount > 0)
             {
@@ -43,7 +42,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             }
         }
 
-        public void SetMoney(double amount)
+        public void SetMoney(int amount)
         {
             Money = amount;
         }

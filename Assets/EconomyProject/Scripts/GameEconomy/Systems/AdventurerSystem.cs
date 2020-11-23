@@ -98,7 +98,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                         break;
                     case AdventureStates.InBattle:
                         var battleSystem = GetSubSystem(agent);
-                        battleSystem?.SetInput((BattleAction) input);
+                        battleSystem.SetInput((BattleAction) input);
                         break;
                 }   
             }
