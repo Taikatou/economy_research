@@ -15,6 +15,6 @@ MonoBehaviour:
   itemDetails:
     unBreakable: 0
     itemName: Epic Sword
-    baseDurability: 7
+    baseDurability: 20
     damage: 12
     durability: 0

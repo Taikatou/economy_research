@@ -15,6 +15,6 @@ MonoBehaviour:
   itemDetails:
     unBreakable: 0
     itemName: Intermedite Sword
-    baseDurability: 6
+    baseDurability: 12
     damage: 9
     durability: 0

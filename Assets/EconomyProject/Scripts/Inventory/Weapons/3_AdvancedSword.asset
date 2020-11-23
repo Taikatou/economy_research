@@ -15,6 +15,6 @@ MonoBehaviour:
   itemDetails:
     unBreakable: 0
     itemName: Advanced Sword
-    baseDurability: 7
+    baseDurability: 14
     damage: 10
     durability: 0

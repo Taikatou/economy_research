@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using EconomyProject.Scripts.UI;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
 using UnityEngine;
 
@@ -58,6 +59,7 @@ namespace EconomyProject.Scripts.Inventory
                 if (item.itemDetails.Broken)
                 {
                     DestroyItem(item);
+                    OverviewVariables.ItemBroke();
                 }
             }
         }

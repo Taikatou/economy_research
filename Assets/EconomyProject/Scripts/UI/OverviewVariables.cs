@@ -7,6 +7,8 @@
         public static int BattlesWon { get; private set; }
         
         public static int CraftingCount { get; private set; }
+        
+        public static int ItemsBroken { get; private set; }
 
         public static void SoldItem()
         {
@@ -21,6 +23,11 @@
         public static void CraftItem()
         {
             CraftingCount++;
+        }
+
+        public static void ItemBroke()
+        {
+            ItemsBroken++;
         }
     }
 }

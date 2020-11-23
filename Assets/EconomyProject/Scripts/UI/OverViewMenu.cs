@@ -17,7 +17,7 @@ namespace EconomyProject.Scripts.UI
     {
         public Text currentRequestsText, requestScreenTextAdv, requestScreenTextCrft, shopText, shopItems,
         agentsInBattleText, advInAdventureText, itemSoldText, battlesWonText, shopMoneyText, openWoodRequestText,
-        openMetalRequestText, craftingRequestText, shopCountText, openGemRequestText, openDragonRequestText;
+        openMetalRequestText, craftingRequestText, shopCountText, itemBrokeText, openGemRequestText, openDragonRequestText;
 
         public RequestSystem requestSystem;
 
@@ -106,6 +106,8 @@ namespace EconomyProject.Scripts.UI
             craftingRequestText.text = "Crafted Items: " + OverviewVariables.CraftingCount;
 
             shopCountText.text = "Shop Item Count: " + shopCount;
+
+            itemBrokeText.text = "Items Broke: " + OverviewVariables.ItemsBroken;
         }
     }
 }

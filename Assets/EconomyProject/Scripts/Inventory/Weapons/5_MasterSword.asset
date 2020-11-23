@@ -15,6 +15,6 @@ MonoBehaviour:
   itemDetails:
     unBreakable: 0
     itemName: Master Sword
-    baseDurability: 8
+    baseDurability: 22
     damage: 12
     durability: 0
