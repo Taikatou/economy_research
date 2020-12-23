@@ -23,6 +23,7 @@
               <e p="ResetScript.cs" t="Include" />
               <e p="ShopInput.cs" t="Include" />
               <e p="Systems" t="Include">
+                <e p="AdventurerRest.cs" t="Include" />
                 <e p="AdventurerSystem.cs" t="Include" />
                 <e p="Craftsman" t="Include">
                   <e p="AgentData.cs" t="Include" />

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+using EconomyProject.Scripts.UI;
 using TurnBased.Scripts;
 using UnityEngine;
 
@@ -172,14 +173,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                             var fighterData = agent.GetComponent<AdventurerFighterData>();
                             
                             fighterData.playerData.ResetHp();
-                            agent.AddReward(-0.1f);
+                            agent.AddReward(LearningStats.AdventurerLossPenalty);
                             break;
                         case BattleState.Won:
                             var craftingDrop = battleSystem.GetCraftingDropItem();
                             var craftingInventory = agent.GetComponent<AdventurerRequestTaker>();
                             
                             craftingInventory.CheckItemAdd(craftingDrop.Resource, craftingDrop.Count);
-                            agent.AddReward(1.0f);
+                            agent.AddReward(LearningStats.AdventurerWinReward);
                             break;
                     }
 

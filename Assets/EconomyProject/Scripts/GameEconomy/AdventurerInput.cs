@@ -14,6 +14,8 @@ namespace EconomyProject.Scripts.GameEconomy
         public RequestAdventurerSystem requestSystem;
 
         public AdventurerSystem adventurerSystem;
+
+        public AdventurerRest adventurerRest;
         
         public override EconomySystem<AdventurerAgent, EAdventurerScreen> GetEconomySystem(AdventurerAgent agent)
         {

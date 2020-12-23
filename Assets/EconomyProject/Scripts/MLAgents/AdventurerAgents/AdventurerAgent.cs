@@ -9,7 +9,7 @@ using UnityEngine;
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 {
     // Main and Shop is not used by agent
-    public enum EAdventurerScreen { Main=0, Request=1, Shop=2, Adventurer=3 }
+    public enum EAdventurerScreen { Main=0, Request=1, Shop=2, Adventurer=3, Rest }
     
     public class AdventurerAgent : AgentScreen<EAdventurerScreen>
     {
@@ -48,7 +48,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         {
             // Player Observations
             sensor.AddObservation((int)ChosenScreen);
-            sensor.AddObservation(wallet ? (float)wallet.Money : 0.0f);
+            sensor.AddObservation(wallet ? wallet.Money : 0.0f);
             sensor.AddObservation(adventurerInventory.EquipedItem.itemDetails.damage);
             
             var requests = requestTaker.requestSystem.craftingRequestRecord.GetCurrentRequests(requestTaker);

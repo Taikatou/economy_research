@@ -1,5 +1,10 @@
 ﻿namespace EconomyProject.Scripts.UI
 {
+    public static class LearningStats
+    {
+        public static float AdventurerLossPenalty = 0.2f;
+        public static float AdventurerWinReward = 0.1f;
+    }
     public static class OverviewVariables
     {
         public static int ShopItemsSold { get; private set; }
