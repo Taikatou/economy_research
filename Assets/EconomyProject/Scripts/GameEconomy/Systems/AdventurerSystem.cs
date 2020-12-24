@@ -11,6 +11,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 {
     public enum AgentAdventureInput{Quit=BattleEnvironments.Volcano+1}
     public enum AdventureStates { OutOfBattle, InBattle}
+    
+    [Serializable]
     public class AdventurerSystem : EconomySystem<AdventurerAgent, EAdventurerScreen>
     { 
         public TravelSubSystem travelSubsystem;
@@ -19,9 +21,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         public Dictionary<AdventurerAgent, AdventureStates> adventureStates;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Adventurer;
 
-        public override void Start()
+        public AdventurerSystem() : base()
         {
-            base.Start();
             adventureStates = new Dictionary<AdventurerAgent, AdventureStates>();
             battleSystems = new Dictionary<AdventurerAgent, BattleSubSystem>();
         }

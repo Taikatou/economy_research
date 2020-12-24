@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {
+    [Serializable]
     public class MainShopSystem : EconomySystem<ShopAgent, EShopScreen>
     {
         enum MainChoices { Craft = EShopScreen.Craft, Request = EShopScreen.Request }

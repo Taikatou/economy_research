@@ -7,6 +7,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 {
     public enum AdventureShopInput {Up = AdventureShopChoices.Back + 1, Down, Select}
     public enum AdventureShopChoices { SetShop, PurchaseItem, Back }
+    
+    [Serializable]
     public class AdventurerShopSystem : StateEconomySystem<AdventureShopChoices, AdventurerAgent, EAdventurerScreen>
     {
         public AdventurerShopSubSystem adventurerShopSubSystem;

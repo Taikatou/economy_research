@@ -9,6 +9,8 @@ using UnityEngine;
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
     public enum RequestActions { Quit=CraftingResources.DragonScale+1, SetInput, RemoveRequest, IncreasePrice,  DecreasePrice}
+    
+    [Serializable]
     public class RequestShopSystem : StateEconomySystem<RequestActions, ShopAgent, EShopScreen>
     {
         public RequestSystem requestSystem;

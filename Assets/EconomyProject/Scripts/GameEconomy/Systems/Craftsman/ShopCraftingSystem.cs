@@ -42,6 +42,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
     public enum CraftingChoice { BeginnerSword, IntermediateSword, AdvancedSword, EpicSword, UltimateSwordOfPower }
 
+    [Serializable]
     public class ShopCraftingSystem : StateEconomySystem<CraftingInput, ShopAgent, EShopScreen>
     {
         public override EShopScreen ActionChoice => EShopScreen.Craft;

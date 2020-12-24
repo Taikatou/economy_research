@@ -56,7 +56,7 @@ namespace EconomyProject.Scripts.UI
         {
             var economySystem = agentSystem.GetEconomySystem(agent);
             var refreshTime = economySystem.GetRefreshTime(agent);
-            if (economySystem != _cachedAdventurerSystem || _cachedTime != refreshTime)
+            if (economySystem != cachedEconomySystem || _cachedTime != refreshTime)
             {
                 cachedEconomySystem = economySystem;
                 _cachedShopSystem = null;

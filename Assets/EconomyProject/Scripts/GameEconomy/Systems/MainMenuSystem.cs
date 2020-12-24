@@ -4,6 +4,7 @@ using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {
+    [Serializable]
     public class MainMenuSystem : EconomySystem<AdventurerAgent, EAdventurerScreen>
     { 
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Main;

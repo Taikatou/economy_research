@@ -1,4 +1,5 @@
-﻿using EconomyProject.Scripts.GameEconomy.Systems;
+﻿using EconomyProject.Monobehaviours;
+using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.MLAgents.Shop;
@@ -9,7 +10,7 @@ namespace EconomyProject.Scripts.GameEconomy
     public class ShopInput : AgentInput<ShopAgent, EShopScreen>, IShopSense
     {
         public MainShopSystem mainSystem;
-        public ShopCraftingSystem shopCraftingSystem;
+        public ShopCraftingSystem ShopCraftingSystem;
         public RequestShopSystem requestSystem;
 
         public override void Start()
@@ -26,7 +27,7 @@ namespace EconomyProject.Scripts.GameEconomy
                 case EShopScreen.Main:
                     return mainSystem;
                 case EShopScreen.Craft:
-                    return shopCraftingSystem;
+                    return ShopCraftingSystem;
                 case EShopScreen.Request:
                     return requestSystem;
             }
@@ -36,7 +37,7 @@ namespace EconomyProject.Scripts.GameEconomy
         protected override void SetupScreens()
         {
             mainSystem.AgentInput = this;
-            shopCraftingSystem.AgentInput = this;
+            ShopCraftingSystem.AgentInput = this;
             requestSystem.AgentInput = this;
         }
 

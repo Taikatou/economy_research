@@ -15,9 +15,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         protected abstract void MakeChoice(TAgent agent, int input);
 
-        public override void Start()
+        public StateEconomySystem() : base()
         {
-            base.Start();
             _inputMode = new Dictionary<TAgent, TState>();
         }
         

@@ -8,6 +8,15 @@
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="EconomyProject" t="Include">
+          <e p="Monobehaviours" t="Include">
+            <e p="AdventurerShopSystemBehaviour.cs" t="Include" />
+            <e p="AdventurerSystemBehaviour.cs" t="Include" />
+            <e p="MainMenuSystemBehaviour.cs" t="Include" />
+            <e p="MainShopSystemBehaviour.cs" t="Include" />
+            <e p="RequestAdventurerSystemBehaviour.cs" t="Include" />
+            <e p="RequestShopSystemBehaviour.cs" t="Include" />
+            <e p="ShopCraftingSystemBehaviour.cs" t="Include" />
+          </e>
           <e p="Scripts" t="Include">
             <e p="CoreSystemSpawner.cs" t="Include" />
             <e p="EndTimerScript.cs" t="Include" />
@@ -338,6 +347,12 @@
             </e>
           </e>
         </e>
+        <e p="Tests" t="Include">
+          <e p="Economy" t="Include">
+            <e p="CraftingSystemTests.cs" t="Include" />
+          </e>
+          <e p="EditorTests.asmdef" t="Include" />
+        </e>
         <e p="TurnBased" t="Include">
           <e p="Scenes" t="Include">
             <e p="csc.rsp" t="Include" />
@@ -361,6 +376,7 @@
         </e>
       </e>
       <e p="economy_research.sln" t="IncludeFlat" />
+      <e p="EditorTests.csproj" t="IncludeRecursive" />
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
       <e p="Sirenix.OdinInspector.CompatibilityLayer.csproj" t="IncludeRecursive" />

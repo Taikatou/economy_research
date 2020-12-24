@@ -6,6 +6,7 @@ using EconomyProject.Scripts.MLAgents.Shop;
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
     public enum AdventurerRequestInput {Back=0}
+    [Serializable]
     public class RequestAdventurerSystem : EconomySystem<AdventurerAgent, EAdventurerScreen>
     {
         public RequestSystem requestSystem;

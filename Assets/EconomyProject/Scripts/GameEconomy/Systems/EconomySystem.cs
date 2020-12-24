@@ -34,9 +34,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return output;
         }
     }
-    
-    
-    public abstract class EconomySystem<TAgent, TScreen> : MonoBehaviour where TAgent : AgentScreen<TScreen> where TScreen : Enum
+
+    public abstract class EconomySystem<TAgent, TScreen> where TAgent : AgentScreen<TScreen> where TScreen : Enum
     {
         public GameObject agents;
         public AgentInput<TAgent, TScreen> AgentInput { get; set; }
@@ -50,7 +49,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         private Dictionary<TAgent, DateTime> _refreshTime;
         
-        public virtual void Start()
+        public EconomySystem()
         {
             _refreshTime = new Dictionary<TAgent, DateTime>();
         }
