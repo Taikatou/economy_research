@@ -28,6 +28,7 @@
               <e p="AgentInput.cs" t="Include" />
               <e p="AgentScreen.cs" t="Include" />
               <e p="DataLogger.cs" t="Include" />
+              <e p="GetAgents.cs" t="Include" />
               <e p="ItemMapper.cs" t="Include" />
               <e p="ResetScript.cs" t="Include" />
               <e p="ShopInput.cs" t="Include" />

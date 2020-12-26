@@ -1,4 +1,5 @@
 ﻿using System;
+using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.MLAgents;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
 using Unity.MLAgents;
@@ -8,7 +9,7 @@ namespace EconomyProject.Scripts.UI
 {
     public abstract class GetCurrentAgent<TAgent> : LastUpdate where TAgent : Agent
     {
-        public GameObject agentParent;
+        public GetAgents agentParent;
         private int Index { get; set; }
         public TAgent[] GetAgents => agentParent.GetComponentsInChildren<TAgent>();
 
@@ -18,7 +19,6 @@ namespace EconomyProject.Scripts.UI
 
         public void Update()
         {
-            Debug.Log(agentSpawner);
             if (_updateTime != agentSpawner.LastUpdated)
             {
                 _updateTime = agentSpawner.LastUpdated;
