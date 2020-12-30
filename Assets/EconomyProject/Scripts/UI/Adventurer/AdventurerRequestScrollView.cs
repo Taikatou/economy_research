@@ -8,8 +8,14 @@ namespace EconomyProject.Scripts.UI.Adventurer
     public class AdventurerRequestScrollView : ShopRequestScrollList<AdventurerCraftingResourceRequest, AdventurerCurrentRequestButton>
     {
         public GetCurrentAdventurerAgent currentAdventurerAgent;
-        
-        private AdventurerRequestTaker GetCurrentRequestTaker => currentAdventurerAgent.CurrentAgent.requestTaker;
+
+        private AdventurerRequestTaker GetCurrentRequestTaker
+        {
+            get
+            {
+                return currentAdventurerAgent.CurrentAgent.requestTaker;
+            }
+        }
 
         protected override List<AdventurerCraftingResourceRequest> GetItemList()
         {

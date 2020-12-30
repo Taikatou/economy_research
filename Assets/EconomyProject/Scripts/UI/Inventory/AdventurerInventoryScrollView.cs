@@ -7,7 +7,14 @@ namespace EconomyProject.Scripts.UI.Inventory
     public class AdventurerInventoryScrollView : AbstractScrollList<ItemUi, AdventurerInventoryScrollButton>
     {
         public GetCurrentAdventurerAgent adventurerAgent;
-        protected override LastUpdate LastUpdated => adventurerAgent.CurrentAgent.inventory;
+
+        protected override LastUpdate LastUpdated
+        {
+            get
+            {
+                return adventurerAgent.CurrentAgent.inventory;
+            }
+        }
         protected override List<ItemUi> GetItemList()
         {
             var itemList = new List<ItemUi>();

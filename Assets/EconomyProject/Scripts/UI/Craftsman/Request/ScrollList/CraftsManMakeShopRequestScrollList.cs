@@ -3,6 +3,7 @@ using EconomyProject.Scripts.UI.Craftsman.Request.Buttons;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.MLAgents.Shop;
 using Unity.MLAgents;
@@ -23,7 +24,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
     }
     public class CraftsManMakeShopRequestScrollList : ShopRequestScrollList<CraftingResourceUi, CraftingMakeRequestButton>
     {
-        public RequestShopSystem requestShopSystem;
+        public RequestShopSystemBehaviour requestShopSystem;
         public GetCurrentShopAgent getCurrentAgent;
         private ShopAgent CraftsmanAgent => getCurrentAgent.CurrentAgent;
 
@@ -47,7 +48,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
 
         public override void SelectItem(CraftingResourceUi item, int number = 1)
         {
-            requestShopSystem.MakeChoice(CraftsmanAgent, item.ResourceType);
+            requestShopSystem.system.MakeChoice(CraftsmanAgent, item.ResourceType);
         }
     }
 }

@@ -28,6 +28,7 @@
               <e p="AgentInput.cs" t="Include" />
               <e p="AgentScreen.cs" t="Include" />
               <e p="DataLogger.cs" t="Include" />
+              <e p="GetAgents.cs" t="Include" />
               <e p="ItemMapper.cs" t="Include" />
               <e p="ResetScript.cs" t="Include" />
               <e p="ShopInput.cs" t="Include" />
@@ -413,6 +414,10 @@
       </e>
       <e p="Agent.cs" t="Include" />
       <e p="Agent.deprecated.cs" t="Include" />
+      <e p="Analytics" t="Include">
+        <e p="Events.cs" t="Include" />
+        <e p="InferenceAnalytics.cs" t="Include" />
+      </e>
       <e p="AssemblyInfo.cs" t="Include" />
       <e p="Communicator" t="Include">
         <e p="GrpcExtensions.cs" t="Include" />
@@ -460,6 +465,7 @@
       </e>
       <e p="Inference" t="Include">
         <e p="ApplierImpl.cs" t="Include" />
+        <e p="BarracudaModelExtensions.cs" t="Include" />
         <e p="BarracudaModelParamLoader.cs" t="Include" />
         <e p="GeneratorImpl.cs" t="Include" />
         <e p="ModelRunner.cs" t="Include" />
@@ -484,8 +490,11 @@
       <e p="Sampler.cs" t="Include" />
       <e p="SensorHelper.cs" t="Include" />
       <e p="Sensors" t="Include">
+        <e p="BufferSensor.cs" t="Include" />
+        <e p="BufferSensorComponent.cs" t="Include" />
         <e p="CameraSensor.cs" t="Include" />
         <e p="CameraSensorComponent.cs" t="Include" />
+        <e p="IDimensionPropertiesSensor.cs" t="Include" />
         <e p="ISensor.cs" t="Include" />
         <e p="ISparseChannelSensor.cs" t="Include" />
         <e p="ObservationWriter.cs" t="Include" />

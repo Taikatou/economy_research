@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
@@ -27,7 +28,7 @@ namespace EconomyProject.Scripts.UI
 
         public AgentShopSubSystem agentShopSubSystem;
 
-        public AdventurerSystem adventurerSystem;
+        public AdventurerSystemBehaviour adventurerSystem;
 
         private void Start()
         {
@@ -89,7 +90,7 @@ namespace EconomyProject.Scripts.UI
 
             shopItems.text = "Resource Count: " + resourceCount;
 
-            agentsInBattleText.text = "In Battle: " + adventurerSystem.GetBattleCount();
+            agentsInBattleText.text = "In Battle: " + adventurerSystem.system.GetBattleCount();
             
             advInAdventureText.text = "In Adventure: " + adventurerInput.GetCount(EAdventurerScreen.Adventurer);
 
