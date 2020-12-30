@@ -11,7 +11,22 @@ namespace EconomyProject.Scripts.UI.ShopUI.ScrollLists
         void SelectItem(T item, int number = 1);
     }
 
-    public class LastUpdate : MonoBehaviour
+    public interface ILastUpdate
+    {
+        DateTime LastUpdated { get; }
+        void Refresh();
+    }
+
+    public class LastUpdate : MonoBehaviour, ILastUpdate
+    {
+        public DateTime LastUpdated { get; private set; }
+        public void Refresh()
+        {
+            LastUpdated = DateTime.Now;
+        }
+    }
+    
+    public class LastUpdateClass : ILastUpdate
     {
         public DateTime LastUpdated { get; private set; }
         public void Refresh()
@@ -28,7 +43,7 @@ namespace EconomyProject.Scripts.UI.ShopUI.ScrollLists
         private DateTime _lastUpdated;
 
         protected abstract List<T> GetItemList();
-        protected abstract LastUpdate LastUpdated { get; }
+        protected abstract ILastUpdate LastUpdated { get; }
 
         public abstract void SelectItem(T item, int number=1);
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Inventory;
 using EconomyProject.Scripts.MLAgents.Craftsman;
@@ -8,20 +9,21 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 {
-    public class CraftingSubSystem : MonoBehaviour, IShopSense
+    [Serializable]
+    public class CraftingSubSystem :  IShopSense
     {
         public List<CraftingMap> craftingRequirement;
-        private Dictionary<ShopAgent, CraftingRequest> _shopRequests;
-        private List<ShopAgent> _shopAgents;
+        private readonly Dictionary<ShopAgent, CraftingRequest> _shopRequests;
+        private readonly List<ShopAgent> _shopAgents;
         
-        public int SenseCount => CraftingRequest.SenseCount;
+        public static int SenseCount => CraftingRequest.SenseCount;
         
         public float Progress(ShopAgent agent)
         {
             return _shopRequests.ContainsKey(agent) ? _shopRequests[agent].Progress : 0.0f;
         }
         
-        public void Start()
+        public CraftingSubSystem()
         {
             _shopRequests = new Dictionary<ShopAgent, CraftingRequest>();
             _shopAgents = new List<ShopAgent>();
@@ -32,7 +34,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             return _shopRequests.ContainsKey(agent);
         }
         
-        private void Update()
+        public void Update()
         {
             var toRemove = new List<ShopAgent>();
             foreach (var agent in _shopAgents)

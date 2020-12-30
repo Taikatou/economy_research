@@ -21,7 +21,7 @@ namespace EconomyProject.Scripts.UI.Inventory
         public AgentShopSubSystem shopSubSystem;
 
         public GetCurrentShopAgent shopAgent;
-        protected override LastUpdate LastUpdated => shopAgent.CurrentAgent.agentInventory;
+        protected override ILastUpdate LastUpdated => shopAgent.CurrentAgent.agentInventory;
 
         protected override List<ShopItemUi> GetItemList()
         {

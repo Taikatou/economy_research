@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using EconomyProject.Scripts.Inventory;
 using Inventory;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
@@ -9,17 +11,18 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 {
-    public class AgentShopSubSystem : LastUpdate
+    [Serializable]
+    public class AgentShopSubSystem : LastUpdateClass
     {
-        public List<UsableItem> usableItems;
+        public EnvironmentReset resetScript;
         public List<BaseItemPrices> basePrices;
-        private Dictionary<ShopAgent, AgentData> _shopSystems;
+        private readonly Dictionary<ShopAgent, AgentData> _shopSystems;
 
         public UsableItem endItem;
         
-        public int SenseCount => AgentData.SenseCount;
+        public static int SenseCount => AgentData.SenseCount;
 
-        private void Start()
+        public AgentShopSubSystem()
         {
             _shopSystems = new Dictionary<ShopAgent, AgentData>();
         }
@@ -108,8 +111,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
                 
                 if (item.itemName == endItem.itemDetails.itemName)
                 {
-                    var requester = FindObjectOfType<EnvironmentReset>();
-                    requester.ResetScript();
+                    resetScript.ResetScript();
                 }
             }
             Refresh();
@@ -117,7 +119,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public float[] GetSenses(ShopAgent agent)
         {
-            return GetShop(agent).GetSenses(usableItems);
+            var items = basePrices.Select(b => b.item).ToList();
+            return GetShop(agent).GetSenses(items);
         }
     }
 }

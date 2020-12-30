@@ -13,7 +13,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Crafting
         public CraftingSubSystem craftingSubSystem;
         public GetCurrentShopAgent getCurrentAgent;
         private ShopAgent Agent => getCurrentAgent.CurrentAgent;
-        protected override LastUpdate LastUpdated => GetComponent<CraftingLastUpdate>();
+        protected override ILastUpdate LastUpdated => GetComponent<CraftingLastUpdate>();
 
         protected override List<CraftingInfo> GetItemList()
         {

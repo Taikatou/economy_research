@@ -8,13 +8,8 @@ namespace EconomyProject.Scripts.UI.Inventory
     {
         public GetCurrentAdventurerAgent adventurerAgent;
 
-        protected override LastUpdate LastUpdated
-        {
-            get
-            {
-                return adventurerAgent.CurrentAgent.inventory;
-            }
-        }
+        protected override ILastUpdate LastUpdated => adventurerAgent.CurrentAgent.inventory;
+
         protected override List<ItemUi> GetItemList()
         {
             var itemList = new List<ItemUi>();

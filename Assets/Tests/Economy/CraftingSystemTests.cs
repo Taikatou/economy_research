@@ -8,7 +8,13 @@ namespace Tests.Economy
         [Test]
         public void TestCrafting()
         {
-            var shop = new ShopCraftingSystem();
+            var shop = new ShopCraftingSystem
+            {
+                craftingSubSubSystem = new CraftingSubSystem(),
+                shopSubSubSystem = new AgentShopSubSystem()
+            };
+            
+            // shop.
         }
     }
 }

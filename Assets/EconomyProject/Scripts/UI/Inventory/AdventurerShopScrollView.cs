@@ -11,7 +11,7 @@ namespace EconomyProject.Scripts.UI.Inventory
         public AgentShopSubSystem agentShopSubSystem;
         public GetCurrentAdventurerAgent currentAdventurerAgent;
         public ShopChooserSubSystem shopChooserSubSystem;
-        protected override LastUpdate LastUpdated => agentShopSubSystem;
+        protected override ILastUpdate LastUpdated => agentShopSubSystem;
         
         private ShopAgent ShopAgent => shopChooserSubSystem.GetCurrentShop(currentAdventurerAgent.CurrentAgent);
 

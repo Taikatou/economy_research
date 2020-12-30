@@ -60,7 +60,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public override float[] GetSenses(ShopAgent agent)
         {
-            var outputs = new float [1 + shopSubSubSystem.SenseCount + craftingSubSubSystem.SenseCount];
+            var outputs = new float [1 + AgentShopSubSystem.SenseCount + CraftingSubSystem.SenseCount];
             outputs[0] = (float) GetInputMode(agent);
             var sensesA = shopSubSubSystem.GetSenses(agent);
             sensesA.CopyTo(outputs, 1);

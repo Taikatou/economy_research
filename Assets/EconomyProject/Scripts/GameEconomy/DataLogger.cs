@@ -68,7 +68,6 @@ namespace EconomyProject.Scripts.GameEconomy
 
         public void AddAuctionItem(UsableItem item, float price, AdventurerAgent agent)
         {
-            
             AuctionItem newItem = new AuctionItem(item, price, agent.GetComponent<AgentID>().agentId, CurrentTime);
             _auctionItems.Add(newItem);
 
@@ -104,24 +103,30 @@ namespace EconomyProject.Scripts.GameEconomy
             {
                 Directory.CreateDirectory(filePath);   
             }
-            
+
+            System.IO.Directory.CreateDirectory(GetPath(""));
             StreamWriter outStream = File.CreateText(filePath);
             outStream.WriteLine(sb);
             outStream.Close();
         }
 
+        private string GetPath()
+        {
+            #if UNITY_EDITOR
+                return Application.dataPath + "/CSV/";
+            #elif UNITY_ANDROID
+                return Application.persistentDataPath + "/CSV/";
+            #elif UNITY_IPHONE
+                return Application.persistentDataPath + "/CSV/";
+            #else
+                return Application.dataPath + "/CSV/";
+            #endif
+        }
+
         // Following method is used to retrive the relative path as device platform
         private string GetPath(string fileName)
         {
-            #if UNITY_EDITOR
-                return Application.dataPath + "/CSV/" + GetFileName(fileName);
-            #elif UNITY_ANDROID
-                return Application.persistentDataPath+"Saved_data.csv";
-            #elif UNITY_IPHONE
-                return Application.persistentDataPath+"/"+"Saved_data.csv";
-            #else
-                return Application.dataPath +"/"+"Saved_data.csv";
-            #endif
+            return GetPath() + GetFileName(fileName);
         }
 
         void OnApplicationQuit()

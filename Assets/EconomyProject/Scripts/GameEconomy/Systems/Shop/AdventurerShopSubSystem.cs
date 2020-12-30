@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using Inventory;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
@@ -9,7 +10,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 {
     public class AdventurerShopSubSystem : MonoBehaviour, IShopSubSystem, IAdventureSense
     {
-        public AgentShopSubSystem agentShopSubSystem;
+        public AgentShopSubSystemBehaviour agentShopSubSystem;
         public ShopChooserSubSystem shopChooserSubSystem;
         private Dictionary<AdventurerAgent, int> _currentLocation;
 
@@ -26,7 +27,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             }
 
             var shopAgent = shopChooserSubSystem.GetCurrentShop(agent);
-            var shopItems = agentShopSubSystem.GetShopItems(shopAgent);
+            var shopItems = agentShopSubSystem.system.GetShopItems(shopAgent);
             switch (choice)
             {
                 case AdventureShopInput.Up:
@@ -39,7 +40,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
                     if (_currentLocation[agent] < shopItems.Count)
                     {
                         var shopDetails = shopItems[_currentLocation[agent]].itemDetails;
-                        agentShopSubSystem.PurchaseItem(shopAgent, shopDetails, agent.wallet, agent.inventory);
+                        agentShopSubSystem.system.PurchaseItem(shopAgent, shopDetails, agent.wallet, agent.inventory);
                     }
                     break;
             }
@@ -57,13 +58,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
         public float[] GetSenses(AdventurerAgent agent)
         {
             var shop = shopChooserSubSystem.GetCurrentShop(agent);
-            var senseA = agentShopSubSystem.GetSenses(shop);
-            var output = new float [1 + agentShopSubSystem.SenseCount + shopChooserSubSystem.SenseCount];
+            var senseA = agentShopSubSystem.system.GetSenses(shop);
+            var output = new float [1 + AgentShopSubSystem.SenseCount + shopChooserSubSystem.SenseCount];
             output[0] = _currentLocation[agent];
             senseA.CopyTo(output, 1);
 
             var senseB = shopChooserSubSystem.GetSenses(agent);
-            senseB.CopyTo(output, 1 + agentShopSubSystem.SenseCount);
+            senseB.CopyTo(output, 1 + AgentShopSubSystem.SenseCount);
 
             return output;
         }
