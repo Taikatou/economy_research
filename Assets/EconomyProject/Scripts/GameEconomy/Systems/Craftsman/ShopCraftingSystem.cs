@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using EconomyProject.Scripts.Inventory;
+using Inventory;
 using EconomyProject.Scripts.MLAgents.Craftsman;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.MLAgents.Shop;
@@ -101,7 +101,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             AgentInput.ChangeScreen(agent, EShopScreen.Main);
         }
 
-        private void Update()
+        public void Update()
         {
             RequestDecisions();
         }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using EconomyProject.Scripts.UI;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
+using Inventory;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.Inventory

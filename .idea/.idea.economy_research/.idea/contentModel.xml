@@ -7,7 +7,13 @@
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="CraftingRequirements" t="Include">
+          <e p="CraftingRequirements.asmdef" t="Include" />
+          <e p="CraftingRequirements.cs" t="Include" />
+        </e>
         <e p="EconomyProject" t="Include">
+          <e p="Economy.asmdef" t="Include" />
+          <e p="EnvironmentReset.cs" t="Include" />
           <e p="Monobehaviours" t="Include">
             <e p="AdventurerShopSystemBehaviour.cs" t="Include" />
             <e p="AdventurerSystemBehaviour.cs" t="Include" />
@@ -17,6 +23,7 @@
             <e p="RequestShopSystemBehaviour.cs" t="Include" />
             <e p="ShopCraftingSystemBehaviour.cs" t="Include" />
           </e>
+          <e p="ResetScript.cs" t="Include" />
           <e p="Scripts" t="Include">
             <e p="CoreSystemSpawner.cs" t="Include" />
             <e p="EndTimerScript.cs" t="Include" />
@@ -30,7 +37,6 @@
               <e p="DataLogger.cs" t="Include" />
               <e p="GetAgents.cs" t="Include" />
               <e p="ItemMapper.cs" t="Include" />
-              <e p="ResetScript.cs" t="Include" />
               <e p="ShopInput.cs" t="Include" />
               <e p="Systems" t="Include">
                 <e p="AdventurerRest.cs" t="Include" />
@@ -75,16 +81,6 @@
             <e p="Inventory" t="Include">
               <e p="AdventurerInventory.cs" t="Include" />
               <e p="AgentInventory.cs" t="Include" />
-              <e p="LootBoxes" t="Include">
-                <e p="CREDITS.txt" t="Include" />
-                <e p="Generated" t="Include">
-                  <e p="GeneratedLootItemScriptableObject.cs" t="Include" />
-                  <e p="GenericLootDropTableGameObject.cs" t="Include" />
-                </e>
-                <e p="GeneratedLootDropItem.cs" t="Include" />
-                <e p="GenericLootDropTable.cs" t="Include" />
-              </e>
-              <e p="UsableItem.cs" t="Include" />
             </e>
             <e p="MLAgents" t="Include">
               <e p="AdventurerAgents" t="Include">
@@ -101,9 +97,6 @@
               <e p="Craftsman" t="Include">
                 <e p="CraftingInventory.cs" t="Include" />
                 <e p="CraftsmanAgentSpawner.cs" t="Include" />
-                <e p="Requirements" t="Include">
-                  <e p="CraftingRequirements.cs" t="Include" />
-                </e>
               </e>
               <e p="NumberKeyboardPoller.cs" t="Include" />
               <e p="Shop" t="Include">
@@ -127,6 +120,10 @@
               </e>
               <e p="AgentDropDown.cs" t="Include" />
               <e p="BaseMenuManager.cs" t="Include" />
+              <e p="Battle" t="Include">
+                <e p="BattleUi.cs" t="Include" />
+                <e p="CombatButtonsUi.cs" t="Include" />
+              </e>
               <e p="Craftsman" t="Include">
                 <e p="Crafting" t="Include">
                   <e p="CraftingLastUpdate.cs" t="Include" />
@@ -186,7 +183,20 @@
             </e>
           </e>
         </e>
-        <e p="EnvironmentReset.cs" t="Include" />
+        <e p="Inventory" t="Include">
+          <e p="Inventory.asmdef" t="Include" />
+          <e p="UsableItem.cs" t="Include" />
+        </e>
+        <e p="LootBoxes" t="Include">
+          <e p="CREDITS.txt" t="Include" />
+          <e p="Generated" t="Include">
+            <e p="GeneratedLootItemScriptableObject.cs" t="Include" />
+            <e p="GenericLootDropTableGameObject.cs" t="Include" />
+          </e>
+          <e p="GeneratedLootDropItem.cs" t="Include" />
+          <e p="GenericLootDropTable.cs" t="Include" />
+          <e p="LootBoxes.asmdef" t="Include" />
+        </e>
         <e p="ML-Agents" t="Include">
           <e p="Editor" t="Include">
             <e p="DisableBurstFromMenu.cs" t="Include" />
@@ -369,20 +379,24 @@
             <e p="PlayerFighterData.cs" t="Include" />
             <e p="UI" t="Include">
               <e p="BattleStation.cs" t="Include" />
-              <e p="BattleUi.cs" t="Include" />
               <e p="CharacterUi.cs" t="Include" />
-              <e p="CombatButtonsUi.cs" t="Include" />
             </e>
           </e>
+          <e p="TurnBased.asmdef" t="Include" />
         </e>
       </e>
+      <e p="CraftingRequirements.csproj" t="IncludeRecursive" />
       <e p="economy_research.sln" t="IncludeFlat" />
       <e p="EditorTests.csproj" t="IncludeRecursive" />
+      <e p="Inventory.csproj" t="IncludeRecursive" />
+      <e p="LootBoxes.csproj" t="IncludeRecursive" />
+      <e p="NewAssembly.csproj" t="IncludeRecursive" />
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
       <e p="Sirenix.OdinInspector.CompatibilityLayer.csproj" t="IncludeRecursive" />
       <e p="Sirenix.OdinInspector.CompatibilityLayer.Editor.csproj" t="IncludeRecursive" />
       <e p="Temp\bin" t="ExcludeRecursive" />
+      <e p="TurnBased.csproj" t="IncludeRecursive" />
       <e p="Unity.ML-Agents.CommunicatorObjects.csproj" t="IncludeRecursive" />
       <e p="Unity.ML-Agents.csproj" t="IncludeRecursive" />
       <e p="Unity.ML-Agents.Editor.csproj" t="IncludeRecursive" />

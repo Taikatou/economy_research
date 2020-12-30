@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using EconomyProject.Scripts.Inventory;
+using Inventory;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI;

@@ -63,7 +63,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             if(state == AdventureStates.InBattle)
             {
                 var subSystem = GetSubSystem(agent);
-                subSystem.GetSenses(agent).CopyTo(battleState, 1);
+                subSystem.GetSenses().CopyTo(battleState, 1);
             }
             Debug.Log(string.Join(",", battleState));
             return battleState;
@@ -135,13 +135,18 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             var playerData = agent.GetComponent<AdventurerFighterData>().FighterData;
             var enemyData = FighterData.Clone(enemyFighter.data);
             
-            var newSystem = new BattleSubSystem(playerData, enemyData, enemyFighter.fighterDropTable);
+            var newSystem = new BattleSubSystem(playerData, enemyData, enemyFighter.fighterDropTable, OnWin);
             battleSystems.Add(agent, newSystem);
             
             SetAdventureState(agent, AdventureStates.InBattle);
         }
+
+        private static void OnWin()
+        {
+            OverviewVariables.WonBattle();
+        }
         
-        private void Update()
+        public void Update()
         {
             RequestDecisions();
 

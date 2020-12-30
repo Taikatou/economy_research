@@ -1,0 +1,15 @@
+{
+    "name": "CraftingRequirements",
+    "references": [
+        "GUID:64798ee8764e4fa49a52341bc3f45317"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

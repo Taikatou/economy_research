@@ -1,5 +1,6 @@
 ﻿using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.Inventory;
+using Inventory;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Craftsman;
 using Unity.MLAgents.Sensors;

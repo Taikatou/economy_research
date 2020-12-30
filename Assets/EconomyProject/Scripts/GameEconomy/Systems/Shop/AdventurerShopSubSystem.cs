@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
-using EconomyProject.Scripts.Inventory;
+using Inventory;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using UnityEngine;
 using UnityEngine.UIElements;

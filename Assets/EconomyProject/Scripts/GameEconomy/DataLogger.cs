@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
-using EconomyProject.Scripts.Inventory;
+using Inventory;
 using EconomyProject.Scripts.MLAgents;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using UnityEngine;

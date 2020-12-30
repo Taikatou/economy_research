@@ -6,5 +6,10 @@ namespace EconomyProject.Monobehaviours
     public class RequestAdventurerSystemBehaviour : MonoBehaviour
     {
         public RequestAdventurerSystem system;
+        
+        public void Update()
+        {
+            system.Update();
+        }
     }
 }

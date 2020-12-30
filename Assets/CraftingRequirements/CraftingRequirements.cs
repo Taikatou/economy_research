@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using EconomyProject.Scripts.Inventory;
+using Inventory;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.MLAgents.Craftsman.Requirements

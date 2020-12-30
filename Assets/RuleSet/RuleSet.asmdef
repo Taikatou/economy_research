@@ -1,0 +1,15 @@
+{
+    "name": "RuleSet",
+    "references": [
+        "GUID:3f934910a00a7984887524559322e843"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

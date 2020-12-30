@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using EconomyProject.Monobehaviours;
-using EconomyProject.Scripts.GameEconomy.Systems;
-using EconomyProject.Scripts.UI;
+using TurnBased.Scripts;
+using TurnBased.Scripts.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TurnBased.Scripts.UI
+namespace EconomyProject.Scripts.UI.Battle
 {
     public class BattleUi : MonoBehaviour
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace EconomyProject.Scripts.Inventory
+namespace Inventory
 {
     [Serializable]
     public struct UsableItemDetails

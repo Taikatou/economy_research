@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using EconomyProject.Scripts.Inventory;
+using Inventory;
 
 namespace EconomyProject.Scripts.GameEconomy
 {

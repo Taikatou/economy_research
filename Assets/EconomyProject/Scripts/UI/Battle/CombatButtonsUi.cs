@@ -1,8 +1,7 @@
 ﻿using EconomyProject.Monobehaviours;
-using EconomyProject.Scripts.UI;
 using UnityEngine;
 
-namespace TurnBased.Scripts.UI
+namespace EconomyProject.Scripts.UI.Battle
 {
     public class CombatButtonsUi : MonoBehaviour
     {

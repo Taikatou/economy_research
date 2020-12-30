@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Inventory;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.Inventory

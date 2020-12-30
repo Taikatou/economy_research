@@ -39,7 +39,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return output.ToArray();
         }
 
-        private void Update()
+        public void Update()
         {
             RequestDecisions();
         }

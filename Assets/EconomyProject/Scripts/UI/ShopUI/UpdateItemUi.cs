@@ -1,4 +1,4 @@
-﻿using EconomyProject.Scripts.Inventory;
+﻿using Inventory;
 using EconomyProject.Scripts.MLAgents.Shop;
 using UnityEngine;
 using UnityEngine.UI;

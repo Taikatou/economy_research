@@ -6,5 +6,10 @@ namespace EconomyProject.Monobehaviours
     public class ShopCraftingSystemBehaviour : MonoBehaviour
     {
         public ShopCraftingSystem system;
+
+        public void Update()
+        {
+            system.Update();
+        }
     }
 }

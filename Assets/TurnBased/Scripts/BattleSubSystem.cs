@@ -1,22 +1,18 @@
-﻿using System.Collections.Generic;
-using EconomyProject.Scripts.GameEconomy.Systems;
-using EconomyProject.Scripts.MLAgents.AdventurerAgents;
-using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
-using EconomyProject.Scripts.UI;
-
-namespace TurnBased.Scripts
+﻿namespace TurnBased.Scripts
 {
+	public delegate void OnWinDelegate();
 	public enum BattleState { Start, PlayerTurn, EnemyTurn, Won, Lost, Flee }
 	public enum BattleAction { Attack, Heal, Flee }
 
-	public class BattleSubSystem : IAdventureSense
+	public class BattleSubSystem
 	{
 		public BattleState CurrentState { get; private set; }
 		public BaseFighterData PlayerFighterUnit { get; }
 		public BaseFighterData EnemyFighterUnit { get; }
 		private readonly FighterDropTable _fighterDropTable;
 		public string DialogueText { get; private set; }
-		public BattleSubSystem(BaseFighterData playerUnit, BaseFighterData enemyUnit, FighterDropTable fighterDropTable)
+		private OnWinDelegate winDelegate;
+		public BattleSubSystem(BaseFighterData playerUnit, BaseFighterData enemyUnit, FighterDropTable fighterDropTable, OnWinDelegate winDelegate)
 		{
 			CurrentState = BattleState.Start;
 			PlayerFighterUnit = playerUnit;
@@ -26,6 +22,7 @@ namespace TurnBased.Scripts
 			PlayerTurn();
 
 			_fighterDropTable = fighterDropTable;
+			this.winDelegate += winDelegate;
 		}
 
 		public bool GameOver()
@@ -42,7 +39,7 @@ namespace TurnBased.Scripts
 			if(EnemyFighterUnit.IsDead)
 			{
 				CurrentState = BattleState.Won;
-				OverviewVariables.WonBattle();
+				winDelegate?.Invoke();
 				EndBattle();
 			}
 			else
@@ -142,9 +139,9 @@ namespace TurnBased.Scripts
 			return _fighterDropTable.GenerateItems();
 		}
 
-		public float[] GetSenses(AdventurerAgent agent)
+		public float[] GetSenses()
 		{
-			return new float[GetSenseSize]
+			return new []
 			{
 				PlayerFighterUnit.Damage, PlayerFighterUnit.HpPercent,
 				EnemyFighterUnit.Damage, EnemyFighterUnit.HpPercent

@@ -1,14 +1,14 @@
-﻿using UnityEngine.TestTools;
-using System.Collections;
+﻿using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
+using NUnit.Framework;
 
 namespace Tests.Economy
 {
     public class CraftingSystemTests
     {
-        [UnityTest]
-        public IEnumerator TestCrafting()
+        [Test]
+        public void TestCrafting()
         {
-            yield return null;
+            var shop = new ShopCraftingSystem();
         }
     }
 }

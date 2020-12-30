@@ -93,7 +93,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             }
         }
         
-        private void Update()
+        public void Update()
         {
             RequestDecisions();
         }
