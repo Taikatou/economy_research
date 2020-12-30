@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.UI;
 using UnityEngine;
@@ -8,7 +9,7 @@ namespace TurnBased.Scripts.UI
 {
     public class BattleUi : MonoBehaviour
     {
-        public AdventurerSystem adventurerSystem;
+        public AdventurerSystemBehaviour adventurerSystem;
         public GetCurrentAdventurerAgent currentAgent;
 
         public GameObject characterPrefab;
@@ -21,7 +22,7 @@ namespace TurnBased.Scripts.UI
         public BattleHud playerHud;
         public BattleHud enemyHud;
         
-        private BattleSubSystem BattleSubSystem => adventurerSystem.GetSubSystem(currentAgent.CurrentAgent);
+        private BattleSubSystem BattleSubSystem => adventurerSystem.system.GetSubSystem(currentAgent.CurrentAgent);
         
         private BattleSubSystem _cachedSubSystem;
 

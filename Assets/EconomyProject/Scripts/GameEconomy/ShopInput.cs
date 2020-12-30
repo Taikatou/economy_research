@@ -9,13 +9,13 @@ namespace EconomyProject.Scripts.GameEconomy
 {
     public class ShopInput : AgentInput<ShopAgent, EShopScreen>, IShopSense
     {
-        public MainShopSystem mainSystem;
-        public ShopCraftingSystem ShopCraftingSystem;
-        public RequestShopSystem requestSystem;
+        public MainShopSystemBehaviour mainSystem;
+        public ShopCraftingSystemBehaviour shopCraftingSystem;
+        public RequestShopSystemBehaviour requestSystem;
 
-        public override void Start()
+        public override void Awake()
         {
-            base.Start();
+            base.Awake();
             Application.targetFrameRate = 60;
             QualitySettings.vSyncCount = 1;
         }
@@ -25,20 +25,20 @@ namespace EconomyProject.Scripts.GameEconomy
             switch (GetScreen(agent, EShopScreen.Main))
             {
                 case EShopScreen.Main:
-                    return mainSystem;
+                    return mainSystem.system;
                 case EShopScreen.Craft:
-                    return ShopCraftingSystem;
+                    return shopCraftingSystem.system;
                 case EShopScreen.Request:
-                    return requestSystem;
+                    return requestSystem.system;
             }
             return null;
         }
 
         protected override void SetupScreens()
         {
-            mainSystem.AgentInput = this;
-            ShopCraftingSystem.AgentInput = this;
-            requestSystem.AgentInput = this;
+            mainSystem.system.AgentInput = this;
+            shopCraftingSystem.system.AgentInput = this;
+            requestSystem.system.AgentInput = this;
         }
 
         public void SetAction(ShopAgent agent, int action)

@@ -14,7 +14,7 @@ namespace EconomyProject.Scripts.GameEconomy
 
         protected virtual void SetupScreens() { }
 
-        public virtual void Start()
+        public virtual void Awake()
         {
             EconomyScreens = new Dictionary<TAgent, TScreen>();
             _economyCount = new Dictionary<TScreen, int>();

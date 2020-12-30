@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ namespace EconomyProject.Scripts.UI.Adventurer
     }
     public class AdventurerBattleMenu : BaseMenuManager<AdventureStates>
     {
-        public AdventurerSystem adventurerSystem;
+        public AdventurerSystemBehaviour adventurerSystem;
         public GetCurrentAdventurerAgent getCurrentAdventurerAgent;
         public List<AdventurerGameObject> adventurerGameObjects;
 
@@ -43,7 +44,7 @@ namespace EconomyProject.Scripts.UI.Adventurer
         
         private void Update()
         {
-            var state = adventurerSystem.GetAdventureStates(getCurrentAdventurerAgent.CurrentAgent);
+            var state = adventurerSystem.system.GetAdventureStates(getCurrentAdventurerAgent.CurrentAgent);
             
             SwitchMenu(state);
         }

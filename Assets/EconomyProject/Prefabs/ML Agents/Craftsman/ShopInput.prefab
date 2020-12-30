@@ -1,51 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &432687343970438208
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 432687343970438209}
-  - component: {fileID: 432687342921500830}
-  m_Layer: 0
-  m_Name: AdventurerRequestSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &432687343970438209
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 432687343970438208}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 9203867374174952071}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &432687342921500830
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 432687343970438208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e10bf7c3c6b1e0a44a0162d520f4a3bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  system:
-    agents: {fileID: 0}
-    requestSystem: {fileID: 9203867374174952088}
 --- !u!1 &432687344685496659
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,6 +64,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1165008175406999975}
   - component: {fileID: 1165008175406999968}
+  - component: {fileID: 848789782}
   m_Layer: 0
   m_Name: CraftsmanAgents
   m_TagString: Untagged
@@ -144,99 +99,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shopInput: {fileID: 9203867373713679004}
---- !u!1 &5127575007216877729
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5127575007216877734}
-  - component: {fileID: 5127575007216877735}
-  m_Layer: 0
-  m_Name: TestRequestSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &5127575007216877734
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5127575007216877729}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -115.48285, y: -3.076477, z: -414.375}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 9203867374174952071}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5127575007216877735
+--- !u!114 &848789782
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5127575007216877729}
+  m_GameObject: {fileID: 1165008175406999974}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 618502a2f9e7e1342966621e0c7ba337, type: 3}
+  m_Script: {fileID: 11500000, guid: dfeb3955dd980fc4b90b9b0c2d4d9d94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallet: {fileID: 0}
-  requestSystem: {fileID: 9203867374174952088}
-  requestRecord: {fileID: 9203867374174952070}
-  timeToSpawn: 2
---- !u!1 &5127575007276582509
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5127575007276582498}
-  - component: {fileID: 432687343473318588}
-  m_Layer: 0
-  m_Name: ShopRequestSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5127575007276582498
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5127575007276582509}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 9203867374174952071}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &432687343473318588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5127575007276582509}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 093d0bc8a9af2e84697692bf2706d515, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  system:
-    agents: {fileID: 1165008175406999974}
-    requestSystem: {fileID: 9203867374174952088}
 --- !u!1 &9203867372930490112
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,7 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   system:
-    agents: {fileID: 1165008175406999974}
+    agents: {fileID: 848789782}
     craftingSubSubSystem: {fileID: 432687344685496661}
     shopSubSubSystem: {fileID: 9203867373081873139}
 --- !u!1 &9203867373081873141
@@ -411,7 +285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   system:
-    agents: {fileID: 1165008175406999974}
+    agents: {fileID: 848789782}
 --- !u!1 &9203867373713679005
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,7 +316,6 @@ Transform:
   m_Children:
   - {fileID: 9203867373600979897}
   - {fileID: 9203867372930490127}
-  - {fileID: 9203867374174952071}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -458,73 +331,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29f6b2fd4b77ad04e8c0bb786db43db9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainSystem:
-    agents: {fileID: 9203867373600979898}
-  ShopCraftingSystem:
-    agents: {fileID: 1165008175406999974}
-    craftingSubSubSystem: {fileID: 432687344685496661}
-    shopSubSubSystem: {fileID: 9203867373081873139}
+  mainSystem: {fileID: 432687343617946949}
+  shopCraftingSystem: {fileID: 432687343617946948}
   requestSystem:
-    agents: {fileID: 1165008175406999974}
-    requestSystem: {fileID: 9203867374174952088}
---- !u!1 &9203867374174952089
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 9203867374174952071}
-  - component: {fileID: 9203867374174952088}
-  - component: {fileID: 9203867374174952070}
-  m_Layer: 0
-  m_Name: RequestSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &9203867374174952071
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9203867374174952089}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1067.1038, y: 432.5421, z: -146.125}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 5127575007216877734}
-  - {fileID: 5127575007276582498}
-  - {fileID: 432687343970438209}
-  m_Father: {fileID: 9203867373713679003}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9203867374174952088
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9203867374174952089}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c144e17aa71cbcf43b211db959e080d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxRequests: 2
-  craftingRequestRecord: {fileID: 9203867374174952070}
---- !u!114 &9203867374174952070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9203867374174952089}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cea5ebd6791c154a9b9540143ff4a09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+    agents: {fileID: 848789782}
+    requestSystem: {fileID: 0}

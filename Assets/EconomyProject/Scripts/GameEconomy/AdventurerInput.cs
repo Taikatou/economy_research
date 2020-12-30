@@ -1,19 +1,18 @@
-﻿using EconomyProject.Scripts.GameEconomy.Systems;
-using EconomyProject.Scripts.GameEconomy.Systems.Requests;
-using EconomyProject.Scripts.GameEconomy.Systems.Shop;
+﻿using EconomyProject.Monobehaviours;
+using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 
 namespace EconomyProject.Scripts.GameEconomy
 {
     public class AdventurerInput : AgentInput<AdventurerAgent, EAdventurerScreen>, IAdventureSense
     {
-        public MainMenuSystem mainMenuSystem;
+        public MainMenuSystemBehaviour mainMenuSystem;
 
-        public AdventurerShopSystem adventurerShopSystem;
+        public AdventurerShopSystemBehaviour adventurerShopSystem;
 
-        public RequestAdventurerSystem requestSystem;
+        public RequestAdventurerSystemBehaviour requestSystem;
 
-        public AdventurerSystem adventurerSystem;
+        public AdventurerSystemBehaviour adventurerSystem;
 
         public AdventurerRest adventurerRest;
         
@@ -23,13 +22,13 @@ namespace EconomyProject.Scripts.GameEconomy
             switch (screen)
             {
                 case EAdventurerScreen.Main:
-                    return mainMenuSystem;
+                    return mainMenuSystem.system;
                 case EAdventurerScreen.Shop:
-                    return adventurerShopSystem;
+                    return adventurerShopSystem.system;
                 case EAdventurerScreen.Request:
-                    return requestSystem;
+                    return requestSystem.system;
                 case EAdventurerScreen.Adventurer:
-                    return adventurerSystem;
+                    return adventurerSystem.system;
             }
             return null;
         }
@@ -48,10 +47,10 @@ namespace EconomyProject.Scripts.GameEconomy
         
         protected override void SetupScreens()
         {
-            mainMenuSystem.AgentInput = this;
-            adventurerShopSystem.AgentInput = this;
-            requestSystem.AgentInput = this;
-            adventurerSystem.AgentInput = this;
+            mainMenuSystem.system.AgentInput = this;
+            adventurerShopSystem.system.AgentInput = this;
+            requestSystem.system.AgentInput = this;
+            adventurerSystem.system.AgentInput = this;
         }
 
         public float[] GetSenses(AdventurerAgent agent)

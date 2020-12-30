@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 734842205298679349}
   - component: {fileID: 734842205298679346}
   - component: {fileID: 2644970376569818644}
+  - component: {fileID: 1781114766}
   m_Layer: 0
   m_Name: AdventurerAgents
   m_TagString: Untagged
@@ -62,6 +63,18 @@ MonoBehaviour:
   endItem: {fileID: 11400000, guid: f2ee4c3d87136284f911c5dc145ee12c, type: 2}
   resetOnComplete: 1
   agentList: {fileID: 734842205298679348}
+--- !u!114 &1781114766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 734842205298679348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfeb3955dd980fc4b90b9b0c2d4d9d94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &734842205981775738
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,7 +119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   system:
-    agents: {fileID: 734842205298679348}
+    agents: {fileID: 1781114766}
 --- !u!1 &734842205986566220
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,7 +230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   system:
-    agents: {fileID: 734842205298679348}
+    agents: {fileID: 1781114766}
     travelSubsystem: {fileID: 6537886292603187203}
 --- !u!1 &3628054232348685043
 GameObject:
@@ -262,18 +275,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0015d6c8dd8af24cb199a7164314288, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenuSystem:
-    agents: {fileID: 0}
-  adventurerShopSystem:
-    agents: {fileID: 0}
-    adventurerShopSubSystem: {fileID: 0}
-    shopChooserSubSystem: {fileID: 0}
-  requestSystem:
-    agents: {fileID: 0}
-    requestSystem: {fileID: 0}
-  adventurerSystem:
-    agents: {fileID: 0}
-    travelSubsystem: {fileID: 0}
+  mainMenuSystem: {fileID: 6537886292755821194}
+  adventurerShopSystem: {fileID: 6537886292755821189}
+  requestSystem: {fileID: 0}
+  adventurerSystem: {fileID: 6537886292755821190}
 --- !u!1 &4930224491371596780
 GameObject:
   m_ObjectHideFlags: 0
@@ -696,8 +701,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74c74fa29712e1d44a8421d60c2153ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentParent: {fileID: 0}
-  agentSpawner: {fileID: 0}
+  agentParent: {fileID: 1781114766}
+  agentSpawner: {fileID: 734842205298679346}
 --- !u!1 &6537886292968362111
 GameObject:
   m_ObjectHideFlags: 0
@@ -744,7 +749,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   system:
-    agents: {fileID: 734842205298679348}
+    agents: {fileID: 1781114766}
     adventurerShopSubSystem: {fileID: 6537886292208061804}
     shopChooserSubSystem: {fileID: 6537886292883479844}
 --- !u!1 &6537886294032252052

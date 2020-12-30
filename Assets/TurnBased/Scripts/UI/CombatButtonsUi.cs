@@ -1,4 +1,4 @@
-﻿using EconomyProject.Scripts.GameEconomy.Systems;
+﻿using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.UI;
 using UnityEngine;
 
@@ -6,23 +6,23 @@ namespace TurnBased.Scripts.UI
 {
     public class CombatButtonsUi : MonoBehaviour
     {
-        public AdventurerSystem adventurerSystem;
+        public AdventurerSystemBehaviour adventurerSystem;
 
         public GetCurrentAdventurerAgent adventurerAgent;
 
         public void OnAttackButton()
         {
-            adventurerSystem.OnAttackButton(adventurerAgent.CurrentAgent);
+            adventurerSystem.system.OnAttackButton(adventurerAgent.CurrentAgent);
         }
 
         public void OnHealButton()
         {
-            adventurerSystem.OnHealButton(adventurerAgent.CurrentAgent);
+            adventurerSystem.system.OnHealButton(adventurerAgent.CurrentAgent);
         }
 
         public void OnFleeButton()
         {
-            adventurerSystem.OnFleeButton(adventurerAgent.CurrentAgent);
+            adventurerSystem.system.OnFleeButton(adventurerAgent.CurrentAgent);
         }
     }
 }
