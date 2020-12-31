@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using Inventory;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
@@ -18,7 +19,7 @@ namespace EconomyProject.Scripts.UI.Inventory
     }
     public class ShopInventoryScrollView : AbstractScrollList<ShopItemUi, ShopInventoryScrollButton>
     {
-        public AgentShopSubSystem shopSubSystem;
+        public ShopCraftingSystemBehaviour shopSubSystem;
 
         public GetCurrentShopAgent shopAgent;
         protected override ILastUpdate LastUpdated => shopAgent.CurrentAgent.agentInventory;
@@ -28,7 +29,7 @@ namespace EconomyProject.Scripts.UI.Inventory
             var itemList = new List<ShopItemUi>();
             foreach (var item in shopAgent.CurrentAgent.agentInventory.Items)
             {
-                var price = shopSubSystem.GetPrice(shopAgent.CurrentAgent, item.Value[0].itemDetails);
+                var price = shopSubSystem.system.shopSubSubSystem.GetPrice(shopAgent.CurrentAgent, item.Value[0].itemDetails);
                 itemList.Add(new ShopItemUi { Item=item.Value[0], Number=item.Value.Count, Price=price});
             }
             return itemList;
@@ -36,7 +37,7 @@ namespace EconomyProject.Scripts.UI.Inventory
 
         public override void SelectItem(ShopItemUi shopItem, int number = 1)
         {
-            shopSubSystem.SubmitToShop(shopAgent.CurrentAgent, shopItem.Item);
+            shopSubSystem.system.shopSubSubSystem.SubmitToShop(shopAgent.CurrentAgent, shopItem.Item);
         }
     }
 }

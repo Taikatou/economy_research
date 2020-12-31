@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.MLAgents.Craftsman;
@@ -10,7 +11,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Crafting
 {
     public class CraftsmanCraftingScrollList : AbstractScrollList<CraftingInfo, CraftingRequestButton>
     {
-        public CraftingSubSystem craftingSubSystem;
+        public ShopCraftingSystemBehaviour shopCraftingSystem;
         public GetCurrentShopAgent getCurrentAgent;
         private ShopAgent Agent => getCurrentAgent.CurrentAgent;
         protected override ILastUpdate LastUpdated => GetComponent<CraftingLastUpdate>();
@@ -18,7 +19,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Crafting
         protected override List<CraftingInfo> GetItemList()
         {
             var itemList = new List<CraftingInfo>();
-            foreach (var item in craftingSubSystem.craftingRequirement)
+            foreach (var item in shopCraftingSystem.system.craftingSubSubSystem.craftingRequirement)
             {
                 var craftInfo = new CraftingInfo(item, Agent.craftingInventory);
                 itemList.Add(craftInfo);
@@ -27,7 +28,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Crafting
         }
         public override void SelectItem(CraftingInfo item, int number = 1)
         {
-            craftingSubSystem.MakeRequest(Agent, (int) item.craftingMap.choice);
+            shopCraftingSystem.system.craftingSubSubSystem.MakeRequest(Agent, (int) item.craftingMap.choice);
             LastUpdated.Refresh();
         }
     }

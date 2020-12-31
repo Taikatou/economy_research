@@ -1,4 +1,5 @@
-﻿using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
+﻿using EconomyProject.Monobehaviours;
+using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.MLAgents.Craftsman;
 using UnityEngine;
@@ -9,13 +10,13 @@ namespace EconomyProject.Scripts.UI.Craftsman.Crafting
     public class CraftingSlider : MonoBehaviour
     {
         public Slider slider;
-        public CraftingSubSystem craftingSubSystem;
+        public ShopCraftingSystemBehaviour shopSystem;
         public GetCurrentShopAgent getCurrentAgent;
 
         private void Update()
         {
             Time.timeScale = 1.0f;
-            slider.value = craftingSubSystem.Progress(getCurrentAgent.CurrentAgent);
+            slider.value = shopSystem.system.craftingSubSubSystem.Progress(getCurrentAgent.CurrentAgent);
         }
     }
 }

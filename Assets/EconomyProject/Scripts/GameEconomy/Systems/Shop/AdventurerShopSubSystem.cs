@@ -10,7 +10,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 {
     public class AdventurerShopSubSystem : MonoBehaviour, IShopSubSystem, IAdventureSense
     {
-        public AgentShopSubSystemBehaviour agentShopSubSystem;
+        public ShopCraftingSystemBehaviour shopCraftingSystem;
         public ShopChooserSubSystem shopChooserSubSystem;
         private Dictionary<AdventurerAgent, int> _currentLocation;
 
@@ -27,7 +27,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             }
 
             var shopAgent = shopChooserSubSystem.GetCurrentShop(agent);
-            var shopItems = agentShopSubSystem.system.GetShopItems(shopAgent);
+            var shopItems = shopCraftingSystem.system.shopSubSubSystem.GetShopItems(shopAgent);
             switch (choice)
             {
                 case AdventureShopInput.Up:
@@ -40,7 +40,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
                     if (_currentLocation[agent] < shopItems.Count)
                     {
                         var shopDetails = shopItems[_currentLocation[agent]].itemDetails;
-                        agentShopSubSystem.system.PurchaseItem(shopAgent, shopDetails, agent.wallet, agent.inventory);
+                        shopCraftingSystem.system.shopSubSubSystem.PurchaseItem(shopAgent, shopDetails, agent.wallet, agent.inventory);
                     }
                     break;
             }
@@ -58,7 +58,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
         public float[] GetSenses(AdventurerAgent agent)
         {
             var shop = shopChooserSubSystem.GetCurrentShop(agent);
-            var senseA = agentShopSubSystem.system.GetSenses(shop);
+            var senseA = shopCraftingSystem.system.shopSubSubSystem.GetSenses(shop);
             var output = new float [1 + AgentShopSubSystem.SenseCount + shopChooserSubSystem.SenseCount];
             output[0] = _currentLocation[agent];
             senseA.CopyTo(output, 1);

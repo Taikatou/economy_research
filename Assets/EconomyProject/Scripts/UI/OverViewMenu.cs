@@ -26,7 +26,7 @@ namespace EconomyProject.Scripts.UI
 
         public ShopInput shopInput;
 
-        public AgentShopSubSystem agentShopSubSystem;
+        public ShopCraftingSystemBehaviour shopSubSystem;
 
         public AdventurerSystemBehaviour adventurerSystem;
 
@@ -59,7 +59,7 @@ namespace EconomyProject.Scripts.UI
             
             foreach (var agent in shopAgent)
             {
-                var shopItems = agentShopSubSystem.GetShopItems(agent);
+                var shopItems = shopSubSystem.system.shopSubSubSystem.GetShopItems(agent);
                 itemCount += shopItems.Count;
                 resourceCount += agent.craftingInventory.GetResourceNumber();
 
