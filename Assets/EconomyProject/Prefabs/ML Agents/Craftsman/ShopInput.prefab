@@ -120,11 +120,33 @@ MonoBehaviour:
   system:
     agents: {fileID: 848789782}
     craftingSubSubSystem:
-      craftingRequirement: []
+      craftingRequirement:
+      - choice: 0
+        resource: {fileID: 11400000, guid: 96cd0142b35188d4aa2db4488fb21c8b, type: 2}
+      - choice: 1
+        resource: {fileID: 11400000, guid: 483294a08902a8749bdaf8a29d4e2b79, type: 2}
+      - choice: 2
+        resource: {fileID: 11400000, guid: 54c8682cbd889354685ced1aa476b060, type: 2}
+      - choice: 3
+        resource: {fileID: 11400000, guid: 5f2a182caacd88e428019f74abf0bacb, type: 2}
+      - choice: 4
+        resource: {fileID: 11400000, guid: 129ebd3159db0a04cbd032fdc2deab77, type: 2}
     shopSubSubSystem:
       resetScript: {fileID: 0}
-      basePrices: []
-      endItem: {fileID: 0}
+      basePrices:
+      - item: {fileID: 11400000, guid: ff61c0520e17b43429b1c5e7c3cd505d, type: 2}
+        price: 50
+      - item: {fileID: 11400000, guid: ba1044b1ad3be3440a274303fe22f8cb, type: 2}
+        price: 70
+      - item: {fileID: 11400000, guid: 220a652df168f054b8b6564ab9e67f7f, type: 2}
+        price: 90
+      - item: {fileID: 11400000, guid: 995af46e8ce3ad84a9491f7e65b0c666, type: 2}
+        price: 110
+      - item: {fileID: 11400000, guid: ecd492c3b2f26eb428a3a267c2e78659, type: 2}
+        price: 140
+      - item: {fileID: 11400000, guid: f2ee4c3d87136284f911c5dc145ee12c, type: 2}
+        price: 180
+      endItem: {fileID: 11400000, guid: f2ee4c3d87136284f911c5dc145ee12c, type: 2}
 --- !u!1 &9203867373600979898
 GameObject:
   m_ObjectHideFlags: 0

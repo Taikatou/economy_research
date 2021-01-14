@@ -560,7 +560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8b71d0d0cc68e64990f65a7c7ae4066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentShopSubSystem: {fileID: 0}
+  shopCraftingSystem: {fileID: 0}
   shopChooserSubSystem: {fileID: 6537886292883479844}
 --- !u!1 &6537886292603187201
 GameObject:

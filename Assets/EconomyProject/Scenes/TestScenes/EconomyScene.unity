@@ -800,6 +800,11 @@ PrefabInstance:
       propertyPath: shopChooserSubSystem
       value: 
       objectReference: {fileID: 1781114764}
+    - target: {fileID: 2810845863312687352, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: shopSubSystem
+      value: 
+      objectReference: {fileID: 473122264}
     - target: {fileID: 3902145170023200438, guid: 7984588dcb920ef4d82ce338990a333a,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1639,147 +1644,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 497209117, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
-      propertyPath: system.resetScript
-      value: 
-      objectReference: {fileID: 394064042}
-    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
-        type: 3}
-      propertyPath: system.craftingSubSubSystem.craftingRequirement.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
-        type: 3}
-      propertyPath: system.shopSubSubSystem.basePrices.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
-        type: 3}
-      propertyPath: system.craftingSubSubSystem.craftingRequirement.Array.data[0].resource
-      value: 
-      objectReference: {fileID: 11400000, guid: 96cd0142b35188d4aa2db4488fb21c8b,
-        type: 2}
-    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
-        type: 3}
-      propertyPath: system.craftingSubSubSystem.craftingRequirement.Array.data[1].choice
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
-        type: 3}
-      propertyPath: system.craftingSubSubSystem.craftingRequirement.Array.data[1].resource
-      value: 
-      objectReference: {fileID: 11400000, guid: 483294a08902a8749bdaf8a29d4e2b79,
-        type: 2}
-    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
-        type: 3}
-      propertyPath: system.craftingSubSubSystem.craftingRequirement.Array.data[2].choice
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
-        type: 3}
-      propertyPath: system.craftingSubSubSystem.craftingRequirement.Array.data[2].resource
-      value: 
-      objectReference: {fileID: 11400000, guid: 54c8682cbd889354685ced1aa476b060,
-        type: 2}
-    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
-        type: 3}
-      propertyPath: system.craftingSubSubSystem.craftingRequirement.Array.data[3].choice
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
-        type: 3}
-      propertyPath: system.craftingSubSubSystem.craftingRequirement.Array.data[3].resource
-      value: 
-      objectReference: {fileID: 11400000, guid: 5f2a182caacd88e428019f74abf0bacb,
-        type: 2}
-    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
-        type: 3}
-      propertyPath: system.craftingSubSubSystem.craftingRequirement.Array.data[4].choice
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
-        type: 3}
-      propertyPath: system.craftingSubSubSystem.craftingRequirement.Array.data[4].resource
-      value: 
-      objectReference: {fileID: 11400000, guid: 129ebd3159db0a04cbd032fdc2deab77,
-        type: 2}
-    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
-        type: 3}
-      propertyPath: system.shopSubSubSystem.basePrices.Array.data[0].item
-      value: 
-      objectReference: {fileID: 11400000, guid: ff61c0520e17b43429b1c5e7c3cd505d,
-        type: 2}
-    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
-        type: 3}
-      propertyPath: system.shopSubSubSystem.basePrices.Array.data[0].price
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
-        type: 3}
-      propertyPath: system.shopSubSubSystem.basePrices.Array.data[1].item
-      value: 
-      objectReference: {fileID: 11400000, guid: ba1044b1ad3be3440a274303fe22f8cb,
-        type: 2}
-    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
-        type: 3}
-      propertyPath: system.shopSubSubSystem.basePrices.Array.data[1].price
-      value: 70
-      objectReference: {fileID: 0}
-    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
-        type: 3}
-      propertyPath: system.shopSubSubSystem.basePrices.Array.data[2].item
-      value: 
-      objectReference: {fileID: 11400000, guid: 220a652df168f054b8b6564ab9e67f7f,
-        type: 2}
-    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
-        type: 3}
-      propertyPath: system.shopSubSubSystem.basePrices.Array.data[2].price
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
-        type: 3}
-      propertyPath: system.shopSubSubSystem.basePrices.Array.data[3].item
-      value: 
-      objectReference: {fileID: 11400000, guid: 995af46e8ce3ad84a9491f7e65b0c666,
-        type: 2}
-    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
-        type: 3}
-      propertyPath: system.shopSubSubSystem.basePrices.Array.data[3].price
-      value: 110
-      objectReference: {fileID: 0}
-    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
-        type: 3}
-      propertyPath: system.shopSubSubSystem.basePrices.Array.data[4].item
-      value: 
-      objectReference: {fileID: 11400000, guid: ecd492c3b2f26eb428a3a267c2e78659,
-        type: 2}
-    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
-        type: 3}
-      propertyPath: system.shopSubSubSystem.basePrices.Array.data[4].price
-      value: 140
-      objectReference: {fileID: 0}
-    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
-        type: 3}
-      propertyPath: system.shopSubSubSystem.basePrices.Array.data[5].item
-      value: 
-      objectReference: {fileID: 11400000, guid: f2ee4c3d87136284f911c5dc145ee12c,
-        type: 2}
-    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
-        type: 3}
-      propertyPath: system.shopSubSubSystem.basePrices.Array.data[5].price
-      value: 180
-      objectReference: {fileID: 0}
     - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
         type: 3}
       propertyPath: system.shopSubSubSystem.resetScript
       value: 
       objectReference: {fileID: 394064042}
-    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
-        type: 3}
-      propertyPath: system.shopSubSubSystem.endItem
-      value: 
-      objectReference: {fileID: 11400000, guid: f2ee4c3d87136284f911c5dc145ee12c,
-        type: 2}
     - target: {fileID: 9203867373713679003, guid: 6bf88d751f8c06d46a6ae748d77326d1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3145,9 +3014,9 @@ PrefabInstance:
       objectReference: {fileID: 1790685403}
     - target: {fileID: 6537886292208061804, guid: 5aa5546e137b74945a31aa19b12060f0,
         type: 3}
-      propertyPath: agentShopSubSystem
+      propertyPath: shopCraftingSystem
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 473122264}
     - target: {fileID: 6537886293245971608, guid: 5aa5546e137b74945a31aa19b12060f0,
         type: 3}
       propertyPath: dataLogger

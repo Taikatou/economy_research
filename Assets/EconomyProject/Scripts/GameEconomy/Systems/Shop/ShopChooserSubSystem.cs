@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 {
+    [Serializable]
     public class ShopChooserSubSystem : GetCurrentShopAgent, IShopSubSystem, IAdventureSense
     {
         private Dictionary<AdventurerAgent, int> _currentShop;

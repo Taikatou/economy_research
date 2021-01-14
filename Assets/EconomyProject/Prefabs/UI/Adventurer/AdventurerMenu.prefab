@@ -5961,10 +5961,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   contentPanel: {fileID: 7446941909299403000}
   buttonObjectPool: {fileID: 7027033193909710765}
-  agentShopSubSystem:
-    resetScript: {fileID: 0}
-    basePrices: []
-    endItem: {fileID: 0}
+  shopSubSystem: {fileID: 0}
   currentAdventurerAgent: {fileID: 1140675890918039831}
   shopChooserSubSystem: {fileID: 0}
 --- !u!1 &7446941907719745565
