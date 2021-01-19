@@ -13,7 +13,10 @@ using EconomyProject.Scripts.MLAgents.Shop;
 
 using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems;
+using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
+using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
+using TurnBased.Scripts;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////TO UNCOMMENT/////////////////////////////////////////////////////////////////
@@ -163,7 +166,7 @@ namespace Tests.Economy
 		}
 
 
-		/*
+		
 		/// <summary>
 		/// Test
 		/// </summary>
@@ -172,7 +175,7 @@ namespace Tests.Economy
 		{
 			
 			TravelSubSystem ts = adventurerSystem.travelSubsystem;
-			UnityEngine.TurnBased.Scripts.FighterObject aa = ts.GetBattle(BattleEnvironments.Forest);
+			FighterObject aa = ts.GetBattle(BattleEnvironments.Forest);
 			Assert.False( aa == null, " ");
 
 
