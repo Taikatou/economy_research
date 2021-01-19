@@ -27,11 +27,18 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 
         public void LoseMoney(int amount)
         {
-            if (amount < 0)
+            if (amount > 0)
             {
                 Money -= amount;
-                SpentMoney += amount;
-            }
+			}
+			else
+			{
+				Money += amount;
+			}
+			if(Money < 0)
+			{
+				Money = 0;
+			}
         }
 
         public void SpendMoney(int amount)
@@ -39,7 +46,8 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             if (amount > 0)
             {
                 Money -= amount;
-            }
+				SpentMoney += amount;
+			}
         }
 
         public void SetMoney(int amount)

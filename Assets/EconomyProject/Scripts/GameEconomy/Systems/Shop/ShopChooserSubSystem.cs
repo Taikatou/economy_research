@@ -4,6 +4,8 @@ using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI;
 
+using UnityEngine;
+
 namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 {
     [Serializable]
@@ -42,7 +44,15 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
                 _currentShop.Add(agent, 0);
             }
 
-            return GetAgents[_currentShop[agent]];
+			try
+			{
+				return GetAgents[_currentShop[agent]];
+			}
+			catch
+			{
+				Debug.LogError("Don't get _currentShop[agent] = " + _currentShop[agent]);
+				return null;
+			}
         }
 
         private void MovePosition(AdventurerAgent agent, int movement)
