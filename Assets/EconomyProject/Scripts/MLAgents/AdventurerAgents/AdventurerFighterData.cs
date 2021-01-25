@@ -1,6 +1,5 @@
 ﻿using EconomyProject.Scripts.Inventory;
 using Inventory;
-using Inventory;
 using TurnBased.Scripts;
 using UnityEngine;
 

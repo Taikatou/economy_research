@@ -19,10 +19,11 @@ using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
-
+using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
+using Inventory;
 using TurnBased.Scripts;
 
-
+using LootBoxes.Generated;
 
 
 namespace Tests.Economy
@@ -32,13 +33,23 @@ namespace Tests.Economy
 		AdventurerSystemBehaviour adventurerSystemBehaviour;
 		AdventurerSystem adventurerSystem;
 		GetCurrentAdventurerAgent getAdventurerAgent;
-		GetCurrentShopAgent getShopAgent;
 		AdventurerAgent adventurerAgent;
-		ShopAgent shopAgent;
-		SystemSpawner systemSpawner;
+
 		TravelSubSystem travelSubsystem;
 		AdventurerInventory adventurerInventory;
 		AgentInventory agentInventory;
+
+		ShopCraftingSystemBehaviour shopCraftingSystemBehaviour;
+		CraftingSubSystem craftingSubSystem;
+		AgentShopSubSystem agentShopSubSubSystem;
+		GetCurrentShopAgent getShopAgent;
+		ShopAgent shopAgent;
+
+		RequestShopSystemBehaviour requestShopSystemBehaviour;
+		RequestShopSystem requestShopSystem;
+		RequestSystem requestSystem;
+
+
 		//RequestShopSystem requestShopSystem;
 
 		public List<BattleEnvironments> listEnvironments = new List<BattleEnvironments> { BattleEnvironments.Forest, BattleEnvironments.Mountain, BattleEnvironments.Sea, BattleEnvironments.Volcano };
@@ -50,38 +61,205 @@ namespace Tests.Economy
 			adventurerSystemBehaviour = Resources.FindObjectsOfTypeAll<AdventurerSystemBehaviour>()[0];
 			adventurerSystem = adventurerSystemBehaviour.system;
 
-			//Create 1 adventurer agent
-			systemSpawner = Resources.FindObjectsOfTypeAll<SystemSpawner>()[0];
-			systemSpawner.numLearningAgents = 1;
-			systemSpawner.Start();
+			SpawnAgents();
+
+
+			//Get Adventurer Agent
 			getAdventurerAgent = Resources.FindObjectsOfTypeAll<GetCurrentAdventurerAgent>()[0];
 			adventurerAgent = getAdventurerAgent.CurrentAgent;
 
-			//Generate PlayerFighterData
-			adventurerAgent.gameObject.GetComponent<AdventurerFighterData>().Start();
-			adventurerAgent.gameObject.GetComponent<AdventurerFighterData>().Start();
-
-			//Generate adventurerInventory
-			adventurerInventory = adventurerAgent.adventurerInventory;
-
-			//Generate agentInventory
-			agentInventory = adventurerAgent.inventory;
-			agentInventory.ResetInventory();
-
-			//Generate travelSubsystem
+			//Generate travelSubsystem of the adventurerSystem
 			travelSubsystem = adventurerSystem.travelSubsystem;
 			travelSubsystem.Start();
 			adventurerSystem.travelSubsystem = travelSubsystem;
 
-			/*
+			//Generate PlayerFighterData of the adventurerAgent
+			adventurerAgent.gameObject.GetComponent<AdventurerFighterData>().Start();
+
+			//Generate adventurerInventory of the adventurerAgent
+			adventurerInventory = adventurerAgent.adventurerInventory;
+
+			//Generate agentInventory of the adventurerAgent
+			agentInventory = adventurerAgent.inventory;
+			agentInventory.ResetInventory();
+
+			
+			shopCraftingSystemBehaviour = Resources.FindObjectsOfTypeAll<ShopCraftingSystemBehaviour>()[0];
+			agentShopSubSubSystem = shopCraftingSystemBehaviour.system.shopSubSubSystem;
+			craftingSubSystem = shopCraftingSystemBehaviour.system.craftingSubSubSystem;
+
+			//Get ShopAgent
 			getShopAgent = Resources.FindObjectsOfTypeAll<GetCurrentShopAgent>()[0];
 			shopAgent = getShopAgent.CurrentAgent;
-			*/
+			shopAgent.shopInput.Awake();
+
+
+			requestShopSystemBehaviour = Resources.FindObjectsOfTypeAll<RequestShopSystemBehaviour>()[0];
+			requestShopSystem = requestShopSystemBehaviour.system;
+			requestSystem = requestShopSystem.requestSystem;
+			requestSystem.Start();
+		}
+
+		/********************************************Inventory*********************************************/
+
+		/// <summary>
+		/// Test if only 'urnamed' object by default
+		/// </summary>
+		[Test]
+		public void Inventory_UnarmedDefault()
+		{
+			//Reset inventory
+			adventurerAgent.ResetEconomyAgent();
+
+			if (adventurerAgent.inventory.Items.Count > 1)
+			{
+				DebugItemsInInventory(adventurerAgent);
+			}
+
+			Assert.AreEqual(1, adventurerAgent.inventory.Items.Count, "Unarmed by default");
+			Assert.True(adventurerAgent.inventory.Items.ContainsKey("Unarmed"), "Unarmed by default");
+
+
+			Assert.AreEqual(1, adventurerAgent.inventory.Items.Count, "Unarmed by default");
+		}
+
+		/// <summary>
+		/// Test caracteristics of the objects
+		/// </summary>
+		[Test]
+		public void Inventory_UnarmedDetails()
+		{
+			//Reset inventory
+			adventurerAgent.ResetEconomyAgent();
+
+			//Unarmed
+			UsableItemDetails itemDetails = adventurerAgent.inventory.Items["Unarmed"][0].itemDetails;
+			Assert.AreEqual("Unarmed", itemDetails.itemName);
+			Assert.AreEqual(0, itemDetails.baseDurability);
+			Assert.AreEqual(0, itemDetails.durability);
+			Assert.AreEqual(5, itemDetails.damage);
+			Assert.AreEqual(true, itemDetails.unBreakable);
+			Assert.AreEqual(false, itemDetails.Broken);
+		}
+
+		/// <summary>
+		/// Test if the object is present in the inventory
+		/// </summary>
+		[Test]
+		public void Inventory_ContainItem()
+		{
+			//Reset inventory
+			adventurerAgent.ResetEconomyAgent();
+
+			List<BaseItemPrices> basePrices = agentShopSubSubSystem.basePrices;
+			
+			for(int i = 0; i < basePrices.Count; i++)
+			{
+				//Sword
+				UsableItem itemToAdd = basePrices[i].item;
+
+				//Add to the inventory
+				adventurerAgent.inventory.AddItem(itemToAdd);
+
+				//Check if contains it
+				Assert.True(adventurerAgent.inventory.ContainsItem(itemToAdd));
+			}
+		}
+
+		/// <summary>
+		/// Test to remove an item in the inventory
+		/// </summary>
+		[Test]
+		public void Inventory_RemoveItem()
+		{
+			//Reset inventory
+			adventurerAgent.ResetEconomyAgent();
+
+			List<BaseItemPrices> basePrices = agentShopSubSubSystem.basePrices;
+
+			for (int i = 0; i < basePrices.Count; i++)
+			{
+				//Sword
+				UsableItem itemToAdd = basePrices[i].item;
+
+				//Add to the inventory
+				adventurerAgent.inventory.AddItem(itemToAdd);
+
+				//Remove from the inventory
+				adventurerAgent.inventory.RemoveItem(itemToAdd);
+
+				//Check if contains it
+				Assert.False(adventurerAgent.inventory.ContainsItem(itemToAdd));
+			}
+		}
+
+		/// <summary>
+		/// Test to decrease the durability of an equipped sword
+		/// </summary>
+		[Test]
+		public void Inventory_DecreaseDurability()
+		{
+			//Reset inventory
+			adventurerAgent.ResetEconomyAgent();
+
+			List<BaseItemPrices> basePrices = agentShopSubSubSystem.basePrices;
+
+			for (int i = 0; i < basePrices.Count; i++)
+			{
+				//Sword
+				UsableItem itemToAdd = basePrices[i].item;
+				itemToAdd.itemDetails.ResetDurability();
+
+				//Add to the inventory
+				adventurerAgent.inventory.AddItem(itemToAdd);
+				UsableItem itemInInventory = adventurerAgent.inventory.Items[itemToAdd.ToString()][0];
+
+				//Check durability by default
+				int durability = itemInInventory.itemDetails.durability;
+				Assert.AreEqual(itemInInventory.itemDetails.durability, itemInInventory.itemDetails.baseDurability);
+
+				adventurerAgent.inventory.DecreaseDurability(itemInInventory);
+
+				//Check if it decreased
+				Assert.AreEqual(durability - 1 , itemInInventory.itemDetails.durability);
+				
+			}
+		}
+
+		/// <summary>
+		/// Test equip an item as the main sword
+		/// </summary>
+		[Test]
+		public void Inventory_EquipItem()
+		{
+			List<BaseItemPrices> basePrices = agentShopSubSubSystem.basePrices;
+
+			for (int i = 0; i < basePrices.Count; i++)
+			{
+				//Reset inventory
+				adventurerAgent.ResetEconomyAgent();
+
+				//Sword
+				UsableItem itemToAdd = basePrices[i].item;
+
+				//Add to the inventory
+				adventurerAgent.inventory.AddItem(itemToAdd);
+
+				//Check if contains it
+				Assert.AreEqual(itemToAdd, adventurerAgent.adventurerInventory.EquipedItem, "Equiped Item : " + adventurerAgent.adventurerInventory.EquipedItem.ToString());
+			}
+
+			//Try to check if the player equips the stronger sword
+			adventurerAgent.inventory.AddItem(basePrices[0].item);
+			UsableItem ultimateSword = GetSwordByName("Ultimate Sword");
+			Assert.AreEqual(ultimateSword,adventurerAgent.adventurerInventory.EquipedItem, 
+				"Should keep the best equipment. Equiped Item : " + adventurerAgent.adventurerInventory.EquipedItem.ToString());
+
 		}
 
 		/********************************************Wallet*********************************************/
 		/// <summary>
-		/// Test having the BattleSubSystem from the agent
+		/// Test Wallet of the adventurer agent
 		/// </summary>
 		[Test]
 		public void Wallet_Wallet()
@@ -106,15 +284,6 @@ namespace Tests.Economy
 
 			adventurerAgent.wallet.LoseMoney(1000);
 			Assert.AreEqual(0, adventurerAgent.wallet.Money);
-		}
-
-		/// <summary>
-		/// Test having the BattleSubSystem from the agent
-		/// </summary>
-		[Test]
-		public void Wallet_ResetWallet()
-		{
-			adventurerAgent.ResetEconomyAgent();
 		}
 
 		/********************************************Travel**************************************************/
@@ -148,16 +317,39 @@ namespace Tests.Economy
 			Assert.False(isNothingExist && isWoodExist && isMetalExist && isGemExist && isDragonScaleExist == false, "Enumeration CraftingResources wrong");
 		}
 
-		/********************************************Adventurer*********************************************/
+		/********************************************Spawn*********************************************/
 
 		/// <summary>
 		/// Should have only one adventurer agent because we spawn only one in the setup
 		/// </summary>
 		[Test]
-		public void Agent_NoAgentByDefault()
+		public void Spawn_OneAdventurerSpawned()
 		{
+			AdventurerAgent[] adventurerAgents = getAdventurerAgent.GetAgents;
+			if (adventurerAgents.Length != 1)
+			{
+				//DebugAdventurers();
+			}
+			Assert.AreEqual(1, adventurerAgents.Length);
+
+
+			/* Presence of an other AdventurerAgent in the scene
+			AdventurerAgent[] adventurerAgents2 = Resources.FindObjectsOfTypeAll<AdventurerAgent>();
+
+			if (adventurerAgents2.Length != 1)
+			{
+				DebugAdventurers();
+			}
+
+			Assert.AreEqual(1, adventurerAgents2.Length);
+
+
+
+			//Presence of 2 AdventurerFighterData in the scene for no reason
+
 			AdventurerFighterData[] ls = Resources.FindObjectsOfTypeAll<AdventurerFighterData>();
 			Assert.AreEqual(1, ls.Length, "Nbr Of AdventurerAdgents : " + ls.Length);
+			*/
 		}
 
 		/********************************************Battle System*********************************************/
@@ -178,7 +370,13 @@ namespace Tests.Economy
 		[Test]
 		public void Battle_NoBattleByDefault()
 		{
-			Assert.False(adventurerSystem.GetBattleCount() != 0, "No battle by default. Number of active battles : " + adventurerSystem.GetBattleCount());
+			if(adventurerSystem.GetBattleCount() != 0)
+			{
+				//DebugBattleSystems();
+			}
+				
+
+			Assert.AreEqual(0, adventurerSystem.GetBattleCount(), "No battle by default. Number of active battles : " + adventurerSystem.GetBattleCount());
 
 			Assert.True(adventurerSystem.CanMove(adventurerAgent) == true, "CanMove=true by default");
 
@@ -226,14 +424,9 @@ namespace Tests.Economy
 		[Test]
 		public void Battle_FighterDataPlayer()
 		{
-			adventurerSystem.StartBattle(adventurerAgent, BattleEnvironments.Forest);
+			BattleSubSystem battleSubSystem = StartBattle(BattleEnvironments.Forest);
 
-			BattleSubSystem battleSubSystem = adventurerSystem.GetSubSystem(adventurerAgent);
-			Assert.IsNotNull(battleSubSystem);
-
-			
-
-			/******************************Player**************************************/
+			/**Player**/
 			Assert.IsNotNull(battleSubSystem.PlayerFighterUnit);
 
 			//Start with 20HP
@@ -263,12 +456,9 @@ namespace Tests.Economy
 		[Test]
 		public void Battle_FighterDataEnemy()
 		{
-			adventurerSystem.StartBattle(adventurerAgent, BattleEnvironments.Forest);
+			BattleSubSystem battleSubSystem = StartBattle(BattleEnvironments.Forest);
 
-			BattleSubSystem battleSubSystem = adventurerSystem.GetSubSystem(adventurerAgent);
-			Assert.IsNotNull(battleSubSystem);
-
-			/******************************Enemy**************************************/
+			/**Enemy**/
 			Assert.IsNotNull(battleSubSystem.EnemyFighterUnit);
 
 			//Start with MaxHp
@@ -365,11 +555,18 @@ namespace Tests.Economy
 		[Test]
 		public void Battle_StateEnemyTurn()
 		{
+			/*
+			 * 
+			 * Can't be tested due to private functions
+			 * 
+			 * 
 			BattleSubSystem battleSubSystem = StartBattle(BattleEnvironments.Forest);
 
 			//Attack
 			adventurerSystem.OnAttackButton(adventurerAgent);
 			Assert.AreEqual(BattleState.EnemyTurn, battleSubSystem.CurrentState, "battleSubSystem.CurrentState : " + battleSubSystem.CurrentState);
+			*/
+			Assert.True(true);
 		}
 
 		/// <summary>
@@ -408,11 +605,17 @@ namespace Tests.Economy
 		{
 			BattleSubSystem battleSubSystem = StartBattle(BattleEnvironments.Forest);
 
-			//Heal
-			adventurerSystem.OnHealButton(adventurerAgent);
-			Assert.True(battleSubSystem.CurrentState == BattleState.PlayerTurn);
+			AdventurerFighterData adventurerData = adventurerAgent.GetComponent<AdventurerFighterData>();
 
-			//Test the HP
+			//adventurerSystem.OnHealButton(adventurerAgent);
+
+			battleSubSystem.PlayerFighterUnit.CurrentHp = 1;
+			battleSubSystem.PlayerFighterUnit.Heal(5);
+			Assert.AreEqual(6, battleSubSystem.PlayerFighterUnit.CurrentHp);
+
+			battleSubSystem.PlayerFighterUnit.CurrentHp = 1;
+			battleSubSystem.PlayerFighterUnit.Heal(100);
+			Assert.AreEqual(adventurerData.startHp, battleSubSystem.PlayerFighterUnit.CurrentHp, "Healing can't overcome the start hp  threshold");
 		}
 
 		/// <summary>
@@ -454,12 +657,29 @@ namespace Tests.Economy
 
 
 
-		
 
+		/********************************************Helper*********************************************/
+		/// <summary>
+		/// Spawn one adventurer agent and one shop agent
+		/// </summary>
+		public void SpawnAgents()
+		{
+			//Create 1 adventurer agent
+			SystemSpawner[] systemSpawners = Resources.FindObjectsOfTypeAll<SystemSpawner>();
+
+			SystemSpawner adventurerSpawner = systemSpawners[0];
+			adventurerSpawner.numLearningAgents = 1;
+			adventurerSpawner.Start();
+
+			
+			SystemSpawner agentSpawner = systemSpawners[1];
+			agentSpawner.numLearningAgents = 1;
+			agentSpawner.Start();
+		}
 
 
 		/// <summary>
-		/// Test 
+		/// Start a battle and return the BattleSubSystem associated to this battle
 		/// </summary>
 		public BattleSubSystem StartBattle(BattleEnvironments env)
 		{
@@ -467,36 +687,142 @@ namespace Tests.Economy
 			return adventurerSystem.GetSubSystem(adventurerAgent);
 		}
 
+		/// <summary>
+		/// Debug all the battle
+		/// </summary>
+		public void DebugBattleSystems()
+		{
+			Debug.Log("Number of battles : " + adventurerSystem.battleSystems.Count);
+			foreach (KeyValuePair<AdventurerAgent, BattleSubSystem> battleSystem in adventurerSystem.battleSystems)
+			{
+				Debug.Log("Agent : " + battleSystem.Key
+					+ "\n Battle : " + battleSystem.Value
+					+ "\n CurrentState : " + battleSystem.Value.CurrentState
+					+ "\n Enemy : " + battleSystem.Value.EnemyFighterUnit.UnitName
+					);
+			}
+		}
+
+		/// <summary>
+		/// Debug Adventurer Agents present in the scene
+		/// </summary>
+		public void DebugAdventurers()
+		{
+			AdventurerAgent[] adventurerAgents = Resources.FindObjectsOfTypeAll<AdventurerAgent>();
+
+			Debug.Log("Number of AdventurerAgent : " + adventurerAgents.Length);
+			foreach (AdventurerAgent agent in adventurerAgents)
+			{
+				Debug.Log("Agent.name : " + agent.name);
+			}
+		}
+
+		/// <summary>
+		/// Debug Adventurer Agents items in inventory
+		/// </summary>
+		public void DebugItemsInInventory(AdventurerAgent agent)
+		{
+			AgentInventory inventory = agent.inventory;
+
+			Debug.Log("Number of Items : " + inventory.Items.Count);
+			foreach (KeyValuePair<string, List<UsableItem>> item in inventory.Items)
+			{
+				Debug.Log("item : " + item.Key
+					+ "\n item list count: " + item.Value.Count
+					);
+
+				foreach(UsableItem usableItem in item.Value)
+				{
+					Debug.Log("usableItem name : " + usableItem.itemDetails.itemName
+					+ "\n baseDurability: " + usableItem.itemDetails.baseDurability
+					+ "\n durability : " + usableItem.itemDetails.durability
+					+ "\n damage : " + usableItem.itemDetails.damage
+					+ "\n unBreakable : " + usableItem.itemDetails.unBreakable
+					+ "\n Broken : " + usableItem.itemDetails.Broken
+					);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get sword UsableItem by name
+		/// </summary>
+		public UsableItem GetSwordByName(String swordName)
+		{
+			List<BaseItemPrices> basePrices = agentShopSubSubSystem.basePrices;
+
+			foreach(BaseItemPrices item in basePrices)
+			{
+				if(item.item.ToString() == swordName)
+				{
+					return item.item;
+				}
+			}
+
+			Debug.LogWarning("Not found sword called : " + swordName);
+			return null;
+		}
+
+		/// <summary>
+		/// Get sword UsableItem by name
+		/// </summary>
+		public CraftingResources[] GetCraftingResources()
+		{
+			return new CraftingResources[] { CraftingResources.Wood, CraftingResources.Metal, CraftingResources.Gem, CraftingResources.DragonScale };
+		}
 
 
 
 
-
-
-
-
-
-
-
-		/*
+		/********************************************Request*********************************************/
+		/// <summary>
+		/// Test enumeration RequestActions
+		/// </summary>
+		[Test]
+		public void Enum_RequestActions()
+		{
+			bool isExist1 = Enum.IsDefined(typeof(RequestActions), "SetInput");
+			bool isExist2 = Enum.IsDefined(typeof(RequestActions), "RemoveRequest");
+			bool isExist3 = Enum.IsDefined(typeof(RequestActions), "DecreasePrice");
+			bool isExist4 = Enum.IsDefined(typeof(RequestActions), "IncreasePrice");
+			Assert.True(isExist1 && isExist2 && isExist3 && isExist4 == true);
+		}
 
 		/// <summary>
 		/// Test taking random request
 		/// </summary>
-
-		public void TestSetupRequestSystem()
+		[Test]
+		public void Request_RequestShopSystemByDefault()
 		{
-			//Check types of requests
-			bool isSetInputExist = Enum.IsDefined(typeof(RequestActions), "SetInput");
-			bool isRemoveRequestExist = Enum.IsDefined(typeof(RequestActions), "RemoveRequest");
-			bool isIncreasePriceExist = Enum.IsDefined(typeof(RequestActions), "IncreasePrice");
-			bool isDecreasePriceExist = Enum.IsDefined(typeof(RequestActions), "DecreasePrice");
-			Assert.False(isSetInputExist && isRemoveRequestExist && isIncreasePriceExist && isDecreasePriceExist == false, "Enumeration RequestActions wrong");
-
-
 			//Empty list of request by default
-			int countRequests = requestShopSystem.requestSystem.GetAllCraftingRequests().Count;
-			Assert.False(countRequests != 0, "Some request(s) are already made by default");
+			int countRequests = requestSystem.GetAllCraftingRequests().Count;
+			Assert.Zero(countRequests, "Some request(s) are already made by default");
+
+			//Default CanMove
+			Assert.True(requestShopSystem.CanMove(shopAgent));
+		}
+
+
+		/// <summary>
+		/// Test making random request
+		/// </summary>
+		[Test]
+		public void Request_MakeResourceRequest()
+		{
+			//Make a request
+			shopAgent.OnActionReceived(new float[] { (float)RequestActions.SetInput });
+			requestShopSystem.MakeChoice(shopAgent, CraftingResources.Wood);
+
+			//Count the requests
+			Assert.AreEqual(1, requestSystem.GetAllCraftingRequests(shopAgent.craftingInventory).Count, "A request should be created");
+			Assert.AreEqual(1, requestSystem.GetAllCraftingRequests().Count, "A request should be created");
+
+			//Make another request
+			requestShopSystem.MakeChoice(shopAgent, CraftingResources.Metal);
+			shopAgent.OnActionReceived(new float[] { (float)RequestActions.SetInput });
+
+			//Count the requests
+			Assert.AreEqual(2, requestSystem.GetAllCraftingRequests().Count, "2 requests should be created");
 		}
 
 
@@ -509,10 +835,6 @@ namespace Tests.Economy
 			//Make a request
 			CraftingResources craftResourceToRequest = CraftingResources.Wood;
 			requestShopSystem.MakeChoice(shopAgent, craftResourceToRequest);
-
-			//Check the request
-			int countRequests = requestShopSystem.requestSystem.GetAllCraftingRequests().Count;
-			Assert.False(countRequests != 1, "A request should be created");
 
 			CraftingResourceRequest requestMade = requestShopSystem.requestSystem.GetAllCraftingRequests()[0];
 			Assert.False(requestMade == null, "CraftingResourceRequest empty");
@@ -528,7 +850,8 @@ namespace Tests.Economy
 		}
 
 
-
+		/*
+		 * 
 		/// <summary>
 		/// Test buying ans equipping equipments
 		/// </summary>

@@ -68,12 +68,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return 0;
         }
 
-        private void Start()
+        public void Start()
         {
             _craftingRequests = new Dictionary<CraftingInventory, Dictionary<CraftingResources, CraftingResourceRequest>>();
             _requestWallets = new Dictionary<CraftingResourceRequest, EconomyWallet>();
             Refresh();
-        }
+		}
         
         public void MakeRequest(CraftingResources resources, CraftingInventory inventory, EconomyWallet wallet)
         {
@@ -87,7 +87,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                     }
                     else
                     {
-                        _craftingRequests[inventory].Add(resources, request);   
+                        _craftingRequests[inventory].Add(resources, request);
                     }
                     wallet.SpendMoney(request.Price);
                 }
@@ -97,10 +97,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             var requestNumber = GetRequestNumber(inventory, resources);
             var canRequest = requestNumber < 10;
 
-            if (canRequest)
+			if (canRequest)
             {
                 var containsKey = _craftingRequests[inventory].ContainsKey(resources);
-                if (!containsKey)
+
+				if (!containsKey)
                 {
                     var newResource = new CraftingResourceRequest(resources, inventory);
                     _requestWallets.Add(newResource, wallet);
