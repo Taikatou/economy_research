@@ -1646,9 +1646,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
         type: 3}
+      propertyPath: system.craftingSubSubSystem.craftingRequirement.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
+        type: 3}
       propertyPath: system.shopSubSubSystem.resetScript
       value: 
       objectReference: {fileID: 394064042}
+    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
+        type: 3}
+      propertyPath: system.craftingSubSubSystem.craftingRequirement.Array.data[5].resource
+      value: 
+      objectReference: {fileID: 11400000, guid: 123cf055d354fae4fa5d70858ea03452,
+        type: 2}
     - target: {fileID: 9203867373713679003, guid: 6bf88d751f8c06d46a6ae748d77326d1,
         type: 3}
       propertyPath: m_LocalPosition.x
