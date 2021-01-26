@@ -37,35 +37,33 @@ namespace Tests.Economy
 
 		TravelSubSystem travelSubsystem;
 		AdventurerInventory adventurerInventory;
-		AgentInventory agentInventory;
+		AgentInventory adventurerAgentInventory;
 
 		ShopCraftingSystemBehaviour shopCraftingSystemBehaviour;
 		CraftingSubSystem craftingSubSystem;
 		AgentShopSubSystem agentShopSubSubSystem;
 		GetCurrentShopAgent getShopAgent;
 		ShopAgent shopAgent;
+		AgentInventory shopAgentInventory;
 
 		RequestShopSystemBehaviour requestShopSystemBehaviour;
 		RequestShopSystem requestShopSystem;
 		RequestSystem requestSystem;
 
-
-		//RequestShopSystem requestShopSystem;
-
 		public List<BattleEnvironments> listEnvironments = new List<BattleEnvironments> { BattleEnvironments.Forest, BattleEnvironments.Mountain, BattleEnvironments.Sea, BattleEnvironments.Volcano };
+		public List<CraftingResources> listCraftingResources = new List<CraftingResources> { CraftingResources.Wood, CraftingResources.Metal, CraftingResources.Gem, CraftingResources.DragonScale };
 
 
 		[SetUp]
 		public void Setup()
 		{
-			adventurerSystemBehaviour = Resources.FindObjectsOfTypeAll<AdventurerSystemBehaviour>()[0];
+			adventurerSystemBehaviour = GameObject.FindObjectOfType<AdventurerSystemBehaviour>();
 			adventurerSystem = adventurerSystemBehaviour.system;
 
 			SpawnAgents();
 
-
 			//Get Adventurer Agent
-			getAdventurerAgent = Resources.FindObjectsOfTypeAll<GetCurrentAdventurerAgent>()[0];
+			getAdventurerAgent = GameObject.FindObjectOfType<GetCurrentAdventurerAgent>();
 			adventurerAgent = getAdventurerAgent.CurrentAgent;
 
 			//Generate travelSubsystem of the adventurerSystem
@@ -80,21 +78,27 @@ namespace Tests.Economy
 			adventurerInventory = adventurerAgent.adventurerInventory;
 
 			//Generate agentInventory of the adventurerAgent
-			agentInventory = adventurerAgent.inventory;
-			agentInventory.ResetInventory();
+			adventurerAgentInventory = adventurerAgent.inventory;
+			adventurerAgent.ResetEconomyAgent();
 
-			
-			shopCraftingSystemBehaviour = Resources.FindObjectsOfTypeAll<ShopCraftingSystemBehaviour>()[0];
+			//Generate AdventurerRequestTaker
+			adventurerAgent.requestTaker.Start();
+
+
+			shopCraftingSystemBehaviour = GameObject.FindObjectOfType<ShopCraftingSystemBehaviour>();
 			agentShopSubSubSystem = shopCraftingSystemBehaviour.system.shopSubSubSystem;
 			craftingSubSystem = shopCraftingSystemBehaviour.system.craftingSubSubSystem;
 
 			//Get ShopAgent
-			getShopAgent = Resources.FindObjectsOfTypeAll<GetCurrentShopAgent>()[0];
+			getShopAgent = GameObject.FindObjectOfType<GetCurrentShopAgent>();
 			shopAgent = getShopAgent.CurrentAgent;
 			shopAgent.shopInput.Awake();
+			shopAgent.agentInventory.ResetInventory();
+			shopAgent.craftingInventory.ResetInventory();
+			shopAgent.wallet.Reset();
 
 
-			requestShopSystemBehaviour = Resources.FindObjectsOfTypeAll<RequestShopSystemBehaviour>()[0];
+			requestShopSystemBehaviour = GameObject.FindObjectOfType<RequestShopSystemBehaviour>();
 			requestShopSystem = requestShopSystemBehaviour.system;
 			requestSystem = requestShopSystem.requestSystem;
 			requestSystem.Start();
@@ -118,7 +122,6 @@ namespace Tests.Economy
 
 			Assert.AreEqual(1, adventurerAgent.inventory.Items.Count, "Unarmed by default");
 			Assert.True(adventurerAgent.inventory.Items.ContainsKey("Unarmed"), "Unarmed by default");
-
 
 			Assert.AreEqual(1, adventurerAgent.inventory.Items.Count, "Unarmed by default");
 		}
@@ -286,13 +289,13 @@ namespace Tests.Economy
 			Assert.AreEqual(0, adventurerAgent.wallet.Money);
 		}
 
-		/********************************************Travel**************************************************/
+		/********************************************Enum**************************************************/
 
 		/// <summary>
 		/// Test if an aventurer can travel to the 4 places : forest, mountain, sea, volcano 
 		/// </summary>
 		[Test]
-		public void Travel_TravelSystem()
+		public void Enum_TravelSystem()
 		{
 			bool isForestExist = Enum.IsDefined(typeof(BattleEnvironments), "Forest");
 			bool isMoutainExist = Enum.IsDefined(typeof(BattleEnvironments), "Mountain");
@@ -301,13 +304,11 @@ namespace Tests.Economy
 			Assert.True(isForestExist && isMoutainExist && isSeaExist && isVolcanoExist == true);
 		}
 
-		/********************************************Resources*********************************************/
-
 		/// <summary>
 		/// Test items : resources
 		/// </summary>
 		[Test]
-		public void Resources_CraftingResources()
+		public void Enum_CraftingResources()
 		{
 			bool isNothingExist = Enum.IsDefined(typeof(CraftingResources), "Nothing");
 			bool isWoodExist = Enum.IsDefined(typeof(CraftingResources), "Wood");
@@ -316,6 +317,59 @@ namespace Tests.Economy
 			bool isDragonScaleExist = Enum.IsDefined(typeof(CraftingResources), "DragonScale");
 			Assert.False(isNothingExist && isWoodExist && isMetalExist && isGemExist && isDragonScaleExist == false, "Enumeration CraftingResources wrong");
 		}
+
+		/// <summary>
+		/// Test the existence of the adventures states : InBattle and OutOfBattle
+		/// </summary>
+		[Test]
+		public void Enum_AdventureStates()
+		{
+			bool isInBattleExist = Enum.IsDefined(typeof(AdventureStates), "InBattle");
+			bool isOutOfBattleExist = Enum.IsDefined(typeof(AdventureStates), "OutOfBattle");
+			Assert.True(isInBattleExist && isOutOfBattleExist == true);
+		}
+
+		/// <summary>
+		/// No Battle_AdventurerFighterData
+		/// //public enum BattleAction { Attack, Heal, Flee }
+		/// </summary>
+		[Test]
+		public void Enum_BattleAction()
+		{
+			bool isAttackExist = Enum.IsDefined(typeof(BattleAction), "Attack");
+			bool isHealExist = Enum.IsDefined(typeof(BattleAction), "Heal");
+			bool isFleeExist = Enum.IsDefined(typeof(BattleAction), "Flee");
+			Assert.True(isAttackExist && isHealExist && isFleeExist == true);
+		}
+
+		/// <summary>
+		/// Test BattleState enum
+		/// </summary>
+		[Test]
+		public void Enum_BattleState()
+		{
+			bool isStartExist = Enum.IsDefined(typeof(BattleState), "Start");
+			bool isPlayerTurnExist = Enum.IsDefined(typeof(BattleState), "PlayerTurn");
+			bool isEnemyTurnExist = Enum.IsDefined(typeof(BattleState), "EnemyTurn");
+			bool isWonExist = Enum.IsDefined(typeof(BattleState), "Won");
+			bool isLostExist = Enum.IsDefined(typeof(BattleState), "Lost");
+			bool isFleeExist = Enum.IsDefined(typeof(BattleState), "Flee");
+			Assert.True(isStartExist && isPlayerTurnExist && isEnemyTurnExist && isWonExist && isLostExist && isFleeExist == true);
+		}
+
+		/// <summary>
+		/// Test enumeration RequestActions
+		/// </summary>
+		[Test]
+		public void Enum_RequestActions()
+		{
+			bool isExist1 = Enum.IsDefined(typeof(RequestActions), "SetInput");
+			bool isExist2 = Enum.IsDefined(typeof(RequestActions), "RemoveRequest");
+			bool isExist3 = Enum.IsDefined(typeof(RequestActions), "DecreasePrice");
+			bool isExist4 = Enum.IsDefined(typeof(RequestActions), "IncreasePrice");
+			Assert.True(isExist1 && isExist2 && isExist3 && isExist4 == true);
+		}
+
 
 		/********************************************Spawn*********************************************/
 
@@ -331,39 +385,10 @@ namespace Tests.Economy
 				//DebugAdventurers();
 			}
 			Assert.AreEqual(1, adventurerAgents.Length);
-
-
-			/* Presence of an other AdventurerAgent in the scene
-			AdventurerAgent[] adventurerAgents2 = Resources.FindObjectsOfTypeAll<AdventurerAgent>();
-
-			if (adventurerAgents2.Length != 1)
-			{
-				DebugAdventurers();
-			}
-
-			Assert.AreEqual(1, adventurerAgents2.Length);
-
-
-
-			//Presence of 2 AdventurerFighterData in the scene for no reason
-
-			AdventurerFighterData[] ls = Resources.FindObjectsOfTypeAll<AdventurerFighterData>();
-			Assert.AreEqual(1, ls.Length, "Nbr Of AdventurerAdgents : " + ls.Length);
-			*/
 		}
+
 
 		/********************************************Battle System*********************************************/
-		/// <summary>
-		/// Test the existence of the adventures states : InBattle and OutOfBattle
-		/// </summary>
-		[Test]
-		public void Battle_AdventureStates()
-		{
-			bool isInBattleExist = Enum.IsDefined(typeof(AdventureStates), "InBattle");
-			bool isOutOfBattleExist = Enum.IsDefined(typeof(AdventureStates), "OutOfBattle");
-			Assert.True(isInBattleExist && isOutOfBattleExist == true);
-		}
-
 		/// <summary>
 		/// Test if there is a battle by default
 		/// </summary>
@@ -511,33 +536,6 @@ namespace Tests.Economy
 			Assert.True(battleSubSystem.GameOver() == true);
 		}
 
-		/// <summary>
-		/// No Battle_AdventurerFighterData
-		/// //public enum BattleAction { Attack, Heal, Flee }
-		/// </summary>
-		[Test]
-		public void Battle_BattleAction()
-		{
-			bool isAttackExist = Enum.IsDefined(typeof(BattleAction), "Attack");
-			bool isHealExist = Enum.IsDefined(typeof(BattleAction), "Heal");
-			bool isFleeExist = Enum.IsDefined(typeof(BattleAction), "Flee");
-			Assert.True(isAttackExist && isHealExist && isFleeExist == true);
-		}
-
-		/// <summary>
-		/// Test BattleState enum
-		/// </summary>
-		[Test]
-		public void Battle_BattleState()
-		{
-			bool isStartExist = Enum.IsDefined(typeof(BattleState), "Start");
-			bool isPlayerTurnExist = Enum.IsDefined(typeof(BattleState), "PlayerTurn");
-			bool isEnemyTurnExist = Enum.IsDefined(typeof(BattleState), "EnemyTurn");
-			bool isWonExist = Enum.IsDefined(typeof(BattleState), "Won");
-			bool isLostExist = Enum.IsDefined(typeof(BattleState), "Lost");
-			bool isFleeExist = Enum.IsDefined(typeof(BattleState), "Flee");
-			Assert.True(isStartExist && isPlayerTurnExist && isEnemyTurnExist && isWonExist && isLostExist && isFleeExist == true);
-		}
 
 		/// <summary>
 		/// Test BattleState.PlayerTurn
@@ -653,6 +651,99 @@ namespace Tests.Economy
 
 
 
+		/********************************************Request*********************************************/
+		/// <summary>
+		/// Test taking random request
+		/// </summary>
+		[Test]
+		public void Request_RequestShopSystemByDefault()
+		{
+			//Empty list of request by default
+			int countRequests = requestSystem.GetAllCraftingRequests().Count;
+			Assert.Zero(countRequests, "Some request(s) are already made by default");
+
+			//Default CanMove
+			Assert.True(requestShopSystem.CanMove(shopAgent));
+		}
+
+
+		/// <summary>
+		/// Test making random request
+		/// </summary>
+		[Test]
+		public void Request_MakeResourceRequest()
+		{
+			CraftingResources randomCraftingRessource = listCraftingResources[UnityEngine.Random.Range(0, listCraftingResources.Count)];
+
+			//Make a request
+			requestShopSystem.MakeChoice(shopAgent, randomCraftingRessource);
+			//requestShopSystem.MakeChoice(shopAgent, CraftingResources.Wood);
+
+
+			//Count the requests
+			Assert.AreEqual(1, requestSystem.GetAllCraftingRequests(shopAgent.craftingInventory).Count, "A request should be created");
+			Assert.AreEqual(1, requestSystem.GetAllCraftingRequests().Count, "A request should be created");
+
+			CraftingResources randomCraftingRessource2 = listCraftingResources[UnityEngine.Random.Range(0, listCraftingResources.Count)];
+
+			//Make another request
+			requestShopSystem.MakeChoice(shopAgent, randomCraftingRessource2);
+			//requestShopSystem.MakeChoice(shopAgent, CraftingResources.Metal);
+
+			//Count the requests
+			Assert.AreEqual(2, requestSystem.GetAllCraftingRequests().Count, "2 requests should be created");
+		}
+
+
+		/// <summary>
+		/// Test adventurer taking a request
+		/// </summary>
+		[Test]
+		public void Request_TakeResourceRequest()
+		{
+			CraftingResources randomCraftingRessource = listCraftingResources[UnityEngine.Random.Range(0, listCraftingResources.Count)];
+
+			//Make a request
+			requestShopSystem.MakeChoice(shopAgent, randomCraftingRessource);
+
+			CraftingResourceRequest requestMade = requestShopSystem.requestSystem.GetAllCraftingRequests()[0];
+			Assert.NotNull(requestMade, "CraftingResourceRequest empty");
+
+			//Take a request
+			adventurerAgent.requestTaker.TakeRequest(requestMade);
+
+			//Check the taken quest
+			List<CraftingResourceRequest> takenQuests = adventurerAgent.requestTaker.GetItemList();
+			Assert.AreEqual(1, takenQuests.Count, "The adventurer should have one request");
+		}
+
+		/// <summary>
+		/// Test succeed a resource request
+		/// </summary>
+		[Test]
+		public void Request_CompleteResourceRequest()
+		{
+			CraftingResources randomCraftingRessource = listCraftingResources[UnityEngine.Random.Range(0, listCraftingResources.Count)];
+
+			//Make a request
+			requestShopSystem.MakeChoice(shopAgent, randomCraftingRessource);
+			CraftingResourceRequest requestMade = requestShopSystem.requestSystem.GetAllCraftingRequests()[0];
+			int reward = requestMade.Reward;
+
+			//Take a request
+			adventurerAgent.requestTaker.TakeRequest(requestMade);
+
+			//Give the ressource = Complete request
+			adventurerAgent.requestTaker.CheckItemAdd(randomCraftingRessource, 1);
+
+			//No more requests?
+			Assert.AreEqual(0, requestSystem.GetAllCraftingRequests().Count, "No more requests after giving the resource");
+			//Reward obtained?
+			Assert.AreEqual(adventurerAgent.wallet.startMoney + reward, adventurerAgent.wallet.Money);
+			//Resource given?
+			Assert.AreEqual(0, adventurerAgent.requestTaker.GetCurrentStock(randomCraftingRessource));
+		}
+
 
 
 
@@ -665,7 +756,8 @@ namespace Tests.Economy
 		public void SpawnAgents()
 		{
 			//Create 1 adventurer agent
-			SystemSpawner[] systemSpawners = Resources.FindObjectsOfTypeAll<SystemSpawner>();
+			//SystemSpawner[] systemSpawners = Resources.FindObjectsOfTypeAll<SystemSpawner>();
+			SystemSpawner[] systemSpawners = GameObject.FindObjectsOfType<SystemSpawner>();
 
 			SystemSpawner adventurerSpawner = systemSpawners[0];
 			adventurerSpawner.numLearningAgents = 1;
@@ -708,7 +800,7 @@ namespace Tests.Economy
 		/// </summary>
 		public void DebugAdventurers()
 		{
-			AdventurerAgent[] adventurerAgents = Resources.FindObjectsOfTypeAll<AdventurerAgent>();
+			AdventurerAgent[] adventurerAgents = GameObject.FindObjectsOfType<AdventurerAgent>();
 
 			Debug.Log("Number of AdventurerAgent : " + adventurerAgents.Length);
 			foreach (AdventurerAgent agent in adventurerAgents)
@@ -770,99 +862,5 @@ namespace Tests.Economy
 		{
 			return new CraftingResources[] { CraftingResources.Wood, CraftingResources.Metal, CraftingResources.Gem, CraftingResources.DragonScale };
 		}
-
-
-
-
-		/********************************************Request*********************************************/
-		/// <summary>
-		/// Test enumeration RequestActions
-		/// </summary>
-		[Test]
-		public void Enum_RequestActions()
-		{
-			bool isExist1 = Enum.IsDefined(typeof(RequestActions), "SetInput");
-			bool isExist2 = Enum.IsDefined(typeof(RequestActions), "RemoveRequest");
-			bool isExist3 = Enum.IsDefined(typeof(RequestActions), "DecreasePrice");
-			bool isExist4 = Enum.IsDefined(typeof(RequestActions), "IncreasePrice");
-			Assert.True(isExist1 && isExist2 && isExist3 && isExist4 == true);
-		}
-
-		/// <summary>
-		/// Test taking random request
-		/// </summary>
-		[Test]
-		public void Request_RequestShopSystemByDefault()
-		{
-			//Empty list of request by default
-			int countRequests = requestSystem.GetAllCraftingRequests().Count;
-			Assert.Zero(countRequests, "Some request(s) are already made by default");
-
-			//Default CanMove
-			Assert.True(requestShopSystem.CanMove(shopAgent));
-		}
-
-
-		/// <summary>
-		/// Test making random request
-		/// </summary>
-		[Test]
-		public void Request_MakeResourceRequest()
-		{
-			//Make a request
-			shopAgent.OnActionReceived(new float[] { (float)RequestActions.SetInput });
-			requestShopSystem.MakeChoice(shopAgent, CraftingResources.Wood);
-
-			//Count the requests
-			Assert.AreEqual(1, requestSystem.GetAllCraftingRequests(shopAgent.craftingInventory).Count, "A request should be created");
-			Assert.AreEqual(1, requestSystem.GetAllCraftingRequests().Count, "A request should be created");
-
-			//Make another request
-			requestShopSystem.MakeChoice(shopAgent, CraftingResources.Metal);
-			shopAgent.OnActionReceived(new float[] { (float)RequestActions.SetInput });
-
-			//Count the requests
-			Assert.AreEqual(2, requestSystem.GetAllCraftingRequests().Count, "2 requests should be created");
-		}
-
-
-		/// <summary>
-		/// Test taking random request
-		/// </summary>
-
-		public void TestTakeRequest()
-		{
-			//Make a request
-			CraftingResources craftResourceToRequest = CraftingResources.Wood;
-			requestShopSystem.MakeChoice(shopAgent, craftResourceToRequest);
-
-			CraftingResourceRequest requestMade = requestShopSystem.requestSystem.GetAllCraftingRequests()[0];
-			Assert.False(requestMade == null, "CraftingResourceRequest empty");
-
-			//Take a request
-			requestShopSystem.requestSystem.TakeRequest(adventurerAgent.requestTaker, requestMade);
-
-			//Check the taken quest
-			List<CraftingResourceRequest> takenQuests = adventurerAgent.requestTaker.GetItemList();
-			Assert.False(takenQuests.Count != 1, "The adventurer should have one request");
-
-			//Accomplish request
-		}
-
-
-		/*
-		 * 
-		/// <summary>
-		/// Test buying ans equipping equipments
-		/// </summary>
-
-		public void TestBuyEquipment()
-		{
-			Assert.True(true);
-		}
-
-
-		*/
-
 	}
 }
