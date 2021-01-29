@@ -53,14 +53,22 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public AgentShopSubSystem shopSubSubSystem;
 
-        public override bool CanMove(ShopAgent agent)
+		public void Start()
+		{
+			if (craftingSubSubSystem == null)
+			{
+				craftingSubSubSystem = new CraftingSubSystem();
+			}
+		}
+
+		public override bool CanMove(ShopAgent agent)
         {
             return !craftingSubSubSystem.HasRequest(agent);
         }
 
         public override float[] GetSenses(ShopAgent agent)
         {
-            var outputs = new float [1 + AgentShopSubSystem.SenseCount + CraftingSubSystem.SenseCount];
+			var outputs = new float [1 + AgentShopSubSystem.SenseCount + CraftingSubSystem.SenseCount];
             outputs[0] = (float) GetInputMode(agent);
             var sensesA = shopSubSubSystem.GetSenses(agent);
             sensesA.CopyTo(outputs, 1);
@@ -103,7 +111,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public void Update()
         {
-            RequestDecisions();
-        }
+			RequestDecisions();
+			craftingSubSubSystem.Update();
+		}
     }
 }

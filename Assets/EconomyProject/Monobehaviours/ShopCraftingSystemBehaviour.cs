@@ -7,7 +7,12 @@ namespace EconomyProject.Monobehaviours
     {
         public ShopCraftingSystem system;
 
-        public void Update()
+		public void Start()
+		{
+			system.Start();
+		}
+
+		public void Update()
         {
             system.Update();
         }
