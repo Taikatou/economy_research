@@ -11,35 +11,58 @@ using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using System.Collections.Generic;
 using EconomyProject.Monobehaviours;
 using Inventory;
+using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
+using EconomyProject.Scripts.Inventory;
+using EconomyProject.Scripts.GameEconomy.Systems;
 
 namespace Tests.Economy
 {
     public class CraftingSystemTests
     {
 		ShopCraftingSystemBehaviour shopCraftingSystemBehaviour;
-		GetCurrentShopAgent getShopAgent;
-		ShopAgent shopAgent;
 		ShopCraftingSystem shopCraftingSystem;
 		CraftingSubSystem craftingSubSystem;
-		AgentShopSubSystem agentShopSubSubSystem;
+		AgentShopSubSystem agentShopSubSystem;
+
+		GetCurrentShopAgent getShopAgent;
+		ShopAgent shopAgent;
+
+		AdventurerSystem adventurerSystem;
+		GetCurrentAdventurerAgent getAdventurerAgent;
+		AdventurerAgent adventurerAgent;
+		TravelSubSystem travelSubsystem;
+		AdventurerInventory adventurerInventory;
+		AgentInventory adventurerAgentInventory;
+
+		public List<CraftingChoice> listCraftingChoices = new List<CraftingChoice> { CraftingChoice.BeginnerSword, CraftingChoice.IntermediateSword, CraftingChoice.AdvancedSword, CraftingChoice.EpicSword, CraftingChoice.UltimateSwordOfPower};
+
 
 		[SetUp]
 		public void Setup()
 		{
-			shopCraftingSystemBehaviour = Resources.FindObjectsOfTypeAll<ShopCraftingSystemBehaviour>()[0];
-			agentShopSubSubSystem = shopCraftingSystemBehaviour.system.shopSubSubSystem;
+			shopCraftingSystemBehaviour = GameObject.FindObjectOfType<ShopCraftingSystemBehaviour>();
+			shopCraftingSystemBehaviour.Start();
+
+			agentShopSubSystem = shopCraftingSystemBehaviour.system.shopSubSubSystem;
 			craftingSubSystem = shopCraftingSystemBehaviour.system.craftingSubSubSystem;
 
-			//Get ShopAgent
+			//Shop Agent
 			SpawnAgents();
-			getShopAgent = Resources.FindObjectsOfTypeAll<GetCurrentShopAgent>()[0];
+			getShopAgent = GameObject.FindObjectOfType<GetCurrentShopAgent>(); ;
 			shopAgent = getShopAgent.CurrentAgent;
+			shopAgent.craftingInventory.ResetInventory();
+			shopAgent.agentInventory.ResetInventory();
 
+			//Adventurer Agent
+			getAdventurerAgent = GameObject.FindObjectOfType<GetCurrentAdventurerAgent>();
+			adventurerAgent = getAdventurerAgent.CurrentAgent;
 
-			//Can't due to serialize
-			//shopCraftingSystem = Resources.FindObjectsOfTypeAll<ShopCraftingSystem>()[0];
-
-
+			//Generate travelSubsystem of the adventurerSystem
+			adventurerSystem = GameObject.FindObjectOfType<AdventurerSystemBehaviour>().system;
+			travelSubsystem = adventurerSystem.travelSubsystem;
+			travelSubsystem.Start();
+			adventurerSystem.travelSubsystem = travelSubsystem;
 
 		}
 
@@ -132,7 +155,7 @@ namespace Tests.Economy
 		[Test]
 		public void Craft_SwordDetailsAndPrices()
 		{
-			List<BaseItemPrices> basePrices = agentShopSubSubSystem.basePrices;
+			List<BaseItemPrices> basePrices = agentShopSubSystem.basePrices;
 			foreach(BaseItemPrices item in basePrices)
 			{
 				UsableItemDetails details = item.item.itemDetails;
@@ -206,7 +229,95 @@ namespace Tests.Economy
 			}
 		}
 
+		/// <summary>
+		/// Test making a request
+		/// </summary>
+		[Test]
+		public void Craft_HasRequest()
+		{
+			//No request by default
+			Assert.False(craftingSubSystem.HasRequest(shopAgent));
 
+			//Give resources to craft
+			GiveResources();
+
+			//Make the craft
+			CraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];
+			craftingSubSystem.MakeRequest(shopAgent, (int)randomSword);
+
+			//Check the craft
+			Assert.True(craftingSubSystem.HasRequest(shopAgent));
+		}
+
+		/// <summary>
+		/// Test crafting characteristics
+		/// </summary>
+		[Test]
+		public void Craft_CraftingRequest()
+		{
+			//Give resources to craft
+			GiveResources();
+
+			CraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];
+			craftingSubSystem.MakeRequest(shopAgent, (int)randomSword);
+
+			Dictionary<ShopAgent, CraftingRequest> shopRequest = craftingSubSystem.GetShopRequests();
+			CraftingRequest craftingRequest = shopRequest[shopAgent];
+
+			Assert.AreEqual(0, craftingRequest.CraftingTime);
+			Assert.AreEqual(3, craftingRequest.CraftingRequirements.timeToCreation);
+
+			UsableItem craftedItem = GetUsableItemByCraftingChoice(randomSword);
+			Assert.AreEqual(craftedItem, craftingRequest.CraftingRequirements.resultingItem);
+
+		}
+
+		/// <summary>
+		/// Test making a request with every swords
+		/// </summary>
+		[Test]
+		public void Craft_MakeRequest()
+		{
+			Time.timeScale = 100;
+
+			//Give resources to craft
+			GiveResources();
+
+			//Craft one sword of each type
+			foreach (CraftingChoice choice in listCraftingChoices)
+			{
+				craftingSubSystem.MakeRequest(shopAgent, (int)choice);
+
+				CraftingRequest cr = craftingSubSystem.GetShopRequests()[shopAgent];
+				
+				int a = 10; //To avoid infinite loop
+				while (a > 0 && cr.Complete == false)
+				{
+					craftingSubSystem.Update();
+					a--;
+				}
+
+				//No more Crafting
+				Assert.True(cr.Complete, "Craft never complete : " + a);
+				Assert.False(craftingSubSystem.HasRequest(shopAgent));
+
+				//AgentInventory contains the item
+				Assert.True(shopAgent.agentInventory.ContainsItem(GetUsableItemByCraftingChoice(choice)));
+			}
+
+			Time.timeScale = 1;
+		}
+
+		/// <summary>
+		/// Test buying equipment
+		/// </summary>
+		[Test]
+		public void Shop_PurchaseItem()
+		{
+			UsableItem itemBought; // To do
+			//agentShopSubSystem.PurchaseItem(shopAgent, itemBought.itemDetails, adventurerAgent.wallet, adventurerAgent.adventurerInventory.agentInventory);
+			Assert.True(false, "To do");
+		}
 
 		/********************************************Helper*********************************************/
 		/// <summary>
@@ -215,12 +326,76 @@ namespace Tests.Economy
 		public void SpawnAgents()
 		{
 			//Create 1 adventurer agent
-			SystemSpawner[] systemSpawners = Resources.FindObjectsOfTypeAll<SystemSpawner>();
+			SystemSpawner[] systemSpawners = GameObject.FindObjectsOfType<SystemSpawner>();
 
-			SystemSpawner agentSpawner = systemSpawners[1];
-			agentSpawner.numLearningAgents = 1;
-			agentSpawner.Start();
+			foreach(SystemSpawner spawner in systemSpawners)
+			{
+				if(spawner.name == "CraftShopSystem")
+				{
+					spawner.numLearningAgents = 1;
+					spawner.Start();
+					return;
+				}
+			}
+
+			Debug.Log("Not found the Shop Agent Spawner : " + systemSpawners.Length);
 		}
 
+		/// <summary>
+		/// Give resources to the ShopAgent
+		/// </summary>
+		public void GiveResources()
+		{
+			shopAgent.craftingInventory.AddResource(CraftingResources.Wood, 20);
+			shopAgent.craftingInventory.AddResource(CraftingResources.Metal, 20);
+			shopAgent.craftingInventory.AddResource(CraftingResources.Gem, 20);
+			shopAgent.craftingInventory.AddResource(CraftingResources.DragonScale, 20);
+		}
+
+		/// <summary>
+		/// Return UsableItem with a CraftingChoice
+		/// </summary>
+		public UsableItem GetUsableItemByCraftingChoice(CraftingChoice craftingChoice)
+		{
+			String nameToCheck = "";
+			switch (craftingChoice)
+			{
+				case CraftingChoice.BeginnerSword:
+					nameToCheck = "Beginner Sword";
+					break;
+				case CraftingChoice.IntermediateSword:
+					nameToCheck = "Intermediate Sword";
+					break;
+				case CraftingChoice.AdvancedSword:
+					nameToCheck = "Advanced Sword";
+					break;
+				case CraftingChoice.EpicSword:
+					nameToCheck = "Epic Sword";
+					break;
+				/*
+				case :
+					nameToCheck = "Master Sword";
+					break;
+				*/
+				case CraftingChoice.UltimateSwordOfPower:
+					nameToCheck = "Ultimate Sword";
+					break;
+				default:
+					Debug.Log("Wrong craftingChoice : " + craftingChoice);
+					break;
+			}
+
+			List<BaseItemPrices> basePrices = agentShopSubSystem.basePrices;
+			foreach (BaseItemPrices item in basePrices)
+			{
+				if(item.item.itemDetails.itemName == nameToCheck)
+				{
+					return item.item;
+				}
+			}
+
+			Debug.Log("Not found the item");
+			return null;
+		}
 	}
 }

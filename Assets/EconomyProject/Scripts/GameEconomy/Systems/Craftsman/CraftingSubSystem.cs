@@ -84,5 +84,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             }
             return output;
         }
-    }
+
+		public Dictionary<ShopAgent, CraftingRequest> GetShopRequests()
+		{
+			return _shopRequests;
+		}
+	}
 }
