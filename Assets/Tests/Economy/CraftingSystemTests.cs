@@ -1,20 +1,22 @@
 ﻿using NUnit.Framework;
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
+using Inventory;
+
+using EconomyProject.Monobehaviours;
+using EconomyProject.Scripts;
+using EconomyProject.Scripts.Inventory;
 using EconomyProject.Scripts.UI;
 using EconomyProject.Scripts.MLAgents.Shop;
-using EconomyProject.Scripts;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
-using System.Collections.Generic;
-using EconomyProject.Monobehaviours;
-using Inventory;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
-using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
-using EconomyProject.Scripts.Inventory;
 using EconomyProject.Scripts.GameEconomy.Systems;
+using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
+using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
+
 
 namespace Tests.Economy
 {
@@ -53,10 +55,12 @@ namespace Tests.Economy
 			shopAgent = getShopAgent.CurrentAgent;
 			shopAgent.craftingInventory.ResetInventory();
 			shopAgent.agentInventory.ResetInventory();
+			shopAgent.wallet.Reset();
 
 			//Adventurer Agent
 			getAdventurerAgent = GameObject.FindObjectOfType<GetCurrentAdventurerAgent>();
 			adventurerAgent = getAdventurerAgent.CurrentAgent;
+			adventurerAgent.ResetEconomyAgent();
 
 			//Generate travelSubsystem of the adventurerSystem
 			adventurerSystem = GameObject.FindObjectOfType<AdventurerSystemBehaviour>().system;
@@ -65,30 +69,6 @@ namespace Tests.Economy
 			adventurerSystem.travelSubsystem = travelSubsystem;
 
 		}
-
-		/*
-		/// <summary>
-		/// Test initialization of the shopCraftingSystem
-		/// </summary>
-		[Test]
-        public void Shop_Init()
-        {
-            var shop = new ShopCraftingSystem
-            {
-                craftingSubSubSystem = new CraftingSubSystem(),
-                shopSubSubSystem = new AgentShopSubSystem()
-            };
-
-			float[] a = shop.GetSenses(shopAgent);
-
-			int i = 0;
-			foreach(float f in a)
-			{
-				Debug.Log(i + " : " + f);
-				i++;
-			}
-        }
-		*/
 
 		/********************************************Enumerations*********************************************/
 
@@ -236,7 +216,7 @@ namespace Tests.Economy
 		public void Craft_HasRequest()
 		{
 			//No request by default
-			Assert.False(craftingSubSystem.HasRequest(shopAgent));
+			Assert.False(craftingSubSystem.HasRequest(shopAgent), "Agent has resource request(s) by default");
 
 			//Give resources to craft
 			GiveResources();
@@ -302,10 +282,137 @@ namespace Tests.Economy
 				Assert.False(craftingSubSystem.HasRequest(shopAgent));
 
 				//AgentInventory contains the item
-				Assert.True(shopAgent.agentInventory.ContainsItem(GetUsableItemByCraftingChoice(choice)));
+				Assert.True(shopAgent.agentInventory.ContainsItem(GetUsableItemByCraftingChoice(choice)), "Do not contain the crafted item");
 			}
 
 			Time.timeScale = 1;
+		}
+
+
+		/// <summary>
+		/// Test submitting an item the shopAgent doesn't have
+		/// </summary>
+		[Test]
+		public void Shop_ShopByDefault()
+		{
+			//ShopEmptyByDefault
+			List<UsableItem> shop = agentShopSubSystem.GetShopItems(shopAgent);
+			Assert.IsEmpty(shop, "Should have an empty shop");
+			Assert.AreEqual(0, shop.Count);
+		}
+
+		/// <summary>
+		/// Test submitting an item in the shop
+		/// </summary>
+		[Test]
+		public void Shop_SellOneItem()
+		{
+			CraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];
+
+			//Add sword to the inventory
+			UsableItem sword = AddItemInInventory(shopAgent.agentInventory, randomSword);
+
+			//Submit it into the shop
+			agentShopSubSystem.SubmitToShop(shopAgent, sword);
+
+			List<UsableItem> shop = agentShopSubSystem.GetShopItems(shopAgent);
+			Assert.NotNull(shop, "Empty shop");
+
+			//Check number
+			Assert.AreEqual(1, shop.Count);
+			Assert.AreEqual(1, agentShopSubSystem.GetNumber(shopAgent, sword.itemDetails));
+
+			//check price
+			int basePrice = GetPriceByItemName(sword.itemDetails.itemName);
+			Assert.AreEqual(basePrice, agentShopSubSystem.GetPrice(shopAgent, sword.itemDetails));
+		}
+
+		/// <summary>
+		/// Test submitting an item the shopAgent doesn't have
+		/// </summary>
+		[Test]
+		public void Shop_TrytoSellItemNotInStock()
+		{
+			CraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];
+			UsableItem sword = GetUsableItemByCraftingChoice(randomSword);
+
+			//Should not working
+			agentShopSubSystem.SubmitToShop(shopAgent, sword);
+
+			List<UsableItem> shop = agentShopSubSystem.GetShopItems(shopAgent);
+			Assert.IsEmpty(shop, "Should have an empty shop");
+			Assert.AreEqual(0, shop.Count);
+			Assert.AreEqual(0, agentShopSubSystem.GetNumber(shopAgent, sword.itemDetails));
+		}
+
+		/// <summary>
+		/// Test submitting an item in the shop
+		/// </summary>
+		[Test]
+		public void Shop_SellSeveralIdenticalItems()
+		{
+			CraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];
+			UsableItem sword = GetUsableItemByCraftingChoice(randomSword);
+
+			//Add between 5 to 10 items
+			int randomItemNumber = UnityEngine.Random.Range(5, 10);
+			for (int i = 0; i < randomItemNumber; i++)
+			{
+				AddItemInInventory(shopAgent.agentInventory, randomSword);
+				agentShopSubSystem.SubmitToShop(shopAgent, sword);
+			}
+
+			List<UsableItem> shop = agentShopSubSystem.GetShopItems(shopAgent);
+			Assert.NotNull(shop, "Empty shop");
+
+			//Check the number of items in the shop
+			AgentData aData = agentShopSubSystem.GetShop(shopAgent);
+			Assert.NotNull(aData, "Empty AgentData");
+			Assert.AreEqual(randomItemNumber, aData.GetStock(sword), "Wrong stock in AgentData");
+			Assert.AreEqual(randomItemNumber, agentShopSubSystem.GetNumber(shopAgent, sword.itemDetails), "Wrong stock in AgentShopSubSystem");
+
+			//Check price
+			int basePrice = GetPriceByItemName(sword.itemDetails.itemName);
+			Assert.AreEqual(basePrice, agentShopSubSystem.GetPrice(shopAgent, sword.itemDetails));
+		}
+
+		/// <summary>
+		/// Test submitting an item in the shop
+		/// </summary>
+		[Test]
+		public void Shop_SellSeveralRandomItems()
+		{
+			//Add between 5 to 10 items
+			int randomItemNumber = UnityEngine.Random.Range(5, 10);
+			for(int i = 0; i< randomItemNumber; i++)
+			{
+				CraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];
+				UsableItem sword = AddItemInInventory(shopAgent.agentInventory, randomSword);
+				agentShopSubSystem.SubmitToShop(shopAgent, sword);
+			}
+			
+			List<UsableItem> shop = agentShopSubSystem.GetShopItems(shopAgent);
+			Assert.NotNull(shop, "Empty shop");
+			AgentData aData = agentShopSubSystem.GetShop(shopAgent);
+			Assert.NotNull(aData, "Empty AgentData");
+
+			//Check the number of items in the shop
+			int nbrSwords = 0;
+			int nbrSwords2 = 0;
+			foreach(UsableItem item in shop)
+			{
+				nbrSwords2 += agentShopSubSystem.GetNumber(shopAgent, item.itemDetails);
+				nbrSwords += aData.GetStock(item);
+			}
+			Assert.AreEqual(randomItemNumber, nbrSwords, "Wrong stock in AgentData");
+			Assert.AreEqual(randomItemNumber, nbrSwords2, "Wrong stock in AgentShopSubSystem");
+
+			//Check price
+			foreach (UsableItem item in shop)
+			{
+				int basePrice = GetPriceByItemName(item.itemDetails.itemName);
+				Assert.AreEqual(basePrice, agentShopSubSystem.GetPrice(shopAgent, item.itemDetails));
+			}
 		}
 
 		/// <summary>
@@ -314,31 +421,91 @@ namespace Tests.Economy
 		[Test]
 		public void Shop_PurchaseItem()
 		{
-			UsableItem itemBought; // To do
-			//agentShopSubSystem.PurchaseItem(shopAgent, itemBought.itemDetails, adventurerAgent.wallet, adventurerAgent.adventurerInventory.agentInventory);
-			Assert.True(false, "To do");
+			//ShopAgent sells a sword
+			CraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];
+			UsableItem sword = AddItemInInventory(shopAgent.agentInventory, randomSword);
+			agentShopSubSystem.SubmitToShop(shopAgent, sword);
+
+			agentShopSubSystem.PurchaseItem(shopAgent, sword.itemDetails, adventurerAgent.wallet, adventurerAgent.inventory);
+
+			//Check if no more sword in the ShopAgent inventory
+			List<UsableItem> shop = agentShopSubSystem.GetShopItems(shopAgent);
+			Assert.IsEmpty(shop, "Should have an empty shop");
+			Assert.AreEqual(0, shop.Count);
+			Assert.AreEqual(0, agentShopSubSystem.GetNumber(shopAgent, sword.itemDetails));
+
+			//Check if adventurer agent get the sword equipped
+			Assert.True(adventurerAgent.adventurerInventory.agentInventory.ContainsItem(sword));
+			Assert.AreEqual(sword, adventurerAgent.adventurerInventory.EquipedItem);
+
+			//Check wallet of the agents
+			int priceSword = GetPriceByItemName(sword.itemDetails.itemName);
+			Assert.AreEqual(adventurerAgent.wallet.startMoney - priceSword, adventurerAgent.wallet.Money, "Current adventurerAgent money should be StartMoney - PriceSword");
+			Assert.AreEqual(shopAgent.wallet.startMoney + priceSword, shopAgent.wallet.Money, "Current shopAgent money should be StartMoney + PriceSword");
 		}
 
-		/********************************************Helper*********************************************/
 		/// <summary>
-		/// Spawn one shop agent
+		/// Test setting a sword price
 		/// </summary>
-		public void SpawnAgents()
+		[Test]
+		public void Shop_SetPriceItem()
+		{
+			//Submit a sword to the shop
+			CraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];
+			UsableItem sword = AddItemInInventory(shopAgent.agentInventory, randomSword);
+			agentShopSubSystem.SubmitToShop(shopAgent, sword);
+
+			//Check default price
+			int basePrice = GetPriceByItemName(sword.itemDetails.itemName);
+			Assert.AreEqual(basePrice, agentShopSubSystem.GetPrice(shopAgent, sword.itemDetails));
+
+			//Increase Price 
+			int randomPositiveIncrement = UnityEngine.Random.Range(1, 50);
+			agentShopSubSystem.SetCurrentPrice(shopAgent, 0, randomPositiveIncrement);
+			Assert.AreEqual(basePrice + randomPositiveIncrement, agentShopSubSystem.GetPrice(shopAgent, sword.itemDetails), "Item : " + sword.ToString() + " - randomPositiveIncrement : " + randomPositiveIncrement);
+
+			//Decrease Price 
+			int randomNegativeIncrement = UnityEngine.Random.Range(-50, -1);
+			agentShopSubSystem.SetCurrentPrice(shopAgent, 0, randomNegativeIncrement);
+			Assert.AreEqual(basePrice + randomPositiveIncrement + randomNegativeIncrement, agentShopSubSystem.GetPrice(shopAgent, sword.itemDetails));
+		}
+
+
+
+			/********************************************Helper*********************************************/
+			/// <summary>
+			/// Spawn one shop agent
+			/// </summary>
+			public void SpawnAgents()
 		{
 			//Create 1 adventurer agent
 			SystemSpawner[] systemSpawners = GameObject.FindObjectsOfType<SystemSpawner>();
 
-			foreach(SystemSpawner spawner in systemSpawners)
+			bool shopAgentSpawned = false;
+			bool adventurerAgentSpawned = false;
+			foreach (SystemSpawner spawner in systemSpawners)
 			{
 				if(spawner.name == "CraftShopSystem")
 				{
 					spawner.numLearningAgents = 1;
 					spawner.Start();
-					return;
+					shopAgentSpawned = true;
+				}
+				if (spawner.name == "AdventurerGameSystem")
+				{
+					spawner.numLearningAgents = 1;
+					spawner.Start();
+					adventurerAgentSpawned = true;
 				}
 			}
 
-			Debug.Log("Not found the Shop Agent Spawner : " + systemSpawners.Length);
+			if(shopAgentSpawned == false){
+				Debug.Log("Not found the Shop Agent Spawner : " + systemSpawners.Length);
+			}
+			if (adventurerAgentSpawned == false)
+			{
+				Debug.Log("Not found the Adventurer Agent Spawner : " + systemSpawners.Length);
+			}
 		}
 
 		/// <summary>
@@ -396,6 +563,35 @@ namespace Tests.Economy
 
 			Debug.Log("Not found the item");
 			return null;
+		}
+
+		/// <summary>
+		/// Add an Item in the agent inventory
+		/// </summary>
+		public UsableItem AddItemInInventory(AgentInventory inventory, CraftingChoice choice)
+		{
+			UsableItem itemToAdd = GetUsableItemByCraftingChoice(choice);
+			inventory.AddItem(itemToAdd);
+
+			return itemToAdd;
+		}
+
+		/// <summary>
+		/// Gy price by item name
+		/// </summary>
+		public int GetPriceByItemName(string itemName)
+		{
+			foreach (BaseItemPrices item in agentShopSubSystem.basePrices)
+			{
+				UsableItemDetails details = item.item.itemDetails;
+				if(item.item.itemDetails.itemName == itemName)
+				{
+					return item.price;
+				}
+			}
+
+			Debug.Log("Wrong Item : " + itemName);
+			return 0;
 		}
 	}
 }
