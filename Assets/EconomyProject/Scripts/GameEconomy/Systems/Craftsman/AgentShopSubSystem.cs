@@ -27,7 +27,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             _shopSystems = new Dictionary<ShopAgent, AgentData>();
         }
 
-        private AgentData GetShop(ShopAgent shopAgent)
+        public AgentData GetShop(ShopAgent shopAgent)
         {
             if (!_shopSystems.ContainsKey(shopAgent))
             {
@@ -63,6 +63,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public void SubmitToShop(ShopAgent agent, UsableItem item)
         {
+			if (agent.agentInventory.ContainsItem(item) == false)
+			{
+				Debug.Log("Out of range submit. Item : " + item.ToString());
+				return;
+			}
+
             var shop = GetShop(agent);
             shop.SubmitToShop(item);
             agent.agentInventory.RemoveItem(item);
@@ -104,7 +110,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         public void PurchaseItem(ShopAgent shopAgent, UsableItemDetails item, EconomyWallet wallet, AgentInventory inventory)
         {
             var shop = GetShop(shopAgent);
-            var success = shop.PurchaseItems(item, wallet, inventory);
+            var success = shop.PurchaseItems(shopAgent.wallet, item, wallet, inventory);
             if (success)
             {
                 OverviewVariables.SoldItem();

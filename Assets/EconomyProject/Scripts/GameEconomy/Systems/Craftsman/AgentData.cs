@@ -66,11 +66,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         public void SubmitToShop(UsableItem item)
         {
             var price = GetPrice(item.itemDetails);
-            
+ 
             ChangeItem(item, price);
         }
 
-        public bool PurchaseItems(UsableItemDetails itemDetails, EconomyWallet wallet, AgentInventory inventory)
+        public bool PurchaseItems(EconomyWallet shopAgentWallet, UsableItemDetails itemDetails, EconomyWallet adventurerAgentWallet, AgentInventory inventory)
         {
             var price = _stockPrices[itemDetails.itemName];
 
@@ -79,7 +79,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
                 return _shopItems[itemDetails.itemName].Count;
             }
             
-            if (wallet.Money >= price && GetStock() > 0)
+            if (adventurerAgentWallet.Money >= price && GetStock() > 0)
             {
                 inventory.AddItem(_shopItems[itemDetails.itemName][0]);
                 _shopItems[itemDetails.itemName].RemoveAt(0);
@@ -92,8 +92,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
                     _shopItems.Remove(itemDetails.itemName);
                 }
                 
-                wallet.SpendMoney(price);
-                return true;
+                adventurerAgentWallet.SpendMoney(price);
+				shopAgentWallet.EarnMoney(price);
+
+				return true;
             }
 
             return false;
@@ -133,5 +135,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             var price = _defaultPrices[item.itemName];
             _defaultPrices[item.ToString()] = price + increment;
         }
-    }
+
+		public int GetStock(UsableItem item)
+		{
+			return _shopItems[item.itemDetails.itemName].Count;
+		}
+	}
 }
