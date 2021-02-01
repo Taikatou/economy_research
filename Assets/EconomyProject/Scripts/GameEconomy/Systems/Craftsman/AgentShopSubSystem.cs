@@ -47,7 +47,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             return itemList;
         }
 
-        public void SubmitToShop(ShopAgent agent, int item)
+		public void SubmitToShop(ShopAgent agent, int item)
         {
             var items = GetItems(agent);
             if (item < items.Count)
@@ -87,8 +87,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         }
 
         public void SetCurrentPrice(ShopAgent shopAgent, int item, int increment)
-        {
-            var items = GetItems(shopAgent);
+		{ 
+			var items = GetShopItems(shopAgent);
             if (item < items.Count)
             {
                 SetCurrentPrice(shopAgent, items[item].itemDetails, increment);
@@ -98,7 +98,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         private void SetCurrentPrice(ShopAgent shopAgent, UsableItemDetails item, int increment)
         {
-            GetShop(shopAgent).SetCurrentPrice(item, increment);
+			GetShop(shopAgent).SetCurrentPrice(item, increment);
             Refresh();
         }
 

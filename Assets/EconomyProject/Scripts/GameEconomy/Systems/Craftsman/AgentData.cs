@@ -27,7 +27,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             _defaultPrices = new Dictionary<string, int>();
             foreach(var item in items)
             {
-                _defaultPrices.Add(item.item.ToString(), item.price);
+                _defaultPrices.Add(item.item.itemDetails.itemName, item.price);
             }
         }
 
@@ -113,11 +113,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public int GetPrice(UsableItemDetails item)
         {
-            if (_defaultPrices.ContainsKey(item.itemName))
+			if (_defaultPrices.ContainsKey(item.itemName))
             {
-                return _defaultPrices[item.itemName];
-            }
-            return 0;
+				return _defaultPrices[item.itemName];
+			}
+			return 0;
         }
 
         public int GetNumber(UsableItemDetails item)
@@ -133,8 +133,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         public void SetCurrentPrice(UsableItemDetails item, int increment)
         {
             var price = _defaultPrices[item.itemName];
-            _defaultPrices[item.ToString()] = price + increment;
-        }
+            _defaultPrices[item.itemName] = price + increment;
+		}
 
 		public int GetStock(UsableItem item)
 		{
