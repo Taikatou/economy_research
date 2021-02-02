@@ -39,23 +39,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 
         public ShopAgent GetCurrentShop(AdventurerAgent agent)
         {
-            if (!_currentShop.ContainsKey(agent))
-            {
-                _currentShop.Add(agent, 0);
-            }
+			GetCurrentShopAgent getShopAgent = GameObject.FindObjectOfType<GetCurrentShopAgent>();
+			return getShopAgent.CurrentAgent;
+		}
 
-			try
-			{
-				return GetAgents[_currentShop[agent]];
-			}
-			catch
-			{
-				Debug.LogError("Don't get _currentShop[agent] = " + _currentShop[agent]);
-				return null;
-			}
-        }
-
-        private void MovePosition(AdventurerAgent agent, int movement)
+		private void MovePosition(AdventurerAgent agent, int movement)
         {
             var newPosition = _currentShop[agent] + movement;
             ChangePosition(agent, newPosition);
