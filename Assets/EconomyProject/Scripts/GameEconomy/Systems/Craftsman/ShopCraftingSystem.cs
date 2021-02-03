@@ -85,15 +85,20 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             return outputs.ToArray();
         }
 
-        protected override void MakeChoice(ShopAgent shopAgent, int input)
+		public void MakeChoiceSetPrice(ShopAgent shopAgent, int input)
+		{
+			MakeChoice(shopAgent, input);
+		}
+
+		protected override void MakeChoice(ShopAgent shopAgent, int input)
         {
-            switch (GetInputMode(shopAgent))
+			switch (GetInputMode(shopAgent))
             {
                 case CraftingInput.CraftItem:
                     craftingSubSubSystem.MakeRequest(shopAgent, input);
                     break;
                 case CraftingInput.IncreasePrice:
-                    shopSubSubSystem.SetCurrentPrice(shopAgent, input, 1);
+					shopSubSubSystem.SetCurrentPrice(shopAgent, input, 1);
                     break;
                 case CraftingInput.DecreasePrice:
                     shopSubSubSystem.SetCurrentPrice(shopAgent, input, -1);
