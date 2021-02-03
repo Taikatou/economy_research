@@ -27,7 +27,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             _shopSystems = new Dictionary<ShopAgent, AgentData>();
         }
 
-        private AgentData GetShop(ShopAgent shopAgent)
+        public AgentData GetShop(ShopAgent shopAgent)
         {
             if (!_shopSystems.ContainsKey(shopAgent))
             {
@@ -47,7 +47,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             return itemList;
         }
 
-        public void SubmitToShop(ShopAgent agent, int item)
+		public void SubmitToShop(ShopAgent agent, int item)
         {
             var items = GetItems(agent);
             if (item < items.Count)
@@ -63,6 +63,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public void SubmitToShop(ShopAgent agent, UsableItem item)
         {
+			if (agent.agentInventory.ContainsItem(item) == false)
+			{
+				Debug.Log("Out of range submit. Item : " + item.ToString());
+				return;
+			}
+
             var shop = GetShop(agent);
             shop.SubmitToShop(item);
             agent.agentInventory.RemoveItem(item);
@@ -81,8 +87,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         }
 
         public void SetCurrentPrice(ShopAgent shopAgent, int item, int increment)
-        {
-            var items = GetItems(shopAgent);
+		{ 
+			var items = GetShopItems(shopAgent);
             if (item < items.Count)
             {
                 SetCurrentPrice(shopAgent, items[item].itemDetails, increment);
@@ -92,7 +98,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         private void SetCurrentPrice(ShopAgent shopAgent, UsableItemDetails item, int increment)
         {
-            GetShop(shopAgent).SetCurrentPrice(item, increment);
+			GetShop(shopAgent).SetCurrentPrice(item, increment);
             Refresh();
         }
 
@@ -104,7 +110,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         public void PurchaseItem(ShopAgent shopAgent, UsableItemDetails item, EconomyWallet wallet, AgentInventory inventory)
         {
             var shop = GetShop(shopAgent);
-            var success = shop.PurchaseItems(item, wallet, inventory);
+            var success = shop.PurchaseItems(shopAgent.wallet, item, wallet, inventory);
             if (success)
             {
                 OverviewVariables.SoldItem();

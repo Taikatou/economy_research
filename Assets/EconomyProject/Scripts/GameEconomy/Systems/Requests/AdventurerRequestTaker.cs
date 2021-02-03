@@ -67,7 +67,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             {
                 Debug.Log(item.Resource);
             }
-            Debug.Log("Resource: " + resource);
+            Debug.Log("Resource: " + resource + " - amount: " + amount);
             var foundRequest = itemList.FirstOrDefault(i => i.Resource == resource);
             
             // Check if we have current request for this resource

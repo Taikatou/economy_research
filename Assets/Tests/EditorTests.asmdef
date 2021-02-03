@@ -3,7 +3,12 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "NewAssembly"
+        "NewAssembly",
+        "CraftingRequirements",
+        "Inventory",
+        "LootBoxes",
+        "TurnBased",
+        "Unity.ML-Agents"
     ],
     "includePlatforms": [
         "Editor"
