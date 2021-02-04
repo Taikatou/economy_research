@@ -64,22 +64,22 @@ namespace EconomyProject.Scripts.UI.Adventurer
 
         public void MainMenu()
         {
-            AdventurerInput.ChangeScreen(AdventurerAgent, EAdventurerScreen.Main);
+			AdventurerAgent.SetAction(EAdventurerAgentChoices.MainMenu);
         }
 
         public void ShopMenu()
         {
-            AdventurerInput.ChangeScreen(AdventurerAgent, EAdventurerScreen.Shop);
+			AdventurerAgent.SetAction(EAdventurerAgentChoices.Shop);
         }
         
         public void RequestMenu()
         {
-            AdventurerInput.ChangeScreen(AdventurerAgent, EAdventurerScreen.Request);
+			AdventurerAgent.SetAction(EAdventurerAgentChoices.ResourceRequest);
         }
 
         public void BattleMenu()
         {
-            AdventurerInput.ChangeScreen(AdventurerAgent, EAdventurerScreen.Adventurer);
+			AdventurerAgent.SetAction(EAdventurerAgentChoices.Adventure);
         }
     }
 }

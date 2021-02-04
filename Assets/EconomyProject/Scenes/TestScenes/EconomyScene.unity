@@ -790,11 +790,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: AdventurerMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 2011312968382217253, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2011312968382217257, guid: 7984588dcb920ef4d82ce338990a333a,
         type: 3}
       propertyPath: coreGameSystem
       value: 
       objectReference: {fileID: 363889715}
+    - target: {fileID: 2011312970172320369, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2678565285365336451, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2810845863312687352, guid: 7984588dcb920ef4d82ce338990a333a,
         type: 3}
       propertyPath: shopChooserSubSystem
@@ -865,6 +880,16 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6271343864038612016, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7446941907550793007, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7446941908063291514, guid: 7984588dcb920ef4d82ce338990a333a,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -923,6 +948,66 @@ PrefabInstance:
     - target: {fileID: 7446941909118172705, guid: 7984588dcb920ef4d82ce338990a333a,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7500851911958719532, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7500851911958719532, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7500851911980291032, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7500851911980291032, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7500851911980291032, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7500851911980291032, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7500851912616046415, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7500851912616046415, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7500851912955471235, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7500851912955471235, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7500851913545193048, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7500851913545193048, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1977,7 +2062,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   craftMenu: {fileID: 1754627096}
   adventurerMenu: {fileID: 275464625}
-  craftActive: 0
+  craftActive: 1
 --- !u!1 &1115754070
 GameObject:
   m_ObjectHideFlags: 0
@@ -3130,6 +3215,11 @@ PrefabInstance:
       propertyPath: agentSpawner
       value: 
       objectReference: {fileID: 1524750397}
+    - target: {fileID: 5650685739597318204, guid: bfb27ce5ce1a1704faa38a1c8396b866,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5650685739649111049, guid: bfb27ce5ce1a1704faa38a1c8396b866,
         type: 3}
       propertyPath: m_IsActive

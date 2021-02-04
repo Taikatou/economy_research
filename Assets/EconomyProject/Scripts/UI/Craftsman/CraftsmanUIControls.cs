@@ -8,23 +8,21 @@ namespace EconomyProject.Scripts.UI.Craftsman
     {
         public GetCurrentShopAgent getCurrentAgent;
 
-        public ShopInput shopInput;
-
-        public ShopAgent CraftsmanAgent => getCurrentAgent.CurrentAgent.GetComponent<ShopAgent>();
+        public ShopAgent shopAgent => getCurrentAgent.CurrentAgent.GetComponent<ShopAgent>();
         
         public void MoveToRequest()
         {
-            shopInput.ChangeScreen(getCurrentAgent.CurrentAgent, EShopScreen.Request);
+			shopAgent.SetAction(EShopAgentChoices.RequestResource);
         }
 
         public void MoveToCraft()
         {
-            shopInput.ChangeScreen(getCurrentAgent.CurrentAgent, EShopScreen.Craft);
+			shopAgent.SetAction(EShopAgentChoices.Craft);
         }
 
         public void ReturnToMain()
         {
-            shopInput.ChangeScreen(getCurrentAgent.CurrentAgent, EShopScreen.Main);
+			shopAgent.SetAction(EShopAgentChoices.MainMenu);
         }
     }
 }

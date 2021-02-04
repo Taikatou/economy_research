@@ -11,7 +11,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request
 
         public RequestSystem requestSystem;
         public CraftsmanUIControls CraftsmanUiControls => GetComponentInParent<CraftsmanUIControls>();
-        public ShopAgent CraftsmanAgent => CraftsmanUiControls.CraftsmanAgent;
+        public ShopAgent CraftsmanAgent => CraftsmanUiControls.shopAgent;
         void Update()
         {
             var number = requestSystem.GetRequestNumber(CraftsmanAgent.craftingInventory);

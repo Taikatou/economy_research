@@ -8,6 +8,7 @@ using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.MLAgents.Shop;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
+using EconomyProject.Scripts.UI;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 {
@@ -114,7 +115,42 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             AgentInput.ChangeScreen(agent, EShopScreen.Main);
         }
 
-        public void Update()
+		public void SetPrice(ShopAgent shopAgent, UsableItem item, int increment)
+		{
+			int index = GetIndexInShopList(shopAgent, item);
+			if (index == -1)
+			{
+				return;
+			}
+
+			if(increment < 0)
+			{
+				SetChoice(shopAgent, (int)CraftingInput.DecreasePrice);
+			}
+			else
+			{
+				SetChoice(shopAgent, (int)CraftingInput.IncreasePrice);
+			}
+			
+			MakeChoiceSetPrice(shopAgent, index);
+		}
+
+		public int GetIndexInShopList(ShopAgent shopAgent, UsableItem item)
+		{
+			var items = shopSubSubSystem.GetShopItems(shopAgent);
+			for (int i = 0; i < items.Count; i++)
+			{
+				if (item == items[i])
+				{
+					return i;
+				}
+			}
+
+			Debug.LogError("Item not in shop : " + item.itemDetails.itemName);
+			return -1;
+		}
+
+		public void Update()
         {
 			RequestDecisions();
 			craftingSubSubSystem.Update();
