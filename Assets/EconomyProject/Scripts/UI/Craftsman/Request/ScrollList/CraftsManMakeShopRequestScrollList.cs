@@ -22,14 +22,15 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
             InventoryNumber = inventoryNumber;
         }
     }
+
     public class CraftsManMakeShopRequestScrollList : ShopRequestScrollList<CraftingResourceUi, CraftingMakeRequestButton>
     {
         public RequestShopSystemBehaviour requestShopSystem;
         public GetCurrentShopAgent getCurrentAgent;
         private ShopAgent CraftsmanAgent => getCurrentAgent.CurrentAgent;
 
-        // Start is called before the first frame update
-        protected override List<CraftingResourceUi> GetItemList()
+		// Start is called before the first frame update
+		protected override List<CraftingResourceUi> GetItemList()
         {
             if (CraftsmanAgent)
             {
@@ -48,7 +49,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
 
         public override void SelectItem(CraftingResourceUi item, int number = 1)
         {
-            requestShopSystem.system.MakeChoice(CraftsmanAgent, item.ResourceType);
-        }
-    }
+			CraftsmanAgent.SetAction(EShopAgentChoices.MakeResourceRequest, item);
+		}
+	}
 }

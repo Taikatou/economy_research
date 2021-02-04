@@ -2,6 +2,7 @@
 using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using UnityEngine;
+using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 
 namespace EconomyProject.Scripts.UI.Adventurer
 {
@@ -13,22 +14,22 @@ namespace EconomyProject.Scripts.UI.Adventurer
 
         public void ForestBattle()
         {
-            adventurerSystem.system.StartBattle(currentAdventurerAgent.CurrentAgent, BattleEnvironments.Forest);
+			currentAdventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.AdventureForest);
         }
         
         public void MountainBattle()
         {
-            adventurerSystem.system.StartBattle(currentAdventurerAgent.CurrentAgent, BattleEnvironments.Mountain);
+			currentAdventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.AdventureMountain);
         }
         
         public void VolcanoBattle()
         {
-            adventurerSystem.system.StartBattle(currentAdventurerAgent.CurrentAgent, BattleEnvironments.Volcano);
+			currentAdventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.AdventureVolcano);
         }
         
         public void SeaBattle()
         {
-            adventurerSystem.system.StartBattle(currentAdventurerAgent.CurrentAgent, BattleEnvironments.Sea);
+			currentAdventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.AdventureSea);
         }
     }
 }

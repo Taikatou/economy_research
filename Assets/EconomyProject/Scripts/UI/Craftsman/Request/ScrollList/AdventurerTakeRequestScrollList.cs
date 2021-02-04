@@ -2,6 +2,7 @@
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.UI.Craftsman.Request.Buttons;
 using UnityEngine;
+using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 
 namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
 {
@@ -17,9 +18,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
 
         public override void SelectItem(CraftingResourceRequest item, int number = 1)
         {
-            var requestTaker = currentAdventurerAgent.CurrentAgent.GetComponent<RequestTaker>();
-            Debug.Log(requestTaker == null);
-            requestTaker.TakeRequest(item);
+			currentAdventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.TakeResourceRequest, item);
         }
     }
 }

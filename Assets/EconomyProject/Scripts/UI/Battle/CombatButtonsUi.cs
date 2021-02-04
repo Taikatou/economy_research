@@ -1,4 +1,5 @@
 ﻿using EconomyProject.Monobehaviours;
+using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.UI.Battle
@@ -11,17 +12,17 @@ namespace EconomyProject.Scripts.UI.Battle
 
         public void OnAttackButton()
         {
-            adventurerSystem.system.OnAttackButton(adventurerAgent.CurrentAgent);
+			adventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.BattleAttack);
         }
 
         public void OnHealButton()
         {
-            adventurerSystem.system.OnHealButton(adventurerAgent.CurrentAgent);
+			adventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.BattleHeal);
         }
 
         public void OnFleeButton()
         {
-            adventurerSystem.system.OnFleeButton(adventurerAgent.CurrentAgent);
+			adventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.BattleFlee);
         }
     }
 }

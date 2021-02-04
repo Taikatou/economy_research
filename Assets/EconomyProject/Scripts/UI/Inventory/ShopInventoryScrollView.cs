@@ -3,6 +3,7 @@ using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using Inventory;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
+using EconomyProject.Scripts.MLAgents.Shop;
 
 namespace EconomyProject.Scripts.UI.Inventory
 {
@@ -37,7 +38,7 @@ namespace EconomyProject.Scripts.UI.Inventory
 
         public override void SelectItem(ShopItemUi shopItem, int number = 1)
         {
-            shopSubSystem.system.shopSubSubSystem.SubmitToShop(shopAgent.CurrentAgent, shopItem.Item);
-        }
+			shopAgent.CurrentAgent.SetAction(EShopAgentChoices.SubmitToShop, null, null, shopItem.Item);
+		}
     }
 }

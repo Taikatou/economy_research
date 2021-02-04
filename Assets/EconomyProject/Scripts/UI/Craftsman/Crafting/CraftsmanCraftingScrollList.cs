@@ -28,7 +28,8 @@ namespace EconomyProject.Scripts.UI.Craftsman.Crafting
         }
         public override void SelectItem(CraftingInfo item, int number = 1)
         {
-            shopCraftingSystem.system.craftingSubSubSystem.MakeRequest(Agent, (int) item.craftingMap.choice);
+			Agent.SetAction(EShopAgentChoices.CraftItem, null, item);
+
             LastUpdated.Refresh();
         }
     }

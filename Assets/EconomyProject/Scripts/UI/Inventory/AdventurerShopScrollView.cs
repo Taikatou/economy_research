@@ -4,6 +4,7 @@ using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.GameEconomy.Systems.Shop;
 using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
+using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 
 namespace EconomyProject.Scripts.UI.Inventory
 {
@@ -35,9 +36,7 @@ namespace EconomyProject.Scripts.UI.Inventory
 
         public override void SelectItem(ShopItemUi item, int number = 1)
         {
-            shopSubSystem.system.shopSubSubSystem.PurchaseItem(ShopAgent, item.Item.itemDetails, 
-                currentAdventurerAgent.CurrentAgent.wallet,
-                currentAdventurerAgent.CurrentAgent.adventurerInventory.agentInventory);
-        }
+			currentAdventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.PurchaseItem, null, item.Item);
+		}
     }
 }
