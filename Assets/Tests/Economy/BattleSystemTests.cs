@@ -46,11 +46,24 @@ namespace Tests.Economy
 			{
 				FighterObject newFighter = travelSubsystem.GetBattle(env);
 				Assert.IsNotNull(newFighter);
+			}
+		}
+
+		/// <summary>
+		/// Test to if there is a droppable resource in the enemy
+		/// </summary>
+		[Test]
+		public void Battle_FighterDropResource()
+		{
+			foreach (BattleEnvironments env in listEnvironments)
+			{
+				FighterObject newFighter = travelSubsystem.GetBattle(env);
 
 				//test if the fighter has an resource
 				CraftingDropReturn craftingDropReturn = newFighter.fighterDropTable.GenerateItems();
 
-				Assert.True(craftingDropReturn.Resource > 0 & craftingDropReturn.Count > 0,
+				//Check if a resource has been drop and accept if the enemy didn't drop any resource
+				Assert.True(craftingDropReturn.Resource >= 0 & craftingDropReturn.Count >= 0,
 					"Environment : " + env + " - Resource : " + craftingDropReturn.Resource + " - Count : " + craftingDropReturn.Count);
 			}
 		}
