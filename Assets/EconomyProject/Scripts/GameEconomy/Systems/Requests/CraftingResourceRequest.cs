@@ -20,19 +20,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return Number * newPrice;
         }
 
-        private static readonly Dictionary<CraftingResources, int> _defaultPrice = new Dictionary<CraftingResources, int> {
-            {CraftingResources.Wood, 5},
-            {CraftingResources.Metal, 6},
-            {CraftingResources.Gem, 7},
-            {CraftingResources.DragonScale, 8}
-        };
-
-        public CraftingResourceRequest(CraftingResources resource, CraftingInventory inventory)
+		public CraftingResourceRequest(CraftingResources resource, CraftingInventory inventory, int price)
         {
             Number = 1;
             Resource = resource;
             Inventory = inventory;
-            Price = _defaultPrice[resource];
+            Price = price;
 
             CreationTime = Time.time;
         }

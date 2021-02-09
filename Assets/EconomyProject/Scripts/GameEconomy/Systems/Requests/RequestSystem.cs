@@ -17,7 +17,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         private Dictionary<CraftingInventory, Dictionary<CraftingResources, CraftingResourceRequest>> _craftingRequests;
         private Dictionary<CraftingResourceRequest, EconomyWallet> _requestWallets;
 
-        public List<CraftingResourceRequest> GetAllCraftingRequests()
+		public Dictionary<CraftingResources, int> defaultResourcePrices = new Dictionary<CraftingResources, int> {
+			{CraftingResources.Wood, 5},
+			{CraftingResources.Metal, 6},
+			{CraftingResources.Gem, 7},
+			{CraftingResources.DragonScale, 8}
+		};
+
+		public List<CraftingResourceRequest> GetAllCraftingRequests()
         {
             var returnList = new List<CraftingResourceRequest>();
             foreach (var entry in _craftingRequests)
@@ -103,7 +110,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
 				if (!containsKey)
                 {
-                    var newResource = new CraftingResourceRequest(resources, inventory);
+                    var newResource = new CraftingResourceRequest(resources, inventory, defaultResourcePrices[resources]);
                     _requestWallets.Add(newResource, wallet);
                     CheckExchange(newResource);
                 }
