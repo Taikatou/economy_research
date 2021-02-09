@@ -11,7 +11,7 @@ using EconomyProject.Scripts.UI;
 
 namespace EconomyProject.Scripts.MLAgents.Shop
 {
-	public enum EShopAgentChoices { None = 0, MainMenu, RequestResource, Craft, MakeResourceRequest, CraftItem, SubmitToShop, IncreasePrice, DecreasePrice, }
+	public enum EShopAgentChoices { None = 0, MainMenu, RequestResource, Craft, MakeResourceRequest, CraftItem, SubmitToShop, IncreasePrice, DecreasePrice }
 
 	public enum EShopScreen {Main = 0, Request = 1, Craft = 2}
     public class ShopAgent : AgentScreen<EShopScreen>
