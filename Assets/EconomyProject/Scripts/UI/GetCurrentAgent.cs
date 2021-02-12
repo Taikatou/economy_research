@@ -10,7 +10,7 @@ namespace EconomyProject.Scripts.UI
 	public abstract class GetCurrentAgent<TAgent> : LastUpdate where TAgent : Agent
 	{
 		public GetAgents agentParent;
-		private int Index { get; set; }
+		public int Index { get; private set; }
 		public TAgent[] GetAgents => agentParent.GetComponentsInChildren<TAgent>();
 
 		public BaseAgentSpawner agentSpawner;
@@ -33,7 +33,7 @@ namespace EconomyProject.Scripts.UI
         {
             get
             {
-                if (GetAgents.Length > Index)
+				if (GetAgents.Length > Index)
                 {
                     return GetAgents[Index];
                 }

@@ -14,6 +14,7 @@ namespace EconomyProject.Scripts.UI.Inventory
     }
     public struct ShopItemUi
     {
+		public ShopAgent Seller;
         public UsableItem Item;
         public int Number;
         public int Price;

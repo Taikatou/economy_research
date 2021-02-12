@@ -1,12 +1,13 @@
 ﻿using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.Inventory;
 using Inventory;
-using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Craftsman;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 using EconomyProject.Scripts.UI.Craftsman.Request.ScrollList;
 using EconomyProject.Scripts.UI.Craftsman.Crafting;
+using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
+using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 
 namespace EconomyProject.Scripts.MLAgents.Shop
 {
@@ -108,6 +109,20 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 				default:
 					Debug.Log("Wrong EShopAgentChoices : " + choice);
 					break;
+			}
+		}
+
+		//TODELETE
+		public void Update()
+		{
+			if (Input.GetKeyDown(KeyCode.A))
+			{
+				craftingInventory.AddResource(CraftingResources.Wood, 5);
+				craftingInventory.AddResource(CraftingResources.Metal, 5);
+				craftingInventory.AddResource(CraftingResources.Gem, 5);
+				craftingInventory.AddResource(CraftingResources.DragonScale, 5);
+
+				Debug.Log("Cheatcode activated");
 			}
 		}
 	}

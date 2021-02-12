@@ -1,5 +1,7 @@
 ﻿using System;
+using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy;
+using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.MLAgents;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,9 +17,13 @@ namespace EconomyProject.Scripts.UI
         protected abstract GetCurrentAgent<TAgent> GetCurrentAgent { get; }
 
         private DateTime _lastUpdate;
-        
-        // Update is called once per frame
-        protected virtual void Update()
+
+		//System to update when we change the agent
+		public RequestSystem requestSystem;
+		public ShopCraftingSystemBehaviour shopCraftingSystemBehaviour;
+
+		// Update is called once per frame
+		protected virtual void Update()
         {
             if (GetCurrentAgent.LastUpdated != _lastUpdate || dropDown.options.Count != AgentList.Length)
 			{
@@ -60,19 +66,26 @@ namespace EconomyProject.Scripts.UI
         private void HandleChange()
         {
             var id = dropDown.options[dropDown.value].text;
-            foreach (var agent in AgentList)
+			foreach (var agent in AgentList)
             {
                 var agentId = agent.GetComponent<AgentID>();
                 if (agentId.agentId == int.Parse(id))
                 {
                     UpdateAgent(agent);
-                }
-            }
+					UpdateSystems();
+				}
+			}
         }
 
         protected virtual void UpdateAgent(TAgent agent)
         {
             GetCurrentAgent.UpdateAgent(agent);
-        }
-    }
+		}
+
+		protected void UpdateSystems()
+		{
+			requestSystem.Refresh();
+			shopCraftingSystemBehaviour.system.shopSubSubSystem.Refresh();
+		}
+	}
 }

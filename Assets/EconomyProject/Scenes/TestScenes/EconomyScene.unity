@@ -672,6 +672,14 @@ PrefabInstance:
       propertyPath: adventurerSystem
       value: 
       objectReference: {fileID: 1781114768}
+    - target: {fileID: 2111942274, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
+      propertyPath: requestSystem
+      value: 
+      objectReference: {fileID: 1430326707}
+    - target: {fileID: 2111942274, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
+      propertyPath: shopCraftingSystemBehaviour
+      value: 
+      objectReference: {fileID: 473122264}
     - target: {fileID: 31325030924436079, guid: 7984588dcb920ef4d82ce338990a333a,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -887,6 +895,11 @@ PrefabInstance:
       propertyPath: shopSubSystem
       value: 
       objectReference: {fileID: 473122264}
+    - target: {fileID: 2810845863312687352, guid: 7984588dcb920ef4d82ce338990a333a,
+        type: 3}
+      propertyPath: currentShopAgent
+      value: 
+      objectReference: {fileID: 275464629}
     - target: {fileID: 3902145170023200438, guid: 7984588dcb920ef4d82ce338990a333a,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1109,6 +1122,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 275464623}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &275464629 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 275464626, guid: 7984588dcb920ef4d82ce338990a333a,
+    type: 3}
+  m_PrefabInstance: {fileID: 275464623}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275464625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 038946dae3a8f5948a143777a590fd02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &281730510
 GameObject:
   m_ObjectHideFlags: 0
@@ -4631,6 +4656,16 @@ PrefabInstance:
       propertyPath: shopInput
       value: 
       objectReference: {fileID: 224111206}
+    - target: {fileID: 5650685738332813764, guid: bfb27ce5ce1a1704faa38a1c8396b866,
+        type: 3}
+      propertyPath: requestSystem
+      value: 
+      objectReference: {fileID: 1430326707}
+    - target: {fileID: 5650685738332813764, guid: bfb27ce5ce1a1704faa38a1c8396b866,
+        type: 3}
+      propertyPath: shopCraftingSystemBehaviour
+      value: 
+      objectReference: {fileID: 473122264}
     - target: {fileID: 5650685738332813765, guid: bfb27ce5ce1a1704faa38a1c8396b866,
         type: 3}
       propertyPath: agentParent
@@ -4641,6 +4676,16 @@ PrefabInstance:
       propertyPath: agentSpawner
       value: 
       objectReference: {fileID: 1524750397}
+    - target: {fileID: 5650685738695318836, guid: bfb27ce5ce1a1704faa38a1c8396b866,
+        type: 3}
+      propertyPath: requestSystem
+      value: 
+      objectReference: {fileID: 1430326707}
+    - target: {fileID: 5650685738695318836, guid: bfb27ce5ce1a1704faa38a1c8396b866,
+        type: 3}
+      propertyPath: shopCraftingSystemBehaviour
+      value: 
+      objectReference: {fileID: 473122264}
     - target: {fileID: 5650685739597318204, guid: bfb27ce5ce1a1704faa38a1c8396b866,
         type: 3}
       propertyPath: m_IsActive

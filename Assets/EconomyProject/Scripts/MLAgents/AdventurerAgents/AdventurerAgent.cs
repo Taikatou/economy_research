@@ -9,6 +9,7 @@ using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI;
+using EconomyProject.Scripts.UI.Inventory;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 {
@@ -89,7 +90,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 		/// <param name="choice">Int associate to a specific UI action</param>
 		/// <param name="resourceRequestToTake">Mandatory if choice = TakeResourceRequest</param>
 		/// <param name="itemToBuy">Mandatory if choice = PurchaseItem</param>
-		public void SetAction(EAdventurerAgentChoices choice, CraftingResourceRequest resourceRequestToTake = null, UsableItem itemToBuy = null)
+		public void SetAction(EAdventurerAgentChoices choice, CraftingResourceRequest resourceRequestToTake = null, ShopItemUi? itemToBuy = null)
 		{
 			agentChoice = choice;
 			switch (choice)
@@ -113,9 +114,9 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 					break;
 				case EAdventurerAgentChoices.PurchaseItem:
 					AgentShopSubSystem shopCraftingSystem = GameObject.FindObjectOfType<ShopCraftingSystemBehaviour>().system.shopSubSubSystem;
-					ShopAgent shopAgent = GameObject.FindObjectOfType<GetCurrentShopAgent>().CurrentAgent;
+					//ShopAgent shopAgent = GameObject.FindObjectOfType<GetCurrentShopAgent>().CurrentAgent;
 
-					shopCraftingSystem.PurchaseItem(shopAgent, itemToBuy.itemDetails, this.wallet, this.adventurerInventory.agentInventory);
+					shopCraftingSystem.PurchaseItem(itemToBuy.Value.Seller, itemToBuy.Value.Item.itemDetails, this.wallet, this.adventurerInventory.agentInventory);
 					break;
 				case EAdventurerAgentChoices.AdventureForest:
 					adventurerInput.adventurerSystem.system.StartBattle(this, BattleEnvironments.Forest);

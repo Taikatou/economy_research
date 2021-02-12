@@ -1,4 +1,5 @@
-﻿using EconomyProject.Scripts.GameEconomy;
+﻿using EconomyProject.Monobehaviours;
+using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.MLAgents.Shop;
 using UnityEngine;
 
@@ -9,9 +10,9 @@ namespace EconomyProject.Scripts.UI.Craftsman
         public GetCurrentShopAgent getCurrentAgent;
 
         public ShopAgent shopAgent => getCurrentAgent.CurrentAgent.GetComponent<ShopAgent>();
-        
-        public void MoveToRequest()
-        {
+
+		public void MoveToRequest()
+		{
 			shopAgent.SetAction(EShopAgentChoices.RequestResource);
         }
 
