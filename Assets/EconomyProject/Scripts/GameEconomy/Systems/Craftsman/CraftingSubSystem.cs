@@ -13,8 +13,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
     public class CraftingSubSystem :  IShopSense
     {
         public List<CraftingMap> craftingRequirement;
-        private readonly Dictionary<ShopAgent, CraftingRequest> _shopRequests;
-        private readonly List<ShopAgent> _shopAgents;
+        private Dictionary<ShopAgent, CraftingRequest> _shopRequests;
+        private List<ShopAgent> _shopAgents;
         
         public static int SenseCount => CraftingRequest.SenseCount;
         
@@ -28,6 +28,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             _shopRequests = new Dictionary<ShopAgent, CraftingRequest>();
             _shopAgents = new List<ShopAgent>();
         }
+
+		public void ResetCraftingSubSystem()
+		{
+			_shopRequests = new Dictionary<ShopAgent, CraftingRequest>();
+			_shopAgents = new List<ShopAgent>();
+		}
         
         public bool HasRequest(ShopAgent agent)
         {

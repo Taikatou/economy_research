@@ -19,13 +19,13 @@ namespace EconomyProject.Scripts.UI
         // Update is called once per frame
         protected virtual void Update()
         {
-            if (GetCurrentAgent.LastUpdated != _lastUpdate)
-            {
-                SetDropdown();
+            if (GetCurrentAgent.LastUpdated != _lastUpdate || dropDown.options.Count != AgentList.Length)
+			{
+				SetDropdown();
             }
         }
 
-        private void SetDropdown()
+        public void SetDropdown()
         {
             dropDown.ClearOptions();
             

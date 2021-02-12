@@ -24,6 +24,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 			{CraftingResources.DragonScale, 8}
 		};
 
+		public Dictionary<AgentType, int> _startMoney = new Dictionary<AgentType, int>
+		{
+			{AgentType.Adventurer, 100},
+			{AgentType.Shop, 1000},
+		};
+
 		public List<CraftingResourceRequest> GetAllCraftingRequests()
         {
             var returnList = new List<CraftingResourceRequest>();
@@ -77,9 +83,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
         public void Start()
         {
-            _craftingRequests = new Dictionary<CraftingInventory, Dictionary<CraftingResources, CraftingResourceRequest>>();
-            _requestWallets = new Dictionary<CraftingResourceRequest, EconomyWallet>();
-            Refresh();
+			ResetRequestSystem();
+		}
+
+		public void ResetRequestSystem()
+		{
+			_craftingRequests = new Dictionary<CraftingInventory, Dictionary<CraftingResources, CraftingResourceRequest>>();
+			_requestWallets = new Dictionary<CraftingResourceRequest, EconomyWallet>();
+			Refresh();
 		}
         
         public void MakeRequest(CraftingResources resources, CraftingInventory inventory, EconomyWallet wallet)

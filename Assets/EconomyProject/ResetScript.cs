@@ -9,6 +9,7 @@ namespace EconomyProject.Scripts.GameEconomy
         public GameObject agentParents;
         public void Reset()
         {
+			/*
             var agents = agentParents.GetComponentsInChildren<AdventurerAgent>();
             foreach (var agent in agents)
             {
@@ -17,6 +18,7 @@ namespace EconomyProject.Scripts.GameEconomy
 
             var dLogger = dataLogger.GetComponentInChildren<DataLogger>();
             dLogger.Reset();
+			*/
         }
     }
 }

@@ -16,6 +16,12 @@ namespace EconomyProject.Scripts.UI.Config
 
 		public override void SetupList()
 		{
+			if(_items == null)
+			{
+				Debug.Log("ListResources null");
+				return;
+			}
+
 			foreach (var resource in _items)
 			{
 				GameObject newResource = item;
@@ -24,7 +30,7 @@ namespace EconomyProject.Scripts.UI.Config
 			}
 		}
 
-		public override void SetItem(CraftingResources resourceToModify, int newPrice)
+		public override void SetItem(CraftingResources resourceToModify, int newPrice, string category = null)
 		{
 			if (_items.ContainsKey(resourceToModify))
 			{

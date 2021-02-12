@@ -3,9 +3,13 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy
 {
-    public abstract class AgentScreen<TScreen> : Agent
+	public enum AgentType { Adventurer, Shop }
+
+	public abstract class AgentScreen<TScreen> : Agent
     {
-        private int _previousDown = -1;
+		public abstract AgentType agentType { get; }
+
+		private int _previousDown = -1;
         public abstract TScreen ChosenScreen { get; }
         
         private readonly KeyCode[] _keyCodes = {

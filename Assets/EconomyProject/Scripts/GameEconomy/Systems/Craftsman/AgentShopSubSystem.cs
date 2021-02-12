@@ -16,16 +16,21 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
     {
         public EnvironmentReset resetScript;
         public List<BaseItemPrices> basePrices;
-        private readonly Dictionary<ShopAgent, AgentData> _shopSystems;
+        private Dictionary<ShopAgent, AgentData> _shopSystems;
 
-        public UsableItem endItem;
+		public UsableItem endItem;
         
         public static int SenseCount => AgentData.SenseCount;
 
         public AgentShopSubSystem()
         {
-            _shopSystems = new Dictionary<ShopAgent, AgentData>();
-        }
+			ResetShop();
+		}
+
+		public void ResetShop()
+		{
+			_shopSystems = new Dictionary<ShopAgent, AgentData>();
+		}
 
 		public AgentData GetShop(ShopAgent shopAgent)
         {
@@ -129,7 +134,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
                 
                 if (item.itemName == endItem.itemDetails.itemName)
                 {
-                    resetScript.ResetScript();
+                    //resetScript.ResetScript();
                 }
             }
             Refresh();

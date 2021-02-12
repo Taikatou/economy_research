@@ -13,11 +13,11 @@ namespace EconomyProject.Scripts.UI.Config
 		public Text priceText;
 		public InputField inputTextPrice;
 
-		public abstract void SetupAbstractList();
+		public abstract void SetupAbstractComponent();
 
 		private void Start()
 		{
-			SetupAbstractList();
+			SetupAbstractComponent();
 		}
 
 		/// <summary>

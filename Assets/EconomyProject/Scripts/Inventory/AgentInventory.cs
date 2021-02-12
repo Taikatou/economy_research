@@ -88,8 +88,13 @@ namespace EconomyProject.Scripts.Inventory
 
         public bool ContainsItem(UsableItem searchItem)
         {
-            var found = false;
-            foreach (var item in Items)
+			if (Items == null)
+			{
+				return false;
+			}
+
+			var found = false;
+			foreach (var item in Items)
             {
                 if (item.Key == searchItem.ToString())
                 {

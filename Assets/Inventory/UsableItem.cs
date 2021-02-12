@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Inventory
@@ -6,7 +7,7 @@ namespace Inventory
     [Serializable]
     public struct UsableItemDetails
     {
-        public bool unBreakable;
+		public bool unBreakable;
         
         public string itemName;
         
@@ -22,11 +23,10 @@ namespace Inventory
         public UsableItemDetails(UsableItemDetails itemDetails)
         {
             itemName = itemDetails.itemName;
-            baseDurability = itemDetails.baseDurability;
+			unBreakable = itemDetails.unBreakable;
+			baseDurability = itemDetails.baseDurability;
             damage = itemDetails.damage;
             durability = itemDetails.baseDurability;
-            baseDurability = itemDetails.durability;
-            unBreakable = itemDetails.unBreakable;
         }
         
         public void DecreaseDurability()
@@ -41,12 +41,13 @@ namespace Inventory
         {
             durability = baseDurability;
         }
-    }
-    
+	}
+
+
     [CreateAssetMenu]
     public class UsableItem : ScriptableObject
     {
-        public UsableItemDetails itemDetails;
+		public UsableItemDetails itemDetails;
 
         public Guid UniqueId { get; private set; }
 
@@ -54,7 +55,15 @@ namespace Inventory
         {
             UniqueId = Guid.NewGuid();
             itemDetails = new UsableItemDetails(item.itemDetails);
-        }
+			
+			//To use custom parameters
+			if(ItemData.baseDamages.ContainsKey(itemDetails.itemName) && ItemData.baseDurabilities.ContainsKey(itemDetails.itemName))
+			{
+				itemDetails.damage = ItemData.baseDamages[itemDetails.itemName];
+				itemDetails.baseDurability = ItemData.baseDurabilities[itemDetails.itemName];
+				itemDetails.durability = ItemData.baseDurabilities[itemDetails.itemName];
+			}
+		}
 
         public static UsableItem GenerateItem(UsableItem selectedItem)
         {

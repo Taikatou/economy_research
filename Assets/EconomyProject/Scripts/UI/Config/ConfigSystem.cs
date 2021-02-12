@@ -1,11 +1,13 @@
 ﻿using EconomyProject.Monobehaviours;
+using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI;
+using EconomyProject.Scripts.UI.Adventurer;
 using EconomyProject.Scripts.UI.Config;
-using System.Collections;
+using Inventory;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,27 +15,33 @@ namespace EconomyProject.Scripts
 {
 	public class ConfigSystem : MonoBehaviour
 	{
-		protected ShopCraftingSystemBehaviour shopCraftingSystemBehaviour;
+		[Header("System GameObjects")]
+		public RequestShopSystemBehaviour requestShopSystemBehaviour;
+		public ShopCraftingSystemBehaviour shopCraftingSystemBehaviour;
 		protected ShopCraftingSystem shopCraftingSystem;
 		protected AgentShopSubSystem agentShopSubSystem;
 		protected GetCurrentShopAgent getCurrentShopAgent;
 		protected GetCurrentAdventurerAgent getCurrentAdventurerAgent;
+		public SystemSpawner adventurerSpawner;
+		public SystemSpawner shopSpawner;
+		public Transform listAdventurerAgents;
+		public Transform listShopAgents;
+		public AdventurerAgentDropDown adventurerAgentDropDown;
+		public UI.ShopUI.ShopAgentDropDown shopAgentDropDown;
 
-		protected RequestShopSystemBehaviour requestShopSystemBehaviour;
-
+		[Header("Lists")]
 		public ListConfigItems listConfigItems;
 		public ListConfigResources listConfigResources;
 		public ListConfigAgents listConfigAgents;
-		
+
+		[Header("UI")]
+		public GameObject UIBlocker;
+		public GameObject ConfigUI;
 
 		private void Start()
 		{
-			//TO DELETE WHEN IT WILL BE ATTACHED TO A GAMEOBJECT
-			shopCraftingSystemBehaviour = GameObject.FindObjectOfType<ShopCraftingSystemBehaviour>();
 			shopCraftingSystem = shopCraftingSystemBehaviour.system;
 			agentShopSubSystem = shopCraftingSystem.shopSubSubSystem;
-
-			requestShopSystemBehaviour = GameObject.FindObjectOfType<RequestShopSystemBehaviour>();
 
 			getCurrentShopAgent = GameObject.FindObjectOfType<GetCurrentShopAgent>();
 			getCurrentAdventurerAgent = GameObject.FindObjectOfType<GetCurrentAdventurerAgent>();
@@ -44,14 +52,15 @@ namespace EconomyProject.Scripts
 			//Modify the shopSystem
 			agentShopSubSystem.basePrices = listPrice;
 
-			//Modify in the shop agent
-			ShopAgent[] shopAgents = getCurrentShopAgent.GetAgents;
-			foreach(ShopAgent agent in shopAgents)
-			{
-				agentShopSubSystem.SetShop(agent, listPrice); //WARNING : This reset the stockprices. Talk with Conor if it's the expected behaviour
-			}
-
 			//+To test
+		}
+
+		public void SetDefaultItemDetails(Dictionary<string, int> newDurabilities, Dictionary<string, int> newItemDamage)
+		{
+			ItemData.SetDefaultDurabilities(newDurabilities);
+			ItemData.SetDefaultDamages(newItemDamage);
+
+			//+ test
 		}
 
 		public void SetResourceDefaultPrices(Dictionary<CraftingResources, int> newResourcePrices)
@@ -61,43 +70,44 @@ namespace EconomyProject.Scripts
 			//+ test
 		}
 
-		public void SetStartMoneyAgents(Dictionary<string, int> newStartMoney)
+		public void SetStartMoneyAgents(Dictionary<AgentType, int> newStartMoney)
 		{
-			// create Dictionary<string, int> in economy wallet system or smth like that
+			requestShopSystemBehaviour.system.requestSystem._startMoney = newStartMoney;
 		}
 
-		/* Instead of doing that, do resetWallet
-		public void StartMoneyActiveShopAgents(int newStartMoney)
+		public void SetSpawnNumber(Dictionary<AgentType, int> nbrAgents)
 		{
-			//Should have an external array with the start money per agents 
-			//_startMoney = { Adventurer = 100 , Shop = 1000};
-
-
-			ShopAgent[] shopAgents = getCurrentShopAgent.GetAgents;
-			foreach (ShopAgent agent in shopAgents)
+			foreach(var agentType in nbrAgents)
 			{
-				agent.wallet.startMoney = newStartMoney;
-				agent.wallet.SetMoney(newStartMoney);
+				switch (agentType.Key)
+				{
+					case AgentType.Adventurer:
+						adventurerSpawner.numLearningAgents = agentType.Value;
+						break;
+					case AgentType.Shop:
+						shopSpawner.numLearningAgents = agentType.Value;
+						break;
+					default:
+						Debug.Log("Wrong agentType : " + agentType.Key);
+						break;
+				}
 			}
 
-			//test
+			ResetAgentSpawn();
 		}
 
-		public void StartMoneyActiveAdventurerAgents(int newStartMoney)
+		public void ResetAgentSpawn()
 		{
-			AdventurerAgent[] shopAgents = getCurrentAdventurerAgent.GetAgents;
-			foreach (AdventurerAgent agent in shopAgents)
-			{
-				agent.wallet.startMoney = newStartMoney;
-				agent.wallet.SetMoney(newStartMoney);
-			}
+			//Delete previous agents
+			getCurrentAdventurerAgent.ClearGetAgents();
+			getCurrentShopAgent.ClearGetAgents();
 
-			//test
+			//Generate new agents
+			adventurerSpawner.Start();
+			shopSpawner.Start();
 		}
-		*/
 
 
-		
 		/// <summary>
 		/// Apply all the default parameters to the system
 		/// 1 - Item prices
@@ -106,42 +116,30 @@ namespace EconomyProject.Scripts
 		/// </summary>
 		public void StartButton()
 		{
-			//Item prices
+			//Item
 			List<BaseItemPrices> newItemPrices = listConfigItems.GetParameters();
-			//SetItemsDefaultPrices(newItemPrices);
-
+			SetItemsDefaultPrices(newItemPrices);
+			SetDefaultItemDetails(listConfigItems.GetDefaultDurabilities(), listConfigItems.GetDefaultDamages());
 
 			//Resource prices
 			Dictionary<CraftingResources, int> newResourcePrices = listConfigResources.GetParameters();
-			//SetResourceDefaultPrices(newResourcePrices);
-
+			SetResourceDefaultPrices(newResourcePrices);
 
 			//Agents start money
-			Dictionary<string, int> newStartMoney = listConfigAgents.GetParameters();
-			//SetStartMoneyAgents(newStartMoney);
+			Dictionary<AgentType, int> newStartMoney = listConfigAgents.GetParameters();
+			SetStartMoneyAgents(newStartMoney);
+			SetSpawnNumber(listConfigAgents.GetDefaultNbrAgents());
 
-			/*
-			foreach (BaseItemPrices item in newItemPrices)
-			{
-				Debug.Log(item.item.itemDetails.itemName + " - " + item.price);
-			}
-			foreach (var item in newResourcePrices)
-			{
-				Debug.Log(item.Key.ToString() + " - " + item.Value);
-			}
-			foreach (var item in newStartMoney)
-			{
-				Debug.Log(item.Key.ToString() + " - " + item.Value);
-			}*/
+			//Hide Configuration
+			UIBlocker.SetActive(false);
+			ConfigUI.SetActive(false);
 
 
 
-			//If not first changements ==> Reset with  bool mustReset
-			//Else ==> StartSimulation + Spawners
-			//Takeoff UIBlocker
-
+			//TODO
 			// + add imgs resources, sword, agents
-			//Refactoring list+config items
+			//unit tests
+			//Resources to crafts ? List<CraftingMap> craftingRequirement; in CraftingSubSystem
 		}
 	}
 }

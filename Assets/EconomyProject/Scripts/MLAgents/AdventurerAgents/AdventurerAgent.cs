@@ -26,12 +26,16 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         public AdventurerInput adventurerInput;
         public AdventurerRequestTaker requestTaker;
 
+		public override AgentType agentType { get { return AgentType.Adventurer; } }
 		public override EAdventurerScreen ChosenScreen => adventurerInput.GetScreen(this, EAdventurerScreen.Main);
 
         public override void OnEpisodeBegin()
         {
-            var reset = GetComponentInParent<ResetScript>();
-            reset.Reset();
+			var reset = GetComponentInParent<ResetScript>();
+			if (reset != null)
+			{
+				reset.Reset();
+			}
         }
 
         public void ResetEconomyAgent()
@@ -87,7 +91,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 		/// <param name="itemToBuy">Mandatory if choice = PurchaseItem</param>
 		public void SetAction(EAdventurerAgentChoices choice, CraftingResourceRequest resourceRequestToTake = null, UsableItem itemToBuy = null)
 		{
-			Debug.Log("EAdventurerAgentChoices : " + choice);
 			agentChoice = choice;
 			switch (choice)
 			{

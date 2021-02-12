@@ -6,7 +6,7 @@ namespace EconomyProject.Scripts.UI.Config
 {
 	public class ConfigResource : AbstractConfigComponent<Dictionary<CraftingResources, int>, CraftingResources>
 	{
-		public override void SetupAbstractList()
+		public override void SetupAbstractComponent()
 		{
 			abstractList = GameObject.FindObjectOfType<ListConfigResources>();
 		}

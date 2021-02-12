@@ -41,7 +41,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
     public enum CraftingInput { CraftItem = CraftingChoice.UltimateSwordOfPower+1, IncreasePrice, DecreasePrice, SubmitToShop, Quit}
 
-    public enum CraftingChoice { BeginnerSword, IntermediateSword, AdvancedSword, EpicSword, UltimateSwordOfPower }
+    public enum CraftingChoice { BeginnerSword, IntermediateSword, AdvancedSword, EpicSword, MasterSword, UltimateSwordOfPower }
 
     [Serializable]
     public class ShopCraftingSystem : StateEconomySystem<CraftingInput, ShopAgent, EShopScreen>

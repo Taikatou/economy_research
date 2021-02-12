@@ -29,7 +29,7 @@ namespace EconomyProject.Scripts.UI.Config
 		/// </summary>
 		public abstract void SetupList();
 
-		public abstract void SetItem(TQ itemToModify, int newPrice);
+		public abstract void SetItem(TQ itemToModify, int newPrice, string category = null);
 
 		/// <summary>
 		/// Return the parameters used in ConfigSystem.cs

@@ -1,5 +1,7 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using EconomyProject.Scripts.GameEconomy;
+using EconomyProject.Scripts.MLAgents.Shop;
+using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 {
@@ -9,14 +11,30 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         private int EarnedMoney { get; set; }
         private int SpentMoney { get; set; }
         public int Money { get; private set; }
-
-        // Start is called before the first frame update
-        void Start()
+		
+		void Start()
         {
-            Money = startMoney;
-        }
+			Reset();
+		}
 
-        public void EarnMoney(int amount)
+		private AgentType GetAgentType()
+		{
+			if (this.GetComponent<AdventurerAgent>() != null)
+			{
+				return AgentType.Adventurer;
+			}
+			else if (this.GetComponent<ShopAgent>() != null)
+			{
+				return AgentType.Shop;
+			}
+			else
+			{
+				Debug.LogError("No agent attached to this wallet : " + this);
+				return 0;
+			}
+		}
+
+		public void EarnMoney(int amount)
         {
             if (amount > 0)
             {
@@ -57,7 +75,9 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 
         public void Reset()
         {
-            Money = startMoney;
+			RequestSystem requestSystem = GameObject.FindObjectOfType<RequestSystem>();
+			startMoney = requestSystem._startMoney[GetAgentType()];
+			Money = startMoney;
         }
 
         public void ResetStep()
