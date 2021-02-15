@@ -1471,7 +1471,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1000
+  m_Text: 1
 --- !u!1 &6759380486104409708
 GameObject:
   m_ObjectHideFlags: 0
@@ -1550,7 +1550,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 100
+  m_Text: 1000
 --- !u!1 &8152099141214851783
 GameObject:
   m_ObjectHideFlags: 0
@@ -1665,7 +1665,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 75, y: 0}
-  m_SizeDelta: {x: 75, y: -13}
+  m_SizeDelta: {x: 55, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8609421495291363001
 CanvasRenderer:
@@ -1695,9 +1695,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -3301332275463831685, guid: 077eb57d7d4406940a76cc89cf6ab2c2,
+    type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -1783,7 +1784,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Adventurer
+  m_Text: Shop
 --- !u!1 &8609421496110164015
 GameObject:
   m_ObjectHideFlags: 0
@@ -1898,13 +1899,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abstractList: {fileID: 0}
-  item: 0
-  price: 100
+  item: 1
+  price: 1000
   nameLabel: {fileID: 8609421495471037325}
   priceText: {fileID: 1497736625277091647}
   inputTextPrice: {fileID: 3462204187202469964}
-  nbrAgent: 0
+  image: {fileID: 8609421495291363006}
+  nbrAgent: 1
   nbrAgentText: {fileID: 5187421085816802381}
   inputTextNbrAgent: {fileID: 8182120033341749810}
-  adventurerSpawner: {fileID: 0}
-  shopSpawner: {fileID: 0}

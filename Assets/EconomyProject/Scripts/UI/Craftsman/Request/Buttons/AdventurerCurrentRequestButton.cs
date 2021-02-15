@@ -14,12 +14,14 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.Buttons
         public Text nameLabel;
         public Text stockText;
         public Text price;
+		public Image iconImage;
 
         protected override void SetupButton()
         {
             nameLabel.text = ItemDetails.Request.Resource.ToString();
             stockText.text = ItemDetails.CurrentNumber + "/" + ItemDetails.Request.Number;
             price.text = ItemDetails.Request.Price.ToString();
-        }
+			iconImage.sprite = ItemDetails.Request.Icon;
+		}
     }
 }

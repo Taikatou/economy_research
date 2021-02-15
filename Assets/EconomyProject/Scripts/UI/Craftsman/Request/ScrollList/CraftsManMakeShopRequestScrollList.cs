@@ -15,11 +15,13 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
     {
         public readonly CraftingResources ResourceType;
         public readonly int InventoryNumber;
+		public readonly Sprite Icon;
 
-        public CraftingResourceUi (CraftingResources resourceType, int inventoryNumber)
+        public CraftingResourceUi (CraftingResources resourceType, int inventoryNumber, Sprite icon)
         {
             ResourceType = resourceType;
             InventoryNumber = inventoryNumber;
+			Icon = icon;
         }
     }
 
@@ -39,7 +41,9 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
                 foreach (var resource in resources)
                 {
                     var inventoryNumber = CraftsmanAgent.craftingInventory.GetResourceNumber(resource);
-                    var resourceUi = new CraftingResourceUi(resource, inventoryNumber);
+					Sprite iconImage = requestShopSystem.system.requestSystem.GetIconByResource(resource);
+
+					var resourceUi = new CraftingResourceUi(resource, inventoryNumber, iconImage);
                     items.Add(resourceUi);
                 }
                 return items;

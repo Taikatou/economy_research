@@ -827,10 +827,11 @@ MonoBehaviour:
   nameLabel: {fileID: 2854948063327868340}
   priceText: {fileID: 4912609814297358598}
   inputTextPrice: {fileID: 6982874387596955253}
-  durability: 0
+  image: {fileID: 2854948063976697991}
+  durability: 25
   durabilityText: {fileID: 4251270739498582138}
   inputTextDurability: {fileID: 793010269793039775}
-  damage: 0
+  damage: 15
   damageText: {fileID: 3970126714415426429}
   inputTextDamage: {fileID: 242964299727414299}
 --- !u!1 &2854948063327868362
@@ -977,9 +978,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 5784196140317008990, guid: 077eb57d7d4406940a76cc89cf6ab2c2,
+    type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -1065,7 +1067,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 180
+  m_Text: 25
 --- !u!1 &5099943593158574079
 GameObject:
   m_ObjectHideFlags: 0
@@ -1777,7 +1779,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 180
+  m_Text: 15
 --- !u!1 &7134371112658598042
 GameObject:
   m_ObjectHideFlags: 0

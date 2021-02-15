@@ -37,6 +37,8 @@ namespace EconomyProject.Scripts.UI.Config
 
 			durabilityText.text = durability.ToString();
 			damageText.text = damage.ToString();
+
+			image.sprite = item.itemDetails.icon;
 		}
 
 		/********************************************Durability**********************************/

@@ -9,8 +9,9 @@ namespace EconomyProject.Scripts.UI.Config
 	{
 		public SystemSpawner adventurerSpawner;
 		public SystemSpawner shopSpawner;
+		public Sprite adventurerSprite;
+		public Sprite shopAgentSprite;
 
-		//TO FIND FROM ELSEWERE
 		public Dictionary<AgentType, int> nbrAgents = new Dictionary<AgentType, int>();
 
 		public override void SetupItems()

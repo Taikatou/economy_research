@@ -255,6 +255,7 @@ MonoBehaviour:
   nameLabel: {fileID: 8477183437932017809}
   stockText: {fileID: 5299409663897292686}
   price: {fileID: 8477183438864086469}
+  iconImage: {fileID: 8477183438080630178}
 --- !u!1 &8477183437932017903
 GameObject:
   m_ObjectHideFlags: 0

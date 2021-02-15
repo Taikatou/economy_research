@@ -29,7 +29,8 @@ namespace EconomyProject.Scripts.UI.Craftsman.Crafting
         {
             nameLabel.text = ItemDetails.craftingMap.resource.ResultingItemName;
             timeToCreated.text = ItemDetails.craftingMap.resource.timeToCreation.ToString(CultureInfo.InvariantCulture);
-            var outputText = "";
+			iconImage.sprite = ItemDetails.craftingMap.resource.resultingItem.itemDetails.icon;
+			var outputText = "";
             foreach (var requirement in ItemDetails.craftingMap.resource.resourcesRequirements)
             {
                 var currentInventory = ItemDetails.craftingInventory.GetResourceNumber(requirement.type);

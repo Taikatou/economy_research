@@ -6,6 +6,7 @@ using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
 using UnityEngine;
+using System.ComponentModel;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
@@ -14,7 +15,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         public int maxRequests = 2;
         public CraftingRequestRecord craftingRequestRecord;
 
-        private Dictionary<CraftingInventory, Dictionary<CraftingResources, CraftingResourceRequest>> _craftingRequests;
+		public Sprite[] iconResources;
+
+		private Dictionary<CraftingInventory, Dictionary<CraftingResources, CraftingResourceRequest>> _craftingRequests;
         private Dictionary<CraftingResourceRequest, EconomyWallet> _requestWallets;
 
 		public Dictionary<CraftingResources, int> defaultResourcePrices = new Dictionary<CraftingResources, int> {
@@ -81,6 +84,24 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return 0;
         }
 
+		public Sprite GetIconByResource(CraftingResources resource)
+		{
+			switch (resource)
+			{
+				case CraftingResources.Wood:
+					return iconResources[0];
+				case CraftingResources.Metal:
+					return iconResources[1];
+				case CraftingResources.Gem:
+					return iconResources[2];
+				case CraftingResources.DragonScale:
+					return iconResources[3];
+				default:
+					Debug.Log("Wrong Crafting resource : " + resource);
+					return iconResources[0];
+			}
+		}
+
         public void Start()
         {
 			ResetRequestSystem();
@@ -121,7 +142,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
 				if (!containsKey)
                 {
-                    var newResource = new CraftingResourceRequest(resources, inventory, defaultResourcePrices[resources]);
+					Sprite icon = GetIconByResource(resources);
+                    var newResource = new CraftingResourceRequest(resources, inventory, defaultResourcePrices[resources], icon);
                     _requestWallets.Add(newResource, wallet);
                     CheckExchange(newResource);
                 }

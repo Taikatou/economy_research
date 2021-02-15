@@ -12,6 +12,7 @@ namespace EconomyProject.Scripts.UI.Config
 		public Text nameLabel;
 		public Text priceText;
 		public InputField inputTextPrice;
+		public Image image;
 
 		public abstract void SetupAbstractComponent();
 

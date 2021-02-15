@@ -78,7 +78,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 180
+  m_Text: 8
 --- !u!1 &1825930029933410848
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,7 +261,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3196093061208136822}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -362,11 +362,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 958b8ceebab87fe488a2d94781c8171b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resource: 0
-  price: 0
+  abstractList: {fileID: 0}
+  item: 4
+  price: 8
   nameLabel: {fileID: 3196093061571358676}
   priceText: {fileID: 5758139158667152230}
   inputTextPrice: {fileID: 7722612150442013717}
+  image: {fileID: 3196093062028774119}
 --- !u!1 &3196093061571358634
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,7 +447,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Ultimate Sword
+  m_Text: DragonScale
 --- !u!1 &3196093062028774117
 GameObject:
   m_ObjectHideFlags: 0
@@ -481,7 +483,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 75, y: 0}
-  m_SizeDelta: {x: 75, y: -13}
+  m_SizeDelta: {x: 55, y: -19.999998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3196093062028774112
 CanvasRenderer:
@@ -511,9 +513,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -1591622488365461047, guid: 077eb57d7d4406940a76cc89cf6ab2c2,
+    type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1

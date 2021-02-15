@@ -26,13 +26,16 @@ namespace EconomyProject.Scripts.UI.Config
 
 		public void SetupOthersParameters(AgentType agentType)
 		{
+			ListConfigAgents listConfigAgents = GameObject.FindObjectOfType<ListConfigAgents>();
 			switch (agentType)
 			{
 				case AgentType.Adventurer:
-					nbrAgent = GameObject.FindObjectOfType<ListConfigAgents>().GetComponent<ListConfigAgents>().adventurerSpawner.numLearningAgents;
+					nbrAgent = listConfigAgents.adventurerSpawner.numLearningAgents;
+					image.sprite = listConfigAgents.adventurerSprite;
 					break;
 				case AgentType.Shop:
-					nbrAgent = GameObject.FindObjectOfType<ListConfigAgents>().GetComponent<ListConfigAgents>().shopSpawner.numLearningAgents;
+					nbrAgent = listConfigAgents.shopSpawner.numLearningAgents;
+					image.sprite = listConfigAgents.shopAgentSprite;
 					break;
 				default:
 					Debug.Log("Wrong Agentype : " + agentType);

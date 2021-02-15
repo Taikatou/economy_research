@@ -13,6 +13,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         public CraftingInventory Inventory { get; }
         public int Number { get; set; }
         public int Price { get; set; }
+		public Sprite Icon;
         public int Reward => GetReward(Price);
 
         public int GetReward(int newPrice)
@@ -20,14 +21,15 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return Number * newPrice;
         }
 
-		public CraftingResourceRequest(CraftingResources resource, CraftingInventory inventory, int price)
+		public CraftingResourceRequest(CraftingResources resource, CraftingInventory inventory, int price, Sprite icon)
         {
             Number = 1;
             Resource = resource;
             Inventory = inventory;
             Price = price;
+			Icon = icon;
 
-            CreationTime = Time.time;
+			CreationTime = Time.time;
         }
 
         public void TransferResource()

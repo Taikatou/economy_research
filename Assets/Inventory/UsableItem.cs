@@ -20,6 +20,8 @@ namespace Inventory
         
         public bool Broken => !unBreakable && durability <= 0;
 
+		public Sprite icon;
+
         public UsableItemDetails(UsableItemDetails itemDetails)
         {
             itemName = itemDetails.itemName;
@@ -27,7 +29,8 @@ namespace Inventory
 			baseDurability = itemDetails.baseDurability;
             damage = itemDetails.damage;
             durability = itemDetails.baseDurability;
-        }
+			icon = itemDetails.icon;
+		}
         
         public void DecreaseDurability()
         {
