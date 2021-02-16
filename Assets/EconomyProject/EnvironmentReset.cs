@@ -24,7 +24,6 @@ public class EnvironmentReset : MonoBehaviour
 
 	public void ResetScript()
 	{
-		//TO TEST
 		Debug.Log("RESET");
 
 		UIBlocker.SetActive(true);

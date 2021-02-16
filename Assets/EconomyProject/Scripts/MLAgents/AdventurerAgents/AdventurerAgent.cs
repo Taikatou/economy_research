@@ -114,8 +114,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 					break;
 				case EAdventurerAgentChoices.PurchaseItem:
 					AgentShopSubSystem shopCraftingSystem = GameObject.FindObjectOfType<ShopCraftingSystemBehaviour>().system.shopSubSubSystem;
-					//ShopAgent shopAgent = GameObject.FindObjectOfType<GetCurrentShopAgent>().CurrentAgent;
-
 					shopCraftingSystem.PurchaseItem(itemToBuy.Value.Seller, itemToBuy.Value.Item.itemDetails, this.wallet, this.adventurerInventory.agentInventory);
 					break;
 				case EAdventurerAgentChoices.AdventureForest:

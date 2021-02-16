@@ -5404,6 +5404,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4930224491371596780, guid: 5aa5546e137b74945a31aa19b12060f0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930224492024530449, guid: 5aa5546e137b74945a31aa19b12060f0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5506223566058285588, guid: 5aa5546e137b74945a31aa19b12060f0,
         type: 3}
       propertyPath: requestSystem
