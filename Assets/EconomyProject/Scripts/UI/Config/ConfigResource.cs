@@ -11,8 +11,6 @@ namespace EconomyProject.Scripts.UI.Config
 			abstractList = GameObject.FindObjectOfType<ListConfigResources>();
 		}
 
-		
-		//Hide parent Setup() because has more field to fill in ConfigItem than the other components, then call the parent Setup function
 		public new void Setup(CraftingResources newItem, int newPrice)
 		{
 			base.Setup(newItem, newPrice);

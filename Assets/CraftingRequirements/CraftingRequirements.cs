@@ -24,7 +24,13 @@ namespace EconomyProject.Scripts.MLAgents.Craftsman.Requirements
     {
         public CraftingResources type;
         public int number;
-    }
+
+		public ResourceRequirement(CraftingResources newType, int newNumber)
+		{
+			type = newType;
+			number = newNumber;
+		}
+	}
 
     [CreateAssetMenu]
     public class CraftingRequirements : ScriptableObject

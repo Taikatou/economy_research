@@ -33,6 +33,7 @@ namespace EconomyProject.Scripts
 		public ListConfigItems listConfigItems;
 		public ListConfigResources listConfigResources;
 		public ListConfigAgents listConfigAgents;
+		public ListConfigCraft listConfigCraft;
 
 		[Header("UI")]
 		public GameObject UIBlocker;
@@ -47,6 +48,9 @@ namespace EconomyProject.Scripts
 			getCurrentAdventurerAgent = GameObject.FindObjectOfType<GetCurrentAdventurerAgent>();
 		}
 
+		/// <summary>
+		/// Set default price of the items
+		/// </summary>
 		public void SetItemsDefaultPrices(List<BaseItemPrices> listPrice)
 		{
 			//Modify the shopSystem
@@ -55,6 +59,9 @@ namespace EconomyProject.Scripts
 			//+To test
 		}
 
+		/// <summary>
+		/// Set durability and damage by default of the items
+		/// </summary>
 		public void SetDefaultItemDetails(Dictionary<string, int> newDurabilities, Dictionary<string, int> newItemDamage)
 		{
 			ItemData.SetDefaultDurabilities(newDurabilities);
@@ -63,6 +70,9 @@ namespace EconomyProject.Scripts
 			//+ test
 		}
 
+		/// <summary>
+		/// Set default price of the resources
+		/// </summary>
 		public void SetResourceDefaultPrices(Dictionary<CraftingResources, int> newResourcePrices)
 		{
 			requestShopSystemBehaviour.system.requestSystem.defaultResourcePrices = newResourcePrices;
@@ -70,11 +80,17 @@ namespace EconomyProject.Scripts
 			//+ test
 		}
 
+		/// <summary>
+		/// Set The StartMoney of the adventurer and the shop agents
+		/// </summary>
 		public void SetStartMoneyAgents(Dictionary<AgentType, int> newStartMoney)
 		{
 			requestShopSystemBehaviour.system.requestSystem._startMoney = newStartMoney;
 		}
 
+		/// <summary>
+		/// Set the number of agent to spawn in the SpawnAgent objects
+		/// </summary>
 		public void SetSpawnNumber(Dictionary<AgentType, int> nbrAgents)
 		{
 			foreach(var agentType in nbrAgents)
@@ -96,6 +112,9 @@ namespace EconomyProject.Scripts
 			ResetAgentSpawn();
 		}
 
+		/// <summary>
+		/// Delete the previous agents and spawn new agents
+		/// </summary>
 		public void ResetAgentSpawn()
 		{
 			//Delete previous agents
@@ -105,6 +124,14 @@ namespace EconomyProject.Scripts
 			//Generate new agents
 			adventurerSpawner.Start();
 			shopSpawner.Start();
+		}
+
+		/// <summary>
+		/// Set the list of resource requirement to craft items
+		/// </summary>
+		public void SetResourceRequirements(List<CraftingMap> listRequirements)
+		{
+			shopCraftingSystemBehaviour.system.craftingSubSubSystem.craftingRequirement = listRequirements;
 		}
 
 
@@ -130,6 +157,10 @@ namespace EconomyProject.Scripts
 			SetStartMoneyAgents(newStartMoney);
 			SetSpawnNumber(listConfigAgents.GetDefaultNbrAgents());
 
+			//CraftResourceRequirement
+			List<CraftingMap> listRequirement = listConfigCraft.GetParameters();
+			SetResourceRequirements(listRequirement);
+
 			//Hide Configuration
 			UIBlocker.SetActive(false);
 			ConfigUI.SetActive(false);
@@ -137,9 +168,7 @@ namespace EconomyProject.Scripts
 
 
 			//TODO
-			// + add imgs resources, sword, agents
 			//unit tests
-			//Resources to crafts ? List<CraftingMap> craftingRequirement; in CraftingSubSystem
 		}
 	}
 }
