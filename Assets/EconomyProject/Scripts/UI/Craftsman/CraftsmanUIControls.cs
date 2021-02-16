@@ -9,7 +9,18 @@ namespace EconomyProject.Scripts.UI.Craftsman
     {
         public GetCurrentShopAgent getCurrentAgent;
 
-        public ShopAgent shopAgent => getCurrentAgent.CurrentAgent.GetComponent<ShopAgent>();
+        public ShopAgent shopAgent
+		{
+			get
+			{
+				if(getCurrentAgent.CurrentAgent == null)
+				{
+					return null;
+				}
+				return getCurrentAgent.CurrentAgent.GetComponent<ShopAgent>();
+			}
+		}
+
 
 		public void MoveToRequest()
 		{

@@ -114,14 +114,14 @@ namespace Tests.Economy
 					shopAgentSpawned = true;
 					shopSpawner = spawner;
 					shopSpawner.numLearningAgents = 1;
-					shopSpawner.Start();
+					shopSpawner.StartSpawn();
 				}
 				if (spawner.name == "AdventurerGameSystem")
 				{
 					adventurerAgentSpawned = true;
 					adventurerSpawner = spawner;
 					adventurerSpawner.numLearningAgents = 1;
-					adventurerSpawner.Start();
+					adventurerSpawner.StartSpawn();
 
 				}
 			}

@@ -9,11 +9,14 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
     {
         public GetCurrentShopAgent getCurrentAgent;
 
-        // Start is called before the first frame update
         protected override List<CraftingResourceRequest> GetItemList()
         {
+			if(getCurrentAgent.CurrentAgent == null)
+			{
+				return new List<CraftingResourceRequest>();
+			}
+
             var inventory = getCurrentAgent.CurrentAgent.craftingInventory;
-            Debug.Log(inventory + "\t" + requestSystem);
             var items = requestSystem.GetAllCraftingRequests(inventory);
             return items;
         }

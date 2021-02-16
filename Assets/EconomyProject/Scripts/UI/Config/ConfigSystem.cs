@@ -114,8 +114,8 @@ namespace EconomyProject.Scripts
 			getCurrentShopAgent.ClearGetAgents();
 
 			//Generate new agents
-			adventurerSpawner.Start();
-			shopSpawner.Start();
+			adventurerSpawner.StartSpawn();
+			shopSpawner.StartSpawn();
 		}
 
 		/// <summary>

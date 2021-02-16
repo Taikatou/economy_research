@@ -58,12 +58,12 @@ namespace EconomyProject.Scripts.UI
 		{
 			foreach (Transform child in agentParent.transform)
 			{
-				//In Editor for the unit tests
+				//In Editor mode for the unit tests
 				if (!EditorApplication.isPlaying)
 				{
 					GameObject.DestroyImmediate(child.gameObject);
 				}
-				//In play mode
+				//In Play mode
 				else
 				{
 					GameObject.Destroy(child.gameObject);

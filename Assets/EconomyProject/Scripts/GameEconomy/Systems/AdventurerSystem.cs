@@ -32,12 +32,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 			//End all battles 
 			if(battleSystems != null)
 			{
-				Debug.Log("RESET BATTLESYSTEM");
-
 				foreach (var battle in battleSystems)
 				{
-					Debug.Log("battle : " + battle.ToString());
-					//Heal adventurers
+					//Fully Heal adventurers
 					battle.Value.PlayerFighterUnit.CurrentHp = battle.Value.PlayerFighterUnit.MaxHp;
 					//End battles
 					battle.Value.SetInput(BattleAction.Flee);

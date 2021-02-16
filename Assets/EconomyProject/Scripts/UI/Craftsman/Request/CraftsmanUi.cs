@@ -14,6 +14,10 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request
         public ShopAgent CraftsmanAgent => CraftsmanUiControls.shopAgent;
         void Update()
         {
+			if(CraftsmanAgent == null)
+			{
+				return;
+			}
             var number = requestSystem.GetRequestNumber(CraftsmanAgent.craftingInventory);
             requestText.text = number.ToString();
         }
