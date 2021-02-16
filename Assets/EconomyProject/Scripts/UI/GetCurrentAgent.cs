@@ -3,6 +3,7 @@ using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.MLAgents;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
 using Unity.MLAgents;
+using UnityEditor;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.UI
@@ -57,11 +58,16 @@ namespace EconomyProject.Scripts.UI
 		{
 			foreach (Transform child in agentParent.transform)
 			{
-#if UNITY_EDITOR
-				GameObject.DestroyImmediate(child.gameObject);
-#else
-				GameObject.Destroy(child.gameObject);
-#endif
+				//In Editor for the unit tests
+				if (!EditorApplication.isPlaying)
+				{
+					GameObject.DestroyImmediate(child.gameObject);
+				}
+				//In play mode
+				else
+				{
+					GameObject.Destroy(child.gameObject);
+				}
 			}
 		}
 	}
