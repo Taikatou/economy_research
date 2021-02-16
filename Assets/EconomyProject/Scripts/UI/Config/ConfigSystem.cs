@@ -1,9 +1,7 @@
 ﻿using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
-using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
-using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI;
 using EconomyProject.Scripts.UI.Adventurer;
 using EconomyProject.Scripts.UI.Config;
@@ -39,7 +37,7 @@ namespace EconomyProject.Scripts
 		public GameObject UIBlocker;
 		public GameObject ConfigUI;
 
-		private void Start()
+		public void Start()
 		{
 			shopCraftingSystem = shopCraftingSystemBehaviour.system;
 			agentShopSubSystem = shopCraftingSystem.shopSubSubSystem;
@@ -55,8 +53,6 @@ namespace EconomyProject.Scripts
 		{
 			//Modify the shopSystem
 			agentShopSubSystem.basePrices = listPrice;
-
-			//+To test
 		}
 
 		/// <summary>
@@ -66,8 +62,6 @@ namespace EconomyProject.Scripts
 		{
 			ItemData.SetDefaultDurabilities(newDurabilities);
 			ItemData.SetDefaultDamages(newItemDamage);
-
-			//+ test
 		}
 
 		/// <summary>
@@ -76,8 +70,6 @@ namespace EconomyProject.Scripts
 		public void SetResourceDefaultPrices(Dictionary<CraftingResources, int> newResourcePrices)
 		{
 			requestShopSystemBehaviour.system.requestSystem.defaultResourcePrices = newResourcePrices;
-
-			//+ test
 		}
 
 		/// <summary>
@@ -165,10 +157,8 @@ namespace EconomyProject.Scripts
 			UIBlocker.SetActive(false);
 			ConfigUI.SetActive(false);
 
-
-
 			//TODO
-			//unit tests
+			//Avoid spawn before the first reset
 		}
 	}
 }

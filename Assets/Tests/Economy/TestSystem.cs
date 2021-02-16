@@ -40,7 +40,10 @@ namespace Tests.Economy
 		public ShopAgent shopAgent;
 		public AgentInventory shopAgentInventory;
 		public ShopCraftingSystem shopCraftingSystem;
-		
+
+		public SystemSpawner adventurerSpawner;
+		public SystemSpawner shopSpawner;
+
 
 		public List<BattleEnvironments> listEnvironments = new List<BattleEnvironments> { BattleEnvironments.Forest, BattleEnvironments.Mountain, BattleEnvironments.Sea, BattleEnvironments.Volcano };
 		public List<CraftingResources> listCraftingResources = new List<CraftingResources> { CraftingResources.Wood, CraftingResources.Metal, CraftingResources.Gem, CraftingResources.DragonScale };
@@ -108,15 +111,18 @@ namespace Tests.Economy
 			{
 				if (spawner.name == "CraftShopSystem")
 				{
-					spawner.numLearningAgents = 1;
-					spawner.Start();
 					shopAgentSpawned = true;
+					shopSpawner = spawner;
+					shopSpawner.numLearningAgents = 1;
+					shopSpawner.Start();
 				}
 				if (spawner.name == "AdventurerGameSystem")
 				{
-					spawner.numLearningAgents = 1;
-					spawner.Start();
 					adventurerAgentSpawned = true;
+					adventurerSpawner = spawner;
+					adventurerSpawner.numLearningAgents = 1;
+					adventurerSpawner.Start();
+
 				}
 			}
 

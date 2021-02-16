@@ -57,7 +57,11 @@ namespace EconomyProject.Scripts.UI
 		{
 			foreach (Transform child in agentParent.transform)
 			{
+#if UNITY_EDITOR
+				GameObject.DestroyImmediate(child.gameObject);
+#else
 				GameObject.Destroy(child.gameObject);
+#endif
 			}
 		}
 	}
