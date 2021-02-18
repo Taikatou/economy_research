@@ -216,9 +216,6 @@ namespace Tests.Economy
 		}
 
 		/********************************************Shop*********************************************/
-
-		
-
 		/// <summary>
 		/// Return UsableItem with a CraftingChoice
 		/// </summary>
@@ -239,11 +236,9 @@ namespace Tests.Economy
 				case CraftingChoice.EpicSword:
 					nameToCheck = "Epic Sword";
 					break;
-				/*
-				case :
+				case CraftingChoice.MasterSword:
 					nameToCheck = "Master Sword";
 					break;
-				*/
 				case CraftingChoice.UltimateSwordOfPower:
 					nameToCheck = "Ultimate Sword";
 					break;

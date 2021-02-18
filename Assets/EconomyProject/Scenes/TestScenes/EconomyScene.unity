@@ -631,18 +631,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 229041809}
   m_CullTransparentMesh: 0
---- !u!114 &260240899 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2511009274453363428, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-    type: 3}
-  m_PrefabInstance: {fileID: 6529286520952596127}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &275464623
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2438,6 +2426,12 @@ PrefabInstance:
       propertyPath: system.craftingSubSubSystem.craftingRequirement.Array.data[5].choice
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
+        type: 3}
+      propertyPath: system.craftingSubSubSystem.craftingRequirement.Array.data[4].resource
+      value: 
+      objectReference: {fileID: 11400000, guid: 123cf055d354fae4fa5d70858ea03452,
+        type: 2}
     - target: {fileID: 9203867373713679003, guid: 6bf88d751f8c06d46a6ae748d77326d1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3505,7 +3499,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1156837706}
-  - {fileID: 382871188787492186}
   - {fileID: 1801403002}
   m_Father: {fileID: 1981813376}
   m_RootOrder: 5
@@ -4420,18 +4413,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1565342236 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6432518657628838485, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-    type: 3}
-  m_PrefabInstance: {fileID: 6529286520952596127}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1612661703
 GameObject:
   m_ObjectHideFlags: 0
@@ -5529,7 +5510,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1232631904}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.9133384}
@@ -5556,9 +5537,9 @@ MonoBehaviour:
   m_ChildAlignment: 1
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 0
+  m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
+  m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
@@ -6106,18 +6087,6 @@ MonoBehaviour:
   tabResources: {fileID: 375196999}
   tabAgents: {fileID: 464938044}
   tabCraft: {fileID: 1232631903}
---- !u!114 &1998343887 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5326697923735013298, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-    type: 3}
-  m_PrefabInstance: {fileID: 6529286520952596127}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2059105338
 GameObject:
   m_ObjectHideFlags: 0
@@ -6485,357 +6454,3 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2103094010}
   m_CullTransparentMesh: 0
---- !u!224 &382871188787492186 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6903055254481851333, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-    type: 3}
-  m_PrefabInstance: {fileID: 6529286520952596127}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &382871188787492189 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4575038133615806684, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-    type: 3}
-  m_PrefabInstance: {fileID: 6529286520952596127}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17ab3840a751a2c4ea6d7a234d9ee6e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1001 &6529286520952596127
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1232631904}
-    m_Modifications:
-    - target: {fileID: 724882037167483373, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 382871188787492189}
-    - target: {fileID: 724882037167483373, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: IncreaseDragonScale
-      objectReference: {fileID: 0}
-    - target: {fileID: 724882037167483373, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: EconomyProject.Scripts.UI.Config.ConfigCraft, NewAssembly
-      objectReference: {fileID: 0}
-    - target: {fileID: 724882037486302816, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 382871188787492189}
-    - target: {fileID: 724882037486302816, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: DecreaseDragonScale
-      objectReference: {fileID: 0}
-    - target: {fileID: 724882037486302816, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: EconomyProject.Scripts.UI.Config.ConfigCraft, NewAssembly
-      objectReference: {fileID: 0}
-    - target: {fileID: 1559966155474014480, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_TextComponent
-      value: 
-      objectReference: {fileID: 1565342236}
-    - target: {fileID: 1559966155474014480, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 382871188787492189}
-    - target: {fileID: 1559966155474014480, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetGemInputField
-      objectReference: {fileID: 0}
-    - target: {fileID: 1559966155474014480, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: EconomyProject.Scripts.UI.Config.ConfigCraft, NewAssembly
-      objectReference: {fileID: 0}
-    - target: {fileID: 1751887067656184750, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 382871188787492189}
-    - target: {fileID: 1751887067656184750, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: DecreaseMetal
-      objectReference: {fileID: 0}
-    - target: {fileID: 1751887067656184750, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: EconomyProject.Scripts.UI.Config.ConfigCraft, NewAssembly
-      objectReference: {fileID: 0}
-    - target: {fileID: 1781845794187918247, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 382871188787492189}
-    - target: {fileID: 1781845794187918247, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_TextComponent
-      value: 
-      objectReference: {fileID: 7414037603358433867}
-    - target: {fileID: 1781845794187918247, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetDragonScaleInputField
-      objectReference: {fileID: 0}
-    - target: {fileID: 1781845794187918247, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: EconomyProject.Scripts.UI.Config.ConfigCraft, NewAssembly
-      objectReference: {fileID: 0}
-    - target: {fileID: 2948318506278232874, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_TextComponent
-      value: 
-      objectReference: {fileID: 260240899}
-    - target: {fileID: 2948318506278232874, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 382871188787492189}
-    - target: {fileID: 2948318506278232874, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetWoodInputField
-      objectReference: {fileID: 0}
-    - target: {fileID: 2948318506278232874, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: EconomyProject.Scripts.UI.Config.ConfigCraft, NewAssembly
-      objectReference: {fileID: 0}
-    - target: {fileID: 3574976342255559740, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 382871188787492189}
-    - target: {fileID: 3574976342255559740, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: IncreaseMetal
-      objectReference: {fileID: 0}
-    - target: {fileID: 3574976342255559740, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: EconomyProject.Scripts.UI.Config.ConfigCraft, NewAssembly
-      objectReference: {fileID: 0}
-    - target: {fileID: 3965732730429631327, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_TextComponent
-      value: 
-      objectReference: {fileID: 1998343887}
-    - target: {fileID: 3965732730429631327, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 382871188787492189}
-    - target: {fileID: 3965732730429631327, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetMetalInputField
-      objectReference: {fileID: 0}
-    - target: {fileID: 3965732730429631327, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: EconomyProject.Scripts.UI.Config.ConfigCraft, NewAssembly
-      objectReference: {fileID: 0}
-    - target: {fileID: 5041944296004183911, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 382871188787492189}
-    - target: {fileID: 5041944296004183911, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: IncreaseGem
-      objectReference: {fileID: 0}
-    - target: {fileID: 5041944296004183911, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: EconomyProject.Scripts.UI.Config.ConfigCraft, NewAssembly
-      objectReference: {fileID: 0}
-    - target: {fileID: 5442647924577678173, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 382871188787492189}
-    - target: {fileID: 5442647924577678173, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: DecreaseGem
-      objectReference: {fileID: 0}
-    - target: {fileID: 5442647924577678173, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: EconomyProject.Scripts.UI.Config.ConfigCraft, NewAssembly
-      objectReference: {fileID: 0}
-    - target: {fileID: 6903055254481851332, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_Name
-      value: ConfigCraft
-      objectReference: {fileID: 0}
-    - target: {fileID: 6903055254481851332, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6903055254481851333, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6903055254481851333, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6903055254481851333, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6903055254481851333, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6903055254481851333, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6903055254481851333, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6903055254481851333, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6903055254481851333, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6903055254481851333, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6903055254481851333, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6903055254481851333, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6903055254481851333, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 400
-      objectReference: {fileID: 0}
-    - target: {fileID: 6903055254481851333, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -79.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 6903055254481851333, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 800
-      objectReference: {fileID: 0}
-    - target: {fileID: 6903055254481851333, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 79.083496
-      objectReference: {fileID: 0}
-    - target: {fileID: 6903055254481851333, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6903055254481851333, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6903055254481851333, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6903055254481851333, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6903055254481851333, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6903055254481851333, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7629059374624712749, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 382871188787492189}
-    - target: {fileID: 7629059374624712749, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: DecreaseWood
-      objectReference: {fileID: 0}
-    - target: {fileID: 7629059374624712749, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: EconomyProject.Scripts.UI.Config.ConfigCraft, NewAssembly
-      objectReference: {fileID: 0}
-    - target: {fileID: 8176012202727444658, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 382871188787492189}
-    - target: {fileID: 8176012202727444658, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: IncreaseWood
-      objectReference: {fileID: 0}
-    - target: {fileID: 8176012202727444658, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: EconomyProject.Scripts.UI.Config.ConfigCraft, NewAssembly
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c649dd3b71c5ebe42a1f51f61f76ed6c, type: 3}
---- !u!114 &7414037603358433867 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4359304755138348244, guid: c649dd3b71c5ebe42a1f51f61f76ed6c,
-    type: 3}
-  m_PrefabInstance: {fileID: 6529286520952596127}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

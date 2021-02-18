@@ -63,11 +63,6 @@ namespace EconomyProject.Scripts.UI.Config
 			}
 		}
 
-		public override void SetItem(UsableItem itemToModify, int newPrice, string category = null)
-		{
-			//Not appropriate
-		}
-
 		/// <summary>
 		/// Initialise the requirement at the beginning of the game
 		/// </summary>
@@ -121,6 +116,12 @@ namespace EconomyProject.Scripts.UI.Config
 
 			Debug.Log("Not found the item : " + nameToCheck);
 			return null;
+		}
+
+
+		public override void SetItem(UsableItem itemToModify, int newPrice, string category = null)
+		{
+			//Not appropriate: replaced by SetListRequirements
 		}
 
 		/// <summary>
