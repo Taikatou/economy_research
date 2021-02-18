@@ -1,7 +1,10 @@
 ﻿using EconomyProject.Monobehaviours;
-using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+using EconomyProject.Scripts;
+using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI;
+using Inventory;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnvironmentReset : MonoBehaviour
@@ -12,11 +15,12 @@ public class EnvironmentReset : MonoBehaviour
 	public RequestShopSystemBehaviour requestShopSystemBehaviour;
 	public RequestAdventurerSystemBehaviour requestAdventurerSystemBehaviour;
 	public AdventurerSystemBehaviour adventurerSystemBehaviour;
+	public ConfigSystem configSystem;
 
 	public GameObject UIBlocker;
 	public GameObject ConfigUI;
 
-	void Start()
+	public void Start()
 	{
 		getCurrentAdventurerAgent = GameObject.FindObjectOfType<GetCurrentAdventurerAgent>();
 		getCurrentShopAgent = GameObject.FindObjectOfType<GetCurrentShopAgent>();
@@ -77,12 +81,14 @@ public class EnvironmentReset : MonoBehaviour
 	{
 		foreach (var agent in getCurrentAdventurerAgent.GetAgents)
 		{
-			agent.ResetEconomyAgent();
+			//agent.ResetEconomyAgent();
+			agent.OnEpisodeBegin();
 		}
 
 		foreach (var agent in getCurrentShopAgent.GetAgents)
 		{
-			agent.ResetEconomyAgent();
+			//agent.ResetEconomyAgent();
+			agent.OnEpisodeBegin();
 		}
 	}
 
@@ -101,5 +107,52 @@ public class EnvironmentReset : MonoBehaviour
 		{
 			agent.SetAction(EShopAgentChoices.MainMenu);
 		}
+	}
+
+	/// <summary>
+	/// Reset Config changements
+	/// </summary>
+	public void ResetConfig()
+	{
+		//Make the default price 
+		List<BaseItemPrices> defaultPrices = new List<BaseItemPrices>();
+		foreach (BaseItemPrices itemPrice in shopCraftingSystemBehaviour.system.shopSubSubSystem.basePrices)
+		{
+			UsableItem newItem = itemPrice.item;
+			int newPrice = 0;
+			switch (itemPrice.item.ToString())
+			{
+				case "Beginner Sword":
+					newPrice = 50;
+					break;
+				case "Intermediate Sword":
+					newPrice = 70;
+					break;
+				case "Advanced Sword":
+					newPrice = 90;
+					break;
+				case "Epic Sword":
+					newPrice = 110;
+					break;
+				case "Master Sword":
+					newPrice = 140;
+					break;
+				case "Ultimate Sword":
+					newPrice = 180;
+					break;
+				default:
+					Debug.Log("Wrong name : " + itemPrice.item.ToString());
+					break;
+			}
+			defaultPrices.Add(new BaseItemPrices
+			{
+				item = newItem,
+				price = newPrice
+			});
+		}
+
+		//Reset config
+		configSystem.SetDefaultItemDetails(ItemData.GetDefaultDurabilities(), ItemData.GetDefaultDamages());
+		configSystem.SetItemsDefaultPrices(defaultPrices);
 	}
 }

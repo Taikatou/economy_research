@@ -18,15 +18,11 @@ namespace Tests.Economy
 {
 	public class ConfigSystemTests : TestSystem
 	{
-		EconomyProject.Scripts.ConfigSystem configSystem;
 
 		[SetUp]
 		public void Setup()
 		{
 			Init();
-
-			configSystem = GameObject.FindObjectOfType<EconomyProject.Scripts.ConfigSystem>();
-			configSystem.Start();
 		}
 
 		/********************************************Config*********************************************/
@@ -164,7 +160,6 @@ namespace Tests.Economy
 
 			Assert.AreEqual(adventurerSpawner.numLearningAgents, newNbrAgents[AgentType.Adventurer]);
 			Assert.AreEqual(shopSpawner.numLearningAgents, newNbrAgents[AgentType.Shop]);
-			Assert.AreNotEqual(defaultNbrAgents, newNbrAgents);
 
 			Assert.AreEqual(adventurerSpawner.numLearningAgents, getAdventurerAgent.GetAgents.Length);
 			Assert.AreEqual(shopSpawner.numLearningAgents, getShopAgent.GetAgents.Length);
@@ -213,6 +208,13 @@ namespace Tests.Economy
 
 			Assert.AreEqual(shopCraftingSystemBehaviour.system.craftingSubSubSystem.craftingRequirement, newListRequirements);
 			Assert.AreNotEqual(defaultListRequirements, newListRequirements);
+		}
+
+		/********************************************TearDown*********************************************/
+		[TearDown]
+		public new void TearDown()
+		{
+			base.TearDown();
 		}
 	}
 }

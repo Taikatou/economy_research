@@ -44,6 +44,9 @@ namespace Tests.Economy
 		public SystemSpawner adventurerSpawner;
 		public SystemSpawner shopSpawner;
 
+		public EnvironmentReset environmentReset;
+
+		public ConfigSystem configSystem;
 
 		public List<BattleEnvironments> listEnvironments = new List<BattleEnvironments> { BattleEnvironments.Forest, BattleEnvironments.Mountain, BattleEnvironments.Sea, BattleEnvironments.Volcano };
 		public List<CraftingResources> listCraftingResources = new List<CraftingResources> { CraftingResources.Wood, CraftingResources.Metal, CraftingResources.Gem, CraftingResources.DragonScale };
@@ -90,12 +93,22 @@ namespace Tests.Economy
 			shopAgent.craftingInventory.ResetInventory();
 			shopAgent.wallet.Reset();
 
+			//ShopSystem
 			shopCraftingSystemBehaviour = GameObject.FindObjectOfType<ShopCraftingSystemBehaviour>();
 			shopCraftingSystemBehaviour.Start();
 			agentShopSubSystem = shopCraftingSystemBehaviour.system.shopSubSubSystem;
 			craftingSubSystem = shopCraftingSystemBehaviour.system.craftingSubSubSystem;
+
+			//ResetSystem
+			environmentReset = GameObject.FindObjectOfType<EnvironmentReset>();
+			environmentReset.Start();
+
+			//Config
+			configSystem = GameObject.FindObjectOfType<EconomyProject.Scripts.ConfigSystem>();
+			configSystem.Start();
 		}
 
+		/********************************************Spawn*********************************************/
 
 		/// <summary>
 		/// Spawn one shop agent and one afdventurer agent
@@ -134,6 +147,13 @@ namespace Tests.Economy
 			{
 				Debug.Log("Not found the Adventurer Agent Spawner : " + systemSpawners.Length);
 			}
+		}
+
+		public void DestroyAgents()
+		{
+			//Delete previous agents
+			getAdventurerAgent.ClearGetAgents();
+			getShopAgent.ClearGetAgents();
 		}
 
 		/********************************************Battle*********************************************/
@@ -284,6 +304,18 @@ namespace Tests.Economy
 			shopAgent.craftingInventory.AddResource(CraftingResources.Metal, 20);
 			shopAgent.craftingInventory.AddResource(CraftingResources.Gem, 20);
 			shopAgent.craftingInventory.AddResource(CraftingResources.DragonScale, 20);
+		}
+
+		/********************************************TearDown*********************************************/
+
+		public void TearDown()
+		{
+			//Reset
+			environmentReset.ResetScript();
+			environmentReset.ResetConfig();
+
+			//Destroy agents
+			DestroyAgents();
 		}
 	}
 }

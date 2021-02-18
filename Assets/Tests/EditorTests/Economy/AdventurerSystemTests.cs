@@ -10,7 +10,7 @@ using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using Inventory;
 using TurnBased.Scripts;
-
+using UnityEngine;
 
 namespace Tests.Economy
 {
@@ -37,6 +37,7 @@ namespace Tests.Economy
 			if (adventurerAgent.inventory.Items.Count > 1)
 			{
 				DebugItemsInInventory(adventurerAgent);
+				Assert.True(false, "adventurerAgent.inventory.Items.Count : " + adventurerAgent.inventory.Items.Count);
 			}
 
 			Assert.AreEqual(1, adventurerAgent.inventory.Items.Count, "Unarmed by default");
@@ -57,9 +58,9 @@ namespace Tests.Economy
 			//Unarmed
 			UsableItemDetails itemDetails = adventurerAgent.inventory.Items["Unarmed"][0].itemDetails;
 			Assert.AreEqual("Unarmed", itemDetails.itemName);
-			Assert.AreEqual(0, itemDetails.baseDurability);
-			Assert.AreEqual(0, itemDetails.durability);
-			Assert.AreEqual(5, itemDetails.damage);
+			Assert.AreEqual(ItemData.baseDurabilities["Unarmed"], itemDetails.baseDurability);
+			Assert.AreEqual(itemDetails.durability, itemDetails.baseDurability);
+			Assert.AreEqual(ItemData.baseDamages["Unarmed"], itemDetails.damage);
 			Assert.AreEqual(true, itemDetails.unBreakable);
 			Assert.AreEqual(false, itemDetails.Broken);
 		}
@@ -144,7 +145,6 @@ namespace Tests.Economy
 
 				//Check if it decreased
 				Assert.AreEqual(durability - 1 , itemInInventory.itemDetails.durability);
-				
 			}
 		}
 
@@ -154,6 +154,11 @@ namespace Tests.Economy
 		[Test]
 		public void Inventory_EquipItem()
 		{
+			//Reset inventory
+			adventurerAgent.ResetEconomyAgent();
+			//Reset Item
+			adventurerAgent.adventurerInventory.EquipedItem.itemDetails.damage = ItemData.baseDamages[adventurerAgent.adventurerInventory.EquipedItem.ToString()];
+
 			List<BaseItemPrices> basePrices = agentShopSubSystem.basePrices;
 
 			for (int i = 0; i < basePrices.Count; i++)
@@ -168,7 +173,7 @@ namespace Tests.Economy
 				adventurerAgent.inventory.AddItem(itemToAdd);
 
 				//Check if contains it
-				Assert.AreEqual(itemToAdd, adventurerAgent.adventurerInventory.EquipedItem, "Equiped Item : " + adventurerAgent.adventurerInventory.EquipedItem.ToString());
+				Assert.AreEqual(itemToAdd, adventurerAgent.adventurerInventory.EquipedItem, "i : " + i + " - Equiped Item : " + adventurerAgent.adventurerInventory.EquipedItem.ToString());
 			}
 
 			//Try to check if the player equips the stronger sword
@@ -300,6 +305,13 @@ namespace Tests.Economy
 		{
 			AdventurerAgent[] adventurerAgents = getAdventurerAgent.GetAgents;
 			Assert.AreEqual(1, adventurerAgents.Length);
+		}
+
+		/********************************************TearDown*********************************************/
+		[TearDown]
+		public new void TearDown()
+		{
+			base.TearDown();
 		}
 	}
 }

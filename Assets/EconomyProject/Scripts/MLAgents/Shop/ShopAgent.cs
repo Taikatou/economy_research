@@ -111,19 +111,5 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 					break;
 			}
 		}
-
-		//TODELETE
-		public void Update()
-		{
-			if (Input.GetKeyDown(KeyCode.A))
-			{
-				craftingInventory.AddResource(CraftingResources.Wood, 5);
-				craftingInventory.AddResource(CraftingResources.Metal, 5);
-				craftingInventory.AddResource(CraftingResources.Gem, 5);
-				craftingInventory.AddResource(CraftingResources.DragonScale, 5);
-
-				Debug.Log("Cheatcode activated");
-			}
-		}
 	}
 }

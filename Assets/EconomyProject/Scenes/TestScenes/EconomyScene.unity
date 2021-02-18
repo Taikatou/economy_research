@@ -432,6 +432,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 89333146}
   m_CullTransparentMesh: 0
+--- !u!1 &165455082 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4930224492314869655, guid: 5aa5546e137b74945a31aa19b12060f0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1781114761}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &173319107
 GameObject:
   m_ObjectHideFlags: 0
@@ -1888,6 +1894,7 @@ MonoBehaviour:
   requestShopSystemBehaviour: {fileID: 1429334511}
   requestAdventurerSystemBehaviour: {fileID: 1790685403}
   adventurerSystemBehaviour: {fileID: 1781114768}
+  configSystem: {fileID: 1153069262}
   UIBlocker: {fileID: 2077745776}
   ConfigUI: {fileID: 1981813375}
 --- !u!114 &394064043
@@ -2413,7 +2420,7 @@ PrefabInstance:
     - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
         type: 3}
       propertyPath: system.craftingSubSubSystem.craftingRequirement.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
         type: 3}
@@ -2424,8 +2431,13 @@ PrefabInstance:
         type: 3}
       propertyPath: system.craftingSubSubSystem.craftingRequirement.Array.data[5].resource
       value: 
-      objectReference: {fileID: 11400000, guid: 123cf055d354fae4fa5d70858ea03452,
+      objectReference: {fileID: 11400000, guid: 129ebd3159db0a04cbd032fdc2deab77,
         type: 2}
+    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1,
+        type: 3}
+      propertyPath: system.craftingSubSubSystem.craftingRequirement.Array.data[5].choice
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 9203867373713679003, guid: 6bf88d751f8c06d46a6ae748d77326d1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2756,6 +2768,10 @@ MonoBehaviour:
   craftMenu: {fileID: 1754627096}
   adventurerMenu: {fileID: 275464625}
   craftActive: 1
+  adventurerSystemBehaviour: {fileID: 1781114768}
+  getCurrentAdventurerAgent: {fileID: 275464626}
+  BattleUI: {fileID: 165455082}
+  activeBattle: 0
 --- !u!1 &1038981650
 GameObject:
   m_ObjectHideFlags: 0

@@ -156,9 +156,6 @@ namespace EconomyProject.Scripts
 			//Hide Configuration
 			UIBlocker.SetActive(false);
 			ConfigUI.SetActive(false);
-
-			//TODO
-			//Avoid spawn before the first reset
 		}
 	}
 }

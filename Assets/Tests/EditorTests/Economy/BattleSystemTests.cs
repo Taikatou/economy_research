@@ -7,7 +7,7 @@ using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using TurnBased.Scripts;
-
+using UnityEngine;
 
 namespace Tests.Economy
 {
@@ -293,19 +293,31 @@ namespace Tests.Economy
 		[Test]
 		public void Request_MakeResourceRequest()
 		{
-			CraftingResources randomCraftingRessource = listCraftingResources[UnityEngine.Random.Range(0, listCraftingResources.Count)];
+			CraftingResources randomCraftingResource = listCraftingResources[Random.Range(0, listCraftingResources.Count)];
 
 			//Make a request
-			requestShopSystem.MakeChoice(shopAgent, randomCraftingRessource);
+			requestShopSystem.MakeChoice(shopAgent, randomCraftingResource);
 
 			//Count the requests
 			Assert.AreEqual(1, requestSystem.GetAllCraftingRequests(shopAgent.craftingInventory).Count, "A request should be created");
-			Assert.AreEqual(1, requestSystem.GetAllCraftingRequests().Count, "A request should be created");
+			Assert.AreEqual(1, requestSystem.GetAllCraftingRequests().Count, "One request should be created");
 
-			CraftingResources randomCraftingRessource2 = listCraftingResources[UnityEngine.Random.Range(0, listCraftingResources.Count)];
 
+			//Make another request with the same resource
+			requestShopSystem.MakeChoice(shopAgent, randomCraftingResource);
+
+			//Count the requests
+			Assert.AreEqual(1, requestSystem.GetAllCraftingRequests().Count, "Only one request should be created");
+
+
+			//randomCraftingResource1 != randomCraftingResource2
+			CraftingResources randomCraftingResource2 = listCraftingResources[Random.Range(0, listCraftingResources.Count)];
+			if (randomCraftingResource2 == randomCraftingResource && listCraftingResources.Count > 1)
+			{
+				randomCraftingResource2 = (CraftingResources)((int)(randomCraftingResource + 1) % listCraftingResources.Count);
+			}
 			//Make another request
-			requestShopSystem.MakeChoice(shopAgent, randomCraftingRessource2);
+			requestShopSystem.MakeChoice(shopAgent, randomCraftingResource2);
 
 			//Count the requests
 			Assert.AreEqual(2, requestSystem.GetAllCraftingRequests().Count, "2 requests should be created");
@@ -359,6 +371,13 @@ namespace Tests.Economy
 			Assert.AreEqual(adventurerAgent.wallet.startMoney + reward, adventurerAgent.wallet.Money);
 			//Resource given?
 			Assert.AreEqual(0, adventurerAgent.requestTaker.GetCurrentStock(randomCraftingRessource));
-		}	
+		}
+
+		/********************************************TearDown*********************************************/
+		[TearDown]
+		public new void TearDown()
+		{
+			base.TearDown();
+		}
 	}
 }

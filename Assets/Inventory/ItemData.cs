@@ -5,6 +5,28 @@ namespace Inventory
 {
 	public class ItemData : MonoBehaviour
 	{
+		private static Dictionary<string, int> _defaultDurabilities = new Dictionary<string, int>
+		{
+			{ "Unarmed", 0 },
+			{ "Beginner Sword", 10 },
+			{ "Intermediate Sword", 12 },
+			{ "Advanced Sword", 14 },
+			{ "Epic Sword", 20 },
+			{ "Master Sword", 22 },
+			{ "Ultimate Sword", 25 }
+		};
+
+		private static Dictionary<string, int> _defaultDamages = new Dictionary<string, int>
+		{
+			{"Unarmed", 5 },
+			{ "Beginner Sword", 7 },
+			{ "Intermediate Sword", 9 },
+			{ "Advanced Sword", 10 },
+			{ "Epic Sword", 12 },
+			{ "Master Sword", 12 },
+			{ "Ultimate Sword", 15 }
+		};
+
 		public static Dictionary<string, int> baseDurabilities = new Dictionary<string, int>
 		{
 			{ "Unarmed", 0 },
@@ -66,6 +88,16 @@ namespace Inventory
 		public static void SetDefaultDamages(Dictionary<string, int> newDamages)
 		{
 			baseDamages = newDamages;
+		}
+
+		//Useful to reset
+		public static Dictionary<string, int> GetDefaultDamages()
+		{
+			return _defaultDamages;
+		}
+		public static Dictionary<string, int> GetDefaultDurabilities()
+		{
+			return _defaultDurabilities;
 		}
 	}
 }

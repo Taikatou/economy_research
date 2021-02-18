@@ -151,11 +151,15 @@ namespace Tests.Economy
 		[Test]
 		public void Shop_PurchaseItem()
 		{
+			//To be able to buy any sword because some swords cost more than the default start money
+			adventurerAgent.wallet.EarnMoney(1000);
+
 			//ShopAgent sells a sword
 			CraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];
 			UsableItem sword = AddItemInInventory(shopAgent.agentInventory, randomSword);
 			agentShopSubSystem.SubmitToShop(shopAgent, sword);
 
+			//Adventurer buy the sword
 			agentShopSubSystem.PurchaseItem(shopAgent, sword.itemDetails, adventurerAgent.wallet, adventurerAgent.inventory);
 
 			//Check if no more sword in the ShopAgent inventory
@@ -170,7 +174,7 @@ namespace Tests.Economy
 
 			//Check wallet of the agents
 			int priceSword = GetPriceByItemName(sword.itemDetails.itemName);
-			Assert.AreEqual(adventurerAgent.wallet.startMoney - priceSword, adventurerAgent.wallet.Money, "Current adventurerAgent money should be StartMoney - PriceSword");
+			Assert.AreEqual(adventurerAgent.wallet.startMoney + 1000 - priceSword, adventurerAgent.wallet.Money, "Current adventurerAgent money should be StartMoney - PriceSword");
 			Assert.AreEqual(shopAgent.wallet.startMoney + priceSword, shopAgent.wallet.Money, "Current shopAgent money should be StartMoney + PriceSword");
 		}
 
@@ -198,6 +202,13 @@ namespace Tests.Economy
 			int randomNegativeIncrement = UnityEngine.Random.Range(-50, -1);
 			agentShopSubSystem.SetCurrentPrice(shopAgent, 0, randomNegativeIncrement);
 			Assert.AreEqual(basePrice + randomPositiveIncrement + randomNegativeIncrement, agentShopSubSystem.GetPrice(shopAgent, sword.itemDetails));
+		}
+
+		/********************************************TearDown*********************************************/
+		[TearDown]
+		public new void TearDown()
+		{
+			base.TearDown();
 		}
 	}
 }
