@@ -14,8 +14,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
     
     [Serializable]
     public class AdventurerSystem : EconomySystem<AdventurerAgent, EAdventurerScreen>
-    { 
-        public TravelSubSystem travelSubsystem;
+    {
+		public TravelSubSystem travelSubsystem;
 
         public Dictionary<AdventurerAgent, BattleSubSystem> battleSystems;
         public Dictionary<AdventurerAgent, AdventureStates> adventureStates;
@@ -26,6 +26,24 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             adventureStates = new Dictionary<AdventurerAgent, AdventureStates>();
             battleSystems = new Dictionary<AdventurerAgent, BattleSubSystem>();
         }
+
+		public void ResetAdventurerSystem()
+		{
+			//End all battles 
+			if(battleSystems != null)
+			{
+				foreach (var battle in battleSystems)
+				{
+					//Fully Heal adventurers
+					battle.Value.PlayerFighterUnit.CurrentHp = battle.Value.PlayerFighterUnit.MaxHp;
+					//End battles
+					battle.Value.SetInput(BattleAction.Flee);
+				}
+			}
+			
+			adventureStates = new Dictionary<AdventurerAgent, AdventureStates>();
+			battleSystems = new Dictionary<AdventurerAgent, BattleSubSystem>();
+		}
 
         public AdventureStates GetAdventureStates(AdventurerAgent agent)
         {
@@ -64,8 +82,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             {
                 var subSystem = GetSubSystem(agent);
                 subSystem.GetSenses().CopyTo(battleState, 1);
-            }
-            Debug.Log(string.Join(",", battleState));
+				//Debug.Log(string.Join(",", battleState));
+			}
             return battleState;
         }
 
@@ -133,7 +151,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             }
 
             var playerData = agent.GetComponent<AdventurerFighterData>().FighterData;
-            var enemyData = FighterData.Clone(enemyFighter.data);
+			var enemyData = FighterData.Clone(enemyFighter.data);
             
             var newSystem = new BattleSubSystem(playerData, enemyData, enemyFighter.fighterDropTable, OnWin);
             battleSystems.Add(agent, newSystem);

@@ -108,7 +108,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8477183437292751667}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -255,6 +255,7 @@ MonoBehaviour:
   nameLabel: {fileID: 8477183437932017809}
   stockText: {fileID: 5299409663897292686}
   price: {fileID: 8477183438864086469}
+  iconImage: {fileID: 8477183438080630178}
 --- !u!1 &8477183437932017903
 GameObject:
   m_ObjectHideFlags: 0

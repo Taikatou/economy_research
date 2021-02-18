@@ -14,6 +14,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.Buttons
         {
             nameLabel.text = ItemDetails.ResourceType.ToString();
             numberText.text = "INVENTORY: " + ItemDetails.InventoryNumber;
+			iconImage.sprite = ItemDetails.Icon;
         }
     }
 }

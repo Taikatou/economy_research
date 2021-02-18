@@ -70,13 +70,10 @@ namespace EconomyProject.Scripts.UI.ShopUI.ScrollLists
             {
                 foreach (var item in itemList)
                 {
-                    Debug.Log("AddButton");
                     var newButton = buttonObjectPool.GetObject();
                     newButton.transform.SetParent(contentPanel);
 
                     var sampleButton = newButton.GetComponent<TQ>();
-                    Debug.Log(sampleButton == null);
-                    Debug.Log(item == null);
                     sampleButton.Setup(item, this);
                 }
             }
@@ -86,7 +83,12 @@ namespace EconomyProject.Scripts.UI.ShopUI.ScrollLists
 
         private void Update()
         {
-            if (_lastUpdated != LastUpdated.LastUpdated)
+			if(LastUpdated == null || LastUpdated.LastUpdated == null)
+			{
+				return;
+			}
+
+			if (_lastUpdated != LastUpdated.LastUpdated)
             {
                 var valid = RefreshDisplay();
                 if (valid)

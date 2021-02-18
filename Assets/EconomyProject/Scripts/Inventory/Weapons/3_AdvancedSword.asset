@@ -18,3 +18,4 @@ MonoBehaviour:
     baseDurability: 14
     damage: 10
     durability: 0
+    icon: {fileID: -7296337056529428220, guid: 077eb57d7d4406940a76cc89cf6ab2c2, type: 3}

@@ -6,6 +6,7 @@ using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
 using UnityEngine;
+using System.ComponentModel;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
@@ -14,10 +15,25 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         public int maxRequests = 2;
         public CraftingRequestRecord craftingRequestRecord;
 
-        private Dictionary<CraftingInventory, Dictionary<CraftingResources, CraftingResourceRequest>> _craftingRequests;
+		public Sprite[] iconResources;
+
+		private Dictionary<CraftingInventory, Dictionary<CraftingResources, CraftingResourceRequest>> _craftingRequests;
         private Dictionary<CraftingResourceRequest, EconomyWallet> _requestWallets;
 
-        public List<CraftingResourceRequest> GetAllCraftingRequests()
+		public Dictionary<CraftingResources, int> defaultResourcePrices = new Dictionary<CraftingResources, int> {
+			{CraftingResources.Wood, 5},
+			{CraftingResources.Metal, 6},
+			{CraftingResources.Gem, 7},
+			{CraftingResources.DragonScale, 8}
+		};
+
+		public Dictionary<AgentType, int> _startMoney = new Dictionary<AgentType, int>
+		{
+			{AgentType.Adventurer, 100},
+			{AgentType.Shop, 1000},
+		};
+
+		public List<CraftingResourceRequest> GetAllCraftingRequests()
         {
             var returnList = new List<CraftingResourceRequest>();
             foreach (var entry in _craftingRequests)
@@ -68,11 +84,34 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return 0;
         }
 
+		public Sprite GetIconByResource(CraftingResources resource)
+		{
+			switch (resource)
+			{
+				case CraftingResources.Wood:
+					return iconResources[0];
+				case CraftingResources.Metal:
+					return iconResources[1];
+				case CraftingResources.Gem:
+					return iconResources[2];
+				case CraftingResources.DragonScale:
+					return iconResources[3];
+				default:
+					Debug.Log("Wrong Crafting resource : " + resource);
+					return iconResources[0];
+			}
+		}
+
         public void Start()
         {
-            _craftingRequests = new Dictionary<CraftingInventory, Dictionary<CraftingResources, CraftingResourceRequest>>();
-            _requestWallets = new Dictionary<CraftingResourceRequest, EconomyWallet>();
-            Refresh();
+			ResetRequestSystem();
+		}
+
+		public void ResetRequestSystem()
+		{
+			_craftingRequests = new Dictionary<CraftingInventory, Dictionary<CraftingResources, CraftingResourceRequest>>();
+			_requestWallets = new Dictionary<CraftingResourceRequest, EconomyWallet>();
+			Refresh();
 		}
         
         public void MakeRequest(CraftingResources resources, CraftingInventory inventory, EconomyWallet wallet)
@@ -103,7 +142,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
 				if (!containsKey)
                 {
-                    var newResource = new CraftingResourceRequest(resources, inventory);
+					Sprite icon = GetIconByResource(resources);
+                    var newResource = new CraftingResourceRequest(resources, inventory, defaultResourcePrices[resources], icon);
                     _requestWallets.Add(newResource, wallet);
                     CheckExchange(newResource);
                 }

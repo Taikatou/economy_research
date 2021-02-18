@@ -40,7 +40,13 @@ namespace Tests.Economy
 		public ShopAgent shopAgent;
 		public AgentInventory shopAgentInventory;
 		public ShopCraftingSystem shopCraftingSystem;
-		
+
+		public SystemSpawner adventurerSpawner;
+		public SystemSpawner shopSpawner;
+
+		public EnvironmentReset environmentReset;
+
+		public ConfigSystem configSystem;
 
 		public List<BattleEnvironments> listEnvironments = new List<BattleEnvironments> { BattleEnvironments.Forest, BattleEnvironments.Mountain, BattleEnvironments.Sea, BattleEnvironments.Volcano };
 		public List<CraftingResources> listCraftingResources = new List<CraftingResources> { CraftingResources.Wood, CraftingResources.Metal, CraftingResources.Gem, CraftingResources.DragonScale };
@@ -87,12 +93,22 @@ namespace Tests.Economy
 			shopAgent.craftingInventory.ResetInventory();
 			shopAgent.wallet.Reset();
 
+			//ShopSystem
 			shopCraftingSystemBehaviour = GameObject.FindObjectOfType<ShopCraftingSystemBehaviour>();
 			shopCraftingSystemBehaviour.Start();
 			agentShopSubSystem = shopCraftingSystemBehaviour.system.shopSubSubSystem;
 			craftingSubSystem = shopCraftingSystemBehaviour.system.craftingSubSubSystem;
+
+			//ResetSystem
+			environmentReset = GameObject.FindObjectOfType<EnvironmentReset>();
+			environmentReset.Start();
+
+			//Config
+			configSystem = GameObject.FindObjectOfType<EconomyProject.Scripts.ConfigSystem>();
+			configSystem.Start();
 		}
 
+		/********************************************Spawn*********************************************/
 
 		/// <summary>
 		/// Spawn one shop agent and one afdventurer agent
@@ -108,15 +124,18 @@ namespace Tests.Economy
 			{
 				if (spawner.name == "CraftShopSystem")
 				{
-					spawner.numLearningAgents = 1;
-					spawner.Start();
 					shopAgentSpawned = true;
+					shopSpawner = spawner;
+					shopSpawner.numLearningAgents = 1;
+					shopSpawner.StartSpawn();
 				}
 				if (spawner.name == "AdventurerGameSystem")
 				{
-					spawner.numLearningAgents = 1;
-					spawner.Start();
 					adventurerAgentSpawned = true;
+					adventurerSpawner = spawner;
+					adventurerSpawner.numLearningAgents = 1;
+					adventurerSpawner.StartSpawn();
+
 				}
 			}
 
@@ -128,6 +147,13 @@ namespace Tests.Economy
 			{
 				Debug.Log("Not found the Adventurer Agent Spawner : " + systemSpawners.Length);
 			}
+		}
+
+		public void DestroyAgents()
+		{
+			//Delete previous agents
+			getAdventurerAgent.ClearGetAgents();
+			getShopAgent.ClearGetAgents();
 		}
 
 		/********************************************Battle*********************************************/
@@ -213,11 +239,9 @@ namespace Tests.Economy
 				case CraftingChoice.EpicSword:
 					nameToCheck = "Epic Sword";
 					break;
-				/*
-				case :
+				case CraftingChoice.MasterSword:
 					nameToCheck = "Master Sword";
 					break;
-				*/
 				case CraftingChoice.UltimateSwordOfPower:
 					nameToCheck = "Ultimate Sword";
 					break;
@@ -278,6 +302,18 @@ namespace Tests.Economy
 			shopAgent.craftingInventory.AddResource(CraftingResources.Metal, 20);
 			shopAgent.craftingInventory.AddResource(CraftingResources.Gem, 20);
 			shopAgent.craftingInventory.AddResource(CraftingResources.DragonScale, 20);
+		}
+
+		/********************************************TearDown*********************************************/
+
+		public void TearDown()
+		{
+			//Reset
+			environmentReset.ResetScript();
+			environmentReset.ResetConfig();
+
+			//Destroy agents
+			DestroyAgents();
 		}
 	}
 }

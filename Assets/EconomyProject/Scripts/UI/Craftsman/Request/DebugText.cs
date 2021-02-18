@@ -12,6 +12,10 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request
         // Update is called once per frame
         void Update()
         {
+			if(shopAgent.CurrentAgent == null)
+			{
+				return;
+			}
             moneyText.text = shopAgent.CurrentAgent.wallet.Money.ToString(CultureInfo.CurrentCulture);
         }
     }

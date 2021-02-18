@@ -13,6 +13,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         public CraftingInventory Inventory { get; }
         public int Number { get; set; }
         public int Price { get; set; }
+		public Sprite Icon;
         public int Reward => GetReward(Price);
 
         public int GetReward(int newPrice)
@@ -20,21 +21,15 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return Number * newPrice;
         }
 
-        private static readonly Dictionary<CraftingResources, int> _defaultPrice = new Dictionary<CraftingResources, int> {
-            {CraftingResources.Wood, 5},
-            {CraftingResources.Metal, 6},
-            {CraftingResources.Gem, 7},
-            {CraftingResources.DragonScale, 8}
-        };
-
-        public CraftingResourceRequest(CraftingResources resource, CraftingInventory inventory)
+		public CraftingResourceRequest(CraftingResources resource, CraftingInventory inventory, int price, Sprite icon)
         {
             Number = 1;
             Resource = resource;
             Inventory = inventory;
-            Price = _defaultPrice[resource];
+            Price = price;
+			Icon = icon;
 
-            CreationTime = Time.time;
+			CreationTime = Time.time;
         }
 
         public void TransferResource()

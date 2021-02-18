@@ -5,7 +5,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
     public class CraftingRequestRecord : MonoBehaviour
     {
-        private readonly Dictionary<RequestTaker, List<CraftingResourceRequest>> _currentRequests;
+        private Dictionary<RequestTaker, List<CraftingResourceRequest>> _currentRequests;
 
         public List<CraftingResourceRequest> GetCurrentRequests(RequestTaker requestTaker)
         {
@@ -18,10 +18,16 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
         public CraftingRequestRecord()
         {
-            _currentRequests = new Dictionary<RequestTaker, List<CraftingResourceRequest>>();
-        }
+			ResetCraftingRequestRecord();
+		}
 
-        public void AddRequest(RequestTaker requestTaker, CraftingResourceRequest craftingResourceRequest)
+		public void ResetCraftingRequestRecord()
+		{
+			_currentRequests = new Dictionary<RequestTaker, List<CraftingResourceRequest>>();
+		}
+
+
+		public void AddRequest(RequestTaker requestTaker, CraftingResourceRequest craftingResourceRequest)
         {
             var contains = _currentRequests.ContainsKey(requestTaker);
             if (!contains)

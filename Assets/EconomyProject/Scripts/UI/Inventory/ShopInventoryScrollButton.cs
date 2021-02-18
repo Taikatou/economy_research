@@ -9,6 +9,7 @@ namespace EconomyProject.Scripts.UI.Inventory
         public Text nameLabel;
         public Text priceText;
         public Text stockText;
+		public Image image;
 
 		public GameObject increasePriceBtn;
 		public GameObject decreasePriceBtn;
@@ -19,6 +20,7 @@ namespace EconomyProject.Scripts.UI.Inventory
 			nameLabel.text = ItemDetails.Item.itemDetails.itemName;
             priceText.text = ItemDetails.Price.ToString();
             stockText.text = ItemDetails.Number.ToString();
+			image.sprite = ItemDetails.Item.itemDetails.icon;
 
 			//Can modify the price only when the item is in the shop && if the current agent is a shopAgent
 			ShopScrollView parentScrollList = this.GetComponentInParent<ShopScrollView>();

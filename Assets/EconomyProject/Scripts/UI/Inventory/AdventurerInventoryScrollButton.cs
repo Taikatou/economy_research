@@ -7,11 +7,13 @@ namespace EconomyProject.Scripts.UI.Inventory
     {
         public Text nameLabel;
         public Text stockText;
+		public Image image;
 
         protected override void SetupButton()
         {
             nameLabel.text = ItemDetails.ItemDetails.itemName;
             stockText.text = ItemDetails.Number.ToString();
+			image.sprite = ItemDetails.ItemDetails.icon;
         }
     }
 }

@@ -9,12 +9,13 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.Buttons
         public Text nameLabel;
         public Text stockText;
         public Text price;
+		public Image iconImage;
 
         protected override void SetupButton()
         {
             nameLabel.text = ItemDetails.Resource.ToString();
-            //iconImage.sprite = _item.icon;
-            stockText.text = "x" + ItemDetails.Number;
+			iconImage.sprite = ItemDetails.Icon;
+			stockText.text = "x" + ItemDetails.Number;
             price.text = ItemDetails.Price.ToString();
         }
     }

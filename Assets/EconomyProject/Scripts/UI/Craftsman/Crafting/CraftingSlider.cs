@@ -15,6 +15,10 @@ namespace EconomyProject.Scripts.UI.Craftsman.Crafting
 
         private void Update()
         {
+			if(getCurrentAgent.CurrentAgent == null)
+			{
+				return;
+			}
             Time.timeScale = 1.0f;
             slider.value = shopSystem.system.craftingSubSubSystem.Progress(getCurrentAgent.CurrentAgent);
         }

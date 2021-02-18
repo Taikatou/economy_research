@@ -1,17 +1,17 @@
 ﻿using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.Inventory;
 using Inventory;
-using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Craftsman;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 using EconomyProject.Scripts.UI.Craftsman.Request.ScrollList;
 using EconomyProject.Scripts.UI.Craftsman.Crafting;
-using EconomyProject.Scripts.UI;
+using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
+using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 
 namespace EconomyProject.Scripts.MLAgents.Shop
 {
-	public enum EShopAgentChoices { None = 0, MainMenu, RequestResource, Craft, MakeResourceRequest, CraftItem, SubmitToShop, IncreasePrice, DecreasePrice, }
+	public enum EShopAgentChoices { None = 0, MainMenu, RequestResource, Craft, MakeResourceRequest, CraftItem, SubmitToShop, IncreasePrice, DecreasePrice }
 
 	public enum EShopScreen {Main = 0, Request = 1, Craft = 2}
     public class ShopAgent : AgentScreen<EShopScreen>
@@ -22,7 +22,8 @@ namespace EconomyProject.Scripts.MLAgents.Shop
         public CraftingInventory craftingInventory;
         public AgentInventory agentInventory;
 
-        public override EShopScreen ChosenScreen
+		public override AgentType agentType { get { return AgentType.Shop; } }
+		public override EShopScreen ChosenScreen
         {
             get
             {
@@ -76,7 +77,6 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 		/// <param name="item">Mandatory if choice = SubmitToShop or choice = IncreasePrice or choice = DecreasePrice</param>
 		public void SetAction(EShopAgentChoices choice, CraftingResourceUi resourceRequest = null, CraftingInfo craftingChoice = null, UsableItem item = null)
 		{
-			Debug.Log("EShopAgentChoices : " + choice);
 			agentChoice = choice;
 			switch (choice)
 			{

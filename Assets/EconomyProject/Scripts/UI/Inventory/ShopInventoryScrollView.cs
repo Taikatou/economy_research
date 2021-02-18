@@ -14,6 +14,7 @@ namespace EconomyProject.Scripts.UI.Inventory
     }
     public struct ShopItemUi
     {
+		public ShopAgent Seller;
         public UsableItem Item;
         public int Number;
         public int Price;
@@ -23,7 +24,17 @@ namespace EconomyProject.Scripts.UI.Inventory
         public ShopCraftingSystemBehaviour shopSubSystem;
 
         public GetCurrentShopAgent shopAgent;
-        protected override ILastUpdate LastUpdated => shopAgent.CurrentAgent.agentInventory;
+        protected override ILastUpdate LastUpdated
+		{
+			get
+			{
+				if(shopAgent.CurrentAgent == null)
+				{
+					return null;
+				}
+				return shopAgent.CurrentAgent.agentInventory;
+			}
+		}
 
         protected override List<ShopItemUi> GetItemList()
         {

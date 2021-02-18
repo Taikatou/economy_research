@@ -3,25 +3,29 @@ using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.MLAgents;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
 using Unity.MLAgents;
+using UnityEditor;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.UI
 {
-    public abstract class GetCurrentAgent<TAgent> : LastUpdate where TAgent : Agent
-    {
-        public GetAgents agentParent;
-        private int Index { get; set; }
-        public TAgent[] GetAgents => agentParent.GetComponentsInChildren<TAgent>();
+	public abstract class GetCurrentAgent<TAgent> : LastUpdate where TAgent : Agent
+	{
+		public GetAgents agentParent;
+		public int Index { get; private set; }
+		public TAgent[] GetAgents => agentParent.GetComponentsInChildren<TAgent>();
 
-        public BaseAgentSpawner agentSpawner;
+		public BaseAgentSpawner agentSpawner;
 
         private DateTime _updateTime;
 
+		private int nbrAgent = 0;
+
         public void Update()
-        {
-            if (_updateTime != agentSpawner.LastUpdated)
+        {		
+            if (_updateTime != agentSpawner.LastUpdated || nbrAgent != GetAgents.Length)
             {
-                _updateTime = agentSpawner.LastUpdated;
+				nbrAgent = GetAgents.Length;
+				_updateTime = agentSpawner.LastUpdated;
                 Refresh();
             }
         }
@@ -30,7 +34,7 @@ namespace EconomyProject.Scripts.UI
         {
             get
             {
-                if (GetAgents.Length > Index)
+				if (GetAgents.Length > Index)
                 {
                     return GetAgents[Index];
                 }
@@ -46,5 +50,25 @@ namespace EconomyProject.Scripts.UI
                 Index = index;
             }
         }
-    }
+
+		/// <summary>
+		/// Delete all the agents in the agent list
+		/// </summary>
+		public void ClearGetAgents()
+		{
+			foreach (Transform child in agentParent.transform)
+			{
+				//In Editor mode for the unit tests
+				if (!EditorApplication.isPlaying)
+				{
+					GameObject.DestroyImmediate(child.gameObject);
+				}
+				//In Play mode
+				else
+				{
+					GameObject.Destroy(child.gameObject);
+				}
+			}
+		}
+	}
 }

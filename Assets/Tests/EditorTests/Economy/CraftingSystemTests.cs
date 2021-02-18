@@ -207,9 +207,13 @@ namespace Tests.Economy
 		[Test]
 		public void Craft_MakeRequest()
 		{
+			//To be sure to have the correct agent
+			shopAgent = getShopAgent.CurrentAgent;
+
 			Time.timeScale = 100;
 
 			//Give resources to craft
+			GiveResources();
 			GiveResources();
 
 			//Craft one sword of each type
@@ -217,9 +221,15 @@ namespace Tests.Economy
 			{
 				craftingSubSystem.MakeRequest(shopAgent, (int)choice);
 
+				Debug.Log("CraftingChoice : " + choice);
+				Debug.Log("craftingSubSystem null : " + (craftingSubSystem == null));
+				Debug.Log("craftingSubSystem.GetShopRequests().Count : " + craftingSubSystem.GetShopRequests().Count);
+				Debug.Log("craftingSubSystem.GetShopRequests().Contains(agent) : " + craftingSubSystem.GetShopRequests().ContainsKey(shopAgent));
+				Debug.Log("shopAgent : " + shopAgent);
+
 				CraftingRequest cr = craftingSubSystem.GetShopRequests()[shopAgent];
 				
-				int a = 10; //To avoid infinite loop
+				int a = 20; //To avoid infinite loop
 				while (a > 0 && cr.Complete == false)
 				{
 					craftingSubSystem.Update();
@@ -237,7 +247,12 @@ namespace Tests.Economy
 			Time.timeScale = 1;
 		}
 
+		/********************************************TearDown*********************************************/
+		[TearDown]
+		public new void TearDown()
+		{
+			base.TearDown();
+		}
 
-		
 	}
 }

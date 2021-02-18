@@ -21,7 +21,7 @@ namespace EconomyProject.Scripts.UI.Inventory
                     Number = item.Value.Count
                 });
             }
-            Debug.Log(itemList.Count);
+            //Debug.Log("Inventory count : " + itemList.Count);
             return itemList;
         }
         public override void SelectItem(ItemUi item, int number = 1)

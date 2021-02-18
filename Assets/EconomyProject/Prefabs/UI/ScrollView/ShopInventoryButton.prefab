@@ -756,6 +756,7 @@ MonoBehaviour:
   nameLabel: {fileID: 6180021095438415045}
   priceText: {fileID: 6180021094508181905}
   stockText: {fileID: 2649222863443108864}
+  image: {fileID: 6180021093682319862}
   increasePriceBtn: {fileID: 88620364}
   decreasePriceBtn: {fileID: 273375937}
 --- !u!1 &6180021095438415035

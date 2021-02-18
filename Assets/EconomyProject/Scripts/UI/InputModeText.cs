@@ -28,6 +28,11 @@ namespace EconomyProject.Scripts.UI
         private void Update()
         {
             CheckCache();
+
+			if(shopAgent.CurrentAgent == null || adventurerAgent.CurrentAgent == null)
+			{
+				return;
+			}
             
             if (toggleButton.craftActive)
             {
