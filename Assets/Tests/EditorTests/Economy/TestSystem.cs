@@ -216,6 +216,9 @@ namespace Tests.Economy
 		}
 
 		/********************************************Shop*********************************************/
+
+		
+
 		/// <summary>
 		/// Return UsableItem with a CraftingChoice
 		/// </summary>
