@@ -9,8 +9,17 @@ namespace EconomyProject.Scripts
     {
         public int numLearningAgents = 1;
         public GameObject learningAgentPrefab;
+		public bool mustSpawnOnStart = false;
 
-        public void StartSpawn()
+		private void Start()
+		{
+			if(mustSpawnOnStart == true)
+			{
+				StartSpawn();
+			}
+		}
+
+		public void StartSpawn()
         {
             var spawner = GetComponentInChildren<BaseAgentSpawner>();
             var adventurerPrefab = learningAgentPrefab;
