@@ -5,8 +5,6 @@ namespace EconomyProject.Scripts.UI.Token
 {
 	public class CraftmanToken : AgentToken<ShopAgent, EShopAgentChoices>
 	{
-		public Transform craftPlace;
-
 		void Update()
 		{
 			if (agent.agentChoice == previousChoice)

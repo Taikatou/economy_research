@@ -5,11 +5,6 @@ namespace EconomyProject.Scripts.UI.Token
 {
 	public class AdventurerToken : AgentToken<AdventurerAgent, EAdventurerAgentChoices>
 	{
-		public Transform arenaForest;
-		public Transform arenaMountain;
-		public Transform arenaSea;
-		public Transform arenaVolcano;
-
 		void Update()
 		{
 			//TODELETE
