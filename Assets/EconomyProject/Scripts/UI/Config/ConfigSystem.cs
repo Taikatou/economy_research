@@ -13,6 +13,7 @@ namespace EconomyProject.Scripts
 {
 	public class ConfigSystem : MonoBehaviour
 	{
+		public bool showConfig = false;
 		[Header("System GameObjects")]
 		public RequestShopSystemBehaviour requestShopSystemBehaviour;
 		public ShopCraftingSystemBehaviour shopCraftingSystemBehaviour;
@@ -42,8 +43,13 @@ namespace EconomyProject.Scripts
 			shopCraftingSystem = shopCraftingSystemBehaviour.system;
 			agentShopSubSystem = shopCraftingSystem.shopSubSubSystem;
 
-			getCurrentShopAgent = GameObject.FindObjectOfType<GetCurrentShopAgent>();
-			getCurrentAdventurerAgent = GameObject.FindObjectOfType<GetCurrentAdventurerAgent>();
+			getCurrentShopAgent = FindObjectOfType<GetCurrentShopAgent>();
+			getCurrentAdventurerAgent = FindObjectOfType<GetCurrentAdventurerAgent>();
+
+			if (!showConfig)
+			{
+				StartButton();
+			}
 		}
 
 		/// <summary>

@@ -6,7 +6,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
     public class CraftsmanRequestTaker : RequestTaker
     {
         public ShopAgent craftsMan;
-        public override List<CraftingResourceRequest> GetItemList() => new List<CraftingResourceRequest>();
+        public override IEnumerable<CraftingResourceRequest> GetItemList() => new List<CraftingResourceRequest>();
 
         public override void TakeRequest(CraftingResourceRequest request)
         {

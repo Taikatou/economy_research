@@ -224,7 +224,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             Debug.Log("Contains resource " + containsResource);
 
             var currentRequests = craftingRequestRecord.GetCurrentRequests(requestTaker);
-            var validRequests = currentRequests.Count < maxRequests;
+            var validRequests = currentRequests.Length < maxRequests;
             if (containsResource && validRequests)
             {
                 Debug.Log("Took request");

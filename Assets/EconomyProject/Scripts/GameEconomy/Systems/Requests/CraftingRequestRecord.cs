@@ -7,13 +7,19 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
     {
         private Dictionary<RequestTaker, List<CraftingResourceRequest>> _currentRequests;
 
-        public List<CraftingResourceRequest> GetCurrentRequests(RequestTaker requestTaker)
+        public CraftingResourceRequest[] GetCurrentRequests(RequestTaker requestTaker, int limit = 3)
         {
+            var toReturn = new CraftingResourceRequest [limit];
             if (_currentRequests.ContainsKey(requestTaker))
             {
-                return _currentRequests[requestTaker];
+                var requests  = _currentRequests[requestTaker];
+                for (var i = 0; i < limit || i < requests.Count; i++)
+                {
+                    toReturn[i] = requests[i];
+                }
             }
-            return new List<CraftingResourceRequest>();
+
+            return toReturn;
         }
 
         public CraftingRequestRecord()

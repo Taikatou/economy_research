@@ -17,7 +17,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             CurrentAmount += amount;
         }
 
-        public static float[] GetSenses(Dictionary<CraftingResources, TakenCraftingResourceRequest> dictionary, CraftingResources key)
+        public static float[] GetSenses(Dictionary<CraftingResources, TakenCraftingResourceRequest> dictionary, CraftingResources key, int SensorCount)
         {
             var output = new float [SensorCount];
             if (dictionary.ContainsKey(key))
@@ -31,8 +31,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         }
 
         public bool Complete => Request.Number <= CurrentAmount;
-        
-        public const int SensorCount = 4;
     }
     
     public class AdventurerRequestTaker : RequestTaker
@@ -43,7 +41,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
         private Dictionary<CraftingResources, TakenCraftingResourceRequest> _currentRequestData;
 
-        public override List<CraftingResourceRequest> GetItemList() => requestRecord.GetCurrentRequests(this);
+        //TODO THIS SHOULDN'T BE HARD LIMIT
+        public override IEnumerable<CraftingResourceRequest> GetItemList() => requestRecord.GetCurrentRequests(this);
         
         public void Start()
         {
@@ -101,17 +100,17 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return amount;
         }
 
-        public float[] GetSenses()
+        public IEnumerable<float> GetSenses(int sensorCount)
         {
             var resources = CraftingUtils.GetCraftingResources();
-            var outputSize =  resources.Count * TakenCraftingResourceRequest.SensorCount;
+            var outputSize =  resources.Count * sensorCount;
             var output = new float[outputSize];
             for (var i = 0; i < resources.Count; i++ )
             {
-                var senses = TakenCraftingResourceRequest.GetSenses(_currentRequestData, resources[i]);
+                var senses = TakenCraftingResourceRequest.GetSenses(_currentRequestData, resources[i], sensorCount);
                 for (var j = 0; j < senses.Length; j++)
                 {
-                    var index = i*TakenCraftingResourceRequest.SensorCount + j;
+                    var index = i*sensorCount + j;
                     output[index] = senses[j];
                 }
             }

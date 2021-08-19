@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using EconomyProject.Scripts.MLAgents.Craftsman;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
+    // 
     public class CraftingResourceRequest
     {
         public readonly float CreationTime;
@@ -41,28 +43,18 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             }
         }
 
-        private static float[] GetItemSenses(List<CraftingResourceRequest> request, int index)
-        {
-            var output = new float [3];
-            if (index < request.Count)
-            {
-                output[0] = (float) request[index].Resource;
-                output[1] = request[index].Price;
-                output[2] = request[index].Number;
-            }
-            return output;
-        }
-
-        public static float[] GetSenses(List<CraftingResourceRequest> craftingRequests, int number)
+        public static float[] GetSenses(IEnumerable<CraftingResourceRequest> craftingRequests, int number)
         {
             var output = new float[SensorCount];
-            for (var i = 0; i < number; i++)
+            var counter = 0;
+            foreach (var item in craftingRequests)
             {
-                var index = i * 3;
-                var sense = GetItemSenses(craftingRequests, 1);
-                for (var j = 0; j < sense.Length; j++)
+                output[counter++] = (float) item.Resource;
+                output[counter++] = item.Price;
+                output[counter++] = item.Number;
+                if (counter >= SensorCount)
                 {
-                    output[index + j] = sense[j];
+                    break;
                 }
             }
 

@@ -8,6 +8,7 @@ using EconomyProject.Scripts.UI.Craftsman.Request.ScrollList;
 using EconomyProject.Scripts.UI.Craftsman.Crafting;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+using Unity.MLAgents.Actuators;
 
 namespace EconomyProject.Scripts.MLAgents.Shop
 {
@@ -45,14 +46,15 @@ namespace EconomyProject.Scripts.MLAgents.Shop
             EndEpisode();
         }
 
-        public override void Heuristic(float[] actionsOut)
+        public override void Heuristic(in ActionBuffers actionsOut)
         {
-            actionsOut[0] = NumberKey;
+	        var actionB = actionsOut.DiscreteActions;
+	        actionB[0] = NumberKey;
         }
 
-        public override void OnActionReceived(float[] vectorAction)
+        public override void OnActionReceived(ActionBuffers actions)
         {
-            var action = Mathf.FloorToInt(vectorAction[0]);
+            var action = Mathf.FloorToInt(actions.DiscreteActions[0]);
             shopInput.SetAction(this, action);
         }
 

@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 
 using System.Collections.Generic;
+using System.Linq;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.GameEconomy.Systems;
@@ -342,8 +343,8 @@ namespace Tests.Economy
 			adventurerAgent.requestTaker.TakeRequest(requestMade);
 
 			//Check the taken quest
-			List<CraftingResourceRequest> takenQuests = adventurerAgent.requestTaker.GetItemList();
-			Assert.AreEqual(1, takenQuests.Count, "The adventurer should have one request");
+			var takenQuests = adventurerAgent.requestTaker.GetItemList();
+			Assert.AreEqual(1, takenQuests.Count(), "The adventurer should have one request");
 		}
 
 		/// <summary>

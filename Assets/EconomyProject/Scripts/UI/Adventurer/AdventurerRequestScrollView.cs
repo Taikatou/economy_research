@@ -9,13 +9,7 @@ namespace EconomyProject.Scripts.UI.Adventurer
     {
         public GetCurrentAdventurerAgent currentAdventurerAgent;
 
-        private AdventurerRequestTaker GetCurrentRequestTaker
-        {
-            get
-            {
-                return currentAdventurerAgent.CurrentAgent.requestTaker;
-            }
-        }
+        private AdventurerRequestTaker GetCurrentRequestTaker => currentAdventurerAgent.CurrentAgent.requestTaker;
 
         protected override List<AdventurerCraftingResourceRequest> GetItemList()
         {

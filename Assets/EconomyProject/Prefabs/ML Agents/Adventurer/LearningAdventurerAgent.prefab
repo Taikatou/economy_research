@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 3175469178531096349}
   - component: {fileID: 8133029727072223212}
   - component: {fileID: 342237269981398615}
+  - component: {fileID: 8440662294524558494}
   m_Layer: 0
   m_Name: LearningAdventurerAgent
   m_TagString: Untagged
@@ -107,9 +108,13 @@ MonoBehaviour:
   m_BrainParameters:
     VectorObservationSize: 40
     NumStackedVectorObservations: 1
+    m_ActionSpec:
+      m_NumContinuousActions: 0
+      BranchSizes: 06000000
     VectorActionSize: 06000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
+    hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
@@ -134,6 +139,7 @@ MonoBehaviour:
     maxStep: 10000
   hasUpgradedFromAgentParameters: 1
   MaxStep: 10000
+  agentChoice: 0
   inventory: {fileID: 1817350387931501863}
   adventurerInventory: {fileID: 4250931923004593224}
   wallet: {fileID: -4706628768726033178}
@@ -181,3 +187,17 @@ MonoBehaviour:
   startHp: 20
   sprite: {fileID: 21300000, guid: 3f3a5ea5ace79004eba15d892dcc01a3, type: 3}
   adventurerInventory: {fileID: 4250931923004593224}
+--- !u!114 &8440662294524558494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7707616417561859250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea71049e3e366be42b47b27c2b2a8d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requestLimit: 3
+  agent: {fileID: 5616954730062649782}
