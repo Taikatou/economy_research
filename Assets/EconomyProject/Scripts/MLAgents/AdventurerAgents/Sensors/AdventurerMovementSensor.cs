@@ -1,31 +1,28 @@
 using EconomyProject.Scripts.MLAgents.Sensors;
 using Unity.MLAgents.Sensors;
+using UnityEngine;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
 {
-    public class AdventurerBaseSensor : BaseEconomySensor
+    public class AdventurerMovementSensor : BaseEconomySensor
     {
         private readonly AdventurerAgent _agent;
 
-        public override string GetName() => "AdventurerSensor";
+        public override string GetName() => "MovementSystem";
         
         protected override float[] Data { get; }
 
-        public AdventurerBaseSensor(AdventurerAgent agent)
+        public AdventurerMovementSensor(AdventurerAgent agent)
         {
             _agent = agent;
             
             Data = new float [2];
             MObservationSpec = ObservationSpec.Vector(2);
         }
-
+        
         public override void Update()
         {
-            var walletMoney = _agent.wallet ? _agent.wallet.Money : 0.0f;
-            var screen = (float) _agent.ChosenScreen;
-
-            Data[0] = walletMoney;
-            Data[1] = screen;
+            _agent.adventurerInput.GetObservations(_agent);
         }
     }
 }

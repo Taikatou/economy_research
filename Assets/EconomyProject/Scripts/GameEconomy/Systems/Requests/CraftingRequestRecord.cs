@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
@@ -7,19 +8,20 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
     {
         private Dictionary<RequestTaker, List<CraftingResourceRequest>> _currentRequests;
 
-        public CraftingResourceRequest[] GetCurrentRequests(RequestTaker requestTaker, int limit = 3)
+        public CraftingResourceRequest[] GetCurrentRequests(RequestTaker requestTaker, int limit=0)
         {
-            var toReturn = new CraftingResourceRequest [limit];
+            var toReturn = new List<CraftingResourceRequest>();
+            limit = limit == 0 ? Int32.MaxValue : limit;
             if (_currentRequests.ContainsKey(requestTaker))
             {
                 var requests  = _currentRequests[requestTaker];
                 for (var i = 0; i < limit || i < requests.Count; i++)
                 {
-                    toReturn[i] = requests[i];
+                    toReturn.Add(requests[i]);
                 }
             }
 
-            return toReturn;
+            return toReturn.ToArray();
         }
 
         public CraftingRequestRecord()

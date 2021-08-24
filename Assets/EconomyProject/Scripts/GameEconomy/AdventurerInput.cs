@@ -14,8 +14,6 @@ namespace EconomyProject.Scripts.GameEconomy
 
         public AdventurerSystemBehaviour adventurerSystem;
 
-        public AdventurerRest adventurerRest;
-        
         public override EconomySystem<AdventurerAgent, EAdventurerScreen> GetEconomySystem(AdventurerAgent agent)
         {
             var screen = GetScreen(agent, EAdventurerScreen.Main);
@@ -53,9 +51,9 @@ namespace EconomyProject.Scripts.GameEconomy
             adventurerSystem.system.AgentInput = this;
         }
 
-        public float[] GetSenses(AdventurerAgent agent)
+        public float[] GetObservations(AdventurerAgent agent, int limit)
         {
-            return GetEconomySystem(agent).GetSenses(agent);
+            return GetEconomySystem(agent).GetObservations(agent, limit);
         }
     }
 }

@@ -139,7 +139,7 @@
 			return _fighterDropTable.GenerateItems();
 		}
 
-		public float[] GetSenses()
+		public float[] GetSubsystemObservations()
 		{
 			return new []
 			{
@@ -147,7 +147,5 @@
 				EnemyFighterUnit.Damage, EnemyFighterUnit.HpPercent
 			};
 		}
-
-		public const int GetSenseSize = 4;
 	}
 }

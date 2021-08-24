@@ -23,7 +23,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             return true;
         }
 
-        public override float[] GetSenses(AdventurerAgent agent)
+        public override float[] GetObservations(AdventurerAgent agent)
         {
             return new[] {0.0f};
         }

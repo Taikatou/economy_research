@@ -48,7 +48,7 @@ namespace EconomyProject.Scripts.GameEconomy
 
         public float[] GetSenses(ShopAgent agent)
         {
-            return GetEconomySystem(agent).GetSenses(agent);
+            return GetEconomySystem(agent).GetObservations(agent);
         }
     }
 }

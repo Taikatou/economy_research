@@ -22,7 +22,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return true;
         }
 
-        public override float[] GetSenses(ShopAgent agent)
+        public override float[] GetObservations(ShopAgent agent)
         {
             var outputSenses = new float[CraftingResourceRequest.SensorCount + 1];
             outputSenses[0] = (float) GetInputMode(agent);

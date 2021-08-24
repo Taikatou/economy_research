@@ -19,9 +19,10 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
         {
             _requestTaker = requestTaker;
             _requestLimit = requestLimit;
-            
-            Data = new float[3];
-            MObservationSpec = ObservationSpec.Vector(3);
+
+            var dataSize = (3 * _requestLimit * 2);
+            Data = new float[dataSize];
+            MObservationSpec = ObservationSpec.Vector(dataSize);
         }
         
         public override void Update()
@@ -39,7 +40,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
                 Data[i++] = amount;
             }
 
-            foreach (var sense in _requestTaker.GetSenses(_requestLimit))
+            foreach (var sense in _requestTaker.GetCurrentRequestData(_requestLimit))
             {
                 Data[i++] = sense;
             }

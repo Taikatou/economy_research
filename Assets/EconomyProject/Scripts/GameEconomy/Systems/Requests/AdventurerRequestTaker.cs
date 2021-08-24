@@ -100,7 +100,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return amount;
         }
 
-        public IEnumerable<float> GetSenses(int sensorCount)
+        public IEnumerable<float> GetCurrentRequestData(int sensorCount)
         {
             var resources = CraftingUtils.GetCraftingResources();
             var outputSize =  resources.Count * sensorCount;

@@ -11,12 +11,15 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
     {
         public RequestSystem requestSystem;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Request;
+
+        public override int ObservationSize =>
+            CraftingResourceRequest.SensorCount + CraftingResourceRequest.SensorCount;
+        
         public override bool CanMove(AdventurerAgent agent)
         {
             return true;
         }
-
-        public override float[] GetSenses(AdventurerAgent agent)
+        public override float[] GetObservations(AdventurerAgent agent, int limit)
         {
             var input = new float[CraftingResourceRequest.SensorCount + CraftingResourceRequest.SensorCount];
 
@@ -25,7 +28,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             senseA.CopyTo(input, 0);
             var senseB = requestSystem.GetSenses(agent);
             senseB.CopyTo(input, senseA.Length);
-            return requestSystem.GetSenses(agent);
+            return input;
         }
 
         public override InputAction[] GetInputOptions(AdventurerAgent agent)

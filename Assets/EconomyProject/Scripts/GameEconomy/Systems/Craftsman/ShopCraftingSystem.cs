@@ -67,7 +67,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             return !craftingSubSubSystem.HasRequest(agent);
         }
 
-        public override float[] GetSenses(ShopAgent agent)
+        public override float[] GetObservations(ShopAgent agent)
         {
 			var outputs = new float [1 + AgentShopSubSystem.SenseCount + CraftingSubSystem.SenseCount];
             outputs[0] = (float) GetInputMode(agent);

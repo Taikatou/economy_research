@@ -98,7 +98,7 @@ namespace EconomyProject.Scripts.GameEconomy
 
             var filePath = GetPath(fileName);
 
-            var exists = Directory.Exists(filePath);
+            var exists = Directory.Exists(GetPath());
             if (!exists)
             {
                 Directory.CreateDirectory(filePath);   

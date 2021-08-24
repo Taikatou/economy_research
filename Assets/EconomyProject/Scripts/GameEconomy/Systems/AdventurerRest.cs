@@ -11,7 +11,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return true;
         }
 
-        public override float[] GetSenses(AdventurerAgent agent)
+        public override float[] GetObservations(AdventurerAgent agent)
         {
             throw new System.NotImplementedException();
         }

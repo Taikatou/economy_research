@@ -37,19 +37,21 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
     public abstract class EconomySystem<TAgent, TScreen> where TAgent : AgentScreen<TScreen> where TScreen : Enum
     {
+        public abstract int ObservationSize { get; }
+        
         public GetAgents agents;
         public AgentInput<TAgent, TScreen> AgentInput { get; set; }
         public abstract TScreen ActionChoice { get; }
 
         public abstract bool CanMove(TAgent agent);
 
-        public abstract float [] GetSenses(TAgent agent);
+        public abstract float [] GetObservations(TAgent agent, int limit);
 
         public abstract InputAction[] GetInputOptions(TAgent agent);
 
-        private Dictionary<TAgent, DateTime> _refreshTime;
-        
-        public EconomySystem()
+        private readonly Dictionary<TAgent, DateTime> _refreshTime;
+
+        protected EconomySystem()
         {
             _refreshTime = new Dictionary<TAgent, DateTime>();
         }

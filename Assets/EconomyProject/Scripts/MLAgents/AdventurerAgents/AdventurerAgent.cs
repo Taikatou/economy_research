@@ -54,15 +54,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             adventurerInput.SetAgentAction(this, action);
         }
 
-        public override void CollectObservations(VectorSensor sensor)
-        {
-            foreach (var sense in adventurerInput.GetSenses(this))
-            {
-                sensor.AddObservation(sense);
-            }
-        }
-
-		/// <summary>
+        /// <summary>
 		/// Manage UI 
 		/// </summary>
 		/// <param name="choice">Int associate to a specific UI action</param>

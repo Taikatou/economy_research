@@ -7,6 +7,8 @@ namespace Inventory
     [Serializable]
     public struct UsableItemDetails
     {
+	    public Sprite icon;
+	    
 		public bool unBreakable;
         
         public string itemName;
@@ -19,8 +21,6 @@ namespace Inventory
         public int durability;
         
         public bool Broken => !unBreakable && durability <= 0;
-
-		public Sprite icon;
 
         public UsableItemDetails(UsableItemDetails itemDetails)
         {

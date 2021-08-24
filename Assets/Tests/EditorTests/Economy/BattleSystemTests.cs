@@ -34,7 +34,7 @@ namespace Tests.Economy
 
 			Assert.AreEqual(adventurerSystem.GetAdventureStates(adventurerAgent), AdventureStates.OutOfBattle, "AdventureStates.OutOfBattle by default");
 
-			Assert.AreEqual(adventurerSystem.GetSenses(adventurerAgent), new float[5], "[0,0,0,0,0] by default");
+			Assert.AreEqual(adventurerSystem.GetObservations(adventurerAgent), new float[5], "[0,0,0,0,0] by default");
 		}
 
 		/// <summary>

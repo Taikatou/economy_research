@@ -4,6 +4,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 {
     public interface IAdventureSense
     {
-        float [] GetSenses(AdventurerAgent agent);
+        float [] GetObservations(AdventurerAgent agent, int limit);
     }
 }
