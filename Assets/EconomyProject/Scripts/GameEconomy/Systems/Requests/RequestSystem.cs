@@ -234,17 +234,17 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             Refresh();
         }
 
-        public float[] GetObservations(AdventurerAgent agent, int limit)
+        public float[] GetObservations(AdventurerAgent agent)
         {
             var craftingRequests = GetAllCraftingRequests();
             
-            return CraftingResourceRequest.GetSenses(craftingRequests, 5);
+            return CraftingResourceRequest.GetObservations(craftingRequests);
         }
 
-        public float[] GetObservations(ShopAgent agent, int limit)
+        public float[] GetObservations(ShopAgent agent)
         {
             var craftingRequests = GetAllCraftingRequests(agent.craftingInventory);
-            return CraftingResourceRequest.GetSenses(craftingRequests, 5);
+            return CraftingResourceRequest.GetObservations(craftingRequests);
         }
 
         public void Update()
@@ -274,16 +274,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             {
                 Debug.Log(" -  -  -    Removed Requests   -  -  - ");
             }
-        }
-
-        public float[] GetObservations(AdventurerAgent agent)
-        {
-            throw new NotImplementedException();
-        }
-
-        public float[] GetObservations(ShopAgent agent)
-        {
-            throw new NotImplementedException();
         }
     }
 }

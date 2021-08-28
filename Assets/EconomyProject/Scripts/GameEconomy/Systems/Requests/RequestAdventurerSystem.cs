@@ -24,7 +24,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             var input = new float[CraftingResourceRequest.SensorCount + CraftingResourceRequest.SensorCount];
 
             var itemList = agent.requestTaker.GetItemList();
-            var senseA = CraftingResourceRequest.GetSenses(itemList, 5);
+            var senseA = CraftingResourceRequest.GetObservations(itemList);
             senseA.CopyTo(input, 0);
             var senseB = requestSystem.GetObservations(agent);
             senseB.CopyTo(input, senseA.Length);

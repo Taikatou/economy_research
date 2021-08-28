@@ -43,7 +43,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             }
         }
 
-        public static float[] GetSenses(IEnumerable<CraftingResourceRequest> craftingRequests, int number)
+        public static float[] GetObservations(IEnumerable<CraftingResourceRequest> craftingRequests)
         {
             var output = new float[SensorCount];
             var counter = 0;
