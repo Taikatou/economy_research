@@ -1,3 +1,4 @@
+using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using Unity.MLAgents.Actuators;
 
@@ -40,7 +41,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Actuators
         
         private void StartBattle(BattleEnvironments battleEnvironments)
         {
-            _agent.adventurerInput.adventurerSystem.system.StartBattle(_agent, battleEnvironments);
+            AdventurerInput.adventurerSystem.system.StartBattle(_agent, battleEnvironments);
         }
 
         public void WriteDiscreteActionMask(IDiscreteActionMask actionMask)

@@ -8,6 +8,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
     public class MainShopSystem : EconomySystem<ShopAgent, EShopScreen>
     {
         enum MainChoices { Craft = EShopScreen.Craft, Request = EShopScreen.Request }
+
+        public override int ObservationSize => 0;
         public override EShopScreen ActionChoice => EShopScreen.Main;
         
         public override bool CanMove(ShopAgent agent)
@@ -17,7 +19,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public override float[] GetObservations(ShopAgent agent)
         {
-            return new float [0] ;
+            return Array.Empty<float>() ;
         }
 
         public override InputAction[] GetInputOptions(ShopAgent agent)

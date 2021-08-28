@@ -4,6 +4,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 {
     public interface IShopSense
     {
-        float [] GetSenses(ShopAgent agent);
+        float [] GetObservations(ShopAgent agent);
     }
 }

@@ -6,7 +6,6 @@ using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
 using UnityEngine;
-using System.ComponentModel;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
@@ -27,7 +26,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 			{CraftingResources.DragonScale, 8}
 		};
 
-		public Dictionary<AgentType, int> _startMoney = new Dictionary<AgentType, int>
+		public Dictionary<AgentType, int> StartMoney => new Dictionary<AgentType, int>
 		{
 			{AgentType.Adventurer, 100},
 			{AgentType.Shop, 1000},
@@ -235,14 +234,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             Refresh();
         }
 
-        public float[] GetSenses(AdventurerAgent agent)
+        public float[] GetObservations(AdventurerAgent agent, int limit)
         {
             var craftingRequests = GetAllCraftingRequests();
             
             return CraftingResourceRequest.GetSenses(craftingRequests, 5);
         }
 
-        public float[] GetSenses(ShopAgent agent)
+        public float[] GetObservations(ShopAgent agent, int limit)
         {
             var craftingRequests = GetAllCraftingRequests(agent.craftingInventory);
             return CraftingResourceRequest.GetSenses(craftingRequests, 5);
@@ -275,6 +274,16 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             {
                 Debug.Log(" -  -  -    Removed Requests   -  -  - ");
             }
+        }
+
+        public float[] GetObservations(AdventurerAgent agent)
+        {
+            throw new NotImplementedException();
+        }
+
+        public float[] GetObservations(ShopAgent agent)
+        {
+            throw new NotImplementedException();
         }
     }
 }

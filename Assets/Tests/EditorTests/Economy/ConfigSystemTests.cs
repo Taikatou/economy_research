@@ -72,8 +72,8 @@ namespace Tests.Economy
 		[Test]
 		public void Config_SetDefaultItemDetails()
 		{
-			Dictionary<string, int> defaultDurabilities = ItemData.baseDurabilities;
-			Dictionary<string, int> defaultItemDamage = ItemData.baseDamages;
+			Dictionary<string, int> defaultDurabilities = ItemData.BaseDurabilities;
+			Dictionary<string, int> defaultItemDamage = ItemData.BaseDamages;
 
 			Assert.AreEqual(defaultDurabilities.Count, defaultItemDamage.Count, "Not the same count of items");
 
@@ -90,12 +90,12 @@ namespace Tests.Economy
 
 			configSystem.SetDefaultItemDetails(newDurabilities, newItemDamage);
 
-			Assert.AreNotEqual(defaultDurabilities, ItemData.baseDurabilities);
-			Assert.AreNotEqual(defaultItemDamage, ItemData.baseDamages);
+			Assert.AreNotEqual(defaultDurabilities, ItemData.BaseDurabilities);
+			Assert.AreNotEqual(defaultItemDamage, ItemData.BaseDamages);
 			Assert.AreNotEqual(defaultDurabilities, newDurabilities);
 			Assert.AreNotEqual(defaultItemDamage, newItemDamage);
-			Assert.AreEqual(newDurabilities, ItemData.baseDurabilities);
-			Assert.AreEqual(newItemDamage, ItemData.baseDamages);
+			Assert.AreEqual(newDurabilities, ItemData.BaseDurabilities);
+			Assert.AreEqual(newItemDamage, ItemData.BaseDamages);
 		}
 
 		/// <summary>
@@ -124,7 +124,7 @@ namespace Tests.Economy
 		[Test]
 		public void Config_SetStartMoneyAgents()
 		{
-			Dictionary<AgentType, int> defaultStartMoney = requestShopSystemBehaviour.system.requestSystem._startMoney;
+			Dictionary<AgentType, int> defaultStartMoney = requestShopSystemBehaviour.system.requestSystem.StartMoney;
 			Dictionary<AgentType, int> newStartMoney = new Dictionary<AgentType, int>();
 
 			foreach (var item in defaultStartMoney)
@@ -134,7 +134,7 @@ namespace Tests.Economy
 
 			configSystem.SetStartMoneyAgents(newStartMoney);
 
-			Assert.AreEqual(requestShopSystemBehaviour.system.requestSystem._startMoney, newStartMoney);
+			Assert.AreEqual(requestShopSystemBehaviour.system.requestSystem.StartMoney, newStartMoney);
 			Assert.AreNotEqual(defaultStartMoney, newStartMoney);
 		}
 

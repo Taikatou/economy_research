@@ -6,13 +6,24 @@ namespace EconomyProject.Scripts.GameEconomy
 {
     public class AdventurerInput : AgentInput<AdventurerAgent, EAdventurerScreen>, IAdventureSense
     {
-        public MainMenuSystemBehaviour mainMenuSystem;
+        public static MainMenuSystemBehaviour mainMenuSystem => FindObjectOfType<MainMenuSystemBehaviour>();
 
-        public AdventurerShopSystemBehaviour adventurerShopSystem;
+        public static AdventurerShopSystemBehaviour adventurerShopSystem  => FindObjectOfType<AdventurerShopSystemBehaviour>();
 
-        public RequestAdventurerSystemBehaviour requestSystem;
+        public static RequestAdventurerSystemBehaviour requestSystem  => FindObjectOfType<RequestAdventurerSystemBehaviour>();
 
-        public AdventurerSystemBehaviour adventurerSystem;
+        public static AdventurerSystemBehaviour adventurerSystem  => FindObjectOfType<AdventurerSystemBehaviour>();
+
+        public static EconomySystem<AdventurerAgent, EAdventurerScreen>[] GetSystems()
+        {
+            return new EconomySystem<AdventurerAgent, EAdventurerScreen>[]
+            {
+                mainMenuSystem.system,
+                adventurerSystem.system,
+                requestSystem.system,
+                adventurerSystem.system
+            };
+        }
 
         public override EconomySystem<AdventurerAgent, EAdventurerScreen> GetEconomySystem(AdventurerAgent agent)
         {
@@ -51,9 +62,23 @@ namespace EconomyProject.Scripts.GameEconomy
             adventurerSystem.system.AgentInput = this;
         }
 
-        public float[] GetObservations(AdventurerAgent agent, int limit)
+        public static int GetObservationLength()
         {
-            return GetEconomySystem(agent).GetObservations(agent, limit);
+            var observationMaxSize = 0;
+            foreach (var system in GetSystems())
+            {
+                if (system.ObservationSize > observationMaxSize)
+                {
+                    observationMaxSize = system.ObservationSize;
+                }
+            }
+
+            return observationMaxSize;
+        }
+
+        public float[] GetObservations(AdventurerAgent agent)
+        {
+            return GetEconomySystem(agent).GetObservations(agent);
         }
     }
 }

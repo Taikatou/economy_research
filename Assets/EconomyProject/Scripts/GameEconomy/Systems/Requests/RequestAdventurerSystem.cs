@@ -19,14 +19,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         {
             return true;
         }
-        public override float[] GetObservations(AdventurerAgent agent, int limit)
+        public override float[] GetObservations(AdventurerAgent agent)
         {
             var input = new float[CraftingResourceRequest.SensorCount + CraftingResourceRequest.SensorCount];
 
             var itemList = agent.requestTaker.GetItemList();
             var senseA = CraftingResourceRequest.GetSenses(itemList, 5);
             senseA.CopyTo(input, 0);
-            var senseB = requestSystem.GetSenses(agent);
+            var senseB = requestSystem.GetObservations(agent);
             senseB.CopyTo(input, senseA.Length);
             return input;
         }

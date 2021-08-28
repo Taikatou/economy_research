@@ -80,7 +80,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             }
         }
 
-        public float[] GetSenses(ShopAgent agent)
+        public float[] GetObservations(ShopAgent agent)
         {
             var output = new float [CraftingRequest.SenseCount];
             if (_shopRequests.ContainsKey(agent))

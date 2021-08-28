@@ -14,6 +14,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
     public class RequestShopSystem : StateEconomySystem<RequestActions, ShopAgent, EShopScreen>
     {
         public RequestSystem requestSystem;
+        public override int ObservationSize => CraftingResourceRequest.SensorCount + 1;
         public override EShopScreen ActionChoice => EShopScreen.Request;
         protected override RequestActions IsBackState => RequestActions.Quit;
         protected override RequestActions DefaultState => RequestActions.SetInput;
@@ -26,7 +27,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         {
             var outputSenses = new float[CraftingResourceRequest.SensorCount + 1];
             outputSenses[0] = (float) GetInputMode(agent);
-            var requestSense = requestSystem.GetSenses(agent);
+            var requestSense = requestSystem.GetObservations(agent);
             requestSense.CopyTo(outputSenses, 1);
             return outputSenses;
         }

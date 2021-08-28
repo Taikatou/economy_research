@@ -55,7 +55,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             }
         }
 
-        public float[] GetSenses(AdventurerAgent agent)
+        public float[] GetObservations(AdventurerAgent agent)
         {
             var shop = shopChooserSubSystem.GetCurrentShop(agent);
             var senseA = shopCraftingSystem.system.shopSubSubSystem.GetSenses(shop);
@@ -63,7 +63,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             output[0] = _currentLocation[agent];
             senseA.CopyTo(output, 1);
 
-            var senseB = shopChooserSubSystem.GetSenses(agent);
+            var senseB = shopChooserSubSystem.GetObservations(agent);
             senseB.CopyTo(output, 1 + AgentShopSubSystem.SenseCount);
 
             return output;

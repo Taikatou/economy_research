@@ -147,5 +147,7 @@
 				EnemyFighterUnit.Damage, EnemyFighterUnit.HpPercent
 			};
 		}
+
+		public static int SensorCount => 4;
 	}
 }

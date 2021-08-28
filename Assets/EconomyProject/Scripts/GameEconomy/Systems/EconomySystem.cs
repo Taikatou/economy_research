@@ -45,7 +45,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public abstract bool CanMove(TAgent agent);
 
-        public abstract float [] GetObservations(TAgent agent, int limit);
+        public abstract float [] GetObservations(TAgent agent);
 
         public abstract InputAction[] GetInputOptions(TAgent agent);
 

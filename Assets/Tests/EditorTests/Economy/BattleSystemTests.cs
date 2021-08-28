@@ -43,7 +43,7 @@ namespace Tests.Economy
 		[Test]
 		public void Battle_FighterInstantation()
 		{
-			foreach (BattleEnvironments env in listEnvironments)
+			foreach (BattleEnvironments env in ListEnvironments)
 			{
 				FighterObject newFighter = travelSubsystem.GetBattle(env);
 				Assert.IsNotNull(newFighter);
@@ -56,7 +56,7 @@ namespace Tests.Economy
 		[Test]
 		public void Battle_FighterDropResource()
 		{
-			foreach (BattleEnvironments env in listEnvironments)
+			foreach (BattleEnvironments env in ListEnvironments)
 			{
 				FighterObject newFighter = travelSubsystem.GetBattle(env);
 

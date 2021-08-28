@@ -46,7 +46,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
     [Serializable]
     public class ShopCraftingSystem : StateEconomySystem<CraftingInput, ShopAgent, EShopScreen>
     {
-        public override EShopScreen ActionChoice => EShopScreen.Craft;
+	    public override int ObservationSize => 2;
+	    public override EShopScreen ActionChoice => EShopScreen.Craft;
         protected override CraftingInput IsBackState => CraftingInput.Quit;
         protected override CraftingInput DefaultState => CraftingInput.CraftItem;
 
@@ -73,7 +74,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             outputs[0] = (float) GetInputMode(agent);
             var sensesA = shopSubSubSystem.GetSenses(agent);
             sensesA.CopyTo(outputs, 1);
-            var sensesB = craftingSubSubSystem.GetSenses(agent);
+            var sensesB = craftingSubSubSystem.GetObservations(agent);
             sensesB.CopyTo(outputs, 1 + sensesA.Length);
             return outputs;
         }

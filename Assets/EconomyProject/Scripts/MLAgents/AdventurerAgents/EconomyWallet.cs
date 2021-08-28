@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
@@ -19,19 +20,16 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 
 		private AgentType GetAgentType()
 		{
-			if (this.GetComponent<AdventurerAgent>() != null)
+			if (GetComponent<AdventurerAgent>() != null)
 			{
 				return AgentType.Adventurer;
 			}
-			else if (this.GetComponent<ShopAgent>() != null)
+			if (GetComponent<ShopAgent>() != null)
 			{
 				return AgentType.Shop;
 			}
-			else
-			{
-				Debug.LogError("No agent attached to this wallet : " + this);
-				return 0;
-			}
+
+			return AgentType.None;
 		}
 
 		public void EarnMoney(int amount)
@@ -75,8 +73,17 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 
         public void Reset()
         {
-			RequestSystem requestSystem = GameObject.FindObjectOfType<RequestSystem>();
-			startMoney = requestSystem._startMoney[GetAgentType()];
+			var requestSystem = FindObjectOfType<RequestSystem>();
+			var agentType = GetAgentType();
+			if (requestSystem == null || agentType == AgentType.None)
+			{
+				throw new Exception();
+			}
+			if (!requestSystem.StartMoney.ContainsKey(agentType))
+			{
+				throw new Exception();
+			}
+			startMoney = requestSystem.StartMoney[agentType];
 			Money = startMoney;
         }
 

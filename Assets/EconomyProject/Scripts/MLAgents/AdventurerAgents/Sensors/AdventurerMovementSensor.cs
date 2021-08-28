@@ -1,3 +1,4 @@
+using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.MLAgents.Sensors;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
@@ -16,8 +17,9 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
         {
             _agent = agent;
             
-            Data = new float [2];
-            MObservationSpec = ObservationSpec.Vector(2);
+            var l = AdventurerInput.GetObservationLength();
+            Data = new float [l];
+            MObservationSpec = ObservationSpec.Vector(l);
         }
         
         public override void Update()

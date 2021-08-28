@@ -22,8 +22,8 @@ public class EnvironmentReset : MonoBehaviour
 
 	public void Start()
 	{
-		getCurrentAdventurerAgent = GameObject.FindObjectOfType<GetCurrentAdventurerAgent>();
-		getCurrentShopAgent = GameObject.FindObjectOfType<GetCurrentShopAgent>();
+		getCurrentAdventurerAgent = FindObjectOfType<GetCurrentAdventurerAgent>();
+		getCurrentShopAgent = FindObjectOfType<GetCurrentShopAgent>();
 	}
 
 	public void ResetScript()
@@ -114,9 +114,11 @@ public class EnvironmentReset : MonoBehaviour
 	/// </summary>
 	public void ResetConfig()
 	{
+		return;
 		//Make the default price 
 		List<BaseItemPrices> defaultPrices = new List<BaseItemPrices>();
-		foreach (BaseItemPrices itemPrice in shopCraftingSystemBehaviour.system.shopSubSubSystem.basePrices)
+		var basePrices = shopCraftingSystemBehaviour.system.shopSubSubSystem.basePrices;
+		foreach (BaseItemPrices itemPrice in basePrices)
 		{
 			UsableItem newItem = itemPrice.item;
 			int newPrice = 0;

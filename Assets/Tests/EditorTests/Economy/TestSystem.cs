@@ -33,9 +33,9 @@ namespace Tests.Economy
 		public RequestShopSystem requestShopSystem;
 		public RequestSystem requestSystem;
 
-		public ShopCraftingSystemBehaviour shopCraftingSystemBehaviour;
-		public CraftingSubSystem craftingSubSystem;
-		public AgentShopSubSystem agentShopSubSystem;
+		public ShopCraftingSystemBehaviour shopCraftingSystemBehaviour => GameObject.FindObjectOfType<ShopCraftingSystemBehaviour>();
+		public CraftingSubSystem craftingSubSystem => shopCraftingSystemBehaviour.system.craftingSubSubSystem;
+		public AgentShopSubSystem agentShopSubSystem => shopCraftingSystemBehaviour.system.shopSubSubSystem;
 		public GetCurrentShopAgent getShopAgent;
 		public ShopAgent shopAgent;
 		public AgentInventory shopAgentInventory;
@@ -48,7 +48,7 @@ namespace Tests.Economy
 
 		public ConfigSystem configSystem;
 
-		public List<BattleEnvironments> listEnvironments = new List<BattleEnvironments> { BattleEnvironments.Forest, BattleEnvironments.Mountain, BattleEnvironments.Sea, BattleEnvironments.Volcano };
+		public readonly List<BattleEnvironments> ListEnvironments = new List<BattleEnvironments> { BattleEnvironments.Forest, BattleEnvironments.Mountain, BattleEnvironments.Sea, BattleEnvironments.Volcano };
 		public List<CraftingResources> listCraftingResources = new List<CraftingResources> { CraftingResources.Wood, CraftingResources.Metal, CraftingResources.Gem, CraftingResources.DragonScale };
 		public List<CraftingChoice> listCraftingChoices = new List<CraftingChoice> { CraftingChoice.BeginnerSword, CraftingChoice.IntermediateSword, CraftingChoice.AdvancedSword, CraftingChoice.EpicSword, CraftingChoice.UltimateSwordOfPower };
 
@@ -94,10 +94,7 @@ namespace Tests.Economy
 			shopAgent.wallet.Reset();
 
 			//ShopSystem
-			shopCraftingSystemBehaviour = GameObject.FindObjectOfType<ShopCraftingSystemBehaviour>();
 			shopCraftingSystemBehaviour.Start();
-			agentShopSubSystem = shopCraftingSystemBehaviour.system.shopSubSubSystem;
-			craftingSubSystem = shopCraftingSystemBehaviour.system.craftingSubSubSystem;
 
 			//ResetSystem
 			environmentReset = GameObject.FindObjectOfType<EnvironmentReset>();
@@ -250,7 +247,7 @@ namespace Tests.Economy
 					break;
 			}
 
-			List<BaseItemPrices> basePrices = agentShopSubSystem.basePrices;
+			var basePrices = agentShopSubSystem.basePrices;
 			foreach (BaseItemPrices item in basePrices)
 			{
 				if (item.item.itemDetails.itemName == nameToCheck)

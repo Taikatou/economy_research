@@ -6,8 +6,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 {
     [Serializable]
     public class MainMenuSystem : EconomySystem<AdventurerAgent, EAdventurerScreen>
-    { 
+    {
+        public override int ObservationSize => 0;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Main;
+        
         public override bool CanMove(AdventurerAgent agent)
         {
             return true;
@@ -15,7 +17,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public override float [] GetObservations(AdventurerAgent agent)
         {
-            return new float [0];
+            return Array.Empty<float>();
         }
 
         public override InputAction[] GetInputOptions(AdventurerAgent agent)

@@ -83,7 +83,7 @@ namespace EconomyProject.Scripts
 		/// </summary>
 		public void SetStartMoneyAgents(Dictionary<AgentType, int> newStartMoney)
 		{
-			requestShopSystemBehaviour.system.requestSystem._startMoney = newStartMoney;
+			// requestShopSystemBehaviour.system.requestSystem.StartMoney = newStartMoney;
 		}
 
 		/// <summary>

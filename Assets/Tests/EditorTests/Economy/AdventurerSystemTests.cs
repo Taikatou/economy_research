@@ -58,9 +58,9 @@ namespace Tests.Economy
 			//Unarmed
 			UsableItemDetails itemDetails = adventurerAgent.inventory.Items["Unarmed"][0].itemDetails;
 			Assert.AreEqual("Unarmed", itemDetails.itemName);
-			Assert.AreEqual(ItemData.baseDurabilities["Unarmed"], itemDetails.baseDurability);
+			Assert.AreEqual(ItemData.BaseDurabilities["Unarmed"], itemDetails.baseDurability);
 			Assert.AreEqual(itemDetails.durability, itemDetails.baseDurability);
-			Assert.AreEqual(ItemData.baseDamages["Unarmed"], itemDetails.damage);
+			Assert.AreEqual(ItemData.BaseDamages["Unarmed"], itemDetails.damage);
 			Assert.AreEqual(true, itemDetails.unBreakable);
 			Assert.AreEqual(false, itemDetails.Broken);
 		}
@@ -157,7 +157,7 @@ namespace Tests.Economy
 			//Reset inventory
 			adventurerAgent.ResetEconomyAgent();
 			//Reset Item
-			adventurerAgent.adventurerInventory.EquipedItem.itemDetails.damage = ItemData.baseDamages[adventurerAgent.adventurerInventory.EquipedItem.ToString()];
+			adventurerAgent.adventurerInventory.EquipedItem.itemDetails.damage = ItemData.BaseDamages[adventurerAgent.adventurerInventory.EquipedItem.ToString()];
 
 			List<BaseItemPrices> basePrices = agentShopSubSystem.basePrices;
 

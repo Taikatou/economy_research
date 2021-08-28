@@ -1,7 +1,5 @@
 ﻿using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems;
-using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
-using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.MLAgents.Shop;
 using UnityEngine;
 
@@ -46,7 +44,7 @@ namespace EconomyProject.Scripts.GameEconomy
             GetEconomySystem(agent).SetChoice(agent, action);
         }
 
-        public float[] GetSenses(ShopAgent agent)
+        public float[] GetObservations(ShopAgent agent)
         {
             return GetEconomySystem(agent).GetObservations(agent);
         }

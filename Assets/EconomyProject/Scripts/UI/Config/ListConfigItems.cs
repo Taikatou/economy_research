@@ -17,8 +17,8 @@ namespace EconomyProject.Scripts.UI.Config
 		public override void SetupItems()
 		{
 			_items = shopSubSystem.system.shopSubSubSystem.basePrices;
-			defaultDurability = ItemData.baseDurabilities;
-			defaultDamage = ItemData.baseDamages;
+			defaultDurability = ItemData.BaseDurabilities;
+			defaultDamage = ItemData.BaseDamages;
 		}
 
 

@@ -1,4 +1,5 @@
-﻿using EconomyProject.Scripts.GameEconomy.Systems;
+﻿using System;
+using EconomyProject.Scripts.GameEconomy.Systems;
 using UnityEngine;
 
 namespace EconomyProject.Monobehaviours

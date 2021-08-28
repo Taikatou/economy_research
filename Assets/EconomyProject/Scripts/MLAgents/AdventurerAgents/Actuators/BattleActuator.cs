@@ -1,3 +1,4 @@
+using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.GameEconomy.Systems;
 using Unity.MLAgents.Actuators;
 
@@ -9,7 +10,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Actuators
 
         public string Name => "BattleActuator";
         
-        private AdventurerSystem AdventurerSystem => _agent.adventurerInput.adventurerSystem.system;
+        private AdventurerSystem AdventurerSystem => AdventurerInput.adventurerSystem.system;
 
         private readonly AdventurerAgent _agent;
         

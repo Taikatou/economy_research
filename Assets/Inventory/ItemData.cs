@@ -27,7 +27,7 @@ namespace Inventory
 			{ "Ultimate Sword", 15 }
 		};
 
-		public static Dictionary<string, int> baseDurabilities = new Dictionary<string, int>
+		public static Dictionary<string, int> BaseDurabilities => new Dictionary<string, int>
 		{
 			{ "Unarmed", 0 },
 			{ "Beginner Sword", 10 },
@@ -38,7 +38,7 @@ namespace Inventory
 			{ "Ultimate Sword", 25 }
 		};
 
-		public static Dictionary<string, int> baseDamages = new Dictionary<string, int>
+		public static Dictionary<string, int> BaseDamages => new Dictionary<string, int>
 		{
 			{"Unarmed", 5 },
 			{ "Beginner Sword", 7 },
@@ -51,43 +51,43 @@ namespace Inventory
 
 		public static int GetDefaultDurability(string itemName)
 		{
-			if (!baseDurabilities.ContainsKey(itemName))
+			if (!BaseDurabilities.ContainsKey(itemName))
 			{
 				Debug.Log("Wrong ItemName : " + itemName);
 				return 0;
 			}
-			return baseDurabilities[itemName];
+			return BaseDurabilities[itemName];
 		}
 
 		public static int GetDefaultDamage(string itemName)
 		{
-			if (!baseDamages.ContainsKey(itemName))
+			if (!BaseDamages.ContainsKey(itemName))
 			{
 				Debug.Log("Wrong ItemName : " + itemName);
 				return 0;
 			}
-			return baseDamages[itemName];
+			return BaseDamages[itemName];
 		}
 
 
 		public static void SetDefaultDurability(string itemName, int newDurability)
 		{
-			baseDurabilities[itemName] = newDurability;
+			BaseDurabilities[itemName] = newDurability;
 		}
 
 		public static void SetDefaultDamage(string itemName, int newDmg)
 		{
-			baseDamages[itemName] = newDmg;
+			BaseDamages[itemName] = newDmg;
 		}
 
 		public static void SetDefaultDurabilities(Dictionary<string, int> newDurabilities)
 		{
-			baseDurabilities = newDurabilities;
+			// BaseDurabilities = newDurabilities;
 		}
 
 		public static void SetDefaultDamages(Dictionary<string, int> newDamages)
 		{
-			baseDamages = newDamages;
+			// BaseDamages = newDamages;
 		}
 
 		//Useful to reset

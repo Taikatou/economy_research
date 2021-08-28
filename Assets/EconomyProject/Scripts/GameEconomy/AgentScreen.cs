@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy
 {
-	public enum AgentType { Adventurer, Shop }
+	public enum AgentType { Adventurer, Shop, None }
 
 	public abstract class AgentScreen<TScreen> : Agent
     {

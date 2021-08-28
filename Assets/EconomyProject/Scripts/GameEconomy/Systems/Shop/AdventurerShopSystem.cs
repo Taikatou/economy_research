@@ -14,6 +14,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
         public AdventurerShopSubSystem adventurerShopSubSystem;
 
         public ShopChooserSubSystem shopChooserSubSystem;
+
+        public override int ObservationSize => 0;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Shop;
         protected override AdventureShopChoices IsBackState => AdventureShopChoices.Back;
         protected override AdventureShopChoices DefaultState => AdventureShopChoices.SetShop;
@@ -25,7 +27,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 
         public override float[] GetObservations(AdventurerAgent agent)
         {
-            return new[] {0.0f};
+            return new float[] {};
         }
 
         public override InputAction[] GetInputOptions(AdventurerAgent agent)

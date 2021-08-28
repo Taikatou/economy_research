@@ -58,13 +58,15 @@ namespace Inventory
         {
             UniqueId = Guid.NewGuid();
             itemDetails = new UsableItemDetails(item.itemDetails);
-			
+
+            var containsDamages = ItemData.BaseDamages.ContainsKey(itemDetails.itemName);
+            var containsDurabilities = ItemData.BaseDurabilities.ContainsKey(itemDetails.itemName);
 			//To use custom parameters
-			if(ItemData.baseDamages.ContainsKey(itemDetails.itemName) && ItemData.baseDurabilities.ContainsKey(itemDetails.itemName))
+			if(containsDamages && containsDurabilities)
 			{
-				itemDetails.damage = ItemData.baseDamages[itemDetails.itemName];
-				itemDetails.baseDurability = ItemData.baseDurabilities[itemDetails.itemName];
-				itemDetails.durability = ItemData.baseDurabilities[itemDetails.itemName];
+				itemDetails.damage = ItemData.BaseDamages[itemDetails.itemName];
+				itemDetails.baseDurability = ItemData.BaseDurabilities[itemDetails.itemName];
+				itemDetails.durability = ItemData.BaseDurabilities[itemDetails.itemName];
 			}
 		}
 

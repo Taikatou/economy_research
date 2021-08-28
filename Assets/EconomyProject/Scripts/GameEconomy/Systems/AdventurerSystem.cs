@@ -19,7 +19,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public Dictionary<AdventurerAgent, BattleSubSystem> battleSystems;
         public Dictionary<AdventurerAgent, AdventureStates> adventureStates;
-        public override int ObservationSize => throw new Exception();
+        public override int ObservationSize => 1 + BattleSubSystem.SensorCount;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Adventurer;
 
         public AdventurerSystem()
@@ -74,10 +74,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return GetAdventureStates(agent) != AdventureStates.InBattle;
         }
 
-        public override float[] GetObservations(AdventurerAgent agent, int limit)
+        public override float[] GetObservations(AdventurerAgent agent)
         {
-            var battleState = new float[limit];
             var state = GetAdventureStates(agent);
+            var battleState = new float[1 + BattleSubSystem.SensorCount];
             battleState[0] = (float) state;
             if(state == AdventureStates.InBattle)
             {

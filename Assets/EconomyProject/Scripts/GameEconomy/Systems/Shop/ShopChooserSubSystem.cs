@@ -13,6 +13,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
     {
         private Dictionary<AdventurerAgent, int> _currentShop;
 
+        public int SenseCount => 1;
+        
         public void Start()
         {
             _currentShop = new Dictionary<AdventurerAgent, int>();
@@ -70,11 +72,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             }
         }
 
-        public float[] GetSenses(AdventurerAgent agent)
+        public float[] GetObservations(AdventurerAgent agent)
         {
             return new float [] {_currentShop.Count};
         }
-
-        public int SenseCount => 1;
     }
 }
