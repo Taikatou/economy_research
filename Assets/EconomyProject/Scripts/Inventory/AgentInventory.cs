@@ -6,8 +6,10 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.Inventory
 {
+    public delegate bool CheckIfAdd(UsableItem usableItem);
     public class AgentInventory : LastUpdate
     {
+        public CheckIfAdd checkIfAdd;
         public List<UsableItem> startInventory;
         public Dictionary<string, List<UsableItem>> Items { get; private set; }
         
@@ -16,8 +18,16 @@ namespace EconomyProject.Scripts.Inventory
             ResetInventory();
         }
 
-        public void AddItem(UsableItem usableItem)
+        public virtual void AddItem(UsableItem usableItem)
         {
+            var ok = checkIfAdd?.Invoke(usableItem);
+            if (ok.HasValue)
+            {
+                if (! ok.Value)
+                {
+                    return;
+                }
+            }
             if (!Items.ContainsKey(usableItem.ToString()))
             {
                 Items.Add(usableItem.ToString(), new List<UsableItem>());

@@ -10,6 +10,8 @@ namespace EconomyProject.Scripts.Inventory
     [RequireComponent(typeof(AgentInventory))]
     public class AdventurerInventory : MonoBehaviour
     {
+        public AdventurerAgent agent;
+        
         public AgentInventory agentInventory;
         private Dictionary<string, List<UsableItem>> Items => agentInventory.Items;
         public UsableItem EquipedItem
@@ -21,7 +23,8 @@ namespace EconomyProject.Scripts.Inventory
                     if (Items.Count > 0)
                     {
                         var max = Items.Max(x => x.Value[0].itemDetails.damage);
-                        var maxWeapon = Items.First(x => Math.Abs(x.Value[0].itemDetails.damage - max) < 0.01);
+                        var maxWeapon =
+                            Items.First(x => Math.Abs(x.Value[0].itemDetails.damage - max) < 0.01);
                         return maxWeapon.Value[0];
                     }
                     else
@@ -35,6 +38,12 @@ namespace EconomyProject.Scripts.Inventory
                 }
                 return null;
             }
+        }
+
+        public void Start()
+        {
+            var filter = new[] { agent.adventurerType, EAdventurerTypes.All };
+            agentInventory.checkIfAdd = i => i.validAdventurer.Intersect(filter).Any();
         }
 
         public void DecreaseDurability()
