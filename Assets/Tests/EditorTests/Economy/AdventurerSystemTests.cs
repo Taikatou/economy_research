@@ -10,7 +10,6 @@ using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using Inventory;
 using TurnBased.Scripts;
-using UnityEngine;
 
 namespace Tests.Economy
 {

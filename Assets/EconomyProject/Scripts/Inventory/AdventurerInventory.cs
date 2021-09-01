@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using Inventory;
 using UnityEngine;
 
@@ -11,7 +12,6 @@ namespace EconomyProject.Scripts.Inventory
     {
         public AgentInventory agentInventory;
         private Dictionary<string, List<UsableItem>> Items => agentInventory.Items;
-
         public UsableItem EquipedItem
         {
             get

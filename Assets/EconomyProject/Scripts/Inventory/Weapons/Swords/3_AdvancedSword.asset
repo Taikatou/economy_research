@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23bec5fbd5edd9b4ab62e476059b76fd, type: 3}
-  m_Name: 1_BeginnerSword
+  m_Name: 3_AdvancedSword
   m_EditorClassIdentifier: 
+  validAdventurer: 02000000
   itemDetails:
+    icon: {fileID: -7296337056529428220, guid: 077eb57d7d4406940a76cc89cf6ab2c2, type: 3}
     unBreakable: 0
-    itemName: Beginner Sword
-    baseDurability: 10
-    damage: 7
+    itemName: Advanced Sword
+    baseDurability: 14
+    damage: 10
     durability: 0
-    icon: {fileID: -8000257237967149311, guid: 077eb57d7d4406940a76cc89cf6ab2c2, type: 3}

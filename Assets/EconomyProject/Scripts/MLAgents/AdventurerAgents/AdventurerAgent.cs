@@ -6,17 +6,19 @@ using UnityEngine;
 using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.UI.Inventory;
+using Inventory;
 using Unity.MLAgents.Actuators;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 {
-	public enum EAdventurerAgentChoices { None = 0, MainMenu, ResourceRequest, Shop, Adventure, TakeResourceRequest, PurchaseItem, AdventureForest, AdventureSea, AdventureMountain, AdventureVolcano, BattleAttack, BattleHeal, BattleFlee }
+	public enum EAdventurerAgentChoices { None=0, MainMenu, ResourceRequest, Shop, Adventure, TakeResourceRequest, PurchaseItem, AdventureForest, AdventureSea, AdventureMountain, AdventureVolcano, BattleAttack, BattleHeal, BattleFlee }
 
 	//main and shop is not used by agent
 	public enum EAdventurerScreen { Main=0, Request=1, Shop=2, Adventurer=3, Rest=4 }
     
     public class AdventurerAgent : AgentScreen<EAdventurerScreen>
     {
+	    public EAdventurerTypes adventurerType;
 		public AgentInventory inventory;
         public AdventurerInventory adventurerInventory;
         public EconomyWallet wallet;
@@ -25,6 +27,8 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 
 		public override AgentType agentType => AgentType.Adventurer;
 		public override EAdventurerScreen ChosenScreen => adventurerInput.GetScreen(this, EAdventurerScreen.Main);
+		
+		
 
         public override void OnEpisodeBegin()
         {

@@ -4,19 +4,17 @@ using UnityEngine;
 
 namespace Inventory
 {
+	public enum EAdventurerTypes { All, Brawler, Swordsman, Archer }
+
     [Serializable]
     public struct UsableItemDetails
     {
 	    public Sprite icon;
-	    
-		public bool unBreakable;
-        
-        public string itemName;
-        
+	    public bool unBreakable;
+		public string itemName;
         public int baseDurability;
-        
         public int damage;
-        
+
         [HideInInspector]
         public int durability;
         
@@ -30,8 +28,8 @@ namespace Inventory
             damage = itemDetails.damage;
             durability = itemDetails.baseDurability;
 			icon = itemDetails.icon;
-		}
-        
+        }
+
         public void DecreaseDurability()
         {
             if(!unBreakable)
@@ -50,9 +48,9 @@ namespace Inventory
     [CreateAssetMenu]
     public class UsableItem : ScriptableObject
     {
+	    public List<EAdventurerTypes> validAdventurer = new List<EAdventurerTypes> { EAdventurerTypes.All };
 		public UsableItemDetails itemDetails;
-
-        public Guid UniqueId { get; private set; }
+		public Guid UniqueId { get; private set; }
 
         public void Init(UsableItem item)
         {
