@@ -19,7 +19,8 @@ namespace EconomyProject.Scripts.UI.Craftsman.Crafting
         protected override List<CraftingInfo> GetItemList()
         {
             var itemList = new List<CraftingInfo>();
-            foreach (var item in shopCraftingSystem.system.craftingSubSubSystem.craftingRequirement)
+            var shopItems = shopCraftingSystem.system.craftingSubSubSystem.craftingRequirement;
+            foreach (var item in shopItems)
             {
                 var craftInfo = new CraftingInfo(item, Agent.craftingInventory);
                 itemList.Add(craftInfo);
@@ -28,7 +29,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Crafting
         }
         public override void SelectItem(CraftingInfo item, int number = 1)
         {
-			Agent.SetAction(EShopAgentChoices.CraftItem, null, item);
+			Agent.SetAction(EShopAgentChoices.CraftItem, null, item.craftingMap.choice);
 
             LastUpdated.Refresh();
         }

@@ -107,7 +107,10 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 					}
 					break;
 				case EShopAgentChoices.SubmitToShop:
-					shopInput.shopCraftingSystem.system.shopSubSubSystem.SubmitToShop(this, item);
+					if (item)
+					{
+						shopInput.shopCraftingSystem.system.shopSubSubSystem.SubmitToShop(this, item);	
+					}
 					break;
 				case EShopAgentChoices.IncreasePrice:
 					shopInput.shopCraftingSystem.system.SetPrice(this, item, 1);
