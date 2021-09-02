@@ -172,7 +172,7 @@ namespace Tests.Economy
 
 			//Make the craft
 			CraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];
-			craftingSubSystem.MakeRequest(shopAgent, (int)randomSword);
+			craftingSubSystem.MakeRequest(shopAgent, randomSword);
 
 			//Check the craft
 			Assert.True(craftingSubSystem.HasRequest(shopAgent));
@@ -188,7 +188,7 @@ namespace Tests.Economy
 			GiveResources();
 
 			CraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];
-			craftingSubSystem.MakeRequest(shopAgent, (int)randomSword);
+			craftingSubSystem.MakeRequest(shopAgent, randomSword);
 
 			Dictionary<ShopAgent, CraftingRequest> shopRequest = craftingSubSystem.GetShopRequests();
 			CraftingRequest craftingRequest = shopRequest[shopAgent];
@@ -219,7 +219,7 @@ namespace Tests.Economy
 			//Craft one sword of each type
 			foreach (CraftingChoice choice in listCraftingChoices)
 			{
-				craftingSubSystem.MakeRequest(shopAgent, (int)choice);
+				craftingSubSystem.MakeRequest(shopAgent, choice);
 
 				Debug.Log("CraftingChoice : " + choice);
 				Debug.Log("craftingSubSystem null : " + (craftingSubSystem == null));

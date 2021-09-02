@@ -27,10 +27,8 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 
 		public override AgentType agentType => AgentType.Adventurer;
 		public override EAdventurerScreen ChosenScreen => adventurerInput.GetScreen(this, EAdventurerScreen.Main);
-		
-		
 
-        public override void OnEpisodeBegin()
+		public override void OnEpisodeBegin()
         {
 			var reset = GetComponentInParent<ResetScript>();
 			if (reset != null)
@@ -63,7 +61,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 		/// <param name="choice">Int associate to a specific UI action</param>
 		/// <param name="resourceRequestToTake">Mandatory if choice = TakeResourceRequest</param>
 		/// <param name="itemToBuy">Mandatory if choice = PurchaseItem</param>
-		public void SetAction(EAdventurerAgentChoices choice, CraftingResourceRequest resourceRequestToTake = null, ShopItemUi? itemToBuy = null)
+		public void SetAction(EAdventurerAgentChoices choice, CraftingResourceRequest resourceRequestToTake = null, ShopItem? itemToBuy = null)
 		{
 			switch (choice)
 			{
@@ -106,11 +104,17 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 					AdventurerInput.adventurerSystem.system.OnFleeButton(this);
 					break;
 				case EAdventurerAgentChoices.PurchaseItem:
-					var shopCraftingSystem = FindObjectOfType<ShopCraftingSystemBehaviour>().system.shopSubSubSystem;
-					if (itemToBuy != null && shopCraftingSystem != null)
+					var shopCrafting = FindObjectOfType<ShopCraftingSystemBehaviour>();
+					if (shopCrafting)
 					{
-						shopCraftingSystem.PurchaseItem(itemToBuy.Value.Seller, itemToBuy.Value.Item.itemDetails,
-							wallet, adventurerInventory.agentInventory);	
+						var shopCraftingSystem = shopCrafting.system.shopSubSubSystem;
+						if (itemToBuy != null && shopCraftingSystem != null)
+						{
+							shopCraftingSystem.PurchaseItem(itemToBuy.Value.Seller,
+															itemToBuy.Value.Item.itemDetails,
+															wallet, 
+															adventurerInventory.agentInventory);	
+						}	
 					}
 					break;
 				default:

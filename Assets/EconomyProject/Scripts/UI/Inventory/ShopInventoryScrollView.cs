@@ -12,14 +12,14 @@ namespace EconomyProject.Scripts.UI.Inventory
         public UsableItemDetails ItemDetails;
         public int Number;
     }
-    public struct ShopItemUi
+    public struct ShopItem
     {
 		public ShopAgent Seller;
         public UsableItem Item;
         public int Number;
         public int Price;
     }
-    public class ShopInventoryScrollView : AbstractScrollList<ShopItemUi, ShopInventoryScrollButton>
+    public class ShopInventoryScrollView : AbstractScrollList<ShopItem, ShopInventoryScrollButton>
     {
         public ShopCraftingSystemBehaviour shopSubSystem;
 
@@ -36,18 +36,18 @@ namespace EconomyProject.Scripts.UI.Inventory
 			}
 		}
 
-        protected override List<ShopItemUi> GetItemList()
+        protected override List<ShopItem> GetItemList()
         {
-            var itemList = new List<ShopItemUi>();
+            var itemList = new List<ShopItem>();
             foreach (var item in shopAgent.CurrentAgent.agentInventory.Items)
             {
                 var price = shopSubSystem.system.shopSubSubSystem.GetPrice(shopAgent.CurrentAgent, item.Value[0].itemDetails);
-                itemList.Add(new ShopItemUi { Item=item.Value[0], Number=item.Value.Count, Price=price});
+                itemList.Add(new ShopItem { Item=item.Value[0], Number=item.Value.Count, Price=price});
             }
             return itemList;
         }
 
-        public override void SelectItem(ShopItemUi shopItem, int number = 1)
+        public override void SelectItem(ShopItem shopItem, int number = 1)
         {
 			shopAgent.CurrentAgent.SetAction(EShopAgentChoices.SubmitToShop, null, null, shopItem.Item);
 		}

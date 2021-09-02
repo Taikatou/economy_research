@@ -53,7 +53,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
 
         public override void SelectItem(CraftingResourceUi item, int number = 1)
         {
-			CraftsmanAgent.SetAction(EShopAgentChoices.MakeResourceRequest, item);
+			CraftsmanAgent.SetAction(EShopAgentChoices.MakeResourceRequest, item.ResourceType);
 		}
 	}
 }

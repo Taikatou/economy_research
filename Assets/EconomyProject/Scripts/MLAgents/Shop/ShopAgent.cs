@@ -1,4 +1,5 @@
 ﻿using EconomyProject.Scripts.GameEconomy;
+using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.Inventory;
 using Inventory;
 using EconomyProject.Scripts.MLAgents.Craftsman;
@@ -77,7 +78,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 		/// <param name="resourceRequest">Mandatory if choice = MakeResourceRequest</param>
 		/// <param name="craftingChoice">Mandatory if choice = CraftItem</param>
 		/// <param name="item">Mandatory if choice = SubmitToShop or choice = IncreasePrice or choice = DecreasePrice</param>
-		public void SetAction(EShopAgentChoices choice, CraftingResourceUi resourceRequest = null, CraftingInfo craftingChoice = null, UsableItem item = null)
+		public void SetAction(EShopAgentChoices choice, CraftingResources? resourceRequest = null, CraftingChoice? craftingChoice = null, UsableItem item = null)
 		{
 			agentChoice = choice;
 			switch (choice)
@@ -94,10 +95,16 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 					shopInput.ChangeScreen(this, EShopScreen.Craft);
 					break;
 				case EShopAgentChoices.MakeResourceRequest:
-					shopInput.requestSystem.system.MakeChoice(this, resourceRequest.ResourceType);
+					if (resourceRequest.HasValue)
+					{
+						shopInput.requestSystem.system.MakeChoice(this, resourceRequest.Value);
+					}
 					break;
 				case EShopAgentChoices.CraftItem:
-					shopInput.shopCraftingSystem.system.craftingSubSubSystem.MakeRequest(this, (int)craftingChoice.craftingMap.choice);
+					if (craftingChoice.HasValue)
+					{
+						shopInput.shopCraftingSystem.system.craftingSubSubSystem.MakeRequest(this, craftingChoice.Value);
+					}
 					break;
 				case EShopAgentChoices.SubmitToShop:
 					shopInput.shopCraftingSystem.system.shopSubSubSystem.SubmitToShop(this, item);

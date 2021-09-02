@@ -9,7 +9,7 @@ using EconomyProject.Scripts.GameEconomy;
 
 namespace EconomyProject.Scripts.UI.Inventory
 {
-    public class AdventurerShopScrollView : AbstractScrollList<ShopItemUi, ShopInventoryScrollButton>
+    public class AdventurerShopScrollView : AbstractScrollList<ShopItem, ShopInventoryScrollButton>
     {
         public ShopCraftingSystemBehaviour shopSubSystem;
         public GetCurrentAdventurerAgent currentAdventurerAgent;
@@ -17,15 +17,15 @@ namespace EconomyProject.Scripts.UI.Inventory
 		public ShopChooserSubSystem shopChooserSubSystem;
         protected override ILastUpdate LastUpdated => shopSubSystem.system.shopSubSubSystem;
 
-        protected override List<ShopItemUi> GetItemList()
+        protected override List<ShopItem> GetItemList()
         {
-			var toReturn = new List<ShopItemUi>();
+			var toReturn = new List<ShopItem>();
 			foreach(ShopAgent shopAgent in currentShopAgent.GetAgents)
 			{
 				var items = shopSubSystem.system.shopSubSubSystem.GetShopItems(shopAgent);
 				foreach (var item in items)
 				{
-					toReturn.Add(new ShopItemUi
+					toReturn.Add(new ShopItem
 					{
 						Seller = shopAgent,
 						Item = item,
@@ -38,7 +38,7 @@ namespace EconomyProject.Scripts.UI.Inventory
             return toReturn;
         }
 
-        public override void SelectItem(ShopItemUi item, int number = 1)
+        public override void SelectItem(ShopItem item, int number = 1)
         {
 			currentAdventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.PurchaseItem, null, item);
 		}

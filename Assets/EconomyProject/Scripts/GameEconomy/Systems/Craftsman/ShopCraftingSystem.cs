@@ -97,7 +97,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 			switch (GetInputMode(shopAgent))
             {
                 case CraftingInput.CraftItem:
-                    craftingSubSubSystem.MakeRequest(shopAgent, input);
+	                var craftingResource = (CraftingChoice) input;
+                    craftingSubSubSystem.MakeRequest(shopAgent, craftingResource);
                     break;
                 case CraftingInput.IncreasePrice:
 					shopSubSubSystem.SetCurrentPrice(shopAgent, input, 1);

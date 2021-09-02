@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace EconomyProject.Scripts.UI.ShopUI.Buttons
 {
-    public class ShopButton : SampleButton<ShopItemUi>
+    public class ShopButton : SampleButton<ShopItem>
     {
         public Text priceText;
         public Text stockText;

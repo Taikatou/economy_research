@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.UI.Inventory
 {
-    public class ShopInventoryScrollButton : SampleButton<ShopItemUi>
+    public class ShopInventoryScrollButton : SampleButton<ShopItem>
 	{
         public Text nameLabel;
         public Text priceText;

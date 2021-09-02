@@ -64,9 +64,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             }
         }
 
-        public void MakeRequest(ShopAgent shopAgent, int input)
+        public void MakeRequest(ShopAgent shopAgent, CraftingChoice input)
         {
-            var foundChoice = craftingRequirement.Single(c => c.choice == (CraftingChoice)input);
+            var foundChoice = craftingRequirement.Single(c => c.choice == input);
             if (foundChoice.resource && !HasRequest(shopAgent))
             {
                 var craftingInventory = shopAgent.GetComponent<CraftingInventory>();

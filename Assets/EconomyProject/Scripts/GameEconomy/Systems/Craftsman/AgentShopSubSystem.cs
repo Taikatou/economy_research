@@ -42,19 +42,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             return _shopSystems[shopAgent];
         }
 
-		public void SetShop(ShopAgent shopAgent, List<BaseItemPrices> basePrices)
-		{
-			if (!_shopSystems.ContainsKey(shopAgent))
-			{
-				_shopSystems.Add(shopAgent, new AgentData(basePrices));
-			}
-			else
-			{
-				_shopSystems[shopAgent] = new AgentData(basePrices);
-			}
-		}
-
-		private List<UsableItem> GetItems(ShopAgent shopAgent)
+        private List<UsableItem> GetItems(ShopAgent shopAgent)
         {
             var itemList = new List<UsableItem>();
             foreach (var item in shopAgent.agentInventory.Items)

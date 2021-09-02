@@ -16,17 +16,11 @@ namespace EconomyProject.Scripts.UI.Adventurer
     public class AdventurerMenuManager : BaseMenuManager<EAdventurerScreen>
     {
         public List<MenuGameObject> menuGameObjects;
-
         public GetCurrentAdventurerAgent getCurrentAgent;
-
         public UiAccessor uiAccessor;
 
-        private AdventurerAgent AdventurerAgent => getCurrentAgent.CurrentAgent.GetComponent<AdventurerAgent>();
-
-        private AdventurerInput AdventurerInput => uiAccessor.AdventurerInput;
-
         private Dictionary<EAdventurerScreen, OpenedMenu> _openedMenus;
-
+        private AdventurerAgent AdventurerAgent => getCurrentAgent.CurrentAgent.GetComponent<AdventurerAgent>();
         protected override Dictionary<EAdventurerScreen, OpenedMenu> OpenedMenus => _openedMenus;
 
         private void Start()
@@ -53,7 +47,7 @@ namespace EconomyProject.Scripts.UI.Adventurer
 
         private void Update()
         {
-            var playerInput = AdventurerInput;
+            var playerInput = uiAccessor.AdventurerInput;
             if (getCurrentAgent.CurrentAgent != null && playerInput != null)
             {
                 var screen = playerInput.GetScreen(AdventurerAgent, EAdventurerScreen.Main);
