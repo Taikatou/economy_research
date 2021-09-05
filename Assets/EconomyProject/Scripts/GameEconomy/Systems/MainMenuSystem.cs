@@ -38,5 +38,19 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         {
             RequestDecisions();
         }
+
+        public override EnabledInput[] GetEnabledInputs()
+        {
+            var inputChoices = new[]
+            {
+                EAdventurerAgentChoices.Shop,
+                EAdventurerAgentChoices.Shop,
+                EAdventurerAgentChoices.ResourceRequest,
+                EAdventurerAgentChoices.Adventure
+            };
+            var outputs = AdventurerEconomySystemUtils.GetInputOfType(inputChoices);
+
+            return outputs;
+        }
     }
 }

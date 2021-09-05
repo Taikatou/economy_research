@@ -48,6 +48,15 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 	        var actionB = actionsOut.DiscreteActions;
 	        actionB[0] = NumberKey;
         }
+        
+        public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
+        {
+	        var inputMask = adventurerInput.GetActionMask(this);
+	        foreach (var input in inputMask)
+	        {
+		        actionMask.SetActionEnabled(0, input.Input, input.Enabled);   
+	        }
+        }
 
         public override void OnActionReceived(ActionBuffers actions)
         {
@@ -83,25 +92,25 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 					adventurerInput.ChangeScreen(this, EAdventurerScreen.Adventurer);
 					break;
 				case EAdventurerAgentChoices.AdventureForest:
-					AdventurerInput.adventurerSystem.system.StartBattle(this, BattleEnvironments.Forest);
+					AdventurerInput.AdventurerSystem.system.StartBattle(this, BattleEnvironments.Forest);
 					break;
 				case EAdventurerAgentChoices.AdventureSea:
-					AdventurerInput.adventurerSystem.system.StartBattle(this, BattleEnvironments.Sea);
+					AdventurerInput.AdventurerSystem.system.StartBattle(this, BattleEnvironments.Sea);
 					break;
 				case EAdventurerAgentChoices.AdventureMountain:
-					AdventurerInput.adventurerSystem.system.StartBattle(this, BattleEnvironments.Mountain);
+					AdventurerInput.AdventurerSystem.system.StartBattle(this, BattleEnvironments.Mountain);
 					break;
 				case EAdventurerAgentChoices.AdventureVolcano:
-					AdventurerInput.adventurerSystem.system.StartBattle(this, BattleEnvironments.Volcano);
+					AdventurerInput.AdventurerSystem.system.StartBattle(this, BattleEnvironments.Volcano);
 					break;
 				case EAdventurerAgentChoices.BattleAttack:
-					AdventurerInput.adventurerSystem.system.OnAttackButton(this);
+					AdventurerInput.AdventurerSystem.system.OnAttackButton(this);
 					break;
 				case EAdventurerAgentChoices.BattleHeal:
-					AdventurerInput.adventurerSystem.system.OnHealButton(this);
+					AdventurerInput.AdventurerSystem.system.OnHealButton(this);
 					break;
 				case EAdventurerAgentChoices.BattleFlee:
-					AdventurerInput.adventurerSystem.system.OnFleeButton(this);
+					AdventurerInput.AdventurerSystem.system.OnFleeButton(this);
 					break;
 				case EAdventurerAgentChoices.PurchaseItem:
 					var shopCrafting = FindObjectOfType<ShopCraftingSystemBehaviour>();

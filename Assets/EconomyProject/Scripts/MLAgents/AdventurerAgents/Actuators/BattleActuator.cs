@@ -10,7 +10,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Actuators
 
         public string Name => "BattleActuator";
         
-        private AdventurerSystem AdventurerSystem => AdventurerInput.adventurerSystem.system;
+        private AdventurerSystem AdventurerSystem => AdventurerInput.AdventurerSystem.system;
 
         private readonly AdventurerAgent _agent;
         

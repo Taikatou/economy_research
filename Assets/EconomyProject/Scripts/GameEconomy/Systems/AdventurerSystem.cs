@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {
-    public enum AgentAdventureInput{Quit=BattleEnvironments.Volcano+1}
+    public enum AgentAdventureInput{ Quit=BattleEnvironments.Volcano+1 }
     public enum AdventureStates { OutOfBattle, InBattle}
     
     [Serializable]
@@ -254,6 +254,23 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             }
 
             SetAdventureState(agent, AdventureStates.OutOfBattle);
+        }
+        
+        public override EnabledInput[] GetEnabledInputs()
+        {
+            var inputChoices = new[]
+            {
+                EAdventurerAgentChoices.BattleAttack,
+                EAdventurerAgentChoices.BattleFlee,
+                EAdventurerAgentChoices.BattleFlee,
+                EAdventurerAgentChoices.AdventureForest,
+                EAdventurerAgentChoices.AdventureSea,
+                EAdventurerAgentChoices.AdventureMountain,
+                EAdventurerAgentChoices.AdventureVolcano
+            };
+            var outputs = AdventurerEconomySystemUtils.GetInputOfType(inputChoices);
+
+            return outputs;
         }
     }
 }

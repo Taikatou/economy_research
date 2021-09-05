@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
 using UnityEngine;
 
@@ -10,6 +11,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
     {
         public string Action;
         public int ActionNumber;
+    }
+    
+    public struct EnabledInput
+    {
+        public int Input;
+        public bool Enabled;
     }
 
     public static class EconomySystemUtils
@@ -37,16 +44,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
     public abstract class EconomySystem<TAgent, TScreen> where TAgent : AgentScreen<TScreen> where TScreen : Enum
     {
-        public abstract int ObservationSize { get; }
-        
         public GetAgents agents;
+        public abstract int ObservationSize { get; }
         public AgentInput<TAgent, TScreen> AgentInput { get; set; }
         public abstract TScreen ActionChoice { get; }
-
         public abstract bool CanMove(TAgent agent);
-
         public abstract float [] GetObservations(TAgent agent);
-
         public abstract InputAction[] GetInputOptions(TAgent agent);
 
         private readonly Dictionary<TAgent, DateTime> _refreshTime;
@@ -98,6 +101,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         public virtual void SetChoice(TAgent agent, int input)
         {
             
+        }
+
+        public virtual EnabledInput[] GetEnabledInputs()
+        {
+            return new EnabledInput[] { };
         }
     }
 }

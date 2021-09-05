@@ -1,27 +1,27 @@
-﻿using EconomyProject.Monobehaviours;
+﻿using System.Collections.Generic;
+using System.Linq;
+using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 
 namespace EconomyProject.Scripts.GameEconomy
 {
+    
     public class AdventurerInput : AgentInput<AdventurerAgent, EAdventurerScreen>, IAdventureSense
     {
-        public static MainMenuSystemBehaviour mainMenuSystem => FindObjectOfType<MainMenuSystemBehaviour>();
+        private static MainMenuSystemBehaviour MainMenuSystem => FindObjectOfType<MainMenuSystemBehaviour>();
+        private static AdventurerShopSystemBehaviour AdventurerShopSystem => FindObjectOfType<AdventurerShopSystemBehaviour>();
+        private static RequestAdventurerSystemBehaviour RequestSystem => FindObjectOfType<RequestAdventurerSystemBehaviour>();
+        public static AdventurerSystemBehaviour AdventurerSystem => FindObjectOfType<AdventurerSystemBehaviour>();
 
-        public static AdventurerShopSystemBehaviour adventurerShopSystem  => FindObjectOfType<AdventurerShopSystemBehaviour>();
-
-        public static RequestAdventurerSystemBehaviour requestSystem  => FindObjectOfType<RequestAdventurerSystemBehaviour>();
-
-        public static AdventurerSystemBehaviour adventurerSystem  => FindObjectOfType<AdventurerSystemBehaviour>();
-
-        public static EconomySystem<AdventurerAgent, EAdventurerScreen>[] GetSystems()
+        private static EconomySystem<AdventurerAgent, EAdventurerScreen>[] GetSystems()
         {
             return new EconomySystem<AdventurerAgent, EAdventurerScreen>[]
             {
-                mainMenuSystem.system,
-                adventurerSystem.system,
-                requestSystem.system,
-                adventurerSystem.system
+                MainMenuSystem.system,
+                AdventurerSystem.system,
+                RequestSystem.system,
+                AdventurerSystem.system
             };
         }
 
@@ -31,13 +31,13 @@ namespace EconomyProject.Scripts.GameEconomy
             switch (screen)
             {
                 case EAdventurerScreen.Main:
-                    return mainMenuSystem.system;
+                    return MainMenuSystem.system;
                 case EAdventurerScreen.Shop:
-                    return adventurerShopSystem.system;
+                    return AdventurerShopSystem.system;
                 case EAdventurerScreen.Request:
-                    return requestSystem.system;
+                    return RequestSystem.system;
                 case EAdventurerScreen.Adventurer:
-                    return adventurerSystem.system;
+                    return AdventurerSystem.system;
             }
             return null;
         }
@@ -52,28 +52,24 @@ namespace EconomyProject.Scripts.GameEconomy
         {
             EconomyScreens.Clear();
         }
-        
-        
+
         protected override void SetupScreens()
         {
-            mainMenuSystem.system.AgentInput = this;
-            adventurerShopSystem.system.AgentInput = this;
-            requestSystem.system.AgentInput = this;
-            adventurerSystem.system.AgentInput = this;
+            MainMenuSystem.system.AgentInput = this;
+            AdventurerShopSystem.system.AgentInput = this;
+            RequestSystem.system.AgentInput = this;
+            AdventurerSystem.system.AgentInput = this;
         }
 
         public static int GetObservationLength()
         {
-            var observationMaxSize = 0;
-            foreach (var system in GetSystems())
-            {
-                if (system.ObservationSize > observationMaxSize)
-                {
-                    observationMaxSize = system.ObservationSize;
-                }
-            }
+            return GetSystems().Select(system => system.ObservationSize).Prepend(0).Max();
+        }
 
-            return observationMaxSize;
+        public IEnumerable<EnabledInput> GetActionMask(AdventurerAgent agent)
+        {
+            var inputsEnabled = GetEconomySystem(agent).GetEnabledInputs();
+            return inputsEnabled;
         }
 
         public float[] GetObservations(AdventurerAgent agent)

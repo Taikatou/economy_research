@@ -2716,6 +2716,11 @@ PrefabInstance:
       propertyPath: requestSystem
       value: 
       objectReference: {fileID: 1430326707}
+    - target: {fileID: 734842205298679346, guid: 5aa5546e137b74945a31aa19b12060f0,
+        type: 3}
+      propertyPath: randomiseAdventurerType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 734842205986566220, guid: 5aa5546e137b74945a31aa19b12060f0,
         type: 3}
       propertyPath: m_Name
