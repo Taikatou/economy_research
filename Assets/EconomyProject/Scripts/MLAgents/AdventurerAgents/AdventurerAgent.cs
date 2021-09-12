@@ -1,9 +1,11 @@
-﻿using EconomyProject.Scripts.GameEconomy;
+﻿using System.Collections;
+using System.Collections.Generic;
+using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.Inventory;
-using Unity.MLAgents.Sensors;
 using UnityEngine;
 using EconomyProject.Monobehaviours;
+using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.UI.Inventory;
 using Inventory;
@@ -51,11 +53,15 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         
         public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
         {
-	        var inputMask = adventurerInput.GetActionMask(this);
-	        foreach (var input in inputMask)
+	        foreach (var input in GetEnabledInput())
 	        {
 		        actionMask.SetActionEnabled(0, input.Input, input.Enabled);   
 	        }
+        }
+
+        public IEnumerable<EnabledInput> GetEnabledInput()
+        {
+	        return adventurerInput.GetActionMask(this);
         }
 
         public override void OnActionReceived(ActionBuffers actions)

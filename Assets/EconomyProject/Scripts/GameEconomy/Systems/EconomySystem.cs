@@ -45,14 +45,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
     public abstract class EconomySystem<TAgent, TScreen> where TAgent : AgentScreen<TScreen> where TScreen : Enum
     {
         public GetAgents agents;
+        private readonly Dictionary<TAgent, DateTime> _refreshTime;
         public abstract int ObservationSize { get; }
         public AgentInput<TAgent, TScreen> AgentInput { get; set; }
         public abstract TScreen ActionChoice { get; }
         public abstract bool CanMove(TAgent agent);
         public abstract float [] GetObservations(TAgent agent);
         public abstract InputAction[] GetInputOptions(TAgent agent);
-
-        private readonly Dictionary<TAgent, DateTime> _refreshTime;
 
         protected EconomySystem()
         {
@@ -103,7 +102,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             
         }
 
-        public virtual EnabledInput[] GetEnabledInputs()
+        public virtual EnabledInput[] GetEnabledInputs(TAgent agent)
         {
             return new EnabledInput[] { };
         }

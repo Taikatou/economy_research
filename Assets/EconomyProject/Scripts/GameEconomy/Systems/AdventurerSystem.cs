@@ -256,18 +256,23 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             SetAdventureState(agent, AdventureStates.OutOfBattle);
         }
         
-        public override EnabledInput[] GetEnabledInputs()
+        public override EnabledInput[] GetEnabledInputs(AdventurerAgent agent)
         {
-            var inputChoices = new[]
+            var inputChoices = battleSystems.ContainsKey(agent)
+            ? new[]
             {
                 EAdventurerAgentChoices.BattleAttack,
                 EAdventurerAgentChoices.BattleFlee,
-                EAdventurerAgentChoices.BattleFlee,
+                EAdventurerAgentChoices.BattleHeal
+            }
+            : new[]
+            {
                 EAdventurerAgentChoices.AdventureForest,
                 EAdventurerAgentChoices.AdventureSea,
                 EAdventurerAgentChoices.AdventureMountain,
                 EAdventurerAgentChoices.AdventureVolcano
             };
+                
             var outputs = AdventurerEconomySystemUtils.GetInputOfType(inputChoices);
 
             return outputs;
