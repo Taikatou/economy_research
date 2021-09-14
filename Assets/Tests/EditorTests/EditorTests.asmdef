@@ -1,5 +1,6 @@
 {
     "name": "EditorTests",
+    "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
@@ -8,7 +9,8 @@
         "Inventory",
         "LootBoxes",
         "TurnBased",
-        "Unity.ML-Agents"
+        "Unity.ML-Agents",
+        "Data"
     ],
     "includePlatforms": [
         "Editor"

@@ -13,10 +13,6 @@ using Unity.MLAgents.Actuators;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 {
-	public enum EAdventurerAgentChoices { None=0, MainMenu, ResourceRequest, Shop, Adventure, TakeResourceRequest, 
-		AdventureForest, AdventureSea, AdventureMountain, AdventureVolcano, BattleAttack, BattleHeal, 
-		BattleFlee, Up, Down, Select, SetShop, PurchaseItem, Back }
-
 	//main and shop is not used by agent
 	public enum EAdventurerScreen { Main=0, Request=1, Shop=2, Adventurer=3, Rest=4 }
     

@@ -44,13 +44,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             }
             else
             {
-                input -= 1;
+          /*      input -= 1;
                 var requests = requestSystem.GetAllCraftingRequests();
                 if (input >= 0 && input < requests.Count)
                 {
                     var requestTaker = agent.GetComponent<AdventurerRequestTaker>();
                     requestTaker.TakeRequest(requests[input]);
-                }   
+                }   */
             }
         }
 

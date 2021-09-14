@@ -11,13 +11,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
     public enum RequestActions { Quit=CraftingResources.DragonScale+1, SetInput, RemoveRequest, IncreasePrice,  DecreasePrice}
     
     [Serializable]
-    public class RequestShopSystem : StateEconomySystem<RequestActions, ShopAgent, EShopScreen, EShopAgentChoices>
+    public class RequestShopSystem : StateEconomySystem<ShopAgent, EShopScreen, EShopAgentChoices>
     {
         public RequestSystem requestSystem;
         public override int ObservationSize => CraftingResourceRequest.SensorCount + 1;
         public override EShopScreen ActionChoice => EShopScreen.Request;
-        protected override RequestActions IsBackState => RequestActions.Quit;
-        protected override RequestActions DefaultState => RequestActions.SetInput;
 
         public override bool CanMove(ShopAgent agent)
         {
@@ -27,7 +25,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         public override float[] GetObservations(ShopAgent agent)
         {
             var outputSenses = new float[CraftingResourceRequest.SensorCount + 1];
-            outputSenses[0] = (float) GetInputMode(agent);
+            outputSenses[0] = 0; //(float) GetInputMode(agent);
             var requestSense = requestSystem.GetObservations(agent);
             requestSense.CopyTo(outputSenses, 1);
             return outputSenses;
@@ -35,7 +33,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
         public override void SetChoice(ShopAgent agent, EShopAgentChoices input)
         {
-            if (input >= 0)
+           /* if (input >= 0)
             {
                 if (Enum.IsDefined(typeof(RequestActions), input))
                 {
@@ -46,27 +44,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                 {
                     MakeChoice(agent, input);
                 }
-            }
-        }
-
-        protected override void GoBack(ShopAgent agent)
-        {
-            AgentInput.ChangeScreen(agent, EShopScreen.Main);
-        }
-
-        protected override void MakeChoice(ShopAgent agent, EShopAgentChoices input)
-        {
-            var resources = CraftingUtils.GetCraftingResources();
-            if (input < resources.Count)
-            {
-                var craftingResources = resources[input];
-                MakeChoice(agent, craftingResources);   
-            }
+            }*/
         }
 
         public void MakeChoice(ShopAgent agent, CraftingResources craftingResources)
         {
-            switch (GetInputMode(agent))
+            /*switch (GetInputMode(agent))
             {
                 case RequestActions.SetInput:
                     Debug.Log("Make Request");
@@ -84,7 +67,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                     Debug.Log("DecreasePrice");
                     requestSystem.ChangePrice(craftingResources, agent.craftingInventory, agent.wallet, -1);   
                     break;
-            }
+            }*/
         }
         
         public void Update()

@@ -39,19 +39,15 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         public const int SenseCount = 1;
     }
 
-    public enum CraftingInput { CraftItem = CraftingChoice.UltimateSwordOfPower+1, IncreasePrice, DecreasePrice, SubmitToShop, Quit}
-
     public enum CraftingChoice { BeginnerSword, IntermediateSword, AdvancedSword, EpicSword, MasterSword, UltimateSwordOfPower }
 
     [Serializable]
-    public class ShopCraftingSystem : StateEconomySystem<CraftingInput, ShopAgent, EShopScreen, EShopAgentChoices>
+    public class ShopCraftingSystem : StateEconomySystem<ShopAgent, EShopScreen, EShopAgentChoices>
     {
 	    public override int ObservationSize => 2;
 	    public override EShopScreen ActionChoice => EShopScreen.Craft;
-        protected override CraftingInput IsBackState => CraftingInput.Quit;
-        protected override CraftingInput DefaultState => CraftingInput.CraftItem;
 
-        public CraftingSubSystem craftingSubSubSystem;
+	    public CraftingSubSystem craftingSubSubSystem;
 
         public AgentShopSubSystem shopSubSubSystem;
 
@@ -71,7 +67,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         public override float[] GetObservations(ShopAgent agent)
         {
 			var outputs = new float [1 + AgentShopSubSystem.SenseCount + CraftingSubSystem.SenseCount];
-            outputs[0] = (float) GetInputMode(agent);
+			outputs[0] = 0; //(float) GetInputMode(agent);
             var sensesA = shopSubSubSystem.GetSenses(agent);
             sensesA.CopyTo(outputs, 1);
             var sensesB = craftingSubSubSystem.GetObservations(agent);
@@ -81,19 +77,19 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public void MakeChoiceSetPrice(ShopAgent shopAgent, EShopAgentChoices input)
 		{
-			MakeChoice(shopAgent, input);
+			// MakeChoice(shopAgent, input);
 		}
 
-		protected override void MakeChoice(ShopAgent shopAgent, EShopAgentChoices input)
+        /*protected override void MakeChoice(ShopAgent shopAgent, EShopAgentChoices input)
         {
-			switch (GetInputMode(shopAgent))
+	        switch (GetInputMode(shopAgent))
             {
                 case CraftingInput.CraftItem:
-	                var craftingResource = (CraftingChoice) input;
+                    var craftingResource = (CraftingChoice) input;
                     craftingSubSubSystem.MakeRequest(shopAgent, craftingResource);
                     break;
                 case CraftingInput.IncreasePrice:
-					shopSubSubSystem.SetCurrentPrice(shopAgent, input, 1);
+			        shopSubSubSystem.SetCurrentPrice(shopAgent, input, 1);
                     break;
                 case CraftingInput.DecreasePrice:
                     shopSubSubSystem.SetCurrentPrice(shopAgent, input, -1);
@@ -102,12 +98,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
                     shopSubSubSystem.SubmitToShop(shopAgent, input);
                     break;
             }
-        }
-
-        protected override void GoBack(ShopAgent agent)
-        {
-            AgentInput.ChangeScreen(agent, EShopScreen.Main);
-        }
+        }*/
 
 		public void SetPrice(ShopAgent shopAgent, UsableItem item, int increment)
 		{
@@ -126,7 +117,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 				SetChoice(shopAgent, EShopAgentChoices.IncreasePrice);
 			}
 			
-			MakeChoiceSetPrice(shopAgent, index);
+			// MakeChoiceSetPrice(shopAgent, index);
 		}
 
 		public int GetIndexInShopList(ShopAgent shopAgent, UsableItem item)

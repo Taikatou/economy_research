@@ -27,12 +27,12 @@ namespace Tests.Economy
 		[Test]
 		public void Enum_CraftingInput()
 		{
-			bool isExist1 = Enum.IsDefined(typeof(CraftingInput), "CraftItem");
+			/*bool isExist1 = Enum.IsDefined(typeof(CraftingInput), "CraftItem");
 			bool isExist2 = Enum.IsDefined(typeof(CraftingInput), "IncreasePrice");
 			bool isExist3 = Enum.IsDefined(typeof(CraftingInput), "DecreasePrice");
 			bool isExist4 = Enum.IsDefined(typeof(CraftingInput), "SubmitToShop");
 			bool isExist5 = Enum.IsDefined(typeof(CraftingInput), "Quit");
-			Assert.True(isExist1 && isExist2 && isExist3 && isExist4 && isExist5 == true);
+			Assert.True(isExist1 && isExist2 && isExist3 && isExist4 && isExist5 == true);*/
 		}
 
 		/// <summary>
