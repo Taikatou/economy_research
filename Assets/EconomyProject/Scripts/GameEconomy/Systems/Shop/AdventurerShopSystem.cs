@@ -5,11 +5,11 @@ using Sirenix.Utilities;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 {
-    public enum AdventureShopInput {Up = AdventureShopChoices.Back + 1, Down, Select}
-    public enum AdventureShopChoices { SetShop, PurchaseItem, Back }
+    public enum EAdventureShopChoices { Up = EAdventurerAgentChoices.Up, Down=EAdventurerAgentChoices.Down, Select=EAdventurerAgentChoices.Select, 
+        SetShop = EAdventurerAgentChoices.SetShop, PurchaseItem=EAdventurerAgentChoices.PurchaseItem, Back=EAdventurerAgentChoices.Back }
     
     [Serializable]
-    public class AdventurerShopSystem : StateEconomySystem<AdventureShopChoices, AdventurerAgent, EAdventurerScreen>
+    public class AdventurerShopSystem : StateEconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
     {
         public AdventurerShopSubSystem adventurerShopSubSystem;
 
@@ -17,9 +17,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 
         public override int ObservationSize => 0;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Shop;
-        protected override AdventureShopChoices IsBackState => AdventureShopChoices.Back;
-        protected override AdventureShopChoices DefaultState => AdventureShopChoices.SetShop;
-        
+
         public override bool CanMove(AdventurerAgent agent)
         {
             return true;
@@ -30,37 +28,36 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             return new float[] {};
         }
 
-        public override InputAction[] GetInputOptions(AdventurerAgent agent)
+        public override void SetChoice(AdventurerAgent agent, EAdventurerAgentChoices input)
         {
-            var output = new List<InputAction>();
-            var shopInput = EconomySystemUtils.GetStateInput<AdventureShopInput>();
-            output.AddRange(shopInput);
-            var choiceInput = EconomySystemUtils.GetStateInput<AdventureShopChoices>();
-            output.AddRange(choiceInput);
-            return output.ToArray();
-        }
-
-        protected override void MakeChoice(AdventurerAgent agent, int input)
-        {
-            if (Enum.IsDefined(typeof(AdventureShopInput), input))
+            if (Enum.IsDefined(typeof(EAdventureShopChoices), input))
             {
-                var agentInput = (AdventureShopInput) input;
-                switch (GetInputMode(agent))
+                var agentInput = (EAdventureShopChoices) input;
+                switch (agentInput)
                 {
-                    case AdventureShopChoices.SetShop:
+                    case EAdventureShopChoices.Select:
+
+                        break;
+                    case EAdventureShopChoices.Down:
+                        
+                        break;
+                    case EAdventureShopChoices.Up:
+
+                        break;
+                    case EAdventureShopChoices.Back:
+
+                        break;
+                    case EAdventureShopChoices.SetShop:
                         shopChooserSubSystem.SetInput(agent, agentInput);
                         break;
-                    case AdventureShopChoices.PurchaseItem:
+                    case EAdventureShopChoices.PurchaseItem:
                         adventurerShopSubSystem.SetInput(agent, agentInput);
                         break;
                 }
             }
         }
-
-        protected override void GoBack(AdventurerAgent agent)
-        {
-            AgentInput.ChangeScreen(agent, EAdventurerScreen.Main);
-        }
+        
+        
 
         public void Update()
         {

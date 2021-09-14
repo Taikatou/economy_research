@@ -1,17 +1,20 @@
-﻿namespace TurnBased.Scripts
+﻿using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+
+namespace TurnBased.Scripts
 {
 	public delegate void OnWinDelegate();
 	public enum BattleState { Start, PlayerTurn, EnemyTurn, Won, Lost, Flee }
-	public enum BattleAction { Attack, Heal, Flee }
+	public enum BattleAction { Attack=EAdventurerAgentChoices.BattleAttack, Heal=EAdventurerAgentChoices.BattleHeal, Flee=EAdventurerAgentChoices.BattleFlee }
 
 	public class BattleSubSystem
 	{
 		public BattleState CurrentState { get; private set; }
 		public BaseFighterData PlayerFighterUnit { get; }
 		public BaseFighterData EnemyFighterUnit { get; }
-		private readonly FighterDropTable _fighterDropTable;
 		public string DialogueText { get; private set; }
-		private OnWinDelegate winDelegate;
+		
+		private readonly FighterDropTable _fighterDropTable;
+		private readonly OnWinDelegate _winDelegate;
 		public BattleSubSystem(BaseFighterData playerUnit, BaseFighterData enemyUnit, FighterDropTable fighterDropTable, OnWinDelegate winDelegate)
 		{
 			CurrentState = BattleState.Start;
@@ -22,7 +25,7 @@
 			PlayerTurn();
 
 			_fighterDropTable = fighterDropTable;
-			this.winDelegate += winDelegate;
+			_winDelegate += winDelegate;
 		}
 
 		public bool GameOver()
@@ -39,7 +42,7 @@
 			if(EnemyFighterUnit.IsDead)
 			{
 				CurrentState = BattleState.Won;
-				winDelegate?.Invoke();
+				_winDelegate?.Invoke();
 				EndBattle();
 			}
 			else

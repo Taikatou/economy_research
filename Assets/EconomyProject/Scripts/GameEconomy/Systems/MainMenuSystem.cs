@@ -5,7 +5,7 @@ using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {
     [Serializable]
-    public class MainMenuSystem : EconomySystem<AdventurerAgent, EAdventurerScreen>
+    public class MainMenuSystem : EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
     {
         public override int ObservationSize => 0;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Main;
@@ -20,13 +20,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return Array.Empty<float>();
         }
 
-        public override InputAction[] GetInputOptions(AdventurerAgent agent)
-        {
-            var agentScreen = EconomySystemUtils.GetStateInput<EAdventurerScreen>();
-            return agentScreen.ToArray();
-        }
-
-        public override void SetChoice(AdventurerAgent agent, int input)
+        public override void SetChoice(AdventurerAgent agent, EAdventurerAgentChoices input)
         {
             if (Enum.IsDefined(typeof(EAdventurerScreen), input))
             {

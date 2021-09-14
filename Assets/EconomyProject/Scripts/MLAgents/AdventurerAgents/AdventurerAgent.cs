@@ -13,7 +13,9 @@ using Unity.MLAgents.Actuators;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 {
-	public enum EAdventurerAgentChoices { None=0, MainMenu, ResourceRequest, Shop, Adventure, TakeResourceRequest, PurchaseItem, AdventureForest, AdventureSea, AdventureMountain, AdventureVolcano, BattleAttack, BattleHeal, BattleFlee }
+	public enum EAdventurerAgentChoices { None=0, MainMenu, ResourceRequest, Shop, Adventure, TakeResourceRequest, 
+		AdventureForest, AdventureSea, AdventureMountain, AdventureVolcano, BattleAttack, BattleHeal, 
+		BattleFlee, Up, Down, Select, SetShop, PurchaseItem, Back }
 
 	//main and shop is not used by agent
 	public enum EAdventurerScreen { Main=0, Request=1, Shop=2, Adventurer=3, Rest=4 }
@@ -29,6 +31,9 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 
 		public override AgentType agentType => AgentType.Adventurer;
 		public override EAdventurerScreen ChosenScreen => adventurerInput.GetScreen(this, EAdventurerScreen.Main);
+
+		private EAdventurerAgentChoices _forcedAction;
+		private bool _bForcedAction;
 
 		public override void OnEpisodeBegin()
         {
@@ -66,8 +71,20 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 
         public override void OnActionReceived(ActionBuffers actions)
         {
-            var action = Mathf.FloorToInt(actions.DiscreteActions[0]);
-            adventurerInput.SetAgentAction(this, action);
+	        var action = (EAdventurerAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[0]);;
+            if (_bForcedAction)
+            {
+	            _bForcedAction = false;
+	            action = _forcedAction;
+            }
+            var system = adventurerInput.GetEconomySystem(this);
+            system.SetChoice(this, action);
+        }
+
+        public void SetAction(EAdventurerAgentChoices choice)
+        {
+	        _bForcedAction = true;
+	        _forcedAction = choice;
         }
 
         /// <summary>
@@ -76,7 +93,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 		/// <param name="choice">Int associate to a specific UI action</param>
 		/// <param name="resourceRequestToTake">Mandatory if choice = TakeResourceRequest</param>
 		/// <param name="itemToBuy">Mandatory if choice = PurchaseItem</param>
-		public void SetAction(EAdventurerAgentChoices choice, CraftingResourceRequest resourceRequestToTake = null, ShopItem? itemToBuy = null)
+		public void SetAction(EAdventurerAgentChoices choice, CraftingResourceRequest resourceRequestToTake, ShopItem? itemToBuy = null)
 		{
 			switch (choice)
 			{

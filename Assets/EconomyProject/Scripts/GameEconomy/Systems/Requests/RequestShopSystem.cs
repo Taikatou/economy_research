@@ -11,13 +11,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
     public enum RequestActions { Quit=CraftingResources.DragonScale+1, SetInput, RemoveRequest, IncreasePrice,  DecreasePrice}
     
     [Serializable]
-    public class RequestShopSystem : StateEconomySystem<RequestActions, ShopAgent, EShopScreen>
+    public class RequestShopSystem : StateEconomySystem<RequestActions, ShopAgent, EShopScreen, EShopAgentChoices>
     {
         public RequestSystem requestSystem;
         public override int ObservationSize => CraftingResourceRequest.SensorCount + 1;
         public override EShopScreen ActionChoice => EShopScreen.Request;
         protected override RequestActions IsBackState => RequestActions.Quit;
         protected override RequestActions DefaultState => RequestActions.SetInput;
+
         public override bool CanMove(ShopAgent agent)
         {
             return true;
@@ -32,15 +33,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return outputSenses;
         }
 
-        public override InputAction[] GetInputOptions(ShopAgent agent)
-        {
-            var toReturn = new List<InputAction>();
-            toReturn.AddRange(EconomySystemUtils.GetStateInput<RequestActions>());
-            toReturn.AddRange(EconomySystemUtils.GetStateInput(CraftingUtils.GetCraftingResources()));
-            return toReturn.ToArray();
-        }
-
-        public override void SetChoice(ShopAgent agent, int input)
+        public override void SetChoice(ShopAgent agent, EShopAgentChoices input)
         {
             if (input >= 0)
             {
@@ -61,7 +54,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             AgentInput.ChangeScreen(agent, EShopScreen.Main);
         }
 
-        protected override void MakeChoice(ShopAgent agent, int input)
+        protected override void MakeChoice(ShopAgent agent, EShopAgentChoices input)
         {
             var resources = CraftingUtils.GetCraftingResources();
             if (input < resources.Count)

@@ -7,16 +7,16 @@ using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 namespace EconomyProject.Scripts.GameEconomy
 {
     
-    public class AdventurerInput : AgentInput<AdventurerAgent, EAdventurerScreen>, IAdventureSense
+    public class AdventurerInput : AgentInput<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>, IAdventureSense
     {
         private static MainMenuSystemBehaviour MainMenuSystem => FindObjectOfType<MainMenuSystemBehaviour>();
         private static AdventurerShopSystemBehaviour AdventurerShopSystem => FindObjectOfType<AdventurerShopSystemBehaviour>();
         private static RequestAdventurerSystemBehaviour RequestSystem => FindObjectOfType<RequestAdventurerSystemBehaviour>();
         public static AdventurerSystemBehaviour AdventurerSystem => FindObjectOfType<AdventurerSystemBehaviour>();
 
-        private static EconomySystem<AdventurerAgent, EAdventurerScreen>[] GetSystems()
+        private static EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>[] GetSystems()
         {
-            return new EconomySystem<AdventurerAgent, EAdventurerScreen>[]
+            return new EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>[]
             {
                 MainMenuSystem.system,
                 AdventurerSystem.system,
@@ -25,7 +25,7 @@ namespace EconomyProject.Scripts.GameEconomy
             };
         }
 
-        public override EconomySystem<AdventurerAgent, EAdventurerScreen> GetEconomySystem(AdventurerAgent agent)
+        public override EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices> GetEconomySystem(AdventurerAgent agent)
         {
             var screen = GetScreen(agent, EAdventurerScreen.Main);
             switch (screen)
@@ -40,12 +40,6 @@ namespace EconomyProject.Scripts.GameEconomy
                     return AdventurerSystem.system;
             }
             return null;
-        }
-
-        public void SetAgentAction(AdventurerAgent agent, int action)
-        {
-            var system = GetEconomySystem(agent);
-            system.SetChoice(agent, action);
         }
 
         public void Reset()

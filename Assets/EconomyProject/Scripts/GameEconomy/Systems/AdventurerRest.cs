@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {
-    public class AdventurerRest : EconomySystem<AdventurerAgent, EAdventurerScreen>
+    public class AdventurerRest : EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerScreen>
     {
         public override int ObservationSize { get; }
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Rest;
@@ -13,11 +13,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         }
 
         public override float[] GetObservations(AdventurerAgent agent)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override InputAction[] GetInputOptions(AdventurerAgent agent)
         {
             throw new System.NotImplementedException();
         }

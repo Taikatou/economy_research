@@ -5,7 +5,7 @@ using UnityEngine;
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {
     [Serializable]
-    public class MainShopSystem : EconomySystem<ShopAgent, EShopScreen>
+    public class MainShopSystem : EconomySystem<ShopAgent, EShopScreen, EShopAgentChoices>
     {
         enum MainChoices { Craft = EShopScreen.Craft, Request = EShopScreen.Request }
 
@@ -22,13 +22,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return Array.Empty<float>() ;
         }
 
-        public override InputAction[] GetInputOptions(ShopAgent agent)
-        {
-            var agentScreen = EconomySystemUtils.GetStateInput<EShopScreen>();
-            return agentScreen.ToArray();
-        }
-
-        public override void SetChoice(ShopAgent agent, int input)
+        public override void SetChoice(ShopAgent agent, EShopAgentChoices input)
         {
             if (Enum.IsDefined(typeof(MainChoices), input))
             {

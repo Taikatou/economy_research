@@ -24,7 +24,11 @@ namespace EconomyProject.Scripts.MLAgents.Shop
         public CraftingInventory craftingInventory;
         public AgentInventory agentInventory;
 
-		public override AgentType agentType { get { return AgentType.Shop; } }
+		public override AgentType agentType => AgentType.Shop;
+		
+		private EShopAgentChoices _forcedAction;
+		private bool _bForcedAction;
+
 		public override EShopScreen ChosenScreen
         {
             get
@@ -55,8 +59,15 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 
         public override void OnActionReceived(ActionBuffers actions)
         {
-            var action = Mathf.FloorToInt(actions.DiscreteActions[0]);
-            shopInput.SetAction(this, action);
+	        var action = (EShopAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[0]);;
+	        if (_bForcedAction)
+	        {
+		        _bForcedAction = false;
+		        action = _forcedAction;
+	        }
+	        
+	        var system = shopInput.GetEconomySystem(this);
+            system.SetChoice(this, action);
         }
 
         public override void CollectObservations(VectorSensor sensor)

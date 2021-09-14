@@ -19,7 +19,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             _currentLocation = new Dictionary<AdventurerAgent, int>();
         }
 
-        public void SetInput(AdventurerAgent agent, AdventureShopInput choice)
+        public void SetInput(AdventurerAgent agent, EAdventureShopChoices choice)
         {
             if (!_currentLocation.ContainsKey(agent))
             {
@@ -30,13 +30,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             var shopItems = shopCraftingSystem.system.shopSubSubSystem.GetShopItems(shopAgent);
             switch (choice)
             {
-                case AdventureShopInput.Up:
+                case EAdventureShopChoices.Up:
                     MovePosition(agent, shopItems, 1);
                     break;
-                case AdventureShopInput.Down:
+                case EAdventureShopChoices.Down:
                     MovePosition(agent, shopItems, -1);
                     break;
-                case AdventureShopInput.Select:
+                case EAdventureShopChoices.Select:
                     if (_currentLocation[agent] < shopItems.Count)
                     {
                         var shopDetails = shopItems[_currentLocation[agent]].itemDetails;

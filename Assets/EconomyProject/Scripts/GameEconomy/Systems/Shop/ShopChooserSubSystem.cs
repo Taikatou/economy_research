@@ -20,21 +20,21 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             _currentShop = new Dictionary<AdventurerAgent, int>();
         }
 
-        public void SetInput(AdventurerAgent agent, AdventureShopInput choice)
+        public void SetInput(AdventurerAgent agent, EAdventureShopChoices choice)
         {
             GetCurrentShop(agent);
 
             switch (choice)
             {
-                case AdventureShopInput.Up:
+                case EAdventureShopChoices.Up:
                     MovePosition(agent, 1);
                     break;
                 
-                case AdventureShopInput.Down:
+                case EAdventureShopChoices.Down:
                     MovePosition(agent, -1);
                     break;
                 
-                case AdventureShopInput.Select:
+                case EAdventureShopChoices.Select:
                     break;
             }
         }

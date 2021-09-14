@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy
 {
-    public class ShopInput : AgentInput<ShopAgent, EShopScreen>, IShopSense
+    public class ShopInput : AgentInput<ShopAgent, EShopScreen, EShopAgentChoices>, IShopSense
     {
         public MainShopSystemBehaviour mainSystem;
         public ShopCraftingSystemBehaviour shopCraftingSystem;
@@ -18,7 +18,7 @@ namespace EconomyProject.Scripts.GameEconomy
             QualitySettings.vSyncCount = 1;
         }
         
-        public override EconomySystem<ShopAgent, EShopScreen> GetEconomySystem(ShopAgent agent)
+        public override EconomySystem<ShopAgent, EShopScreen, EShopAgentChoices> GetEconomySystem(ShopAgent agent)
         {
             switch (GetScreen(agent, EShopScreen.Main))
             {
@@ -37,11 +37,6 @@ namespace EconomyProject.Scripts.GameEconomy
             mainSystem.system.AgentInput = this;
             shopCraftingSystem.system.AgentInput = this;
             requestSystem.system.AgentInput = this;
-        }
-
-        public void SetAction(ShopAgent agent, int action)
-        {
-            GetEconomySystem(agent).SetChoice(agent, action);
         }
 
         public float[] GetObservations(ShopAgent agent)

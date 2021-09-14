@@ -44,7 +44,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
     public enum CraftingChoice { BeginnerSword, IntermediateSword, AdvancedSword, EpicSword, MasterSword, UltimateSwordOfPower }
 
     [Serializable]
-    public class ShopCraftingSystem : StateEconomySystem<CraftingInput, ShopAgent, EShopScreen>
+    public class ShopCraftingSystem : StateEconomySystem<CraftingInput, ShopAgent, EShopScreen, EShopAgentChoices>
     {
 	    public override int ObservationSize => 2;
 	    public override EShopScreen ActionChoice => EShopScreen.Craft;
@@ -79,20 +79,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             return outputs;
         }
 
-        public override InputAction[] GetInputOptions(ShopAgent agent)
-        {
-            var outputs = new List<InputAction>();
-            outputs.AddRange(EconomySystemUtils.GetStateInput<CraftingInput>());
-            outputs.AddRange(EconomySystemUtils.GetStateInput<CraftingChoice>());
-            return outputs.ToArray();
-        }
-
-		public void MakeChoiceSetPrice(ShopAgent shopAgent, int input)
+        public void MakeChoiceSetPrice(ShopAgent shopAgent, EShopAgentChoices input)
 		{
 			MakeChoice(shopAgent, input);
 		}
 
-		protected override void MakeChoice(ShopAgent shopAgent, int input)
+		protected override void MakeChoice(ShopAgent shopAgent, EShopAgentChoices input)
         {
 			switch (GetInputMode(shopAgent))
             {
@@ -119,7 +111,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
 		public void SetPrice(ShopAgent shopAgent, UsableItem item, int increment)
 		{
-			int index = GetIndexInShopList(shopAgent, item);
+			var index = GetIndexInShopList(shopAgent, item);
 			if (index == -1)
 			{
 				return;
@@ -127,11 +119,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
 			if(increment < 0)
 			{
-				SetChoice(shopAgent, (int)CraftingInput.DecreasePrice);
+				SetChoice(shopAgent, EShopAgentChoices.DecreasePrice);
 			}
 			else
 			{
-				SetChoice(shopAgent, (int)CraftingInput.IncreasePrice);
+				SetChoice(shopAgent, EShopAgentChoices.IncreasePrice);
 			}
 			
 			MakeChoiceSetPrice(shopAgent, index);

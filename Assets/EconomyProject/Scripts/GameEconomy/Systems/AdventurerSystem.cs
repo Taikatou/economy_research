@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.UI;
 using TurnBased.Scripts;
+using Unity.MLAgents;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {
-    public enum AgentAdventureInput{ Quit=BattleEnvironments.Volcano+1 }
     public enum AdventureStates { OutOfBattle, InBattle}
     
     [Serializable]
-    public class AdventurerSystem : EconomySystem<AdventurerAgent, EAdventurerScreen>
+    public class AdventurerSystem : EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
     {
 		public TravelSubSystem travelSubsystem;
 
@@ -88,29 +89,16 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return battleState;
         }
 
-        public override InputAction[] GetInputOptions(AdventurerAgent agent)
+        public bool ValidInput(AdventurerAgent agent, EAdventurerAgentChoices input)
         {
-            var outputs = new List<InputAction>();
-            switch (GetAdventureStates(agent))
-            {
-                case AdventureStates.OutOfBattle:
-                    outputs.AddRange(EconomySystemUtils.GetStateInput<BattleEnvironments>());
-                    break;
-                case AdventureStates.InBattle:
-                    outputs.AddRange(EconomySystemUtils.GetStateInput<BattleAction>());
-                    break;
-            }
-            outputs.AddRange(EconomySystemUtils.GetStateInput<AgentAdventureInput>());
-            return outputs.ToArray();
+            var inputs = GetEnabledInputs(agent);
+            return inputs.Any(x => (EAdventurerAgentChoices) x.Input == input && x.Enabled);
         }
 
-        public override void SetChoice(AdventurerAgent agent, int input)
+        public override void SetChoice(AdventurerAgent agent, EAdventurerAgentChoices input)
         {
-            if (Enum.IsDefined(typeof(AgentAdventureInput), input))
-            {
-                AgentInput.ChangeScreen(agent, EAdventurerScreen.Main);
-            }
-            else
+            var validInput = ValidInput(agent, input);
+            if (validInput)
             {
                 switch (GetAdventureStates(agent))
                 {

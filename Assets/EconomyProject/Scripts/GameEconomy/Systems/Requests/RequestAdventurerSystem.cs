@@ -7,7 +7,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
     public enum AdventurerRequestInput {Back=0}
     [Serializable]
-    public class RequestAdventurerSystem : EconomySystem<AdventurerAgent, EAdventurerScreen>
+    public class RequestAdventurerSystem : EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
     {
         public RequestSystem requestSystem;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Request;
@@ -31,23 +31,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return input;
         }
 
-        public override InputAction[] GetInputOptions(AdventurerAgent agent)
-        {
-            var output = new List<InputAction>();
-            var adventurerRequestInput = EconomySystemUtils.GetStateInput<AdventurerRequestInput>();
-            output.AddRange(adventurerRequestInput);
-
-            var requestInput = GetRequestInput();
-            output.AddRange(requestInput);
-            return output.ToArray();
-        }
-
         public void Update()
         {
             RequestDecisions();
         }
 
-        public override void SetChoice(AdventurerAgent agent, int input)
+        public override void SetChoice(AdventurerAgent agent, EAdventurerAgentChoices input)
         {
             if (Enum.IsDefined(typeof(AdventurerRequestInput), input))
             {

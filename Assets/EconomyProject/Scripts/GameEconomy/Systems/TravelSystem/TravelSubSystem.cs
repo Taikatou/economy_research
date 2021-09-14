@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.TravelSystem
 {
-    public enum BattleEnvironments {Forest, Mountain, Sea, Volcano}
+    public enum BattleEnvironments {Forest = EAdventurerAgentChoices.AdventureForest, Mountain=EAdventurerAgentChoices.AdventureMountain, Sea = EAdventurerAgentChoices.AdventureSea, Volcano=EAdventurerAgentChoices.AdventureVolcano}
     
     [Serializable]
     public class EnvironmentBattleLootBox

@@ -4,6 +4,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 {
     public interface IShopSubSystem
     {
-        void SetInput(AdventurerAgent agent, AdventureShopInput choice);
+        void SetInput(AdventurerAgent agent, EAdventureShopChoices choice);
     }
 }
