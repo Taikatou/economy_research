@@ -16,7 +16,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 	//main and shop is not used by agent
 	public enum EAdventurerScreen { Main=0, Request=1, Shop=2, Adventurer=3, Rest=4 }
     
-    public class AdventurerAgent : AgentScreen<EAdventurerScreen>
+    public class AdventurerAgent : AgentScreen<EAdventurerScreen>, IEconomyAgent
     {
 	    public EAdventurerTypes adventurerType;
 		public AgentInventory inventory;
@@ -30,6 +30,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 
 		private EAdventurerAgentChoices _forcedAction;
 		private bool _bForcedAction;
+		private IEconomyAgent _economyAgentImplementation;
 
 		public override void OnEpisodeBegin()
         {
@@ -150,5 +151,10 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 					break;
 			}
 		}
+
+        public void SetAction(int action)
+        {
+	        SetAction((EAdventurerAgentChoices) action);
+        }
     }
 }

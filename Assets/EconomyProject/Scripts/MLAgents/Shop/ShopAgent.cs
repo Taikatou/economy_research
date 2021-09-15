@@ -1,4 +1,6 @@
-﻿using EconomyProject.Scripts.GameEconomy;
+﻿using System.Collections.Generic;
+using EconomyProject.Scripts.GameEconomy;
+using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.Inventory;
 using Inventory;
@@ -16,7 +18,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 	public enum EShopAgentChoices { None = 0, MainMenu, RequestResource, Craft, MakeResourceRequest, CraftItem, SubmitToShop, IncreasePrice, DecreasePrice }
 
 	public enum EShopScreen {Main = 0, Request = 1, Craft = 2}
-    public class ShopAgent : AgentScreen<EShopScreen>
+    public class ShopAgent : AgentScreen<EShopScreen>, IEconomyAgent
     {
 		public EShopAgentChoices agentChoice;
 		public ShopInput shopInput;
@@ -134,5 +136,15 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 					break;
 			}
 		}
-	}
+
+		public void SetAction(int action)
+		{
+			SetAction((EShopAgentChoices) action);
+		}
+
+		public IEnumerable<EnabledInput> GetEnabledInput()
+		{
+			return new EnabledInput [] { };
+		}
+    }
 }
