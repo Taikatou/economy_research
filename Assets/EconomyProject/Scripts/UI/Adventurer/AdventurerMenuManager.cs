@@ -68,7 +68,7 @@ namespace EconomyProject.Scripts.UI.Adventurer
         
         public void RequestMenu()
         {
-			AdventurerAgent.SetAction(EAdventurerAgentChoices.ResourceRequest);
+			AdventurerAgent.SetAction(EAdventurerAgentChoices.FindRequest);
         }
 
         public void BattleMenu()

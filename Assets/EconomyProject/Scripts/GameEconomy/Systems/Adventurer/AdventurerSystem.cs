@@ -89,12 +89,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return battleState;
         }
 
-        public bool ValidInput(AdventurerAgent agent, EAdventurerAgentChoices input)
-        {
-            var inputs = GetEnabledInputs(agent);
-            return inputs.Any(x => (EAdventurerAgentChoices) x.Input == input && x.Enabled);
-        }
-
         public override void SetChoice(AdventurerAgent agent, EAdventurerAgentChoices input)
         {
             var validInput = ValidInput(agent, input);
@@ -103,7 +97,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                 switch (GetAdventureStates(agent))
                 {
                     case AdventureStates.OutOfBattle:
-                        StartBattle(agent, (BattleEnvironments) input);
+                        if (input == EAdventurerAgentChoices.Back)
+                        {
+                            AgentInput.ChangeScreen(agent, EAdventurerScreen.Main);
+                        }
+                        else
+                        {
+                            StartBattle(agent, (BattleEnvironments) input);   
+                        }
                         break;
                     case AdventureStates.InBattle:
                         var battleSystem = GetSubSystem(agent);
@@ -153,7 +154,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             OverviewVariables.WonBattle();
         }
         
-        public void Update()
+        public void FixedUpdate()
         {
             RequestDecisions();
 
@@ -249,16 +250,17 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             var inputChoices = battleSystems.ContainsKey(agent)
             ? new[]
             {
-                EAdventurerAgentChoices.BattleAttack,
-                EAdventurerAgentChoices.BattleFlee,
-                EAdventurerAgentChoices.BattleHeal
+                EAdventurerAgentChoices.BAttack,
+                EAdventurerAgentChoices.BFlee,
+                EAdventurerAgentChoices.BHeal
             }
             : new[]
             {
-                EAdventurerAgentChoices.AdventureForest,
-                EAdventurerAgentChoices.AdventureSea,
-                EAdventurerAgentChoices.AdventureMountain,
-                EAdventurerAgentChoices.AdventureVolcano
+                EAdventurerAgentChoices.AForest,
+                EAdventurerAgentChoices.ASea,
+                EAdventurerAgentChoices.AMountain,
+                EAdventurerAgentChoices.AVolcano,
+                EAdventurerAgentChoices.Back
             };
                 
             var outputs = AdventurerEconomySystemUtils.GetInputOfType(inputChoices);

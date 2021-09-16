@@ -72,7 +72,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         {
             var inputChoices = new[]
             {
-                EAdventurerAgentChoices.TakeResourceRequest
+                EAdventurerAgentChoices.TakeRequest
             };
             var outputs = AdventurerEconomySystemUtils.GetInputOfType(inputChoices);
 

@@ -12,17 +12,17 @@ namespace EconomyProject.Scripts.UI.Battle
 
         public void OnAttackButton()
         {
-			adventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.BattleAttack);
+			adventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.BAttack);
         }
 
         public void OnHealButton()
         {
-			adventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.BattleHeal);
+			adventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.BHeal);
         }
 
         public void OnFleeButton()
         {
-			adventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.BattleFlee);
+			adventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.BFlee);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
 
         public override void SelectItem(CraftingResourceRequest item, int number = 1)
         {
-			currentAdventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.TakeResourceRequest, item);
+			currentAdventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.TakeRequest, item);
         }
     }
 }

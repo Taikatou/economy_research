@@ -463,6 +463,22 @@ PrefabInstance:
       propertyPath: coreGameSystem
       value: 
       objectReference: {fileID: 363889715}
+    - target: {fileID: 2011312968382217259, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
+      propertyPath: menuGameObjects.Array.data[0].screen
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2011312968382217259, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
+      propertyPath: menuGameObjects.Array.data[1].screen
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2011312968382217259, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
+      propertyPath: menuGameObjects.Array.data[2].screen
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2011312968382217259, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
+      propertyPath: menuGameObjects.Array.data[3].screen
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2011312970172320369, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -1163,7 +1179,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 50, y: -445}
+  m_AnchoredPosition: {x: 0, y: -445}
   m_SizeDelta: {x: 1920, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &783657435

@@ -36,7 +36,7 @@ namespace EconomyProject.Scripts.UI
             }
         }
     }
-    public abstract class BaseMenuManager <T> : MonoBehaviour
+    public abstract class BaseMenuManager <T> : MonoBehaviour where T : Enum
     {
         private bool _valid;
         private T CacheAgentScreen { get; set; }
@@ -54,6 +54,7 @@ namespace EconomyProject.Scripts.UI
                 CacheAgentScreen = whichMenu;
                 var openedMenu = OpenedMenus[whichMenu];
                 openedMenu.Activate();
+                Debug.Log(whichMenu);
             }
         }
     }

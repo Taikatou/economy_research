@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {
@@ -22,9 +23,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public override void SetChoice(AdventurerAgent agent, EAdventurerAgentChoices input)
         {
-            if (Enum.IsDefined(typeof(EAdventurerScreen), input))
+            var s = (EAdventurerScreen) input;
+            if (Enum.IsDefined(typeof(EAdventurerScreen), s))
             {
-                AgentInput.ChangeScreen(agent, (EAdventurerScreen) input);
+                Debug.Log(input);
+                AgentInput.ChangeScreen(agent, s);
             }
         }
 
@@ -38,8 +41,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             var inputChoices = new[]
             {
                 EAdventurerAgentChoices.Shop,
-                EAdventurerAgentChoices.Shop,
-                EAdventurerAgentChoices.ResourceRequest,
+                EAdventurerAgentChoices.FindRequest,
                 EAdventurerAgentChoices.Adventure
             };
             var outputs = AdventurerEconomySystemUtils.GetInputOfType(inputChoices);

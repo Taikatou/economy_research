@@ -10,13 +10,18 @@ using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.MLAgents.Shop;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace EconomyProject.Scripts.UI
 {
     public class OverViewMenu : MonoBehaviour
     {
-        public Text currentRequestsText, requestScreenTextAdv, requestScreenTextCrft, shopText, shopItems,
+        public Text currentRequestsText, requestScreenTextAdv;
+
+        [FormerlySerializedAs("requestScreenTextCrft")] public Text requestScreenTextCraft;
+
+        public Text shopText, shopItems,
         agentsInBattleText, advInAdventureText, itemSoldText, battlesWonText, shopMoneyText, openWoodRequestText,
         openMetalRequestText, craftingRequestText, shopCountText, itemBrokeText, openGemRequestText, openDragonRequestText;
 
@@ -84,7 +89,7 @@ namespace EconomyProject.Scripts.UI
             requestScreenTextAdv.text = "Agents in request Screen: " + requestScreenAdv;
 
             var requestScreenCraft = shopInput.GetCount(EShopScreen.Craft);
-            requestScreenTextCrft.text = "Craft in request Screen: " + requestScreenCraft;
+            requestScreenTextCraft.text = "Craft in request Screen: " + requestScreenCraft;
 
             shopText.text = "Items for sale: " + itemCount;
 

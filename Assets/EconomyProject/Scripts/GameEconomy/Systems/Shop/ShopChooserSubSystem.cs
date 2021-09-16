@@ -34,7 +34,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
                     MovePosition(agent, -1);
                     break;
                 
-                case EAdventureShopChoices.Select:
+                case EAdventureShopChoices.SetShop:
                     break;
             }
         }

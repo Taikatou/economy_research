@@ -20,6 +20,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         public static float[] GetSenses(Dictionary<CraftingResources, TakenCraftingResourceRequest> dictionary, CraftingResources key, int SensorCount)
         {
             var output = new float [SensorCount];
+            return output;
+            
             if (dictionary.ContainsKey(key))
             {
                 output[0] = (float) dictionary[key].Request.Resource;

@@ -68,6 +68,17 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                 _refreshTime[agent] = DateTime.Now;
             }
         }
+        
+        private bool ValidInput(TAgent agent, int input)
+        {
+            var inputs = GetEnabledInputs(agent);
+            return inputs.Any(x => x.Input == input && x.Enabled);
+        }
+
+        public bool ValidInput(TAgent agent, TInput input)
+        {
+            return ValidInput(agent, Convert.ToInt32(input));
+        }
 
         public DateTime GetRefreshTime(TAgent agent)
         {

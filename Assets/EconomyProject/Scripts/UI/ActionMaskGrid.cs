@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EconomyProject.Scripts.MLAgents.Shop;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,10 +29,14 @@ namespace EconomyProject.Scripts.UI
 
         private void UpdateMenus()
         {
+            foreach (Transform child in transform)
+            {
+                Destroy(child.gameObject);
+            }
             _textBoxes = new Dictionary<int, ActionMaskButton>();
             if (_cachedCraftActive)
             {
-                InitMenus<EAdventurerAgentChoices>();
+                InitMenus<EShopAgentChoices>();
             }
             else
             {
@@ -51,10 +56,14 @@ namespace EconomyProject.Scripts.UI
         private void InitMenus<T> () where T : Enum
         {
             var actions = Enum.GetValues(typeof(T)).Cast<T>().ToList();
+            var x = (float) 1920 / actions.Count;
+            gridLayout.cellSize = new Vector2(x, gridLayout.cellSize.y);
             foreach (var a in actions)
             {
                 var t = Instantiate(maskUI, gridLayout.transform, true);
-                t.textUI.text = a.ToString();
+                var text = a.ToString();
+
+                t.textUI.text = text;
                 t.buttonUI.onClick.AddListener(() => ButtonClicked(a));
             }
 
@@ -72,6 +81,7 @@ namespace EconomyProject.Scripts.UI
             if (_cachedCraftActive != newToggle)
             {
                 _cachedCraftActive = newToggle;
+                UpdateMenus();
             }
             else if (getCurrentAdventurerAgent.CurrentAgent != null)
             {

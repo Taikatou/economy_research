@@ -24,16 +24,16 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Actuators
 
             switch (action)
             {
-                case EAdventurerAgentChoices.AdventureForest:
+                case EAdventurerAgentChoices.AForest:
                     StartBattle(BattleEnvironments.Forest);
                     break;
-                case EAdventurerAgentChoices.AdventureSea:
+                case EAdventurerAgentChoices.ASea:
                     StartBattle(BattleEnvironments.Sea);
                     break;
-                case EAdventurerAgentChoices.AdventureMountain:
+                case EAdventurerAgentChoices.AMountain:
                     StartBattle(BattleEnvironments.Mountain);
                     break;
-                case EAdventurerAgentChoices.AdventureVolcano:
+                case EAdventurerAgentChoices.AVolcano:
                     StartBattle(BattleEnvironments.Volcano);
                     break;
             }

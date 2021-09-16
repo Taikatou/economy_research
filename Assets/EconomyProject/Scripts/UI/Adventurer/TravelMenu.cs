@@ -14,22 +14,22 @@ namespace EconomyProject.Scripts.UI.Adventurer
 
         public void ForestBattle()
         {
-			currentAdventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.AdventureForest);
+			currentAdventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.AForest);
         }
         
         public void MountainBattle()
         {
-			currentAdventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.AdventureMountain);
+			currentAdventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.AMountain);
         }
         
         public void VolcanoBattle()
         {
-			currentAdventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.AdventureVolcano);
+			currentAdventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.AVolcano);
         }
         
         public void SeaBattle()
         {
-			currentAdventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.AdventureSea);
+			currentAdventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.ASea);
         }
     }
 }

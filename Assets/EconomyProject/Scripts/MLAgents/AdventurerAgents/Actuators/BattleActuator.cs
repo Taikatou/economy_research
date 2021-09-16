@@ -25,13 +25,13 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Actuators
 
             switch (action)
             {
-                case EAdventurerAgentChoices.BattleAttack:
+                case EAdventurerAgentChoices.BAttack:
                     AdventurerSystem.OnAttackButton(_agent);
                     break;
-                case EAdventurerAgentChoices.BattleHeal:
+                case EAdventurerAgentChoices.BHeal:
                     AdventurerSystem.OnHealButton(_agent);
                     break;
-                case EAdventurerAgentChoices.BattleFlee:
+                case EAdventurerAgentChoices.BFlee:
                     AdventurerSystem.OnFleeButton(_agent);
                     break;
             }

@@ -6,7 +6,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
     public class AdventurerRest : EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerScreen>
     {
         public override int ObservationSize { get; }
-        public override EAdventurerScreen ActionChoice => EAdventurerScreen.Rest;
+        public override EAdventurerScreen ActionChoice => (EAdventurerScreen.Rest);
         public override bool CanMove(AdventurerAgent agent)
         {
             return true;

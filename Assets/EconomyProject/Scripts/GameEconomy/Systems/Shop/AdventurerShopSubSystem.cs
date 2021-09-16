@@ -36,7 +36,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
                 case EAdventureShopChoices.Down:
                     MovePosition(agent, shopItems, -1);
                     break;
-                case EAdventureShopChoices.Select:
+                case EAdventureShopChoices.PurchaseItem:
                     if (_currentLocation[agent] < shopItems.Count)
                     {
                         var shopDetails = shopItems[_currentLocation[agent]].itemDetails;

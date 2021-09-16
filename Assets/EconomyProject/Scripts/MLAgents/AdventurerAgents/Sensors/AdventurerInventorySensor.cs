@@ -20,7 +20,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
 
         public override void Update()
         {
-            var damage = _agent.adventurerInventory.EquipedItem.itemDetails.damage;
+            var damage = 0; // _agent.adventurerInventory.EquipedItem.itemDetails.damage;
             Data[0] = damage;
         }
 

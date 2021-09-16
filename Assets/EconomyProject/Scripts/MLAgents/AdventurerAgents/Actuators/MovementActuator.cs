@@ -27,7 +27,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Actuators
                 case EAdventurerAgentChoices.MainMenu:
                     AdventurerInput.ChangeScreen(_agent, EAdventurerScreen.Main);
                     break;
-                case EAdventurerAgentChoices.ResourceRequest:
+                case EAdventurerAgentChoices.FindRequest:
                     AdventurerInput.ChangeScreen(_agent, EAdventurerScreen.Request);
                     break;
                 case EAdventurerAgentChoices.Shop:

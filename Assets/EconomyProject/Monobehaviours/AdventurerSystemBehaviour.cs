@@ -6,9 +6,9 @@ namespace EconomyProject.Monobehaviours
     public class AdventurerSystemBehaviour : MonoBehaviour
     {
         public AdventurerSystem system;
-        public void Update()
+        public void FixedUpdate()
         {
-            system.Update();
+            system.FixedUpdate();
         }
     }
 }

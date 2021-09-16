@@ -1,6 +1,4 @@
-﻿using EconomyProject.Monobehaviours;
-using EconomyProject.Scripts.GameEconomy.Systems.Requests;
-using EconomyProject.Scripts.MLAgents.Shop;
+﻿using EconomyProject.Scripts.MLAgents.Shop;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.UI.Craftsman

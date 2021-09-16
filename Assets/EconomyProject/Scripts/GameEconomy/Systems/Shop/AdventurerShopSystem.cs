@@ -5,7 +5,7 @@ using Sirenix.Utilities;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 {
-    public enum EAdventureShopChoices { Up = EAdventurerAgentChoices.Up, Down=EAdventurerAgentChoices.Down, Select=EAdventurerAgentChoices.Select, 
+    public enum EAdventureShopChoices { Up = EAdventurerAgentChoices.Up, Down=EAdventurerAgentChoices.Down, 
         SetShop = EAdventurerAgentChoices.SetShop, PurchaseItem=EAdventurerAgentChoices.PurchaseItem, Back=EAdventurerAgentChoices.Back }
     
     [Serializable]
@@ -30,14 +30,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 
         public override void SetChoice(AdventurerAgent agent, EAdventurerAgentChoices input)
         {
-            if (Enum.IsDefined(typeof(EAdventureShopChoices), input))
+            var sC = (EAdventureShopChoices) input;
+            if (Enum.IsDefined(typeof(EAdventureShopChoices), sC))
             {
                 var agentInput = (EAdventureShopChoices) input;
                 switch (agentInput)
                 {
-                    case EAdventureShopChoices.Select:
-
-                        break;
                     case EAdventureShopChoices.Down:
                         
                         break;

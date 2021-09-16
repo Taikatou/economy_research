@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
@@ -14,9 +15,8 @@ using Unity.MLAgents.Actuators;
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 {
 	//main and shop is not used by agent
-	public enum EAdventurerScreen { Main=0, Request=1, Shop=2, Adventurer=3, Rest=4 }
-    
-    public class AdventurerAgent : AgentScreen<EAdventurerScreen>, IEconomyAgent
+
+	public class AdventurerAgent : AgentScreen<EAdventurerScreen>, IEconomyAgent
     {
 	    public EAdventurerTypes adventurerType;
 		public AgentInventory inventory;
@@ -74,8 +74,14 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 	            _bForcedAction = false;
 	            action = _forcedAction;
             }
+            
             var system = adventurerInput.GetEconomySystem(this);
             system.SetChoice(this, action);
+        }
+
+        public void Update()
+        {
+	        
         }
 
         public void SetAction(EAdventurerAgentChoices choice)
@@ -96,13 +102,13 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 			{
 				case EAdventurerAgentChoices.None:
 					break;
-				case EAdventurerAgentChoices.TakeResourceRequest:
+				case EAdventurerAgentChoices.TakeRequest:
 					requestTaker.TakeRequest(resourceRequestToTake);
 					break;
 				case EAdventurerAgentChoices.MainMenu:
 					adventurerInput.ChangeScreen(this, EAdventurerScreen.Main);
 					break;
-				case EAdventurerAgentChoices.ResourceRequest:
+				case EAdventurerAgentChoices.FindRequest:
 					adventurerInput.ChangeScreen(this, EAdventurerScreen.Request);
 					break;
 				case EAdventurerAgentChoices.Shop:
@@ -111,25 +117,25 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 				case EAdventurerAgentChoices.Adventure:
 					adventurerInput.ChangeScreen(this, EAdventurerScreen.Adventurer);
 					break;
-				case EAdventurerAgentChoices.AdventureForest:
+				case EAdventurerAgentChoices.AForest:
 					AdventurerInput.AdventurerSystem.system.StartBattle(this, BattleEnvironments.Forest);
 					break;
-				case EAdventurerAgentChoices.AdventureSea:
+				case EAdventurerAgentChoices.ASea:
 					AdventurerInput.AdventurerSystem.system.StartBattle(this, BattleEnvironments.Sea);
 					break;
-				case EAdventurerAgentChoices.AdventureMountain:
+				case EAdventurerAgentChoices.AMountain:
 					AdventurerInput.AdventurerSystem.system.StartBattle(this, BattleEnvironments.Mountain);
 					break;
-				case EAdventurerAgentChoices.AdventureVolcano:
+				case EAdventurerAgentChoices.AVolcano:
 					AdventurerInput.AdventurerSystem.system.StartBattle(this, BattleEnvironments.Volcano);
 					break;
-				case EAdventurerAgentChoices.BattleAttack:
+				case EAdventurerAgentChoices.BAttack:
 					AdventurerInput.AdventurerSystem.system.OnAttackButton(this);
 					break;
-				case EAdventurerAgentChoices.BattleHeal:
+				case EAdventurerAgentChoices.BHeal:
 					AdventurerInput.AdventurerSystem.system.OnHealButton(this);
 					break;
-				case EAdventurerAgentChoices.BattleFlee:
+				case EAdventurerAgentChoices.BFlee:
 					AdventurerInput.AdventurerSystem.system.OnFleeButton(this);
 					break;
 				case EAdventurerAgentChoices.PurchaseItem:
@@ -152,9 +158,12 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 			}
 		}
 
-        public void SetAction(int action)
+        public void SetAction(int input)
         {
-	        SetAction((EAdventurerAgentChoices) action);
+	        var action = (EAdventurerAgentChoices) input;
+	        Debug.Log(action);
+	        
+	        SetAction(action);
         }
     }
 }
