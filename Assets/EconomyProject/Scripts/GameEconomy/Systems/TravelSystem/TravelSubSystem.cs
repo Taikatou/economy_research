@@ -6,23 +6,23 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.TravelSystem
 {
-    public enum BattleEnvironments {Forest = EAdventurerAgentChoices.AForest, Mountain=EAdventurerAgentChoices.AMountain, Sea = EAdventurerAgentChoices.ASea, Volcano=EAdventurerAgentChoices.AVolcano}
+    public enum EBattleEnvironments {Forest = EAdventurerAgentChoices.AForest, Mountain=EAdventurerAgentChoices.AMountain, Sea = EAdventurerAgentChoices.ASea, Volcano=EAdventurerAgentChoices.AVolcano}
     
     [Serializable]
     public class EnvironmentBattleLootBox
     {
         public BattleLootBox lootBox;
         
-        public BattleEnvironments environment;
+        public EBattleEnvironments environment;
     }
     public class TravelSubSystem : MonoBehaviour
     {
         public List<EnvironmentBattleLootBox> environmentBattleLootBoxes;
-        private Dictionary<BattleEnvironments, BattleLootBox> _environmentLootTable;
+        private Dictionary<EBattleEnvironments, BattleLootBox> _environmentLootTable;
 
         public void Start()
         {
-            _environmentLootTable = new Dictionary<BattleEnvironments, BattleLootBox>();
+            _environmentLootTable = new Dictionary<EBattleEnvironments, BattleLootBox>();
             foreach (var item in environmentBattleLootBoxes)
             {
                 item.lootBox.ValidateTable();
@@ -30,7 +30,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.TravelSystem
             }
         }
 
-        public FighterObject GetBattle(BattleEnvironments environment)
+        public FighterObject GetBattle(EBattleEnvironments environment)
         {
             if (_environmentLootTable.ContainsKey(environment))
             {

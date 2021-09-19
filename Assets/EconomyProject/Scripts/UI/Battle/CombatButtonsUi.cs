@@ -22,7 +22,7 @@ namespace EconomyProject.Scripts.UI.Battle
 
         public void OnFleeButton()
         {
-			adventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.BFlee);
+			adventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.Back);
         }
     }
 }

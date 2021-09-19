@@ -4,7 +4,7 @@ namespace TurnBased.Scripts
 {
 	public delegate void OnWinDelegate();
 	public enum BattleState { Start, PlayerTurn, EnemyTurn, Won, Lost, Flee }
-	public enum BattleAction { Attack=EAdventurerAgentChoices.BAttack, Heal=EAdventurerAgentChoices.BHeal, Flee=EAdventurerAgentChoices.BFlee }
+	public enum EBattleAction { Attack=EAdventurerAgentChoices.BAttack, Heal=EAdventurerAgentChoices.BHeal, Flee=EAdventurerAgentChoices.Back }
 
 	public class BattleSubSystem
 	{
@@ -121,17 +121,17 @@ namespace TurnBased.Scripts
 			CurrentState = BattleState.Flee;
 		}
 
-		public void SetInput(BattleAction action)
+		public void SetInput(EBattleAction action)
 		{
 			switch (action)
 			{
-				case BattleAction.Attack:
+				case EBattleAction.Attack:
 						OnAttackButton();
 					break;
-				case BattleAction.Heal:
+				case EBattleAction.Heal:
 						OnHealButton();
 					break;
-				case BattleAction.Flee:
+				case EBattleAction.Flee:
 						OnFleeButton();
 					break;
 			}

@@ -118,16 +118,16 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 					adventurerInput.ChangeScreen(this, EAdventurerScreen.Adventurer);
 					break;
 				case EAdventurerAgentChoices.AForest:
-					AdventurerInput.AdventurerSystem.system.StartBattle(this, BattleEnvironments.Forest);
+					AdventurerInput.AdventurerSystem.system.StartBattle(this, EBattleEnvironments.Forest);
 					break;
 				case EAdventurerAgentChoices.ASea:
-					AdventurerInput.AdventurerSystem.system.StartBattle(this, BattleEnvironments.Sea);
+					AdventurerInput.AdventurerSystem.system.StartBattle(this, EBattleEnvironments.Sea);
 					break;
 				case EAdventurerAgentChoices.AMountain:
-					AdventurerInput.AdventurerSystem.system.StartBattle(this, BattleEnvironments.Mountain);
+					AdventurerInput.AdventurerSystem.system.StartBattle(this, EBattleEnvironments.Mountain);
 					break;
 				case EAdventurerAgentChoices.AVolcano:
-					AdventurerInput.AdventurerSystem.system.StartBattle(this, BattleEnvironments.Volcano);
+					AdventurerInput.AdventurerSystem.system.StartBattle(this, EBattleEnvironments.Volcano);
 					break;
 				case EAdventurerAgentChoices.BAttack:
 					AdventurerInput.AdventurerSystem.system.OnAttackButton(this);
@@ -135,7 +135,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 				case EAdventurerAgentChoices.BHeal:
 					AdventurerInput.AdventurerSystem.system.OnHealButton(this);
 					break;
-				case EAdventurerAgentChoices.BFlee:
+				case EAdventurerAgentChoices.Back:
 					AdventurerInput.AdventurerSystem.system.OnFleeButton(this);
 					break;
 				case EAdventurerAgentChoices.PurchaseItem:

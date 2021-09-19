@@ -31,7 +31,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Actuators
                 case EAdventurerAgentChoices.BHeal:
                     AdventurerSystem.OnHealButton(_agent);
                     break;
-                case EAdventurerAgentChoices.BFlee:
+                case EAdventurerAgentChoices.Back:
                     AdventurerSystem.OnFleeButton(_agent);
                     break;
             }

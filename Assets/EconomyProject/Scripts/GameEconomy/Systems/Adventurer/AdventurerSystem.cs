@@ -39,7 +39,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 					//Fully Heal adventurers
 					battle.Value.PlayerFighterUnit.CurrentHp = battle.Value.PlayerFighterUnit.MaxHp;
 					//End battles
-					battle.Value.SetInput(BattleAction.Flee);
+					battle.Value.SetInput(EBattleAction.Flee);
 				}
 			}
 			
@@ -103,12 +103,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                         }
                         else
                         {
-                            StartBattle(agent, (BattleEnvironments) input);   
+                            StartBattle(agent, (EBattleEnvironments) input);   
                         }
                         break;
                     case AdventureStates.InBattle:
                         var battleSystem = GetSubSystem(agent);
-                        battleSystem.SetInput((BattleAction) input);
+                        battleSystem.SetInput((EBattleAction) input);
                         break;
                 }   
             }
@@ -209,13 +209,17 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             agent.wallet.SpendMoney(5);
         }
 
-        public void StartBattle(AdventurerAgent agent, BattleEnvironments battleEnvironments)
+        public void StartBattle(AdventurerAgent agent, EBattleEnvironments battleEnvironments)
         {
             var fighter = travelSubsystem.GetBattle(battleEnvironments);
 
             if (fighter)
             {
                 SetupNewBattle(agent, fighter);
+            }
+            else
+            {
+                Debug.Log("Fighter Invalid no fight can start");
             }
         }
 
@@ -251,7 +255,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             ? new[]
             {
                 EAdventurerAgentChoices.BAttack,
-                EAdventurerAgentChoices.BFlee,
+                EAdventurerAgentChoices.Back,
                 EAdventurerAgentChoices.BHeal
             }
             : new[]

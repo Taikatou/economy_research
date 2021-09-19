@@ -220,10 +220,10 @@ namespace Tests.Economy
 		[Test]
 		public void Enum_TravelSystem()
 		{
-			bool isForestExist = Enum.IsDefined(typeof(BattleEnvironments), "Forest");
-			bool isMoutainExist = Enum.IsDefined(typeof(BattleEnvironments), "Mountain");
-			bool isSeaExist = Enum.IsDefined(typeof(BattleEnvironments), "Sea");
-			bool isVolcanoExist = Enum.IsDefined(typeof(BattleEnvironments), "Volcano");
+			bool isForestExist = Enum.IsDefined(typeof(EBattleEnvironments), "Forest");
+			bool isMoutainExist = Enum.IsDefined(typeof(EBattleEnvironments), "Mountain");
+			bool isSeaExist = Enum.IsDefined(typeof(EBattleEnvironments), "Sea");
+			bool isVolcanoExist = Enum.IsDefined(typeof(EBattleEnvironments), "Volcano");
 			Assert.True(isForestExist && isMoutainExist && isSeaExist && isVolcanoExist == true);
 		}
 
@@ -259,9 +259,9 @@ namespace Tests.Economy
 		[Test]
 		public void Enum_BattleAction()
 		{
-			bool isAttackExist = Enum.IsDefined(typeof(BattleAction), "Attack");
-			bool isHealExist = Enum.IsDefined(typeof(BattleAction), "Heal");
-			bool isFleeExist = Enum.IsDefined(typeof(BattleAction), "Flee");
+			bool isAttackExist = Enum.IsDefined(typeof(EBattleAction), "Attack");
+			bool isHealExist = Enum.IsDefined(typeof(EBattleAction), "Heal");
+			bool isFleeExist = Enum.IsDefined(typeof(EBattleAction), "Flee");
 			Assert.True(isAttackExist && isHealExist && isFleeExist == true);
 		}
 

@@ -48,7 +48,7 @@ namespace Tests.Economy
 
 		public ConfigSystem configSystem;
 
-		public readonly List<BattleEnvironments> ListEnvironments = new List<BattleEnvironments> { BattleEnvironments.Forest, BattleEnvironments.Mountain, BattleEnvironments.Sea, BattleEnvironments.Volcano };
+		public readonly List<EBattleEnvironments> ListEnvironments = new List<EBattleEnvironments> { EBattleEnvironments.Forest, EBattleEnvironments.Mountain, EBattleEnvironments.Sea, EBattleEnvironments.Volcano };
 		public List<CraftingResources> listCraftingResources = new List<CraftingResources> { CraftingResources.Wood, CraftingResources.Metal, CraftingResources.Gem, CraftingResources.DragonScale };
 		public List<CraftingChoice> listCraftingChoices = new List<CraftingChoice> { CraftingChoice.BeginnerSword, CraftingChoice.IntermediateSword, CraftingChoice.AdvancedSword, CraftingChoice.EpicSword, CraftingChoice.UltimateSwordOfPower };
 
@@ -158,7 +158,7 @@ namespace Tests.Economy
 		/// <summary>
 		/// Start a battle and return the BattleSubSystem associated to this battle
 		/// </summary>
-		public BattleSubSystem StartBattle(BattleEnvironments env)
+		public BattleSubSystem StartBattle(EBattleEnvironments env)
 		{
 			adventurerSystem.StartBattle(adventurerAgent, env);
 			return adventurerSystem.GetSubSystem(adventurerAgent);
