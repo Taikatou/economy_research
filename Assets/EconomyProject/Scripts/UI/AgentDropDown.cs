@@ -10,8 +10,14 @@ namespace EconomyProject.Scripts.UI
 {
     public abstract class AgentDropDown<TAgent, T> : MonoBehaviour where TAgent : AgentScreen<T>
     {
+        public Color OnSelected = Color.green;
+        public Color OriginalColor = Color.white;
+
+        public Image dropdownImage;
         public Dropdown dropDown;
         private bool _setOption;
+
+        private bool _selected;
 
         private TAgent[] AgentList => GetCurrentAgent.GetAgents;
         protected abstract GetCurrentAgent<TAgent> GetCurrentAgent { get; }
@@ -28,6 +34,17 @@ namespace EconomyProject.Scripts.UI
             if (GetCurrentAgent.LastUpdated != _lastUpdate || dropDown.options.Count != AgentList.Length)
 			{
 				SetDropdown();
+            }
+
+            if (Selected())
+            {
+                dropdownImage.color = OnSelected;
+                _selected = true;
+            }
+            else if (_selected)
+            {
+                _selected = false;
+                dropdownImage.color = OriginalColor;
             }
         }
 
@@ -87,5 +104,10 @@ namespace EconomyProject.Scripts.UI
 			requestSystem.Refresh();
 			shopCraftingSystemBehaviour.system.shopSubSubSystem.Refresh();
 		}
+
+        protected virtual bool Selected()
+        {
+            return false;
+        }
 	}
 }

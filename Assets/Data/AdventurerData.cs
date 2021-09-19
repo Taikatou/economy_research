@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public enum EAdventurerAgentChoices { None=0, MainMenu, FindRequest, Shop, Adventure, TakeRequest, 
     AForest, ASea, AMountain, AVolcano, BAttack, BHeal, 
     Up, Down, SetShop, PurchaseItem, Back }

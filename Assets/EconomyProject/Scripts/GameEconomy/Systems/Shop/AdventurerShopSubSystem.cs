@@ -1,14 +1,12 @@
 ﻿using System.Collections.Generic;
 using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
-using Inventory;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 {
-    public class AdventurerShopSubSystem : MonoBehaviour, IShopSubSystem, IAdventureSense
+    public class AdventurerShopSubSystem : MonoBehaviour, IAdventureSense, IMoveMenu<AdventurerAgent>
     {
         public ShopCraftingSystemBehaviour shopCraftingSystem;
         public ShopChooserSubSystem shopChooserSubSystem;
@@ -19,35 +17,22 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             _currentLocation = new Dictionary<AdventurerAgent, int>();
         }
 
-        public void SetInput(AdventurerAgent agent, EAdventureShopChoices choice)
+        public void PurchaseItem(AdventurerAgent agent)
         {
-            if (!_currentLocation.ContainsKey(agent))
-            {
-                _currentLocation.Add(agent, 0);
-            }
-
             var shopAgent = shopChooserSubSystem.GetCurrentShop(agent);
             var shopItems = shopCraftingSystem.system.shopSubSubSystem.GetShopItems(shopAgent);
-            switch (choice)
+            if (_currentLocation[agent] < shopItems.Count)
             {
-                case EAdventureShopChoices.Up:
-                    MovePosition(agent, shopItems, 1);
-                    break;
-                case EAdventureShopChoices.Down:
-                    MovePosition(agent, shopItems, -1);
-                    break;
-                case EAdventureShopChoices.PurchaseItem:
-                    if (_currentLocation[agent] < shopItems.Count)
-                    {
-                        var shopDetails = shopItems[_currentLocation[agent]].itemDetails;
-                        shopCraftingSystem.system.shopSubSubSystem.PurchaseItem(shopAgent, shopDetails, agent.wallet, agent.inventory);
-                    }
-                    break;
+                var shopDetails = shopItems[_currentLocation[agent]].itemDetails;
+                shopCraftingSystem.system.shopSubSubSystem.PurchaseItem(shopAgent, shopDetails, agent.wallet, agent.inventory);
             }
         }
 
-        private void MovePosition(AdventurerAgent agent, List<UsableItem> shopItems, int movement)
+        public void MovePosition(AdventurerAgent agent, int movement)
         {
+            var shopAgent = shopChooserSubSystem.GetCurrentShop(agent);
+            var shopItems = shopCraftingSystem.system.shopSubSubSystem.GetShopItems(shopAgent);
+            
             var newPosition = _currentLocation[agent] + movement;
             if (newPosition >= 0 && newPosition < shopItems.Count)
             {
