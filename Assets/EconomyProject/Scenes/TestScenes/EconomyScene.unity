@@ -516,9 +516,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 275464629}
     - target: {fileID: 2810845863312687352, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
+      propertyPath: adventurerShopSystem
+      value: 
+      objectReference: {fileID: 661156366}
+    - target: {fileID: 2810845863312687352, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: shopChooserSubSystem
       value: 
       objectReference: {fileID: 1781114764}
+    - target: {fileID: 2810845863312687352, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
+      propertyPath: adventurerShopSubSystem
+      value: 
+      objectReference: {fileID: 1724462218}
     - target: {fileID: 3902145170023200438, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2037,6 +2045,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1724462218 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6537886292208061804, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
+  m_PrefabInstance: {fileID: 1781114761}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8b71d0d0cc68e64990f65a7c7ae4066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1754627094
 PrefabInstance:
   m_ObjectHideFlags: 0

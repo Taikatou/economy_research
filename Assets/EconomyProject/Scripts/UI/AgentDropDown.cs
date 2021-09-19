@@ -71,7 +71,12 @@ namespace EconomyProject.Scripts.UI
             _lastUpdate = GetCurrentAgent.LastUpdated;
         }
 
-        private void Start()
+        public void UpdateValue()
+        {
+            
+        }
+
+        protected virtual void Start()
         {
             SetDropdown();
             

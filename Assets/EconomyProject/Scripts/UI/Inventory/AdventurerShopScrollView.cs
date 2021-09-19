@@ -1,11 +1,7 @@
 ﻿using System.Collections.Generic;
 using EconomyProject.Monobehaviours;
-using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.GameEconomy.Systems.Shop;
-using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
-using EconomyProject.Scripts.MLAgents.AdventurerAgents;
-using EconomyProject.Scripts.GameEconomy;
 
 namespace EconomyProject.Scripts.UI.Inventory
 {
@@ -15,12 +11,15 @@ namespace EconomyProject.Scripts.UI.Inventory
         public GetCurrentAdventurerAgent currentAdventurerAgent;
 		public GetCurrentShopAgent currentShopAgent;
 		public ShopChooserSubSystem shopChooserSubSystem;
+
+		public AdventurerShopSystemBehaviour adventurerShopSystem;
         protected override ILastUpdate LastUpdated => shopSubSystem.system.shopSubSubSystem;
 
         protected override List<ShopItem> GetItemList()
         {
+	        var counter = 0;
 			var toReturn = new List<ShopItem>();
-			foreach(ShopAgent shopAgent in currentShopAgent.GetAgents)
+			foreach(var shopAgent in currentShopAgent.GetAgents)
 			{
 				var items = shopSubSystem.system.shopSubSubSystem.GetShopItems(shopAgent);
 				foreach (var item in items)
@@ -30,17 +29,36 @@ namespace EconomyProject.Scripts.UI.Inventory
 						Seller = shopAgent,
 						Item = item,
 						Price = shopSubSystem.system.shopSubSubSystem.GetPrice(shopAgent, item.itemDetails),
-						Number = shopSubSystem.system.shopSubSubSystem.GetNumber(shopAgent, item.itemDetails)
+						Number = shopSubSystem.system.shopSubSubSystem.GetNumber(shopAgent, item.itemDetails),
+						Index = counter
 					});
+					
+					counter++;
 				}
 			}
 
             return toReturn;
         }
 
+        protected override void Update()
+        {
+	        base.Update();
+
+	        foreach (var button in buttons)
+	        {
+		        var agent = currentAdventurerAgent.CurrentAgent;
+		        var index = adventurerShopSystem.system.adventurerShopSubSystem.GetCurrentLocation(agent);
+		        button.UpdateData(agent, index, Selected);
+	        }
+        }
+
+        private bool Selected => adventurerShopSystem.system.GetChoice(currentAdventurerAgent.CurrentAgent) 
+                                 == ESelectionState.PurchaseItem;
+
         public override void SelectItem(ShopItem item, int number = 1)
         {
-			currentAdventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.PurchaseItem, null, item);
+			currentAdventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.PurchaseItem, 
+				null, item);
 		}
     }
 }

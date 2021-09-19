@@ -17,6 +17,16 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             _currentLocation = new Dictionary<AdventurerAgent, int>();
         }
 
+        public int GetCurrentLocation(AdventurerAgent agent)
+        {
+            if (!_currentLocation.ContainsKey(agent))
+            {
+                _currentLocation.Add(agent, 0);
+            }
+
+            return _currentLocation[agent];
+        }
+
         public void PurchaseItem(AdventurerAgent agent)
         {
             var shopAgent = shopChooserSubSystem.GetCurrentShop(agent);

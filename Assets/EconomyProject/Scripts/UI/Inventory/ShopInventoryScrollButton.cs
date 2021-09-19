@@ -1,4 +1,5 @@
-﻿using EconomyProject.Scripts.UI.ShopUI.Buttons;
+﻿using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+using EconomyProject.Scripts.UI.ShopUI.Buttons;
 using UnityEngine.UI;
 using UnityEngine;
 
@@ -9,11 +10,21 @@ namespace EconomyProject.Scripts.UI.Inventory
         public Text nameLabel;
         public Text priceText;
         public Text stockText;
-		public Image image;
 
-		public GameObject increasePriceBtn;
+        public GameObject increasePriceBtn;
 		public GameObject decreasePriceBtn;
+		
+		public AdventurerAgent agent;
+		public int currentIndex;
+		public bool selected;
 
+		public void UpdateData(AdventurerAgent Agent, int CurrentIndex, bool Selected)
+		{
+			agent = Agent;
+			currentIndex = CurrentIndex;
+			selected = Selected;
+		}
+		
 		protected override void SetupButton()
         {
 
@@ -56,7 +67,7 @@ namespace EconomyProject.Scripts.UI.Inventory
 				return;
 			}
 
-			GameObject.FindObjectOfType<ShopScrollView>().DecreasePrice(ItemDetails);
+			FindObjectOfType<ShopScrollView>().DecreasePrice(ItemDetails);
 			UpdateButtonsPrice(ItemDetails.Price-1);
 		}
 
@@ -67,7 +78,7 @@ namespace EconomyProject.Scripts.UI.Inventory
 		/// <param name="newPrice">New price to update</param>
 		public void UpdateButtonsPrice(int newPrice)
 		{
-			foreach (ShopInventoryScrollButton btn in GameObject.FindObjectsOfType<ShopInventoryScrollButton>())
+			foreach (ShopInventoryScrollButton btn in FindObjectsOfType<ShopInventoryScrollButton>())
 			{
 				if(ItemDetails.Item.itemDetails.itemName == btn.ItemDetails.Item.itemDetails.itemName)
 				{
@@ -75,6 +86,17 @@ namespace EconomyProject.Scripts.UI.Inventory
 					btn.priceText.text = ItemDetails.Price.ToString();
 				}
 			}
+		}
+
+		protected override bool Selected()
+		{
+			var toReturn = false;
+			if(agent != null && selected)
+			{
+				toReturn = currentIndex == ItemDetails.Index;
+			}
+
+			return toReturn;
 		}
 	}
 }

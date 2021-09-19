@@ -47,6 +47,13 @@ namespace EconomyProject.Scripts.UI.ShopUI.ScrollLists
 
         public abstract void SelectItem(T item, int number=1);
 
+        protected List<TQ> buttons;
+
+        public void Start()
+        {
+            buttons = new List<TQ>();
+        }
+
         private bool RefreshDisplay()
         {
             RemoveButtons();
@@ -55,6 +62,7 @@ namespace EconomyProject.Scripts.UI.ShopUI.ScrollLists
 
         private void RemoveButtons()
         {
+            buttons.Clear();
             while (contentPanel.childCount > 0)
             {
                 var toRemove = contentPanel.GetChild(0).gameObject;
@@ -75,13 +83,15 @@ namespace EconomyProject.Scripts.UI.ShopUI.ScrollLists
 
                     var sampleButton = newButton.GetComponent<TQ>();
                     sampleButton.Setup(item, this);
+                    
+                    buttons.Add(sampleButton);
                 }
             }
 
             return valid;
         }
 
-        private void Update()
+        protected virtual void Update()
         {
 			if(LastUpdated == null || LastUpdated.LastUpdated == null)
 			{

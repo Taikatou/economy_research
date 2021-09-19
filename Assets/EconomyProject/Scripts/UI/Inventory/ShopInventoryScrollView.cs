@@ -18,6 +18,7 @@ namespace EconomyProject.Scripts.UI.Inventory
         public UsableItem Item;
         public int Number;
         public int Price;
+        public int Index;
     }
     public class ShopInventoryScrollView : AbstractScrollList<ShopItem, ShopInventoryScrollButton>
     {
