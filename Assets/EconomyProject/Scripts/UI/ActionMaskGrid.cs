@@ -67,7 +67,7 @@ namespace EconomyProject.Scripts.UI
                 t.buttonUI.onClick.AddListener(() => ButtonClicked(a));
             }
 
-            AddTextBox<T>(actions);
+            AddTextBox(actions);
         }
 
         private void ButtonClicked<T> (T a) where T : Enum
@@ -77,9 +77,10 @@ namespace EconomyProject.Scripts.UI
 
         private void Update()
         {
-            var newToggle = _cachedCraftActive != getCurrentAdventurerAgent.ToggleButton.craftActive;
+            var newToggle = getCurrentAdventurerAgent.ToggleButton.craftActive;
             if (_cachedCraftActive != newToggle)
             {
+                Debug.Log(newToggle);
                 _cachedCraftActive = newToggle;
                 UpdateMenus();
             }

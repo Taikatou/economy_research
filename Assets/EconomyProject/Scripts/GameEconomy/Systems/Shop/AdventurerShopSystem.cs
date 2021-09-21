@@ -4,9 +4,7 @@ using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 {
-    public enum EAdventureShopChoices { Up = EAdventurerAgentChoices.Up, Down=EAdventurerAgentChoices.Down, 
-        SetShop = EAdventurerAgentChoices.SetShop, PurchaseItem=EAdventurerAgentChoices.PurchaseItem, Back=EAdventurerAgentChoices.Back }
-    
+
     public enum ESelectionState { PurchaseItem, SelectShop }
 
     public delegate void SetChoice(AdventurerAgent agent);
@@ -38,33 +36,29 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             return new float[] {};
         }
 
-        public override void SetChoice(AdventurerAgent agent, EAdventurerAgentChoices input)
+        protected override void SetChoice(AdventurerAgent agent, EAdventurerAgentChoices input)
         {
-            var sC = (EAdventureShopChoices) input;
-            if (Enum.IsDefined(typeof(EAdventureShopChoices), sC))
+            switch (input)
             {
-                var agentInput = (EAdventureShopChoices) input;
-                switch (agentInput)
-                {
-                    case EAdventureShopChoices.Down:
-                        GetCurrentSubsystem(agent).MovePosition(agent, -1);
-                        break;
-                    
-                    case EAdventureShopChoices.Up:
-                        GetCurrentSubsystem(agent).MovePosition(agent, 1);
-                        break;
-                    
-                    case EAdventureShopChoices.Back:
+                case EAdventurerAgentChoices.Down:
+                    GetCurrentSubsystem(agent).MovePosition(agent, -1);
+                    break;
+                
+                case EAdventurerAgentChoices.Up:
+                    GetCurrentSubsystem(agent).MovePosition(agent, 1);
+                    break;
+                
+                case EAdventurerAgentChoices.Back:
+                    AgentInput.ChangeScreen(agent, EAdventurerScreen.Main);
 
-                        break;
-                    case EAdventureShopChoices.SetShop:
-                        SetChoice(agent, ESelectionState.SelectShop);
-                        break;
-                    
-                    case EAdventureShopChoices.PurchaseItem:
-                        SetChoice(agent, ESelectionState.PurchaseItem, adventurerShopSubSystem.PurchaseItem);
-                        break;
-                }
+                    break;
+                case EAdventurerAgentChoices.SetShop:
+                    SetChoice(agent, ESelectionState.SelectShop);
+                    break;
+                
+                case EAdventurerAgentChoices.PurchaseItem:
+                    SetChoice(agent, ESelectionState.PurchaseItem, adventurerShopSubSystem.PurchaseItem);
+                    break;
             }
         }
 

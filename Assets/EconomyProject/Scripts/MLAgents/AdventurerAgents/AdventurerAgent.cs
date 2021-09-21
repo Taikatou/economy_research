@@ -76,12 +76,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             }
             
             var system = adventurerInput.GetEconomySystem(this);
-            system.SetChoice(this, action);
-        }
-
-        public void Update()
-        {
-	        
+            system.AgentSetChoice(this, action);
         }
 
         public void SetAction(EAdventurerAgentChoices choice)

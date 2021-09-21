@@ -5,7 +5,7 @@ using EconomyProject.Scripts.MLAgents.Shop;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
-    public enum AdventurerRequestInput {Back=0}
+
     [Serializable]
     public class RequestAdventurerSystem : EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
     {
@@ -36,23 +36,19 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             RequestDecisions();
         }
 
-        public override void SetChoice(AdventurerAgent agent, EAdventurerAgentChoices input)
+        protected override void SetChoice(AdventurerAgent agent, EAdventurerAgentChoices input)
         {
-            if (Enum.IsDefined(typeof(AdventurerRequestInput), input))
+            switch (input)
             {
-                AgentInput.ChangeScreen(agent, EAdventurerScreen.Main);
-            }
-            else
-            {
-          /*      input -= 1;
-                var requests = requestSystem.GetAllCraftingRequests();
-                if (input >= 0 && input < requests.Count)
-                {
-                    var requestTaker = agent.GetComponent<AdventurerRequestTaker>();
-                    requestTaker.TakeRequest(requests[input]);
-                }   */
+                case EAdventurerAgentChoices.Down:
+
+                    break;
+                case EAdventurerAgentChoices.Back:
+                    AgentInput.ChangeScreen(agent, EAdventurerScreen.Main);
+                    break;
             }
         }
+        
 
         private List<InputAction> GetRequestInput()
         {
@@ -72,7 +68,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         {
             var inputChoices = new[]
             {
-                EAdventurerAgentChoices.TakeRequest
+                EAdventurerAgentChoices.TakeRequest,
+                EAdventurerAgentChoices.Back,
+                EAdventurerAgentChoices.Up,
+                EAdventurerAgentChoices.Back
             };
             var outputs = AdventurerEconomySystemUtils.GetInputOfType(inputChoices);
 

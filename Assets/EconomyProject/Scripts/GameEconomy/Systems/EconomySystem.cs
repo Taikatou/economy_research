@@ -107,9 +107,23 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             }
         }
 
-        public virtual void SetChoice(TAgent agent, TInput input)
+        protected virtual void SetChoice(TAgent agent, TInput input)
         {
             
+        }
+
+        public void AgentSetChoice(TAgent agent, TInput input)
+        {
+            var inputInt = Convert.ToInt32(input);
+            var enabledInputs = GetEnabledInputs(agent);
+            if (Array.Exists(enabledInputs, e => e.Input == inputInt))
+            {
+                var i = enabledInputs.First(x => x.Input == inputInt);
+                if (i.Enabled)
+                {
+                    SetChoice(agent, input);
+                }
+            }
         }
 
         public virtual EnabledInput[] GetEnabledInputs(TAgent agent)

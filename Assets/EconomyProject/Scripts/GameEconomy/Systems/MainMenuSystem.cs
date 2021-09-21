@@ -21,7 +21,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return Array.Empty<float>();
         }
 
-        public override void SetChoice(AdventurerAgent agent, EAdventurerAgentChoices input)
+        protected override void SetChoice(AdventurerAgent agent, EAdventurerAgentChoices input)
         {
             var s = (EAdventurerScreen) input;
             if (Enum.IsDefined(typeof(EAdventurerScreen), s))

@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {
-    public enum AdventureStates { OutOfBattle, InBattle}
+    public enum AdventureStates { OutOfBattle, InBattle }
     
     [Serializable]
     public class AdventurerSystem : EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
@@ -89,7 +89,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return battleState;
         }
 
-        public override void SetChoice(AdventurerAgent agent, EAdventurerAgentChoices input)
+        protected override void SetChoice(AdventurerAgent agent, EAdventurerAgentChoices input)
         {
             var validInput = ValidInput(agent, input);
             if (validInput)

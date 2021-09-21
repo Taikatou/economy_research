@@ -31,7 +31,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return outputSenses;
         }
 
-        public override void SetChoice(ShopAgent agent, EShopAgentChoices input)
+        protected override void SetChoice(ShopAgent agent, EShopAgentChoices input)
         {
            /* if (input >= 0)
             {

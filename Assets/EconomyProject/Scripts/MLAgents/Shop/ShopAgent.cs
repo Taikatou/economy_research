@@ -17,7 +17,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 {
 	public enum EShopAgentChoices { None = 0, MainMenu, RequestResource, Craft, MakeResourceRequest, CraftItem, SubmitToShop, IncreasePrice, DecreasePrice }
 
-	public enum EShopScreen {Main = 0, Request = 1, Craft = 2}
+	public enum EShopScreen { Main = EShopAgentChoices.MainMenu, Request = EShopAgentChoices.RequestResource, Craft = EShopAgentChoices.Craft}
     public class ShopAgent : AgentScreen<EShopScreen>, IEconomyAgent
     {
 		public EShopAgentChoices agentChoice;
@@ -69,7 +69,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 	        }
 	        
 	        var system = shopInput.GetEconomySystem(this);
-            system.SetChoice(this, action);
+            system.AgentSetChoice(this, action);
         }
 
         public override void CollectObservations(VectorSensor sensor)
