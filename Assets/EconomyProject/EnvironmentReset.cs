@@ -105,7 +105,7 @@ public class EnvironmentReset : MonoBehaviour
 
 		foreach (var agent in getCurrentShopAgent.GetAgents)
 		{
-			agent.SetAction(EShopAgentChoices.MainMenu);
+			agent.SetAction(EShopAgentChoices.None);
 		}
 	}
 

@@ -110,7 +110,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
                 EAdventurerAgentChoices.SetShop,
                 EAdventurerAgentChoices.PurchaseItem
             };
-            var outputs = AdventurerEconomySystemUtils.GetInputOfType(inputChoices);
+            var outputs = EconomySystemUtils<EAdventurerAgentChoices>.GetInputOfType(inputChoices);
 
             return outputs;
         }

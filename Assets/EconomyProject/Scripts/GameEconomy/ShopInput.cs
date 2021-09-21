@@ -1,4 +1,5 @@
-﻿using EconomyProject.Monobehaviours;
+﻿using System.Collections.Generic;
+using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.MLAgents.Shop;
 using UnityEngine;
@@ -42,6 +43,12 @@ namespace EconomyProject.Scripts.GameEconomy
         public float[] GetObservations(ShopAgent agent)
         {
             return GetEconomySystem(agent).GetObservations(agent);
+        }
+        
+        public IEnumerable<EnabledInput> GetActionMask(ShopAgent agent)
+        {
+            var inputsEnabled = GetEconomySystem(agent).GetEnabledInputs(agent);
+            return inputsEnabled;
         }
     }
 }

@@ -43,7 +43,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.34994584" />
+    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.1842317" />
     <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.0" />
     <property name="Discover.Launch.Via.Unity" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
@@ -64,10 +64,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="43912">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="43912" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -90,6 +90,7 @@
       <workItem from="1632056751599" duration="5913000" />
       <workItem from="1632066037474" duration="6823000" />
       <workItem from="1632158144997" duration="974000" />
+      <workItem from="1632257652932" duration="2233000" />
     </task>
     <servers />
   </component>
@@ -192,6 +193,136 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/BaseMenuManager.cs</url>
+          <line>54</line>
+          <properties documentPath="D:\Documents\Github\Phd\economy_research\Assets\EconomyProject\Scripts\UI\BaseMenuManager.cs" initialLine="54" containingFunctionPresentation="method 'SwitchMenu'">
+            <startOffsets>
+              <option value="1560" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1600" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/BaseMenuManager.cs</url>
+          <line>55</line>
+          <properties documentPath="D:\Documents\Github\Phd\economy_research\Assets\EconomyProject\Scripts\UI\BaseMenuManager.cs" initialLine="55" containingFunctionPresentation="method 'SwitchMenu'">
+            <startOffsets>
+              <option value="1617" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1639" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/BaseMenuManager.cs</url>
+          <line>56</line>
+          <properties documentPath="D:\Documents\Github\Phd\economy_research\Assets\EconomyProject\Scripts\UI\BaseMenuManager.cs" initialLine="56" containingFunctionPresentation="method 'SwitchMenu'">
+            <startOffsets>
+              <option value="1656" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1677" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/BaseMenuManager.cs</url>
+          <line>52</line>
+          <properties documentPath="D:\Documents\Github\Phd\economy_research\Assets\EconomyProject\Scripts\UI\BaseMenuManager.cs" initialLine="52" containingFunctionPresentation="method 'SwitchMenu'">
+            <startOffsets>
+              <option value="1483" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1497" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/BaseMenuManager.cs</url>
+          <line>53</line>
+          <properties documentPath="D:\Documents\Github\Phd\economy_research\Assets\EconomyProject\Scripts\UI\BaseMenuManager.cs" initialLine="53" containingFunctionPresentation="method 'SwitchMenu'">
+            <startOffsets>
+              <option value="1514" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1543" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/MainShopSystem.cs</url>
+          <line>26</line>
+          <properties documentPath="D:\Documents\Github\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\MainShopSystem.cs" initialLine="26" containingFunctionPresentation="method 'SetChoice'">
+            <startOffsets>
+              <option value="808" />
+            </startOffsets>
+            <endOffsets>
+              <option value="842" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/MainShopSystem.cs</url>
+          <line>23</line>
+          <properties documentPath="D:\Documents\Github\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\MainShopSystem.cs" initialLine="23" containingFunctionPresentation="method 'SetChoice'">
+            <startOffsets>
+              <option value="693" />
+            </startOffsets>
+            <endOffsets>
+              <option value="721" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/MainShopSystem.cs</url>
+          <line>24</line>
+          <properties documentPath="D:\Documents\Github\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\MainShopSystem.cs" initialLine="24" containingFunctionPresentation="method 'SetChoice'">
+            <startOffsets>
+              <option value="734" />
+            </startOffsets>
+            <endOffsets>
+              <option value="777" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/ActionMaskGrid.cs</url>
+          <line>74</line>
+          <properties documentPath="D:\Documents\Github\Phd\economy_research\Assets\EconomyProject\Scripts\UI\ActionMaskGrid.cs" initialLine="74" containingFunctionPresentation="method 'ButtonClicked'">
+            <startOffsets>
+              <option value="2241" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2310" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/GetCurrentAgentAggregator.cs</url>
+          <line>11</line>
+          <properties documentPath="D:\Documents\Github\Phd\economy_research\Assets\EconomyProject\Scripts\UI\GetCurrentAgentAggregator.cs" initialLine="11" containingFunctionPresentation="property 'CurrentAgent'">
+            <startOffsets>
+              <option value="340" />
+            </startOffsets>
+            <endOffsets>
+              <option value="521" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="39" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -21,12 +21,27 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         protected override void SetChoice(ShopAgent agent, EShopAgentChoices input)
         {
-            AgentInput.ChangeScreen(agent, (EShopScreen) input);
+            var s = (EShopScreen) input;
+            if (Enum.IsDefined(typeof(EShopScreen), s))
+            {
+                AgentInput.ChangeScreen(agent, s);
+            }
         }
         
         private void Update()
         {
             RequestDecisions();
+        }
+        
+        public override EnabledInput[] GetEnabledInputs(ShopAgent agent)
+        {
+            var inputChoices = new []
+            {
+                EShopAgentChoices.Craft,
+                EShopAgentChoices.Shop
+            };
+            var outputs = EconomySystemUtils<EShopAgentChoices>.GetInputOfType(inputChoices);
+            return outputs;
         }
     }
 }

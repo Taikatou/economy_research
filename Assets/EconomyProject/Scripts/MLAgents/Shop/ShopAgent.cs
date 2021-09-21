@@ -15,10 +15,11 @@ using Unity.MLAgents.Actuators;
 
 namespace EconomyProject.Scripts.MLAgents.Shop
 {
-	public enum EShopAgentChoices { None = 0, MainMenu, RequestResource, Craft, MakeResourceRequest, CraftItem, SubmitToShop, IncreasePrice, DecreasePrice }
+	public enum EShopAgentChoices { None = 0, Back, Shop, RequestResource, Craft, MakeResourceRequest, CraftItem, SubmitToShop, IncreasePrice, DecreasePrice }
 
-	public enum EShopScreen { Main = EShopAgentChoices.MainMenu, Request = EShopAgentChoices.RequestResource, Craft = EShopAgentChoices.Craft}
-    public class ShopAgent : AgentScreen<EShopScreen>, IEconomyAgent
+	public enum EShopScreen { Main = EShopAgentChoices.None, Request = EShopAgentChoices.RequestResource, Craft = EShopAgentChoices.Craft}
+    
+	public class ShopAgent : AgentScreen<EShopScreen>, IEconomyAgent
     {
 		public EShopAgentChoices agentChoice;
 		public ShopInput shopInput;
@@ -97,8 +98,6 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 			switch (choice)
 			{
 				case EShopAgentChoices.None:
-					break;
-				case EShopAgentChoices.MainMenu:
 					shopInput.ChangeScreen(this, EShopScreen.Main);
 					break;
 				case EShopAgentChoices.RequestResource:
@@ -137,6 +136,12 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 			}
 		}
 
+		public void SetAction(EShopAgentChoices choice)
+		{
+			_bForcedAction = true;
+			_forcedAction = choice;
+		}
+
 		public void SetAction(int action)
 		{
 			SetAction((EShopAgentChoices) action);
@@ -144,7 +149,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 
 		public IEnumerable<EnabledInput> GetEnabledInput()
 		{
-			return new EnabledInput [] { };
+			return shopInput.GetActionMask(this);
 		}
     }
 }

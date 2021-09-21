@@ -9,7 +9,7 @@ namespace EconomyProject.Scripts.UI
 {
     public class ActionMaskGrid : MonoBehaviour
     {
-        public GetCurrentAgentAggregator getCurrentAdventurerAgent;
+        public GetCurrentAgentAggregator getCurrentAgentAggregator;
         public GridLayoutGroup gridLayout;
         public ActionMaskButton maskUI;
 
@@ -23,7 +23,7 @@ namespace EconomyProject.Scripts.UI
         // Update is called once per frame
         public void Start()
         {
-            _cachedCraftActive = getCurrentAdventurerAgent.ToggleButton.craftActive;
+            _cachedCraftActive = getCurrentAgentAggregator.ToggleButton.craftActive;
             UpdateMenus();
         }
 
@@ -72,21 +72,21 @@ namespace EconomyProject.Scripts.UI
 
         private void ButtonClicked<T> (T a) where T : Enum
         {
-            getCurrentAdventurerAgent.CurrentAgent.SetAction(Convert.ToInt32(a));
+            getCurrentAgentAggregator.CurrentAgent.SetAction(Convert.ToInt32(a));
         }
 
         private void Update()
         {
-            var newToggle = getCurrentAdventurerAgent.ToggleButton.craftActive;
+            var newToggle = getCurrentAgentAggregator.ToggleButton.craftActive;
             if (_cachedCraftActive != newToggle)
             {
                 Debug.Log(newToggle);
                 _cachedCraftActive = newToggle;
                 UpdateMenus();
             }
-            else if (getCurrentAdventurerAgent.CurrentAgent != null)
+            else if (getCurrentAgentAggregator.CurrentAgent != null)
             {
-                var inputs= getCurrentAdventurerAgent.CurrentAgent.GetEnabledInput();
+                var inputs= getCurrentAgentAggregator.CurrentAgent.GetEnabledInput();
                 foreach (var i in inputs)
                 {
                     var a = Convert.ToInt32(i.Input);

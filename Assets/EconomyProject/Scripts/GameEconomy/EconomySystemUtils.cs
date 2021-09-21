@@ -5,11 +5,11 @@ using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 
 namespace EconomyProject.Scripts.GameEconomy
 {
-    public static class AdventurerEconomySystemUtils
+    public static class EconomySystemUtils<T> where T : Enum
     {
-        public static EnabledInput[] GetInputOfType(bool enabled)
+        private static EnabledInput[] GetInputOfType<T>(bool enabled)
         {
-            var actions = Enum.GetValues(typeof(EAdventurerAgentChoices));
+            var actions = Enum.GetValues(typeof(T));
             var output = new EnabledInput[actions.Length];
             foreach (var action in actions)
             {
@@ -19,12 +19,13 @@ namespace EconomyProject.Scripts.GameEconomy
             return output;
         }
 
-        public static EnabledInput[] GetInputOfType(IEnumerable<EAdventurerAgentChoices> enabledChoices)
+        public static EnabledInput[] GetInputOfType(IEnumerable<T> enabledChoices)
         {
-            var outputs = GetInputOfType(false);
+            var outputs = GetInputOfType<T>(false);
             foreach (var c in enabledChoices)
             {
-                outputs[(int) c].Enabled = true;
+                var i = Convert.ToInt32(c);
+                outputs[i].Enabled = true;
             }
 
             return outputs;

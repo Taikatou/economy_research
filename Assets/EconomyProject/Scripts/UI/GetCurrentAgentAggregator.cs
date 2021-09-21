@@ -9,6 +9,6 @@ public class GetCurrentAgentAggregator : MonoBehaviour
 
     public ToggleButton ToggleButton;
 
-    public IEconomyAgent CurrentAgent => ToggleButton ? (IEconomyAgent)CurrentAdventurerAgent.CurrentAgent : 
-                                                        (IEconomyAgent)CurrentShopAgent.CurrentAgent;
+    public IEconomyAgent CurrentAgent => ToggleButton.craftActive ? (IEconomyAgent)CurrentShopAgent.CurrentAgent : 
+                                                        (IEconomyAgent)CurrentAdventurerAgent.CurrentAgent;
 }

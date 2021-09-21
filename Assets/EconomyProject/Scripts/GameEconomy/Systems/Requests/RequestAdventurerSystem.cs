@@ -73,7 +73,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                 EAdventurerAgentChoices.Up,
                 EAdventurerAgentChoices.Back
             };
-            var outputs = AdventurerEconomySystemUtils.GetInputOfType(inputChoices);
+            var outputs = EconomySystemUtils<EAdventurerAgentChoices>.GetInputOfType(inputChoices);
 
             return outputs;
         }
