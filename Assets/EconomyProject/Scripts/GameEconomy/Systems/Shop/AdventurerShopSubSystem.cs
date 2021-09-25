@@ -6,47 +6,26 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 {
-    public class AdventurerShopSubSystem : MonoBehaviour, IAdventureSense, IMoveMenu<AdventurerAgent>
+    public class AdventurerShopSubSystem : LocationSelect<AdventurerAgent>, IAdventureSense
     {
         public ShopCraftingSystemBehaviour shopCraftingSystem;
         public ShopChooserSubSystem shopChooserSubSystem;
-        private Dictionary<AdventurerAgent, int> _currentLocation;
 
-        public void Start()
+        protected override int GetLimit(AdventurerAgent agent)
         {
-            _currentLocation = new Dictionary<AdventurerAgent, int>();
-        }
-
-        public int GetCurrentLocation(AdventurerAgent agent)
-        {
-            if (!_currentLocation.ContainsKey(agent))
-            {
-                _currentLocation.Add(agent, 0);
-            }
-
-            return _currentLocation[agent];
+            var shopAgent = shopChooserSubSystem.GetCurrentShop(agent);
+            var shopItems = shopCraftingSystem.system.shopSubSubSystem.GetShopItems(shopAgent);
+            return shopItems.Count;
         }
 
         public void PurchaseItem(AdventurerAgent agent)
         {
             var shopAgent = shopChooserSubSystem.GetCurrentShop(agent);
             var shopItems = shopCraftingSystem.system.shopSubSubSystem.GetShopItems(shopAgent);
-            if (_currentLocation[agent] < shopItems.Count)
+            if (currentLocation[agent] < shopItems.Count)
             {
-                var shopDetails = shopItems[_currentLocation[agent]].itemDetails;
+                var shopDetails = shopItems[currentLocation[agent]].itemDetails;
                 shopCraftingSystem.system.shopSubSubSystem.PurchaseItem(shopAgent, shopDetails, agent.wallet, agent.inventory);
-            }
-        }
-
-        public void MovePosition(AdventurerAgent agent, int movement)
-        {
-            var shopAgent = shopChooserSubSystem.GetCurrentShop(agent);
-            var shopItems = shopCraftingSystem.system.shopSubSubSystem.GetShopItems(shopAgent);
-            
-            var newPosition = _currentLocation[agent] + movement;
-            if (newPosition >= 0 && newPosition < shopItems.Count)
-            {
-                _currentLocation[agent] = newPosition;
             }
         }
 
@@ -55,7 +34,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             var shop = shopChooserSubSystem.GetCurrentShop(agent);
             var senseA = shopCraftingSystem.system.shopSubSubSystem.GetSenses(shop);
             var output = new float [1 + AgentShopSubSystem.SenseCount + shopChooserSubSystem.SenseCount];
-            output[0] = _currentLocation[agent];
+            output[0] = currentLocation[agent];
             senseA.CopyTo(output, 1);
 
             var senseB = shopChooserSubSystem.GetObservations(agent);

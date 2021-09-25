@@ -38,7 +38,10 @@ namespace EconomyProject.Scripts.UI.ShopUI.Buttons
 
         public void Update()
         {
-            image.color = Selected() ? selectedColor : unselectedColor;
+            if (image != null)
+            {
+                image.color = Selected() ? selectedColor : unselectedColor;   
+            }
         }
         
         protected virtual bool Selected()

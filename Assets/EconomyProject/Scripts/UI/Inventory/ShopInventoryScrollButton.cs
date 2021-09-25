@@ -52,7 +52,7 @@ namespace EconomyProject.Scripts.UI.Inventory
 		/// </summary>
 		public void IncreasePrice()
 		{
-			GameObject.FindObjectOfType<ShopScrollView>().IncreasePrice(ItemDetails);
+			FindObjectOfType<ShopScrollView>().IncreasePrice(ItemDetails);
 			UpdateButtonsPrice(ItemDetails.Price+1);
 		}
 

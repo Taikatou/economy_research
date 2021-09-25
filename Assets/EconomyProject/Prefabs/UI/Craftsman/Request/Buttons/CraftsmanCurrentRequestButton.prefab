@@ -176,6 +176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -251,6 +252,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a875d3fdf075e4549ab7430ff37d0e58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  image: {fileID: 8477183437292751670}
+  selectedColor: {r: 0, g: 1, b: 0, a: 1}
+  unselectedColor: {r: 1, g: 1, b: 1, a: 1}
   buttonComponent: {fileID: 8477183437292751671}
   nameLabel: {fileID: 8477183437932017809}
   stockText: {fileID: 5299409663897292686}

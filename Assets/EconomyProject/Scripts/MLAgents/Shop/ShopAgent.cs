@@ -7,22 +7,19 @@ using Inventory;
 using EconomyProject.Scripts.MLAgents.Craftsman;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
-using EconomyProject.Scripts.UI.Craftsman.Request.ScrollList;
-using EconomyProject.Scripts.UI.Craftsman.Crafting;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using Unity.MLAgents.Actuators;
 
 namespace EconomyProject.Scripts.MLAgents.Shop
 {
-	public enum EShopAgentChoices { None = 0, Back, Shop, RequestResource, Craft, MakeResourceRequest, CraftItem, SubmitToShop, IncreasePrice, DecreasePrice }
+	public enum EShopAgentChoices { None = 0, Back, Resources, Craft, CraftItem, SubmitToShop, IncreasePrice, DecreasePrice, Up, Down, Select, MakeRequest, ChangeRequest }
 
-	public enum EShopScreen { Main = EShopAgentChoices.None, Request = EShopAgentChoices.RequestResource, Craft = EShopAgentChoices.Craft}
+	public enum EShopScreen { Main = EShopAgentChoices.None, Request = EShopAgentChoices.Resources, Craft = EShopAgentChoices.Craft}
     
 	public class ShopAgent : AgentScreen<EShopScreen>, IEconomyAgent
     {
-		public EShopAgentChoices agentChoice;
-		public ShopInput shopInput;
+	    public ShopInput shopInput;
         public EconomyWallet wallet;
         public CraftingInventory craftingInventory;
         public AgentInventory agentInventory;
@@ -94,23 +91,16 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 		/// <param name="item">Mandatory if choice = SubmitToShop or choice = IncreasePrice or choice = DecreasePrice</param>
 		public void SetAction(EShopAgentChoices choice, CraftingResources? resourceRequest = null, CraftingChoice? craftingChoice = null, UsableItem item = null)
 		{
-			agentChoice = choice;
 			switch (choice)
 			{
 				case EShopAgentChoices.None:
 					shopInput.ChangeScreen(this, EShopScreen.Main);
 					break;
-				case EShopAgentChoices.RequestResource:
+				case EShopAgentChoices.Resources:
 					shopInput.ChangeScreen(this, EShopScreen.Request);
 					break;
 				case EShopAgentChoices.Craft:
 					shopInput.ChangeScreen(this, EShopScreen.Craft);
-					break;
-				case EShopAgentChoices.MakeResourceRequest:
-					if (resourceRequest.HasValue)
-					{
-						shopInput.requestSystem.system.MakeChoice(this, resourceRequest.Value);
-					}
 					break;
 				case EShopAgentChoices.CraftItem:
 					if (craftingChoice.HasValue)

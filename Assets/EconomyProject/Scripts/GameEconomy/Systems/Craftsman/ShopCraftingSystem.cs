@@ -75,32 +75,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             return outputs;
         }
 
-        public void MakeChoiceSetPrice(ShopAgent shopAgent, EShopAgentChoices input)
-		{
-			// MakeChoice(shopAgent, input);
-		}
-
-        /*protected override void MakeChoice(ShopAgent shopAgent, EShopAgentChoices input)
-        {
-	        switch (GetInputMode(shopAgent))
-            {
-                case CraftingInput.CraftItem:
-                    var craftingResource = (CraftingChoice) input;
-                    craftingSubSubSystem.MakeRequest(shopAgent, craftingResource);
-                    break;
-                case CraftingInput.IncreasePrice:
-			        shopSubSubSystem.SetCurrentPrice(shopAgent, input, 1);
-                    break;
-                case CraftingInput.DecreasePrice:
-                    shopSubSubSystem.SetCurrentPrice(shopAgent, input, -1);
-                    break;
-                case CraftingInput.SubmitToShop:
-                    shopSubSubSystem.SubmitToShop(shopAgent, input);
-                    break;
-            }
-        }*/
-
-		public void SetPrice(ShopAgent shopAgent, UsableItem item, int increment)
+        public void SetPrice(ShopAgent shopAgent, UsableItem item, int increment)
 		{
 			var index = GetIndexInShopList(shopAgent, item);
 			if (index == -1)
@@ -116,9 +91,17 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 			{
 				SetChoice(shopAgent, EShopAgentChoices.IncreasePrice);
 			}
-			
-			// MakeChoiceSetPrice(shopAgent, index);
 		}
+        
+        protected override void SetChoice(ShopAgent agent, EShopAgentChoices input)
+        {
+	        switch (input)
+	        {
+		        case EShopAgentChoices.Back:
+			        AgentInput.ChangeScreen(agent, EShopScreen.Main);
+			        break;
+	        }
+        }
 
 		public int GetIndexInShopList(ShopAgent shopAgent, UsableItem item)
 		{
@@ -139,6 +122,19 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         {
 			RequestDecisions();
 			craftingSubSubSystem.Update();
+		}
+		
+		public override EnabledInput[] GetEnabledInputs(ShopAgent agent)
+		{
+			var inputChoices = new []
+			{
+				EShopAgentChoices.Up,
+				EShopAgentChoices.Down,
+				EShopAgentChoices.Select,
+				EShopAgentChoices.Back
+			};
+			var outputs = EconomySystemUtils<EShopAgentChoices>.GetInputOfType(inputChoices);
+			return outputs;
 		}
     }
 }

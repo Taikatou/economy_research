@@ -22,7 +22,7 @@ namespace EconomyProject.Scripts.UI.Craftsman
 
 		public void MoveToRequest()
 		{
-			shopAgent.SetAction(EShopAgentChoices.RequestResource);
+			shopAgent.SetAction(EShopAgentChoices.Resources);
         }
 
         public void MoveToCraft()

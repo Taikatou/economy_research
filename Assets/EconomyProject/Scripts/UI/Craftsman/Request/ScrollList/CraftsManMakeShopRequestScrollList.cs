@@ -1,12 +1,9 @@
 ﻿using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.UI.Craftsman.Request.Buttons;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.MLAgents.Shop;
-using Unity.MLAgents;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
@@ -49,11 +46,25 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
                 return items;
             }
             return null;
-        } 
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+
+            var state = requestShopSystem.system.GetState(CraftsmanAgent);
+            
+            var resource = requestShopSystem.GetItem(CraftsmanAgent, EShopRequestStates.MakeRequest);
+            foreach (var button in buttons)
+            {
+                button.UpdateData(resource, state);
+            }
+            Debug.Log(resource);
+        }
 
         public override void SelectItem(CraftingResourceUi item, int number = 1)
         {
-			CraftsmanAgent.SetAction(EShopAgentChoices.MakeResourceRequest, item.ResourceType);
+			CraftsmanAgent.SetAction(EShopAgentChoices.Select, item.ResourceType);
 		}
 	}
 }

@@ -38,7 +38,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             var inputChoices = new []
             {
                 EShopAgentChoices.Craft,
-                EShopAgentChoices.Shop
+                EShopAgentChoices.Resources
             };
             var outputs = EconomySystemUtils<EShopAgentChoices>.GetInputOfType(inputChoices);
             return outputs;

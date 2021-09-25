@@ -1061,6 +1061,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2564b7f0d76bff14fbf90cebf9f71256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &550517041 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 506184946855594945, guid: 9ceee204f5dc32646817fe57efe8de76, type: 3}
+  m_PrefabInstance: {fileID: 1430326706}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &550517042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550517041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f558e13ce2b7f0a4ab05bdcb72a43584, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &587458684 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1165008175406999975, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
@@ -1755,7 +1772,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5057450104275261200, guid: 9ceee204f5dc32646817fe57efe8de76, type: 3}
   m_PrefabInstance: {fileID: 1430326706}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 550517041}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 093d0bc8a9af2e84697692bf2706d515, type: 3}
@@ -1840,6 +1857,10 @@ PrefabInstance:
       propertyPath: system.agents
       value: 
       objectReference: {fileID: 848789782}
+    - target: {fileID: 5057450104275261200, guid: 9ceee204f5dc32646817fe57efe8de76, type: 3}
+      propertyPath: getCurrentRequestsLocation
+      value: 
+      objectReference: {fileID: 550517042}
     - target: {fileID: 5057450104797709618, guid: 9ceee204f5dc32646817fe57efe8de76, type: 3}
       propertyPath: system.agents
       value: 
@@ -2459,6 +2480,10 @@ PrefabInstance:
       propertyPath: requestSystem
       value: 
       objectReference: {fileID: 1430326707}
+    - target: {fileID: 8607705884423721551, guid: bfb27ce5ce1a1704faa38a1c8396b866, type: 3}
+      propertyPath: requestShopSystem
+      value: 
+      objectReference: {fileID: 1429334511}
     - target: {fileID: 9096097570703873537, guid: bfb27ce5ce1a1704faa38a1c8396b866, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1

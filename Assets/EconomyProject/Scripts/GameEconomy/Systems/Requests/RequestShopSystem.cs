@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using EconomyProject.Scripts.MLAgents.Craftsman;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.MLAgents.Shop;
-using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
-    public enum RequestActions { Quit=CraftingResources.DragonScale+1, SetInput, RemoveRequest, IncreasePrice,  DecreasePrice}
-    
+    public enum EShopRequestStates { MakeRequest=EShopAgentChoices.MakeRequest, ChangePrice=EShopAgentChoices.ChangeRequest }
+
     [Serializable]
     public class RequestShopSystem : StateEconomySystem<ShopAgent, EShopScreen, EShopAgentChoices>
     {
@@ -17,6 +14,37 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         public override int ObservationSize => CraftingResourceRequest.SensorCount + 1;
         public override EShopScreen ActionChoice => EShopScreen.Request;
 
+        public AdvancedLocationSelect<ShopAgent, CraftingResources, EShopRequestStates> GetLocation { get; set; }
+        
+        public Dictionary<ShopAgent, EShopRequestStates> agentStates;
+
+        public void Start()
+        {
+            agentStates = new Dictionary<ShopAgent, EShopRequestStates>();
+        }
+        
+        public EShopRequestStates GetState(ShopAgent agent)
+        {
+            if (!agentStates.ContainsKey(agent))
+            {
+                agentStates.Add(agent, EShopRequestStates.MakeRequest);
+            }
+
+            return agentStates[agent];
+        }
+
+        public void SetState(ShopAgent agent, EShopRequestStates state)
+        {
+            if (agentStates.ContainsKey(agent))
+            {
+                agentStates[agent] = state;
+            }
+            else
+            {
+                agentStates.Add(agent, state);
+            }
+        }
+        
         public override bool CanMove(ShopAgent agent)
         {
             return true;
@@ -33,46 +61,70 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
         protected override void SetChoice(ShopAgent agent, EShopAgentChoices input)
         {
-           /* if (input >= 0)
+            switch (input)
             {
-                if (Enum.IsDefined(typeof(RequestActions), input))
-                {
-                    SetInputMode(agent, (RequestActions) input);
-                    Debug.Log((RequestActions) input);
-                }
-                else
-                {
-                    MakeChoice(agent, input);
-                }
-            }*/
-        }
-
-        public void MakeChoice(ShopAgent agent, CraftingResources craftingResources)
-        {
-            /*switch (GetInputMode(agent))
-            {
-                case RequestActions.SetInput:
-                    Debug.Log("Make Request");
-                    requestSystem.MakeRequest(craftingResources, agent.craftingInventory, agent.wallet);
+                case EShopAgentChoices.Back:
+                    AgentInput.ChangeScreen(agent, EShopScreen.Main);
                     break;
-                case RequestActions.RemoveRequest:
-                    Debug.Log("Remove Request");
-                    requestSystem.RemoveRequest(craftingResources, agent.craftingInventory);
+                case EShopAgentChoices.Down:
+                    GetLocation.MovePosition(agent, -1);
                     break;
-                case RequestActions.IncreasePrice:
-                    Debug.Log("IncreasePrice");
-                    requestSystem.ChangePrice(craftingResources, agent.craftingInventory, agent.wallet, 1);   
+                case EShopAgentChoices.Up:
+                    GetLocation.MovePosition(agent, 1);
                     break;
-                case RequestActions.DecreasePrice:
-                    Debug.Log("DecreasePrice");
-                    requestSystem.ChangePrice(craftingResources, agent.craftingInventory, agent.wallet, -1);   
+                case EShopAgentChoices.Select:
+                    var state = GetState(agent);
+                    if (state == EShopRequestStates.MakeRequest)
+                    {
+                        var resource = GetLocation.GetItem(agent, EShopRequestStates.MakeRequest);
+                        requestSystem.MakeRequest(resource, agent.craftingInventory, agent.wallet);   
+                    }
                     break;
-            }*/
+                case EShopAgentChoices.MakeRequest:
+                    SetState(agent, EShopRequestStates.MakeRequest);
+                    break;
+                case EShopAgentChoices.ChangeRequest:
+                    SetState(agent, EShopRequestStates.ChangePrice);
+                    break;
+                case EShopAgentChoices.IncreasePrice:
+                    ChangePrice(agent, 1);
+                    break;
+                case EShopAgentChoices.DecreasePrice:
+                    ChangePrice(agent, -1);
+                    break;
+            }
         }
         
+        
+
+        public void ChangePrice(ShopAgent agent, int value)
+        {
+            var state = GetState(agent);
+            if (state == EShopRequestStates.ChangePrice)
+            {
+                var resource = GetLocation.GetItem(agent, state);
+                requestSystem.ChangePrice(resource, agent.craftingInventory, agent.wallet, value);
+            }
+        }
+
         public void Update()
         {
             RequestDecisions();
+        }
+        
+        public override EnabledInput[] GetEnabledInputs(ShopAgent agent)
+        {
+            var inputChoices = new []
+            {
+                EShopAgentChoices.Up,
+                EShopAgentChoices.Down,
+                EShopAgentChoices.Select,
+                EShopAgentChoices.Back,
+                EShopAgentChoices.MakeRequest,
+                EShopAgentChoices.ChangeRequest
+            };
+            var outputs = EconomySystemUtils<EShopAgentChoices>.GetInputOfType(inputChoices);
+            return outputs;
         }
     }
 }

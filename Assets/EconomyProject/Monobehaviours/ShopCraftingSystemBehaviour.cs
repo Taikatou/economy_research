@@ -12,7 +12,7 @@ namespace EconomyProject.Monobehaviours
 			system.Start();
 		}
 
-		public void Update()
+		public void FixedUpdate()
         {
             system.Update();
         }
