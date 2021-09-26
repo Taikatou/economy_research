@@ -38,15 +38,20 @@ namespace EconomyProject.Scripts.UI.Craftsman
             return a == b;
         }
 
-        protected override void SwitchMenu(EShopScreen whichMenu)
+        protected override bool SwitchMenu(EShopScreen whichMenu)
         {
-            base.SwitchMenu(whichMenu);
-            
-            var children = craftMenu.GetComponentsInChildren<LastUpdate>();
-            foreach (var child in children)
+            var valid = base.SwitchMenu(whichMenu);
+
+            if (valid)
             {
-                child.Refresh();
+                var children = craftMenu.GetComponentsInChildren<LastUpdate>();
+                foreach (var child in children)
+                {
+                    child.Refresh();
+                }   
             }
+
+            return valid;
         }
     }
 }

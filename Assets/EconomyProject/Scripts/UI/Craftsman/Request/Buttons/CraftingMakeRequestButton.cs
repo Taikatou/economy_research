@@ -1,5 +1,4 @@
-﻿using EconomyProject.Monobehaviours;
-using EconomyProject.Scripts.GameEconomy.Systems.Requests;
+﻿using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.UI.Craftsman.Request.ScrollList;
 using EconomyProject.Scripts.UI.ShopUI.Buttons;

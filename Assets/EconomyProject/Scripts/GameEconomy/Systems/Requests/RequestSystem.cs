@@ -11,6 +11,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
     public class RequestSystem : LastUpdate, IAdventureSense, IShopSense
     {
+        public static int MAX_PRICE = 50;
+        
         public int maxRequests = 2;
         public CraftingRequestRecord craftingRequestRecord;
 
@@ -172,34 +174,37 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                 if(craftingInventory.ContainsKey(resources))
                 {
                     var newPrice = craftingInventory[resources].Price + change;
-                    var newReward = craftingInventory[resources].GetReward(newPrice);
-
-                    var rewardDifference = newReward - craftingInventory[resources].Reward;
-                    var validTransaction = false;
-                    if (rewardDifference > 0)
+                    if (newPrice > 0 && newPrice < MAX_PRICE)
                     {
-                        if (rewardDifference <= wallet.Money)
+                        var newReward = craftingInventory[resources].GetReward(newPrice);
+
+                        var rewardDifference = newReward - craftingInventory[resources].Reward;
+                        var validTransaction = false;
+                        if (rewardDifference > 0)
                         {
-                            wallet.SpendMoney(rewardDifference);
+                            if (rewardDifference <= wallet.Money)
+                            {
+                                wallet.SpendMoney(rewardDifference);
+                                validTransaction = true;
+                            }
+                        }
+                        else
+                        {
+                            wallet.EarnMoney(Mathf.Abs(rewardDifference));
                             validTransaction = true;
                         }
-                    }
-                    else
-                    {
-                        wallet.EarnMoney(Mathf.Abs(rewardDifference));
-                        validTransaction = true;
-                    }
 
-                    if (validTransaction)
-                    {
-                        craftingInventory[resources].Price = newPrice;
+                        if (validTransaction)
+                        {
+                            craftingInventory[resources].Price = newPrice;
+                        }   
                     }
                 }
             }
             Refresh();
         }
 
-        public void RemoveRequest(CraftingResources resource, CraftingInventory inventory)
+        private void RemoveRequest(CraftingResources resource, CraftingInventory inventory)
         {
             if (_craftingRequests.ContainsKey(inventory))
             {

@@ -16,6 +16,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         private Dictionary<ShopAgent, CraftingRequest> _shopRequests;
         private List<ShopAgent> _shopAgents;
         
+        public static bool IGNORE_RESOURCES = true;
+        
         public static int SenseCount => CraftingRequest.SenseCount;
         
         public float Progress(ShopAgent agent)
@@ -64,14 +66,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             }
         }
 
-        public void MakeRequest(ShopAgent shopAgent, CraftingChoice input)
+        public void MakeRequest(ShopAgent shopAgent, ECraftingChoice input)
         {
             var foundChoice = craftingRequirement.Single(c => c.choice == input);
             if (foundChoice.resource && !HasRequest(shopAgent))
             {
                 var craftingInventory = shopAgent.GetComponent<CraftingInventory>();
                 var hasResources = craftingInventory.HasResources(foundChoice.resource);
-                if (hasResources)
+                if (hasResources || IGNORE_RESOURCES)
                 {
                     _shopRequests.Add(shopAgent, new CraftingRequest { CraftingRequirements = foundChoice.resource });
                     _shopAgents.Add(shopAgent);

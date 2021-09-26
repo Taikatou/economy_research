@@ -1,5 +1,4 @@
-﻿using EconomyProject.Scripts.MLAgents.AdventurerAgents;
-using EconomyProject.Scripts.UI.ShopUI.Buttons;
+﻿using EconomyProject.Scripts.UI.ShopUI.Buttons;
 using UnityEngine.UI;
 using UnityEngine;
 
@@ -13,14 +12,14 @@ namespace EconomyProject.Scripts.UI.Inventory
 
         public GameObject increasePriceBtn;
 		public GameObject decreasePriceBtn;
-		
-		public AdventurerAgent agent;
+
 		public int currentIndex;
 		public bool selected;
 
-		public void UpdateData(AdventurerAgent Agent, int CurrentIndex, bool Selected)
+		public Image iconImage;
+
+		public void UpdateData(int CurrentIndex, bool Selected)
 		{
-			agent = Agent;
 			currentIndex = CurrentIndex;
 			selected = Selected;
 		}
@@ -31,7 +30,7 @@ namespace EconomyProject.Scripts.UI.Inventory
 			nameLabel.text = ItemDetails.Item.itemDetails.itemName;
             priceText.text = ItemDetails.Price.ToString();
             stockText.text = ItemDetails.Number.ToString();
-			image.sprite = ItemDetails.Item.itemDetails.icon;
+            iconImage.sprite = ItemDetails.Item.itemDetails.icon;
 
 			//Can modify the price only when the item is in the shop && if the current agent is a shopAgent
 			ShopScrollView parentScrollList = this.GetComponentInParent<ShopScrollView>();
@@ -91,7 +90,7 @@ namespace EconomyProject.Scripts.UI.Inventory
 		protected override bool Selected()
 		{
 			var toReturn = false;
-			if(agent != null && selected)
+			if(selected)
 			{
 				toReturn = currentIndex == ItemDetails.Index;
 			}

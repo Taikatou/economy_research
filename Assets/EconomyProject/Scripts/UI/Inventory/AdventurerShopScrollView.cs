@@ -46,9 +46,9 @@ namespace EconomyProject.Scripts.UI.Inventory
 
 	        foreach (var button in buttons)
 	        {
-		        var agent = currentAdventurerAgent.CurrentAgent;
-		        var index = adventurerShopSystem.system.adventurerShopSubSystem.GetCurrentLocation(agent);
-		        button.UpdateData(agent, index, Selected);
+		        var index = adventurerShopSystem.system.adventurerShopSubSystem.GetCurrentLocation(
+			        currentAdventurerAgent.CurrentAgent);
+		        button.UpdateData(index, Selected);
 	        }
         }
 

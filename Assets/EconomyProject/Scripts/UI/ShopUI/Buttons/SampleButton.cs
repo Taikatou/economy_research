@@ -14,6 +14,8 @@ namespace EconomyProject.Scripts.UI.ShopUI.Buttons
         public Button buttonComponent;
         private IScrollList<T> _scrollList;
         protected T ItemDetails;
+
+        public virtual Image SelectedImage => image;
         
         protected abstract void SetupButton();
 
@@ -38,9 +40,9 @@ namespace EconomyProject.Scripts.UI.ShopUI.Buttons
 
         public void Update()
         {
-            if (image != null)
+            if (SelectedImage != null)
             {
-                image.color = Selected() ? selectedColor : unselectedColor;   
+                SelectedImage.color = Selected() ? selectedColor : unselectedColor;   
             }
         }
         

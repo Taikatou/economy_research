@@ -1,21 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using Inventory;
-using EconomyProject.Scripts.MLAgents.Craftsman;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.MLAgents.Shop;
-using UnityEngine;
 using Debug = UnityEngine.Debug;
-using EconomyProject.Scripts.UI;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 {
     [System.Serializable]
     public struct CraftingMap
     {
-        public CraftingChoice choice;
+        public ECraftingChoice choice;
         public CraftingRequirements resource;
     }
     
@@ -39,7 +34,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         public const int SenseCount = 1;
     }
 
-    public enum CraftingChoice { BeginnerSword, IntermediateSword, AdvancedSword, EpicSword, MasterSword, UltimateSwordOfPower }
+    public enum ECraftingChoice { BeginnerSword, IntermediateSword, AdvancedSword, EpicSword, MasterSword, UltimateSwordOfPower }
+    public enum ECraftingOptions { Craft, SubmitToShop }
 
     [Serializable]
     public class ShopCraftingSystem : StateEconomySystem<ShopAgent, EShopScreen, EShopAgentChoices>
@@ -51,12 +47,25 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public AgentShopSubSystem shopSubSubSystem;
 
-		public void Start()
+        private AgentStateSelector<ShopAgent, ECraftingOptions> _agentChoices;
+
+        public ShopLocationMap shopLocationMap { get; set; }
+
+        public ECraftingOptions GetState(ShopAgent agent)
+        {
+	        return _agentChoices.GetState(agent);
+        }
+        
+        public CraftingRequestLocationMap CraftingLocationMap { get; set; }
+
+        public void Start()
 		{
 			if (craftingSubSubSystem == null)
 			{
 				craftingSubSubSystem = new CraftingSubSystem();
 			}
+
+			_agentChoices = new AgentStateSelector<ShopAgent, ECraftingOptions>(ECraftingOptions.Craft);
 		}
 
 		public override bool CanMove(ShopAgent agent)
@@ -100,10 +109,51 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 		        case EShopAgentChoices.Back:
 			        AgentInput.ChangeScreen(agent, EShopScreen.Main);
 			        break;
+		        case EShopAgentChoices.Select:
+			        Select(agent);
+			        break;
+		        case EShopAgentChoices.Down:
+			        UpDown(agent, -1);
+			        break;
+		        case EShopAgentChoices.Up:
+					UpDown(agent, 1);
+			        break;
+		        case EShopAgentChoices.SubmitToShop:
+			        _agentChoices.SetState(agent, ECraftingOptions.SubmitToShop);
+			        break;
+		        case EShopAgentChoices.Craft:
+			        _agentChoices.SetState(agent, ECraftingOptions.Craft);
+			        break;
 	        }
         }
 
-		public int GetIndexInShopList(ShopAgent shopAgent, UsableItem item)
+        public void Select(ShopAgent agent)
+        {
+	        var state = _agentChoices.GetState(agent);
+	        switch (state)
+	        {
+		        case ECraftingOptions.Craft:
+			        var resource = CraftingLocationMap.GetCraftingChoice(agent);
+			        craftingSubSubSystem.MakeRequest(agent, resource);
+			        break;
+		        case ECraftingOptions.SubmitToShop:
+			        shopSubSubSystem.SubmitToShop(agent, shopLocationMap.GetCraftingChoice(agent).Item);	
+			        break;
+	        }
+        }
+        
+        public void UpDown(ShopAgent agent, int movement)
+        {
+	        var state = _agentChoices.GetState(agent);
+	        switch (state)
+	        {
+		        case ECraftingOptions.Craft:
+					CraftingLocationMap.MovePosition(agent, movement);
+			        break;
+	        }
+        }
+
+        public int GetIndexInShopList(ShopAgent shopAgent, UsableItem item)
 		{
 			var items = shopSubSubSystem.GetShopItems(shopAgent);
 			for (int i = 0; i < items.Count; i++)
@@ -131,7 +181,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 				EShopAgentChoices.Up,
 				EShopAgentChoices.Down,
 				EShopAgentChoices.Select,
-				EShopAgentChoices.Back
+				EShopAgentChoices.Back,
+				EShopAgentChoices.SubmitToShop,
+				EShopAgentChoices.Craft
 			};
 			var outputs = EconomySystemUtils<EShopAgentChoices>.GetInputOfType(inputChoices);
 			return outputs;

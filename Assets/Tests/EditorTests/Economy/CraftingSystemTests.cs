@@ -41,11 +41,11 @@ namespace Tests.Economy
 		[Test]
 		public void Enum_CraftingChoice()
 		{
-			bool isExist1 = Enum.IsDefined(typeof(CraftingChoice), "BeginnerSword");
-			bool isExist2 = Enum.IsDefined(typeof(CraftingChoice), "IntermediateSword");
-			bool isExist3 = Enum.IsDefined(typeof(CraftingChoice), "AdvancedSword");
-			bool isExist4 = Enum.IsDefined(typeof(CraftingChoice), "EpicSword");
-			bool isExist5 = Enum.IsDefined(typeof(CraftingChoice), "UltimateSwordOfPower");
+			bool isExist1 = Enum.IsDefined(typeof(ECraftingChoice), "BeginnerSword");
+			bool isExist2 = Enum.IsDefined(typeof(ECraftingChoice), "IntermediateSword");
+			bool isExist3 = Enum.IsDefined(typeof(ECraftingChoice), "AdvancedSword");
+			bool isExist4 = Enum.IsDefined(typeof(ECraftingChoice), "EpicSword");
+			bool isExist5 = Enum.IsDefined(typeof(ECraftingChoice), "UltimateSwordOfPower");
 			Assert.True(isExist1 && isExist2 && isExist3 && isExist4 && isExist5 == true);
 		}
 
@@ -171,7 +171,7 @@ namespace Tests.Economy
 			GiveResources();
 
 			//Make the craft
-			CraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];
+			ECraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];
 			craftingSubSystem.MakeRequest(shopAgent, randomSword);
 
 			//Check the craft
@@ -187,7 +187,7 @@ namespace Tests.Economy
 			//Give resources to craft
 			GiveResources();
 
-			CraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];
+			ECraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];
 			craftingSubSystem.MakeRequest(shopAgent, randomSword);
 
 			Dictionary<ShopAgent, CraftingRequest> shopRequest = craftingSubSystem.GetShopRequests();
@@ -217,7 +217,7 @@ namespace Tests.Economy
 			GiveResources();
 
 			//Craft one sword of each type
-			foreach (CraftingChoice choice in listCraftingChoices)
+			foreach (ECraftingChoice choice in listCraftingChoices)
 			{
 				craftingSubSystem.MakeRequest(shopAgent, choice);
 

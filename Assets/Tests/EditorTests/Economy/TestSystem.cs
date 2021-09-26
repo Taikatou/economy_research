@@ -50,7 +50,7 @@ namespace Tests.Economy
 
 		public readonly List<EBattleEnvironments> ListEnvironments = new List<EBattleEnvironments> { EBattleEnvironments.Forest, EBattleEnvironments.Mountain, EBattleEnvironments.Sea, EBattleEnvironments.Volcano };
 		public List<CraftingResources> listCraftingResources = new List<CraftingResources> { CraftingResources.Wood, CraftingResources.Metal, CraftingResources.Gem, CraftingResources.DragonScale };
-		public List<CraftingChoice> listCraftingChoices = new List<CraftingChoice> { CraftingChoice.BeginnerSword, CraftingChoice.IntermediateSword, CraftingChoice.AdvancedSword, CraftingChoice.EpicSword, CraftingChoice.UltimateSwordOfPower };
+		public List<ECraftingChoice> listCraftingChoices = new List<ECraftingChoice> { ECraftingChoice.BeginnerSword, ECraftingChoice.IntermediateSword, ECraftingChoice.AdvancedSword, ECraftingChoice.EpicSword, ECraftingChoice.UltimateSwordOfPower };
 
 		public void Init()
 		{
@@ -219,27 +219,27 @@ namespace Tests.Economy
 		/// <summary>
 		/// Return UsableItem with a CraftingChoice
 		/// </summary>
-		public UsableItem GetUsableItemByCraftingChoice(CraftingChoice craftingChoice)
+		public UsableItem GetUsableItemByCraftingChoice(ECraftingChoice craftingChoice)
 		{
 			String nameToCheck = "";
 			switch (craftingChoice)
 			{
-				case CraftingChoice.BeginnerSword:
+				case ECraftingChoice.BeginnerSword:
 					nameToCheck = "Beginner Sword";
 					break;
-				case CraftingChoice.IntermediateSword:
+				case ECraftingChoice.IntermediateSword:
 					nameToCheck = "Intermediate Sword";
 					break;
-				case CraftingChoice.AdvancedSword:
+				case ECraftingChoice.AdvancedSword:
 					nameToCheck = "Advanced Sword";
 					break;
-				case CraftingChoice.EpicSword:
+				case ECraftingChoice.EpicSword:
 					nameToCheck = "Epic Sword";
 					break;
-				case CraftingChoice.MasterSword:
+				case ECraftingChoice.MasterSword:
 					nameToCheck = "Master Sword";
 					break;
-				case CraftingChoice.UltimateSwordOfPower:
+				case ECraftingChoice.UltimateSwordOfPower:
 					nameToCheck = "Ultimate Sword";
 					break;
 				default:
@@ -263,7 +263,7 @@ namespace Tests.Economy
 		/// <summary>
 		/// Add an Item in the agent inventory
 		/// </summary>
-		public UsableItem AddItemInInventory(AgentInventory inventory, CraftingChoice choice)
+		public UsableItem AddItemInInventory(AgentInventory inventory, ECraftingChoice choice)
 		{
 			UsableItem itemToAdd = GetUsableItemByCraftingChoice(choice);
 			inventory.AddItem(itemToAdd);

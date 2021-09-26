@@ -37,7 +37,7 @@ namespace Tests.Economy
 		[Test]
 		public void Shop_SellOneItem()
 		{
-			CraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];
+			ECraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];
 
 			//Add sword to the inventory
 			UsableItem sword = AddItemInInventory(shopAgent.agentInventory, randomSword);
@@ -63,7 +63,7 @@ namespace Tests.Economy
 		[Test]
 		public void Shop_TrytoSellItemNotInStock()
 		{
-			CraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];
+			ECraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];
 			UsableItem sword = GetUsableItemByCraftingChoice(randomSword);
 
 			//Should not working
@@ -81,7 +81,7 @@ namespace Tests.Economy
 		[Test]
 		public void Shop_SellSeveralIdenticalItems()
 		{
-			CraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];
+			ECraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];
 			UsableItem sword = GetUsableItemByCraftingChoice(randomSword);
 
 			//Add between 5 to 10 items
@@ -116,7 +116,7 @@ namespace Tests.Economy
 			int randomItemNumber = UnityEngine.Random.Range(5, 10);
 			for (int i = 0; i < randomItemNumber; i++)
 			{
-				CraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];
+				ECraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];
 				UsableItem sword = AddItemInInventory(shopAgent.agentInventory, randomSword);
 				agentShopSubSystem.SubmitToShop(shopAgent, sword);
 			}
@@ -155,7 +155,7 @@ namespace Tests.Economy
 			adventurerAgent.wallet.EarnMoney(1000);
 
 			//ShopAgent sells a sword
-			CraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];
+			ECraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];
 			UsableItem sword = AddItemInInventory(shopAgent.agentInventory, randomSword);
 			agentShopSubSystem.SubmitToShop(shopAgent, sword);
 
@@ -185,7 +185,7 @@ namespace Tests.Economy
 		public void Shop_SetPriceItem()
 		{
 			//Submit a sword to the shop
-			CraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];
+			ECraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];
 			UsableItem sword = AddItemInInventory(shopAgent.agentInventory, randomSword);
 			agentShopSubSystem.SubmitToShop(shopAgent, sword);
 

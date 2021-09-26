@@ -13,7 +13,7 @@ using Unity.MLAgents.Actuators;
 
 namespace EconomyProject.Scripts.MLAgents.Shop
 {
-	public enum EShopAgentChoices { None = 0, Back, Resources, Craft, CraftItem, SubmitToShop, IncreasePrice, DecreasePrice, Up, Down, Select, MakeRequest, ChangeRequest }
+	public enum EShopAgentChoices { None = 0, Back, Resources, Craft, SubmitToShop, IncreasePrice, DecreasePrice, Up, Down, Select, MakeRequest, ChangeRequest }
 
 	public enum EShopScreen { Main = EShopAgentChoices.None, Request = EShopAgentChoices.Resources, Craft = EShopAgentChoices.Craft}
     
@@ -89,7 +89,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 		/// <param name="resourceRequest">Mandatory if choice = MakeResourceRequest</param>
 		/// <param name="craftingChoice">Mandatory if choice = CraftItem</param>
 		/// <param name="item">Mandatory if choice = SubmitToShop or choice = IncreasePrice or choice = DecreasePrice</param>
-		public void SetAction(EShopAgentChoices choice, CraftingResources? resourceRequest = null, CraftingChoice? craftingChoice = null, UsableItem item = null)
+		public void SetAction(EShopAgentChoices choice, CraftingResources? resourceRequest = null, ECraftingChoice? craftingChoice = null, UsableItem item = null)
 		{
 			switch (choice)
 			{
@@ -102,12 +102,12 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 				case EShopAgentChoices.Craft:
 					shopInput.ChangeScreen(this, EShopScreen.Craft);
 					break;
-				case EShopAgentChoices.CraftItem:
+			/*	case EShopAgentChoices.CraftItem:
 					if (craftingChoice.HasValue)
 					{
 						shopInput.shopCraftingSystem.system.craftingSubSubSystem.MakeRequest(this, craftingChoice.Value);
 					}
-					break;
+					break;*/
 				case EShopAgentChoices.SubmitToShop:
 					if (item)
 					{

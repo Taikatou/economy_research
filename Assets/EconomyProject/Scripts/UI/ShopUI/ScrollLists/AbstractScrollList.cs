@@ -20,7 +20,7 @@ namespace EconomyProject.Scripts.UI.ShopUI.ScrollLists
     public class LastUpdate : MonoBehaviour, ILastUpdate
     {
         public DateTime LastUpdated { get; private set; }
-        public void Refresh()
+        public virtual void Refresh()
         {
             LastUpdated = DateTime.Now;
         }

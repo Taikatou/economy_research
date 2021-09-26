@@ -45,8 +45,9 @@ namespace EconomyProject.Scripts.UI
 
         protected abstract bool Compare(T a, T b);
 
-        protected virtual void SwitchMenu(T whichMenu)
+        protected virtual bool SwitchMenu(T whichMenu)
         {
+            var toReturn = false;
             var same = Compare(whichMenu, CacheAgentScreen);
             if (!same || !_valid)
             {
@@ -55,7 +56,10 @@ namespace EconomyProject.Scripts.UI
                 var openedMenu = OpenedMenus[whichMenu];
                 openedMenu.Activate();
                 Debug.Log(whichMenu);
+                toReturn = true;
             }
+
+            return toReturn;
         }
     }
 }

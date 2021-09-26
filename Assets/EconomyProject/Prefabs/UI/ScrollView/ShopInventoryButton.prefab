@@ -170,6 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -303,6 +304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -677,6 +679,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -752,13 +755,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3ccd554dc85f3a4e8b69ea1b44c5e6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  image: {fileID: 6180021095008896866}
+  selectedColor: {r: 0, g: 1, b: 0, a: 1}
+  unselectedColor: {r: 1, g: 1, b: 1, a: 1}
   buttonComponent: {fileID: 6180021095008896867}
   nameLabel: {fileID: 6180021095438415045}
   priceText: {fileID: 6180021094508181905}
   stockText: {fileID: 2649222863443108864}
-  image: {fileID: 6180021093682319862}
   increasePriceBtn: {fileID: 88620364}
   decreasePriceBtn: {fileID: 273375937}
+  currentIndex: 0
+  selected: 0
+  iconImage: {fileID: 6180021093682319862}
 --- !u!1 &6180021095438415035
 GameObject:
   m_ObjectHideFlags: 0

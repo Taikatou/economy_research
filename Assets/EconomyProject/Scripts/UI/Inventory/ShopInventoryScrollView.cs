@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using Inventory;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
 using EconomyProject.Scripts.MLAgents.Shop;
+using Unity.MLAgents;
 
 namespace EconomyProject.Scripts.UI.Inventory
 {
@@ -25,6 +27,9 @@ namespace EconomyProject.Scripts.UI.Inventory
         public ShopCraftingSystemBehaviour shopSubSystem;
 
         public GetCurrentShopAgent shopAgent;
+
+        public ShopLocationMap shopLocationMap;
+        
         protected override ILastUpdate LastUpdated
 		{
 			get
@@ -52,5 +57,15 @@ namespace EconomyProject.Scripts.UI.Inventory
         {
 			shopAgent.CurrentAgent.SetAction(EShopAgentChoices.SubmitToShop, null, null, shopItem.Item);
 		}
+
+        public void FixedUpdate()
+        {
+	        var system = shopSubSystem.system.GetState(shopAgent.CurrentAgent);
+	        var count = shopLocationMap.GetCurrentLocation(shopAgent.CurrentAgent);
+	        foreach (var button in buttons)
+	        {
+		        button.UpdateData(count, system == ECraftingOptions.SubmitToShop);
+	        }
+        }
     }
 }

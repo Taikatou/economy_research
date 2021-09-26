@@ -1,8 +1,8 @@
 ﻿using System.Globalization;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
-using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.MLAgents.Craftsman;
 using EconomyProject.Scripts.UI.ShopUI.Buttons;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace EconomyProject.Scripts.UI.Craftsman.Crafting
@@ -10,7 +10,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Crafting
     public class CraftingInfo
     {
         public CraftingMap craftingMap;
-        public CraftingInventory craftingInventory;
+        public readonly CraftingInventory craftingInventory;
 
         public CraftingInfo(CraftingMap craftingMap, CraftingInventory craftingInventory)
         {
@@ -25,6 +25,14 @@ namespace EconomyProject.Scripts.UI.Craftsman.Crafting
         public Text timeToCreated;
         public Text specsText;
 
+        private ECraftingChoice _currentChoice;
+        private ECraftingOptions _currentSystemChoice;
+        public void UpdateData(ECraftingChoice currentChoice, ECraftingOptions currentSystemChoice)
+        {
+            _currentChoice = currentChoice;
+            _currentSystemChoice = currentSystemChoice;
+        }
+        
         protected override void SetupButton()
         {
             nameLabel.text = ItemDetails.craftingMap.resource.ResultingItemName;
@@ -38,6 +46,13 @@ namespace EconomyProject.Scripts.UI.Craftsman.Crafting
             }
 
             specsText.text = outputText;
+        }
+
+        protected override bool Selected()
+        {
+            var highlight = _currentChoice == ItemDetails.craftingMap.choice &&
+                            _currentSystemChoice == ECraftingOptions.Craft;
+            return highlight;
         }
     }
 }

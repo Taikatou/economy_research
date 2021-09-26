@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.MLAgents.Shop;
 
@@ -16,35 +15,19 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
         public AdvancedLocationSelect<ShopAgent, CraftingResources, EShopRequestStates> GetLocation { get; set; }
         
-        public Dictionary<ShopAgent, EShopRequestStates> agentStates;
+        private AgentStateSelector<ShopAgent, EShopRequestStates> _agentStateSelector;
+
+        public EShopRequestStates GetState(ShopAgent agent)
+        {
+            return _agentStateSelector.GetState(agent);
+        }
 
         public void Start()
         {
-            agentStates = new Dictionary<ShopAgent, EShopRequestStates>();
-        }
-        
-        public EShopRequestStates GetState(ShopAgent agent)
-        {
-            if (!agentStates.ContainsKey(agent))
-            {
-                agentStates.Add(agent, EShopRequestStates.MakeRequest);
-            }
-
-            return agentStates[agent];
+            _agentStateSelector =
+                new AgentStateSelector<ShopAgent, EShopRequestStates>((EShopRequestStates.MakeRequest));
         }
 
-        public void SetState(ShopAgent agent, EShopRequestStates state)
-        {
-            if (agentStates.ContainsKey(agent))
-            {
-                agentStates[agent] = state;
-            }
-            else
-            {
-                agentStates.Add(agent, state);
-            }
-        }
-        
         public override bool CanMove(ShopAgent agent)
         {
             return true;
@@ -73,7 +56,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                     GetLocation.MovePosition(agent, 1);
                     break;
                 case EShopAgentChoices.Select:
-                    var state = GetState(agent);
+                    var state = _agentStateSelector.GetState(agent);
                     if (state == EShopRequestStates.MakeRequest)
                     {
                         var resource = GetLocation.GetItem(agent, EShopRequestStates.MakeRequest);
@@ -81,10 +64,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                     }
                     break;
                 case EShopAgentChoices.MakeRequest:
-                    SetState(agent, EShopRequestStates.MakeRequest);
+                    _agentStateSelector.SetState(agent, EShopRequestStates.MakeRequest);
                     break;
                 case EShopAgentChoices.ChangeRequest:
-                    SetState(agent, EShopRequestStates.ChangePrice);
+                    _agentStateSelector.SetState(agent, EShopRequestStates.ChangePrice);
                     break;
                 case EShopAgentChoices.IncreasePrice:
                     ChangePrice(agent, 1);
@@ -94,12 +77,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                     break;
             }
         }
-        
-        
 
         public void ChangePrice(ShopAgent agent, int value)
         {
-            var state = GetState(agent);
+            var state = _agentStateSelector.GetState(agent);
             if (state == EShopRequestStates.ChangePrice)
             {
                 var resource = GetLocation.GetItem(agent, state);
@@ -121,7 +102,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                 EShopAgentChoices.Select,
                 EShopAgentChoices.Back,
                 EShopAgentChoices.MakeRequest,
-                EShopAgentChoices.ChangeRequest
+                EShopAgentChoices.ChangeRequest,
+                EShopAgentChoices.IncreasePrice,
+                EShopAgentChoices.DecreasePrice
             };
             var outputs = EconomySystemUtils<EShopAgentChoices>.GetInputOfType(inputChoices);
             return outputs;

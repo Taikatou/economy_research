@@ -1,16 +1,15 @@
 ﻿using System.Collections.Generic;
 using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
-using EconomyProject.Scripts.GameEconomy.Systems.Requests;
-using EconomyProject.Scripts.MLAgents.Craftsman;
 using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
-using Unity.MLAgents;
+using UnityEngine;
 
 namespace EconomyProject.Scripts.UI.Craftsman.Crafting
 {
     public class CraftsmanCraftingScrollList : AbstractScrollList<CraftingInfo, CraftingRequestButton>
     {
+        public CraftingRequestLocationMap craftingRequestLocationMap;
         public ShopCraftingSystemBehaviour shopCraftingSystem;
         public GetCurrentShopAgent getCurrentAgent;
         private ShopAgent Agent => getCurrentAgent.CurrentAgent;
@@ -29,9 +28,19 @@ namespace EconomyProject.Scripts.UI.Craftsman.Crafting
         }
         public override void SelectItem(CraftingInfo item, int number = 1)
         {
-			Agent.SetAction(EShopAgentChoices.CraftItem, null, item.craftingMap.choice);
+			Agent.SetAction(EShopAgentChoices.Craft, null, item.craftingMap.choice);
 
             LastUpdated.Refresh();
+        }
+
+        public void FixedUpdate()
+        {
+            var resource = craftingRequestLocationMap.GetCraftingChoice(Agent);
+            var system = shopCraftingSystem.system.GetState(Agent);
+            foreach (var button in buttons)
+            {
+                button.UpdateData(resource, system);
+            }
         }
     }
 }

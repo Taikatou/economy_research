@@ -176,7 +176,7 @@ namespace Tests.Economy
 
 			foreach(CraftingMap craftingMap in defaultListRequirements)
 			{
-				CraftingChoice newCraftingChoice = craftingMap.choice;
+				ECraftingChoice newCraftingChoice = craftingMap.choice;
 
 				UsableItem newResultingItem = craftingMap.resource.resultingItem;
 				float newTimeToCreation = craftingMap.resource.timeToCreation;
