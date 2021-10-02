@@ -1335,6 +1335,10 @@ PrefabInstance:
     - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
       propertyPath: shopLocationMap
       value: 
+      objectReference: {fileID: 1361981017}
+    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
+      propertyPath: craftLocationMap
+      value: 
       objectReference: {fileID: 1361981016}
     - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
       propertyPath: craftingLocation
@@ -1791,6 +1795,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a8a74a8820108d94e964a4baadc34389, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1361981017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361981014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9587232bfa2ab4a9587823e50f5b1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1426365425 stripped
@@ -2284,6 +2300,10 @@ PrefabInstance:
       propertyPath: shopSubSystem
       value: 
       objectReference: {fileID: 473122264}
+    - target: {fileID: 3417032245380137261, guid: bfb27ce5ce1a1704faa38a1c8396b866, type: 3}
+      propertyPath: craftingRequestLocationMap
+      value: 
+      objectReference: {fileID: 1361981015}
     - target: {fileID: 3507796101116475819, guid: bfb27ce5ce1a1704faa38a1c8396b866, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
@@ -2394,6 +2414,10 @@ PrefabInstance:
       objectReference: {fileID: 473122264}
     - target: {fileID: 5365976607957739975, guid: bfb27ce5ce1a1704faa38a1c8396b866, type: 3}
       propertyPath: shopLocationMap
+      value: 
+      objectReference: {fileID: 1361981016}
+    - target: {fileID: 5365976607957739975, guid: bfb27ce5ce1a1704faa38a1c8396b866, type: 3}
+      propertyPath: craftLocationMap
       value: 
       objectReference: {fileID: 1361981016}
     - target: {fileID: 5650685738332813760, guid: bfb27ce5ce1a1704faa38a1c8396b866, type: 3}

@@ -4,31 +4,16 @@
     <list default="true" id="3a9a0144-2920-4427-8d8b-3fddc42186be" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.economy_research/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.economy_research/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Monobehaviours/ShopCraftingSystemBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Monobehaviours/ShopCraftingSystemBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Prefabs/UI/Craftsman/Crafting/CraftsmanCraftButton.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Prefabs/UI/Craftsman/Crafting/CraftsmanCraftButton.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Prefabs/UI/ScrollView/ShopInventoryButton.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Prefabs/UI/ScrollView/ShopInventoryButton.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scenes/TestScenes/EconomyScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scenes/TestScenes/EconomyScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/CraftingSubSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/CraftingSubSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/AgentShopSubSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/AgentShopSubSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/ShopCraftingSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/ShopCraftingSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Requests/RequestShopSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Requests/RequestShopSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Requests/RequestSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Requests/RequestSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/LocationSelect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/LocationSelect.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Shop/ShopAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Shop/ShopAgent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/BaseMenuManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/BaseMenuManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Config/ListConfigCraft.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Config/ListConfigCraft.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Craftsman/Crafting/CraftingLastUpdate.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Craftsman/Crafting/CraftingLastUpdate.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Craftsman/Crafting/CraftingRequestButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Craftsman/Crafting/CraftingRequestButton.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Craftsman/Crafting/CraftsmanCraftingScrollList.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Craftsman/Crafting/CraftsmanCraftingScrollList.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Craftsman/CraftsmanMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Craftsman/CraftsmanMenu.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Craftsman/Request/Buttons/CraftingMakeRequestButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Craftsman/Request/Buttons/CraftingMakeRequestButton.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Inventory/AdventurerShopScrollView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Inventory/AdventurerShopScrollView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Inventory/ShopInventoryScrollButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Inventory/ShopInventoryScrollButton.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/ShopLocationMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/CraftLocationMap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/ShopLocationMap.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/CraftLocationMap.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Inventory/ShopInventoryScrollView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Inventory/ShopInventoryScrollView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/ShopUI/Buttons/SampleButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/ShopUI/Buttons/SampleButton.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/ShopUI/ScrollLists/AbstractScrollList.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/ShopUI/ScrollLists/AbstractScrollList.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Inventory/ShopScrollView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Inventory/ShopScrollView.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Timers/EconomyScene_timers.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Timers/EconomyScene_timers.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/EditorTests/Economy/ConfigSystemTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tests/EditorTests/Economy/ConfigSystemTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/EditorTests/Economy/CraftingSystemTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tests/EditorTests/Economy/CraftingSystemTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/EditorTests/Economy/ShopSystemTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tests/EditorTests/Economy/ShopSystemTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tests/EditorTests/Economy/TestSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tests/EditorTests/Economy/TestSystem.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +57,7 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.3.4/Runtime/CompilerServices/Aliasing.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/DocCodeExamples/TrackAssetExamples.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.3.4/Runtime/BurstExecutionEnvironment.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/ShopLocationMap.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/CraftLocationMap.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/LocationSelect.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.3.4/Runtime/BurstCompilerOptions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/GetCurrentRequestsLocation.cs" root0="FORCE_HIGHLIGHTING" />
@@ -87,7 +72,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.44368464" />
+    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.44366196" />
     <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.0" />
     <property name="Discover.Launch.Via.Unity" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
@@ -109,10 +94,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="30260">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="26032">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="30260" />
+      <option name="pid" value="26032" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -137,7 +122,10 @@
       <workItem from="1632158144997" duration="974000" />
       <workItem from="1632257652932" duration="2233000" />
       <workItem from="1632588283769" duration="12428000" />
-      <workItem from="1632661324770" duration="9987000" />
+      <workItem from="1632661324770" duration="11619000" />
+      <workItem from="1632945883915" duration="1076000" />
+      <workItem from="1633023825273" duration="2143000" />
+      <workItem from="1633167597047" duration="2104000" />
     </task>
     <servers />
   </component>
@@ -199,49 +187,186 @@
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Inventory/AdventurerShopScrollView.cs</url>
-          <line>50</line>
-          <properties documentPath="D:\Documents\Github\Phd\economy_research\Assets\EconomyProject\Scripts\UI\Inventory\AdventurerShopScrollView.cs" initialLine="50" containingFunctionPresentation="method 'Update'" />
-          <option name="timeStamp" value="23" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Craftsman/Crafting/CraftingLastUpdate.cs</url>
-          <line>8</line>
-          <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\UI\Craftsman\Crafting\CraftingLastUpdate.cs" initialLine="8" containingFunctionPresentation="method 'Refresh'">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/ShopCraftingSystem.cs</url>
+          <line>140</line>
+          <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Craftsman\ShopCraftingSystem.cs" initialLine="132" containingFunctionPresentation="method 'SetChoice'">
             <startOffsets>
-              <option value="226" />
+              <option value="4300" />
             </startOffsets>
             <endOffsets>
-              <option value="241" />
+              <option value="4322" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="49" />
+          <option name="timeStamp" value="52" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/ShopCraftingSystem.cs</url>
-          <line>115</line>
-          <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Craftsman\ShopCraftingSystem.cs" initialLine="108" containingFunctionPresentation="method 'SetChoice'">
+          <line>143</line>
+          <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Craftsman\ShopCraftingSystem.cs" initialLine="135" containingFunctionPresentation="method 'SetChoice'">
             <startOffsets>
-              <option value="3414" />
+              <option value="4400" />
             </startOffsets>
             <endOffsets>
-              <option value="3432" />
+              <option value="4423" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="50" />
+          <option name="timeStamp" value="53" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/ShopCraftingSystem.cs</url>
-          <line>118</line>
-          <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Craftsman\ShopCraftingSystem.cs" initialLine="111" containingFunctionPresentation="method 'SetChoice'">
+          <line>90</line>
+          <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Craftsman\ShopCraftingSystem.cs" initialLine="90" containingFunctionPresentation="method 'SetPrice'">
             <startOffsets>
-              <option value="3493" />
+              <option value="2842" />
             </startOffsets>
             <endOffsets>
-              <option value="3510" />
+              <option value="2890" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="51" />
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/ShopCraftingSystem.cs</url>
+          <line>91</line>
+          <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Craftsman\ShopCraftingSystem.cs" initialLine="91" containingFunctionPresentation="method 'SetPrice'">
+            <startOffsets>
+              <option value="2894" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2910" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="60" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/ShopCraftingSystem.cs</url>
+          <line>93</line>
+          <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Craftsman\ShopCraftingSystem.cs" initialLine="93" containingFunctionPresentation="method 'SetPrice'">
+            <startOffsets>
+              <option value="2920" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2927" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="61" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/ShopCraftingSystem.cs</url>
+          <line>96</line>
+          <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Craftsman\ShopCraftingSystem.cs" initialLine="96" containingFunctionPresentation="method 'SetPrice'">
+            <startOffsets>
+              <option value="2937" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2954" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="62" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/ShopCraftingSystem.cs</url>
+          <line>98</line>
+          <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Craftsman\ShopCraftingSystem.cs" initialLine="98" containingFunctionPresentation="method 'SetPrice'">
+            <startOffsets>
+              <option value="2964" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3018" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/ShopCraftingSystem.cs</url>
+          <line>102</line>
+          <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Craftsman\ShopCraftingSystem.cs" initialLine="102" containingFunctionPresentation="method 'SetPrice'">
+            <startOffsets>
+              <option value="3041" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3095" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="64" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/ShopCraftingSystem.cs</url>
+          <line>197</line>
+          <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Craftsman\ShopCraftingSystem.cs" initialLine="189" containingFunctionPresentation="method 'GetIndexInShopList'">
+            <startOffsets>
+              <option value="6042" />
+            </startOffsets>
+            <endOffsets>
+              <option value="6095" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="65" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/ShopCraftingSystem.cs</url>
+          <line>202</line>
+          <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Craftsman\ShopCraftingSystem.cs" initialLine="194" containingFunctionPresentation="method 'GetIndexInShopList'">
+            <startOffsets>
+              <option value="6179" />
+            </startOffsets>
+            <endOffsets>
+              <option value="6188" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="66" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/ShopCraftingSystem.cs</url>
+          <line>200</line>
+          <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Craftsman\ShopCraftingSystem.cs" initialLine="192" containingFunctionPresentation="method 'GetIndexInShopList'">
+            <startOffsets>
+              <option value="6146" />
+            </startOffsets>
+            <endOffsets>
+              <option value="6167" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="67" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/ShopCraftingSystem.cs</url>
+          <line>198</line>
+          <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Craftsman\ShopCraftingSystem.cs" initialLine="190" containingFunctionPresentation="method 'GetIndexInShopList'">
+            <startOffsets>
+              <option value="6099" />
+            </startOffsets>
+            <endOffsets>
+              <option value="6136" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="68" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/ShopCraftingSystem.cs</url>
+          <line>206</line>
+          <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Craftsman\ShopCraftingSystem.cs" initialLine="198" containingFunctionPresentation="method 'GetIndexInShopList'">
+            <startOffsets>
+              <option value="6204" />
+            </startOffsets>
+            <endOffsets>
+              <option value="6270" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="69" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/ShopCraftingSystem.cs</url>
+          <line>207</line>
+          <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Craftsman\ShopCraftingSystem.cs" initialLine="199" containingFunctionPresentation="method 'GetIndexInShopList'">
+            <startOffsets>
+              <option value="6274" />
+            </startOffsets>
+            <endOffsets>
+              <option value="6284" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="70" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -101,6 +101,17 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             Refresh();
         }
 
+        public void SetCurrentPrice(ShopAgent shopAgent, UsableItem item, int increment)
+        {
+            var items = GetShopItems(shopAgent);
+            var itemFound = items.Find(x => x.itemDetails.itemName == item.itemDetails.itemName);
+            if(itemFound)
+            {
+                SetCurrentPrice(shopAgent, itemFound.itemDetails, increment);
+            }
+            Refresh();
+        }
+
         private void SetCurrentPrice(ShopAgent shopAgent, UsableItemDetails item, int increment)
         {
 			GetShop(shopAgent).SetCurrentPrice(item, increment);

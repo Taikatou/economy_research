@@ -13,7 +13,7 @@ using Unity.MLAgents.Actuators;
 
 namespace EconomyProject.Scripts.MLAgents.Shop
 {
-	public enum EShopAgentChoices { None = 0, Back, Resources, Craft, SubmitToShop, IncreasePrice, DecreasePrice, Up, Down, Select, MakeRequest, ChangeRequest }
+	public enum EShopAgentChoices { None = 0, Back, Resources, Craft, SubmitToShop, IncreasePrice, DecreasePrice, Up, Down, Select, MakeRequest, ChangeRequest, EditPrice }
 
 	public enum EShopScreen { Main = EShopAgentChoices.None, Request = EShopAgentChoices.Resources, Craft = EShopAgentChoices.Craft}
     

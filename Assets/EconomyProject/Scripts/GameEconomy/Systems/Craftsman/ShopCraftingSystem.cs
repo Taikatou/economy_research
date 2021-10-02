@@ -35,7 +35,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
     }
 
     public enum ECraftingChoice { BeginnerSword, IntermediateSword, AdvancedSword, EpicSword, MasterSword, UltimateSwordOfPower }
-    public enum ECraftingOptions { Craft, SubmitToShop }
+    public enum ECraftingOptions { Craft, SubmitToShop, EditShop }
 
     [Serializable]
     public class ShopCraftingSystem : StateEconomySystem<ShopAgent, EShopScreen, EShopAgentChoices>
@@ -49,7 +49,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         private AgentStateSelector<ShopAgent, ECraftingOptions> _agentChoices;
 
-        public ShopLocationMap shopLocationMap { get; set; }
+        public CraftLocationMap CraftLocationMap { get; set; }
+        
+        public ShopLocationMap ShopLocationMap { get; set; }
 
         public ECraftingOptions GetState(ShopAgent agent)
         {
@@ -101,13 +103,21 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 				SetChoice(shopAgent, EShopAgentChoices.IncreasePrice);
 			}
 		}
+
+        public void BackButton(ShopAgent agent)
+        {
+	        CraftingLocationMap.RemoveAgent(agent);
+	        CraftLocationMap.RemoveAgent(agent);
+	        ShopLocationMap.RemoveAgent(agent);
+	        AgentInput.ChangeScreen(agent, EShopScreen.Main);
+        }
         
         protected override void SetChoice(ShopAgent agent, EShopAgentChoices input)
         {
 	        switch (input)
 	        {
 		        case EShopAgentChoices.Back:
-			        AgentInput.ChangeScreen(agent, EShopScreen.Main);
+			        BackButton(agent);
 			        break;
 		        case EShopAgentChoices.Select:
 			        Select(agent);
@@ -119,11 +129,37 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 					UpDown(agent, 1);
 			        break;
 		        case EShopAgentChoices.SubmitToShop:
-			        _agentChoices.SetState(agent, ECraftingOptions.SubmitToShop);
+			        SetState(agent, ECraftingOptions.SubmitToShop);
 			        break;
 		        case EShopAgentChoices.Craft:
-			        _agentChoices.SetState(agent, ECraftingOptions.Craft);
+			        SetState(agent, ECraftingOptions.Craft);
 			        break;
+		        case EShopAgentChoices.EditPrice:
+			        SetState(agent, ECraftingOptions.EditShop);
+			        break;
+		        case EShopAgentChoices.IncreasePrice:
+			        PriceUpDown(agent, 1);
+			        break;
+		        case EShopAgentChoices.DecreasePrice:
+			        PriceUpDown(agent, -1);
+			        break;
+	        }
+        }
+
+        public void SetState(ShopAgent agent, ECraftingOptions state)
+        {
+	        _agentChoices.SetState(agent, state);
+        }
+
+        public void PriceUpDown(ShopAgent agent, int increment)
+        {
+	        var index = ShopLocationMap.GetCurrentLocation(agent);
+	        var items = shopSubSubSystem.GetShopItems(agent);
+
+	        if (items.Count > index)
+	        {
+		        var item = items[index];
+		        shopSubSubSystem.SetCurrentPrice(agent, item, increment);
 	        }
         }
 
@@ -137,7 +173,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 			        craftingSubSubSystem.MakeRequest(agent, resource);
 			        break;
 		        case ECraftingOptions.SubmitToShop:
-			        shopSubSubSystem.SubmitToShop(agent, shopLocationMap.GetCraftingChoice(agent).Item);	
+			        shopSubSubSystem.SubmitToShop(agent, CraftLocationMap.GetCraftingChoice(agent).Item);	
+			        break;
+		        case ECraftingOptions.EditShop:
+			        
 			        break;
 	        }
         }
@@ -150,13 +189,19 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 		        case ECraftingOptions.Craft:
 					CraftingLocationMap.MovePosition(agent, movement);
 			        break;
+		        case ECraftingOptions.SubmitToShop:
+			        CraftLocationMap.MovePosition(agent, movement);
+			        break;
+		        case ECraftingOptions.EditShop:
+			        ShopLocationMap.MovePosition(agent, movement);
+			        break;
 	        }
         }
 
         public int GetIndexInShopList(ShopAgent shopAgent, UsableItem item)
 		{
 			var items = shopSubSubSystem.GetShopItems(shopAgent);
-			for (int i = 0; i < items.Count; i++)
+			for (var i = 0; i < items.Count; i++)
 			{
 				if (item == items[i])
 				{
@@ -183,7 +228,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 				EShopAgentChoices.Select,
 				EShopAgentChoices.Back,
 				EShopAgentChoices.SubmitToShop,
-				EShopAgentChoices.Craft
+				EShopAgentChoices.Craft,
+				EShopAgentChoices.EditPrice,
+				EShopAgentChoices.IncreasePrice,
+				EShopAgentChoices.DecreasePrice
 			};
 			var outputs = EconomySystemUtils<EShopAgentChoices>.GetInputOfType(inputChoices);
 			return outputs;

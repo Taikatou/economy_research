@@ -1,31 +1,33 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
-using Inventory;
 using UnityEngine;
 using EconomyProject.Scripts.MLAgents.Shop;
 
 namespace EconomyProject.Scripts.UI.Inventory
 {
-   
-    public class ShopScrollView : AbstractScrollList<ShopItem, ShopInventoryScrollButton>
+	public class ShopScrollView : AbstractScrollList<ShopItem, ShopInventoryScrollButton>
     {
         public ShopCraftingSystemBehaviour shopSubSystem;
         public GetCurrentShopAgent shopAgent;
+        
+        private ShopAgent Agent => shopAgent.CurrentAgent;
+        
         protected override ILastUpdate LastUpdated => shopSubSystem.system.shopSubSubSystem;
         // Update is called once per frame
         protected override List<ShopItem> GetItemList()
         {
             var toReturn = new List<ShopItem>();
-            var items = shopSubSystem.system.shopSubSubSystem.GetShopItems(shopAgent.CurrentAgent);
+            var items = shopSubSystem.system.shopSubSubSystem.GetShopItems(Agent);
             foreach (var item in items)
             {
                 toReturn.Add(new ShopItem
                 {
                     Item = item,
-                    Price = shopSubSystem.system.shopSubSubSystem.GetPrice(shopAgent.CurrentAgent, item.itemDetails),
-                    Number = shopSubSystem.system.shopSubSubSystem.GetNumber(shopAgent.CurrentAgent, item.itemDetails)
+                    Price = shopSubSystem.system.shopSubSubSystem.GetPrice(Agent, item.itemDetails),
+                    Number = shopSubSystem.system.shopSubSubSystem.GetNumber(Agent, item.itemDetails)
                 });
             }
 
@@ -47,5 +49,16 @@ namespace EconomyProject.Scripts.UI.Inventory
 		{
 			shopAgent.CurrentAgent.SetAction(EShopAgentChoices.DecreasePrice, null, null, item.Item);
 		}
-	}
+
+		public void FixedUpdate()
+		{
+			var system = shopSubSystem.system.GetState(Agent);
+			var index = shopSubSystem.shopLocationMap.GetCurrentLocation(Agent);
+
+			foreach (var button in buttons)
+			{
+				button.UpdateData(index, system == ECraftingOptions.EditShop);
+			}
+		}
+    }
 }

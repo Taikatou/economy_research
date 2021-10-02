@@ -19,12 +19,28 @@ public abstract class LocationSelect<T> : MonoBehaviour, IMoveMenu<T> where T : 
     {
         currentLocation = new Dictionary<T, int>();
     }
+
+    public void RemoveAgent(T agent)
+    {
+        if (currentLocation.ContainsKey(agent))
+        {
+            currentLocation.Remove(agent);   
+        }
+    }
     
     public int GetCurrentLocation(T agent)
     {
         if (!currentLocation.ContainsKey(agent))
         {
             currentLocation.Add(agent, 0);
+        }
+        else
+        {
+            var limit = GetLimit(agent);
+            if (currentLocation[agent] >= limit)
+            {
+                currentLocation[agent] = limit;
+            }
         }
 
         return currentLocation[agent];
