@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using TurnBased.Scripts;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.TravelSystem
 {
-    public enum EBattleEnvironments {Forest = EAdventurerAgentChoices.AForest, Mountain=EAdventurerAgentChoices.AMountain, Sea = EAdventurerAgentChoices.ASea, Volcano=EAdventurerAgentChoices.AVolcano}
+    public enum EBattleEnvironments { Forest, Mountain, Sea, Volcano }
     
     [Serializable]
     public class EnvironmentBattleLootBox

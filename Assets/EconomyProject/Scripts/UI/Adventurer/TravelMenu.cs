@@ -1,35 +1,27 @@
-﻿using EconomyProject.Monobehaviours;
-using EconomyProject.Scripts.GameEconomy.Systems;
+﻿using System.Collections.Generic;
+using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using UnityEngine;
-using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+using UnityEngine.UI;
 
 namespace EconomyProject.Scripts.UI.Adventurer
 {
     public class TravelMenu : MonoBehaviour
     {
+	    public AdventurerLocationSelect getLocationSelect;
         public GetCurrentAdventurerAgent currentAdventurerAgent;
+        public Image[] buttons;
 
-        public AdventurerSystemBehaviour adventurerSystem;
-
-        public void ForestBattle()
+        public void Update()
         {
-			currentAdventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.AForest);
-        }
-        
-        public void MountainBattle()
-        {
-			currentAdventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.AMountain);
-        }
-        
-        public void VolcanoBattle()
-        {
-			currentAdventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.AVolcano);
-        }
-        
-        public void SeaBattle()
-        {
-			currentAdventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.ASea);
+	        var battle = getLocationSelect.GetBattle(currentAdventurerAgent.CurrentAgent);
+	        var index = 0;
+	        foreach (var i in buttons)
+	        {
+		        var highLight = (EBattleEnvironments) index == battle;
+		        i.color = highLight ? Color.green : Color.white;
+		        index++;
+	        }
         }
     }
 }

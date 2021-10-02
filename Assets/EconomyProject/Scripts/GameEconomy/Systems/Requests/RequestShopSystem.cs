@@ -57,10 +57,15 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                     break;
                 case EShopAgentChoices.Select:
                     var state = _agentStateSelector.GetState(agent);
-                    if (state == EShopRequestStates.MakeRequest)
+                    switch (state)
                     {
-                        var resource = GetLocation.GetItem(agent, EShopRequestStates.MakeRequest);
-                        requestSystem.MakeRequest(resource, agent.craftingInventory, agent.wallet);   
+                        case EShopRequestStates.MakeRequest:
+                            var resource = GetLocation.GetItem(agent, EShopRequestStates.MakeRequest);
+                            requestSystem.MakeRequest(resource, agent.craftingInventory, agent.wallet);
+                            break;
+                        case EShopRequestStates.ChangePrice:
+
+                            break;
                     }
                     break;
                 case EShopAgentChoices.MakeRequest:

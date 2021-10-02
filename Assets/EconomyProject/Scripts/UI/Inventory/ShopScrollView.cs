@@ -21,14 +21,17 @@ namespace EconomyProject.Scripts.UI.Inventory
         {
             var toReturn = new List<ShopItem>();
             var items = shopSubSystem.system.shopSubSubSystem.GetShopItems(Agent);
+            var counter = 0;
             foreach (var item in items)
             {
                 toReturn.Add(new ShopItem
                 {
                     Item = item,
                     Price = shopSubSystem.system.shopSubSubSystem.GetPrice(Agent, item.itemDetails),
-                    Number = shopSubSystem.system.shopSubSubSystem.GetNumber(Agent, item.itemDetails)
+                    Number = shopSubSystem.system.shopSubSubSystem.GetNumber(Agent, item.itemDetails),
+                    Index = counter
                 });
+                counter++;
             }
 
             return toReturn;

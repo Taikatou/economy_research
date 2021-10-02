@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using EconomyProject.Scripts.GameEconomy.Systems.Adventurer;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
@@ -22,6 +23,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         public Dictionary<AdventurerAgent, AdventureStates> adventureStates;
         public override int ObservationSize => 1 + BattleSubSystem.SensorCount;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Adventurer;
+
+        public AdventurerLocationSelect locationSelect;
+        public BattleLocationSelect battleLocationSelect;
 
         public AdventurerSystem()
         {
@@ -94,24 +98,46 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             var validInput = ValidInput(agent, input);
             if (validInput)
             {
-                switch (GetAdventureStates(agent))
+                switch(input)
                 {
-                    case AdventureStates.OutOfBattle:
-                        if (input == EAdventurerAgentChoices.Back)
-                        {
-                            AgentInput.ChangeScreen(agent, EAdventurerScreen.Main);
-                        }
-                        else
-                        {
-                            StartBattle(agent, (EBattleEnvironments) input);   
-                        }
+                    case EAdventurerAgentChoices.Back:
+                        AgentInput.ChangeScreen(agent, EAdventurerScreen.Main);
                         break;
-                    case AdventureStates.InBattle:
-                        var battleSystem = GetSubSystem(agent);
-                        battleSystem.SetInput((EBattleAction) input);
+                    case EAdventurerAgentChoices.Select:
+                        Select(agent);
                         break;
-                }   
+                    case EAdventurerAgentChoices.Up:
+                        UpDown(agent, 1);
+                        break;
+                    case EAdventurerAgentChoices.Down:
+                        UpDown(agent, -1);
+                        break;
+                }
             }
+        }
+
+        public void Select(AdventurerAgent agent)
+        {
+            switch (GetAdventureStates(agent))
+            {
+                case AdventureStates.InBattle:
+                    var action = battleLocationSelect.GetBattleAction(agent);
+                    var battleSystem = GetSubSystem(agent);
+                    battleSystem.SetInput(action);
+                    break;
+                case AdventureStates.OutOfBattle:
+                    var battle = locationSelect.GetBattle(agent);
+                    StartBattle(agent, battle);   
+                    break;
+            }
+        }
+
+        public void UpDown(AdventurerAgent agent, int movement)
+        {
+            var location = GetAdventureStates(agent) == AdventureStates.InBattle
+                ? (LocationSelect<AdventurerAgent>) battleLocationSelect
+                : (LocationSelect<AdventurerAgent>) locationSelect;
+            location.MovePosition(agent, movement);
         }
 
         public BattleSubSystem GetSubSystem(AdventurerAgent agent)
@@ -254,16 +280,16 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             var inputChoices = battleSystems.ContainsKey(agent)
             ? new[]
             {
-                EAdventurerAgentChoices.BAttack,
-                EAdventurerAgentChoices.Back,
-                EAdventurerAgentChoices.BHeal
+                EAdventurerAgentChoices.Up,
+                EAdventurerAgentChoices.Down,
+                EAdventurerAgentChoices.Select
             }
             : new[]
             {
-                EAdventurerAgentChoices.AForest,
-                EAdventurerAgentChoices.ASea,
-                EAdventurerAgentChoices.AMountain,
-                EAdventurerAgentChoices.AVolcano,
+                EAdventurerAgentChoices.Up,
+                EAdventurerAgentChoices.Down,
+                EAdventurerAgentChoices.Select,
+                EAdventurerAgentChoices.Select,
                 EAdventurerAgentChoices.Back
             };
                 

@@ -23,7 +23,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Actuators
         {
             var action = (EAdventurerAgentChoices) actionBuffers.DiscreteActions[0];
 
-            switch (action)
+      /*      switch (action)
             {
                 case EAdventurerAgentChoices.BAttack:
                     AdventurerSystem.OnAttackButton(_agent);
@@ -34,7 +34,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Actuators
                 case EAdventurerAgentChoices.Back:
                     AdventurerSystem.OnFleeButton(_agent);
                     break;
-            }
+            }*/
         }
 
         public void WriteDiscreteActionMask(IDiscreteActionMask actionMask)

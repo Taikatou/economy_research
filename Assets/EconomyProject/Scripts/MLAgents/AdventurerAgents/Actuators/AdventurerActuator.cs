@@ -22,7 +22,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Actuators
             
             var action = (EAdventurerAgentChoices) actionBuffers.DiscreteActions[0];
 
-            switch (action)
+/*            switch (action)
             {
                 case EAdventurerAgentChoices.AForest:
                     StartBattle(EBattleEnvironments.Forest);
@@ -36,7 +36,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Actuators
                 case EAdventurerAgentChoices.AVolcano:
                     StartBattle(EBattleEnvironments.Volcano);
                     break;
-            }
+            }*/
         }
         
         private void StartBattle(EBattleEnvironments battleEnvironments)

@@ -4,7 +4,7 @@ namespace TurnBased.Scripts
 {
 	public delegate void OnWinDelegate();
 	public enum BattleState { Start, PlayerTurn, EnemyTurn, Won, Lost, Flee }
-	public enum EBattleAction { Attack=EAdventurerAgentChoices.BAttack, Heal=EAdventurerAgentChoices.BHeal, Flee=EAdventurerAgentChoices.Back }
+	public enum EBattleAction { Attack, Heal, Flee }
 
 	public class BattleSubSystem
 	{

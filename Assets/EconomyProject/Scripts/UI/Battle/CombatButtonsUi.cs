@@ -1,28 +1,28 @@
-﻿using EconomyProject.Monobehaviours;
-using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+﻿using EconomyProject.Scripts.GameEconomy.Systems.Adventurer;
+using TurnBased.Scripts;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace EconomyProject.Scripts.UI.Battle
 {
     public class CombatButtonsUi : MonoBehaviour
     {
-        public AdventurerSystemBehaviour adventurerSystem;
+        public BattleLocationSelect battleLocationSelect;
 
         public GetCurrentAdventurerAgent adventurerAgent;
 
-        public void OnAttackButton()
-        {
-			adventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.BAttack);
-        }
+        public Image[] buttons;
 
-        public void OnHealButton()
+        public void Update()
         {
-			adventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.BHeal);
-        }
-
-        public void OnFleeButton()
-        {
-			adventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.Back);
+            var battle = battleLocationSelect.GetBattleAction(adventurerAgent.CurrentAgent);
+            var index = 0;
+            foreach (var i in buttons)
+            {
+                var highLight = (EBattleAction) index == battle;
+                i.color = highLight ? Color.green : Color.white;
+                index++;
+            }
         }
     }
 }
