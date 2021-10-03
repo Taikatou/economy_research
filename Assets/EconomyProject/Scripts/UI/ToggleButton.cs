@@ -42,7 +42,7 @@ namespace EconomyProject.Scripts.UI
 			}
 
 			//Is the current adventurer agent in battle?
-			activeBattle = (bool)(adventurerSystemBehaviour.system.GetAdventureStates(getCurrentAdventurerAgent.CurrentAgent) == AdventureStates.InBattle);
+			activeBattle = (bool)(adventurerSystemBehaviour.system.GetAdventureStates(getCurrentAdventurerAgent.CurrentAgent) == EAdventureStates.InBattle);
 		}
 
 		private void UpdateMenu()

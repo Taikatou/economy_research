@@ -10,19 +10,19 @@ namespace EconomyProject.Scripts.UI.Adventurer
     public struct AdventurerGameObject
     {
         public GameObject menu;
-        public AdventureStates screen;
+        public EAdventureStates screen;
     }
-    public class AdventurerBattleMenu : BaseMenuManager<AdventureStates>
+    public class AdventurerBattleMenu : BaseMenuManager<EAdventureStates>
     {
         public AdventurerSystemBehaviour adventurerSystem;
         public GetCurrentAdventurerAgent getCurrentAdventurerAgent;
         public List<AdventurerGameObject> adventurerGameObjects;
 
-        private Dictionary<AdventureStates, OpenedMenu> _openedMenus;
-        protected override Dictionary<AdventureStates, OpenedMenu> OpenedMenus => _openedMenus;
+        private Dictionary<EAdventureStates, OpenedMenu> _openedMenus;
+        protected override Dictionary<EAdventureStates, OpenedMenu> OpenedMenus => _openedMenus;
         public void Start()
         {
-            _openedMenus = new Dictionary<AdventureStates, OpenedMenu>();
+            _openedMenus = new Dictionary<EAdventureStates, OpenedMenu>();
             foreach (var menu in adventurerGameObjects)
             {
                 var closedMenus = new List<GameObject>();
@@ -37,7 +37,7 @@ namespace EconomyProject.Scripts.UI.Adventurer
                 _openedMenus.Add(menu.screen, new OpenedMenu(menu.menu, closedMenus));
             }
         }
-        protected override bool Compare(AdventureStates a, AdventureStates b)
+        protected override bool Compare(EAdventureStates a, EAdventureStates b)
         {
             return a == b;
         }

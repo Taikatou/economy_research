@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using EconomyProject.Scripts.GameEconomy.Systems.Adventurer;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.UI;
 using TurnBased.Scripts;
-using Unity.MLAgents;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {
-    public enum AdventureStates { OutOfBattle, InBattle }
+    public enum EAdventureStates { OutOfBattle, InBattle }
     
     [Serializable]
     public class AdventurerSystem : EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
@@ -20,7 +18,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 		public TravelSubSystem travelSubsystem;
 
         public Dictionary<AdventurerAgent, BattleSubSystem> battleSystems;
-        public Dictionary<AdventurerAgent, AdventureStates> adventureStates;
+        public Dictionary<AdventurerAgent, EAdventureStates> adventureStates;
         public override int ObservationSize => 1 + BattleSubSystem.SensorCount;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Adventurer;
 
@@ -29,11 +27,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public AdventurerSystem()
         {
-            adventureStates = new Dictionary<AdventurerAgent, AdventureStates>();
+            adventureStates = new Dictionary<AdventurerAgent, EAdventureStates>();
             battleSystems = new Dictionary<AdventurerAgent, BattleSubSystem>();
         }
 
-		public void ResetAdventurerSystem()
+        public void ResetAdventurerSystem()
 		{
 			//End all battles 
 			if(battleSystems != null)
@@ -47,21 +45,21 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 				}
 			}
 			
-			adventureStates = new Dictionary<AdventurerAgent, AdventureStates>();
+			adventureStates = new Dictionary<AdventurerAgent, EAdventureStates>();
 			battleSystems = new Dictionary<AdventurerAgent, BattleSubSystem>();
 		}
 
-        public AdventureStates GetAdventureStates(AdventurerAgent agent)
+        public EAdventureStates GetAdventureStates(AdventurerAgent agent)
         {
             if (!adventureStates.ContainsKey(agent))
             {
-                adventureStates.Add(agent, AdventureStates.OutOfBattle);
+                adventureStates.Add(agent, EAdventureStates.OutOfBattle);
             }
 
             return adventureStates[agent];
         }
 
-        private void SetAdventureState(AdventurerAgent agent, AdventureStates state)
+        private void SetAdventureState(AdventurerAgent agent, EAdventureStates state)
         {
             if (!adventureStates.ContainsKey(agent))
             {
@@ -76,21 +74,36 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         
         public override bool CanMove(AdventurerAgent agent)
         {
-            return GetAdventureStates(agent) != AdventureStates.InBattle;
+            return GetAdventureStates(agent) != EAdventureStates.InBattle;
         }
 
         public override float[] GetObservations(AdventurerAgent agent)
         {
-            var state = GetAdventureStates(agent);
-            var battleState = new float[1 + BattleSubSystem.SensorCount];
-            battleState[0] = (float) state;
-            if(state == AdventureStates.InBattle)
+            float[] GetSubsystemData(AdventurerAgent agent)
             {
+                var i = battleLocationSelect.GetCurrentLocation(agent);
                 var subSystem = GetSubSystem(agent);
-                subSystem.GetSubsystemObservations().CopyTo(battleState, 1);
-				//Debug.Log(string.Join(",", battleState));
-			}
-            return battleState;
+                return subSystem.GetSubsystemObservations(i);
+            }
+            float[] BlankArray(int sensorCount)
+            {
+                return new float[sensorCount];
+            }
+            
+            var state = GetAdventureStates(agent);
+            var battleState = new List<float> {(float) state};
+
+            var output = state == EAdventureStates.InBattle
+                ? GetSubsystemData(agent)
+                : BlankArray(BattleSubSystem.SensorCount);
+            battleState.AddRange(output);
+            
+            var output2 = state == EAdventureStates.OutOfBattle
+                ? locationSelect.GetTravelObservations(agent)
+                : BlankArray(locationSelect.SensorCount);
+            battleState.AddRange(output2);
+            Debug.Log(string.Join(",", battleState));
+            return battleState.ToArray();
         }
 
         protected override void SetChoice(AdventurerAgent agent, EAdventurerAgentChoices input)
@@ -120,12 +133,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         {
             switch (GetAdventureStates(agent))
             {
-                case AdventureStates.InBattle:
+                case EAdventureStates.InBattle:
                     var action = battleLocationSelect.GetBattleAction(agent);
                     var battleSystem = GetSubSystem(agent);
                     battleSystem.SetInput(action);
                     break;
-                case AdventureStates.OutOfBattle:
+                case EAdventureStates.OutOfBattle:
                     var battle = locationSelect.GetBattle(agent);
                     StartBattle(agent, battle);   
                     break;
@@ -134,7 +147,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public void UpDown(AdventurerAgent agent, int movement)
         {
-            var location = GetAdventureStates(agent) == AdventureStates.InBattle
+            var location = GetAdventureStates(agent) == EAdventureStates.InBattle
                 ? (LocationSelect<AdventurerAgent>) battleLocationSelect
                 : (LocationSelect<AdventurerAgent>) locationSelect;
             location.MovePosition(agent, movement);
@@ -172,7 +185,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             var newSystem = new BattleSubSystem(playerData, enemyData, enemyFighter.fighterDropTable, OnWin);
             battleSystems.Add(agent, newSystem);
             
-            SetAdventureState(agent, AdventureStates.InBattle);
+            SetAdventureState(agent, EAdventureStates.InBattle);
         }
 
         private static void OnWin()
@@ -187,10 +200,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                 var state = GetAdventureStates(player);
                 switch (state)
                 {
-                    case AdventureStates.OutOfBattle:
+                    case EAdventureStates.OutOfBattle:
                         
                         break;
-                    case AdventureStates.InBattle:
+                    case EAdventureStates.InBattle:
                         CheckInBattle(player);
                         break;
                 }
@@ -223,7 +236,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                     }
 
                     battleSystems.Remove(agent);
-                    SetAdventureState(agent, AdventureStates.OutOfBattle);
+                    SetAdventureState(agent, EAdventureStates.OutOfBattle);
                 }   
             }
         }
@@ -270,7 +283,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                 battleSystems[agent].OnFleeButton();
             }
 
-            SetAdventureState(agent, AdventureStates.OutOfBattle);
+            SetAdventureState(agent, EAdventureStates.OutOfBattle);
         }
         
         public override EnabledInput[] GetEnabledInputs(AdventurerAgent agent)

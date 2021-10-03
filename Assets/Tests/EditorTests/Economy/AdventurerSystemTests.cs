@@ -247,8 +247,8 @@ namespace Tests.Economy
 		[Test]
 		public void Enum_AdventureStates()
 		{
-			bool isInBattleExist = Enum.IsDefined(typeof(AdventureStates), "InBattle");
-			bool isOutOfBattleExist = Enum.IsDefined(typeof(AdventureStates), "OutOfBattle");
+			bool isInBattleExist = Enum.IsDefined(typeof(EAdventureStates), "InBattle");
+			bool isOutOfBattleExist = Enum.IsDefined(typeof(EAdventureStates), "OutOfBattle");
 			Assert.True(isInBattleExist && isOutOfBattleExist == true);
 		}
 

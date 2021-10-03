@@ -57,8 +57,7 @@ namespace EconomyProject.Scripts.UI.Inventory
 
         public override void SelectItem(ShopItem item, int number = 1)
         {
-			currentAdventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.PurchaseItem, 
-				null, item);
+
 		}
     }
 }

@@ -32,7 +32,7 @@ namespace Tests.Economy
 
 			Assert.True(adventurerSystem.CanMove(adventurerAgent) == true, "CanMove=true by default");
 
-			Assert.AreEqual(adventurerSystem.GetAdventureStates(adventurerAgent), AdventureStates.OutOfBattle, "AdventureStates.OutOfBattle by default");
+			Assert.AreEqual(adventurerSystem.GetAdventureStates(adventurerAgent), EAdventureStates.OutOfBattle, "AdventureStates.OutOfBattle by default");
 
 			Assert.AreEqual(adventurerSystem.GetObservations(adventurerAgent), new float[5], "[0,0,0,0,0] by default");
 		}
@@ -75,12 +75,12 @@ namespace Tests.Economy
 		[Test]
 		public void Battle_GetAdventureStates()
 		{
-			Assert.AreEqual(adventurerSystem.GetAdventureStates(adventurerAgent), AdventureStates.OutOfBattle, "AdventureStates.OutOfBattle by default");
+			Assert.AreEqual(adventurerSystem.GetAdventureStates(adventurerAgent), EAdventureStates.OutOfBattle, "AdventureStates.OutOfBattle by default");
 
 			//Start battle
 			adventurerSystem.StartBattle(adventurerAgent, EBattleEnvironments.Forest);
 
-			Assert.AreEqual(adventurerSystem.GetAdventureStates(adventurerAgent), AdventureStates.InBattle, "AdventureStates.InBattle while a battle");
+			Assert.AreEqual(adventurerSystem.GetAdventureStates(adventurerAgent), EAdventureStates.InBattle, "AdventureStates.InBattle while a battle");
 		}
 
 		/// <summary>

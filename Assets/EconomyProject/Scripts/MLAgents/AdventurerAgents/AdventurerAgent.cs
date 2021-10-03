@@ -82,56 +82,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 	        _forcedAction = choice;
         }
 
-        /// <summary>
-		/// Manage UI 
-		/// </summary>
-		/// <param name="choice">Int associate to a specific UI action</param>
-		/// <param name="resourceRequestToTake">Mandatory if choice = TakeResourceRequest</param>
-		/// <param name="itemToBuy">Mandatory if choice = PurchaseItem</param>
-		public void SetAction(EAdventurerAgentChoices choice, CraftingResourceRequest resourceRequestToTake, ShopItem? itemToBuy = null)
-		{
-			switch (choice)
-			{
-				case EAdventurerAgentChoices.None:
-					break;
-				/*case EAdventurerAgentChoices.TakeRequest:
-					requestTaker.TakeRequest(resourceRequestToTake);*/
-					break;
-				case EAdventurerAgentChoices.MainMenu:
-					adventurerInput.ChangeScreen(this, EAdventurerScreen.Main);
-					break;
-				case EAdventurerAgentChoices.FindRequest:
-					adventurerInput.ChangeScreen(this, EAdventurerScreen.Request);
-					break;
-				case EAdventurerAgentChoices.Shop:
-					adventurerInput.ChangeScreen(this, EAdventurerScreen.Shop);
-					break;
-				case EAdventurerAgentChoices.Adventure:
-					adventurerInput.ChangeScreen(this, EAdventurerScreen.Adventurer);
-					break;
-				case EAdventurerAgentChoices.Back:
-					AdventurerInput.AdventurerSystem.system.OnFleeButton(this);
-					break;
-				case EAdventurerAgentChoices.PurchaseItem:
-					var shopCrafting = FindObjectOfType<ShopCraftingSystemBehaviour>();
-					if (shopCrafting)
-					{
-						var shopCraftingSystem = shopCrafting.system.shopSubSubSystem;
-						if (itemToBuy != null && shopCraftingSystem != null)
-						{
-							shopCraftingSystem.PurchaseItem(itemToBuy.Value.Seller,
-															itemToBuy.Value.Item.itemDetails,
-															wallet, 
-															adventurerInventory.agentInventory);	
-						}	
-					}
-					break;
-				default:
-					Debug.Log("Wrong EAdventurerAgentChoices : " + choice);
-					break;
-			}
-		}
-
         public void SetAction(int input)
         {
 	        var action = (EAdventurerAgentChoices) input;

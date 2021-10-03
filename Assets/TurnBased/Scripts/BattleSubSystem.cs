@@ -1,6 +1,4 @@
-﻿
-
-namespace TurnBased.Scripts
+﻿namespace TurnBased.Scripts
 {
 	public delegate void OnWinDelegate();
 	public enum BattleState { Start, PlayerTurn, EnemyTurn, Won, Lost, Flee }
@@ -142,15 +140,24 @@ namespace TurnBased.Scripts
 			return _fighterDropTable.GenerateItems();
 		}
 
-		public float[] GetSubsystemObservations()
+		public float[] GetSubsystemObservations(int inputLocation)
 		{
 			return new []
 			{
 				PlayerFighterUnit.Damage, PlayerFighterUnit.HpPercent,
-				EnemyFighterUnit.Damage, EnemyFighterUnit.HpPercent
+				EnemyFighterUnit.Damage, EnemyFighterUnit.HpPercent, inputLocation
 			};
 		}
 
-		public static int SensorCount => 4;
+		public string[] GetObservationArray()
+		{
+			return new []
+			{
+				"PlayerFighterUnit.Damage", "PlayerFighterUnit.HpPercent",
+				"EnemyFighterUnit.Damage", "EnemyFighterUnit.HpPercent", "InputLocation"
+			};
+		}
+
+		public static int SensorCount => 5;
 	}
 }
