@@ -13,7 +13,8 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.Buttons
 		public Image iconImage;
 
         private CraftingResources _currentCraftingResource;
-        private EShopRequestStates _requestState;
+
+        private bool _correctState;
         
         protected override void SetupButton()
         {
@@ -25,14 +26,20 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.Buttons
 
         public void UpdateData(CraftingResources resource, EShopRequestStates state)
         {
-            _currentCraftingResource = resource;
-            _requestState = state;
+            var correct = state == EShopRequestStates.ChangePrice;
+            UpdateData(resource, correct);
         }
-        
+
+        public void UpdateData(CraftingResources resource, bool correctState)
+        {
+            _currentCraftingResource = resource;
+            _correctState = correctState;
+        }
+
         protected override bool Selected()
         {
             var toReturn = _currentCraftingResource == ItemDetails.Resource &&
-                           _requestState == EShopRequestStates.ChangePrice;
+                           _correctState;
 
             return toReturn;
         }

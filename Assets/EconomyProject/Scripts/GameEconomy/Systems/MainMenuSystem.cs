@@ -31,11 +31,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             }
         }
 
-        private void Update()
-        {
-            RequestDecisions();
-        }
-
         public override EnabledInput[] GetEnabledInputs(AdventurerAgent agent)
         {
             var inputChoices = new[]

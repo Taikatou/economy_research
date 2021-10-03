@@ -213,10 +213,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 			return -1;
 		}
 
-		public void Update()
+		public void FixedUpdate()
         {
-			RequestDecisions();
-			craftingSubSubSystem.Update();
+	        craftingSubSubSystem.Update();
 		}
 		
 		public override EnabledInput[] GetEnabledInputs(ShopAgent agent)

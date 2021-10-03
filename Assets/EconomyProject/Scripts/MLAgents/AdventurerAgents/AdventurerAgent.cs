@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.Inventory;
 using UnityEngine;
 using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems;
-using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.UI.Inventory;
 using Inventory;
 using Unity.MLAgents.Actuators;
@@ -97,8 +94,8 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 			{
 				case EAdventurerAgentChoices.None:
 					break;
-				case EAdventurerAgentChoices.TakeRequest:
-					requestTaker.TakeRequest(resourceRequestToTake);
+				/*case EAdventurerAgentChoices.TakeRequest:
+					requestTaker.TakeRequest(resourceRequestToTake);*/
 					break;
 				case EAdventurerAgentChoices.MainMenu:
 					adventurerInput.ChangeScreen(this, EAdventurerScreen.Main);

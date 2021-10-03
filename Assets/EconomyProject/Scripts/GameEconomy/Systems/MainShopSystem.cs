@@ -27,12 +27,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                 AgentInput.ChangeScreen(agent, s);
             }
         }
-        
-        private void Update()
-        {
-            RequestDecisions();
-        }
-        
+
         public override EnabledInput[] GetEnabledInputs(ShopAgent agent)
         {
             var inputChoices = new []

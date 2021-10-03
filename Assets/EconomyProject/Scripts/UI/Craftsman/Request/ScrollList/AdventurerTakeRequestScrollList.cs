@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.UI.Craftsman.Request.Buttons;
-using UnityEngine;
-using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 
 namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
 {
     public class AdventurerTakeRequestScrollList : ShopRequestScrollList<CraftingResourceRequest, CraftingCurrentRequestButton>
     {
+        public AdventureRequestLocationSetter adventureRequestLocationSetter;
         public GetCurrentAdventurerAgent currentAdventurerAgent;
 
         protected override List<CraftingResourceRequest> GetItemList()
@@ -18,7 +17,16 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
 
         public override void SelectItem(CraftingResourceRequest item, int number = 1)
         {
-			currentAdventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.TakeRequest, item);
+			// currentAdventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.TakeRequest, item);
+        }
+
+        public void Update()
+        {
+            var item = adventureRequestLocationSetter.GetRequest(currentAdventurerAgent.CurrentAgent);
+            foreach (var button in buttons)
+            {
+                button.UpdateData(item.Resource, true);
+            }
         }
     }
 }

@@ -4,18 +4,21 @@
     <list default="true" id="3a9a0144-2920-4427-8d8b-3fddc42186be" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.economy_research/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.economy_research/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Data/AdventurerData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/AdventurerData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Monobehaviours/RequestAdventurerSystemBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Monobehaviours/RequestAdventurerSystemBehaviour.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Monobehaviours/RequestShopSystemBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Monobehaviours/RequestShopSystemBehaviour.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Monobehaviours/ShopCraftingSystemBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Monobehaviours/ShopCraftingSystemBehaviour.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scenes/TestScenes/EconomyScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scenes/TestScenes/EconomyScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/AdventurerSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/AdventurerSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/ShopCraftingSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/ShopCraftingSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/MainMenuSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/MainMenuSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/MainShopSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/MainShopSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Requests/RequestAdventurerSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Requests/RequestAdventurerSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Requests/RequestShopSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Requests/RequestShopSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/TravelSystem/TravelSubSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/TravelSystem/TravelSubSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/Actuators/AdventurerActuator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/Actuators/AdventurerActuator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/Actuators/BattleActuator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/Actuators/BattleActuator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Shop/AdventurerShopSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Shop/AdventurerShopSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerAgent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Adventurer/TravelMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Adventurer/TravelMenu.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Battle/CombatButtonsUi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Battle/CombatButtonsUi.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Inventory/ShopScrollView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Inventory/ShopScrollView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Craftsman/Request/Buttons/CraftingCurrentRequestButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Craftsman/Request/Buttons/CraftingCurrentRequestButton.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Craftsman/Request/ScrollList/AdventurerTakeRequestScrollList.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Craftsman/Request/ScrollList/AdventurerTakeRequestScrollList.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Timers/EconomyScene_timers.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Timers/EconomyScene_timers.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TurnBased/Scripts/BattleSubSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TurnBased/Scripts/BattleSubSystem.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +38,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/Animation/BindingSelector.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Requests/AdventureRequestLocationSetter.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/CanvasUpdateRegistry.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/IEconomyAgent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.collab-proxy@1.9.0/Editor/PlasticSCM/Developer/IncomingChangesNotificationPanel.cs" root0="SKIP_HIGHLIGHTING" />
@@ -76,6 +80,7 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMPro_UGUI_Private.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/GetCurrentAgentAggregator.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.barracuda@2.0.0-pre.3/Barracuda/Runtime/ONNX/ONNXTensor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Editor/DirectorNamedColor.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1yBzi5JpqPMJIPzd9Z4FMipwlZN" />
   <component name="ProjectViewState">
@@ -105,10 +110,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="34036">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="34036" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -137,6 +142,7 @@
       <workItem from="1632945883915" duration="1076000" />
       <workItem from="1633023825273" duration="2143000" />
       <workItem from="1633167597047" duration="7366000" />
+      <workItem from="1633249537478" duration="2888000" />
     </task>
     <servers />
   </component>
@@ -163,25 +169,25 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerAgent.cs</url>
-          <line>103</line>
+          <line>100</line>
           <properties documentPath="D:\Documents\Github\Phd\economy_research\Assets\EconomyProject\Scripts\MLAgents\AdventurerAgents\AdventurerAgent.cs" initialLine="102" containingFunctionPresentation="method 'SetAction'" />
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/AdventurerSystem.cs</url>
-          <line>238</line>
+          <line>236</line>
           <properties documentPath="D:\Documents\Github\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Adventurer\AdventurerSystem.cs" initialLine="213" containingFunctionPresentation="method 'StartBattle'" />
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/AdventurerSystem.cs</url>
-          <line>240</line>
+          <line>238</line>
           <properties documentPath="D:\Documents\Github\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Adventurer\AdventurerSystem.cs" initialLine="215" containingFunctionPresentation="method 'StartBattle'" />
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/AdventurerSystem.cs</url>
-          <line>242</line>
+          <line>240</line>
           <properties documentPath="D:\Documents\Github\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Adventurer\AdventurerSystem.cs" initialLine="217" containingFunctionPresentation="method 'StartBattle'" />
           <option name="timeStamp" value="11" />
         </line-breakpoint>

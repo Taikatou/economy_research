@@ -25,11 +25,6 @@ namespace EconomyProject.Monobehaviours
             getCurrentRequestsLocation.requestSystem = system.requestSystem;
         }
 
-        public void FixedUpdate()
-        {
-            system.Update();
-        }
-
         public override CraftingResources GetItem(ShopAgent agent, EShopRequestStates state)
         {
             if (state == EShopRequestStates.MakeRequest)

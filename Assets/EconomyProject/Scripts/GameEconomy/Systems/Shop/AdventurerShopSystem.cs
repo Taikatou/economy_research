@@ -64,7 +64,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 
         private IMoveMenu<AdventurerAgent> GetCurrentSubsystem(AdventurerAgent agent)
         {
-            return GetChoice(agent) == ESelectionState.PurchaseItem ? (IMoveMenu<AdventurerAgent>)adventurerShopSubSystem : 
+            return GetChoice(agent) == ESelectionState.PurchaseItem ? (IMoveMenu<AdventurerAgent>) adventurerShopSubSystem : 
                                                                       (IMoveMenu<AdventurerAgent>) shopChooserSubSystem;
         }
 
@@ -95,11 +95,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             }
         }
 
-        public void Update()
-        {
-            RequestDecisions();
-        }
-        
         public override EnabledInput[] GetEnabledInputs(AdventurerAgent agent)
         {
             var inputChoices = new[]

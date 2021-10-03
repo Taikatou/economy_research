@@ -93,11 +93,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             }
         }
 
-        public void Update()
-        {
-            RequestDecisions();
-        }
-        
         public override EnabledInput[] GetEnabledInputs(ShopAgent agent)
         {
             var inputChoices = new []

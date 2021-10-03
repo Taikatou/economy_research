@@ -21,10 +21,5 @@ namespace EconomyProject.Monobehaviours
             system.CraftLocationMap = craftLocationMap;
             system.ShopLocationMap = shopLocationMap;
         }
-
-		public void FixedUpdate()
-        {
-            system.Update();
-        }
     }
 }

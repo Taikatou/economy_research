@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
-using EconomyProject.Scripts.MLAgents.Shop;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
@@ -9,6 +8,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
     [Serializable]
     public class RequestAdventurerSystem : EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
     {
+        public AdventureRequestLocationSetter adventureRequestLocationSetter;
         public RequestSystem requestSystem;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Request;
 
@@ -31,22 +31,29 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return input;
         }
 
-        public void Update()
-        {
-            RequestDecisions();
-        }
-
         protected override void SetChoice(AdventurerAgent agent, EAdventurerAgentChoices input)
         {
             switch (input)
             {
                 case EAdventurerAgentChoices.Down:
-
+                    UpDown(agent, -1);
+                    break;
+                case EAdventurerAgentChoices.Up:
+                    UpDown(agent, 1);
+                    break;
+                case EAdventurerAgentChoices.Select:
+                    var resource = adventureRequestLocationSetter.GetRequest(agent);
+                    agent.requestTaker.TakeRequest(resource);
                     break;
                 case EAdventurerAgentChoices.Back:
                     AgentInput.ChangeScreen(agent, EAdventurerScreen.Main);
                     break;
             }
+        }
+
+        public void UpDown(AdventurerAgent agent, int movement)
+        {
+            adventureRequestLocationSetter.MovePosition(agent, movement);
         }
         
 
@@ -68,14 +75,19 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         {
             var inputChoices = new[]
             {
-                EAdventurerAgentChoices.TakeRequest,
+                EAdventurerAgentChoices.Select,
                 EAdventurerAgentChoices.Back,
                 EAdventurerAgentChoices.Up,
-                EAdventurerAgentChoices.Back
+                EAdventurerAgentChoices.Down
             };
             var outputs = EconomySystemUtils<EAdventurerAgentChoices>.GetInputOfType(inputChoices);
 
             return outputs;
+        }
+
+        public void Start()
+        {
+            adventureRequestLocationSetter.requestSystem = requestSystem;
         }
     }
 }

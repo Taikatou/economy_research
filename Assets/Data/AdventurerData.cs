@@ -1,4 +1,4 @@
-public enum EAdventurerAgentChoices { None=0, MainMenu, FindRequest, Shop, Adventure, TakeRequest, 
+public enum EAdventurerAgentChoices { None=0, MainMenu, FindRequest, Shop, Adventure, 
     Up, Down, SetShop, PurchaseItem, Back, Select }
 
 public enum EAdventurerScreen { Main=EAdventurerAgentChoices.MainMenu, Request=EAdventurerAgentChoices.FindRequest, 

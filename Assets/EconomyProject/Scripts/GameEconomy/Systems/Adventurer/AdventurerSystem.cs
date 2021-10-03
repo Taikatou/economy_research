@@ -182,8 +182,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         
         public void FixedUpdate()
         {
-            RequestDecisions();
-
             foreach (var player in CurrentPlayers)
             {
                 var state = GetAdventureStates(player);
