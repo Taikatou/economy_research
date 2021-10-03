@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using EconomyProject.Scripts.MLAgents.Sensors;
 using Unity.MLAgents.Sensors;
 

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 {
-    public class AdventurerShopSubSystem : LocationSelect<AdventurerAgent>, IAdventureSense
+    public class AdventurerShopSubSystem : LocationSelect<AdventurerAgent>
     {
         public ShopCraftingSystemBehaviour shopCraftingSystem;
         public ShopChooserSubSystem shopChooserSubSystem;

@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
-    public class RequestSystem : LastUpdate, IAdventureSense, IShopSense
+    public class RequestSystem : LastUpdate, IShopSense
     {
         public CraftingInventory testCraftingInventory;
         public bool testRequests = true;

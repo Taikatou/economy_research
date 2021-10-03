@@ -7,7 +7,7 @@ using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 namespace EconomyProject.Scripts.GameEconomy
 {
     
-    public class AdventurerInput : AgentInput<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>, IAdventureSense
+    public class AdventurerInput : AgentInput<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
     {
         private static MainMenuSystemBehaviour MainMenuSystem => FindObjectOfType<MainMenuSystemBehaviour>();
         private static AdventurerShopSystemBehaviour AdventurerShopSystem => FindObjectOfType<AdventurerShopSystemBehaviour>();
@@ -55,20 +55,10 @@ namespace EconomyProject.Scripts.GameEconomy
             AdventurerSystem.system.AgentInput = this;
         }
 
-        public static int GetObservationLength()
-        {
-            return GetSystems().Select(system => system.ObservationSize).Prepend(0).Max();
-        }
-
         public IEnumerable<EnabledInput> GetActionMask(AdventurerAgent agent)
         {
             var inputsEnabled = GetEconomySystem(agent).GetEnabledInputs(agent);
             return inputsEnabled;
-        }
-
-        public float[] GetObservations(AdventurerAgent agent)
-        {
-            return GetEconomySystem(agent).GetObservations(agent);
         }
     }
 }

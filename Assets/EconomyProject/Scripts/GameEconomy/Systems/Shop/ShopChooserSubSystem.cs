@@ -8,7 +8,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 {
     public delegate void OnShopChange(int index);
     [Serializable]
-    public class ShopChooserSubSystem : GetCurrentShopAgent, IAdventureSense, IMoveMenu<AdventurerAgent>
+    public class ShopChooserSubSystem : GetCurrentShopAgent, IMoveMenu<AdventurerAgent>
     {
         private Dictionary<AdventurerAgent, int> _currentShop;
 

@@ -1,30 +1,42 @@
-using EconomyProject.Scripts.GameEconomy;
+using System;
+using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.MLAgents.Sensors;
 using Unity.MLAgents.Sensors;
-using UnityEngine;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
 {
-    public class AdventurerMovementSensor : BaseEconomySensor
+    public abstract class AdventurerMovementSensor : BaseEconomySensor
     {
         private readonly AdventurerAgent _agent;
+        protected abstract EAdventurerScreen ValidScreen { get; }
+        protected abstract EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices> EconomySystem
+        {
+            get;
+        }
 
-        public override string GetName() => "MovementSystem";
-        
-        protected override float[] Data { get; }
+        protected override float[] Data => _data;
 
-        public AdventurerMovementSensor(AdventurerAgent agent)
+        private float[] _data;
+
+        protected AdventurerMovementSensor(AdventurerAgent agent)
         {
             _agent = agent;
             
-            var l = AdventurerInput.GetObservationLength();
-            Data = new float [l];
+            var l = EconomySystem.ObservationSize;
+            _data = new float [l];
             MObservationSpec = ObservationSpec.Vector(l);
         }
         
         public override void Update()
         {
-            _agent.adventurerInput.GetObservations(_agent);
+            if (_agent.ChosenScreen == ValidScreen)
+            {
+                _data = EconomySystem.GetObservations(_agent);
+            }
+            else
+            {
+                Array.Clear(_data, 0, _data.Length);
+            }
         }
     }
 }
