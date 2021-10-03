@@ -1,21 +1,30 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 
-public class AdventurerLocationSelect : LocationSelect<AdventurerAgent>
+namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 {
-    private static readonly EBattleEnvironments [] valuesAsArray
-        = Enum.GetValues(typeof(EBattleEnvironments)).Cast<EBattleEnvironments>().ToArray();
-    protected override int GetLimit(AdventurerAgent agent)
+    public class AdventurerLocationSelect : LocationSelect<AdventurerAgent>
     {
-        return valuesAsArray.Length;
-    }
+        private static readonly EBattleEnvironments [] valuesAsArray
+            = Enum.GetValues(typeof(EBattleEnvironments)).Cast<EBattleEnvironments>().ToArray();
+        protected override int GetLimit(AdventurerAgent agent)
+        {
+            return valuesAsArray.Length;
+        }
 
-    public EBattleEnvironments GetBattle(AdventurerAgent agent)
-    {
-        var location = GetCurrentLocation(agent);
-        return valuesAsArray[location];
+        public EBattleEnvironments GetBattle(AdventurerAgent agent)
+        {
+            var location = GetCurrentLocation(agent);
+            return valuesAsArray[location];
+        }
+    
+        public float[] GetTravelObservations(AdventurerAgent agent)
+        {
+            return new float[] {GetCurrentLocation(agent)};
+        }
+
+        public int SensorCount = 1;
     }
 }
