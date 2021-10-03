@@ -11,7 +11,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
     public class RequestSystem : LastUpdate, IAdventureSense, IShopSense
     {
-        public static int MAX_PRICE = 50;
+        public CraftingInventory testCraftingInventory;
+        public bool testRequests = true;
+        private static int MAX_PRICE = 50;
         
         public int maxRequests = 2;
         public CraftingRequestRecord craftingRequestRecord;
@@ -106,7 +108,20 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         public void Start()
         {
 			ResetRequestSystem();
+            TestRequests();
 		}
+
+        private void TestRequests()
+        {
+            if (testRequests)
+            {
+                _craftingRequests.Add(testCraftingInventory, new Dictionary<CraftingResources, CraftingResourceRequest>
+                {
+                    { CraftingResources.Gem, new CraftingResourceRequest(CraftingResources.Gem, testCraftingInventory, 4, null)}
+                });
+                Refresh();
+            }
+        }
 
 		public void ResetRequestSystem()
 		{
@@ -211,10 +226,17 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                 if (_craftingRequests[inventory].ContainsKey(resource))
                 {
                     var request = _craftingRequests[inventory][resource];
-                    _requestWallets[request].EarnMoney(request.Reward);
-                    _craftingRequests[inventory].Remove(resource);
-                    _requestWallets.Remove(request);
-            
+                    if (_requestWallets.ContainsKey(request))
+                    {
+                        _requestWallets[request].EarnMoney(request.Reward);   
+                        _requestWallets.Remove(request);
+                    }
+
+                    if (_craftingRequests.ContainsKey(inventory))
+                    {
+                        _craftingRequests[inventory].Remove(resource);
+                    }
+
                     Refresh();
                 }
             }

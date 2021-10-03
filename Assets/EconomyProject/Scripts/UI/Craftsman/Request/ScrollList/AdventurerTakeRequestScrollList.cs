@@ -20,12 +20,16 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
 			// currentAdventurerAgent.CurrentAgent.SetAction(EAdventurerAgentChoices.TakeRequest, item);
         }
 
-        public void Update()
+        protected override void Update()
         {
+            base.Update();
             var item = adventureRequestLocationSetter.GetRequest(currentAdventurerAgent.CurrentAgent);
-            foreach (var button in buttons)
+            if (item != null)
             {
-                button.UpdateData(item.Resource, true);
+                foreach (var button in buttons)
+                {
+                    button.UpdateData(item.Resource, true);
+                }
             }
         }
     }

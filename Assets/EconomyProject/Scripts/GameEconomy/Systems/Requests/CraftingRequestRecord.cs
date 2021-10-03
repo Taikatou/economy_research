@@ -15,7 +15,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             if (_currentRequests.ContainsKey(requestTaker))
             {
                 var requests  = _currentRequests[requestTaker];
-                for (var i = 0; i < limit || i < requests.Count; i++)
+                for (var i = 0; i < limit && i < requests.Count; i++)
                 {
                     toReturn.Add(requests[i]);
                 }

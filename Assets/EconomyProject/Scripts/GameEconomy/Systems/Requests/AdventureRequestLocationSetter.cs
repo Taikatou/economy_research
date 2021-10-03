@@ -12,10 +12,15 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
         public CraftingResourceRequest GetRequest(AdventurerAgent agent)
         {
+            CraftingResourceRequest toReturn = null;
             var items = requestSystem.GetAllCraftingRequests();
             var index = GetCurrentLocation(agent);
-            var item = items[index];
-            return item;
+            if (items.Count > index)
+            {
+                toReturn = items[index];
+            }
+
+            return toReturn;
         }
     }
 }
