@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using EconomyProject.Scripts.Inventory;
 using Inventory;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+using EconomyProject.Scripts.MLAgents.Shop;
+using EconomyProject.Scripts.UI.Inventory;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
@@ -34,23 +36,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 			}
         }
 
-        public float[] GetSenses(List<UsableItem> items)
-        {
-            var output = new float[SenseCount];
-            for (var i = 0; i < items.Count; i++)
-            {
-                var name = items[i].itemDetails.itemName;
-                if (_stockPrices.ContainsKey(name))
-                {
-                    output[i*2] = _stockPrices[name];
-                    output[i*2 + 1] = _shopItems[name].Count;
-                }
-            }
-
-            return output;
-        }
-
-        public const int SenseCount = 6 * 2;
+        public static int SenseCount = 6 * 2;
 
         private void ChangeItem(UsableItem item, int price)
         {
@@ -111,7 +97,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
 			return true;
         }
-        public List<UsableItem> GetShopItems()
+        public List<UsableItem> GetShopUsableItems()
         {
             var output = new List<UsableItem>();
             foreach(var entry in _shopItems)
@@ -120,6 +106,25 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             }
 
             return output;
+        }
+        
+        public List<ShopItem> GetShopItems(ShopAgent agent)
+        {
+	        var toReturn = new List<ShopItem>();
+	        foreach(var entry in _shopItems)
+	        {
+		        var item = entry.Value[0];
+		        toReturn.Add(new ShopItem
+		        {
+			        Seller = agent,
+			        Item = item,
+			        Price = GetPrice(item.itemDetails),
+			        Number = GetNumber(item.itemDetails),
+			        Index = 0
+		        });
+	        }
+
+	        return toReturn;
         }
 
 		//Return customized price if there is one, otherwise, return the default price

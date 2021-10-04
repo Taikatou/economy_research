@@ -26,7 +26,7 @@ namespace Tests.Economy
 		public void Shop_ShopByDefault()
 		{
 			//ShopEmptyByDefault
-			List<UsableItem> shop = agentShopSubSystem.GetShopItems(shopAgent);
+			List<UsableItem> shop = agentShopSubSystem.GetShopUsableItems(shopAgent);
 			Assert.IsEmpty(shop, "Should have an empty shop");
 			Assert.AreEqual(0, shop.Count);
 		}
@@ -45,7 +45,7 @@ namespace Tests.Economy
 			//Submit it into the shop
 			agentShopSubSystem.SubmitToShop(shopAgent, sword);
 
-			List<UsableItem> shop = agentShopSubSystem.GetShopItems(shopAgent);
+			List<UsableItem> shop = agentShopSubSystem.GetShopUsableItems(shopAgent);
 			Assert.NotNull(shop, "Empty shop");
 
 			//Check number
@@ -69,7 +69,7 @@ namespace Tests.Economy
 			//Should not working
 			agentShopSubSystem.SubmitToShop(shopAgent, sword);
 
-			List<UsableItem> shop = agentShopSubSystem.GetShopItems(shopAgent);
+			List<UsableItem> shop = agentShopSubSystem.GetShopUsableItems(shopAgent);
 			Assert.IsEmpty(shop, "Should have an empty shop");
 			Assert.AreEqual(0, shop.Count);
 			Assert.AreEqual(0, agentShopSubSystem.GetNumber(shopAgent, sword.itemDetails));
@@ -92,7 +92,7 @@ namespace Tests.Economy
 				agentShopSubSystem.SubmitToShop(shopAgent, sword);
 			}
 
-			List<UsableItem> shop = agentShopSubSystem.GetShopItems(shopAgent);
+			List<UsableItem> shop = agentShopSubSystem.GetShopUsableItems(shopAgent);
 			Assert.NotNull(shop, "Empty shop");
 
 			//Check the number of items in the shop
@@ -121,7 +121,7 @@ namespace Tests.Economy
 				agentShopSubSystem.SubmitToShop(shopAgent, sword);
 			}
 
-			List<UsableItem> shop = agentShopSubSystem.GetShopItems(shopAgent);
+			List<UsableItem> shop = agentShopSubSystem.GetShopUsableItems(shopAgent);
 			Assert.NotNull(shop, "Empty shop");
 			AgentData aData = agentShopSubSystem.GetShop(shopAgent);
 			Assert.NotNull(aData, "Empty AgentData");
@@ -163,7 +163,7 @@ namespace Tests.Economy
 			agentShopSubSystem.PurchaseItem(shopAgent, sword.itemDetails, adventurerAgent.wallet, adventurerAgent.inventory);
 
 			//Check if no more sword in the ShopAgent inventory
-			List<UsableItem> shop = agentShopSubSystem.GetShopItems(shopAgent);
+			List<UsableItem> shop = agentShopSubSystem.GetShopUsableItems(shopAgent);
 			Assert.IsEmpty(shop, "Should have an empty shop");
 			Assert.AreEqual(0, shop.Count);
 			Assert.AreEqual(0, agentShopSubSystem.GetNumber(shopAgent, sword.itemDetails));

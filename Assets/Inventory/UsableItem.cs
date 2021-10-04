@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Inventory
 {
+	public enum ECraftingChoice { BeginnerSword, IntermediateSword, AdvancedSword, EpicSword, MasterSword, UltimateSwordOfPower }
 	public enum EAdventurerTypes { All, Brawler, Swordsman, Archer }
 
     [Serializable]
@@ -19,6 +20,8 @@ namespace Inventory
         public int durability;
         
         public bool Broken => !unBreakable && durability <= 0;
+        
+        
 
         public UsableItemDetails(UsableItemDetails itemDetails)
         {
@@ -48,6 +51,7 @@ namespace Inventory
     [CreateAssetMenu]
     public class UsableItem : ScriptableObject
     {
+	    public ECraftingChoice craftChoice;
 	    public List<EAdventurerTypes> validAdventurer = new List<EAdventurerTypes> { EAdventurerTypes.All };
 		public UsableItemDetails itemDetails;
 		public Guid UniqueId { get; private set; }

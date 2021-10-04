@@ -10,34 +10,17 @@ namespace EconomyProject.Scripts.UI.Inventory
         public ShopCraftingSystemBehaviour shopSubSystem;
         public GetCurrentAdventurerAgent currentAdventurerAgent;
 		public GetCurrentShopAgent currentShopAgent;
-		public ShopChooserSubSystem shopChooserSubSystem;
-
+		
 		public AdventurerShopSystemBehaviour adventurerShopSystem;
         protected override ILastUpdate LastUpdated => shopSubSystem.system.shopSubSubSystem;
 
         protected override List<ShopItem> GetItemList()
         {
+	        // TODO fix this please
 	        var counter = 0;
-			var toReturn = new List<ShopItem>();
-			foreach(var shopAgent in currentShopAgent.GetAgents)
-			{
-				var items = shopSubSystem.system.shopSubSubSystem.GetShopItems(shopAgent);
-				foreach (var item in items)
-				{
-					toReturn.Add(new ShopItem
-					{
-						Seller = shopAgent,
-						Item = item,
-						Price = shopSubSystem.system.shopSubSubSystem.GetPrice(shopAgent, item.itemDetails),
-						Number = shopSubSystem.system.shopSubSubSystem.GetNumber(shopAgent, item.itemDetails),
-						Index = counter
-					});
-					
-					counter++;
-				}
-			}
+	        var items = shopSubSystem.system.shopSubSubSystem.GetShopItems(currentShopAgent.CurrentAgent);
 
-            return toReturn;
+	        return items;
         }
 
         protected override void Update()

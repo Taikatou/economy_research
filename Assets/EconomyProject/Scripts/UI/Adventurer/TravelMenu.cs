@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using EconomyProject.Monobehaviours;
+﻿using EconomyProject.Scripts.GameEconomy.Systems.Adventurer;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using UnityEngine;
 using UnityEngine.UI;

@@ -2,6 +2,7 @@
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.MLAgents.Craftsman;
 using EconomyProject.Scripts.UI.ShopUI.Buttons;
+using Inventory;
 using UnityEngine;
 using UnityEngine.UI;
 

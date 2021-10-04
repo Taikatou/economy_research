@@ -10,7 +10,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
     public class RequestShopSystem : StateEconomySystem<ShopAgent, EShopScreen, EShopAgentChoices>
     {
         public RequestSystem requestSystem;
-        public override int ObservationSize => CraftingResourceRequest.SensorCount + 1;
+        public static int ObservationSize => CraftingResourceRequest.SensorCount + 1;
         public override EShopScreen ActionChoice => EShopScreen.Request;
 
         public AdvancedLocationSelect<ShopAgent, CraftingResources, EShopRequestStates> GetLocation { get; set; }

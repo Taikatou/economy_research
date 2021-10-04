@@ -2,7 +2,6 @@
 using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
-using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 {
@@ -10,18 +9,20 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
     {
         public ShopCraftingSystemBehaviour shopCraftingSystem;
         public ShopChooserSubSystem shopChooserSubSystem;
+        
+        public static readonly int SensorCount = 1 + AgentData.SenseCount;
 
         protected override int GetLimit(AdventurerAgent agent)
         {
             var shopAgent = shopChooserSubSystem.GetCurrentShop(agent);
-            var shopItems = shopCraftingSystem.system.shopSubSubSystem.GetShopItems(shopAgent);
+            var shopItems = shopCraftingSystem.system.shopSubSubSystem.GetShopUsableItems(shopAgent);
             return shopItems.Count;
         }
 
         public void PurchaseItem(AdventurerAgent agent)
         {
             var shopAgent = shopChooserSubSystem.GetCurrentShop(agent);
-            var shopItems = shopCraftingSystem.system.shopSubSubSystem.GetShopItems(shopAgent);
+            var shopItems = shopCraftingSystem.system.shopSubSubSystem.GetShopUsableItems(shopAgent);
             if (currentLocation[agent] < shopItems.Count)
             {
                 var shopDetails = shopItems[currentLocation[agent]].itemDetails;
@@ -31,16 +32,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 
         public float[] GetObservations(AdventurerAgent agent)
         {
+            var output = new List<float> { currentLocation[agent] };
+            
             var shop = shopChooserSubSystem.GetCurrentShop(agent);
-            var senseA = shopCraftingSystem.system.shopSubSubSystem.GetSenses(shop);
-            var output = new float [1 + AgentShopSubSystem.SenseCount + shopChooserSubSystem.SenseCount];
-            output[0] = currentLocation[agent];
-            senseA.CopyTo(output, 1);
+            var senseA = shopCraftingSystem.system.shopSubSubSystem.GetItemSenses(shop);
+            output.AddRange(senseA);
 
-            var senseB = shopChooserSubSystem.GetObservations(agent);
-            senseB.CopyTo(output, 1 + AgentShopSubSystem.SenseCount);
-
-            return output;
+            return output.ToArray();
         }
     }
 }

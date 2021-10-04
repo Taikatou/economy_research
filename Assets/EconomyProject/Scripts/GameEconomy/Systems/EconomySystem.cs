@@ -46,7 +46,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
     {
         public GetAgents agents;
         private readonly Dictionary<TAgent, DateTime> _refreshTime;
-        public abstract int ObservationSize { get; }
         public AgentInput<TAgent, TScreen, TInput> AgentInput { get; set; }
         public abstract TScreen ActionChoice { get; }
         public abstract bool CanMove(TAgent agent);

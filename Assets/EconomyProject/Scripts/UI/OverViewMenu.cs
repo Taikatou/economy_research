@@ -64,7 +64,7 @@ namespace EconomyProject.Scripts.UI
             
             foreach (var agent in shopAgent)
             {
-                var shopItems = shopSubSystem.system.shopSubSubSystem.GetShopItems(agent);
+                var shopItems = shopSubSystem.system.shopSubSubSystem.GetShopUsableItems(agent);
                 itemCount += shopItems.Count;
                 resourceCount += agent.craftingInventory.GetResourceNumber();
 

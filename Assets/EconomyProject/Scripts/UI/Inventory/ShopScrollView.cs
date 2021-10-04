@@ -20,7 +20,7 @@ namespace EconomyProject.Scripts.UI.Inventory
         protected override List<ShopItem> GetItemList()
         {
             var toReturn = new List<ShopItem>();
-            var items = shopSubSystem.system.shopSubSubSystem.GetShopItems(Agent);
+            var items = shopSubSystem.system.shopSubSubSystem.GetShopUsableItems(Agent);
             var counter = 0;
             foreach (var item in items)
             {

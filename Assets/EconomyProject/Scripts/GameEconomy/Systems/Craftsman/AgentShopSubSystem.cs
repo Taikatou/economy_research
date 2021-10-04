@@ -6,7 +6,9 @@ using Inventory;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI;
+using EconomyProject.Scripts.UI.Inventory;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
+using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
@@ -19,8 +21,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         private Dictionary<ShopAgent, AgentData> _shopSystems;
 
 		public UsableItem endItem;
-        
-        public static int SenseCount => AgentData.SenseCount;
 
         public AgentShopSubSystem()
         {
@@ -86,14 +86,19 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             return GetShop(shopAgent).GetPrice(item);
         }
 
-        public List<UsableItem> GetShopItems(ShopAgent shopAgent)
+        public List<UsableItem> GetShopUsableItems(ShopAgent shopAgent)
         {
-            return GetShop(shopAgent).GetShopItems();
+            return GetShop(shopAgent).GetShopUsableItems();
+        }
+        
+        public List<ShopItem> GetShopItems(ShopAgent shopAgent)
+        {
+            return GetShop(shopAgent).GetShopItems(shopAgent);
         }
 
         public void SetCurrentPrice(ShopAgent shopAgent, int item, int increment)
 		{ 
-			var items = GetShopItems(shopAgent);
+			var items = GetShopUsableItems(shopAgent);
             if (item < items.Count)
             {
                 SetCurrentPrice(shopAgent, items[item].itemDetails, increment);
@@ -103,7 +108,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public void SetCurrentPrice(ShopAgent shopAgent, UsableItem item, int increment)
         {
-            var items = GetShopItems(shopAgent);
+            var items = GetShopUsableItems(shopAgent);
             var itemFound = items.Find(x => x.itemDetails.itemName == item.itemDetails.itemName);
             if(itemFound)
             {
@@ -139,10 +144,37 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             Refresh();
         }
 
-        public float[] GetSenses(ShopAgent agent)
+        public float[] GetItemSenses(ShopAgent agent)
         {
-            var items = basePrices.Select(b => b.item).ToList();
-            return GetShop(agent).GetSenses(items);
+            var items = GetShop(agent).GetShopItems(agent);
+            var itemsObs = GetWeaponObservations(items);
+
+            return itemsObs;
+        }
+
+        public static int WeaponList => Enum.GetValues(typeof(ECraftingChoice)).Length;
+
+        public static readonly int SensorCount = WeaponList * 4;
+        public float[] GetWeaponObservations(List<ShopItem> items)
+        {
+            var outputs = new float[WeaponList * 4];
+            var valuesAsArray = Enum.GetValues(typeof(ECraftingChoice)).Cast<ECraftingChoice>().ToArray();
+            var counter = 0;
+            foreach (var craft in valuesAsArray)
+            {
+                var f = items.Any(i => craft == i.Item.craftChoice);
+                if (f)
+                {
+                    var i = items.First(i => craft == i.Item.craftChoice);
+                    outputs[counter] = (float) i.Item.craftChoice;
+                    outputs[counter + 1] = i.Price;
+                    outputs[counter + 2] = i.Item.itemDetails.damage;
+                    outputs[counter + 3] = i.Item.itemDetails.durability;
+                }
+                counter += 4;
+            }
+
+            return outputs;
         }
     }
 }

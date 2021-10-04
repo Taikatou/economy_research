@@ -13,7 +13,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
         private Dictionary<AdventurerAgent, int> _currentShop;
 
         public OnShopChange onShopChange;
-        public int SenseCount => 1;
+        
+        public static readonly int SensorCount = 2;
         
         public void Start()
         {
@@ -66,7 +67,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 
         public float[] GetObservations(AdventurerAgent agent)
         {
-            return new float [] {_currentShop.Count};
+            var shop = GetAction(agent);
+            return new float [] { _currentShop.Count, shop };
         }
     }
 }

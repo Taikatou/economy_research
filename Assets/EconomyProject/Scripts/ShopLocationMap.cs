@@ -8,7 +8,7 @@ namespace EconomyProject.Scripts
         public ShopCraftingSystem shopSubSystem { get; set; }
         protected override int GetLimit(ShopAgent agent)
         {
-            var items = shopSubSystem.shopSubSubSystem.GetShopItems(agent);
+            var items = shopSubSystem.shopSubSubSystem.GetShopUsableItems(agent);
             return items.Count;
         }
     }

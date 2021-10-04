@@ -18,13 +18,14 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
 
         private float[] _data;
 
+        protected abstract int SensorCount { get; }
+
         protected AdventurerMovementSensor(AdventurerAgent agent)
         {
             _agent = agent;
             
-            var l = EconomySystem.ObservationSize;
-            _data = new float [l];
-            MObservationSpec = ObservationSpec.Vector(l);
+            _data = new float [SensorCount];
+            MObservationSpec = ObservationSpec.Vector(SensorCount);
         }
         
         public override void Update()

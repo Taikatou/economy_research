@@ -19,7 +19,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public Dictionary<AdventurerAgent, BattleSubSystem> battleSystems;
         public Dictionary<AdventurerAgent, EAdventureStates> adventureStates;
-        public override int ObservationSize => 1 + BattleSubSystem.SensorCount;
+        public static int ObservationSize => 2 + BattleSubSystem.SensorCount;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Adventurer;
 
         public AdventurerLocationSelect locationSelect;

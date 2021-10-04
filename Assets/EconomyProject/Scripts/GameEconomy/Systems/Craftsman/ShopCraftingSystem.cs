@@ -33,14 +33,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public const int SenseCount = 1;
     }
-
-    public enum ECraftingChoice { BeginnerSword, IntermediateSword, AdvancedSword, EpicSword, MasterSword, UltimateSwordOfPower }
     public enum ECraftingOptions { Craft, SubmitToShop, EditShop }
 
     [Serializable]
     public class ShopCraftingSystem : StateEconomySystem<ShopAgent, EShopScreen, EShopAgentChoices>
     {
-	    public override int ObservationSize => 2;
+	    public static int ObservationSize => 2;
 	    public override EShopScreen ActionChoice => EShopScreen.Craft;
 
 	    public CraftingSubSystem craftingSubSubSystem;
@@ -77,9 +75,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public override float[] GetObservations(ShopAgent agent)
         {
-			var outputs = new float [1 + AgentShopSubSystem.SenseCount + CraftingSubSystem.SenseCount];
+			var outputs = new float [1 + AgentShopSubSystem.SensorCount + CraftingSubSystem.SenseCount];
 			outputs[0] = 0; //(float) GetInputMode(agent);
-            var sensesA = shopSubSubSystem.GetSenses(agent);
+            var sensesA = shopSubSubSystem.GetItemSenses(agent);
             sensesA.CopyTo(outputs, 1);
             var sensesB = craftingSubSubSystem.GetObservations(agent);
             sensesB.CopyTo(outputs, 1 + sensesA.Length);
@@ -154,7 +152,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         public void PriceUpDown(ShopAgent agent, int increment)
         {
 	        var index = ShopLocationMap.GetCurrentLocation(agent);
-	        var items = shopSubSubSystem.GetShopItems(agent);
+	        var items = shopSubSubSystem.GetShopUsableItems(agent);
 
 	        if (items.Count > index)
 	        {
@@ -200,7 +198,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public int GetIndexInShopList(ShopAgent shopAgent, UsableItem item)
 		{
-			var items = shopSubSubSystem.GetShopItems(shopAgent);
+			var items = shopSubSubSystem.GetShopUsableItems(shopAgent);
 			for (var i = 0; i < items.Count; i++)
 			{
 				if (item == items[i])

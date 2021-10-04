@@ -6,11 +6,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors.SystemSensors
     public class AdventurerShopSensor : AdventurerMovementSensor
     {
         private readonly AdventurerShopSystem shopSystem;
-        
-        public AdventurerShopSensor(AdventurerAgent agent, AdventurerShopSystem system) : base(agent)
-        {
-            shopSystem = system;
-        }
 
         public override string GetName() => "AdventurerShopSensor";
 
@@ -18,5 +13,12 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors.SystemSensors
 
         protected override EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices> EconomySystem
             => shopSystem;
+
+        protected override int SensorCount => AdventurerShopSystem.ObservationSize;
+        
+        public AdventurerShopSensor(AdventurerAgent agent, AdventurerShopSystem system) : base(agent)
+        {
+            shopSystem = system;
+        }
     }
 }

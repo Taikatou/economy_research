@@ -12,6 +12,8 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors.SystemSensors
         protected override EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices> EconomySystem
             => requestAdventurerSystem;
 
+        protected override int SensorCount => RequestAdventurerSystem.ObservationSize;
+
         public override string GetName() => "RequestSensor";
 
         public AdventurerRequestSensor(AdventurerAgent agent, RequestAdventurerSystem requestAdventurerSystem) : base(agent)

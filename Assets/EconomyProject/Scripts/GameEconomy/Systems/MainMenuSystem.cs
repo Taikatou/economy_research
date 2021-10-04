@@ -8,7 +8,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
     [Serializable]
     public class MainMenuSystem : EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
     {
-        public override int ObservationSize => 0;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Main;
         
         public override bool CanMove(AdventurerAgent agent)

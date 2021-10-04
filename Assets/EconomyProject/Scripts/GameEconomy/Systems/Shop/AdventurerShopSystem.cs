@@ -18,7 +18,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 
         public Dictionary<AdventurerAgent, ESelectionState> currentStates;
 
-        public override int ObservationSize => 0;
+        public static int ObservationSize => 1 + ShopChooserSubSystem.SensorCount + AdventurerShopSubSystem.SensorCount;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Shop;
 
         public AdventurerShopSystem()
@@ -33,7 +33,24 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 
         public override float[] GetObservations(AdventurerAgent agent)
         {
-            return new float[] {};
+            var choice = GetChoice(agent);
+            var obs = new List<float>{ (float) choice };
+
+            var shopSelectData = new float[ShopChooserSubSystem.SensorCount];
+            if (choice == ESelectionState.SelectShop)
+            {
+                shopSelectData = shopChooserSubSystem.GetObservations(agent);
+            }
+            obs.AddRange(shopSelectData);
+
+            var purchaseItem = new float[AdventurerShopSubSystem.SensorCount];
+            if (choice == ESelectionState.PurchaseItem)
+            {
+                purchaseItem = adventurerShopSubSystem.GetObservations(agent);
+            }
+            obs.AddRange(purchaseItem);
+            
+            return obs.ToArray();
         }
 
         protected override void SetChoice(AdventurerAgent agent, EAdventurerAgentChoices input)

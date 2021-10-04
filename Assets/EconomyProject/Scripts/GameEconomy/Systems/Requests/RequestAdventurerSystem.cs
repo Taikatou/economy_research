@@ -12,7 +12,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         public RequestSystem requestSystem;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Request;
 
-        public override int ObservationSize =>
+        public static int ObservationSize =>
             CraftingResourceRequest.SensorCount + CraftingResourceRequest.SensorCount;
         
         public override bool CanMove(AdventurerAgent agent)

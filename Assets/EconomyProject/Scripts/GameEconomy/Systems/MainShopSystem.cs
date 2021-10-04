@@ -6,7 +6,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
     [Serializable]
     public class MainShopSystem : EconomySystem<ShopAgent, EShopScreen, EShopAgentChoices>
     {
-        public override int ObservationSize => 0;
         public override EShopScreen ActionChoice => EShopScreen.Main;
         
         public override bool CanMove(ShopAgent agent)

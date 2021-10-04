@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.MLAgents.Shop;
+using Inventory;
 
 public class CraftingRequestLocationMap : LocationSelect<ShopAgent>
 {
