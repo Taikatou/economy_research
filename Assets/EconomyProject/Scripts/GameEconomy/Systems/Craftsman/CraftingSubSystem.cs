@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Data;
 using Inventory;
 using EconomyProject.Scripts.MLAgents.Craftsman;
 using EconomyProject.Scripts.MLAgents.Shop;
@@ -82,9 +83,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             }
         }
 
-        public float[] GetObservations(ShopAgent agent)
+        public ObsData[] GetObservations(ShopAgent agent)
         {
-            var output = new float [CraftingRequest.SenseCount];
+            var output = new ObsData [CraftingRequest.SenseCount];
             if (_shopRequests.ContainsKey(agent))
             {
                 var senseA = _shopRequests[agent].GetSenses();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Data;
 using Inventory;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.MLAgents.Shop;
@@ -73,15 +74,15 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             return !craftingSubSubSystem.HasRequest(agent);
         }
 
-        public override float[] GetObservations(ShopAgent agent)
+        public override ObsData[] GetObservations(ShopAgent agent)
         {
-			var outputs = new float [1 + AgentShopSubSystem.SensorCount + CraftingSubSystem.SenseCount];
-			outputs[0] = 0; //(float) GetInputMode(agent);
-            var sensesA = shopSubSubSystem.GetItemSenses(agent);
-            sensesA.CopyTo(outputs, 1);
+	        var state = _agentChoices.GetState(agent);
+			var outputs = new List<ObsData>{new ObsData{ data=(float)state, name="craftingState"}};
+			var sensesA = shopSubSubSystem.GetItemSenses(agent);
+			outputs.AddRange(sensesA);
             var sensesB = craftingSubSubSystem.GetObservations(agent);
-            sensesB.CopyTo(outputs, 1 + sensesA.Length);
-            return outputs;
+            outputs.AddRange(sensesB);
+            return outputs.ToArray();
         }
 
         public void SetPrice(ShopAgent shopAgent, UsableItem item, int increment)
@@ -92,14 +93,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 				return;
 			}
 
-			if(increment < 0)
-			{
-				SetChoice(shopAgent, EShopAgentChoices.DecreasePrice);
-			}
-			else
-			{
-				SetChoice(shopAgent, EShopAgentChoices.IncreasePrice);
-			}
+			var option = increment < 0 ? EShopAgentChoices.DecreasePrice : EShopAgentChoices.IncreasePrice;
+			SetChoice(shopAgent, option);
 		}
 
         public void BackButton(ShopAgent agent)

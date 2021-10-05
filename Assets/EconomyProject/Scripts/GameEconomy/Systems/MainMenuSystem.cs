@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Data;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using UnityEngine;
 
@@ -15,9 +16,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return true;
         }
 
-        public override float [] GetObservations(AdventurerAgent agent)
+        public override ObsData [] GetObservations(AdventurerAgent agent)
         {
-            return Array.Empty<float>();
+            return Array.Empty<ObsData>();
         }
 
         protected override void SetChoice(AdventurerAgent agent, EAdventurerAgentChoices input)

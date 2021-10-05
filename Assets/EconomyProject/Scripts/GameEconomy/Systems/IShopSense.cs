@@ -1,9 +1,10 @@
-﻿using EconomyProject.Scripts.MLAgents.Shop;
+﻿using Data;
+using EconomyProject.Scripts.MLAgents.Shop;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {
     public interface IShopSense
     {
-        float [] GetObservations(ShopAgent agent);
+        ObsData [] GetObservations(ShopAgent agent);
     }
 }

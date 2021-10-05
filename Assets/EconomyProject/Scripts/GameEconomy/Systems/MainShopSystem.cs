@@ -1,4 +1,5 @@
 ﻿using System;
+using Data;
 using EconomyProject.Scripts.MLAgents.Shop;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
@@ -13,9 +14,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return true;
         }
 
-        public override float[] GetObservations(ShopAgent agent)
+        public override ObsData[] GetObservations(ShopAgent agent)
         {
-            return Array.Empty<float>() ;
+            return Array.Empty<ObsData>() ;
         }
 
         protected override void SetChoice(ShopAgent agent, EShopAgentChoices input)

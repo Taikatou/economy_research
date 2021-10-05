@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Data;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI;
@@ -65,10 +66,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             }
         }
 
-        public float[] GetObservations(AdventurerAgent agent)
+        public ObsData[] GetObservations(AdventurerAgent agent)
         {
             var shop = GetAction(agent);
-            return new float [] { _currentShop.Count, shop };
+            return new ObsData []
+            {
+                new ObsData { data=_currentShop.Count, name="ShopCount"},
+                new ObsData { data=shop, name="ShopId" }
+            };
         }
     }
 }

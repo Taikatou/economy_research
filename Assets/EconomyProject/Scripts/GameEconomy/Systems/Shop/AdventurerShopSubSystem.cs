@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Data;
 using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
@@ -30,9 +31,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             }
         }
 
-        public float[] GetObservations(AdventurerAgent agent)
+        public ObsData[] GetObservations(AdventurerAgent agent)
         {
-            var output = new List<float> { currentLocation[agent] };
+            var output = new List<ObsData> { new ObsData { data=currentLocation[agent], name="ObsData"} };
             
             var shop = shopChooserSubSystem.GetCurrentShop(agent);
             var senseA = shopCraftingSystem.system.shopSubSubSystem.GetItemSenses(shop);

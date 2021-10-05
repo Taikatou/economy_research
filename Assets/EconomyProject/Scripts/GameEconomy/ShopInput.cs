@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Data;
 using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.MLAgents.Shop;
@@ -40,7 +41,7 @@ namespace EconomyProject.Scripts.GameEconomy
             requestSystem.system.AgentInput = this;
         }
 
-        public float[] GetObservations(ShopAgent agent)
+        public ObsData[] GetObservations(ShopAgent agent)
         {
             return GetEconomySystem(agent).GetObservations(agent);
         }

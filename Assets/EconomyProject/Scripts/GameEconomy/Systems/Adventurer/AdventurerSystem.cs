@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Data;
 using EconomyProject.Scripts.GameEconomy.Systems.Adventurer;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
@@ -77,21 +78,21 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return GetAdventureStates(agent) != EAdventureStates.InBattle;
         }
 
-        public override float[] GetObservations(AdventurerAgent agent)
+        public override ObsData[] GetObservations(AdventurerAgent agent)
         {
-            float[] GetSubsystemData(AdventurerAgent agent)
+            ObsData[] GetSubsystemData(AdventurerAgent agent)
             {
                 var i = battleLocationSelect.GetCurrentLocation(agent);
                 var subSystem = GetSubSystem(agent);
                 return subSystem.GetSubsystemObservations(i);
             }
-            float[] BlankArray(int sensorCount)
+            ObsData[] BlankArray(int sensorCount)
             {
-                return new float[sensorCount];
+                return new ObsData[sensorCount];
             }
             
             var state = GetAdventureStates(agent);
-            var battleState = new List<float> {(float) state};
+            var battleState = new List<ObsData> { new ObsData {data=(float) state, name="AdventureState"}};
 
             var output = state == EAdventureStates.InBattle
                 ? GetSubsystemData(agent)

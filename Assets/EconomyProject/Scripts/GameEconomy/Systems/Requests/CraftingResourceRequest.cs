@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Data;
 using EconomyProject.Scripts.MLAgents.Craftsman;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using UnityEngine;
@@ -43,15 +44,15 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             }
         }
 
-        public static float[] GetObservations(IEnumerable<CraftingResourceRequest> craftingRequests)
+        public static ObsData[] GetObservations(IEnumerable<CraftingResourceRequest> craftingRequests)
         {
-            var output = new float[SensorCount];
+            var output = new ObsData[SensorCount];
             var counter = 0;
             foreach (var item in craftingRequests)
             {
-                output[counter++] = (float) item.Resource;
-                output[counter++] = item.Price;
-                output[counter++] = item.Number;
+                output[counter++] = new ObsData { data=(float) item.Resource, name="resource"};
+                output[counter++] = new ObsData { data=item.Price, name="itemPrice"};
+                output[counter++] = new ObsData { data=item.Number, name="itemNumber"};
                 if (counter >= SensorCount)
                 {
                     break;

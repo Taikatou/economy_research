@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Data;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
@@ -31,19 +32,19 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             return true;
         }
 
-        public override float[] GetObservations(AdventurerAgent agent)
+        public override ObsData[] GetObservations(AdventurerAgent agent)
         {
             var choice = GetChoice(agent);
-            var obs = new List<float>{ (float) choice };
+            var obs = new List<ObsData>{ new ObsData { data = (float) choice, name = "Choice" }};
 
-            var shopSelectData = new float[ShopChooserSubSystem.SensorCount];
+            var shopSelectData = new ObsData[ShopChooserSubSystem.SensorCount];
             if (choice == ESelectionState.SelectShop)
             {
                 shopSelectData = shopChooserSubSystem.GetObservations(agent);
             }
             obs.AddRange(shopSelectData);
 
-            var purchaseItem = new float[AdventurerShopSubSystem.SensorCount];
+            var purchaseItem = new ObsData[AdventurerShopSubSystem.SensorCount];
             if (choice == ESelectionState.PurchaseItem)
             {
                 purchaseItem = adventurerShopSubSystem.GetObservations(agent);

@@ -69,19 +69,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 	        var system = shopInput.GetEconomySystem(this);
             system.AgentSetChoice(this, action);
         }
-
-        public override void CollectObservations(VectorSensor sensor)
-        {
-            // Player Observations
-            sensor.AddObservation((int)ChosenScreen);
-            sensor.AddObservation(wallet ? (float)wallet.Money : 0.0f);
-
-            foreach (var sense in shopInput.GetObservations(this))
-            {
-                sensor.AddObservation(sense);
-            }
-        }
-
+        
 		/// <summary>
 		/// Manage UI 
 		/// </summary>

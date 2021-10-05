@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Data;
 using EconomyProject.Scripts.Inventory;
 using Inventory;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
@@ -144,7 +145,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             Refresh();
         }
 
-        public float[] GetItemSenses(ShopAgent agent)
+        public ObsData[] GetItemSenses(ShopAgent agent)
         {
             var items = GetShop(agent).GetShopItems(agent);
             var itemsObs = GetWeaponObservations(items);
@@ -155,9 +156,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         public static int WeaponList => Enum.GetValues(typeof(ECraftingChoice)).Length;
 
         public static readonly int SensorCount = WeaponList * 4;
-        public float[] GetWeaponObservations(List<ShopItem> items)
+        public ObsData[] GetWeaponObservations(List<ShopItem> items)
         {
-            var outputs = new float[WeaponList * 4];
+            var outputs = new ObsData[WeaponList * 4];
             var valuesAsArray = Enum.GetValues(typeof(ECraftingChoice)).Cast<ECraftingChoice>().ToArray();
             var counter = 0;
             foreach (var craft in valuesAsArray)
@@ -166,10 +167,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
                 if (f)
                 {
                     var i = items.First(i => craft == i.Item.craftChoice);
-                    outputs[counter] = (float) i.Item.craftChoice;
-                    outputs[counter + 1] = i.Price;
-                    outputs[counter + 2] = i.Item.itemDetails.damage;
-                    outputs[counter + 3] = i.Item.itemDetails.durability;
+                    outputs[counter] = new ObsData { data=(float) i.Item.craftChoice, name="craftingChoice"};
+                    outputs[counter + 1] = new ObsData { data=i.Price, name="itemPrice"};
+                    outputs[counter + 2] = new ObsData { data=i.Item.itemDetails.damage, name="itemDamage"};
+                    outputs[counter + 3] = new ObsData { data=i.Item.itemDetails.durability, name="itemDurability"};
                 }
                 counter += 4;
             }

@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Data;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 
@@ -20,9 +21,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             return valuesAsArray[location];
         }
     
-        public float[] GetTravelObservations(AdventurerAgent agent)
+        public ObsData[] GetTravelObservations(AdventurerAgent agent)
         {
-            return new float[] {GetCurrentLocation(agent)};
+            return new [] { new ObsData{data=GetCurrentLocation(agent), name="travelLocation"}};
         }
 
         public int SensorCount = 1;

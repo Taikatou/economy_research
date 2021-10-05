@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Data;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
@@ -19,16 +20,16 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         {
             return true;
         }
-        public override float[] GetObservations(AdventurerAgent agent)
+        public override ObsData[] GetObservations(AdventurerAgent agent)
         {
-            var input = new float[CraftingResourceRequest.SensorCount + CraftingResourceRequest.SensorCount];
+            var input = new List<ObsData>();
 
             var itemList = agent.requestTaker.GetItemList();
             var senseA = CraftingResourceRequest.GetObservations(itemList);
-            senseA.CopyTo(input, 0);
+            input.AddRange(senseA);
             var senseB = requestSystem.GetObservations(agent);
-            senseB.CopyTo(input, senseA.Length);
-            return input;
+            input.AddRange(senseB);
+            return input.ToArray();
         }
 
         protected override void SetChoice(AdventurerAgent agent, EAdventurerAgentChoices input)

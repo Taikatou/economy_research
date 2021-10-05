@@ -1,4 +1,6 @@
-﻿namespace TurnBased.Scripts
+﻿using Data;
+
+namespace TurnBased.Scripts
 {
 	public delegate void OnWinDelegate();
 	public enum BattleState { Start, PlayerTurn, EnemyTurn, Won, Lost, Flee }
@@ -13,6 +15,8 @@
 		
 		private readonly FighterDropTable _fighterDropTable;
 		private readonly OnWinDelegate _winDelegate;
+		
+		public static int SensorCount => 5;
 		public BattleSubSystem(BaseFighterData playerUnit, BaseFighterData enemyUnit, FighterDropTable fighterDropTable, OnWinDelegate winDelegate)
 		{
 			CurrentState = BattleState.Start;
@@ -140,24 +144,16 @@
 			return _fighterDropTable.GenerateItems();
 		}
 
-		public float[] GetSubsystemObservations(int inputLocation)
+		public ObsData[] GetSubsystemObservations(int inputLocation)
 		{
 			return new []
 			{
-				PlayerFighterUnit.Damage, PlayerFighterUnit.HpPercent,
-				EnemyFighterUnit.Damage, EnemyFighterUnit.HpPercent, inputLocation
+				new ObsData{data=PlayerFighterUnit.Damage, name="PlayerFighterUnit.Damage"},
+				new ObsData{data=PlayerFighterUnit.HpPercent, name="PlayerFighterUnit.HpPercent"},
+				new ObsData{data=EnemyFighterUnit.Damage, name="EnemyFighterUnit.Damage"},
+				new ObsData{data=EnemyFighterUnit.HpPercent,  name="EnemyFighterUnit.HpPercent"},
+				new ObsData{data=inputLocation, name="InputLocation"},
 			};
 		}
-
-		public string[] GetObservationArray()
-		{
-			return new []
-			{
-				"PlayerFighterUnit.Damage", "PlayerFighterUnit.HpPercent",
-				"EnemyFighterUnit.Damage", "EnemyFighterUnit.HpPercent", "InputLocation"
-			};
-		}
-
-		public static int SensorCount => 5;
 	}
 }

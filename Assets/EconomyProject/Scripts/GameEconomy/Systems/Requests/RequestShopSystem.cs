@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Data;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.MLAgents.Shop;
 
@@ -33,13 +35,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return true;
         }
 
-        public override float[] GetObservations(ShopAgent agent)
+        public override ObsData[] GetObservations(ShopAgent agent)
         {
-            var outputSenses = new float[CraftingResourceRequest.SensorCount + 1];
-            outputSenses[0] = 0; //(float) GetInputMode(agent);
+            var state = _agentStateSelector.GetState(agent);
+            var outputSenses = new List<ObsData>{ new ObsData { data=(float) state, name = "AgentState"}};
             var requestSense = requestSystem.GetObservations(agent);
-            requestSense.CopyTo(outputSenses, 1);
-            return outputSenses;
+            outputSenses.AddRange(requestSense);
+            return outputSenses.ToArray();
         }
 
         protected override void SetChoice(ShopAgent agent, EShopAgentChoices input)

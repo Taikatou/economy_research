@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Data;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Craftsman;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
@@ -261,14 +262,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             Refresh();
         }
 
-        public float[] GetObservations(AdventurerAgent agent)
+        public ObsData[] GetObservations(AdventurerAgent agent)
         {
             var craftingRequests = GetAllCraftingRequests();
             
             return CraftingResourceRequest.GetObservations(craftingRequests);
         }
 
-        public float[] GetObservations(ShopAgent agent)
+        public ObsData[] GetObservations(ShopAgent agent)
         {
             var craftingRequests = GetAllCraftingRequests(agent.craftingInventory);
             return CraftingResourceRequest.GetObservations(craftingRequests);
