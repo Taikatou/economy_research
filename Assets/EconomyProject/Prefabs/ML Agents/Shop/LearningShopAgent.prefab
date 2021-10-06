@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 7495793412378739832}
   - component: {fileID: 2696612896792117499}
   - component: {fileID: 4011357051640952596}
+  - component: {fileID: 3047744921912511194}
   m_Layer: 0
   m_Name: LearningShopAgent
   m_TagString: Untagged
@@ -148,7 +149,6 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  agentChoice: 0
   shopInput: {fileID: 0}
   wallet: {fileID: 568787241}
   craftingInventory: {fileID: 8868528098903630128}
@@ -167,3 +167,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DecisionPeriod: 5
   TakeActionsBetweenDecisions: 0
+--- !u!114 &3047744921912511194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6220377510714029038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b184bdee98114b64c8a2b7944c1c075d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shopAgent: {fileID: 2696612896792117499}

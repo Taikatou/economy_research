@@ -3,7 +3,7 @@ using EconomyProject.Scripts.GameEconomy.Systems.Shop;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors.SystemSensors
 {
-    public class AdventurerShopSensor : AdventurerMovementSensor
+    public class AgentShopSensor : AgentMovementSensor<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
     {
         private readonly AdventurerShopSystem shopSystem;
 
@@ -16,7 +16,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors.SystemSensors
 
         protected override int SensorCount => AdventurerShopSystem.ObservationSize;
         
-        public AdventurerShopSensor(AdventurerAgent agent, AdventurerShopSystem system) : base(agent)
+        public AgentShopSensor(AdventurerAgent agent, AdventurerShopSystem system) : base(agent)
         {
             shopSystem = system;
         }

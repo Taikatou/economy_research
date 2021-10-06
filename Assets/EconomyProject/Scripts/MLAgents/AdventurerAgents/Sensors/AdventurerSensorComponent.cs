@@ -17,9 +17,9 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
                 new AdventurerBaseSensor(agent),
                 new AdventurerInventorySensor(agent), 
                 new RequestTakerSensor(agent.requestTaker, requestLimit),
-                new AdventurerAdventureSensor(agent, behave.system),
-                new AdventurerRequestSensor(agent, request.system),
-                new AdventurerShopSensor(agent, shop.system)
+                new AgentAdventureSensor(agent, behave.system),
+                new AgentRequestSensor(agent, request.system),
+                new AgentShopSensor(agent, shop.system)
             };
         }
     }

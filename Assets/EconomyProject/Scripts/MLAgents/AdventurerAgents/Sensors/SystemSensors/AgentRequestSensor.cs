@@ -3,7 +3,7 @@ using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors.SystemSensors
 {
-    public class AdventurerRequestSensor : AdventurerMovementSensor
+    public class AgentRequestSensor : AgentMovementSensor<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
     {
         private readonly RequestAdventurerSystem requestAdventurerSystem;
 
@@ -16,7 +16,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors.SystemSensors
 
         public override string GetName() => "RequestSensor";
 
-        public AdventurerRequestSensor(AdventurerAgent agent, RequestAdventurerSystem requestAdventurerSystem) : base(agent)
+        public AgentRequestSensor(AdventurerAgent agent, RequestAdventurerSystem requestAdventurerSystem) : base(agent)
         {
             this.requestAdventurerSystem = requestAdventurerSystem;
         }

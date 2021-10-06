@@ -2,11 +2,11 @@ using EconomyProject.Scripts.GameEconomy.Systems;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors.SystemSensors
 {
-    public class AdventurerAdventureSensor : AdventurerMovementSensor
+    public class AgentAdventureSensor : AgentMovementSensor<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
     {
         private readonly AdventurerSystem adventurerSystem;
         public override string GetName() => "AdventurerMovementSensor";
-        public AdventurerAdventureSensor(AdventurerAgent agent, AdventurerSystem system) : base(agent)
+        public AgentAdventureSensor(AdventurerAgent agent, AdventurerSystem system) : base(agent)
         {
             adventurerSystem = system;
         }

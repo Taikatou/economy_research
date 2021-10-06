@@ -1,4 +1,5 @@
 using System;
+using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.MLAgents.Sensors;
 using Unity.MLAgents.Sensors;
@@ -6,23 +7,17 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
 {
-    public abstract class AdventurerMovementSensor : BaseEconomySensor
+    public abstract class AgentMovementSensor<TAgent, TScreen, TChoice> : BaseEconomySensor where TAgent : AgentScreen<TScreen> where TScreen : Enum where TChoice : Enum
     {
-        public static bool debugObs = true;
-        private readonly AdventurerAgent _agent;
-        protected abstract EAdventurerScreen ValidScreen { get; }
-        protected abstract EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices> EconomySystem
-        {
-            get;
-        }
-
-        protected override float[] Data => _data;
-
         private float[] _data;
-
+        private static bool debugObs = true;
+        private readonly TAgent _agent;
+        protected abstract TScreen ValidScreen { get; }
+        protected abstract EconomySystem<TAgent, TScreen, TChoice> EconomySystem { get; }
+        protected override float[] Data => _data;
         protected abstract int SensorCount { get; }
 
-        protected AdventurerMovementSensor(AdventurerAgent agent)
+        protected AgentMovementSensor(TAgent agent)
         {
             _agent = agent;
             
@@ -32,7 +27,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
         
         public override void Update()
         {
-            if (_agent.ChosenScreen == ValidScreen)
+            if (_agent.ChosenScreen.Equals(ValidScreen))
             {
                 var obs =  EconomySystem.GetObservations(_agent);
                 var outputData = new float[obs.Length];
