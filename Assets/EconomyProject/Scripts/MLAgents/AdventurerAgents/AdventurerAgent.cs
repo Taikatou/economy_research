@@ -3,9 +3,7 @@ using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.Inventory;
 using UnityEngine;
-using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems;
-using EconomyProject.Scripts.UI.Inventory;
 using Inventory;
 using Unity.MLAgents.Actuators;
 

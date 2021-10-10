@@ -15,7 +15,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 
         public OnShopChange onShopChange;
         
-        public static readonly int SensorCount = 2;
+        public static readonly int SensorCount = 1;
         
         public void Start()
         {
@@ -30,11 +30,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 
 		public void MovePosition(AdventurerAgent agent, int movement)
         {
-            var newPosition = GetAction(agent) + movement;
+            var newPosition = GetCurrentLocation(agent) + movement;
             ChangePosition(agent, newPosition);
         }
 
-        public int GetAction(AdventurerAgent agent)
+        public int GetCurrentLocation(AdventurerAgent agent)
         {
             if (!_currentShop.ContainsKey(agent))
             {
@@ -68,11 +68,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 
         public ObsData[] GetObservations(AdventurerAgent agent)
         {
-            var shop = GetAction(agent);
-            return new ObsData []
+            return new []
             {
                 new ObsData { data=_currentShop.Count, name="ShopCount"},
-                new ObsData { data=shop, name="ShopId" }
             };
         }
     }

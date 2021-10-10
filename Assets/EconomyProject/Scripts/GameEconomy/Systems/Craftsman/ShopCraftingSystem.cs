@@ -47,7 +47,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
     [Serializable]
     public class ShopCraftingSystem : StateEconomySystem<ShopAgent, EShopScreen, EShopAgentChoices>
     {
-	    public static int ObservationSize => 2;
+	    public static int SensorCount = 2;
+	    public static int ObservationSize => SensorCount + AgentShopSubSystem.SensorCount + CraftingSubSystem.SenseCount;
 	    public override EShopScreen ActionChoice => EShopScreen.Craft;
 
 	    public CraftingSubSystem craftingSubSubSystem;
@@ -82,16 +83,41 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             return !craftingSubSubSystem.HasRequest(agent);
         }
 
+		public int GetScrollLocation(ShopAgent agent)
+		{
+			var index = 0;
+			var state = _agentChoices.GetState(agent);
+			switch (state)
+			{
+				case ECraftingOptions.Craft:
+					index = CraftingLocationMap.GetCurrentLocation(agent);
+					break;
+				case ECraftingOptions.SubmitToShop:
+					index = CraftLocationMap.GetCurrentLocation(agent);
+					break;
+				case ECraftingOptions.EditShop:
+					index = ShopLocationMap.GetCurrentLocation(agent);
+					break;
+			}
+			return index;
+		}
+
         public override ObsData[] GetObservations(ShopAgent agent)
         {
 	        var state = _agentChoices.GetState(agent);
+	        var shopL = GetScrollLocation(agent);
 			var outputs = new List<ObsData>
 			{
 				new ObsData
 				{
 					data=(float)state, 
 					name="craftingState"
-				}
+				},
+				new ObsData
+				{
+					data=shopL,
+					name="shopLocation"
+				},
 			};
 			var sensesA = shopSubSubSystem.GetItemSenses(agent);
 			outputs.AddRange(sensesA);

@@ -160,14 +160,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         public ObsData[] GetWeaponObservations(List<ShopItem> items)
         {
             var outputs = new ObsData[WeaponList * 4];
-            for(var i = 0; i < WeaponList; i++)
-            {
-                var index = i * 4;
-                outputs[index] = new ObsData { name = "craftingChoice" };
-                outputs[index + 1] = new ObsData { name = "itemPrice" };
-                outputs[index = 2] = new ObsData { name = "itemDamage" };
-                outputs[index + 3] = new ObsData { name = "itemDurability" };
-            }
             var valuesAsArray = Enum.GetValues(typeof(ECraftingChoice)).Cast<ECraftingChoice>().ToArray();
             var counter = 0;
             foreach (var craft in valuesAsArray)
@@ -181,28 +173,30 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
                         data=(float) i.Item.craftChoice,
                         name="craftingChoice"
                     };
-                    outputs[counter + 1] = new ObsData
+                    outputs[counter++] = new ObsData
                     {
                         data=i.Price,
                         name="itemPrice"
                     };
-                    outputs[counter + 2] = new ObsData
+                    outputs[counter++] = new ObsData
                     {
                         data=i.Item.itemDetails.damage,
                         name="itemDamage"
                     };
-                    outputs[counter + 3] = new ObsData
+                    outputs[counter++] = new ObsData
                     {
                         data=i.Item.itemDetails.durability,
                         name="itemDurability"
                     };
                 }
-                counter += 4;
             }
 
             while (counter < outputs.Length)
             {
-                
+                outputs[counter] = new ObsData { name = "craftingChoice" };
+                outputs[counter++] = new ObsData { name = "itemPrice" };
+                outputs[counter++] = new ObsData { name = "itemDamage" };
+                outputs[counter++] = new ObsData { name = "itemDurability" };
             }
 
             return outputs;

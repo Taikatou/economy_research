@@ -37,8 +37,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 
         public ObsData[] GetObservations(AdventurerAgent agent)
         {
-            var output = new List<ObsData> { new ObsData { data=currentLocation[agent], name="ObsData"} };
-            
+            var output = new List<ObsData>();
+
             var shop = shopChooserSubSystem.GetCurrentShop(agent);
             var senseA = shopCraftingSystem.system.shopSubSubSystem.GetItemSenses(shop);
             output.AddRange(senseA);

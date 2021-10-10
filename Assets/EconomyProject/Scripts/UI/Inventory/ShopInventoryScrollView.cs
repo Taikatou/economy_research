@@ -67,7 +67,6 @@ namespace EconomyProject.Scripts.UI.Inventory
         {
 	        var system = shopSubSystem.system.GetState(shopAgent.CurrentAgent);
 	        var count = craftLocationMap.GetCurrentLocation(shopAgent.CurrentAgent);
-	        Debug.Log(count);
 	        foreach (var button in buttons)
 	        {
 		        button.UpdateData(count, system == ECraftingOptions.SubmitToShop);

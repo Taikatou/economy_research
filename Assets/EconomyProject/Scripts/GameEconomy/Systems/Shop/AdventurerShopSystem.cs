@@ -22,6 +22,21 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
         public static int ObservationSize => 1 + ShopChooserSubSystem.SensorCount + AdventurerShopSubSystem.SensorCount;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Shop;
 
+        public int GetScrollLocation(AdventurerAgent agent)
+        {
+            var index = 0;
+            var state = GetChoice(agent);
+            switch (state)
+            {
+                case ESelectionState.PurchaseItem:
+                    index = adventurerShopSubSystem.GetCurrentLocation(agent);
+                    break;
+                case ESelectionState.SelectShop:
+                    index = shopChooserSubSystem.GetCurrentLocation(agent);
+                    break;
+            }
+            return index;
+        }
         public AdventurerShopSystem()
         {
             currentStates = new Dictionary<AdventurerAgent, ESelectionState>();
@@ -35,20 +50,24 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
         public override ObsData[] GetObservations(AdventurerAgent agent)
         {
             var choice = GetChoice(agent);
-            var obs = new List<ObsData>{ new ObsData { data = (float) choice, name = "Choice" }};
-
-            var shopSelectData = new ObsData[ShopChooserSubSystem.SensorCount];
-            if (choice == ESelectionState.SelectShop)
+            var obs = new List<ObsData>
             {
-                shopSelectData = shopChooserSubSystem.GetObservations(agent);
-            }
+                new ObsData
+                {
+                    data = (float) choice,
+                    name = "Choice"
+                },
+                new ObsData
+                {
+                    data=GetScrollLocation(agent),
+                    name="scrollLocation",
+                }
+            };
+
+            var shopSelectData =  shopChooserSubSystem.GetObservations(agent);
             obs.AddRange(shopSelectData);
 
-            var purchaseItem = new ObsData[AdventurerShopSubSystem.SensorCount];
-            if (choice == ESelectionState.PurchaseItem)
-            {
-                purchaseItem = adventurerShopSubSystem.GetObservations(agent);
-            }
+            var purchaseItem =  adventurerShopSubSystem.GetObservations(agent);
             obs.AddRange(purchaseItem);
             
             return obs.ToArray();
@@ -115,14 +134,18 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 
         public override EnabledInput[] GetEnabledInputs(AdventurerAgent agent)
         {
-            var inputChoices = new[]
+            var inputChoices = new List<EAdventurerAgentChoices>
             {
                 EAdventurerAgentChoices.Down,
                 EAdventurerAgentChoices.Up,
-                EAdventurerAgentChoices.Back,
-                EAdventurerAgentChoices.SetShop,
-                EAdventurerAgentChoices.PurchaseItem
+                EAdventurerAgentChoices.Back
             };
+
+            var stateAction = GetChoice(agent) == ESelectionState.PurchaseItem
+                ? EAdventurerAgentChoices.SetShop
+                : EAdventurerAgentChoices.PurchaseItem;
+            inputChoices.Add(stateAction);
+            
             var outputs = EconomySystemUtils<EAdventurerAgentChoices>.GetInputOfType(inputChoices);
 
             return outputs;

@@ -61,41 +61,45 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public bool PurchaseItems(EconomyWallet shopAgentWallet, UsableItemDetails itemDetails, EconomyWallet adventurerAgentWallet, AgentInventory inventory)
         {
+	        int GetStock()
+	        {
+		        return _shopItems[itemDetails.itemName].Count;
+	        }
+
+	        var toReturn = false;
 			var price = _stockPrices[itemDetails.itemName];
 
-            int GetStock()
-            {
-                return _shopItems[itemDetails.itemName].Count;
-            }
+			if (adventurerAgentWallet.Money >= price)
+			{
+				if (GetStock() > 0)
+				{
+					toReturn = true;
+					
+					inventory.AddItem(_shopItems[itemDetails.itemName][0]);
+					_shopItems[itemDetails.itemName].RemoveAt(0);
+					_stockPrices[itemDetails.itemName] = price;
 
-			if(adventurerAgentWallet.Money <= price)
+					if (GetStock() <= 0)
+					{
+						_stockPrices.Remove(itemDetails.itemName);
+						_shopItems.Remove(itemDetails.itemName);
+						_previousPrices[itemDetails.itemName] = price;
+					}
+
+					adventurerAgentWallet.SpendMoney(price);
+					shopAgentWallet.EarnMoney(price);
+				}
+				else
+				{
+					Debug.Log("Not enough stock");
+				}
+			}
+			else
 			{
 				Debug.Log("Not enough money : wallet " + adventurerAgentWallet.Money + "- price " + price);
-				return false;
 			}
 
-			if (GetStock() <= 0)
-			{
-				Debug.Log("Not enough stock");
-				return false;
-			}
-
-			inventory.AddItem(_shopItems[itemDetails.itemName][0]);
-            _shopItems[itemDetails.itemName].RemoveAt(0);
-                
-            _stockPrices[itemDetails.itemName] = price;
-
-            if (GetStock() <= 0)
-            {
-				_stockPrices.Remove(itemDetails.itemName);
-                _shopItems.Remove(itemDetails.itemName);
-				_previousPrices[itemDetails.itemName] = price;
-
-			}
-			adventurerAgentWallet.SpendMoney(price);
-			shopAgentWallet.EarnMoney(price);
-
-			return true;
+			return toReturn;
         }
         public List<UsableItem> GetShopUsableItems()
         {

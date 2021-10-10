@@ -1742,7 +1742,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   craftMenu: {fileID: 1754627096}
   adventurerMenu: {fileID: 275464625}
-  craftActive: 1
+  craftActive: 0
   adventurerSystemBehaviour: {fileID: 1781114768}
   getCurrentAdventurerAgent: {fileID: 275464626}
   BattleUI: {fileID: 165455082}
