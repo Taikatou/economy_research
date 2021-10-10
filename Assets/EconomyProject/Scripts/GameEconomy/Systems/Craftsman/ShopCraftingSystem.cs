@@ -24,12 +24,20 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public bool Complete => CraftingTime >= CraftingRequirements.timeToCreation;
 
-        public float[] GetSenses()
+        public ObsData[] GetSenses()
         {
-            return new float [SenseCount]
+            return new ObsData [SenseCount]
             {
-                Progress
+                new ObsData { data=Progress, name="CraftingProgress"}
             };
+        }
+
+        public static ObsData[] GetTemplateSenses()
+        {
+	        return new ObsData [SenseCount]
+	        {
+		        new ObsData { data=0, name="CraftingProgress"}
+	        };
         }
 
         public const int SenseCount = 1;
@@ -77,7 +85,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         public override ObsData[] GetObservations(ShopAgent agent)
         {
 	        var state = _agentChoices.GetState(agent);
-			var outputs = new List<ObsData>{new ObsData{ data=(float)state, name="craftingState"}};
+			var outputs = new List<ObsData>
+			{
+				new ObsData
+				{
+					data=(float)state, 
+					name="craftingState"
+				}
+			};
 			var sensesA = shopSubSubSystem.GetItemSenses(agent);
 			outputs.AddRange(sensesA);
             var sensesB = craftingSubSubSystem.GetObservations(agent);

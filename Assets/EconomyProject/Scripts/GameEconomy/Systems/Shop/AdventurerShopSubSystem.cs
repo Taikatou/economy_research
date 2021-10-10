@@ -26,8 +26,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             var shopItems = shopCraftingSystem.system.shopSubSubSystem.GetShopUsableItems(shopAgent);
             if (currentLocation[agent] < shopItems.Count)
             {
-                var shopDetails = shopItems[currentLocation[agent]].itemDetails;
-                shopCraftingSystem.system.shopSubSubSystem.PurchaseItem(shopAgent, shopDetails, agent.wallet, agent.inventory);
+                var item = shopItems[currentLocation[agent]];
+                var canUse = agent.adventurerInventory.CanObtainItem(item);
+                if (canUse)
+                {
+                    shopCraftingSystem.system.shopSubSubSystem.PurchaseItem(shopAgent, item.itemDetails, agent.wallet, agent.inventory);   
+                }
             }
         }
 

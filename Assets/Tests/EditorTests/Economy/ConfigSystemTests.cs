@@ -104,8 +104,8 @@ namespace Tests.Economy
 		[Test]
 		public void Config_SetResourceDefaultPrices()
 		{
-			Dictionary<CraftingResources, int> defaultResourcePrices = requestShopSystemBehaviour.system.requestSystem.defaultResourcePrices;
-			Dictionary<CraftingResources, int> newResourcePrices = new Dictionary<CraftingResources, int>();
+			Dictionary<ECraftingResources, int> defaultResourcePrices = requestShopSystemBehaviour.system.requestSystem.defaultResourcePrices;
+			Dictionary<ECraftingResources, int> newResourcePrices = new Dictionary<ECraftingResources, int>();
 
 			foreach (var item in defaultResourcePrices)
 			{
@@ -183,7 +183,7 @@ namespace Tests.Economy
 				List<ResourceRequirement> newResourcesRequirements = new List<ResourceRequirement>();
 				foreach(ResourceRequirement resourceRequirement in craftingMap.resource.resourcesRequirements)
 				{
-					CraftingResources newType = resourceRequirement.type;
+					ECraftingResources newType = resourceRequirement.type;
 					int newNumber = UnityEngine.Random.Range(1, 10);
 					newResourcesRequirements.Add(new ResourceRequirement(newType, newNumber));
 				}

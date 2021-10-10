@@ -8,24 +8,24 @@ namespace EconomyProject.Scripts.MLAgents.Craftsman.Requirements
 {
     public static class CraftingUtils
     {
-        public static List<CraftingResources> GetCraftingResources()
+        public static List<ECraftingResources> GetCraftingResources()
         {
-            var resources = Enum.GetValues(typeof(CraftingResources)).Cast<CraftingResources>();
+            var resources = Enum.GetValues(typeof(ECraftingResources)).Cast<ECraftingResources>();
             var list = resources.ToList();
-            list.Remove(CraftingResources.Nothing);
+            list.Remove(ECraftingResources.Nothing);
             return list;
         }
     }
 
-    public enum CraftingResources { Nothing, Wood, Metal, Gem, DragonScale }
+    public enum ECraftingResources { Nothing, Wood, Metal, Gem, DragonScale }
 
     [Serializable]
     public struct ResourceRequirement
     {
-        public CraftingResources type;
+        public ECraftingResources type;
         public int number;
 
-		public ResourceRequirement(CraftingResources newType, int newNumber)
+		public ResourceRequirement(ECraftingResources newType, int newNumber)
 		{
 			type = newType;
 			number = newNumber;

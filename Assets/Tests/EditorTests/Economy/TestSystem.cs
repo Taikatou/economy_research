@@ -49,7 +49,7 @@ namespace Tests.Economy
 		public ConfigSystem configSystem;
 
 		public readonly List<EBattleEnvironments> ListEnvironments = new List<EBattleEnvironments> { EBattleEnvironments.Forest, EBattleEnvironments.Mountain, EBattleEnvironments.Sea, EBattleEnvironments.Volcano };
-		public List<CraftingResources> listCraftingResources = new List<CraftingResources> { CraftingResources.Wood, CraftingResources.Metal, CraftingResources.Gem, CraftingResources.DragonScale };
+		public List<ECraftingResources> listCraftingResources = new List<ECraftingResources> { ECraftingResources.Wood, ECraftingResources.Metal, ECraftingResources.Gem, ECraftingResources.DragonScale };
 		public List<ECraftingChoice> listCraftingChoices = new List<ECraftingChoice> { ECraftingChoice.BeginnerSword, ECraftingChoice.IntermediateSword, ECraftingChoice.AdvancedSword, ECraftingChoice.EpicSword, ECraftingChoice.UltimateSwordOfPower };
 
 		public void Init()
@@ -295,10 +295,10 @@ namespace Tests.Economy
 		/// </summary>
 		public void GiveResources()
 		{
-			shopAgent.craftingInventory.AddResource(CraftingResources.Wood, 20);
-			shopAgent.craftingInventory.AddResource(CraftingResources.Metal, 20);
-			shopAgent.craftingInventory.AddResource(CraftingResources.Gem, 20);
-			shopAgent.craftingInventory.AddResource(CraftingResources.DragonScale, 20);
+			shopAgent.craftingInventory.AddResource(ECraftingResources.Wood, 20);
+			shopAgent.craftingInventory.AddResource(ECraftingResources.Metal, 20);
+			shopAgent.craftingInventory.AddResource(ECraftingResources.Gem, 20);
+			shopAgent.craftingInventory.AddResource(ECraftingResources.DragonScale, 20);
 		}
 
 		/********************************************TearDown*********************************************/

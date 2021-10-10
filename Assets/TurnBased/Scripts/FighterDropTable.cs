@@ -7,7 +7,7 @@ namespace TurnBased.Scripts
     [Serializable]
     public class BattleDrop
     {
-        public CraftingResources resource;
+        public ECraftingResources resource;
 
         public int minDrop;
 
@@ -58,7 +58,7 @@ namespace TurnBased.Scripts
     
     public struct CraftingDropReturn
     {
-        public CraftingResources Resource;
+        public ECraftingResources Resource;
         public int Count;
     }
 }

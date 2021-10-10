@@ -47,13 +47,13 @@ namespace EconomyProject.Scripts.UI
         // Update is called once per frame
         private void Update()
         {
-            Dictionary<CraftingResources, int> CreateCounter(IEnumerable<CraftingResources> elements)
+            Dictionary<ECraftingResources, int> CreateCounter(IEnumerable<ECraftingResources> elements)
             {
                 return elements.ToDictionary(key => key, key => 0);
             }
             var keys = new[] {
-                CraftingResources.Nothing, CraftingResources.Wood, CraftingResources.Metal, 
-                CraftingResources.Gem, CraftingResources.DragonScale
+                ECraftingResources.Nothing, ECraftingResources.Wood, ECraftingResources.Metal, 
+                ECraftingResources.Gem, ECraftingResources.DragonScale
             };
             
             var craftingCount = CreateCounter(keys);
@@ -105,9 +105,9 @@ namespace EconomyProject.Scripts.UI
 
             shopMoneyText.text = "Money: " + shopMoney;
 
-            openWoodRequestText.text = "Wood Requests: " + craftingCount[CraftingResources.Wood] + ": " + craftingPrice[CraftingResources.Wood];
+            openWoodRequestText.text = "Wood Requests: " + craftingCount[ECraftingResources.Wood] + ": " + craftingPrice[ECraftingResources.Wood];
             
-            openMetalRequestText.text = "Metal Requests: " + craftingCount[CraftingResources.Metal] + ": " + craftingPrice[CraftingResources.Metal];
+            openMetalRequestText.text = "Metal Requests: " + craftingCount[ECraftingResources.Metal] + ": " + craftingPrice[ECraftingResources.Metal];
 
             craftingRequestText.text = "Crafted Items: " + OverviewVariables.CraftingCount;
 

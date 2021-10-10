@@ -32,7 +32,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
             var i = 0;
             foreach (var t in requests)
             {
-                var request = t ?? new CraftingResourceRequest(CraftingResources.Nothing, null, 0, null);
+                var request = t ?? new CraftingResourceRequest(ECraftingResources.Nothing, null, 0, null);
                 Data[i++] = (int)request .Resource;
                 Data[i++] = request.Number;
                 

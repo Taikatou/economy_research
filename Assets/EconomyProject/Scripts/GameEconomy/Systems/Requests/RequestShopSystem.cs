@@ -15,7 +15,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         public static int ObservationSize => CraftingResourceRequest.SensorCount + 1;
         public override EShopScreen ActionChoice => EShopScreen.Request;
 
-        public AdvancedLocationSelect<ShopAgent, CraftingResources, EShopRequestStates> GetLocation { get; set; }
+        public AdvancedLocationSelect<ShopAgent, ECraftingResources, EShopRequestStates> GetLocation { get; set; }
         
         private AgentStateSelector<ShopAgent, EShopRequestStates> _agentStateSelector;
 
@@ -97,17 +97,25 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
         public override EnabledInput[] GetEnabledInputs(ShopAgent agent)
         {
-            var inputChoices = new []
+            var inputChoices = new List<EShopAgentChoices>
             {
                 EShopAgentChoices.Up,
                 EShopAgentChoices.Down,
                 EShopAgentChoices.Select,
                 EShopAgentChoices.Back,
                 EShopAgentChoices.MakeRequest,
-                EShopAgentChoices.ChangeRequest,
-                EShopAgentChoices.IncreasePrice,
-                EShopAgentChoices.DecreasePrice
+                EShopAgentChoices.ChangeRequest
             };
+            var state = _agentStateSelector.GetState(agent);
+            if (state == EShopRequestStates.ChangePrice)
+            {
+                inputChoices.AddRange(new []
+                {
+                    EShopAgentChoices.IncreasePrice,
+                    EShopAgentChoices.DecreasePrice
+                });
+            }
+            
             var outputs = EconomySystemUtils<EShopAgentChoices>.GetInputOfType(inputChoices);
             return outputs;
         }

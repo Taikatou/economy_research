@@ -5,7 +5,7 @@ using EconomyProject.Scripts.UI;
 
 namespace EconomyProject.Monobehaviours
 {
-    public class RequestShopSystemBehaviour : AdvancedLocationSelect<ShopAgent, CraftingResources, EShopRequestStates>
+    public class RequestShopSystemBehaviour : AdvancedLocationSelect<ShopAgent, ECraftingResources, EShopRequestStates>
     {
         public GetCurrentRequestsLocation getCurrentRequestsLocation;
         
@@ -25,7 +25,7 @@ namespace EconomyProject.Monobehaviours
             getCurrentRequestsLocation.requestSystem = system.requestSystem;
         }
 
-        public override CraftingResources GetItem(ShopAgent agent, EShopRequestStates state)
+        public override ECraftingResources GetItem(ShopAgent agent, EShopRequestStates state)
         {
             if (state == EShopRequestStates.MakeRequest)
             {

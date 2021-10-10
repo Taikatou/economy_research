@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.UI.Config
 {
-	public class ConfigResource : AbstractConfigComponent<Dictionary<CraftingResources, int>, CraftingResources>
+	public class ConfigResource : AbstractConfigComponent<Dictionary<ECraftingResources, int>, ECraftingResources>
 	{
 		public override void SetupAbstractComponent()
 		{
 			abstractList = GameObject.FindObjectOfType<ListConfigResources>();
 		}
 
-		public new void Setup(CraftingResources newItem, int newPrice)
+		public new void Setup(ECraftingResources newItem, int newPrice)
 		{
 			base.Setup(newItem, newPrice);
 			SetupOthersParameters();

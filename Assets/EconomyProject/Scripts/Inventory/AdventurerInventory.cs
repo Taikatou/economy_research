@@ -10,6 +10,7 @@ namespace EconomyProject.Scripts.Inventory
     [RequireComponent(typeof(AgentInventory))]
     public class AdventurerInventory : MonoBehaviour
     {
+        public bool canObtainAllWeapons;
         public AdventurerAgent agent;
         
         public AgentInventory agentInventory;
@@ -18,32 +19,37 @@ namespace EconomyProject.Scripts.Inventory
         {
             get
             {
+                UsableItem toReturn = null;
                 if (Items != null)
                 {
                     if (Items.Count > 0)
                     {
-                        var max = Items.Max(x => x.Value[0].itemDetails.damage);
+                        var validItems = Items.Where(i => i.Value[0].validAdventurer.Contains(agent.adventurerType));
+                        var max = validItems.Max(x => x.Value[0].itemDetails.damage);
                         var maxWeapon =
                             Items.First(x => Math.Abs(x.Value[0].itemDetails.damage - max) < 0.01);
-                        return maxWeapon.Value[0];
-                    }
-                    else
-                    {
-                        Debug.Log("Items = 0");
+                        toReturn =  maxWeapon.Value[0];
                     }
                 }
-                else
-                {
-                    Debug.Log("Null");
-                }
-                return null;
+                return toReturn;
             }
         }
 
         public void Start()
         {
-            var filter = new[] { agent.adventurerType, EAdventurerTypes.All };
-            agentInventory.checkIfAdd = i => i.validAdventurer.Intersect(filter).Any();
+            agentInventory.checkIfAdd = CanObtainItem;
+        }
+
+        public bool CanObtainItem(UsableItem usableItem)
+        {
+            var valid = canObtainAllWeapons;
+            if (!canObtainAllWeapons)
+            {
+                var filter = new[] { agent.adventurerType, EAdventurerTypes.All };
+                valid = usableItem.validAdventurer.Intersect(filter).Any();
+            }
+
+            return valid;
         }
 
         public void DecreaseDurability()

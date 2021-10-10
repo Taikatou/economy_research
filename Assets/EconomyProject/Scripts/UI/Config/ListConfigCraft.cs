@@ -15,29 +15,29 @@ namespace EconomyProject.Scripts.UI.Config
 		//To Take From Elsewhere?
 		public Dictionary<ECraftingChoice, List<ResourceRequirement>> _defaultRequirements = new Dictionary<ECraftingChoice, List<ResourceRequirement>>
 		{
-			{ECraftingChoice.BeginnerSword, new List<ResourceRequirement>{
-				new ResourceRequirement(CraftingResources.Wood, 2),
-				new ResourceRequirement(CraftingResources.Metal, 2)}},
+		/*	{ECraftingChoice.BeginnerSword, new List<ResourceRequirement>{
+				new ResourceRequirement(ECraftingResources.Wood, 2),
+				new ResourceRequirement(ECraftingResources.Metal, 2)}},
 			{ECraftingChoice.IntermediateSword, new List<ResourceRequirement>{
-				new ResourceRequirement(CraftingResources.Wood, 3),
-				new ResourceRequirement(CraftingResources.Metal, 3)}},
+				new ResourceRequirement(ECraftingResources.Wood, 3),
+				new ResourceRequirement(ECraftingResources.Metal, 3)}},
 			{ECraftingChoice.AdvancedSword, new List<ResourceRequirement>{
-				new ResourceRequirement(CraftingResources.Wood, 2),
-				new ResourceRequirement(CraftingResources.Metal, 2),
-				new ResourceRequirement(CraftingResources.Gem, 1)}},
+				new ResourceRequirement(ECraftingResources.Wood, 2),
+				new ResourceRequirement(ECraftingResources.Metal, 2),
+				new ResourceRequirement(ECraftingResources.Gem, 1)}},
 			{ECraftingChoice.EpicSword, new List<ResourceRequirement>{
-				new ResourceRequirement(CraftingResources.Wood, 2),
-				new ResourceRequirement(CraftingResources.Metal, 2),
-				new ResourceRequirement(CraftingResources.Gem, 2)}},
+				new ResourceRequirement(ECraftingResources.Wood, 2),
+				new ResourceRequirement(ECraftingResources.Metal, 2),
+				new ResourceRequirement(ECraftingResources.Gem, 2)}},
 			{ECraftingChoice.MasterSword, new List<ResourceRequirement>{
-				new ResourceRequirement(CraftingResources.Wood, 3),
-				new ResourceRequirement(CraftingResources.Metal, 3),
-				new ResourceRequirement(CraftingResources.Gem, 3)}},
+				new ResourceRequirement(ECraftingResources.Wood, 3),
+				new ResourceRequirement(ECraftingResources.Metal, 3),
+				new ResourceRequirement(ECraftingResources.Gem, 3)}},
 			{ECraftingChoice.UltimateSwordOfPower, new List<ResourceRequirement>{
-				new ResourceRequirement(CraftingResources.Wood, 3),
-				new ResourceRequirement(CraftingResources.Metal, 3),
-				new ResourceRequirement(CraftingResources.Gem, 3),
-				new ResourceRequirement(CraftingResources.DragonScale, 2)}}
+				new ResourceRequirement(ECraftingResources.Wood, 3),
+				new ResourceRequirement(ECraftingResources.Metal, 3),
+				new ResourceRequirement(ECraftingResources.Gem, 3),
+				new ResourceRequirement(ECraftingResources.DragonScale, 2)}}`*/
 		};
 
 		public override void SetupItems()
@@ -85,7 +85,7 @@ namespace EconomyProject.Scripts.UI.Config
 		public UsableItem GetUsableItemByCraftingChoice(ECraftingChoice craftingChoice)
 		{
 			String nameToCheck = "";
-			switch (craftingChoice)
+	/*		switch (craftingChoice)
 			{
 				case ECraftingChoice.BeginnerSword:
 					nameToCheck = "Beginner Sword";
@@ -119,7 +119,7 @@ namespace EconomyProject.Scripts.UI.Config
 				}
 			}
 
-			Debug.Log("Not found the item : " + nameToCheck);
+			Debug.Log("Not found the item : " + nameToCheck);*/
 			return null;
 		}
 

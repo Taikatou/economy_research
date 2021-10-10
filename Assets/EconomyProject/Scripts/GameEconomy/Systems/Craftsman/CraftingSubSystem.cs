@@ -85,7 +85,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public ObsData[] GetObservations(ShopAgent agent)
         {
-            var output = new ObsData [CraftingRequest.SenseCount];
+            var output = CraftingRequest.GetTemplateSenses();
             if (_shopRequests.ContainsKey(agent))
             {
                 var senseA = _shopRequests[agent].GetSenses();

@@ -55,11 +55,11 @@ namespace Tests.Economy
 		[Test]
 		public void Enum_CraftingResources()
 		{
-			bool isExist1 = Enum.IsDefined(typeof(CraftingResources), "Nothing");
-			bool isExist2 = Enum.IsDefined(typeof(CraftingResources), "Wood");
-			bool isExist3 = Enum.IsDefined(typeof(CraftingResources), "Metal");
-			bool isExist4 = Enum.IsDefined(typeof(CraftingResources), "Gem");
-			bool isExist5 = Enum.IsDefined(typeof(CraftingResources), "DragonScale");
+			bool isExist1 = Enum.IsDefined(typeof(ECraftingResources), "Nothing");
+			bool isExist2 = Enum.IsDefined(typeof(ECraftingResources), "Wood");
+			bool isExist3 = Enum.IsDefined(typeof(ECraftingResources), "Metal");
+			bool isExist4 = Enum.IsDefined(typeof(ECraftingResources), "Gem");
+			bool isExist5 = Enum.IsDefined(typeof(ECraftingResources), "DragonScale");
 			Assert.True(isExist1 && isExist2 && isExist3 && isExist4 && isExist5 == true);
 		}
 
@@ -70,12 +70,12 @@ namespace Tests.Economy
 		[Test]
 		public void Craft_CraftingUtils()
 		{
-			List<CraftingResources> listCraftingResources = CraftingUtils.GetCraftingResources();
+			List<ECraftingResources> listCraftingResources = CraftingUtils.GetCraftingResources();
 			Assert.AreEqual(4, listCraftingResources.Count);
-			Assert.Contains(CraftingResources.Wood, listCraftingResources);
-			Assert.Contains(CraftingResources.Metal, listCraftingResources);
-			Assert.Contains(CraftingResources.Gem, listCraftingResources);
-			Assert.Contains(CraftingResources.DragonScale, listCraftingResources);
+			Assert.Contains(ECraftingResources.Wood, listCraftingResources);
+			Assert.Contains(ECraftingResources.Metal, listCraftingResources);
+			Assert.Contains(ECraftingResources.Gem, listCraftingResources);
+			Assert.Contains(ECraftingResources.DragonScale, listCraftingResources);
 		}
 
 		/// <summary>

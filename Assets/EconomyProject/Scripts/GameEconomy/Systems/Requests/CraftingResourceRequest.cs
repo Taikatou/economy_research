@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using Data;
 using EconomyProject.Scripts.MLAgents.Craftsman;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
@@ -12,7 +12,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
     {
         public readonly float CreationTime;
         private bool _resourceAdded;
-        public CraftingResources Resource { get; }
+        public ECraftingResources Resource { get; }
         public CraftingInventory Inventory { get; }
         public int Number { get; set; }
         public int Price { get; set; }
@@ -24,7 +24,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return Number * newPrice;
         }
 
-		public CraftingResourceRequest(CraftingResources resource, CraftingInventory inventory, int price, Sprite icon)
+		public CraftingResourceRequest(ECraftingResources resource, CraftingInventory inventory, int price, Sprite icon)
         {
             Number = 1;
             Resource = resource;
@@ -59,9 +59,18 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                 }
             }
 
+            while(counter < SensorCount)
+            {
+                output[counter++] = new ObsData { name="resource"};
+                output[counter++] = new ObsData { name="itemPrice"};
+                output[counter++] = new ObsData { name="itemNumber"};
+            }
+
             return output;
         }
-        
-        public const int SensorCount = 15;
+
+        private static int ItemCount => Enum.GetValues(typeof(ECraftingResources)).Length;
+
+        public static int SensorCount => ItemCount * 3;
     }
 }

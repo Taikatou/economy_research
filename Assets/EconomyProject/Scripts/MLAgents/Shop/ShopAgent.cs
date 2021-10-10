@@ -77,7 +77,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 		/// <param name="resourceRequest">Mandatory if choice = MakeResourceRequest</param>
 		/// <param name="craftingChoice">Mandatory if choice = CraftItem</param>
 		/// <param name="item">Mandatory if choice = SubmitToShop or choice = IncreasePrice or choice = DecreasePrice</param>
-		public void SetAction(EShopAgentChoices choice, CraftingResources? resourceRequest = null, ECraftingChoice? craftingChoice = null, UsableItem item = null)
+		public void SetAction(EShopAgentChoices choice, ECraftingResources? resourceRequest = null, ECraftingChoice? craftingChoice = null, UsableItem item = null)
 		{
 			switch (choice)
 			{

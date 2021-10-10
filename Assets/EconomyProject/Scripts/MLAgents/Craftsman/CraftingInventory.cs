@@ -6,16 +6,16 @@ namespace EconomyProject.Scripts.MLAgents.Craftsman
 {
     public class CraftingInventory : MonoBehaviour
     {
-        private Dictionary<CraftingResources, int> _numResources;
+        private Dictionary<ECraftingResources, int> _numResources;
 
         private void Start()
         {
-            _numResources = new Dictionary<CraftingResources, int>();
+            _numResources = new Dictionary<ECraftingResources, int>();
         }
 
         public void ResetInventory()
         {
-            _numResources = new Dictionary<CraftingResources, int>();
+            _numResources = new Dictionary<ECraftingResources, int>();
         }
 
         public int GetResourceNumber()
@@ -29,16 +29,16 @@ namespace EconomyProject.Scripts.MLAgents.Craftsman
             return count;
         }
 
-        public int GetResourceCount(CraftingResources craftingResource)
+        public int GetResourceCount(ECraftingResources eCraftingResource)
         {
-            if (_numResources.ContainsKey(craftingResource))
+            if (_numResources.ContainsKey(eCraftingResource))
             {
-                return _numResources[craftingResource];
+                return _numResources[eCraftingResource];
             }
             return 0;
         }
 
-        public int GetResourceNumber(CraftingResources key)
+        public int GetResourceNumber(ECraftingResources key)
         {
             if (_numResources != null)
             {
@@ -50,7 +50,7 @@ namespace EconomyProject.Scripts.MLAgents.Craftsman
             return 0;
         }
 
-        public void AddResource(CraftingResources resource, int count)
+        public void AddResource(ECraftingResources resource, int count)
         {
             var hasResource = _numResources.ContainsKey(resource);
             if (!hasResource)

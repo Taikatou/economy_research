@@ -73,7 +73,7 @@ namespace EconomyProject.Scripts
 		/// <summary>
 		/// Set default price of the resources
 		/// </summary>
-		public void SetResourceDefaultPrices(Dictionary<CraftingResources, int> newResourcePrices)
+		public void SetResourceDefaultPrices(Dictionary<ECraftingResources, int> newResourcePrices)
 		{
 			requestShopSystemBehaviour.system.requestSystem.defaultResourcePrices = newResourcePrices;
 		}
@@ -147,7 +147,7 @@ namespace EconomyProject.Scripts
 			SetDefaultItemDetails(listConfigItems.GetDefaultDurabilities(), listConfigItems.GetDefaultDamages());
 
 			//Resource prices
-			Dictionary<CraftingResources, int> newResourcePrices = listConfigResources.GetParameters();
+			Dictionary<ECraftingResources, int> newResourcePrices = listConfigResources.GetParameters();
 			SetResourceDefaultPrices(newResourcePrices);
 
 			//Agents start money

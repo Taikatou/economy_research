@@ -6,19 +6,16 @@ namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
 {
     public class ShopCraftingSensor : AgentMovementSensor<ShopAgent, EShopScreen, EShopAgentChoices>
     {
-        public ShopCraftingSystem shopCraftingSystem;
+        private readonly ShopCraftingSystem _shopCraftingSystem;
         protected override EShopScreen ValidScreen => EShopScreen.Craft;
-        protected override EconomySystem<ShopAgent, EShopScreen, EShopAgentChoices> EconomySystem => shopCraftingSystem;
-        protected override int SensorCount { get; }
+        protected override EconomySystem<ShopAgent, EShopScreen, EShopAgentChoices> EconomySystem => _shopCraftingSystem;
+        protected override int SensorCount => ShopCraftingSystem.ObservationSize;
 
-        public override string GetName()
-        {
-            throw new System.NotImplementedException();
-        }
+        public override string GetName() => "ShopCraftingSensor";
 
         public ShopCraftingSensor(ShopAgent agent, ShopCraftingSystem system) : base(agent)
         {
-            shopCraftingSystem = system;
+            _shopCraftingSystem = system;
         }
     }
 }

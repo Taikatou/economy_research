@@ -10,11 +10,11 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
 {
     public class CraftingResourceUi
     {
-        public readonly CraftingResources ResourceType;
+        public readonly ECraftingResources ResourceType;
         public readonly int InventoryNumber;
 		public readonly Sprite Icon;
 
-        public CraftingResourceUi (CraftingResources resourceType, int inventoryNumber, Sprite icon)
+        public CraftingResourceUi (ECraftingResources resourceType, int inventoryNumber, Sprite icon)
         {
             ResourceType = resourceType;
             InventoryNumber = inventoryNumber;

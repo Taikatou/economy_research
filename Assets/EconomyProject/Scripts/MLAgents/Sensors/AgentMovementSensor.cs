@@ -40,7 +40,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
 
                 if (debugObs)
                 {
-                    var outputString = GetName();
+                    var outputString = GetName() + "\t";
                     foreach (var o in obs)
                     {
                         outputString += o.name + ": " + o.data + "\t";

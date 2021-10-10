@@ -5,7 +5,7 @@ using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 
 namespace EconomyProject.Scripts.UI.Config
 {
-	public class ListConfigResources : AbstractList<Dictionary<CraftingResources, int>, CraftingResources>
+	public class ListConfigResources : AbstractList<Dictionary<ECraftingResources, int>, ECraftingResources>
 	{
 		public RequestShopSystemBehaviour requestShopSystemBehaviour;
 
@@ -30,7 +30,7 @@ namespace EconomyProject.Scripts.UI.Config
 			}
 		}
 
-		public override void SetItem(CraftingResources resourceToModify, int newPrice, string category = null)
+		public override void SetItem(ECraftingResources resourceToModify, int newPrice, string category = null)
 		{
 			if (_items.ContainsKey(resourceToModify))
 			{

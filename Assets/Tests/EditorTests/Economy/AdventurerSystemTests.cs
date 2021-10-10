@@ -233,11 +233,11 @@ namespace Tests.Economy
 		[Test]
 		public void Enum_CraftingResources()
 		{
-			bool isNothingExist = Enum.IsDefined(typeof(CraftingResources), "Nothing");
-			bool isWoodExist = Enum.IsDefined(typeof(CraftingResources), "Wood");
-			bool isMetalExist = Enum.IsDefined(typeof(CraftingResources), "Metal");
-			bool isGemExist = Enum.IsDefined(typeof(CraftingResources), "Gem");
-			bool isDragonScaleExist = Enum.IsDefined(typeof(CraftingResources), "DragonScale");
+			bool isNothingExist = Enum.IsDefined(typeof(ECraftingResources), "Nothing");
+			bool isWoodExist = Enum.IsDefined(typeof(ECraftingResources), "Wood");
+			bool isMetalExist = Enum.IsDefined(typeof(ECraftingResources), "Metal");
+			bool isGemExist = Enum.IsDefined(typeof(ECraftingResources), "Gem");
+			bool isDragonScaleExist = Enum.IsDefined(typeof(ECraftingResources), "DragonScale");
 			Assert.False(isNothingExist && isWoodExist && isMetalExist && isGemExist && isDragonScaleExist == false, "Enumeration CraftingResources wrong");
 		}
 

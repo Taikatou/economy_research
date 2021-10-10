@@ -71,16 +71,16 @@ namespace EconomyProject.Scripts.UI.Config
 			{
 				switch (resourceRequired.type)
 				{
-					case CraftingResources.Wood:
+					case ECraftingResources.Wood:
 						wood = resourceRequired.number;
 						break;
-					case CraftingResources.Metal:
+					case ECraftingResources.Metal:
 						metal = resourceRequired.number;
 						break;
-					case CraftingResources.Gem:
+					case ECraftingResources.Gem:
 						gem = resourceRequired.number;
 						break;
-					case CraftingResources.DragonScale:
+					case ECraftingResources.DragonScale:
 						dragonScale = resourceRequired.number;
 						break;
 					default:
@@ -241,22 +241,22 @@ namespace EconomyProject.Scripts.UI.Config
 
 			if(wood > 0)
 			{
-				ResourceRequirement woodRequirement = new ResourceRequirement(CraftingResources.Wood, wood);
+				ResourceRequirement woodRequirement = new ResourceRequirement(ECraftingResources.Wood, wood);
 				newListRequirement.Add(woodRequirement);
 			}
 			if (metal > 0)
 			{
-				ResourceRequirement metalRequirement = new ResourceRequirement(CraftingResources.Metal, metal);
+				ResourceRequirement metalRequirement = new ResourceRequirement(ECraftingResources.Metal, metal);
 				newListRequirement.Add(metalRequirement);
 			}
 			if (gem > 0)
 			{
-				ResourceRequirement gemRequirement = new ResourceRequirement(CraftingResources.Gem, gem);
+				ResourceRequirement gemRequirement = new ResourceRequirement(ECraftingResources.Gem, gem);
 				newListRequirement.Add(gemRequirement);
 			}
 			if (dragonScale > 0)
 			{
-				ResourceRequirement dragonScaleRequirement = new ResourceRequirement(CraftingResources.DragonScale, dragonScale);
+				ResourceRequirement dragonScaleRequirement = new ResourceRequirement(ECraftingResources.DragonScale, dragonScale);
 				newListRequirement.Add(dragonScaleRequirement);
 			}
 			return newListRequirement;

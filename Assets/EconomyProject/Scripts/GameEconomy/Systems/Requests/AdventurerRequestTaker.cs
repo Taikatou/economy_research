@@ -17,7 +17,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             CurrentAmount += amount;
         }
 
-        public static float[] GetSenses(Dictionary<CraftingResources, TakenCraftingResourceRequest> dictionary, CraftingResources key, int SensorCount)
+        public static float[] GetSenses(Dictionary<ECraftingResources, TakenCraftingResourceRequest> dictionary, ECraftingResources key, int SensorCount)
         {
             var output = new float [SensorCount];
             return output;
@@ -41,14 +41,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         public RequestSystem requestSystem;
         public CraftingRequestRecord requestRecord;
 
-        private Dictionary<CraftingResources, TakenCraftingResourceRequest> _currentRequestData;
+        private Dictionary<ECraftingResources, TakenCraftingResourceRequest> _currentRequestData;
 
         //TODO THIS SHOULDN'T BE HARD LIMIT
         public override IEnumerable<CraftingResourceRequest> GetItemList() => requestRecord.GetCurrentRequests(this);
         
         public void Start()
         {
-            _currentRequestData = new Dictionary<CraftingResources, TakenCraftingResourceRequest>();
+            _currentRequestData = new Dictionary<ECraftingResources, TakenCraftingResourceRequest>();
         }
         
         public override void TakeRequest(CraftingResourceRequest request)
@@ -61,7 +61,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             wallet.EarnMoney(reward);
         }
 
-        public void CheckItemAdd(CraftingResources resource, int amount)
+        public void CheckItemAdd(ECraftingResources resource, int amount)
         {
             var itemList = GetItemList();
             foreach (var item in itemList)
@@ -92,7 +92,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             }
         }
 
-        public int GetCurrentStock(CraftingResources resource)
+        public int GetCurrentStock(ECraftingResources resource)
         {
             var amount = 0;
             if (_currentRequestData.ContainsKey(resource))

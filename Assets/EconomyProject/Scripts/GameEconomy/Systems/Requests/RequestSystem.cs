@@ -21,14 +21,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
 		public Sprite[] iconResources;
 
-		private Dictionary<CraftingInventory, Dictionary<CraftingResources, CraftingResourceRequest>> _craftingRequests;
+		private Dictionary<CraftingInventory, Dictionary<ECraftingResources, CraftingResourceRequest>> _craftingRequests;
         private Dictionary<CraftingResourceRequest, EconomyWallet> _requestWallets;
 
-		public Dictionary<CraftingResources, int> defaultResourcePrices = new Dictionary<CraftingResources, int> {
-			{CraftingResources.Wood, 5},
-			{CraftingResources.Metal, 6},
-			{CraftingResources.Gem, 7},
-			{CraftingResources.DragonScale, 8}
+		public Dictionary<ECraftingResources, int> defaultResourcePrices = new Dictionary<ECraftingResources, int> {
+			{ECraftingResources.Wood, 5},
+			{ECraftingResources.Metal, 6},
+			{ECraftingResources.Gem, 7},
+			{ECraftingResources.DragonScale, 8}
 		};
 
 		public Dictionary<AgentType, int> StartMoney => new Dictionary<AgentType, int>
@@ -65,7 +65,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return returnList;
         }
 
-        private int GetRequestNumber(CraftingInventory inventory, CraftingResources resources)
+        private int GetRequestNumber(CraftingInventory inventory, ECraftingResources resources)
         {
             if (_craftingRequests.ContainsKey(inventory))
             {
@@ -88,17 +88,17 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return 0;
         }
 
-		public Sprite GetIconByResource(CraftingResources resource)
+		public Sprite GetIconByResource(ECraftingResources resource)
 		{
 			switch (resource)
 			{
-				case CraftingResources.Wood:
+				case ECraftingResources.Wood:
 					return iconResources[0];
-				case CraftingResources.Metal:
+				case ECraftingResources.Metal:
 					return iconResources[1];
-				case CraftingResources.Gem:
+				case ECraftingResources.Gem:
 					return iconResources[2];
-				case CraftingResources.DragonScale:
+				case ECraftingResources.DragonScale:
 					return iconResources[3];
 				default:
 					Debug.Log("Wrong Crafting resource : " + resource);
@@ -116,9 +116,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         {
             if (testRequests)
             {
-                _craftingRequests.Add(testCraftingInventory, new Dictionary<CraftingResources, CraftingResourceRequest>
+                _craftingRequests.Add(testCraftingInventory, new Dictionary<ECraftingResources, CraftingResourceRequest>
                 {
-                    { CraftingResources.Gem, new CraftingResourceRequest(CraftingResources.Gem, testCraftingInventory, 4, null)}
+                    { ECraftingResources.Gem, new CraftingResourceRequest(ECraftingResources.Gem, testCraftingInventory, 4, null)}
                 });
                 Refresh();
             }
@@ -126,12 +126,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
 		public void ResetRequestSystem()
 		{
-			_craftingRequests = new Dictionary<CraftingInventory, Dictionary<CraftingResources, CraftingResourceRequest>>();
+			_craftingRequests = new Dictionary<CraftingInventory, Dictionary<ECraftingResources, CraftingResourceRequest>>();
 			_requestWallets = new Dictionary<CraftingResourceRequest, EconomyWallet>();
 			Refresh();
 		}
         
-        public void MakeRequest(CraftingResources resources, CraftingInventory inventory, EconomyWallet wallet)
+        public void MakeRequest(ECraftingResources resources, CraftingInventory inventory, EconomyWallet wallet)
         {
             void CheckExchange(CraftingResourceRequest request)
             {
@@ -176,11 +176,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         {
             if (!_craftingRequests.ContainsKey(inventory))
             {
-                _craftingRequests.Add(inventory, new Dictionary<CraftingResources, CraftingResourceRequest>());
+                _craftingRequests.Add(inventory, new Dictionary<ECraftingResources, CraftingResourceRequest>());
             }
         }
 
-        public void ChangePrice(CraftingResources resources, CraftingInventory inventory, EconomyWallet wallet, int change)
+        public void ChangePrice(ECraftingResources resources, CraftingInventory inventory, EconomyWallet wallet, int change)
         {
             CheckInventory(inventory);
             var craftingInventory = _craftingRequests[inventory];
@@ -220,7 +220,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             Refresh();
         }
 
-        private void RemoveRequest(CraftingResources resource, CraftingInventory inventory)
+        private void RemoveRequest(ECraftingResources resource, CraftingInventory inventory)
         {
             if (_craftingRequests.ContainsKey(inventory))
             {
@@ -278,7 +278,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         public void Update()
         {
             var currentTime = Time.time;
-            var toRemove = new List<Tuple<CraftingResources, CraftingInventory>>();
+            var toRemove = new List<Tuple<ECraftingResources, CraftingInventory>>();
             var removedRequests = false;
             foreach (var entry in _craftingRequests)
             {
@@ -286,7 +286,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                 {
                     if (Math.Abs(item.Value.CreationTime - currentTime) > 30)
                     {
-                        var r = new Tuple<CraftingResources, CraftingInventory>(item.Value.Resource, entry.Key);
+                        var r = new Tuple<ECraftingResources, CraftingInventory>(item.Value.Resource, entry.Key);
                         toRemove.Add(r);
                     }
                 }

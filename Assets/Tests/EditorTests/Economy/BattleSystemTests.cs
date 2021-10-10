@@ -294,7 +294,7 @@ namespace Tests.Economy
 		[Test]
 		public void Request_MakeResourceRequest()
 		{
-			CraftingResources randomCraftingResource = listCraftingResources[Random.Range(0, listCraftingResources.Count)];
+			ECraftingResources randomECraftingResource = listCraftingResources[Random.Range(0, listCraftingResources.Count)];
 			
 			// TODO FIX THIS
 			//Make a request
@@ -313,10 +313,10 @@ namespace Tests.Economy
 
 
 			//randomCraftingResource1 != randomCraftingResource2
-			CraftingResources randomCraftingResource2 = listCraftingResources[Random.Range(0, listCraftingResources.Count)];
-			if (randomCraftingResource2 == randomCraftingResource && listCraftingResources.Count > 1)
+			ECraftingResources randomECraftingResource2 = listCraftingResources[Random.Range(0, listCraftingResources.Count)];
+			if (randomECraftingResource2 == randomECraftingResource && listCraftingResources.Count > 1)
 			{
-				randomCraftingResource2 = (CraftingResources)((int)(randomCraftingResource + 1) % listCraftingResources.Count);
+				randomECraftingResource2 = (ECraftingResources)((int)(randomECraftingResource + 1) % listCraftingResources.Count);
 			}
 			//Make another request
 			// TODO FIX THIS
@@ -333,7 +333,7 @@ namespace Tests.Economy
 		[Test]
 		public void Request_TakeResourceRequest()
 		{
-			CraftingResources randomCraftingRessource = listCraftingResources[UnityEngine.Random.Range(0, listCraftingResources.Count)];
+			ECraftingResources randomECraftingRessource = listCraftingResources[UnityEngine.Random.Range(0, listCraftingResources.Count)];
 
 			//Make a request
 			// TODO FIX THIS
@@ -356,7 +356,7 @@ namespace Tests.Economy
 		[Test]
 		public void Request_CompleteResourceRequest()
 		{
-			CraftingResources randomCraftingRessource = listCraftingResources[UnityEngine.Random.Range(0, listCraftingResources.Count)];
+			ECraftingResources randomECraftingRessource = listCraftingResources[UnityEngine.Random.Range(0, listCraftingResources.Count)];
 
 			//Make a request
 			// TODO FIX THIS
@@ -368,14 +368,14 @@ namespace Tests.Economy
 			adventurerAgent.requestTaker.TakeRequest(requestMade);
 
 			//Give the ressource = Complete request
-			adventurerAgent.requestTaker.CheckItemAdd(randomCraftingRessource, 1);
+			adventurerAgent.requestTaker.CheckItemAdd(randomECraftingRessource, 1);
 
 			//No more requests?
 			Assert.AreEqual(0, requestSystem.GetAllCraftingRequests().Count, "No more requests after giving the resource");
 			//Reward obtained?
 			Assert.AreEqual(adventurerAgent.wallet.startMoney + reward, adventurerAgent.wallet.Money);
 			//Resource given?
-			Assert.AreEqual(0, adventurerAgent.requestTaker.GetCurrentStock(randomCraftingRessource));
+			Assert.AreEqual(0, adventurerAgent.requestTaker.GetCurrentStock(randomECraftingRessource));
 		}
 
 		/********************************************TearDown*********************************************/

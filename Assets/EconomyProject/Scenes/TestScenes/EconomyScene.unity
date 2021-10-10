@@ -1742,7 +1742,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   craftMenu: {fileID: 1754627096}
   adventurerMenu: {fileID: 275464625}
-  craftActive: 0
+  craftActive: 1
   adventurerSystemBehaviour: {fileID: 1781114768}
   getCurrentAdventurerAgent: {fileID: 275464626}
   BattleUI: {fileID: 165455082}
@@ -2159,6 +2159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 398d1225ee200814b870ba258ddb6fdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SensorCount: 1
 --- !u!114 &1519652987
 MonoBehaviour:
   m_ObjectHideFlags: 0
