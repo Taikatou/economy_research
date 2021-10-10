@@ -548,19 +548,19 @@ PrefabInstance:
       objectReference: {fileID: 363889715}
     - target: {fileID: 2011312968382217259, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: menuGameObjects.Array.data[0].screen
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2011312968382217259, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: menuGameObjects.Array.data[1].screen
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2011312968382217259, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
-      propertyPath: menuGameObjects.Array.data[2].screen
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2011312968382217259, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
+      propertyPath: menuGameObjects.Array.data[2].screen
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2011312968382217259, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: menuGameObjects.Array.data[3].screen
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2011312969291620456, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: m_IsActive
