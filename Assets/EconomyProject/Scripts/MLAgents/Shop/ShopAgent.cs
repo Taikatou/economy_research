@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
+using Data;
 using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.GameEconomy.Systems;
-using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.Inventory;
 using Inventory;
 using EconomyProject.Scripts.MLAgents.Craftsman;
-using Unity.MLAgents.Sensors;
 using UnityEngine;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
@@ -24,10 +23,23 @@ namespace EconomyProject.Scripts.MLAgents.Shop
         public CraftingInventory craftingInventory;
         public AgentInventory agentInventory;
 
+        private EShopAgentChoices _forcedAction;
+        private bool _bForcedAction;
 		public override AgentType agentType => AgentType.Shop;
-		
-		private EShopAgentChoices _forcedAction;
-		private bool _bForcedAction;
+
+		public void Start()
+		{
+			wallet.onEarnMoney = OnEarnMoney;
+		}
+
+		private void OnEarnMoney(float amount)
+		{
+			if (TrainingConfig.OnSell)
+			{
+				var reward = 0.2f + (amount/100);
+				AddReward(reward);	
+			}
+		}
 
 		public override EShopScreen ChosenScreen
         {

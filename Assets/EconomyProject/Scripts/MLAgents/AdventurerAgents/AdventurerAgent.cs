@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Data;
 using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.Inventory;
@@ -9,8 +11,6 @@ using Unity.MLAgents.Actuators;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 {
-	//main and shop is not used by agent
-
 	public class AdventurerAgent : AgentScreen<EAdventurerScreen>, IEconomyAgent
     {
 	    public EAdventurerTypes adventurerType;
@@ -27,6 +27,22 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 		private EAdventurerAgentChoices _forcedAction;
 		private bool _bForcedAction;
 		private IEconomyAgent _economyAgentImplementation;
+
+		public void Start()
+		{
+			inventory.onItemAdd = OnItemAdd;
+		}
+
+		private void OnItemAdd(UsableItem usableItem)
+		{
+			if (TrainingConfig.OnPurchase)
+			{
+				if (usableItem.itemDetails.damage > adventurerInventory.EquipedItem.itemDetails.damage)
+				{
+					AddReward(0.75f);
+				}	
+			}
+		}
 
 		public override void OnEpisodeBegin()
         {

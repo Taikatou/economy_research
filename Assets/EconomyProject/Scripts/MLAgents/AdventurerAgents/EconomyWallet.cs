@@ -6,8 +6,10 @@ using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 {
+	public delegate void OnEarnMoney(float income);
     public class EconomyWallet : MonoBehaviour
     {
+	    public OnEarnMoney onEarnMoney;
         public int startMoney;
         private int EarnedMoney { get; set; }
         private int SpentMoney { get; set; }
@@ -38,6 +40,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             {
                 Money += amount;
                 EarnedMoney += amount;
+                onEarnMoney?.Invoke(amount);
             }
         }
 
