@@ -23,7 +23,7 @@ namespace EconomyProject.Scripts.Inventory
             var ok = checkIfAdd?.Invoke(usableItem);
             if (ok.HasValue)
             {
-                if (! ok.Value)
+                if (!ok.Value)
                 {
                     return;
                 }

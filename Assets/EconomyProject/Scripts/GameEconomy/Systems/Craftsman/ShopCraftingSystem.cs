@@ -228,18 +228,39 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 		
 		public override EnabledInput[] GetEnabledInputs(ShopAgent agent)
 		{
-			var inputChoices = new []
+			var state = GetState(agent);
+			var inputChoices = new List<EShopAgentChoices>
 			{
 				EShopAgentChoices.Up,
 				EShopAgentChoices.Down,
 				EShopAgentChoices.Select,
-				EShopAgentChoices.Back,
-				EShopAgentChoices.SubmitToShop,
-				EShopAgentChoices.Craft,
-				EShopAgentChoices.EditPrice,
-				EShopAgentChoices.IncreasePrice,
-				EShopAgentChoices.DecreasePrice
+				EShopAgentChoices.Back
 			};
+			switch (state)
+			{
+				case ECraftingOptions.Craft:
+					inputChoices.AddRange(new []
+					{
+						EShopAgentChoices.SubmitToShop,
+						EShopAgentChoices.EditPrice
+					});
+					break;
+				case ECraftingOptions.SubmitToShop:
+					inputChoices.AddRange(new []
+					{
+						EShopAgentChoices.EditPrice,
+						EShopAgentChoices.Craft
+					});
+					break;
+				case ECraftingOptions.EditShop:
+					inputChoices.AddRange(new []
+					{
+						EShopAgentChoices.IncreasePrice,
+						EShopAgentChoices.DecreasePrice,
+						EShopAgentChoices.Craft
+					});
+					break;
+			}
 			var outputs = EconomySystemUtils<EShopAgentChoices>.GetInputOfType(inputChoices);
 			return outputs;
 		}

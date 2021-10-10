@@ -25,10 +25,13 @@ namespace EconomyProject.Scripts.Inventory
                     if (Items.Count > 0)
                     {
                         var validItems = Items.Where(i => i.Value[0].validAdventurer.Contains(agent.adventurerType));
-                        var max = validItems.Max(x => x.Value[0].itemDetails.damage);
-                        var maxWeapon =
-                            Items.First(x => Math.Abs(x.Value[0].itemDetails.damage - max) < 0.01);
-                        toReturn =  maxWeapon.Value[0];
+                        if (validItems.Any())
+                        {
+                            var max = validItems.Max(x => x.Value[0].itemDetails.damage);   
+                            var maxWeapon =
+                                Items.First(x => Math.Abs(x.Value[0].itemDetails.damage - max) < 0.01);
+                            toReturn =  maxWeapon.Value[0];
+                        }
                     }
                 }
                 return toReturn;

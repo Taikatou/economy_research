@@ -79,6 +79,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a01aab7e5f3c274a90a9307fb39ef3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canObtainAllWeapons: 0
   agent: {fileID: 5616954730062649782}
   agentInventory: {fileID: 1817350387931501863}
 --- !u!114 &1817350387931501863
@@ -147,6 +148,7 @@ MonoBehaviour:
   wallet: {fileID: -4706628768726033178}
   adventurerInput: {fileID: 0}
   requestTaker: {fileID: 3175469178531096349}
+  fighterData: {fileID: 342237269981398615}
 --- !u!114 &3175469178531096349
 MonoBehaviour:
   m_ObjectHideFlags: 0

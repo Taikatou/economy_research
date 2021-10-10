@@ -101,18 +101,24 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             {
                 EShopAgentChoices.Up,
                 EShopAgentChoices.Down,
-                EShopAgentChoices.Select,
-                EShopAgentChoices.Back,
-                EShopAgentChoices.MakeRequest,
-                EShopAgentChoices.ChangeRequest
+                EShopAgentChoices.Back
             };
             var state = _agentStateSelector.GetState(agent);
             if (state == EShopRequestStates.ChangePrice)
             {
                 inputChoices.AddRange(new []
                 {
+                    EShopAgentChoices.MakeRequest,
                     EShopAgentChoices.IncreasePrice,
                     EShopAgentChoices.DecreasePrice
+                });
+            }
+            else
+            {
+                inputChoices.AddRange(new[]
+                {
+                    EShopAgentChoices.ChangeRequest,
+                    EShopAgentChoices.Select
                 });
             }
             

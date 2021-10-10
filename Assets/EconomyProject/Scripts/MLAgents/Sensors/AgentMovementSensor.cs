@@ -11,6 +11,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
     {
         private float[] _data;
         private static bool debugObs = true;
+        protected bool canViewConstant;
         private readonly TAgent _agent;
         protected abstract TScreen ValidScreen { get; }
         protected abstract EconomySystem<TAgent, TScreen, TChoice> EconomySystem { get; }
@@ -27,7 +28,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
         
         public override void Update()
         {
-            if (_agent.ChosenScreen.Equals(ValidScreen))
+            if (_agent.ChosenScreen.Equals(ValidScreen) || canViewConstant)
             {
                 var obs =  EconomySystem.GetObservations(_agent);
                 var outputData = new float[obs.Length];

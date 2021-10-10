@@ -29,13 +29,9 @@ namespace EconomyProject.Scripts.MLAgents.Craftsman
             return count;
         }
 
-        public int GetResourceCount(ECraftingResources eCraftingResource)
+        public bool HasResources(ECraftingResources eCraftingResource)
         {
-            if (_numResources.ContainsKey(eCraftingResource))
-            {
-                return _numResources[eCraftingResource];
-            }
-            return 0;
+            return _numResources.ContainsKey(eCraftingResource);
         }
 
         public int GetResourceNumber(ECraftingResources key)

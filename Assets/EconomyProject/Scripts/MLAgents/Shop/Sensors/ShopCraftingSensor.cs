@@ -16,6 +16,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
         public ShopCraftingSensor(ShopAgent agent, ShopCraftingSystem system) : base(agent)
         {
             _shopCraftingSystem = system;
+            canViewConstant = true;
         }
     }
 }

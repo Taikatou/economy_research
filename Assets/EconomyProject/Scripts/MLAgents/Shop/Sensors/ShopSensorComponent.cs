@@ -13,7 +13,8 @@ namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
             return new ISensor[]
             {
                 new ShopCraftingSensor(shopAgent, shopCraftingSystem.system),
-                new ShopRequestSensor(shopAgent, request.system)
+                new ShopRequestSensor(shopAgent, request.system),
+                new ShopBaseSensor(shopAgent)
             };
         }
     }

@@ -21,6 +21,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         public EconomyWallet wallet;
         public AdventurerInput adventurerInput;
         public AdventurerRequestTaker requestTaker;
+        public AdventurerFighterData fighterData;
 
 		public override AgentType agentType => AgentType.Adventurer;
 		public override EAdventurerScreen ChosenScreen => adventurerInput.GetScreen(this, EAdventurerScreen.Main);
