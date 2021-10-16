@@ -1146,7 +1146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endItem: {fileID: 11400000, guid: f2ee4c3d87136284f911c5dc145ee12c, type: 2}
   resetOnComplete: 1
-  agentList: {fileID: 0}
+  shopCraftingBehaviour: {fileID: 473122264}
 --- !u!4 &394064044
 Transform:
   m_ObjectHideFlags: 0
@@ -3021,7 +3021,9 @@ PrefabInstance:
       propertyPath: toCheck
       value: 
       objectReference: {fileID: 275464627}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6537886293245971608, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
+    - {fileID: 2644970376569818644, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
 --- !u!114 &1781114764 stripped
 MonoBehaviour:

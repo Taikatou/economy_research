@@ -10,6 +10,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
     {
         private static readonly EBattleEnvironments [] valuesAsArray
             = Enum.GetValues(typeof(EBattleEnvironments)).Cast<EBattleEnvironments>().ToArray();
+        
         protected override int GetLimit(AdventurerAgent agent)
         {
             return valuesAsArray.Length;

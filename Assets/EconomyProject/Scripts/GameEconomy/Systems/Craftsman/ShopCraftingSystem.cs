@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Data;
+using EconomyProject.Scripts.Interfaces;
 using Inventory;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.MLAgents.Shop;
@@ -45,7 +46,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
     public enum ECraftingOptions { Craft, SubmitToShop, EditShop }
 
     [Serializable]
-    public class ShopCraftingSystem : StateEconomySystem<ShopAgent, EShopScreen, EShopAgentChoices>
+    public class ShopCraftingSystem : StateEconomySystem<ShopAgent, EShopScreen, EShopAgentChoices>, ISetup
     {
 	    public static int SensorCount = 2;
 	    public static int ObservationSize => SensorCount + AgentShopSubSystem.SensorCount + CraftingSubSystem.SenseCount;
@@ -60,13 +61,18 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         public CraftLocationMap CraftLocationMap { get; set; }
         
         public ShopLocationMap ShopLocationMap { get; set; }
+        
+        public CraftingRequestLocationMap CraftingLocationMap { get; set; }
+        
+        public void Setup()
+        {
+	        _agentChoices.Setup();
+        }
 
         public ECraftingOptions GetState(ShopAgent agent)
         {
 	        return _agentChoices.GetState(agent);
         }
-        
-        public CraftingRequestLocationMap CraftingLocationMap { get; set; }
 
         public void Start()
 		{

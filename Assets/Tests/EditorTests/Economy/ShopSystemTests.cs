@@ -160,7 +160,7 @@ namespace Tests.Economy
 			agentShopSubSystem.SubmitToShop(shopAgent, sword);
 
 			//Adventurer buy the sword
-			agentShopSubSystem.PurchaseItem(shopAgent, sword.itemDetails, adventurerAgent.wallet, adventurerAgent.inventory);
+			agentShopSubSystem.PurchaseItem(shopAgent, sword, adventurerAgent.wallet, adventurerAgent.inventory);
 
 			//Check if no more sword in the ShopAgent inventory
 			List<UsableItem> shop = agentShopSubSystem.GetShopUsableItems(shopAgent);

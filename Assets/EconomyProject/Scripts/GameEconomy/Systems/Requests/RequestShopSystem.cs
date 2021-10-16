@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Data;
+using EconomyProject.Scripts.Interfaces;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.MLAgents.Shop;
 
@@ -9,7 +10,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
     public enum EShopRequestStates { MakeRequest=EShopAgentChoices.MakeRequest, ChangePrice=EShopAgentChoices.ChangeRequest }
 
     [Serializable]
-    public class RequestShopSystem : StateEconomySystem<ShopAgent, EShopScreen, EShopAgentChoices>
+    public class RequestShopSystem : StateEconomySystem<ShopAgent, EShopScreen, EShopAgentChoices>, ISetup
     {
         public RequestSystem requestSystem;
         public static int ObservationSize => CraftingResourceRequest.SensorCount + 1;
@@ -24,7 +25,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return _agentStateSelector.GetState(agent);
         }
 
-        public void Start()
+        public void Setup()
         {
             _agentStateSelector =
                 new AgentStateSelector<ShopAgent, EShopRequestStates>((EShopRequestStates.MakeRequest));

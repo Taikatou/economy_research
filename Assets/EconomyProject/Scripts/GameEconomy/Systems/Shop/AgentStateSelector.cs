@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using EconomyProject.Scripts.Interfaces;
 using Unity.MLAgents;
 
-public class AgentStateSelector<TAgent, EStates> where TAgent : Agent where EStates : Enum
+public class AgentStateSelector<TAgent, EStates> : ISetup where TAgent : Agent where EStates : Enum
 {
-    public Dictionary<TAgent, EStates> agentStates;
+    private readonly Dictionary<TAgent, EStates> agentStates;
 
-    private EStates _defaultState;
+    private readonly EStates _defaultState;
 
     public AgentStateSelector(EStates defaultState)
     {
@@ -34,5 +35,10 @@ public class AgentStateSelector<TAgent, EStates> where TAgent : Agent where ESta
         {
             agentStates.Add(agent, state);
         }
+    }
+
+    public void Setup()
+    {
+        agentStates?.Clear();
     }
 }

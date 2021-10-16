@@ -14,6 +14,7 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 {
+    public delegate void OnPurchaseItem(UsableItem item, ShopAgent shop);
     [Serializable]
     public class AgentShopSubSystem : LastUpdateClass
     {
@@ -21,7 +22,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         public List<BaseItemPrices> basePrices;
         private Dictionary<ShopAgent, AgentData> _shopSystems;
 
-		public UsableItem endItem;
+        public OnPurchaseItem onPurchaseItem;
 
         public AgentShopSubSystem()
         {
@@ -129,18 +130,15 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             return GetShop(shopAgent).GetNumber(item);
         }
 
-        public void PurchaseItem(ShopAgent shopAgent, UsableItemDetails item, EconomyWallet wallet, AgentInventory inventory)
+        public void PurchaseItem(ShopAgent shopAgent, UsableItem item, EconomyWallet wallet, AgentInventory inventory)
         {
             var shop = GetShop(shopAgent);
-            var success = shop.PurchaseItems(shopAgent.wallet, item, wallet, inventory);
+            var success = shop.PurchaseItems(shopAgent.wallet, item.itemDetails, wallet, inventory);
             if (success)
             {
                 OverviewVariables.SoldItem();
                 
-                if (item.itemName == endItem.itemDetails.itemName)
-                {
-                    //resetScript.ResetScript();
-                }
+                onPurchaseItem?.Invoke(item, shopAgent);
             }
             Refresh();
         }

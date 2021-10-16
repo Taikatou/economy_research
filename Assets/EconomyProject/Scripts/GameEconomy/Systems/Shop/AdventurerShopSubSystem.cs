@@ -30,7 +30,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
                 var canUse = agent.adventurerInventory.CanObtainItem(item);
                 if (canUse)
                 {
-                    shopCraftingSystem.system.shopSubSubSystem.PurchaseItem(shopAgent, item.itemDetails, agent.wallet, agent.inventory);   
+                    shopCraftingSystem.system.shopSubSubSystem.PurchaseItem(shopAgent, item, agent.wallet, agent.inventory);   
                 }
             }
         }

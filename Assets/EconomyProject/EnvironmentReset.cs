@@ -45,7 +45,7 @@ public class EnvironmentReset : MonoBehaviour
 	/// </summary>
 	public void ResetBattle()
 	{
-		adventurerSystemBehaviour.system.ResetAdventurerSystem();
+		adventurerSystemBehaviour.system.Setup();
 	}
 
 	/// <summary>

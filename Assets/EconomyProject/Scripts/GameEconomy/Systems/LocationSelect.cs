@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using EconomyProject.Scripts.Interfaces;
 using Unity.MLAgents;
 using UnityEngine;
 
@@ -10,14 +11,17 @@ public abstract class AdvancedLocationSelect<T, G, F> : LocationSelect<T> where 
     public abstract int GetCurrentLocation(T agent, F state);
 }
 
-public abstract class LocationSelect<T> : MonoBehaviour, IMoveMenu<T> where T : Agent
+public abstract class LocationSelect<T> : MonoBehaviour, IMoveMenu<T>, ISetup where T : Agent
 {
     protected abstract int GetLimit(T agent);
-    
-    protected Dictionary<T, int> currentLocation;
-    public virtual void Start()
+
+    protected Dictionary<T, int> currentLocation => _currentLocation ??= new Dictionary<T, int>();
+
+    private Dictionary<T, int> _currentLocation;
+
+    public virtual void Setup()
     {
-        currentLocation = new Dictionary<T, int>();
+        currentLocation.Clear();
     }
 
     public void RemoveAgent(T agent)

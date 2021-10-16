@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using EconomyProject.Scripts.Interfaces;
 using EconomyProject.Scripts.UI;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
 using Inventory;
@@ -8,7 +9,7 @@ namespace EconomyProject.Scripts.Inventory
 {
     public delegate void OnItemAdd(UsableItem usableItem);
     public delegate bool CheckIfAdd(UsableItem usableItem);
-    public sealed class AgentInventory : LastUpdate
+    public sealed class AgentInventory : LastUpdate, ISetup
     {
         public CheckIfAdd checkIfAdd;
         public List<UsableItem> startInventory;
@@ -36,16 +37,13 @@ namespace EconomyProject.Scripts.Inventory
             Refresh();
         }
 
+
         public void Setup()
         {
-            if (Items == null)
-            {
+            if(Items == null)
                 Items = new Dictionary<string, List<UsableItem>>();
-            }
             else
-            {
                 Items.Clear();
-            }
 
             foreach (var item in startInventory)
             {

@@ -16,13 +16,17 @@ namespace EconomyProject.Monobehaviours
             var valuesAsArray = CraftingUtils.GetCraftingResources();
             return valuesAsArray.Count;
         }
-        
-        public override void Start()
+
+        public void Start()
         {
-            base.Start();
             system.GetLocation = this;
-            system.Start();
             getCurrentRequestsLocation.requestSystem = system.requestSystem;
+        }
+
+        public override void Setup()
+        {
+            base.Setup();
+            system.Setup();
         }
 
         public override ECraftingResources GetItem(ShopAgent agent, EShopRequestStates state)

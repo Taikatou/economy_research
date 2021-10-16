@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Data;
+using EconomyProject.Scripts.Experiments;
 using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.Inventory;
@@ -37,10 +38,16 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 		{
 			if (TrainingConfig.OnPurchase)
 			{
-				if (usableItem.itemDetails.damage > adventurerInventory.EquipedItem.itemDetails.damage)
+				if (adventurerInventory)
 				{
-					AddReward(0.75f);
-				}	
+					if (adventurerInventory.EquipedItem)
+					{
+						if (usableItem.itemDetails.damage > adventurerInventory.EquipedItem.itemDetails.damage)
+						{
+							AddReward(0.75f);
+						}	
+					}
+				}
 			}
 		}
 
@@ -49,6 +56,8 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 	        wallet.Setup(requestTaker.requestSystem, AgentType.Adventurer);
 	        inventory.Setup();
 	        fighterData.Setup();
+
+	        ResetOnItem.bSetupSystems = true;
         }
 
 		public override void Heuristic(in ActionBuffers actionsOut)

@@ -4,6 +4,7 @@ using Data;
 using EconomyProject.Scripts.GameEconomy.Systems.Adventurer;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
+using EconomyProject.Scripts.Interfaces;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.UI;
 using TurnBased.Scripts;
@@ -11,44 +12,34 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {
-    public enum EAdventureStates { OutOfBattle, InBattle }
+    public enum EAdventureStates { OutOfBattle, InQueue, InBattle }
     
     [Serializable]
-    public class AdventurerSystem : EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
+    public class AdventurerSystem : EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>, ISetup
     {
+        public static int SensorCount => 2;
+        
 		public TravelSubSystem travelSubsystem;
 
-        public Dictionary<AdventurerAgent, BattleSubSystem> battleSystems;
-        public Dictionary<AdventurerAgent, EAdventureStates> adventureStates;
-        public static int ObservationSize => 2 + BattleSubSystem.SensorCount;
+        private Dictionary<AdventurerAgent, BattleSubSystem> _battleSystems;
+        public Dictionary<AdventurerAgent, BattleSubSystem> battleSystems => 
+            _battleSystems??=new Dictionary<AdventurerAgent, BattleSubSystem>();
+
+        private Dictionary<AdventurerAgent, EAdventureStates> _adventureStates;
+        public Dictionary<AdventurerAgent, EAdventureStates> adventureStates =>
+            _adventureStates ??= new Dictionary<AdventurerAgent, EAdventureStates>();
+        
+        public static int ObservationSize => SensorCount + BattleSubSystem.SensorCount;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Adventurer;
 
         public AdventurerLocationSelect locationSelect;
         public BattleLocationSelect battleLocationSelect;
 
-        public AdventurerSystem()
-        {
-            adventureStates = new Dictionary<AdventurerAgent, EAdventureStates>();
-            battleSystems = new Dictionary<AdventurerAgent, BattleSubSystem>();
-        }
-
-        public void ResetAdventurerSystem()
+        public void Setup()
 		{
-			//End all battles 
-			if(battleSystems != null)
-			{
-				foreach (var battle in battleSystems)
-				{
-					//Fully Heal adventurers
-					battle.Value.PlayerFighterUnit.CurrentHp = battle.Value.PlayerFighterUnit.MaxHp;
-					//End battles
-					battle.Value.SetInput(EBattleAction.Flee);
-				}
-			}
-			
-			adventureStates = new Dictionary<AdventurerAgent, EAdventureStates>();
-			battleSystems = new Dictionary<AdventurerAgent, BattleSubSystem>();
-		}
+            adventureStates.Clear();
+            battleSystems.Clear();
+        }
 
         public EAdventureStates GetAdventureStates(AdventurerAgent agent)
         {
