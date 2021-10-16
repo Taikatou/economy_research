@@ -8,19 +8,14 @@ namespace EconomyProject.Scripts.Inventory
 {
     public delegate void OnItemAdd(UsableItem usableItem);
     public delegate bool CheckIfAdd(UsableItem usableItem);
-    public class AgentInventory : LastUpdate
+    public sealed class AgentInventory : LastUpdate
     {
         public CheckIfAdd checkIfAdd;
         public List<UsableItem> startInventory;
         public Dictionary<string, List<UsableItem>> Items { get; private set; }
         public OnItemAdd onItemAdd;
-        
-        private void Start()
-        {
-            ResetInventory();
-        }
 
-        public virtual void AddItem(UsableItem usableItem)
+        public void AddItem(UsableItem usableItem)
         {
             onItemAdd?.Invoke(usableItem);
             
@@ -41,7 +36,7 @@ namespace EconomyProject.Scripts.Inventory
             Refresh();
         }
 
-        public void ResetInventory()
+        public void Setup()
         {
             if (Items == null)
             {

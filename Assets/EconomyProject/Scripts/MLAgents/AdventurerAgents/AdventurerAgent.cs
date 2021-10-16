@@ -46,20 +46,12 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 
 		public override void OnEpisodeBegin()
         {
-			var reset = GetComponentInParent<ResetScript>();
-			if (reset != null)
-			{
-				reset.Reset();
-			}
+	        wallet.Setup(requestTaker.requestSystem, AgentType.Adventurer);
+	        inventory.Setup();
+	        fighterData.Setup();
         }
 
-        public void ResetEconomyAgent()
-        {
-            inventory.ResetInventory();
-            wallet.Reset();
-        }
-
-        public override void Heuristic(in ActionBuffers actionsOut)
+		public override void Heuristic(in ActionBuffers actionsOut)
         {
 	        var actionB = actionsOut.DiscreteActions;
 	        actionB[0] = NumberKey;

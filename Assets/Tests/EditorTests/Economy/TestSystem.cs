@@ -75,12 +75,12 @@ namespace Tests.Economy
 			requestSystem.Start();
 
 			//Generate PlayerFighterData of the adventurerAgent
-			adventurerAgent.gameObject.GetComponent<AdventurerFighterData>().Start();
+			adventurerAgent.OnEpisodeBegin();
 			//Generate adventurerInventory of the adventurerAgent
 			adventurerInventory = adventurerAgent.adventurerInventory;
 			//Generate agentInventory of the adventurerAgent
 			adventurerAgentInventory = adventurerAgent.inventory;
-			adventurerAgent.ResetEconomyAgent();
+			adventurerAgent.OnEpisodeBegin();
 			//Generate AdventurerRequestTaker
 			adventurerAgent.requestTaker.Start();
 
@@ -89,9 +89,8 @@ namespace Tests.Economy
 			getShopAgent = GameObject.FindObjectOfType<GetCurrentShopAgent>();
 			shopAgent = getShopAgent.CurrentAgent;
 			shopAgent.shopInput.Awake();
-			shopAgent.agentInventory.ResetInventory();
+			shopAgent.OnEpisodeBegin();
 			shopAgent.craftingInventory.ResetInventory();
-			shopAgent.wallet.Reset();
 
 			//ShopSystem
 			shopCraftingSystemBehaviour.Start();

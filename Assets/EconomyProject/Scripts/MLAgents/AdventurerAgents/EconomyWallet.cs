@@ -14,27 +14,8 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         private int EarnedMoney { get; set; }
         private int SpentMoney { get; set; }
         public int Money { get; private set; }
-		
-		void Start()
-        {
-			Reset();
-		}
 
-		private AgentType GetAgentType()
-		{
-			if (GetComponent<AdventurerAgent>() != null)
-			{
-				return AgentType.Adventurer;
-			}
-			if (GetComponent<ShopAgent>() != null)
-			{
-				return AgentType.Shop;
-			}
-
-			return AgentType.None;
-		}
-
-		public void EarnMoney(int amount)
+        public void EarnMoney(int amount)
         {
             if (amount > 0)
             {
@@ -74,11 +55,9 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             Money = amount;
         }
 
-        public void Reset()
+        public void Setup(RequestSystem requestSystem, AgentType agentType)
         {
-			var requestSystem = FindObjectOfType<RequestSystem>();
-			var agentType = GetAgentType();
-			if (requestSystem == null || agentType == AgentType.None)
+	        if (requestSystem == null || agentType == AgentType.None)
 			{
 				throw new Exception();
 			}
@@ -88,12 +67,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 			}
 			startMoney = requestSystem.StartMoney[agentType];
 			Money = startMoney;
-        }
-
-        public void ResetStep()
-        {
-            EarnedMoney = 0;
-            SpentMoney = 0;
         }
     }
 }

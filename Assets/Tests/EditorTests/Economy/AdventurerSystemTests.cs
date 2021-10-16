@@ -31,7 +31,7 @@ namespace Tests.Economy
 		public void Inventory_UnarmedDefault()
 		{
 			//Reset inventory
-			adventurerAgent.ResetEconomyAgent();
+			adventurerAgent.OnEpisodeBegin();
 
 			if (adventurerAgent.inventory.Items.Count > 1)
 			{
@@ -53,7 +53,7 @@ namespace Tests.Economy
 		public void Inventory_UnarmedDetails()
 		{
 			//Reset inventory
-			adventurerAgent.ResetEconomyAgent();
+			adventurerAgent.OnEpisodeBegin();
 
 			//Unarmed
 			//TODO FIX THIS PLEASE
@@ -73,7 +73,7 @@ namespace Tests.Economy
 		public void Inventory_ContainItem()
 		{
 			//Reset inventory
-			adventurerAgent.ResetEconomyAgent();
+			adventurerAgent.OnEpisodeBegin();
 
 			List<BaseItemPrices> basePrices = agentShopSubSystem.basePrices;
 			
@@ -97,7 +97,7 @@ namespace Tests.Economy
 		public void Inventory_RemoveItem()
 		{
 			//Reset inventory
-			adventurerAgent.ResetEconomyAgent();
+			adventurerAgent.OnEpisodeBegin();
 
 			List<BaseItemPrices> basePrices = agentShopSubSystem.basePrices;
 
@@ -124,7 +124,7 @@ namespace Tests.Economy
 		public void Inventory_DecreaseDurability()
 		{
 			//Reset inventory
-			adventurerAgent.ResetEconomyAgent();
+			adventurerAgent.OnEpisodeBegin();
 
 			List<BaseItemPrices> basePrices = agentShopSubSystem.basePrices;
 
@@ -158,7 +158,7 @@ namespace Tests.Economy
 		public void Inventory_EquipItem()
 		{
 			//Reset inventory
-			adventurerAgent.ResetEconomyAgent();
+			adventurerAgent.OnEpisodeBegin();
 			//Reset Item
 			adventurerAgent.adventurerInventory.EquipedItem.itemDetails.damage = ItemData.BaseDamages[adventurerAgent.adventurerInventory.EquipedItem.ToString()];
 
@@ -167,7 +167,7 @@ namespace Tests.Economy
 			for (int i = 0; i < basePrices.Count; i++)
 			{
 				//Reset inventory
-				adventurerAgent.ResetEconomyAgent();
+				adventurerAgent.OnEpisodeBegin();
 
 				//Sword
 				UsableItem itemToAdd = basePrices[i].item;
@@ -194,7 +194,7 @@ namespace Tests.Economy
 		[Test]
 		public void Wallet_Wallet()
 		{
-			adventurerAgent.wallet.Reset();
+			adventurerAgent.OnEpisodeBegin();
 			Assert.AreEqual(adventurerAgent.wallet.startMoney, adventurerAgent.wallet.Money, "Start money should be 100");
 
 			int money = adventurerAgent.wallet.Money;

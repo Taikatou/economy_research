@@ -1,4 +1,5 @@
-﻿using EconomyProject.Scripts.Inventory;
+﻿using System;
+using EconomyProject.Scripts.Inventory;
 using Inventory;
 using TurnBased.Scripts;
 using UnityEngine;
@@ -12,7 +13,8 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         public PlayerFighterData playerData;
         public AdventurerInventory adventurerInventory;
         public BaseFighterData FighterData => playerData;
-        public void Start()
+
+        public void Setup()
         {
             playerData = new PlayerFighterData
             {

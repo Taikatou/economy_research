@@ -8,11 +8,6 @@ namespace EconomyProject.Scripts.MLAgents.Craftsman
     {
         private Dictionary<ECraftingResources, int> _numResources;
 
-        private void Start()
-        {
-            _numResources = new Dictionary<ECraftingResources, int>();
-        }
-
         public void ResetInventory()
         {
             _numResources = new Dictionary<ECraftingResources, int>();

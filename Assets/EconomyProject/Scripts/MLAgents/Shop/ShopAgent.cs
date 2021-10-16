@@ -53,14 +53,10 @@ namespace EconomyProject.Scripts.MLAgents.Shop
         public override void OnEpisodeBegin()
         {
             base.OnEpisodeBegin();
-            agentInventory.ResetInventory();
+            agentInventory.Setup();
             craftingInventory.ResetInventory();
-            wallet.Reset();
-        }
-
-        public void ResetEconomyAgent()
-        {
-            EndEpisode();
+            agentInventory.Setup();
+            wallet.Setup(shopInput.requestSystem.system.requestSystem, AgentType.Adventurer);
         }
 
         public override void Heuristic(in ActionBuffers actionsOut)
