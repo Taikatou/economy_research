@@ -44,7 +44,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                     break;
                 case EAdventurerAgentChoices.Select:
                     var resource = adventureRequestLocationSetter.GetRequest(agent);
-                    agent.requestTaker.TakeRequest(resource);
+                    if (resource != null)
+                    {
+                        agent.requestTaker.TakeRequest(resource);
+                    }
                     break;
                 case EAdventurerAgentChoices.Back:
                     AgentInput.ChangeScreen(agent, EAdventurerScreen.Main);

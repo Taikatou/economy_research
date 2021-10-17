@@ -1,83 +1,101 @@
 ﻿using Data;
+using Unity.MLAgents;
 
 namespace TurnBased.Scripts
 {
 	public delegate void OnWinDelegate();
-	public enum BattleState { Start, PlayerTurn, EnemyTurn, Won, Lost, Flee }
+
+	public delegate void OnBattleComplete(BattleSubSystem battle);
+	public enum EBattleState { Start, PlayerTurn, EnemyTurn, Won, Lost, Flee }
 	public enum EBattleAction { Attack, Heal, Flee }
+
+	public class FighterGroup
+	{
+		public int Index = 0;
+		public BaseFighterData[] FighterUnits;
+		public BaseFighterData Instance => FighterUnits[Index];
+	}
 
 	public class BattleSubSystem
 	{
-		public BattleState CurrentState { get; private set; }
-		public BaseFighterData PlayerFighterUnit { get; }
-		public BaseFighterData EnemyFighterUnit { get; }
+		public EBattleState CurrentState { get; private set; }
 		public string DialogueText { get; private set; }
 		
 		private readonly FighterDropTable _fighterDropTable;
 		private readonly OnWinDelegate _winDelegate;
+		private readonly OnBattleComplete _completeDelegate;
+
+		public readonly FighterGroup PlayerFighterUnits;
+		public readonly FighterGroup EnemyFighterUnits;
 		
 		public static int SensorCount => 5;
-		public BattleSubSystem(BaseFighterData playerUnit, BaseFighterData enemyUnit, FighterDropTable fighterDropTable, OnWinDelegate winDelegate)
-		{
-			CurrentState = BattleState.Start;
-			PlayerFighterUnit = playerUnit;
-			EnemyFighterUnit = enemyUnit;
 
-			CurrentState = BattleState.PlayerTurn;
+		public SimpleMultiAgentGroup AgentParty { get; private set; }
+		public BattleSubSystem(BaseFighterData playerUnit, BaseFighterData enemyUnit, FighterDropTable fighterDropTable,
+			OnWinDelegate winDelegate, OnBattleComplete completeDelegate, SimpleMultiAgentGroup agentParty)
+		{
+			CurrentState = EBattleState.Start;
+			PlayerFighterUnits = new FighterGroup {FighterUnits = new [] {playerUnit}};
+			EnemyFighterUnits = new FighterGroup {FighterUnits = new [] {enemyUnit}};
+
+			CurrentState = EBattleState.PlayerTurn;
 			PlayerTurn();
 
 			_fighterDropTable = fighterDropTable;
 			_winDelegate += winDelegate;
+			_completeDelegate += completeDelegate;
+			AgentParty = agentParty;
 		}
 
 		public bool GameOver()
 		{
-			return CurrentState == BattleState.Lost || CurrentState == BattleState.Won || CurrentState == BattleState.Flee;
+			return CurrentState == EBattleState.Lost || CurrentState == EBattleState.Won || CurrentState == EBattleState.Flee;
 		}
 
 		private void PlayerAttack()
 		{
-			PlayerFighterUnit.Attack(EnemyFighterUnit);
+			PlayerFighterUnits.Instance.Attack(EnemyFighterUnits.Instance);
 
 			DialogueText = "The attack is successful!";
 
-			if(EnemyFighterUnit.IsDead)
+			if(EnemyFighterUnits.Instance.IsDead)
 			{
-				CurrentState = BattleState.Won;
+				CurrentState = EBattleState.Won;
 				_winDelegate?.Invoke();
 				EndBattle();
 			}
 			else
 			{
-				CurrentState = BattleState.EnemyTurn;
+				CurrentState = EBattleState.EnemyTurn;
 				EnemyTurn();
 			}
 		}
 
 		private void EnemyTurn()
 		{
-			EnemyFighterUnit.Attack(PlayerFighterUnit);
-			DialogueText = EnemyFighterUnit.UnitName + " attacks!";
+			PlayerFighterUnits.Instance.Attack(PlayerFighterUnits.Instance);
+			DialogueText = EnemyFighterUnits.Instance.UnitName + " attacks!";
 
-			if(PlayerFighterUnit.IsDead)
+			if(PlayerFighterUnits.Instance.IsDead)
 			{
-				CurrentState = BattleState.Lost;
+				CurrentState = EBattleState.Lost;
 				EndBattle();
 			}
 			else
 			{
-				CurrentState = BattleState.PlayerTurn;
+				CurrentState = EBattleState.PlayerTurn;
 				PlayerTurn();
 			}
 		}
 
 		private void EndBattle()
 		{
-			if (CurrentState == BattleState.Won)
+			_completeDelegate?.Invoke(this);
+			if (CurrentState == EBattleState.Won)
 			{
 				DialogueText = "You won the battle!";
 			}
-			else if (CurrentState == BattleState.Lost)
+			else if (CurrentState == EBattleState.Lost)
 			{
 				DialogueText = "You were defeated.";
 			}
@@ -90,18 +108,18 @@ namespace TurnBased.Scripts
 
 		private void PlayerHeal()
 		{
-			PlayerFighterUnit.Heal(5);
+			PlayerFighterUnits.Instance.Heal(5);
 			
 			DialogueText = "You feel renewed strength!";
 
-			CurrentState = BattleState.EnemyTurn;
+			CurrentState = EBattleState.EnemyTurn;
 			
 			EnemyTurn();
 		}
 
 		public void OnAttackButton()
 		{
-			if (CurrentState != BattleState.PlayerTurn)
+			if (CurrentState != EBattleState.PlayerTurn)
 				return;
 			
 			PlayerAttack();
@@ -109,7 +127,7 @@ namespace TurnBased.Scripts
 
 		public void OnHealButton()
 		{
-			if (CurrentState != BattleState.PlayerTurn)
+			if (CurrentState != EBattleState.PlayerTurn)
 				return;
 
 			PlayerHeal();
@@ -117,10 +135,10 @@ namespace TurnBased.Scripts
 
 		public void OnFleeButton()
 		{
-			if (CurrentState != BattleState.PlayerTurn)
+			if (CurrentState != EBattleState.PlayerTurn)
 				return;
 
-			CurrentState = BattleState.Flee;
+			CurrentState = EBattleState.Flee;
 		}
 
 		public void SetInput(EBattleAction action)
@@ -148,10 +166,10 @@ namespace TurnBased.Scripts
 		{
 			return new []
 			{
-				new ObsData{data=PlayerFighterUnit.Damage, name="PlayerFighterUnit.Damage"},
-				new ObsData{data=PlayerFighterUnit.HpPercent, name="PlayerFighterUnit.HpPercent"},
-				new ObsData{data=EnemyFighterUnit.Damage, name="EnemyFighterUnit.Damage"},
-				new ObsData{data=EnemyFighterUnit.HpPercent,  name="EnemyFighterUnit.HpPercent"},
+				new ObsData{data=PlayerFighterUnits.Instance.Damage, name="PlayerFighterUnit.Damage"},
+				new ObsData{data=PlayerFighterUnits.Instance.HpPercent, name="PlayerFighterUnit.HpPercent"},
+				new ObsData{data=PlayerFighterUnits.Instance.Damage, name="EnemyFighterUnit.Damage"},
+				new ObsData{data=PlayerFighterUnits.Instance.HpPercent,  name="EnemyFighterUnit.HpPercent"},
 				new ObsData{data=inputLocation, name="InputLocation"},
 			};
 		}

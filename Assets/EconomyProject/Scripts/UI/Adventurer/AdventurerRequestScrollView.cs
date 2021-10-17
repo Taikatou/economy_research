@@ -18,7 +18,7 @@ namespace EconomyProject.Scripts.UI.Adventurer
             foreach (var item in items)
             {
                 var amount = GetCurrentRequestTaker.GetCurrentStock(item.Resource);
-                var request = new AdventurerCraftingResourceRequest {Request = item, CurrentNumber = amount};
+                var request = new AdventurerCraftingResourceRequest { Request = item, CurrentNumber = amount };
                 toReturn.Add(request);
             }
             return toReturn;
@@ -26,7 +26,7 @@ namespace EconomyProject.Scripts.UI.Adventurer
 
         public override void SelectItem(AdventurerCraftingResourceRequest item, int number = 1)
         {
-            GetCurrentRequestTaker.TakeRequest(item.Request);
+            // GetCurrentRequestTaker.TakeRequest(item.Request);
         }
     }
 }

@@ -70,7 +70,8 @@ namespace EconomyProject.Scripts.UI.Battle
                 if (_cachedSubSystem != BattleSubSystem)
                 {
                     _cachedSubSystem = BattleSubSystem;
-                    SetupBattle(BattleSubSystem.PlayerFighterUnit, BattleSubSystem.EnemyFighterUnit);
+                    SetupBattle(BattleSubSystem.PlayerFighterUnits.Instance,
+                        BattleSubSystem.EnemyFighterUnits.Instance);
                 }
             }
         }

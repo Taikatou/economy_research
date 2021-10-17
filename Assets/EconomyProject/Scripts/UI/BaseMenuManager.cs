@@ -53,9 +53,16 @@ namespace EconomyProject.Scripts.UI
             {
                 _valid = true;
                 CacheAgentScreen = whichMenu;
-                var openedMenu = OpenedMenus[whichMenu];
-                openedMenu.Activate();
-                toReturn = true;
+                if (OpenedMenus.ContainsKey(whichMenu))
+                {
+                    var openedMenu = OpenedMenus[whichMenu];
+                    openedMenu.Activate();
+                    toReturn = true;    
+                }
+                else
+                {
+                    throw new Exception("wrong menu\t" + whichMenu);
+                }
             }
 
             return toReturn;

@@ -16,7 +16,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         public static int ObservationSize => CraftingResourceRequest.SensorCount + 1;
         public override EShopScreen ActionChoice => EShopScreen.Request;
 
-        public AdvancedLocationSelect<ShopAgent, ECraftingResources, EShopRequestStates> GetLocation { get; set; }
+        public AdvancedLocationSelect<ShopAgent, ECraftingResources?, EShopRequestStates> GetLocation { get; set; }
         
         private AgentStateSelector<ShopAgent, EShopRequestStates> _agentStateSelector;
 
@@ -64,7 +64,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                     {
                         case EShopRequestStates.MakeRequest:
                             var resource = GetLocation.GetItem(agent, EShopRequestStates.MakeRequest);
-                            requestSystem.MakeRequest(resource, agent.craftingInventory, agent.wallet);
+                            if (resource.HasValue)
+                            {
+                                requestSystem.MakeRequest(resource.Value, agent.craftingInventory, agent.wallet);
+                            }
+                            
                             break;
                         case EShopRequestStates.ChangePrice:
 
@@ -92,7 +96,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             if (state == EShopRequestStates.ChangePrice)
             {
                 var resource = GetLocation.GetItem(agent, state);
-                requestSystem.ChangePrice(resource, agent.craftingInventory, agent.wallet, value);
+                if (resource.HasValue)
+                {
+                    requestSystem.ChangePrice(resource.Value, agent.craftingInventory, agent.wallet, value);   
+                }
             }
         }
 

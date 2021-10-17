@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
@@ -19,18 +20,26 @@ namespace EconomyProject.Scripts.Inventory
         {
             get
             {
+                IEnumerable<KeyValuePair<string, List<UsableItem>>> GetItems(EAdventurerTypes item) =>
+                    Items.Where(i => i.Value[0].validAdventurer.Contains(item));
+
                 UsableItem toReturn = null;
                 if (Items != null)
                 {
                     if (Items.Count > 0)
                     {
-                        var validItems = Items.Where(i => i.Value[0].validAdventurer.Contains(agent.adventurerType));
+                        var validItems = GetItems(agent.adventurerType).ToList();
+                        validItems.AddRange(GetItems(EAdventurerTypes.All));
                         if (validItems.Any())
                         {
                             var max = validItems.Max(x => x.Value[0].itemDetails.damage);   
                             var maxWeapon =
                                 Items.First(x => Math.Abs(x.Value[0].itemDetails.damage - max) < 0.01);
                             toReturn =  maxWeapon.Value[0];
+                        }
+                        else
+                        {
+                            throw new Exception("Shite i am missing a weapon");
                         }
                     }
                 }

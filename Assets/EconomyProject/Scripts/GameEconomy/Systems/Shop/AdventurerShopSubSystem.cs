@@ -11,7 +11,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
         public ShopCraftingSystemBehaviour shopCraftingSystem;
         public ShopChooserSubSystem shopChooserSubSystem;
         
-        public static readonly int SensorCount = 1 + AgentData.SenseCount;
+        public static readonly int SensorCount = AgentShopSubSystem.SensorCount;
 
         protected override int GetLimit(AdventurerAgent agent)
         {

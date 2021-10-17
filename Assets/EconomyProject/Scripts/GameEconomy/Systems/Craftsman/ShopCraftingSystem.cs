@@ -213,7 +213,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 			        craftingSubSubSystem.MakeRequest(agent, resource);
 			        break;
 		        case ECraftingOptions.SubmitToShop:
-			        shopSubSubSystem.SubmitToShop(agent, CraftLocationMap.GetCraftingChoice(agent).Item);	
+			        var shopItem = CraftLocationMap.GetCraftingChoice(agent);
+			        if (shopItem.HasValue)
+			        {
+				        shopSubSubSystem.SubmitToShop(agent, shopItem.Value.Item);	   
+			        }
 			        break;
 		        case ECraftingOptions.EditShop:
 			        

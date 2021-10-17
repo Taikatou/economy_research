@@ -8,7 +8,9 @@ using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.Interfaces;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.UI;
+using EconomyProject.Scripts.UI.Craftsman.Request;
 using TurnBased.Scripts;
+using Unity.MLAgents;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
@@ -22,9 +24,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         public static int SensorCount => 1;
 
         public Dictionary<AdventurerAgent, BattleSubSystem> battleSystems;
+        public Dictionary<BattleSubSystem, AdventurerAgent[]> activeAgents;
         public Dictionary<AdventurerAgent, EAdventureStates> adventureStates;
 
-        public static int ObservationSize => SensorCount + BattleSubSystem.SensorCount;
+        public static int ObservationSize => SensorCount + BattleSubSystem.SensorCount + AdventurerLocationSelect.SensorCount;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Adventurer;
 
         public AdventurerLocationSelect locationSelect;
@@ -37,18 +40,21 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public void Start()
         {
-            void SetupNewBattle(AdventurerAgent agent, FighterObject enemyFighter)
+            void SetupNewBattle(AdventurerAgent agent, FighterObject enemyFighter, SimpleMultiAgentGroup party)
             {
-                if (battleSystems.ContainsKey(agent))
-                    battleSystems.Remove(agent);
-
                 var playerData = agent.GetComponent<AdventurerFighterData>().FighterData;
                 var enemyData = FighterData.Clone(enemyFighter.data);
             
-                var newSystem = new BattleSubSystem(playerData, enemyData, enemyFighter.fighterDropTable, OnWin);
+                var newSystem = new BattleSubSystem(playerData, enemyData, enemyFighter.fighterDropTable, OnWin, OnComplete, party);
+                if (battleSystems.ContainsKey(agent))
+                {
+                    battleSystems.Remove(agent);
+                    Debug.Log("What");
+                }
                 battleSystems.Add(agent, newSystem);
             
                 SetAdventureState(agent, EAdventureStates.InBattle);
+                activeAgents.Add(newSystem, new [] { agent });
             }
             
             currentParties = new Dictionary<EBattleEnvironments, BattlePartySubsystem>();
@@ -60,6 +66,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             }
             battleSystems = new Dictionary<AdventurerAgent, BattleSubSystem>();
             adventureStates = new Dictionary<AdventurerAgent, EAdventureStates>();
+            activeAgents = new Dictionary<BattleSubSystem, AdventurerAgent[]>();
         }
 
         public void Setup()
@@ -121,12 +128,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                 ? GetSubsystemData(agent)
                 : BlankArray(BattleSubSystem.SensorCount);
             battleState.AddRange(output);
-            
+
             var output2 = state == EAdventureStates.OutOfBattle
                 ? locationSelect.GetTravelObservations(agent)
-                : BlankArray(locationSelect.SensorCount);
+                : BlankArray(AdventurerLocationSelect.SensorCount);
             battleState.AddRange(output2);
-            Debug.Log(string.Join(",", battleState));
             return battleState.ToArray();
         }
 
@@ -163,14 +169,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                     battleSystem.SetInput(action);
                     break;
                 case EAdventureStates.OutOfBattle:
+                    // we have to do this first
+                    SetAdventureState(agent, EAdventureStates.InQueue);
+                    
                     var location = locationSelect.GetBattle(agent);
                     currentParties[location].AddAgent(agent);
-                    SetAdventureState(agent, EAdventureStates.InQueue);
                     break;
             }
         }
-        
-        
 
         public void UpDown(AdventurerAgent agent, int movement)
         {
@@ -203,50 +209,32 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         {
             OverviewVariables.WonBattle();
         }
-        
-        public void FixedUpdate()
+
+        public void OnComplete(BattleSubSystem system)
         {
-            foreach (var player in CurrentPlayers)
+            foreach (var agent in activeAgents[system])
             {
-                var state = GetAdventureStates(player);
-                switch (state)
+                switch (system.CurrentState)
                 {
-                    case EAdventureStates.OutOfBattle:
-                        
+                    case EBattleState.Lost:
+                        SpendMoney(agent);
+                        var fighterData = agent.GetComponent<AdventurerFighterData>();
+                        fighterData.playerData.ResetHp();
                         break;
-                    case EAdventureStates.InBattle:
-                        CheckInBattle(player);
+                    case EBattleState.Won:
+                        var craftingDrop = system.GetCraftingDropItem();
+                        var craftingInventory = agent.GetComponent<AdventurerRequestTaker>();
+                            
+                        craftingInventory.CheckItemAdd(craftingDrop.Resource, craftingDrop.Count);
                         break;
                 }
-            }
-        }
 
-        private void CheckInBattle(AdventurerAgent agent)
-        {
-            if (battleSystems.ContainsKey(agent))
-            {
-                var battleSystem = battleSystems[agent];
-                if (battleSystem.GameOver())
-                {
-                    switch (battleSystem.CurrentState)
-                    {
-                        case BattleState.Lost:
-                            SpendMoney(agent);
-                            var fighterData = agent.GetComponent<AdventurerFighterData>();
-                            fighterData.playerData.ResetHp();
-                            break;
-                        case BattleState.Won:
-                            var craftingDrop = battleSystem.GetCraftingDropItem();
-                            var craftingInventory = agent.GetComponent<AdventurerRequestTaker>();
-                            
-                            craftingInventory.CheckItemAdd(craftingDrop.Resource, craftingDrop.Count);
-                            break;
-                    }
-
-                    battleSystems.Remove(agent);
-                    SetAdventureState(agent, EAdventureStates.OutOfBattle);
-                }   
+                system.AgentParty.UnregisterAgent(agent);
+                battleSystems.Remove(agent);
+                SetAdventureState(agent, EAdventureStates.OutOfBattle);
             }
+
+            activeAgents.Remove(system);
         }
 
         private void SpendMoney(AdventurerAgent agent)
@@ -282,22 +270,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         
         public override EnabledInput[] GetEnabledInputs(AdventurerAgent agent)
         {
-            var inputChoices = battleSystems.ContainsKey(agent)
-            ? new[]
+            var inputChoices = new[]
             {
                 EAdventurerAgentChoices.Up,
                 EAdventurerAgentChoices.Down,
-                EAdventurerAgentChoices.Select
-            }
-            : new[]
-            {
-                EAdventurerAgentChoices.Up,
-                EAdventurerAgentChoices.Down,
-                EAdventurerAgentChoices.Select,
                 EAdventurerAgentChoices.Select,
                 EAdventurerAgentChoices.Back
             };
-                
+
             var outputs = EconomySystemUtils<EAdventurerAgentChoices>.GetInputOfType(inputChoices);
 
             return outputs;

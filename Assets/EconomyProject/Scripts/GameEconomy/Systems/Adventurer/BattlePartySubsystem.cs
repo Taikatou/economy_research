@@ -2,10 +2,11 @@ using System;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using TurnBased.Scripts;
+using Unity.MLAgents;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 {
-    public delegate void SetupNewBattle(AdventurerAgent agent, FighterObject enemyFighter);
+    public delegate void SetupNewBattle(AdventurerAgent agent, FighterObject enemyFighter, SimpleMultiAgentGroup party);
     
     [Serializable]
     public class BattlePartySubsystem : PartySubSystem<AdventurerAgent>
@@ -22,14 +23,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             _travelSubsystem = travelSubsystem;
         }
 
-        public override void CompleteParty()
+        public override void CompleteParty(SimpleMultiAgentGroup agentGroup)
         {
-            StartBattle(_environment);
+            StartBattle(_environment, agentGroup);
             
-            base.CompleteParty();
+            base.CompleteParty(agentGroup);
         }
         
-        public void StartBattle(EBattleEnvironments battleEnvironments)
+        public void StartBattle(EBattleEnvironments battleEnvironments, SimpleMultiAgentGroup agentGroup)
         {
             var fighter = _travelSubsystem.GetBattle(battleEnvironments);
 
@@ -37,7 +38,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             {
                 foreach (var agent in _pendingAgents)
                 {
-                    setupNewBattle?.Invoke(agent, fighter);   
+                    setupNewBattle?.Invoke(agent, fighter, agentGroup);   
                 }
             }
         }

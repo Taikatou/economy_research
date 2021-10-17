@@ -92,27 +92,27 @@ namespace Tests.Economy
 			BattleSubSystem battleSubSystem = StartBattle(EBattleEnvironments.Forest);
 
 			/**Player**/
-			Assert.IsNotNull(battleSubSystem.PlayerFighterUnit);
+			Assert.IsNotNull(battleSubSystem.PlayerFighterUnits.Instance);
 
 			//Start with 20HP
-			Assert.AreEqual(battleSubSystem.PlayerFighterUnit.MaxHp, 20);
-			Assert.AreEqual(battleSubSystem.PlayerFighterUnit.CurrentHp, battleSubSystem.PlayerFighterUnit.MaxHp);
-			Assert.AreEqual(battleSubSystem.PlayerFighterUnit.HpPercent, 1);
+			Assert.AreEqual(battleSubSystem.PlayerFighterUnits.Instance.MaxHp, 20);
+			Assert.AreEqual(battleSubSystem.PlayerFighterUnits.Instance.CurrentHp, battleSubSystem.PlayerFighterUnits.Instance.MaxHp);
+			Assert.AreEqual(battleSubSystem.PlayerFighterUnits.Instance.HpPercent, 1);
 
 			//Must have a sprite
-			Assert.IsNotNull(battleSubSystem.PlayerFighterUnit.Sprite);
+			Assert.IsNotNull(battleSubSystem.PlayerFighterUnits.Instance.Sprite);
 
 			//Name by default
-			Assert.IsNotNull(battleSubSystem.PlayerFighterUnit.UnitName);
+			Assert.IsNotNull(battleSubSystem.PlayerFighterUnits.Instance.UnitName);
 
 			//Alive by default
-			Assert.True(battleSubSystem.PlayerFighterUnit.IsDead == false);
+			Assert.True(battleSubSystem.PlayerFighterUnits.Instance.IsDead == false);
 
 
 
 			//Heal Damage with full hp
-			battleSubSystem.PlayerFighterUnit.Heal(10);
-			Assert.AreEqual(battleSubSystem.PlayerFighterUnit.CurrentHp, battleSubSystem.PlayerFighterUnit.MaxHp);
+			battleSubSystem.PlayerFighterUnits.Instance.Heal(10);
+			Assert.AreEqual(battleSubSystem.PlayerFighterUnits.Instance.CurrentHp, battleSubSystem.PlayerFighterUnits.Instance.MaxHp);
 		}
 
 		/// <summary>
@@ -124,26 +124,26 @@ namespace Tests.Economy
 			BattleSubSystem battleSubSystem = StartBattle(EBattleEnvironments.Forest);
 
 			/**Enemy**/
-			Assert.IsNotNull(battleSubSystem.EnemyFighterUnit);
+			Assert.IsNotNull(battleSubSystem.EnemyFighterUnits.Instance);
 
 			//Start with MaxHp
-			Assert.AreEqual(battleSubSystem.EnemyFighterUnit.CurrentHp, battleSubSystem.EnemyFighterUnit.MaxHp);
-			Assert.AreEqual(battleSubSystem.EnemyFighterUnit.HpPercent, 1);
+			Assert.AreEqual(battleSubSystem.EnemyFighterUnits.Instance.CurrentHp, battleSubSystem.EnemyFighterUnits.Instance.MaxHp);
+			Assert.AreEqual(battleSubSystem.EnemyFighterUnits.Instance.HpPercent, 1);
 
 			//Must have a sprite
-			Assert.IsNotNull(battleSubSystem.EnemyFighterUnit.Sprite);
+			Assert.IsNotNull(battleSubSystem.EnemyFighterUnits.Instance.Sprite);
 
 			//Name by default
-			Assert.IsNotNull(battleSubSystem.EnemyFighterUnit.UnitName);
+			Assert.IsNotNull(battleSubSystem.EnemyFighterUnits.Instance.UnitName);
 
 			//Alive by default
-			Assert.True(battleSubSystem.EnemyFighterUnit.IsDead == false);
+			Assert.True(battleSubSystem.EnemyFighterUnits.Instance.IsDead == false);
 
 
 
 			//Heal with full hp
-			battleSubSystem.EnemyFighterUnit.Heal(10);
-			Assert.AreEqual(battleSubSystem.EnemyFighterUnit.CurrentHp, battleSubSystem.EnemyFighterUnit.MaxHp);
+			battleSubSystem.EnemyFighterUnits.Instance.Heal(10);
+			Assert.AreEqual(battleSubSystem.EnemyFighterUnits.Instance.CurrentHp, battleSubSystem.EnemyFighterUnits.Instance.MaxHp);
 		}
 
 		/// <summary>
@@ -184,7 +184,7 @@ namespace Tests.Economy
 		public void Battle_StatePlayerTurnByDefault()
 		{
 			BattleSubSystem battleSubSystem = StartBattle(EBattleEnvironments.Forest);
-			Assert.AreEqual(BattleState.PlayerTurn, battleSubSystem.CurrentState, "battleSubSystem.CurrentState : " + battleSubSystem.CurrentState);
+			Assert.AreEqual(EBattleState.PlayerTurn, battleSubSystem.CurrentState, "battleSubSystem.CurrentState : " + battleSubSystem.CurrentState);
 		}
 
 
@@ -197,9 +197,9 @@ namespace Tests.Economy
 			BattleSubSystem battleSubSystem = StartBattle(EBattleEnvironments.Forest);
 
 			//Attack => Won
-			battleSubSystem.EnemyFighterUnit.CurrentHp = 1;
+			battleSubSystem.EnemyFighterUnits.Instance.CurrentHp = 1;
 			adventurerSystem.OnAttackButton(adventurerAgent);
-			Assert.AreEqual(BattleState.Won, battleSubSystem.CurrentState, "battleSubSystem.CurrentState : " + battleSubSystem.CurrentState);
+			Assert.AreEqual(EBattleState.Won, battleSubSystem.CurrentState, "battleSubSystem.CurrentState : " + battleSubSystem.CurrentState);
 		}
 
 		/// <summary>
@@ -211,9 +211,9 @@ namespace Tests.Economy
 			BattleSubSystem battleSubSystem = StartBattle(EBattleEnvironments.Forest);
 
 			//EnemyAttack => Loose
-			battleSubSystem.PlayerFighterUnit.CurrentHp = 1;
+			battleSubSystem.PlayerFighterUnits.Instance.CurrentHp = 1;
 			adventurerSystem.OnAttackButton(adventurerAgent);
-			Assert.AreEqual(BattleState.Lost, battleSubSystem.CurrentState, "battleSubSystem.CurrentState : " + battleSubSystem.CurrentState);
+			Assert.AreEqual(EBattleState.Lost, battleSubSystem.CurrentState, "battleSubSystem.CurrentState : " + battleSubSystem.CurrentState);
 		}
 
 		/// <summary>
@@ -228,13 +228,13 @@ namespace Tests.Economy
 
 			//adventurerSystem.OnHealButton(adventurerAgent);
 
-			battleSubSystem.PlayerFighterUnit.CurrentHp = 1;
-			battleSubSystem.PlayerFighterUnit.Heal(5);
-			Assert.AreEqual(6, battleSubSystem.PlayerFighterUnit.CurrentHp);
+			battleSubSystem.PlayerFighterUnits.Instance.CurrentHp = 1;
+			battleSubSystem.PlayerFighterUnits.Instance.Heal(5);
+			Assert.AreEqual(6, battleSubSystem.PlayerFighterUnits.Instance.CurrentHp);
 
-			battleSubSystem.PlayerFighterUnit.CurrentHp = 1;
-			battleSubSystem.PlayerFighterUnit.Heal(100);
-			Assert.AreEqual(adventurerData.startHp, battleSubSystem.PlayerFighterUnit.CurrentHp, "Healing can't overcome the start hp  threshold");
+			battleSubSystem.PlayerFighterUnits.Instance.CurrentHp = 1;
+			battleSubSystem.PlayerFighterUnits.Instance.Heal(100);
+			Assert.AreEqual(adventurerData.startHp, battleSubSystem.PlayerFighterUnits.Instance.CurrentHp, "Healing can't overcome the start hp  threshold");
 		}
 
 		/// <summary>
@@ -247,7 +247,7 @@ namespace Tests.Economy
 
 			//Flee
 			adventurerSystem.OnFleeButton(adventurerAgent);
-			Assert.True(battleSubSystem.CurrentState == BattleState.Flee);
+			Assert.True(battleSubSystem.CurrentState == EBattleState.Flee);
 		}
 
 		/// <summary>
@@ -259,15 +259,15 @@ namespace Tests.Economy
 			BattleSubSystem battleSubSystem = StartBattle(EBattleEnvironments.Forest);
 
 			//Attack Dmg
-			int enemyHPBeforeAttack = battleSubSystem.EnemyFighterUnit.CurrentHp;
-			battleSubSystem.PlayerFighterUnit.Attack(battleSubSystem.EnemyFighterUnit);
-			Assert.AreEqual(enemyHPBeforeAttack - battleSubSystem.PlayerFighterUnit.Damage, battleSubSystem.EnemyFighterUnit.CurrentHp,
-				"enemyHPBeforeAttack : " + enemyHPBeforeAttack + " - battleSubSystem.PlayerFighterUnit.Damage : " + battleSubSystem.PlayerFighterUnit.Damage);
+			int enemyHPBeforeAttack = battleSubSystem.EnemyFighterUnits.Instance.CurrentHp;
+			battleSubSystem.PlayerFighterUnits.Instance.Attack(battleSubSystem.EnemyFighterUnits.Instance);
+			Assert.AreEqual(enemyHPBeforeAttack - battleSubSystem.PlayerFighterUnits.Instance.Damage, battleSubSystem.EnemyFighterUnits.Instance.CurrentHp,
+				"enemyHPBeforeAttack : " + enemyHPBeforeAttack + " - battleSubSystem.PlayerFighterUnit.Damage : " + battleSubSystem.PlayerFighterUnits.Instance.Damage);
 
 			//HP always positives
-			battleSubSystem.EnemyFighterUnit.CurrentHp = 1;
-			battleSubSystem.PlayerFighterUnit.Attack(battleSubSystem.EnemyFighterUnit);
-			Assert.AreEqual(0, battleSubSystem.EnemyFighterUnit.CurrentHp);
+			battleSubSystem.EnemyFighterUnits.Instance.CurrentHp = 1;
+			battleSubSystem.PlayerFighterUnits.Instance.Attack(battleSubSystem.EnemyFighterUnits.Instance);
+			Assert.AreEqual(0, battleSubSystem.EnemyFighterUnits.Instance.CurrentHp);
 		}
 
 

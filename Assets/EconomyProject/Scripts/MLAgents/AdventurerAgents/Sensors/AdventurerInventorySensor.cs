@@ -5,14 +5,15 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
 {
     public class AdventurerInventorySensor : BaseEconomySensor
     {
+        public static int SensorCount => 3;
         private readonly AdventurerAgent _agent;
 
         public AdventurerInventorySensor(AdventurerAgent agent)
         {
             _agent = agent;
-            MObservationSpec = ObservationSpec.Vector(1);
+            MObservationSpec = ObservationSpec.Vector(SensorCount);
 
-            Data = new float [3];
+            Data = new float [SensorCount];
         }
 
         protected override float[] Data { get; }

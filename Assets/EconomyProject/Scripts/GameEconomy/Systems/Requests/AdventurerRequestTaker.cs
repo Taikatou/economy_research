@@ -53,6 +53,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         
         public override void TakeRequest(CraftingResourceRequest request)
         {
+            if (request == null || request.Inventory == null)
+            {
+                Debug.Log("FAILURE");
+            }
             requestSystem.TakeRequest(this, request);
         }
 

@@ -7,7 +7,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
     {
         private readonly int _partySize;
         protected readonly List<T> _pendingAgents;
-        private readonly Dictionary<T, SimpleMultiAgentGroup> _agentParties;
+        protected Dictionary<T, SimpleMultiAgentGroup> _agentParties;
 
         public PartySubSystem(int partySize)
         {
@@ -21,25 +21,19 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             _pendingAgents.Add(agent);
             if (_pendingAgents.Count >= _partySize)
             {
-                CompleteParty();
+                var agentGroup = new SimpleMultiAgentGroup();
+                CompleteParty(agentGroup);
             }
         }
 
-        public virtual void CompleteParty()
+        public virtual void CompleteParty(SimpleMultiAgentGroup agentGroup)
         {
-            var agentGroup = new SimpleMultiAgentGroup();
             foreach (var a in _pendingAgents)
             {
                 agentGroup.RegisterAgent(a);
                 _agentParties.Add(a, agentGroup);
             }
             _pendingAgents.Clear();
-        }
-
-        public void RemoveAgent(T agent)
-        {
-            _pendingAgents.Remove(agent);
-            _agentParties.Remove(agent);
         }
 
         public void FinishBattle(IEnumerable<T> battleAgents)

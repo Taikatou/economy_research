@@ -11,7 +11,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
         protected override EShopScreen ValidScreen => EShopScreen.Request;
         protected override EconomySystem<ShopAgent, EShopScreen, EShopAgentChoices> EconomySystem => requestShopSystem;
 
-        protected override int SensorCount { get; }
+        protected override int SensorCount => RequestShopSystem.ObservationSize;
 
         public ShopRequestSensor(ShopAgent agent, RequestShopSystem system) : base(agent)
         {

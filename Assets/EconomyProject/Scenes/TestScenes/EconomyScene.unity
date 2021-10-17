@@ -378,6 +378,10 @@ PrefabInstance:
       propertyPath: adventurerSystem
       value: 
       objectReference: {fileID: 1781114768}
+    - target: {fileID: 1759824691, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
+      propertyPath: adventurerGameObjects.Array.data[1].screen
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2111942274, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: requestSystem
       value: 
@@ -1416,7 +1420,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
-  m_VerticalFit: 1
+  m_VerticalFit: 0
 --- !u!222 &783657437
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2159,7 +2163,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 398d1225ee200814b870ba258ddb6fdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SensorCount: 1
 --- !u!114 &1519652987
 MonoBehaviour:
   m_ObjectHideFlags: 0

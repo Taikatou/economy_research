@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Data;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 {
@@ -19,7 +20,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 
         public Dictionary<AdventurerAgent, ESelectionState> currentStates;
 
-        public static int ObservationSize => 1 + ShopChooserSubSystem.SensorCount + AdventurerShopSubSystem.SensorCount;
+        public static int SensorSize => 2;
+
+        public static int ObservationSize => SensorSize + ShopChooserSubSystem.SensorCount + AdventurerShopSubSystem.SensorCount;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Shop;
 
         public int GetScrollLocation(AdventurerAgent agent)

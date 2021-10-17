@@ -275,12 +275,12 @@ namespace Tests.Economy
 		[Test]
 		public void Enum_BattleState()
 		{
-			bool isStartExist = Enum.IsDefined(typeof(BattleState), "Start");
-			bool isPlayerTurnExist = Enum.IsDefined(typeof(BattleState), "PlayerTurn");
-			bool isEnemyTurnExist = Enum.IsDefined(typeof(BattleState), "EnemyTurn");
-			bool isWonExist = Enum.IsDefined(typeof(BattleState), "Won");
-			bool isLostExist = Enum.IsDefined(typeof(BattleState), "Lost");
-			bool isFleeExist = Enum.IsDefined(typeof(BattleState), "Flee");
+			bool isStartExist = Enum.IsDefined(typeof(EBattleState), "Start");
+			bool isPlayerTurnExist = Enum.IsDefined(typeof(EBattleState), "PlayerTurn");
+			bool isEnemyTurnExist = Enum.IsDefined(typeof(EBattleState), "EnemyTurn");
+			bool isWonExist = Enum.IsDefined(typeof(EBattleState), "Won");
+			bool isLostExist = Enum.IsDefined(typeof(EBattleState), "Lost");
+			bool isFleeExist = Enum.IsDefined(typeof(EBattleState), "Flee");
 			Assert.True(isStartExist && isPlayerTurnExist && isEnemyTurnExist && isWonExist && isLostExist && isFleeExist == true);
 		}
 

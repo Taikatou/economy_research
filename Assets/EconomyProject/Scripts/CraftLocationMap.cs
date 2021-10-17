@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI.Inventory;
+using UnityEngine;
 
 namespace EconomyProject.Scripts
 {
@@ -27,10 +29,16 @@ namespace EconomyProject.Scripts
             return itemList;
         }
     
-        public ShopItem GetCraftingChoice(ShopAgent agent)
+        public ShopItem? GetCraftingChoice(ShopAgent agent)
         {
+            ShopItem? toReturn = null;
             var items = GetData(agent);
-            return items[GetCurrentLocation(agent)];
+            var index = GetCurrentLocation(agent);
+            if (index > items.Count)
+            {
+                toReturn = items[index];
+            }
+            return toReturn;
         }
     }
 }

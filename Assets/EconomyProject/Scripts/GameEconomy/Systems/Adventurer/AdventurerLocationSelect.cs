@@ -27,6 +27,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             return new [] { new ObsData{data=GetCurrentLocation(agent), name="travelLocation"}};
         }
 
-        public int SensorCount = 1;
+        public static int SensorCount => 1;
     }
 }

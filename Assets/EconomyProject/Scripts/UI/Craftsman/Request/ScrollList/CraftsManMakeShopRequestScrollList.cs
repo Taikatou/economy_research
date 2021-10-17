@@ -55,9 +55,12 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
             var state = requestShopSystem.system.GetState(CraftsmanAgent);
             
             var resource = requestShopSystem.GetItem(CraftsmanAgent, EShopRequestStates.MakeRequest);
-            foreach (var button in buttons)
+            if (resource.HasValue)
             {
-                button.UpdateData(resource, state);
+                foreach (var button in buttons)
+                {
+                    button.UpdateData(resource.Value, state);
+                }   
             }
             Debug.Log(resource);
         }
