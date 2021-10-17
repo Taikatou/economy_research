@@ -1,4 +1,5 @@
-﻿using EconomyProject.Scripts.GameEconomy.Systems;
+﻿using System;
+using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.Interfaces;
 using UnityEngine;
 
@@ -10,6 +11,11 @@ namespace EconomyProject.Monobehaviours
         public void FixedUpdate()
         {
             system.FixedUpdate();
+        }
+
+        public void Start()
+        {
+            system.Start();
         }
 
         public void Setup()

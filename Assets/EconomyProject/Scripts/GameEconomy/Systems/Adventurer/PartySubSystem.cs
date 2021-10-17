@@ -6,9 +6,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
     public class PartySubSystem<T> where T : Agent
     {
         private readonly int _partySize;
-        private readonly List<T> _pendingAgents;
+        protected readonly List<T> _pendingAgents;
         private readonly Dictionary<T, SimpleMultiAgentGroup> _agentParties;
-        
+
         public PartySubSystem(int partySize)
         {
             _partySize = partySize;
@@ -16,20 +16,30 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             _agentParties = new Dictionary<T, SimpleMultiAgentGroup>();
         }
 
-        public void AddAgent(T agent)
+        public virtual void AddAgent(T agent)
         {
             _pendingAgents.Add(agent);
             if (_pendingAgents.Count >= _partySize)
             {
-                var agentGroup = new SimpleMultiAgentGroup();
-                foreach (var a in _pendingAgents)
-                {
-                    agentGroup.RegisterAgent(a);
-                    _agentParties.Add(a, agentGroup);
-                }
-
-                _pendingAgents.Clear();
+                CompleteParty();
             }
+        }
+
+        public virtual void CompleteParty()
+        {
+            var agentGroup = new SimpleMultiAgentGroup();
+            foreach (var a in _pendingAgents)
+            {
+                agentGroup.RegisterAgent(a);
+                _agentParties.Add(a, agentGroup);
+            }
+            _pendingAgents.Clear();
+        }
+
+        public void RemoveAgent(T agent)
+        {
+            _pendingAgents.Remove(agent);
+            _agentParties.Remove(agent);
         }
 
         public void FinishBattle(IEnumerable<T> battleAgents)
@@ -50,6 +60,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             {
                 _agentParties[agent].AddGroupReward(reward);
             }
+        }
+
+        public void Setup()
+        {
+            _pendingAgents.Clear();
+            _agentParties.Clear();
         }
     }
 }

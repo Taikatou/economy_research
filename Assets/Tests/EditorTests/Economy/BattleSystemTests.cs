@@ -78,7 +78,7 @@ namespace Tests.Economy
 			Assert.AreEqual(adventurerSystem.GetAdventureStates(adventurerAgent), EAdventureStates.OutOfBattle, "AdventureStates.OutOfBattle by default");
 
 			//Start battle
-			adventurerSystem.StartBattle(adventurerAgent, EBattleEnvironments.Forest);
+	//TODO		adventurerSystem.StartBattle(adventurerAgent, EBattleEnvironments.Forest);
 
 			Assert.AreEqual(adventurerSystem.GetAdventureStates(adventurerAgent), EAdventureStates.InBattle, "AdventureStates.InBattle while a battle");
 		}
@@ -167,7 +167,7 @@ namespace Tests.Economy
 		public void Battle_GameOver()
 		{
 			//Start Battle
-			adventurerSystem.StartBattle(adventurerAgent, EBattleEnvironments.Forest);
+			//TODO adventurerSystem.StartBattle(adventurerAgent, EBattleEnvironments.Forest);
 			BattleSubSystem battleSubSystem = adventurerSystem.GetSubSystem(adventurerAgent);
 
 			Assert.True(battleSubSystem.GameOver() == false);

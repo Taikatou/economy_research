@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Data;
 using EconomyProject.Scripts.GameEconomy.Systems.Adventurer;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
@@ -17,26 +18,57 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
     [Serializable]
     public class AdventurerSystem : EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>, ISetup
     {
-        public static int SensorCount => 2;
-        
-		public TravelSubSystem travelSubsystem;
+        public int partySize = 1;
+        public static int SensorCount => 1;
 
-        private Dictionary<AdventurerAgent, BattleSubSystem> _battleSystems;
-        public Dictionary<AdventurerAgent, BattleSubSystem> battleSystems => 
-            _battleSystems??=new Dictionary<AdventurerAgent, BattleSubSystem>();
+        public Dictionary<AdventurerAgent, BattleSubSystem> battleSystems;
+        public Dictionary<AdventurerAgent, EAdventureStates> adventureStates;
 
-        private Dictionary<AdventurerAgent, EAdventureStates> _adventureStates;
-        public Dictionary<AdventurerAgent, EAdventureStates> adventureStates =>
-            _adventureStates ??= new Dictionary<AdventurerAgent, EAdventureStates>();
-        
         public static int ObservationSize => SensorCount + BattleSubSystem.SensorCount;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Adventurer;
 
         public AdventurerLocationSelect locationSelect;
         public BattleLocationSelect battleLocationSelect;
+        public Dictionary<EBattleEnvironments, BattlePartySubsystem> currentParties;
+        
+        public TravelSubSystem travelSubsystem;
+
+        EBattleEnvironments [] BattleAsArray = Enum.GetValues(typeof(EBattleEnvironments)).Cast<EBattleEnvironments>().ToArray();
+
+        public void Start()
+        {
+            void SetupNewBattle(AdventurerAgent agent, FighterObject enemyFighter)
+            {
+                if (battleSystems.ContainsKey(agent))
+                    battleSystems.Remove(agent);
+
+                var playerData = agent.GetComponent<AdventurerFighterData>().FighterData;
+                var enemyData = FighterData.Clone(enemyFighter.data);
+            
+                var newSystem = new BattleSubSystem(playerData, enemyData, enemyFighter.fighterDropTable, OnWin);
+                battleSystems.Add(agent, newSystem);
+            
+                SetAdventureState(agent, EAdventureStates.InBattle);
+            }
+            
+            currentParties = new Dictionary<EBattleEnvironments, BattlePartySubsystem>();
+            foreach (var battle in BattleAsArray)
+            {
+                var party = new BattlePartySubsystem(partySize, battle, travelSubsystem);
+                currentParties.Add(battle, party);
+                party.setupNewBattle = SetupNewBattle;
+            }
+            battleSystems = new Dictionary<AdventurerAgent, BattleSubSystem>();
+            adventureStates = new Dictionary<AdventurerAgent, EAdventureStates>();
+        }
 
         public void Setup()
 		{
+            foreach (var battle in BattleAsArray)
+            {
+                currentParties[battle].Setup();
+            }
+
             adventureStates.Clear();
             battleSystems.Clear();
         }
@@ -66,7 +98,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         
         public override bool CanMove(AdventurerAgent agent)
         {
-            return GetAdventureStates(agent) != EAdventureStates.InBattle;
+            return GetAdventureStates(agent) == EAdventureStates.OutOfBattle;
         }
 
         public override ObsData[] GetObservations(AdventurerAgent agent)
@@ -131,11 +163,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                     battleSystem.SetInput(action);
                     break;
                 case EAdventureStates.OutOfBattle:
-                    var battle = locationSelect.GetBattle(agent);
-                    StartBattle(agent, battle);   
+                    var location = locationSelect.GetBattle(agent);
+                    currentParties[location].AddAgent(agent);
+                    SetAdventureState(agent, EAdventureStates.InQueue);
                     break;
             }
         }
+        
+        
 
         public void UpDown(AdventurerAgent agent, int movement)
         {
@@ -162,22 +197,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                 count++;
             }
             return count;
-        }
-
-        private void SetupNewBattle(AdventurerAgent agent, FighterObject enemyFighter)
-        {
-            if (battleSystems.ContainsKey(agent))
-            {
-                battleSystems.Remove(agent);
-            }
-
-            var playerData = agent.GetComponent<AdventurerFighterData>().FighterData;
-			var enemyData = FighterData.Clone(enemyFighter.data);
-            
-            var newSystem = new BattleSubSystem(playerData, enemyData, enemyFighter.fighterDropTable, OnWin);
-            battleSystems.Add(agent, newSystem);
-            
-            SetAdventureState(agent, EAdventureStates.InBattle);
         }
 
         private static void OnWin()
@@ -233,20 +252,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         private void SpendMoney(AdventurerAgent agent)
         {
             agent.wallet.SpendMoney(5);
-        }
-
-        public void StartBattle(AdventurerAgent agent, EBattleEnvironments battleEnvironments)
-        {
-            var fighter = travelSubsystem.GetBattle(battleEnvironments);
-
-            if (fighter)
-            {
-                SetupNewBattle(agent, fighter);
-            }
-            else
-            {
-                Debug.Log("Fighter Invalid no fight can start");
-            }
         }
 
         public void OnAttackButton(AdventurerAgent agent)

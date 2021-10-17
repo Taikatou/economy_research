@@ -64,9 +64,7 @@ namespace Tests.Economy
 			adventurerAgent = getAdventurerAgent.CurrentAgent;
 
 			//Generate travelSubsystem of the adventurerSystem
-			travelSubsystem = adventurerSystem.travelSubsystem;
 			travelSubsystem.Start();
-			adventurerSystem.travelSubsystem = travelSubsystem;
 
 			//Request System
 			requestShopSystemBehaviour = GameObject.FindObjectOfType<RequestShopSystemBehaviour>();
@@ -159,7 +157,7 @@ namespace Tests.Economy
 		/// </summary>
 		public BattleSubSystem StartBattle(EBattleEnvironments env)
 		{
-			adventurerSystem.StartBattle(adventurerAgent, env);
+			//TODO adventurerSystem.StartBattle(adventurerAgent, env);
 			return adventurerSystem.GetSubSystem(adventurerAgent);
 		}
 
