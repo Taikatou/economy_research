@@ -7,16 +7,25 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
     {
         private readonly int _partySize;
         protected readonly List<T> _pendingAgents;
-        protected Dictionary<T, SimpleMultiAgentGroup> _agentParties;
+        private Dictionary<T, SimpleMultiAgentGroup> _agentParties;
 
-        public PartySubSystem(int partySize)
+        protected PartySubSystem(int partySize)
         {
             _partySize = partySize;
             _pendingAgents = new List<T>();
             _agentParties = new Dictionary<T, SimpleMultiAgentGroup>();
         }
 
-        public virtual void AddAgent(T agent)
+        public void RemoveAgent(T a)
+        {
+            if (_agentParties.ContainsKey(a))
+            {
+                _agentParties[a].UnregisterAgent(a);
+                _agentParties.Remove(a);
+            }
+        }
+
+        public void AddAgent(T agent)
         {
             _pendingAgents.Add(agent);
             if (_pendingAgents.Count >= _partySize)

@@ -155,7 +155,7 @@ namespace Tests.Economy
 		/// <summary>
 		/// Start a battle and return the BattleSubSystem associated to this battle
 		/// </summary>
-		public BattleSubSystem StartBattle(EBattleEnvironments env)
+		public BattleSubSystem<AdventurerAgent> StartBattle(EBattleEnvironments env)
 		{
 			//TODO adventurerSystem.StartBattle(adventurerAgent, env);
 			return adventurerSystem.GetSubSystem(adventurerAgent);

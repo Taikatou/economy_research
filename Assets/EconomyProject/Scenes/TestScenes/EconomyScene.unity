@@ -1511,6 +1511,10 @@ PrefabInstance:
       propertyPath: numLearningAgents
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 432687344008383920, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
+      propertyPath: learningAgentPrefab
+      value: 
+      objectReference: {fileID: 6220377510714029038, guid: 81e2628fb8ab468499d6e20bb46f139c, type: 3}
     - target: {fileID: 9203867373713679003, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
       propertyPath: m_RootOrder
       value: 1

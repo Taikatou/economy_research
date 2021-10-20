@@ -89,7 +89,7 @@ namespace Tests.Economy
 		[Test]
 		public void Battle_FighterDataPlayer()
 		{
-			BattleSubSystem battleSubSystem = StartBattle(EBattleEnvironments.Forest);
+			BattleSubSystem<AdventurerAgent> battleSubSystem = StartBattle(EBattleEnvironments.Forest);
 
 			/**Player**/
 			Assert.IsNotNull(battleSubSystem.PlayerFighterUnits.Instance);
@@ -121,7 +121,7 @@ namespace Tests.Economy
 		[Test]
 		public void Battle_FighterDataEnemy()
 		{
-			BattleSubSystem battleSubSystem = StartBattle(EBattleEnvironments.Forest);
+			BattleSubSystem<AdventurerAgent> battleSubSystem = StartBattle(EBattleEnvironments.Forest);
 
 			/**Enemy**/
 			Assert.IsNotNull(battleSubSystem.EnemyFighterUnits.Instance);
@@ -168,7 +168,7 @@ namespace Tests.Economy
 		{
 			//Start Battle
 			//TODO adventurerSystem.StartBattle(adventurerAgent, EBattleEnvironments.Forest);
-			BattleSubSystem battleSubSystem = adventurerSystem.GetSubSystem(adventurerAgent);
+			BattleSubSystem<AdventurerAgent> battleSubSystem = adventurerSystem.GetSubSystem(adventurerAgent);
 
 			Assert.True(battleSubSystem.GameOver() == false);
 
@@ -183,7 +183,7 @@ namespace Tests.Economy
 		[Test]
 		public void Battle_StatePlayerTurnByDefault()
 		{
-			BattleSubSystem battleSubSystem = StartBattle(EBattleEnvironments.Forest);
+			BattleSubSystem<AdventurerAgent> battleSubSystem = StartBattle(EBattleEnvironments.Forest);
 			Assert.AreEqual(EBattleState.PlayerTurn, battleSubSystem.CurrentState, "battleSubSystem.CurrentState : " + battleSubSystem.CurrentState);
 		}
 
@@ -194,7 +194,7 @@ namespace Tests.Economy
 		[Test]
 		public void Battle_StateWon()
 		{
-			BattleSubSystem battleSubSystem = StartBattle(EBattleEnvironments.Forest);
+			BattleSubSystem<AdventurerAgent> battleSubSystem = StartBattle(EBattleEnvironments.Forest);
 
 			//Attack => Won
 			battleSubSystem.EnemyFighterUnits.Instance.CurrentHp = 1;
@@ -208,7 +208,7 @@ namespace Tests.Economy
 		[Test]
 		public void Battle_StateLost()
 		{
-			BattleSubSystem battleSubSystem = StartBattle(EBattleEnvironments.Forest);
+			BattleSubSystem<AdventurerAgent> battleSubSystem = StartBattle(EBattleEnvironments.Forest);
 
 			//EnemyAttack => Loose
 			battleSubSystem.PlayerFighterUnits.Instance.CurrentHp = 1;
@@ -222,7 +222,7 @@ namespace Tests.Economy
 		[Test]
 		public void Battle_ActionHeal()
 		{
-			BattleSubSystem battleSubSystem = StartBattle(EBattleEnvironments.Forest);
+			BattleSubSystem<AdventurerAgent> battleSubSystem = StartBattle(EBattleEnvironments.Forest);
 
 			AdventurerFighterData adventurerData = adventurerAgent.GetComponent<AdventurerFighterData>();
 
@@ -243,7 +243,7 @@ namespace Tests.Economy
 		[Test]
 		public void Battle_ActionFlee()
 		{
-			BattleSubSystem battleSubSystem = StartBattle(EBattleEnvironments.Forest);
+			BattleSubSystem<AdventurerAgent> battleSubSystem = StartBattle(EBattleEnvironments.Forest);
 
 			//Flee
 			adventurerSystem.OnFleeButton(adventurerAgent);
@@ -256,7 +256,7 @@ namespace Tests.Economy
 		[Test]
 		public void Battle_ActionAttack()
 		{
-			BattleSubSystem battleSubSystem = StartBattle(EBattleEnvironments.Forest);
+			BattleSubSystem<AdventurerAgent> battleSubSystem = StartBattle(EBattleEnvironments.Forest);
 
 			//Attack Dmg
 			int enemyHPBeforeAttack = battleSubSystem.EnemyFighterUnits.Instance.CurrentHp;

@@ -3,9 +3,9 @@ using Unity.MLAgents;
 
 namespace TurnBased.Scripts
 {
-	public delegate void OnWinDelegate();
+	public delegate void OnWinDelegate<T>(BattleSubSystem<T> battle) where T : Agent;
 
-	public delegate void OnBattleComplete(BattleSubSystem battle);
+	public delegate void OnBattleComplete<T>(BattleSubSystem<T> battle) where T : Agent;
 	public enum EBattleState { Start, PlayerTurn, EnemyTurn, Won, Lost, Flee }
 	public enum EBattleAction { Attack, Heal, Flee }
 
@@ -16,23 +16,25 @@ namespace TurnBased.Scripts
 		public BaseFighterData Instance => FighterUnits[Index];
 	}
 
-	public class BattleSubSystem
+	public class BattleSubSystem<T> where T : Agent
 	{
 		public EBattleState CurrentState { get; private set; }
 		public string DialogueText { get; private set; }
 		
 		private readonly FighterDropTable _fighterDropTable;
-		private readonly OnWinDelegate _winDelegate;
-		private readonly OnBattleComplete _completeDelegate;
+		private readonly OnWinDelegate<T> _winDelegate;
+		private readonly OnBattleComplete<T> _completeDelegate;
 
 		public readonly FighterGroup PlayerFighterUnits;
 		public readonly FighterGroup EnemyFighterUnits;
 		
 		public static int SensorCount => 5;
 
-		public SimpleMultiAgentGroup AgentParty { get; private set; }
+		public SimpleMultiAgentGroup AgentParty { get; }
+
+		public T[] BattleAgents;
 		public BattleSubSystem(BaseFighterData playerUnit, BaseFighterData enemyUnit, FighterDropTable fighterDropTable,
-			OnWinDelegate winDelegate, OnBattleComplete completeDelegate, SimpleMultiAgentGroup agentParty)
+			OnWinDelegate<T> winDelegate, OnBattleComplete<T> completeDelegate, SimpleMultiAgentGroup agentParty, T[] battleAgents)
 		{
 			CurrentState = EBattleState.Start;
 			PlayerFighterUnits = new FighterGroup {FighterUnits = new [] {playerUnit}};
@@ -45,6 +47,7 @@ namespace TurnBased.Scripts
 			_winDelegate += winDelegate;
 			_completeDelegate += completeDelegate;
 			AgentParty = agentParty;
+			BattleAgents = battleAgents;
 		}
 
 		public bool GameOver()
@@ -61,7 +64,7 @@ namespace TurnBased.Scripts
 			if(EnemyFighterUnits.Instance.IsDead)
 			{
 				CurrentState = EBattleState.Won;
-				_winDelegate?.Invoke();
+				_winDelegate?.Invoke(this);
 				EndBattle();
 			}
 			else

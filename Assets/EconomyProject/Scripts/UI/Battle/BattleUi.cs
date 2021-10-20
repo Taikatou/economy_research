@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using EconomyProject.Monobehaviours;
+using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using TurnBased.Scripts;
 using TurnBased.Scripts.UI;
 using UnityEngine;
@@ -22,9 +23,9 @@ namespace EconomyProject.Scripts.UI.Battle
         public BattleHud playerHud;
         public BattleHud enemyHud;
         
-        private BattleSubSystem BattleSubSystem => adventurerSystem.system.GetSubSystem(currentAgent.CurrentAgent);
+        private BattleSubSystem<AdventurerAgent> BattleSubSystem => adventurerSystem.system.GetSubSystem(currentAgent.CurrentAgent);
         
-        private BattleSubSystem _cachedSubSystem;
+        private BattleSubSystem<AdventurerAgent> _cachedSubSystem;
 
         private List<GameObject> _uiGameObjects;
 
