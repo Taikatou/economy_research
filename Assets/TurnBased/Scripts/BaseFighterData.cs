@@ -13,8 +13,8 @@ namespace TurnBased.Scripts
 
         public abstract int Damage { get; }
         protected abstract void AfterAttack();
-        
         public bool IsDead => CurrentHp <= 0;
+        protected virtual double Accuracy => 0.8;
 
         private void TakeDamage(int dmg)
         {
@@ -38,7 +38,12 @@ namespace TurnBased.Scripts
 
         public void Attack(BaseFighterData enemy)
         {
-            enemy.TakeDamage(Damage);
+            var rand = new System.Random();
+            var randomFloat = rand.NextDouble();
+            if (randomFloat < Accuracy)
+            {
+                enemy.TakeDamage(Damage);   
+            }
             AfterAttack();
         }
     }

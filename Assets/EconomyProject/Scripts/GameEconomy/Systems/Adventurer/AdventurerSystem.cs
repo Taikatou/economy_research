@@ -19,64 +19,28 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
     [Serializable]
     public class AdventurerSystem : EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>, ISetup
     {
-        public int partySize = 1;
+        public BattleSubSystem battleSubSystem;
         public static int SensorCount => 1;
-
-        public Dictionary<AdventurerAgent, BattleSubSystem<AdventurerAgent>> battleSystems;
         public Dictionary<AdventurerAgent, EAdventureStates> adventureStates;
 
-        public static int ObservationSize => SensorCount + BattleSubSystem<AdventurerAgent>.SensorCount + AdventurerLocationSelect.SensorCount;
+        public static int ObservationSize => SensorCount + BattleSubSystem.SensorCount + AdventurerLocationSelect.SensorCount;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Adventurer;
 
         public AdventurerLocationSelect locationSelect;
         public BattleLocationSelect battleLocationSelect;
-        public Dictionary<EBattleEnvironments, BattlePartySubsystem> currentParties { get; set; }
-        public Dictionary<AdventurerAgent, EBattleEnvironments> reverseCurrentParties { get; set; }
 
         public TravelSubSystem travelSubsystem;
 
-        EBattleEnvironments [] BattleAsArray = Enum.GetValues(typeof(EBattleEnvironments)).Cast<EBattleEnvironments>().ToArray();
-
         public void Start()
         {
-            void SetupNewBattle(AdventurerAgent agent, FighterObject enemyFighter, SimpleMultiAgentGroup party)
-            {
-                var playerData = agent.GetComponent<AdventurerFighterData>().FighterData;
-                var enemyData = FighterData.Clone(enemyFighter.data);
-            
-                var newSystem = new BattleSubSystem<AdventurerAgent>(playerData, enemyData, enemyFighter.fighterDropTable, OnWin, OnComplete, party, new [] { agent });
-                if (battleSystems.ContainsKey(agent))
-                {
-                    battleSystems.Remove(agent);
-                    Debug.Log("What");
-                }
-                battleSystems.Add(agent, newSystem);
-
-                SetAdventureState(agent, EAdventureStates.InBattle);
-            }
-            
-            currentParties = new Dictionary<EBattleEnvironments, BattlePartySubsystem>();
-            foreach (var battle in BattleAsArray)
-            {
-                var party = new BattlePartySubsystem(partySize, battle, travelSubsystem);
-                currentParties.Add(battle, party);
-                party.setupNewBattle = SetupNewBattle;
-            }
-            battleSystems = new Dictionary<AdventurerAgent, BattleSubSystem<AdventurerAgent>>();
+            battleSubSystem = new BattleSubSystem(travelSubsystem, SetAdventureState);
             adventureStates = new Dictionary<AdventurerAgent, EAdventureStates>();
-            reverseCurrentParties = new Dictionary<AdventurerAgent, EBattleEnvironments>();
         }
 
         public void Setup()
 		{
-            foreach (var battle in BattleAsArray)
-            {
-                currentParties[battle].Setup();
-            }
-
+            battleSubSystem.Setup();
             adventureStates.Clear();
-            battleSystems.Clear();
-            reverseCurrentParties.Clear();
         }
 
         public EAdventureStates GetAdventureStates(AdventurerAgent agent)
@@ -111,16 +75,19 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         {
             ObsData[] GetSubsystemData(AdventurerAgent agent)
             {
+                ObsData[] toReturn;
                 var i = battleLocationSelect.GetCurrentLocation(agent);
-                var subSystem = GetSubSystem(agent);
+                var subSystem = battleSubSystem.GetSubSystem(agent);
                 if (subSystem != null)
                 {
-                    return subSystem.GetSubsystemObservations(i);
+                    toReturn = subSystem.GetSubsystemObservations(i);
                 }
                 else
                 {
-                    return BlankArray(BattleSubSystem<AdventurerAgent>.SensorCount);
+                    toReturn = BlankArray(BattleSubSystemInstance<AdventurerAgent>.SensorCount);
                 }
+
+                return toReturn;
             }
             ObsData[] BlankArray(int sensorCount)
             {
@@ -132,7 +99,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
             var output = state == EAdventureStates.InBattle
                 ? GetSubsystemData(agent)
-                : BlankArray(BattleSubSystem<AdventurerAgent>.SensorCount);
+                : BlankArray(BattleSubSystemInstance<AdventurerAgent>.SensorCount);
             battleState.AddRange(output);
 
             var output2 = state == EAdventureStates.OutOfBattle
@@ -171,16 +138,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             {
                 case EAdventureStates.InBattle:
                     var action = battleLocationSelect.GetBattleAction(agent);
-                    var battleSystem = GetSubSystem(agent);
-                    battleSystem.SetInput(action);
+                    battleSubSystem.SelectBattle(agent, action);
                     break;
                 case EAdventureStates.OutOfBattle:
-                    // we have to do this first
-                    SetAdventureState(agent, EAdventureStates.InQueue);
-                    
                     var location = locationSelect.GetBattle(agent);
-                    currentParties[location].AddAgent(agent);
-                    reverseCurrentParties.Add(agent, location);
+                    battleSubSystem.StartBattle(agent, location);
                     break;
             }
         }
@@ -193,93 +155,16 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             location.MovePosition(agent, movement);
         }
 
-        public BattleSubSystem<AdventurerAgent> GetSubSystem(AdventurerAgent agent)
-        {
-            if (battleSystems.ContainsKey(agent))
-            {
-                return battleSystems[agent];
-            }
-            return null;
-        }
-
         public int GetBattleCount()
         {
             var count = 0;
-            foreach (var entry in battleSystems)
+            foreach (var entry in battleSubSystem.battleSystems)
             {
                 count++;
             }
             return count;
         }
 
-        private static void OnWin(BattleSubSystem<AdventurerAgent> battle)
-        {
-            if (TrainingConfig.OnWin)
-            {
-                var reward = 0.2f;
-                battle.AgentParty.AddGroupReward(reward);   
-            }
-            OverviewVariables.WonBattle();
-        }
-
-        public void OnComplete(BattleSubSystem<AdventurerAgent> system)
-        {
-            foreach (var agent in system.BattleAgents)
-            {
-                var location = reverseCurrentParties[agent];
-                currentParties[location].RemoveAgent(agent);
-                switch (system.CurrentState)
-                {
-                    case EBattleState.Lost:
-                        SpendMoney(agent);
-                        var fighterData = agent.GetComponent<AdventurerFighterData>();
-                        fighterData.playerData.ResetHp();
-                        break;
-                    case EBattleState.Won:
-                        var craftingDrop = system.GetCraftingDropItem();
-                        var craftingInventory = agent.GetComponent<AdventurerRequestTaker>();
-                        craftingInventory.CheckItemAdd(craftingDrop.Resource, craftingDrop.Count);
-                        break;
-                }
-
-                
-                SetAdventureState(agent, EAdventureStates.OutOfBattle);
-                battleSystems.Remove(agent);
-                reverseCurrentParties.Remove(agent);
-            }
-        }
-
-        private void SpendMoney(AdventurerAgent agent)
-        {
-            agent.wallet.SpendMoney(5);
-        }
-
-        public void OnAttackButton(AdventurerAgent agent)
-        {
-            if (battleSystems.ContainsKey(agent))
-            {
-                battleSystems[agent].OnAttackButton();
-            }
-        }
-        
-        public void OnHealButton(AdventurerAgent agent)
-        {
-            if (battleSystems.ContainsKey(agent))
-            {
-                battleSystems[agent].OnHealButton();
-            }
-        }
-
-        public void OnFleeButton(AdventurerAgent agent)
-        {
-            if (battleSystems.ContainsKey(agent))
-            {
-                battleSystems[agent].OnFleeButton();
-            }
-
-            SetAdventureState(agent, EAdventureStates.OutOfBattle);
-        }
-        
         public override EnabledInput[] GetEnabledInputs(AdventurerAgent agent)
         {
             var inputChoices = new[]

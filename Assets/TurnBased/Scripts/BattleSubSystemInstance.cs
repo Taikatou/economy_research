@@ -3,9 +3,9 @@ using Unity.MLAgents;
 
 namespace TurnBased.Scripts
 {
-	public delegate void OnWinDelegate<T>(BattleSubSystem<T> battle) where T : Agent;
+	public delegate void OnWinDelegate<T>(BattleSubSystemInstance<T> battle) where T : Agent;
 
-	public delegate void OnBattleComplete<T>(BattleSubSystem<T> battle) where T : Agent;
+	public delegate void OnBattleComplete<T>(BattleSubSystemInstance<T> battle) where T : Agent;
 	public enum EBattleState { Start, PlayerTurn, EnemyTurn, Won, Lost, Flee }
 	public enum EBattleAction { Attack, Heal, Flee }
 
@@ -16,7 +16,7 @@ namespace TurnBased.Scripts
 		public BaseFighterData Instance => FighterUnits[Index];
 	}
 
-	public class BattleSubSystem<T> where T : Agent
+	public class BattleSubSystemInstance<T> where T : Agent
 	{
 		public EBattleState CurrentState { get; private set; }
 		public string DialogueText { get; private set; }
@@ -32,8 +32,8 @@ namespace TurnBased.Scripts
 
 		public SimpleMultiAgentGroup AgentParty { get; }
 
-		public T[] BattleAgents;
-		public BattleSubSystem(BaseFighterData playerUnit, BaseFighterData enemyUnit, FighterDropTable fighterDropTable,
+		public readonly T[] BattleAgents;
+		public BattleSubSystemInstance(BaseFighterData playerUnit, BaseFighterData enemyUnit, FighterDropTable fighterDropTable,
 			OnWinDelegate<T> winDelegate, OnBattleComplete<T> completeDelegate, SimpleMultiAgentGroup agentParty, T[] battleAgents)
 		{
 			CurrentState = EBattleState.Start;
@@ -76,7 +76,7 @@ namespace TurnBased.Scripts
 
 		private void EnemyTurn()
 		{
-			PlayerFighterUnits.Instance.Attack(PlayerFighterUnits.Instance);
+			EnemyFighterUnits.Instance.Attack(PlayerFighterUnits.Instance);
 			DialogueText = EnemyFighterUnits.Instance.UnitName + " attacks!";
 
 			if(PlayerFighterUnits.Instance.IsDead)

@@ -16,13 +16,16 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             _agentParties = new Dictionary<T, SimpleMultiAgentGroup>();
         }
 
-        public void RemoveAgent(T a)
+        public bool RemoveAgent(T a)
         {
-            if (_agentParties.ContainsKey(a))
+            var contains = _agentParties.ContainsKey(a);
+            if (contains)
             {
                 _agentParties[a].UnregisterAgent(a);
                 _agentParties.Remove(a);
             }
+
+            return contains;
         }
 
         public void AddAgent(T agent)

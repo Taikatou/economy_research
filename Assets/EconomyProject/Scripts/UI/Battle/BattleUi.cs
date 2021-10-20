@@ -23,9 +23,10 @@ namespace EconomyProject.Scripts.UI.Battle
         public BattleHud playerHud;
         public BattleHud enemyHud;
         
-        private BattleSubSystem<AdventurerAgent> BattleSubSystem => adventurerSystem.system.GetSubSystem(currentAgent.CurrentAgent);
+        private BattleSubSystemInstance<AdventurerAgent> BattleSubSystemInstance => 
+            adventurerSystem.system.battleSubSystem.GetSubSystem(currentAgent.CurrentAgent);
         
-        private BattleSubSystem<AdventurerAgent> _cachedSubSystem;
+        private BattleSubSystemInstance<AdventurerAgent> _cachedSubSystemInstance;
 
         private List<GameObject> _uiGameObjects;
 
@@ -65,14 +66,14 @@ namespace EconomyProject.Scripts.UI.Battle
         
         private void Update()
         {
-            if (BattleSubSystem != null)
+            if (BattleSubSystemInstance != null)
             {
-                dialogueText.text = BattleSubSystem.DialogueText;
-                if (_cachedSubSystem != BattleSubSystem)
+                dialogueText.text = BattleSubSystemInstance.DialogueText;
+                if (_cachedSubSystemInstance != BattleSubSystemInstance)
                 {
-                    _cachedSubSystem = BattleSubSystem;
-                    SetupBattle(BattleSubSystem.PlayerFighterUnits.Instance,
-                        BattleSubSystem.EnemyFighterUnits.Instance);
+                    _cachedSubSystemInstance = BattleSubSystemInstance;
+                    SetupBattle(BattleSubSystemInstance.PlayerFighterUnits.Instance,
+                        BattleSubSystemInstance.EnemyFighterUnits.Instance);
                 }
             }
         }

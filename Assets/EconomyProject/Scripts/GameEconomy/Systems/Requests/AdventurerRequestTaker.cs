@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Data;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using UnityEngine;
+using UnityEngine.iOS;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
@@ -35,6 +37,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         public bool Complete => Request.Number <= CurrentAmount;
     }
     
+    public delegate void OnResources();
+    
     public class AdventurerRequestTaker : RequestTaker
     {
         public EconomyWallet wallet;
@@ -65,7 +69,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             wallet.EarnMoney(reward);
         }
 
-        public void CheckItemAdd(ECraftingResources resource, int amount)
+        public void CheckItemAdd(ECraftingResources resource, int amount, OnResources onResourceAdd=null, OnResources onResourceComplete=null)
         {
             var itemList = GetItemList();
             foreach (var item in itemList)
@@ -91,6 +95,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                 {
                     requestRecord.CompleteRequest(this, _currentRequestData[resource].Request);
                     _currentRequestData.Remove(resource);
+                    onResourceComplete?.Invoke();
+                }
+                else
+                {
+                    onResourceAdd?.Invoke();
                 }
                 requestSystem.Refresh();
             }

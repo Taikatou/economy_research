@@ -14,6 +14,8 @@ namespace TurnBased.Scripts
 
         public OnAfterAttack onAfterAttack;
         public GetUsableItem getUsableItem;
+
+        protected override double Accuracy => 1;
         
         protected override void AfterAttack()
         {
