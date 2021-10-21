@@ -17,6 +17,6 @@
 
     public static class UISpec
     {
-        public static bool craftActive;
+        public static bool craftActive = true;
     }
 }

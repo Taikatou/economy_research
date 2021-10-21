@@ -1467,7 +1467,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentAdventurerAgent: {fileID: 275464626}
   CurrentShopAgent: {fileID: 1754627098}
-  ToggleButton: {fileID: 1011264088}
 --- !u!1001 &848789777
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1509,7 +1508,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 129ebd3159db0a04cbd032fdc2deab77, type: 2}
     - target: {fileID: 432687344008383920, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
       propertyPath: numLearningAgents
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 432687344008383920, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
       propertyPath: learningAgentPrefab
@@ -1750,7 +1749,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   craftMenu: {fileID: 1754627096}
   adventurerMenu: {fileID: 275464625}
-  craftActive: 1
   adventurerSystemBehaviour: {fileID: 1781114768}
   getCurrentAdventurerAgent: {fileID: 275464626}
   BattleUI: {fileID: 165455082}
@@ -3022,7 +3020,7 @@ PrefabInstance:
       objectReference: {fileID: 1612661704}
     - target: {fileID: 6537886293585817439, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
       propertyPath: numLearningAgents
-      value: 80
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6537886293989600544, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
       propertyPath: toCheck

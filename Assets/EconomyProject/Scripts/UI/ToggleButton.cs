@@ -19,6 +19,7 @@ namespace EconomyProject.Scripts.UI
 		public AdventurerSystemBehaviour adventurerSystemBehaviour;
 		public GetCurrentAdventurerAgent getCurrentAdventurerAgent;
 		public GameObject BattleUI;
+		
 		public bool activeBattle = false;
 
         private void Start()
