@@ -19,4 +19,9 @@
     {
         public static bool craftActive = true;
     }
+
+    public static class SystemTraining
+    {
+        public static bool removeRequestTime = false;
+    }
 }

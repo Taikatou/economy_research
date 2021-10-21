@@ -275,7 +275,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return CraftingResourceRequest.GetObservations(craftingRequests);
         }
 
-        public void Update()
+        private void UpdateRemove()
         {
             var currentTime = Time.time;
             var toRemove = new List<Tuple<ECraftingResources, CraftingInventory>>();
@@ -301,6 +301,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             if (removedRequests)
             {
                 Debug.Log(" -  -  -    Removed Requests   -  -  - ");
+            }
+        }
+
+        public void Update()
+        {
+            if (SystemTraining.removeRequestTime)
+            {
+                UpdateRemove();
             }
         }
     }

@@ -4,13 +4,6 @@ using EconomyProject.Scripts.Interfaces;
 using Unity.MLAgents;
 using UnityEngine;
 
-public abstract class AdvancedLocationSelect<T, G, F> : LocationSelect<T> where T : Agent where F : Enum
-{
-    public abstract G GetItem(T agent, F state);
-
-    public abstract int GetCurrentLocation(T agent, F state);
-}
-
 public abstract class LocationSelect<T> : MonoBehaviour, IMoveMenu<T>, ISetup where T : Agent
 {
     public abstract int GetLimit(T agent);
@@ -41,9 +34,9 @@ public abstract class LocationSelect<T> : MonoBehaviour, IMoveMenu<T>, ISetup wh
         else
         {
             var limit = GetLimit(agent);
-            if (currentLocation[agent] >= limit)
+            if (currentLocation[agent] >= limit && currentLocation[agent] > 0)
             {
-                currentLocation[agent] = limit;
+                currentLocation[agent] = limit - 1;
             }
         }
 
