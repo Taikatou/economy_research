@@ -121,8 +121,8 @@ MonoBehaviour:
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 0d000000
-    VectorActionSize: 0d000000
+      BranchSizes: 0e000000
+    VectorActionSize: 0e000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31899ea889ad89049afba7b072550158, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Record: 1
+  Record: 0
   NumStepsToRecord: 0
   DemonstrationName: ShopAgent
   DemonstrationDirectory: Assets/Demonstrations

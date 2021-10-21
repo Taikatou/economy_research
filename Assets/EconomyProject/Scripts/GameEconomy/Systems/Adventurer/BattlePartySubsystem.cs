@@ -6,7 +6,7 @@ using Unity.MLAgents;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 {
-    public delegate void SetupNewBattle(AdventurerAgent agent, FighterObject enemyFighter, SimpleMultiAgentGroup party);
+    public delegate void SetupNewBattle(AdventurerAgent[] agent, FighterObject enemyFighter, SimpleMultiAgentGroup party);
     
     [Serializable]
     public class BattlePartySubsystem : PartySubSystem<AdventurerAgent>
@@ -36,10 +36,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
             if (fighter)
             {
-                foreach (var agent in _pendingAgents)
-                {
-                    setupNewBattle?.Invoke(agent, fighter, agentGroup);   
-                }
+                setupNewBattle?.Invoke(_pendingAgents.ToArray(), fighter, agentGroup);
             }
         }
     }

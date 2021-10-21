@@ -1210,7 +1210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f558e13ce2b7f0a4ab05bdcb72a43584, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &550517043
+--- !u!114 &550517044
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1520,7 +1520,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 129ebd3159db0a04cbd032fdc2deab77, type: 2}
     - target: {fileID: 432687344008383920, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
       propertyPath: numLearningAgents
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 432687344008383920, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
       propertyPath: learningAgentPrefab
@@ -2093,7 +2093,7 @@ PrefabInstance:
     - target: {fileID: 5057450104275261200, guid: 9ceee204f5dc32646817fe57efe8de76, type: 3}
       propertyPath: shopMakeCraftingRequestLocationMap
       value: 
-      objectReference: {fileID: 550517043}
+      objectReference: {fileID: 550517044}
     - target: {fileID: 5057450104797709618, guid: 9ceee204f5dc32646817fe57efe8de76, type: 3}
       propertyPath: system.agents
       value: 
@@ -3036,7 +3036,7 @@ PrefabInstance:
       objectReference: {fileID: 1612661704}
     - target: {fileID: 6537886293585817439, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
       propertyPath: numLearningAgents
-      value: 1
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6537886293989600544, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
       propertyPath: toCheck

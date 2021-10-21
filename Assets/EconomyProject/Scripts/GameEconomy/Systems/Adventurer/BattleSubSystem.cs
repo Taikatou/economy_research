@@ -14,8 +14,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
     public delegate void SetAdventureState(AdventurerAgent agent, EAdventureStates state);
     public class BattleSubSystem
     {
-        public int partySize = 1;
-        
         public Dictionary<AdventurerAgent, BattleSubSystemInstance<AdventurerAgent>> battleSystems { get; }
         private Dictionary<EBattleEnvironments, BattlePartySubsystem> currentParties { get; }
         private Dictionary<AdventurerAgent, EBattleEnvironments> reverseCurrentParties { get; }
@@ -31,9 +29,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         {
             SetAdventureState = setAdventureState;
             
-            void SetupNewBattle(AdventurerAgent agent, FighterObject enemyFighter, SimpleMultiAgentGroup party)
+            void SetupNewBattle(AdventurerAgent[] agents, FighterObject enemyFighter, SimpleMultiAgentGroup party)
             {
-                var playerData = agent.GetComponent<AdventurerFighterData>().FighterData;
+                var playerData = new BaseFighterData[agents.Length];
+                for (var i = 0; i < playerData.Length; i++)
+                {
+                    playerData[i] = agents[i].GetComponent<AdventurerFighterData>().FighterData;   
+                }
+                
                 var enemyData = FighterData.Clone(enemyFighter.data);
             
                 var newSystem = new BattleSubSystemInstance<AdventurerAgent>(   playerData,
@@ -42,10 +45,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                                                                                 OnWin,
                                                                                 OnComplete,
                                                                                 party,
-                                                                                agent);
-                
-                battleSystems.Add(agent, newSystem);
-                SetAdventureState.Invoke(agent, EAdventureStates.InBattle);
+                                                                                agents);
+
+                foreach (var agent in agents)
+                {
+                    battleSystems.Add(agent, newSystem);
+                    SetAdventureState.Invoke(agent, EAdventureStates.InBattle);   
+                }
             }
             
             battleSystems = new Dictionary<AdventurerAgent, BattleSubSystemInstance<AdventurerAgent>>();
@@ -53,7 +59,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             reverseCurrentParties = new Dictionary<AdventurerAgent, EBattleEnvironments>();
             foreach (var battle in BattleAsArray)
             {
-                var party = new BattlePartySubsystem(partySize, battle, travelSubsystem);
+                var party = new BattlePartySubsystem(SystemTraining.partySize, battle, travelSubsystem);
                 currentParties.Add(battle, party);
                 party.setupNewBattle = SetupNewBattle;
             }
@@ -110,7 +116,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
                 if(systemInstance.CurrentState == EBattleState.Lost)
                 {
-                    SpendMoney(agent);
+                    agent.wallet.SpendMoney(5);
                     var fighterData = agent.GetComponent<AdventurerFighterData>();
                     fighterData.playerData.ResetHp();
                 }
@@ -119,20 +125,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 RemoveAgent(agent);   
             }
         }
-        
-        private void SpendMoney(AdventurerAgent agent)
-        {
-            agent.wallet.SpendMoney(5);
-        }
-        
+
         private static void OnWin(BattleSubSystemInstance<AdventurerAgent> battle)
         {
             void OnItemAdd()
             {
                 if (TrainingConfig.OnResource)
-                {
-                    battle.AddReward(0.1f);   
-                }
+                    battle.AddReward(0.1f);
             }
             void OnRequestComplete()
             {
@@ -142,8 +141,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             
             if (TrainingConfig.OnWin)
             {
-                var reward = 0.2f;
-                battle.AgentParty.AddGroupReward(reward);   
+                battle.AgentParty.AddGroupReward(0.2f);
             }
             OverviewVariables.WonBattle();
             foreach (var agent in battle.BattleAgents)

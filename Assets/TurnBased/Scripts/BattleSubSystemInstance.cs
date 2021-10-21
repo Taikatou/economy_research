@@ -36,11 +36,11 @@ namespace TurnBased.Scripts
 		public SimpleMultiAgentGroup AgentParty { get; }
 
 		public readonly T [] BattleAgents;
-		public BattleSubSystemInstance(BaseFighterData playerUnit, BaseFighterData enemyUnit, FighterDropTable fighterDropTable,
-			OnWinDelegate<T> winDelegate, OnBattleComplete<T> completeDelegate, SimpleMultiAgentGroup agentParty, T battleAgents)
+		public BattleSubSystemInstance(BaseFighterData[] playerUnit, BaseFighterData enemyUnit, FighterDropTable fighterDropTable,
+			OnWinDelegate<T> winDelegate, OnBattleComplete<T> completeDelegate, SimpleMultiAgentGroup agentParty, T [] battleAgents)
 		{
 			CurrentState = EBattleState.Start;
-			PlayerFighterUnits = new FighterGroup {FighterUnits = new [] {playerUnit}};
+			PlayerFighterUnits = new FighterGroup {FighterUnits = playerUnit};
 			EnemyFighterUnits = new FighterGroup {FighterUnits = new [] {enemyUnit}};
 
 			CurrentState = EBattleState.PlayerTurn;
@@ -50,7 +50,7 @@ namespace TurnBased.Scripts
 			_winDelegate += winDelegate;
 			_completeDelegate += completeDelegate;
 			AgentParty = agentParty;
-			BattleAgents = new []{ battleAgents };
+			BattleAgents = battleAgents;
 		}
 
 		public bool GameOver()

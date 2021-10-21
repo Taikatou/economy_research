@@ -220,7 +220,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             Refresh();
         }
 
-        private void RemoveRequest(ECraftingResources resource, CraftingInventory inventory)
+        public void RemoveRequest(ECraftingResources resource, CraftingInventory inventory)
         {
             if (_craftingRequests.ContainsKey(inventory))
             {

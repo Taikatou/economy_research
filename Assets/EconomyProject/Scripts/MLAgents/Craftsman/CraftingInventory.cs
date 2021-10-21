@@ -8,6 +8,11 @@ namespace EconomyProject.Scripts.MLAgents.Craftsman
     public class CraftingInventory : MonoBehaviour
     {
         private Dictionary<ECraftingResources, int> _numResources;
+        
+        public void Start()
+        {
+            _numResources = new Dictionary<ECraftingResources, int>();
+        }
 
         public void ResetInventory()
         {
@@ -63,18 +68,13 @@ namespace EconomyProject.Scripts.MLAgents.Craftsman
         public bool HasResources(CraftingRequirements resource)
         {
             var found = true;
-            foreach (var item in resource.resourcesRequirements)
+            for(var i = 0; i < resource.resourcesRequirements.Count && found; i++)
             {
-                if (_numResources.ContainsKey(item.type))
+                var item = resource.resourcesRequirements[i];
+                found = _numResources.ContainsKey(item.type);
+                if (found)
                 {
-                    if (_numResources[item.type] < item.number)
-                    {
-                        found = false;
-                    }
-                }
-                else
-                {
-                    found = false;
+                    found = _numResources[item.type] < item.number;
                 }
             }
 
