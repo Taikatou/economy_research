@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using UnityEngine;
 
@@ -10,7 +11,14 @@ namespace EconomyProject.Scripts.MLAgents.Craftsman
 
         public void ResetInventory()
         {
-            _numResources = new Dictionary<ECraftingResources, int>();
+            if (_numResources == null)
+            {
+                _numResources = new Dictionary<ECraftingResources, int>();
+            }
+            else
+            {
+                _numResources.Clear();   
+            }
         }
 
         public int GetResourceNumber()

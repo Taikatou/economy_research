@@ -1,4 +1,5 @@
-﻿using Data;
+﻿using System.Collections.Generic;
+using Data;
 using Unity.MLAgents;
 
 namespace TurnBased.Scripts
@@ -11,7 +12,7 @@ namespace TurnBased.Scripts
 
 	public class FighterGroup
 	{
-		public int Index = 0;
+		private int Index = 0;
 		public BaseFighterData[] FighterUnits;
 		public BaseFighterData Instance => FighterUnits[Index];
 	}
@@ -28,13 +29,15 @@ namespace TurnBased.Scripts
 		public readonly FighterGroup PlayerFighterUnits;
 		public readonly FighterGroup EnemyFighterUnits;
 		
-		public static int SensorCount => 5;
+		public static int SensorCount => 6;
+		
+		public double FleeChance = 0.8f;
 
 		public SimpleMultiAgentGroup AgentParty { get; }
 
-		public readonly T[] BattleAgents;
+		public readonly T [] BattleAgents;
 		public BattleSubSystemInstance(BaseFighterData playerUnit, BaseFighterData enemyUnit, FighterDropTable fighterDropTable,
-			OnWinDelegate<T> winDelegate, OnBattleComplete<T> completeDelegate, SimpleMultiAgentGroup agentParty, T[] battleAgents)
+			OnWinDelegate<T> winDelegate, OnBattleComplete<T> completeDelegate, SimpleMultiAgentGroup agentParty, T battleAgents)
 		{
 			CurrentState = EBattleState.Start;
 			PlayerFighterUnits = new FighterGroup {FighterUnits = new [] {playerUnit}};
@@ -47,7 +50,7 @@ namespace TurnBased.Scripts
 			_winDelegate += winDelegate;
 			_completeDelegate += completeDelegate;
 			AgentParty = agentParty;
-			BattleAgents = battleAgents;
+			BattleAgents = new []{ battleAgents };
 		}
 
 		public bool GameOver()
@@ -93,7 +96,7 @@ namespace TurnBased.Scripts
 
 		private void EndBattle()
 		{
-			_completeDelegate?.Invoke(this);
+			_completeDelegate.Invoke(this);
 			if (CurrentState == EBattleState.Won)
 			{
 				DialogueText = "You won the battle!";
@@ -120,7 +123,7 @@ namespace TurnBased.Scripts
 			EnemyTurn();
 		}
 
-		public void OnAttackButton()
+		private void OnAttackButton()
 		{
 			if (CurrentState != EBattleState.PlayerTurn)
 				return;
@@ -128,7 +131,7 @@ namespace TurnBased.Scripts
 			PlayerAttack();
 		}
 
-		public void OnHealButton()
+		private void OnHealButton()
 		{
 			if (CurrentState != EBattleState.PlayerTurn)
 				return;
@@ -136,12 +139,17 @@ namespace TurnBased.Scripts
 			PlayerHeal();
 		}
 
-		public void OnFleeButton()
+		private void OnFleeButton()
 		{
 			if (CurrentState != EBattleState.PlayerTurn)
 				return;
 
-			CurrentState = EBattleState.Flee;
+			var rand = new System.Random();
+			if (rand.NextDouble() < FleeChance)
+			{
+				CurrentState = EBattleState.Flee;
+				EndBattle();
+			}
 		}
 
 		public void SetInput(EBattleAction action)
@@ -167,14 +175,36 @@ namespace TurnBased.Scripts
 
 		public ObsData[] GetSubsystemObservations(int inputLocation)
 		{
+			var playerName = UnitOneHotEncode[EnemyFighterUnits.Instance.UnitName];
 			return new []
 			{
+				new ObsData{data=playerName, name="Enemy name"},
 				new ObsData{data=PlayerFighterUnits.Instance.Damage, name="PlayerFighterUnit.Damage"},
 				new ObsData{data=PlayerFighterUnits.Instance.HpPercent, name="PlayerFighterUnit.HpPercent"},
-				new ObsData{data=PlayerFighterUnits.Instance.Damage, name="EnemyFighterUnit.Damage"},
-				new ObsData{data=PlayerFighterUnits.Instance.HpPercent,  name="EnemyFighterUnit.HpPercent"},
+				new ObsData{data=EnemyFighterUnits.Instance.Damage, name="EnemyFighterUnit.Damage"},
+				new ObsData{data=EnemyFighterUnits.Instance.HpPercent,  name="EnemyFighterUnit.HpPercent"},
 				new ObsData{data=inputLocation, name="InputLocation"},
 			};
+		}
+
+		private readonly Dictionary<string, int> UnitOneHotEncode = new Dictionary<string, int>()
+		{
+			{"Bear", 0},
+			{"Buffalo", 1},
+			{"Crocodile", 2},
+			{"Elephant", 3},
+			{"Gorilla", 4},
+			{"Narwhale", 5},
+			{"Owl", 6},
+			{"Snake", 7}
+		};
+
+		public void AddReward(float reward)
+		{
+			foreach (var agent in BattleAgents)
+			{
+				agent.AddReward(reward);
+			}
 		}
 	}
 }

@@ -16,9 +16,9 @@ GameObject:
   - component: {fileID: 1690807225}
   - component: {fileID: 7495793412378739832}
   - component: {fileID: 2696612896792117499}
-  - component: {fileID: 4011357051640952596}
   - component: {fileID: 3047744921912511194}
   - component: {fileID: 8264579318346688795}
+  - component: {fileID: 2919118168214096668}
   m_Layer: 0
   m_Name: LearningShopAgent
   m_TagString: Untagged
@@ -154,20 +154,6 @@ MonoBehaviour:
   wallet: {fileID: 568787241}
   craftingInventory: {fileID: 8868528098903630128}
   agentInventory: {fileID: 1690807225}
---- !u!114 &4011357051640952596
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6220377510714029038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DecisionPeriod: 2
-  TakeActionsBetweenDecisions: 0
 --- !u!114 &3047744921912511194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,3 +183,18 @@ MonoBehaviour:
   NumStepsToRecord: 0
   DemonstrationName: ShopAgent
   DemonstrationDirectory: Assets/Demonstrations
+--- !u!114 &2919118168214096668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6220377510714029038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5504e22456bb8e48b35b4c25392f92d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 2
+  TakeActionsBetweenDecisions: 0
+  crafter: 1

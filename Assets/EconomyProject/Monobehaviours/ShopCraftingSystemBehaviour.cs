@@ -1,4 +1,5 @@
-﻿using EconomyProject.Scripts;
+﻿using System;
+using EconomyProject.Scripts;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.Interfaces;
 using UnityEngine;
@@ -19,13 +20,18 @@ namespace EconomyProject.Monobehaviours
             craftLocationMap.craftingSystem = system;
             shopLocationMap.shopSubSystem = system;
             system.CraftingLocationMap = craftingLocation;
-            system.CraftLocationMap = craftLocationMap;
+            system.SubmitToShopLocationMap = craftLocationMap;
             system.ShopLocationMap = shopLocationMap;
         }
 
         public void Setup()
         {
-            // system.Setup();
+            system.Setup();
+        }
+
+        public void FixedUpdate()
+        {
+            system.FixedUpdate();
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.MLAgents;
 
@@ -7,7 +8,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
     {
         private readonly int _partySize;
         protected readonly List<T> _pendingAgents;
-        private Dictionary<T, SimpleMultiAgentGroup> _agentParties;
+        private readonly Dictionary<T, SimpleMultiAgentGroup> _agentParties;
 
         protected PartySubSystem(int partySize)
         {
@@ -24,12 +25,21 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 _agentParties[a].UnregisterAgent(a);
                 _agentParties.Remove(a);
             }
+            else
+            {
+                throw new Exception("DFSFASF");
+            }
 
             return contains;
         }
 
         public void AddAgent(T agent)
         {
+            if (_agentParties.ContainsKey(agent))
+            {
+                _agentParties[agent].UnregisterAgent(agent);
+                _agentParties.Remove(agent);
+            }
             _pendingAgents.Add(agent);
             if (_pendingAgents.Count >= _partySize)
             {
@@ -60,16 +70,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             }
         }
 
-        public void AddReward(float reward, T agent)
-        {
-            if (_agentParties.ContainsKey(agent))
-            {
-                _agentParties[agent].AddGroupReward(reward);
-            }
-        }
-
         public void Setup()
         {
+            foreach (var agent in _agentParties)
+            {
+                agent.Value.UnregisterAgent(agent.Key);
+            }
             _pendingAgents.Clear();
             _agentParties.Clear();
         }

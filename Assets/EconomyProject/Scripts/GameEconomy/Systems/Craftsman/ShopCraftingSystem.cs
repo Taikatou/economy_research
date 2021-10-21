@@ -58,7 +58,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         private AgentStateSelector<ShopAgent, ECraftingOptions> _agentChoices;
 
-        public CraftLocationMap CraftLocationMap { get; set; }
+        public CraftLocationMap SubmitToShopLocationMap { get; set; }
         
         public ShopLocationMap ShopLocationMap { get; set; }
         
@@ -99,7 +99,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 					index = CraftingLocationMap.GetCurrentLocation(agent);
 					break;
 				case ECraftingOptions.SubmitToShop:
-					index = CraftLocationMap.GetCurrentLocation(agent);
+					index = SubmitToShopLocationMap.GetCurrentLocation(agent);
 					break;
 				case ECraftingOptions.EditShop:
 					index = ShopLocationMap.GetCurrentLocation(agent);
@@ -147,7 +147,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         public void BackButton(ShopAgent agent)
         {
 	        CraftingLocationMap.RemoveAgent(agent);
-	        CraftLocationMap.RemoveAgent(agent);
+	        SubmitToShopLocationMap.RemoveAgent(agent);
 	        ShopLocationMap.RemoveAgent(agent);
 	        AgentInput.ChangeScreen(agent, EShopScreen.Main);
         }
@@ -213,7 +213,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 			        craftingSubSubSystem.MakeRequest(agent, resource);
 			        break;
 		        case ECraftingOptions.SubmitToShop:
-			        var shopItem = CraftLocationMap.GetCraftingChoice(agent);
+			        var shopItem = SubmitToShopLocationMap.GetCraftingChoice(agent);
 			        if (shopItem.HasValue)
 			        {
 				        shopSubSubSystem.SubmitToShop(agent, shopItem.Value.Item);	   
@@ -234,7 +234,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 					CraftingLocationMap.MovePosition(agent, movement);
 			        break;
 		        case ECraftingOptions.SubmitToShop:
-			        CraftLocationMap.MovePosition(agent, movement);
+			        SubmitToShopLocationMap.MovePosition(agent, movement);
 			        break;
 		        case ECraftingOptions.EditShop:
 			        ShopLocationMap.MovePosition(agent, movement);
@@ -264,12 +264,20 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 		
 		public override EnabledInput[] GetEnabledInputs(ShopAgent agent)
 		{
+			bool GetDownStateFromAgent(ShopAgent agent, LocationSelect<ShopAgent> locationSelect)
+			{
+				return locationSelect.GetCurrentLocation(agent) > 0;
+			}
+			bool GetUpStateFromAgent(ShopAgent agent, LocationSelect<ShopAgent> locationSelect)
+			{
+				return locationSelect.GetCurrentLocation(agent) < locationSelect.GetLimit(agent) - 1;
+			}
+			
 			var state = GetState(agent);
+
+			bool up = false, down = false, select = false;
 			var inputChoices = new List<EShopAgentChoices>
 			{
-				EShopAgentChoices.Up,
-				EShopAgentChoices.Down,
-				EShopAgentChoices.Select,
 				EShopAgentChoices.Back
 			};
 			switch (state)
@@ -280,6 +288,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 						EShopAgentChoices.SubmitToShop,
 						EShopAgentChoices.EditPrice
 					});
+					var resource = CraftingLocationMap.GetCraftingChoice(agent);
+					select = craftingSubSubSystem.CanCraft(agent, resource);
+					up = GetUpStateFromAgent(agent, CraftingLocationMap);
+					down = GetDownStateFromAgent(agent, CraftingLocationMap);
 					break;
 				case ECraftingOptions.SubmitToShop:
 					inputChoices.AddRange(new []
@@ -287,15 +299,35 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 						EShopAgentChoices.EditPrice,
 						EShopAgentChoices.Craft
 					});
+					var shopItem = SubmitToShopLocationMap.GetCraftingChoice(agent);
+					select = shopItem.HasValue;
+					up = GetUpStateFromAgent(agent, SubmitToShopLocationMap);
+					down = GetDownStateFromAgent(agent, SubmitToShopLocationMap);
 					break;
 				case ECraftingOptions.EditShop:
 					inputChoices.AddRange(new []
 					{
 						EShopAgentChoices.IncreasePrice,
 						EShopAgentChoices.DecreasePrice,
-						EShopAgentChoices.Craft
+						EShopAgentChoices.Craft,
+						EShopAgentChoices.SubmitToShop
 					});
+					up = GetUpStateFromAgent(agent, ShopLocationMap);
+					down = GetDownStateFromAgent(agent, ShopLocationMap);
 					break;
+			}
+
+			if (up)
+			{
+				inputChoices.Add(EShopAgentChoices.Up);
+			}
+			if (down)
+			{
+				inputChoices.Add(EShopAgentChoices.Down);
+			}
+			if (select)
+			{
+				inputChoices.Add(EShopAgentChoices.Select);
 			}
 			var outputs = EconomySystemUtils<EShopAgentChoices>.GetInputOfType(inputChoices);
 			return outputs;

@@ -13,7 +13,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
     public class RequestSystem : LastUpdate, IShopSense
     {
         public CraftingInventory testCraftingInventory;
-        public bool testRequests = true;
+        public bool testRequests = false;
         private static int MAX_PRICE = 50;
         
         public int maxRequests = 2;

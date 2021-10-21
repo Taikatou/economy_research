@@ -13,7 +13,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
         
         public static readonly int SensorCount = AgentShopSubSystem.SensorCount;
 
-        protected override int GetLimit(AdventurerAgent agent)
+        public override int GetLimit(AdventurerAgent agent)
         {
             var shopAgent = shopChooserSubSystem.GetCurrentShop(agent);
             var shopItems = shopCraftingSystem.system.shopSubSubSystem.GetShopUsableItems(shopAgent);

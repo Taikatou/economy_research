@@ -17,7 +17,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         private Dictionary<ShopAgent, CraftingRequest> _shopRequests;
         private List<ShopAgent> _shopAgents;
         
-        public static bool IGNORE_RESOURCES = true;
+        public static bool IGNORE_RESOURCES = false;
         
         public static int SenseCount => CraftingRequest.SenseCount;
         
@@ -69,18 +69,30 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public void MakeRequest(ShopAgent shopAgent, ECraftingChoice input)
         {
-            var foundChoice = craftingRequirement.Single(c => c.choice == input);
-            if (foundChoice.resource && !HasRequest(shopAgent))
+            var foundChoice = GetMap(input);
+            if (CanCraft(shopAgent, input))
+            {
+                _shopRequests.Add(shopAgent, new CraftingRequest { CraftingRequirements = foundChoice.resource });
+                _shopAgents.Add(shopAgent);
+                Debug.Log("Add request");
+            }
+        }
+
+        public CraftingMap GetMap(ECraftingChoice input) => craftingRequirement.Single(c => c.choice == input);
+
+        public bool CanCraft(ShopAgent shopAgent, ECraftingChoice input)
+        {
+            var toReturn = false;
+            var foundChoice = GetMap(input);
+            var hasRequest = HasRequest(shopAgent);
+            if (foundChoice.resource && !hasRequest)
             {
                 var craftingInventory = shopAgent.GetComponent<CraftingInventory>();
                 var hasResources = craftingInventory.HasResources(foundChoice.resource);
-                if (hasResources || IGNORE_RESOURCES)
-                {
-                    _shopRequests.Add(shopAgent, new CraftingRequest { CraftingRequirements = foundChoice.resource });
-                    _shopAgents.Add(shopAgent);
-                    Debug.Log("Add request");
-                }
+                toReturn = hasResources || IGNORE_RESOURCES;
             }
+
+            return toReturn;
         }
 
         public ObsData[] GetObservations(ShopAgent agent)

@@ -2,6 +2,8 @@
 using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using System;
+using Data;
+using Inventory;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.UI
@@ -11,8 +13,6 @@ namespace EconomyProject.Scripts.UI
         public GameObject craftMenu;
 
         public GameObject adventurerMenu;
-
-        public bool craftActive;
 
         private bool showPlayMenus;
 
@@ -29,7 +29,7 @@ namespace EconomyProject.Scripts.UI
 
         public void SwitchButton()
         {
-            craftActive = !craftActive;
+	        UISpec.craftActive = !UISpec.craftActive;
 			CheckActiveBattle();
 			UpdateMenu();
         }
@@ -49,12 +49,12 @@ namespace EconomyProject.Scripts.UI
         {
             if (showPlayMenus)
             {
-                craftMenu.SetActive(craftActive);
-                adventurerMenu.SetActive(!craftActive); 
+                craftMenu.SetActive(UISpec.craftActive);
+                adventurerMenu.SetActive(!UISpec.craftActive); 
 				
 				if(activeBattle == true)
 				{
-					BattleUI.SetActive(!craftActive);
+					BattleUI.SetActive(!UISpec.craftActive);
 				}
             }
         }

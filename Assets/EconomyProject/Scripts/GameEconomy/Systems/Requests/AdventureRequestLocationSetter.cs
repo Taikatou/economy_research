@@ -5,7 +5,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
     public class AdventureRequestLocationSetter : LocationSelect<AdventurerAgent>
     {
         public RequestSystem requestSystem { get; set; }
-        protected override int GetLimit(AdventurerAgent agent)
+        public override int GetLimit(AdventurerAgent agent)
         {
             return requestSystem.GetAllCraftingRequests().Count;
         }

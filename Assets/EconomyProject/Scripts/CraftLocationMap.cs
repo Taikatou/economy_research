@@ -11,7 +11,7 @@ namespace EconomyProject.Scripts
     {
         public ShopCraftingSystem craftingSystem { get; set; }
         // Start is called before the first frame update
-        protected override int GetLimit(ShopAgent agent)
+        public override int GetLimit(ShopAgent agent)
         {
             var items = GetData(agent);
             return items.Count;
@@ -34,7 +34,7 @@ namespace EconomyProject.Scripts
             ShopItem? toReturn = null;
             var items = GetData(agent);
             var index = GetCurrentLocation(agent);
-            if (index > items.Count)
+            if (index < items.Count)
             {
                 toReturn = items[index];
             }

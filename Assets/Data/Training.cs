@@ -11,5 +11,12 @@
         public static bool OnResource = true;
 
         public static bool OnResourceComplete = true;
+
+        public static bool OnCraft = true;
+    }
+
+    public static class UISpec
+    {
+        public static bool craftActive;
     }
 }

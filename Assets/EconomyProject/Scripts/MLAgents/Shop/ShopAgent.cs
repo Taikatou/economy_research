@@ -30,6 +30,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 		public void Start()
 		{
 			wallet.onEarnMoney = OnEarnMoney;
+			agentInventory.onItemAdd += OnCraft;
 		}
 
 		private void OnEarnMoney(float amount)
@@ -37,7 +38,15 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 			if (TrainingConfig.OnSell)
 			{
 				var reward = 0.2f + (amount/100);
-				AddReward(reward);	
+				AddReward(reward);
+			}
+		}
+
+		private void OnCraft(UsableItem usableItem)
+		{
+			if (TrainingConfig.OnCraft)
+			{
+				AddReward(0.2f);
 			}
 		}
 

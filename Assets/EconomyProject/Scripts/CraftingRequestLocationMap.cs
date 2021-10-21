@@ -7,7 +7,7 @@ using Inventory;
 public class CraftingRequestLocationMap : LocationSelect<ShopAgent>
 {
     public ShopCraftingSystem shopCraftingSystem { get; set; }
-    protected override int GetLimit(ShopAgent agent)
+    public override int GetLimit(ShopAgent agent)
     {
         var shopItems = shopCraftingSystem.craftingSubSubSystem.craftingRequirement;
         return shopItems.Count;

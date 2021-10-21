@@ -11,7 +11,7 @@ namespace EconomyProject.Monobehaviours
         
         public RequestShopSystem system;
 
-        protected override int GetLimit(ShopAgent agent)
+        public override int GetLimit(ShopAgent agent)
         {
             var valuesAsArray = CraftingUtils.GetCraftingResources();
             return valuesAsArray.Count;

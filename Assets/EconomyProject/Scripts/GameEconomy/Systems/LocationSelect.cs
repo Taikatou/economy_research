@@ -13,7 +13,7 @@ public abstract class AdvancedLocationSelect<T, G, F> : LocationSelect<T> where 
 
 public abstract class LocationSelect<T> : MonoBehaviour, IMoveMenu<T>, ISetup where T : Agent
 {
-    protected abstract int GetLimit(T agent);
+    public abstract int GetLimit(T agent);
 
     protected Dictionary<T, int> currentLocation => _currentLocation ??= new Dictionary<T, int>();
 

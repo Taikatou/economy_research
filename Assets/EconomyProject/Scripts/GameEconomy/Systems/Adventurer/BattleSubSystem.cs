@@ -42,7 +42,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                                                                                 OnWin,
                                                                                 OnComplete,
                                                                                 party,
-                                                                                new [] { agent });
+                                                                                agent);
                 
                 battleSystems.Add(agent, newSystem);
                 SetAdventureState.Invoke(agent, EAdventureStates.InBattle);
@@ -61,14 +61,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         private void RemoveAgent(AdventurerAgent agent)
         {
-            if (battleSystems.ContainsKey(agent))
-            {
-                battleSystems.Remove(agent);
-            }
-            if (reverseCurrentParties.ContainsKey(agent))
-            {
-                reverseCurrentParties.Remove(agent);   
-            }
+            battleSystems.Remove(agent);
+            reverseCurrentParties.Remove(agent);
         }
 
         public void Setup()
@@ -113,34 +107,16 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                     currentParties[location].RemoveAgent(agent);
                     reverseCurrentParties.Remove(agent);
                 }
-                
-                void OnItemAdd()
-                {
-                    if (TrainingConfig.OnResource)
-                        agent.AddReward(0.1f);
-                }
-                void OnRequestComplete()
-                {
-                    if (TrainingConfig.OnResourceComplete)
-                        agent.AddReward(0.2f);
-                }
 
-                switch (systemInstance.CurrentState)
+                if(systemInstance.CurrentState == EBattleState.Lost)
                 {
-                    case EBattleState.Lost:
-                        SpendMoney(agent);
-                        var fighterData = agent.GetComponent<AdventurerFighterData>();
-                        fighterData.playerData.ResetHp();
-                        break;
-                    case EBattleState.Won:
-                        var craftingDrop = systemInstance.GetCraftingDropItem();
-                        var craftingInventory = agent.GetComponent<AdventurerRequestTaker>();
-                        craftingInventory.CheckItemAdd(craftingDrop.Resource, craftingDrop.Count, OnItemAdd, OnRequestComplete);
-                        break;
+                    SpendMoney(agent);
+                    var fighterData = agent.GetComponent<AdventurerFighterData>();
+                    fighterData.playerData.ResetHp();
                 }
-                
+            
                 SetAdventureState(agent, EAdventureStates.OutOfBattle);
-                RemoveAgent(agent);
+                RemoveAgent(agent);   
             }
         }
         
@@ -151,12 +127,32 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         
         private static void OnWin(BattleSubSystemInstance<AdventurerAgent> battle)
         {
+            void OnItemAdd()
+            {
+                if (TrainingConfig.OnResource)
+                {
+                    battle.AddReward(0.1f);   
+                }
+            }
+            void OnRequestComplete()
+            {
+                if (TrainingConfig.OnResourceComplete)
+                    battle.AddReward(0.2f);
+            }
+            
             if (TrainingConfig.OnWin)
             {
                 var reward = 0.2f;
                 battle.AgentParty.AddGroupReward(reward);   
             }
             OverviewVariables.WonBattle();
+            foreach (var agent in battle.BattleAgents)
+            {
+                var craftingDrop = battle.GetCraftingDropItem();
+                var craftingInventory = agent.GetComponent<AdventurerRequestTaker>();
+            
+                craftingInventory.CheckItemAdd(craftingDrop.Resource, craftingDrop.Count, OnItemAdd, OnRequestComplete);   
+            }
         }
     }
 }

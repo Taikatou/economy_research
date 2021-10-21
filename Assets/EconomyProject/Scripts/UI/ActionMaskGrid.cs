@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Data;
 using EconomyProject.Scripts.MLAgents.Shop;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,7 +24,7 @@ namespace EconomyProject.Scripts.UI
         // Update is called once per frame
         public void Start()
         {
-            _cachedCraftActive = getCurrentAgentAggregator.ToggleButton.craftActive;
+            _cachedCraftActive = UISpec.craftActive;
             UpdateMenus();
         }
 
@@ -77,7 +78,7 @@ namespace EconomyProject.Scripts.UI
 
         private void Update()
         {
-            var newToggle = getCurrentAgentAggregator.ToggleButton.craftActive;
+            var newToggle = UISpec.craftActive;
             if (_cachedCraftActive != newToggle)
             {
                 Debug.Log(newToggle);
