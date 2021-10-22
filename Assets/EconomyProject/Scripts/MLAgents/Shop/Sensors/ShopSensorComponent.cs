@@ -10,11 +10,13 @@ namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
         {
             var shopCraftingSystem = FindObjectOfType<ShopCraftingSystemBehaviour>();
             var request = FindObjectOfType<RequestShopSystemBehaviour>();
+            var configSystem = FindObjectOfType<ConfigSystem>();
             return new ISensor[]
             {
                 new ShopCraftingSensor(shopAgent, shopCraftingSystem.system),
                 new ShopRequestSensor(shopAgent, request.system),
-                new ShopBaseSensor(shopAgent)
+                new ShopBaseSensor(shopAgent),
+                new ConfigSensor(configSystem)
             };
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Data;
+using EconomyProject.Scripts.Interfaces;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Craftsman;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
@@ -10,7 +11,7 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
-    public class RequestSystem : LastUpdate, IShopSense
+    public class RequestSystem : LastUpdate, IShopSense, ISetup
     {
         public CraftingInventory testCraftingInventory;
         public bool testRequests = false;
@@ -30,6 +31,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 			{ECraftingResources.Gem, 7},
 			{ECraftingResources.DragonScale, 8}
 		};
+
+        public void Setup()
+        {
+            _requestWallets.Clear();
+            _craftingRequests.Clear();
+        }
 
 		public Dictionary<AgentType, int> StartMoney => new Dictionary<AgentType, int>
 		{

@@ -45,12 +45,17 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public EAdventureStates GetAdventureStates(AdventurerAgent agent)
         {
-            if (!adventureStates.ContainsKey(agent))
+            var toReturn = EAdventureStates.OutOfBattle;
+            if (agent != null)
             {
-                adventureStates.Add(agent, EAdventureStates.OutOfBattle);
-            }
+                if (!adventureStates.ContainsKey(agent))
+                {
+                    adventureStates.Add(agent, EAdventureStates.OutOfBattle);
+                }
 
-            return adventureStates[agent];
+                toReturn = adventureStates[agent];
+            }
+            return toReturn;
         }
 
         private void SetAdventureState(AdventurerAgent agent, EAdventureStates state)

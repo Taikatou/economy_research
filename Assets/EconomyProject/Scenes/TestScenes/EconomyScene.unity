@@ -215,7 +215,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -3255,6 +3255,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8559902237832678561, guid: 644a22fc169f4b544bc97513c5d92ad4, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8559902237832678563, guid: 644a22fc169f4b544bc97513c5d92ad4, type: 3}
+      propertyPath: showConfig
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8559902237832678563, guid: 644a22fc169f4b544bc97513c5d92ad4, type: 3}

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Data;
+using EconomyProject.Scripts.Experiments;
 using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.Inventory;
@@ -62,10 +63,13 @@ namespace EconomyProject.Scripts.MLAgents.Shop
         public override void OnEpisodeBegin()
         {
             base.OnEpisodeBegin();
+            
             agentInventory.Setup();
             craftingInventory.ResetInventory();
             agentInventory.Setup();
             wallet.Setup(shopInput.requestSystem.system.requestSystem, AgentType.Adventurer);
+            
+            ResetOnItem.bSetupSystems = true;
         }
 
         public override void Heuristic(in ActionBuffers actionsOut)

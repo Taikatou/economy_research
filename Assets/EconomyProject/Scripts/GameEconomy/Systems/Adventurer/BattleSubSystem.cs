@@ -83,9 +83,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         public BattleSubSystemInstance<AdventurerAgent> GetSubSystem(AdventurerAgent agent)
         {
-            if (battleSystems.ContainsKey(agent))
+            if (agent != null)
             {
-                return battleSystems[agent];
+                if (battleSystems.ContainsKey(agent))
+                {
+                    return battleSystems[agent];
+                }   
             }
             return null;
         }

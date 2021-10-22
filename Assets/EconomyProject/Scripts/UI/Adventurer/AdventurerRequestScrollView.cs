@@ -9,10 +9,14 @@ namespace EconomyProject.Scripts.UI.Adventurer
     {
         public GetCurrentAdventurerAgent currentAdventurerAgent;
 
-        private AdventurerRequestTaker GetCurrentRequestTaker => currentAdventurerAgent.CurrentAgent.requestTaker;
+        private AdventurerRequestTaker GetCurrentRequestTaker => currentAdventurerAgent?.CurrentAgent?.requestTaker;
 
         protected override List<AdventurerCraftingResourceRequest> GetItemList()
         {
+            if (GetCurrentRequestTaker == null)
+            {
+                return null;
+            }
             var items = requestSystem.craftingRequestRecord.GetCurrentRequests(GetCurrentRequestTaker);
             var toReturn = new List<AdventurerCraftingResourceRequest>();
             foreach (var item in items)

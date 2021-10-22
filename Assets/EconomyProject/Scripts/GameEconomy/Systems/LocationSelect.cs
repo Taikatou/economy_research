@@ -27,20 +27,25 @@ public abstract class LocationSelect<T> : MonoBehaviour, IMoveMenu<T>, ISetup wh
     
     public int GetCurrentLocation(T agent)
     {
-        if (!currentLocation.ContainsKey(agent))
+        var toReturn = 0;
+        if (agent != null)
         {
-            currentLocation.Add(agent, 0);
-        }
-        else
-        {
-            var limit = GetLimit(agent);
-            if (currentLocation[agent] >= limit && currentLocation[agent] > 0)
+            if (!currentLocation.ContainsKey(agent))
             {
-                currentLocation[agent] = limit - 1;
+                currentLocation.Add(agent, 0);
             }
+            else
+            {
+                var limit = GetLimit(agent);
+                if (currentLocation[agent] >= limit && currentLocation[agent] > 0)
+                {
+                    currentLocation[agent] = limit - 1;
+                }
+            }
+            toReturn = currentLocation[agent];
         }
 
-        return currentLocation[agent];
+        return toReturn;
     }
 
     public void MovePosition(T agent, int movement)

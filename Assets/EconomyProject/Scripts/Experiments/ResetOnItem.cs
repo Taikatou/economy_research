@@ -12,7 +12,7 @@ namespace EconomyProject.Scripts.Experiments
 {
     public class ResetOnItem : MonoBehaviour
     {
-        public static bool bSetupSystems;
+        public static bool bSetupSystems { get; set; }
         
         public UsableItem endItem;
 
@@ -39,7 +39,7 @@ namespace EconomyProject.Scripts.Experiments
             }
         }
 
-        public void ResetAgents()
+        private void ResetAgents()
         {
             foreach (var agent in AdventurerAgents)
             {
@@ -52,7 +52,7 @@ namespace EconomyProject.Scripts.Experiments
             }
         }
 
-        public void SetupSystems()
+        private void SetupSystems()
         {
             var setup = FindObjectsOfType<MonoBehaviour>().OfType<ISetup>();
             foreach (var s in setup)

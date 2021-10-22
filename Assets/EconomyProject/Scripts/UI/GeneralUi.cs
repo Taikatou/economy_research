@@ -19,8 +19,12 @@ namespace EconomyProject.Scripts.UI
         {
             get
             {
-                var adventurer = getAgent.CurrentAgent.GetComponent<AdventurerAgent>();
-                return adventurer;
+                AdventurerAgent toReturn = null;
+                if (getAgent.CurrentAgent)
+                {
+                    toReturn = getAgent.CurrentAgent.GetComponent<AdventurerAgent>();
+                }
+                return toReturn;
             }
         }
 

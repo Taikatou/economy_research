@@ -23,9 +23,19 @@ namespace EconomyProject.Scripts.UI.Battle
         public BattleHud playerHud;
         public BattleHud enemyHud;
         
-        private BattleSubSystemInstance<AdventurerAgent> BattleSubSystemInstance => 
-            adventurerSystem.system.battleSubSystem.GetSubSystem(currentAgent.CurrentAgent);
-        
+        private BattleSubSystemInstance<AdventurerAgent> BattleSubSystemInstance
+        {
+            get
+            {
+                BattleSubSystemInstance<AdventurerAgent> toReturn = null;
+                if (currentAgent.CurrentAgent != null)
+                {
+                    toReturn = adventurerSystem.system.battleSubSystem.GetSubSystem(currentAgent.CurrentAgent);
+                }
+                return toReturn;
+            }
+        }
+
         private BattleSubSystemInstance<AdventurerAgent> _cachedSubSystemInstance;
 
         private List<GameObject> _uiGameObjects;

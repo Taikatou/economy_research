@@ -1,5 +1,4 @@
 using Unity.MLAgents.Sensors;
-using UnityEngine;
 
 namespace EconomyProject.Scripts.MLAgents.Sensors
 {
