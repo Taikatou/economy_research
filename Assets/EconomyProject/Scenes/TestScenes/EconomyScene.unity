@@ -1520,7 +1520,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 129ebd3159db0a04cbd032fdc2deab77, type: 2}
     - target: {fileID: 432687344008383920, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
       propertyPath: numLearningAgents
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 432687344008383920, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
       propertyPath: learningAgentPrefab
@@ -2297,6 +2297,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1581150039}
   - component: {fileID: 1581150040}
+  - component: {fileID: 1581150041}
   m_Layer: 5
   m_Name: ConfigHolder
   m_TagString: Untagged
@@ -2337,6 +2338,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   configUI: {fileID: 1645288877}
+--- !u!114 &1581150041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581150038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d486c2bfbdfc3c94f84ca30150341917, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  configSystem: {fileID: 1153069262}
 --- !u!1 &1612661703
 GameObject:
   m_ObjectHideFlags: 0
@@ -3036,7 +3050,7 @@ PrefabInstance:
       objectReference: {fileID: 1612661704}
     - target: {fileID: 6537886293585817439, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
       propertyPath: numLearningAgents
-      value: 8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6537886293989600544, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
       propertyPath: toCheck
@@ -3259,7 +3273,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8559902237832678563, guid: 644a22fc169f4b544bc97513c5d92ad4, type: 3}
       propertyPath: showConfig
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8559902237832678563, guid: 644a22fc169f4b544bc97513c5d92ad4, type: 3}
       propertyPath: shopSpawner

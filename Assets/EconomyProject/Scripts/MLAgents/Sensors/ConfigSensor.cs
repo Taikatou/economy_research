@@ -5,6 +5,7 @@ using EconomyProject.Scripts;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.MLAgents.Sensors;
 using Unity.MLAgents.Sensors;
+using UnityEngine;
 
 public static class ConfigSensorUtils<T> where T : Enum
 {
@@ -76,6 +77,7 @@ public class ConfigSensor : BaseEconomySensor
         var listDurabilities = _configSystem.listConfigItems.GetDefaultDurabilities();
         var listDamages = _configSystem.listConfigItems.GetDefaultDamages();
         var data = new List<ObsData>();    
+        
         data.AddRange(ConfigSensorUtils<ECraftingResources>.GetData(resourceParams));
         data.AddRange(GetData(listDurabilities));
         data.AddRange(GetData(listDamages));
@@ -83,28 +85,39 @@ public class ConfigSensor : BaseEconomySensor
 
         foreach (var i in listConfigItems)
         {
-            data.AddRange(new []
+            try
             {
-                new ObsData
+                data.AddRange(new []
                 {
-                    data = i.price,
-                    name="Price"
-                },
-                new ObsData
-                {
-                    data= NameHashTable[i.item.name],
-                    name="name"
-                }
-            });
+                    new ObsData
+                    {
+                        data = i.price,
+                        name="Price"
+                    },
+                    new ObsData
+                    {
+                        data= NameHashTable[i.item.name],
+                        name="name"
+                    }
+                });
+            }
+            catch (Exception e)
+            {
+                Debug.Log(i.item.name);
+                throw;
+            }
         }
-        
-        _data = new float[data.Count];
+
+        if (_data == null)
+        {
+            _data = new float[data.Count];
+            MObservationSpec = ObservationSpec.Vector(data.Count);
+        }
         var counter = 0;
         foreach (var o in data)
         {
             _data[counter++] = o.data;
         }
-        MObservationSpec = ObservationSpec.Vector(data.Count);
     }
 
     public ConfigSensor(ConfigSystem configSystem) : base()
@@ -115,11 +128,18 @@ public class ConfigSensor : BaseEconomySensor
 
     private readonly Dictionary<string, int> NameHashTable = new Dictionary<string, int>
     {
+        {"Unarmed", 6},
         {"Beginner Sword", 0},
         {"Intermediate Sword", 1},
         {"Advanced Sword", 2},
         {"Epic Sword", 3},
         {"Master Sword", 4},
-        {"Ultimate Sword", 5}
+        {"Ultimate Sword", 5},
+        {"1_BeginnerSword", 0},
+        {"2_IntermediateSword", 1},
+        {"3_AdvancedSword", 2},
+        {"4_EpicSword", 3},
+        {"5_MasterSword", 4},
+        {"6_UltimateSwordOfPower", 5}
     };
 }

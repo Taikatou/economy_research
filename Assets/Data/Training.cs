@@ -25,4 +25,9 @@
         public static int partySize => 1;
         public static bool removeRequestTime => false;
     }
+
+    public static class ParameterTuning
+    {
+        public static bool Tune => true;
+    }
 }

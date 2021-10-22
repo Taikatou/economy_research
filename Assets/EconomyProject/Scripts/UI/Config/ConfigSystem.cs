@@ -48,7 +48,7 @@ namespace EconomyProject.Scripts
 
 			if (!showConfig)
 			{
-				StartButton();
+				Invoke(nameof(StartButton), 1);
 			}
 		}
 

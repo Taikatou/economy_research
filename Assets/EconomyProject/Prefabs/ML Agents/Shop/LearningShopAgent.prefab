@@ -179,7 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5504e22456bb8e48b35b4c25392f92d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 2
+  DecisionPeriod: 10
   TakeActionsBetweenDecisions: 0
   crafter: 1
 --- !u!114 &3657407672704079423
@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31899ea889ad89049afba7b072550158, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Record: 0
+  Record: 1
   NumStepsToRecord: 0
   DemonstrationName: ShopAgent
   DemonstrationDirectory: Assets/Demonstrations

@@ -1,6 +1,4 @@
-﻿using System;
-using EconomyProject.Scripts.GameEconomy.Systems.Requests;
-using EconomyProject.Scripts.MLAgents;
+﻿using EconomyProject.Scripts.MLAgents;
 using UnityEngine;
 
 namespace EconomyProject.Scripts
