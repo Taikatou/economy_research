@@ -44,7 +44,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             {
                 foreach (var entry2 in entry.Value)
                 {
-                    returnList.Add(entry2.Value);
+                    if (entry2.Value != null)
+                    {
+                        returnList.Add(entry2.Value);   
+                    }
                 }
             }
 

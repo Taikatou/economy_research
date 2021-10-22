@@ -141,7 +141,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             
             if (TrainingConfig.OnWin)
             {
-                battle.AgentParty.AddGroupReward(0.2f);
+                if (SystemTraining.partySize > 1)
+                {
+                    battle.AgentParty.AddGroupReward(0.2f);   
+                }
+                else
+                {
+                    battle.BattleAgents[0].AddReward(0.2f);
+                }
             }
             OverviewVariables.WonBattle();
             foreach (var agent in battle.BattleAgents)

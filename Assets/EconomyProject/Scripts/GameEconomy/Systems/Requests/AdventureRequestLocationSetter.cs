@@ -15,7 +15,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             CraftingResourceRequest toReturn = null;
             var items = requestSystem.GetAllCraftingRequests();
             var index = GetCurrentLocation(agent);
-            if (items.Count > index)
+            if (items.Count > index && index >= 0)
             {
                 toReturn = items[index];
             }

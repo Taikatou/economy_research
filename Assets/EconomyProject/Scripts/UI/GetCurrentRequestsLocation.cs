@@ -21,7 +21,7 @@ namespace EconomyProject.Scripts.UI
             var inventory = agent.craftingInventory;
             var items = requestSystem.GetAllCraftingRequests(inventory);
             var index = GetCurrentLocation(agent);
-            if (index < items.Count)
+            if (index < items.Count && index >= 0)
             {
                 toReturn = items[index].Resource;
             }

@@ -34,7 +34,7 @@ namespace EconomyProject.Scripts
             ShopItem? toReturn = null;
             var items = GetData(agent);
             var index = GetCurrentLocation(agent);
-            if (index < items.Count)
+            if (index < items.Count && index >= 0)
             {
                 toReturn = items[index];
             }
