@@ -11,7 +11,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
         
         protected override float[] Data { get; }
 
-        public static readonly int SensorCount = 3;
+        private static readonly int SensorCount = 4;
 
         public AdventurerBaseSensor(AdventurerAgent agent)
         {
@@ -19,12 +19,13 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
             
             Data = new float [SensorCount];
             MObservationSpec = ObservationSpec.Vector(SensorCount);
+            Data[3] = (int)_agent.adventurerType;
         }
 
         public override void Update()
         {
             var walletMoney = _agent.wallet ? _agent.wallet.Money : 0.0f;
-            var screen = (float) _agent.ChosenScreen;
+            var screen = (int) _agent.ChosenScreen;
             // todo connect health data
             var health = 0;
             if (_agent.fighterData.playerData != null)

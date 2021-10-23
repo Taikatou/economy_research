@@ -32,6 +32,26 @@ public static class ConfigSensorUtils<T> where T : Enum
         return data;
     }
 }
+
+public static class WeaponUtils
+{
+    public static Dictionary<string, int> NameHashTable = new Dictionary<string, int>
+    {
+        {"Unarmed", 6},
+        {"Beginner Sword", 0},
+        {"Intermediate Sword", 1},
+        {"Advanced Sword", 2},
+        {"Epic Sword", 3},
+        {"Master Sword", 4},
+        {"Ultimate Sword", 5},
+        {"1_BeginnerSword", 0},
+        {"2_IntermediateSword", 1},
+        {"3_AdvancedSword", 2},
+        {"4_EpicSword", 3},
+        {"5_MasterSword", 4},
+        {"6_UltimateSwordOfPower", 5}
+    };
+}
 public class ConfigSensor : BaseEconomySensor
 {
     // Update is called once per frame
@@ -61,7 +81,7 @@ public class ConfigSensor : BaseEconomySensor
                 },
                 new ObsData
                 {
-                    data= NameHashTable[i.Key],
+                    data= WeaponUtils.NameHashTable[i.Key],
                     name="name"
                 }
             });
@@ -96,7 +116,7 @@ public class ConfigSensor : BaseEconomySensor
                     },
                     new ObsData
                     {
-                        data= NameHashTable[i.item.name],
+                        data= WeaponUtils.NameHashTable[i.item.name],
                         name="name"
                     }
                 });
@@ -125,21 +145,4 @@ public class ConfigSensor : BaseEconomySensor
         _configSystem = configSystem;
         UpdateData();
     }
-
-    private readonly Dictionary<string, int> NameHashTable = new Dictionary<string, int>
-    {
-        {"Unarmed", 6},
-        {"Beginner Sword", 0},
-        {"Intermediate Sword", 1},
-        {"Advanced Sword", 2},
-        {"Epic Sword", 3},
-        {"Master Sword", 4},
-        {"Ultimate Sword", 5},
-        {"1_BeginnerSword", 0},
-        {"2_IntermediateSword", 1},
-        {"3_AdvancedSword", 2},
-        {"4_EpicSword", 3},
-        {"5_MasterSword", 4},
-        {"6_UltimateSwordOfPower", 5}
-    };
 }

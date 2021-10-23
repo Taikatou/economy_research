@@ -5,7 +5,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
 {
     public class AdventurerInventorySensor : BaseEconomySensor
     {
-        public static int SensorCount => 3;
+        private static int SensorCount => 3;
         private readonly AdventurerAgent _agent;
 
         public AdventurerInventorySensor(AdventurerAgent agent)
@@ -27,6 +27,8 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
                 damage = item.itemDetails.damage;
             }
             Data[0] = damage;
+            Data[1] = WeaponUtils.NameHashTable[item.itemDetails.itemName];
+            Data[2] = _agent.adventurerInventory.ItemCount;
         }
 
         public override string GetName() => "AdventurerInventorySensor";

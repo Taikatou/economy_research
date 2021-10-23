@@ -27,7 +27,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
             };
             foreach (var resource in CraftingAsList)
             {
-                var obs = new ObsData{name = "ResourceCount"};
+                var obs = new ObsData{ name="ResourceCount" };
                 if (_shopAgent.craftingInventory.HasResources(resource))
                 {
                     var d = _shopAgent.craftingInventory.GetResourceNumber(resource);
@@ -35,7 +35,6 @@ namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
                 }
                 obsData.Add(obs); 
             }
-            
 
             for (var counter = 0; counter < Data.Length; counter++)
             {

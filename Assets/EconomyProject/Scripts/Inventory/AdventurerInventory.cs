@@ -16,13 +16,32 @@ namespace EconomyProject.Scripts.Inventory
         
         public AgentInventory agentInventory;
         private Dictionary<string, List<UsableItem>> Items => agentInventory.Items;
+
+        public int ItemCount
+        {
+            get
+            {
+                var toReturn = 0;
+                if (Items != null)
+                {
+                    if (Items.Count > 0)
+                    {
+                        var validItems = GetItems(agent.adventurerType).ToList();
+                        validItems.AddRange(GetItems(EAdventurerTypes.All));
+                        toReturn = validItems.Count;
+                    }
+                }
+                return toReturn;
+            }
+        }
+        
+        IEnumerable<KeyValuePair<string, List<UsableItem>>> GetItems(EAdventurerTypes item) =>
+            Items.Where(i => i.Value[0].validAdventurer.Contains(item));
+        
         public UsableItem EquipedItem
         {
             get
             {
-                IEnumerable<KeyValuePair<string, List<UsableItem>>> GetItems(EAdventurerTypes item) =>
-                    Items.Where(i => i.Value[0].validAdventurer.Contains(item));
-
                 UsableItem toReturn = null;
                 if (Items != null)
                 {

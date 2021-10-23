@@ -15,14 +15,15 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
 
         public override string GetName() => "RequestTakerSensor";
 
+        private int SensorCount => 3 * _requestLimit * 2;
+
         public RequestTakerSensor(AdventurerRequestTaker requestTaker, int requestLimit)
         {
             _requestTaker = requestTaker;
             _requestLimit = requestLimit;
-
-            var dataSize = (3 * _requestLimit * 2);
-            Data = new float[dataSize];
-            MObservationSpec = ObservationSpec.Vector(dataSize);
+            
+            Data = new float[SensorCount];
+            MObservationSpec = ObservationSpec.Vector(SensorCount);
         }
         
         public override void Update()

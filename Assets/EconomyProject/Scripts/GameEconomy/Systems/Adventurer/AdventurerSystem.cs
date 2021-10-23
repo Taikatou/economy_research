@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Data;
 using EconomyProject.Scripts.GameEconomy.Systems.Adventurer;
-using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.Interfaces;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
-using EconomyProject.Scripts.UI;
 using TurnBased.Scripts;
-using Unity.MLAgents;
-using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {

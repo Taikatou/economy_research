@@ -30,22 +30,22 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 
 		public void Start()
 		{
-			inventory.onItemAdd = OnItemAdd;
+			if (TrainingConfig.OnPurchase)
+			{
+				inventory.onItemAdd = OnItemAdd;
+			}
 		}
 
 		private void OnItemAdd(UsableItem usableItem)
 		{
-			if (TrainingConfig.OnPurchase)
+			if (adventurerInventory)
 			{
-				if (adventurerInventory)
+				if (adventurerInventory.EquipedItem)
 				{
-					if (adventurerInventory.EquipedItem)
+					if (usableItem.itemDetails.damage > adventurerInventory.EquipedItem.itemDetails.damage)
 					{
-						if (usableItem.itemDetails.damage > adventurerInventory.EquipedItem.itemDetails.damage)
-						{
-							AddReward(0.75f);
-						}	
-					}
+						AddReward(0.75f);
+					}	
 				}
 			}
 		}
