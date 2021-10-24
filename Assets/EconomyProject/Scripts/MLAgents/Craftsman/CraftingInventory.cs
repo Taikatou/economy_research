@@ -39,7 +39,12 @@ namespace EconomyProject.Scripts.MLAgents.Craftsman
 
         public bool HasResources(ECraftingResources eCraftingResource)
         {
-            return _numResources.ContainsKey(eCraftingResource);
+            var toReturn = false;
+            if (_numResources != null)
+            {
+                toReturn = _numResources.ContainsKey(eCraftingResource);   
+            }
+            return toReturn;
         }
 
         public int GetResourceNumber(ECraftingResources key)

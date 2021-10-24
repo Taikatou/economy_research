@@ -130,6 +130,32 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
 	        return toReturn;
         }
+        
+        public Dictionary<ECraftingChoice, ShopItem?> GetShopItemsObs(ShopAgent agent)
+        {
+	        var toReturn = new Dictionary<ECraftingChoice, ShopItem?>
+	        {
+		        {ECraftingChoice.BeginnerSword, null},
+		        {ECraftingChoice.AdvancedSword, null},
+		        {ECraftingChoice.EpicSword, null},
+		        {ECraftingChoice.MasterSword, null},
+		        {ECraftingChoice.UltimateSwordOfPower, null},
+	        };
+	        foreach(var entry in _shopItems)
+	        {
+		        var item = entry.Value[0];
+		        toReturn[item.craftChoice] = new ShopItem
+		        {
+			        Seller = agent,
+			        Item = item,
+			        Price = GetPrice(item.itemDetails),
+			        Number = GetNumber(item.itemDetails),
+			        Index = 0
+		        };
+	        }
+
+	        return toReturn;
+        }
 
 		//Return customized price if there is one, otherwise, return the default price
         public int GetPrice(UsableItemDetails item)

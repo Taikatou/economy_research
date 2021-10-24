@@ -70,7 +70,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
         {
             return new []
             {
-                new ObsData { data=_currentShop.Count, name="ShopCount"},
+                new SingleObsData { data=_currentShop.Count, Name="ShopCount"},
             };
         }
     }

@@ -48,6 +48,12 @@ public abstract class LocationSelect<T> : MonoBehaviour, IMoveMenu<T>, ISetup wh
         return toReturn;
     }
 
+    public float GetObs(T agent)
+    {
+        var limit = GetLimit(agent);
+        return limit==0? 0 : GetCurrentLocation(agent) / GetLimit(agent);
+    }
+
     public void MovePosition(T agent, int movement)
     {
         var newPosition = GetCurrentLocation(agent) + movement;

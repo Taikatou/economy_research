@@ -29,7 +29,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         {
             return new ObsData [SenseCount]
             {
-                new ObsData { data=Progress, name="CraftingProgress"}
+                new SingleObsData { data=Progress, Name="CraftingProgress"}
             };
         }
 
@@ -37,7 +37,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         {
 	        return new ObsData [SenseCount]
 	        {
-		        new ObsData { data=0, name="CraftingProgress"}
+		        new SingleObsData { data=0, Name="CraftingProgress"}
 	        };
         }
 
@@ -48,7 +48,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
     [Serializable]
     public class ShopCraftingSystem : StateEconomySystem<ShopAgent, EShopScreen, EShopAgentChoices>, ISetup
     {
-	    public static int SensorCount = 2;
+	    public static int SensorCount = 4;
 	    public static int ObservationSize => SensorCount + AgentShopSubSystem.SensorCount + CraftingSubSystem.SenseCount;
 	    public override EShopScreen ActionChoice => EShopScreen.Craft;
 
@@ -89,20 +89,20 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             return !craftingSubSubSystem.HasRequest(agent);
         }
 
-		public int GetScrollLocation(ShopAgent agent)
+		public float GetScrollObs(ShopAgent agent)
 		{
-			var index = 0;
+			var index = 0.0f;
 			var state = _agentChoices.GetState(agent);
 			switch (state)
 			{
 				case ECraftingOptions.Craft:
-					index = CraftingLocationMap.GetCurrentLocation(agent);
+					index = CraftingLocationMap.GetObs(agent);
 					break;
 				case ECraftingOptions.SubmitToShop:
-					index = SubmitToShopLocationMap.GetCurrentLocation(agent);
+					index = SubmitToShopLocationMap.GetObs(agent);
 					break;
 				case ECraftingOptions.EditShop:
-					index = ShopLocationMap.GetCurrentLocation(agent);
+					index = ShopLocationMap.GetObs(agent);
 					break;
 			}
 			return index;
@@ -110,19 +110,17 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public override ObsData[] GetObservations(ShopAgent agent)
         {
-	        var state = _agentChoices.GetState(agent);
-	        var shopL = GetScrollLocation(agent);
+	        var shopL = GetScrollObs(agent);
 			var outputs = new List<ObsData>
 			{
-				new ObsData
+				new CategoricalObsData<ECraftingOptions>(_agentChoices.GetState(agent))
 				{
-					data=(float)state, 
-					name="craftingState"
+					Name="craftingState"
 				},
-				new ObsData
+				new SingleObsData
 				{
 					data=shopL,
-					name="shopLocation"
+					Name="shopLocation"
 				},
 			};
 			var sensesA = shopSubSubSystem.GetItemSenses(agent);

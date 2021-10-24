@@ -14,8 +14,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
     public class RequestShopSystem : StateEconomySystem<ShopAgent, EShopScreen, EShopAgentChoices>, ISetup
     {
         public RequestSystem requestSystem;
-        public static int ObservationSize => CraftingResourceRequest.SensorCount + 1;
+        public static int ObservationSize => CraftingResourceRequest.SensorCount + SensorCount;
         public override EShopScreen ActionChoice => EShopScreen.Request;
+
+        public static int SensorCount = 18;
 
         public ShopRequestLocationMap MakeRequestGetLocation { get; set; }
         
@@ -47,7 +49,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         public override ObsData[] GetObservations(ShopAgent agent)
         {
             var state = _agentStateSelector.GetState(agent);
-            var outputSenses = new List<ObsData>{ new ObsData { data=(float) state, name = "AgentState"}};
+            var outputSenses = new List<ObsData>
+            {
+                new CategoricalObsData<EShopRequestStates>(state)
+                {
+                    Name = "AgentState"
+                }
+            };
             var requestSense = requestSystem.GetObservations(agent);
             outputSenses.AddRange(requestSense);
             return outputSenses.ToArray();

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Data;
 using Unity.MLAgents;
 
@@ -29,7 +30,7 @@ namespace TurnBased.Scripts
 		public readonly FighterGroup PlayerFighterUnits;
 		public readonly FighterGroup EnemyFighterUnits;
 		
-		public static int SensorCount => 6;
+		public static int SensorCount => 6 + 7;
 		
 		public double FleeChance = 0.8f;
 
@@ -178,17 +179,20 @@ namespace TurnBased.Scripts
 			return _fighterDropTable.Exp;
 		}
 
-		public ObsData[] GetSubsystemObservations(int inputLocation)
+		public ObsData[] GetSubsystemObservations(float inputLocation)
 		{
 			var playerName = UnitOneHotEncode[EnemyFighterUnits.Instance.UnitName];
-			return new []
+			return new ObsData []
 			{
-				new ObsData{data=playerName, name="Enemy name"},
-				new ObsData{data=PlayerFighterUnits.Instance.Damage, name="PlayerFighterUnit.Damage"},
-				new ObsData{data=PlayerFighterUnits.Instance.HpPercent, name="PlayerFighterUnit.HpPercent"},
-				new ObsData{data=EnemyFighterUnits.Instance.Damage, name="EnemyFighterUnit.Damage"},
-				new ObsData{data=EnemyFighterUnits.Instance.HpPercent,  name="EnemyFighterUnit.HpPercent"},
-				new ObsData{data=inputLocation, name="InputLocation"},
+				new BaseCategoricalObsData(playerName, 8)
+				{
+					Name="Enemy name",
+				},
+				new SingleObsData{data=PlayerFighterUnits.Instance.Damage, Name="PlayerFighterUnit.Damage"},
+				new SingleObsData{data=PlayerFighterUnits.Instance.HpPercent, Name="PlayerFighterUnit.HpPercent"},
+				new SingleObsData{data=EnemyFighterUnits.Instance.Damage, Name="EnemyFighterUnit.Damage"},
+				new SingleObsData{data=EnemyFighterUnits.Instance.HpPercent,  Name="EnemyFighterUnit.HpPercent"},
+				new SingleObsData{data=inputLocation, Name="InputLocation"},
 			};
 		}
 

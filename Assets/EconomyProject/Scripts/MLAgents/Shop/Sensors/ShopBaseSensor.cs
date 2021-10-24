@@ -15,19 +15,21 @@ namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
         protected override float[] Data { get; }
         public override string GetName() => "ShopBaseSensor";
 
-        private static readonly int SensorCount = CraftingAsList.Length + 2;
-        public override void Update()
+        private float[] UpdateData()
         {
-            var screen = (float) _shopAgent.ChosenScreen;
+            var screen =  _shopAgent.ChosenScreen != null? _shopAgent.ChosenScreen : EShopScreen.Main;
             var walletMoney = _shopAgent.wallet ? _shopAgent.wallet.Money : 0.0f;
             var obsData = new List<ObsData>
             {
-                new ObsData { data=walletMoney, name="Shop Wallet" },
-                new ObsData { data=screen, name="Chosen Screen"}
+                new SingleObsData { data=walletMoney, Name="Shop Wallet" },
+                new CategoricalObsData<EShopScreen>(screen) { Name="Chosen Screen"}
             };
             foreach (var resource in CraftingAsList)
             {
-                var obs = new ObsData{ name="ResourceCount" };
+                var obs = new SingleObsData
+                {
+                    Name="ResourceCount"
+                };
                 if (_shopAgent.craftingInventory.HasResources(resource))
                 {
                     var d = _shopAgent.craftingInventory.GetResourceNumber(resource);
@@ -36,17 +38,24 @@ namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
                 obsData.Add(obs); 
             }
 
+            return ObsData.GetEnumerableData(obsData);
+        }
+
+        public override void Update()
+        {
+            var observations = UpdateData();
             for (var counter = 0; counter < Data.Length; counter++)
             {
-                Data[counter] = obsData[counter].data;
+                Data[counter] = observations[counter];
             }
         }
 
         public ShopBaseSensor(ShopAgent shopAgent)
         {
             _shopAgent = shopAgent;
-            Data = new float [SensorCount];
-            MObservationSpec = ObservationSpec.Vector(SensorCount);
+            var data = UpdateData();
+            Data = new float [data.Length];
+            MObservationSpec = ObservationSpec.Vector(data.Length);
         }
     }
 }

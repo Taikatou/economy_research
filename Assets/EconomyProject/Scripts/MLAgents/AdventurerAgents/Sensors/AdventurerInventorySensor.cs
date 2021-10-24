@@ -1,4 +1,6 @@
+using Data;
 using EconomyProject.Scripts.MLAgents.Sensors;
+using Inventory;
 using Unity.MLAgents.Sensors;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
@@ -11,24 +13,44 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
         public AdventurerInventorySensor(AdventurerAgent agent)
         {
             _agent = agent;
-            MObservationSpec = ObservationSpec.Vector(SensorCount);
-
-            Data = new float [SensorCount];
+            var obs = GetData();
+            _data = new float [obs.Length];
+            MObservationSpec = ObservationSpec.Vector(obs.Length);
         }
 
-        protected override float[] Data { get; }
+        private float[] GetData()
+        {
+            var item = _agent.adventurerInventory.EquipedItem;
+            var damage = item == null? 0 : item.itemDetails.damage;
+            var craft = item == null ? ECraftingChoice.BeginnerSword : item.craftChoice;
+            var obs = new ObsData[]
+            {
+                new SingleObsData
+                {
+                    data = damage,
+                    Name = "name"
+                },
+                new CategoricalObsData<ECraftingChoice>(craft)
+                {
+                    Name = "crafting choice",
+                },
+                new SingleObsData
+                {
+                    data=_agent.adventurerInventory.ItemCount / 10,
+                    Name="Item Count"
+                }
+            };
+            return ObsData.GetEnumerableData(obs);
+        }
+
+        protected override float[] Data => _data;
+
+        private float[] _data;
 
         public override void Update()
         {
-            var damage = 0;
-            var item = _agent.adventurerInventory.EquipedItem;
-            if (item != null)
-            {
-                damage = item.itemDetails.damage;
-            }
-            Data[0] = damage;
-            Data[1] = WeaponUtils.NameHashTable[item.itemDetails.itemName];
-            Data[2] = _agent.adventurerInventory.ItemCount;
+            var obs = GetData();
+            _data = new float [obs.Length];
         }
 
         public override string GetName() => "AdventurerInventorySensor";

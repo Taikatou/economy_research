@@ -145,7 +145,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public ObsData[] GetItemSenses(ShopAgent agent)
         {
-            var items = GetShop(agent).GetShopItems(agent);
+            var items = GetShop(agent).GetShopItemsObs(agent);
             var itemsObs = GetWeaponObservations(items);
 
             return itemsObs;
@@ -155,49 +155,56 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public static readonly int SensorCount = WeaponList * 4;
         
-        public ObsData[] GetWeaponObservations(List<ShopItem> items)
+        public ObsData[] GetWeaponObservations(Dictionary<ECraftingChoice, ShopItem?> items)
         {
-            var outputs = new ObsData[WeaponList * 4];
+            var craftingLength = SensorUtils<ECraftingChoice>.Length;
+            var outputs = new List<ObsData>();
             var valuesAsArray = Enum.GetValues(typeof(ECraftingChoice)).Cast<ECraftingChoice>().ToArray();
             var counter = 0;
             foreach (var craft in valuesAsArray)
             {
-                var f = items.Any(i => craft == i.Item.craftChoice);
-                if (f)
+                outputs.Add(new CategoricalObsData<ECraftingChoice>(craft)
                 {
-                    var i = items.First(i => craft == i.Item.craftChoice);
-                    outputs[counter] = new ObsData
+                    Name="craftingChoice"
+                });
+                
+                if (items.ContainsKey(craft))
+                {
+                    var found = false;
+                    if (items[craft] != null)
                     {
-                        data=(float) i.Item.craftChoice,
-                        name="craftingChoice"
-                    };
-                    outputs[counter++] = new ObsData
+                        var f = items.Any(i => craft == i.Value.Value.Item.craftChoice);
+                        if (f)
+                        {
+                            found = true;
+                            var i = items.First(i => craft == i.Value.Value.Item.craftChoice);
+                            outputs.Add(new SingleObsData
+                            {
+                                data=i.Value.Value.Price,
+                                Name="itemPrice"
+                            });
+                            outputs.Add(new SingleObsData
+                            {
+                                data=i.Value.Value.Item.itemDetails.damage,
+                                Name="itemDamage"
+                            });
+                            outputs.Add(new SingleObsData
+                            {
+                                data=i.Value.Value.Item.itemDetails.durability,
+                                Name="itemDurability"
+                            });
+                        }
+                    }
+                    if(!found)
                     {
-                        data=i.Price,
-                        name="itemPrice"
-                    };
-                    outputs[counter++] = new ObsData
-                    {
-                        data=i.Item.itemDetails.damage,
-                        name="itemDamage"
-                    };
-                    outputs[counter++] = new ObsData
-                    {
-                        data=i.Item.itemDetails.durability,
-                        name="itemDurability"
-                    };
+                        outputs.Add(new SingleObsData { Name = "itemPrice" });
+                        outputs.Add(new SingleObsData { Name = "itemDamage" });
+                        outputs.Add(new SingleObsData { Name = "itemDurability" });
+                    }   
                 }
             }
 
-            while (counter < outputs.Length)
-            {
-                outputs[counter] = new ObsData { name = "craftingChoice" };
-                outputs[counter++] = new ObsData { name = "itemPrice" };
-                outputs[counter++] = new ObsData { name = "itemDamage" };
-                outputs[counter++] = new ObsData { name = "itemDurability" };
-            }
-
-            return outputs;
+            return outputs.ToArray();
         }
     }
 }

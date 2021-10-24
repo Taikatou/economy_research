@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Data;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
@@ -14,7 +15,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Request;
 
         public static int ObservationSize =>
-            CraftingResourceRequest.SensorCount + CraftingResourceRequest.SensorCount;
+            CraftingResourceRequest.SensorCount + CraftingResourceRequest.SensorCount + 32;
         
         public override bool CanMove(AdventurerAgent agent)
         {
@@ -23,8 +24,18 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         public override ObsData[] GetObservations(AdventurerAgent agent)
         {
             var input = new List<ObsData>();
-
-            var itemList = agent.requestTaker.GetItemList();
+            
+            var itemList = new Dictionary<ECraftingResources, CraftingResourceRequest>
+            {
+                {ECraftingResources.Gem, null},
+                {ECraftingResources.Metal, null},
+                {ECraftingResources.Wood, null},
+                {ECraftingResources.DragonScale, null},
+            };
+            foreach (var i in agent.requestTaker.GetItemList())
+            {
+                itemList[i.Resource] = i;
+            }
             var senseA = CraftingResourceRequest.GetObservations(itemList);
             input.AddRange(senseA);
             var senseB = requestSystem.GetObservations(agent);

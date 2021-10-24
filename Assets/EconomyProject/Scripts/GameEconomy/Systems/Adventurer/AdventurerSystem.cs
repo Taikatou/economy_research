@@ -15,7 +15,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
     public class AdventurerSystem : EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>, ISetup
     {
         public BattleSubSystem battleSubSystem;
-        public static int SensorCount => 1;
+        public static int SensorCount => 4;
         public Dictionary<AdventurerAgent, EAdventureStates> adventureStates;
 
         public static int ObservationSize => SensorCount + BattleSubSystem.SensorCount + AdventurerLocationSelect.SensorCount;
@@ -76,10 +76,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             ObsData[] GetSubsystemData(AdventurerAgent agent)
             {
                 ObsData[] toReturn;
-                var i = battleLocationSelect.GetCurrentLocation(agent);
+                
                 var subSystem = battleSubSystem.GetSubSystem(agent);
                 if (subSystem != null)
                 {
+                    var i = battleLocationSelect.GetObs(agent);
                     toReturn = subSystem.GetSubsystemObservations(i);
                 }
                 else
@@ -91,11 +92,17 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             }
             ObsData[] BlankArray(int sensorCount)
             {
-                return new ObsData[sensorCount];
+                var toReturn = new ObsData[sensorCount];
+                for (var i = 0; i < sensorCount; i++)
+                {
+                    toReturn[i] = new SingleObsData();
+                }
+
+                return toReturn;
             }
             
             var state = GetAdventureStates(agent);
-            var battleState = new List<ObsData> { new ObsData {data=(float) state, name="AdventureState"}};
+            var battleState = new List<ObsData> { new SingleObsData {data=(float) state, Name="AdventureState"}};
 
             var output = state == EAdventureStates.InBattle
                 ? GetSubsystemData(agent)

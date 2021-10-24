@@ -1,3 +1,4 @@
+using Data;
 using EconomyProject.Scripts.MLAgents.Sensors;
 using Unity.MLAgents.Sensors;
 
@@ -8,34 +9,51 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
         private readonly AdventurerAgent _agent;
 
         public override string GetName() => "AdventurerSensor";
-        
-        protected override float[] Data { get; }
 
-        private static readonly int SensorCount = 4;
+        protected override float[] Data => _data;
+
+        private float[] _data;
 
         public AdventurerBaseSensor(AdventurerAgent agent)
         {
             _agent = agent;
-            
-            Data = new float [SensorCount];
-            MObservationSpec = ObservationSpec.Vector(SensorCount);
-            Data[3] = (int)_agent.adventurerType;
+
+            var obs = GetData();
+            _data = new float [obs.Length];
+            MObservationSpec = ObservationSpec.Vector(obs.Length);
+        }
+
+        private float[] GetData()
+        {
+            var walletMoney = _agent.wallet ? _agent.wallet.Money : 0.0f;
+            // todo connect health data
+            var health = _agent.fighterData.playerData?.GetObs ?? 0;
+            var screen = _agent.ChosenScreen != null ? _agent.ChosenScreen : EAdventurerScreen.Main;  
+
+            var obsData = new ObsData[]
+            {
+                new SingleObsData
+                {
+                    data = health,
+                    Name = "health"
+                },
+                new CategoricalObsData<EAdventurerScreen>(screen)
+                {
+                    Name="Screen"
+                },
+                new SingleObsData
+                {
+                    data=walletMoney,
+                    Name="Wallet"
+                }
+            };
+            return ObsData.GetEnumerableData(obsData);
         }
 
         public override void Update()
         {
-            var walletMoney = _agent.wallet ? _agent.wallet.Money : 0.0f;
-            var screen = (int) _agent.ChosenScreen;
-            // todo connect health data
-            var health = 0;
-            if (_agent.fighterData.playerData != null)
-            {
-                health = _agent.fighterData.playerData.CurrentHp;
-            }
-
-            Data[0] = walletMoney;
-            Data[1] = screen;
-            Data[2] = health;
+            var obs = GetData();
+            _data = new float [obs.Length];
         }
     }
 }

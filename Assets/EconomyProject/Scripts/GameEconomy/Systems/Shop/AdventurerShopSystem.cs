@@ -20,7 +20,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 
         public Dictionary<AdventurerAgent, ESelectionState> currentStates;
 
-        public static int SensorSize => 2;
+        public static int SensorSize => 3;
 
         public static int ObservationSize => SensorSize + ShopChooserSubSystem.SensorCount + AdventurerShopSubSystem.SensorCount;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Shop;
@@ -55,15 +55,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             var choice = GetChoice(agent);
             var obs = new List<ObsData>
             {
-                new ObsData
+                new CategoricalObsData<ESelectionState>(choice)
                 {
-                    data = (float) choice,
-                    name = "Choice"
+                    Name = "Choice",
                 },
-                new ObsData
+                new SingleObsData
                 {
                     data=GetScrollLocation(agent),
-                    name="scrollLocation",
+                    Name="scrollLocation",
                 }
             };
 

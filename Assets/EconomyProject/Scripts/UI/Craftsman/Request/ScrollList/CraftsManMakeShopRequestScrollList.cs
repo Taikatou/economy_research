@@ -62,7 +62,6 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
                     button.UpdateData(resource.Value, state);
                 }   
             }
-            Debug.Log(resource);
         }
 
         public override void SelectItem(CraftingResourceUi item, int number = 1)

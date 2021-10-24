@@ -36,4 +36,10 @@
     {
         public static bool Tune => true;
     }
+
+    public static class Observations
+    {
+        public static bool debugObs => true;
+        public static bool canViewConstant => false;
+    }
 }

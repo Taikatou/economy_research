@@ -17,7 +17,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         private Dictionary<ShopAgent, CraftingRequest> _shopRequests;
         private List<ShopAgent> _shopAgents;
         
-        public static bool IGNORE_RESOURCES = false;
+        public static bool IGNORE_RESOURCES = true;
         
         public static int SenseCount => CraftingRequest.SenseCount;
         

@@ -44,15 +44,29 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             }
         }
 
-        public static ObsData[] GetObservations(IEnumerable<CraftingResourceRequest> craftingRequests)
+        public static ObsData[] GetObservations(Dictionary<ECraftingResources, CraftingResourceRequest> craftingRequests)
         {
             var output = new ObsData[SensorCount];
             var counter = 0;
             foreach (var item in craftingRequests)
             {
-                output[counter++] = new ObsData { data=(float) item.Resource, name="resource"};
-                output[counter++] = new ObsData { data=item.Price, name="itemPrice"};
-                output[counter++] = new ObsData { data=item.Number, name="itemNumber"};
+                var resource = item.Value?.Resource ?? ECraftingResources.Nothing;
+                var price = item.Value?.Price ?? 0;
+                var number = item.Value?.Number ?? 0;
+                output[counter++] = new CategoricalObsData<ECraftingResources>(resource)
+                {
+                    Name="resource",
+                };
+                output[counter++] = new SingleObsData
+                {
+                    data=price,
+                    Name="itemPrice"
+                };
+                output[counter++] = new SingleObsData
+                {
+                    data=number / 10,
+                    Name="itemNumber"
+                };
                 if (counter >= SensorCount)
                 {
                     break;
@@ -61,9 +75,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
             while(counter < SensorCount)
             {
-                output[counter++] = new ObsData { name="resource"};
-                output[counter++] = new ObsData { name="itemPrice"};
-                output[counter++] = new ObsData { name="itemNumber"};
+                output[counter++] = new SingleObsData { Name="resource"};
+                output[counter++] = new SingleObsData { Name="itemPrice"};
+                output[counter++] = new SingleObsData { Name="itemNumber"};
             }
 
             return output;

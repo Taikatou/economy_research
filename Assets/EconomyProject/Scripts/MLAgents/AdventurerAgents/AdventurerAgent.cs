@@ -24,7 +24,19 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         public LevelUpComponent LevelUpComponent;
 
 		public override AgentType agentType => AgentType.Adventurer;
-		public override EAdventurerScreen ChosenScreen => adventurerInput.GetScreen(this, EAdventurerScreen.Main);
+
+		public override EAdventurerScreen ChosenScreen
+		{
+			get
+			{
+				var toReturn = EAdventurerScreen.Main;
+				if (adventurerInput)
+				{
+					toReturn = adventurerInput.GetScreen(this, EAdventurerScreen.Main);
+				}
+				return toReturn;
+			}
+		}
 
 		private EAdventurerAgentChoices _forcedAction;
 		private bool _bForcedAction;

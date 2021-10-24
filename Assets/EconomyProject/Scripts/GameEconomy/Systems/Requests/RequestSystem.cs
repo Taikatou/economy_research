@@ -61,6 +61,50 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return returnList;
         }
         
+        public Dictionary<ECraftingResources, CraftingResourceRequest> GetAllCraftingRequestsObservations()
+        {
+            var returnList = new Dictionary<ECraftingResources, CraftingResourceRequest>
+            {
+                {ECraftingResources.Gem, null},
+                {ECraftingResources.Metal, null},
+                {ECraftingResources.Wood, null},
+                {ECraftingResources.DragonScale, null},
+            };
+            
+            foreach (var entry in _craftingRequests)
+            {
+                foreach (var entry2 in entry.Value)
+                {
+                    if (entry2.Value != null)
+                    {
+                        returnList[entry2.Key] = entry2.Value;   
+                    }
+                }
+            }
+
+            return returnList;
+        }
+        
+        public Dictionary<ECraftingResources, CraftingResourceRequest> GetAllCraftingRequestsObservations(CraftingInventory inventory)
+        {
+            var returnList = new Dictionary<ECraftingResources, CraftingResourceRequest>
+            {
+                {ECraftingResources.Gem, null},
+                {ECraftingResources.Metal, null},
+                {ECraftingResources.Wood, null},
+                {ECraftingResources.DragonScale, null},
+            };
+            if (_craftingRequests.ContainsKey(inventory))
+            {
+                foreach (var entry2 in _craftingRequests[inventory])
+                {
+                    returnList[entry2.Key] = entry2.Value;   
+                }
+            }
+
+            return returnList;
+        }
+
         public List<CraftingResourceRequest> GetAllCraftingRequests(CraftingInventory inventory)
         {
             var returnList = new List<CraftingResourceRequest>();
@@ -274,14 +318,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
         public ObsData[] GetObservations(AdventurerAgent agent)
         {
-            var craftingRequests = GetAllCraftingRequests();
+            var craftingRequests = GetAllCraftingRequestsObservations();
             
             return CraftingResourceRequest.GetObservations(craftingRequests);
         }
 
         public ObsData[] GetObservations(ShopAgent agent)
         {
-            var craftingRequests = GetAllCraftingRequests(agent.craftingInventory);
+            var craftingRequests = GetAllCraftingRequestsObservations(agent.craftingInventory);
             return CraftingResourceRequest.GetObservations(craftingRequests);
         }
 

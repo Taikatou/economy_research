@@ -4,6 +4,7 @@ using Data;
 using EconomyProject.Scripts;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.MLAgents.Sensors;
+using Inventory;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 
@@ -14,17 +15,16 @@ public static class ConfigSensorUtils<T> where T : Enum
         var data = new List<ObsData>();
         foreach (var v in values)
         {
-            data.AddRange(new[]
+            data.AddRange(new ObsData [] 
             {
-                new ObsData
+                new CategoricalObsData<T>(v.Key)
                 {
-                    data = Convert.ToInt32(v.Key),
-                    name = "Resource"
+                    Name = "Resource"
                 },
-                new ObsData
+                new SingleObsData
                 {
                     data = v.Value,
-                    name = "Value"
+                    Name = "Value"
                 }
             });
         }
@@ -35,7 +35,7 @@ public static class ConfigSensorUtils<T> where T : Enum
 
 public static class WeaponUtils
 {
-    public static readonly Dictionary<string, int> NameHashTable = new Dictionary<string, int>
+    public static Dictionary<string, int> NameHashTable => new Dictionary<string, int>
     {
         {"Unarmed", 6},
         {"Beginner Sword", 0},
@@ -51,6 +51,11 @@ public static class WeaponUtils
         {"5_MasterSword", 4},
         {"6_UltimateSwordOfPower", 5}
     };
+
+    public static ObsData GetObsData(string name, string dataName)
+    {
+        return new BaseCategoricalObsData(WeaponUtils.NameHashTable[name], 7) {Name=dataName};
+    }
 }
 public class ConfigSensor : BaseEconomySensor
 {
@@ -72,16 +77,12 @@ public class ConfigSensor : BaseEconomySensor
         {
             data.AddRange(new []
             {
-                new ObsData
+                new SingleObsData
                 {
                     data = i.Value,
-                    name="Price"
+                    Name="Price"
                 },
-                new ObsData
-                {
-                    data= WeaponUtils.NameHashTable[i.Key],
-                    name="name"
-                }
+                WeaponUtils.GetObsData(i.Key, "weapon name")
             });
         }
         return data;
@@ -89,70 +90,56 @@ public class ConfigSensor : BaseEconomySensor
 
     private void UpdateData()
     {
-        var resourceParams = _configSystem.listConfigResources.GetParameters();
+        var data = new List<ObsData>();  
+        /*var resourceParams = _configSystem.listConfigResources.GetParameters();
         var listConfigItems = _configSystem.listConfigItems.GetParameters();
-        var listDisabilities = _configSystem.listConfigItems.GetDefaultDurabilities();
-        var data = new List<ObsData>();    
+        foreach (var i in listConfigItems)
+        {
+            data.AddRange(new ObsData []
+            {
+                new SingleObsData
+                {
+                    data = i.price,
+                    Name="Price"
+                },
+                WeaponUtils.GetObsData(i.item.name, "weapon name")
+            });
+        }
+
+        data.AddRange(ConfigSensorUtils<ECraftingResources>.GetData(resourceParams));*/
         
-        data.AddRange(ConfigSensorUtils<ECraftingResources>.GetData(resourceParams));
-        data.AddRange(GetData(listDisabilities));
+        //var listDisabilities = _configSystem.listConfigItems.GetDefaultDurabilities();
+        // data.AddRange(GetData(listDisabilities));
 
         var listCraft = _configSystem.listConfigCraft.GetParameters();
         foreach (var craft in listCraft)
         {
             data.Add(
-                new ObsData
+                new CategoricalObsData<ECraftingChoice>(craft.choice)
                 {
-                    data = (int) craft.choice,
-                    name = "Choice"
+                    Name = "Choice",
                 }
             );
             foreach (var item in craft.resource.resourcesRequirements)
             {
-                data.AddRange(new [] {
-                    new ObsData
+                data.AddRange(new ObsData [] {
+                    new SingleObsData
                     {
-                        data= item.number,
-                        name="Resource"
+                        data= item.number / 20,
+                        Name="Resource"
                     },
-                    new ObsData
+                    new CategoricalObsData<ECraftingResources>(item.type)
                     {
-                        data=(int)item.type,
-                        name="item type"
+                        Name="item type",
                     }
                 });
             }
         }
-        foreach (var i in listConfigItems)
-        {
-            data.AddRange(new []
-            {
-                new ObsData
-                {
-                    data = i.price,
-                    name="Price"
-                },
-                new ObsData
-                {
-                    data= WeaponUtils.NameHashTable[i.item.name],
-                    name="name"
-                }
-            });
-        }
         
-        var output = "";
-        foreach (var item in data)
-        {
-            output += "\t" + item.name + ": " + item.data;
-        }
-        Debug.Log(output);
         
-        _data = new float[data.Count];
-        MObservationSpec = ObservationSpec.Vector(data.Count);
-        for (var i = 0; i < data.Count; i++)
-        {
-            _data[i] = data[i].data;
-        }
+        
+        _data = ObsData.GetEnumerableData(data);
+        MObservationSpec = ObservationSpec.Vector(_data.Length);
     }
 
     public ConfigSensor(ConfigSystem configSystem) : base()
