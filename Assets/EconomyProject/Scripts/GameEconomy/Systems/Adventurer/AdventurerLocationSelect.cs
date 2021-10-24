@@ -30,6 +30,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             }};
         }
 
-        public static int SensorCount => 1;
+        public static int SensorCount => SensorUtils<EBattleEnvironments>.Length;
     }
 }

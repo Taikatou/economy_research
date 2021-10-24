@@ -62,6 +62,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
             var d = GetData();
             if (_agent.ChosenScreen.Equals(ValidScreen) || canViewConstant)
             {
+                Array.Copy(_data, d, _data.Length);
                 _data = d;
             }
             else

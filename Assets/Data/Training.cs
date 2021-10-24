@@ -23,7 +23,7 @@
 
     public static class UISpec
     {
-        public static bool craftActive = true;
+        public static bool craftActive = false;
     }
 
     public static class SystemTraining

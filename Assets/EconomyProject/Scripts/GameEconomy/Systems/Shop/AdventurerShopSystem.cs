@@ -20,7 +20,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 
         public Dictionary<AdventurerAgent, ESelectionState> currentStates;
 
-        public static int SensorSize => 3;
+        public static int SensorSize => 30;
 
         public static int ObservationSize => SensorSize + ShopChooserSubSystem.SensorCount + AdventurerShopSubSystem.SensorCount;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Shop;

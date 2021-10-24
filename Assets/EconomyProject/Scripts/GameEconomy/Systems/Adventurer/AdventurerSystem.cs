@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Data;
 using EconomyProject.Scripts.GameEconomy.Systems.Adventurer;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.Interfaces;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using TurnBased.Scripts;
+using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {
@@ -15,10 +17,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
     public class AdventurerSystem : EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>, ISetup
     {
         public BattleSubSystem battleSubSystem;
-        public static int SensorCount => 4;
+
         public Dictionary<AdventurerAgent, EAdventureStates> adventureStates;
 
-        public static int ObservationSize => SensorCount + BattleSubSystem.SensorCount + AdventurerLocationSelect.SensorCount;
+        public static int ObservationSize => BattleSubSystem.SensorCount + AdventurerLocationSelect.SensorCount + 1;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Adventurer;
 
         public AdventurerLocationSelect locationSelect;
@@ -81,7 +83,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                 if (subSystem != null)
                 {
                     var i = battleLocationSelect.GetObs(agent);
-                    toReturn = subSystem.GetSubsystemObservations(i);
+                    var obs = subSystem.GetSubsystemObservations(i);
+                    toReturn = obs;
                 }
                 else
                 {
@@ -112,6 +115,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             var output2 = state == EAdventureStates.OutOfBattle
                 ? locationSelect.GetTravelObservations(agent)
                 : BlankArray(AdventurerLocationSelect.SensorCount);
+            
+            Debug.Log(output2.Sum(o => o.GetData.Length));
             battleState.AddRange(output2);
             return battleState.ToArray();
         }
