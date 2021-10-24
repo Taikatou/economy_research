@@ -134,23 +134,30 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             void OnItemAdd()
             {
                 if (TrainingConfig.OnResource)
-                    battle.AddReward(0.1f);
+                {
+                    battle.AddReward(TrainingConfig.OnResourceReward);   
+                }
             }
             void OnRequestComplete()
             {
                 if (TrainingConfig.OnResourceComplete)
-                    battle.AddReward(0.2f);
+                {
+                    battle.AddReward(TrainingConfig.OnResourceCompleteReward);   
+                }
             }
             
             if (TrainingConfig.OnWin)
             {
                 if (SystemTraining.partySize > 1)
                 {
-                    battle.AgentParty.AddGroupReward(0.2f);   
+                    battle.AgentParty.AddGroupReward(TrainingConfig.OnWinReward);   
                 }
                 else
                 {
-                    battle.BattleAgents[0].AddReward(0.2f);
+                    foreach (var agent in battle.BattleAgents)
+                    {
+                        agent.AddReward(TrainingConfig.OnWinReward);
+                    }
                 }
             }
             OverviewVariables.WonBattle();
@@ -158,6 +165,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             {
                 var craftingDrop = battle.GetCraftingDropItem();
                 var craftingInventory = agent.GetComponent<AdventurerRequestTaker>();
+                var exp = battle.GetExp();
+                agent.LevelUpComponent.AddExp(exp);
             
                 craftingInventory.CheckItemAdd(craftingDrop.Resource, craftingDrop.Count, OnItemAdd, OnRequestComplete);   
             }

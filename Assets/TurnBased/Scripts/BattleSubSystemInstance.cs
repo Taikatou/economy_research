@@ -173,6 +173,11 @@ namespace TurnBased.Scripts
 			return _fighterDropTable.GenerateItems();
 		}
 
+		public float GetExp()
+		{
+			return _fighterDropTable.Exp;
+		}
+
 		public ObsData[] GetSubsystemObservations(int inputLocation)
 		{
 			var playerName = UnitOneHotEncode[EnemyFighterUnits.Instance.UnitName];

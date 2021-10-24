@@ -7,6 +7,7 @@ using EconomyProject.Scripts.Inventory;
 using UnityEngine;
 using EconomyProject.Scripts.GameEconomy.Systems;
 using Inventory;
+using LevelSystem;
 using Unity.MLAgents.Actuators;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
@@ -20,6 +21,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         public AdventurerInput adventurerInput;
         public AdventurerRequestTaker requestTaker;
         public AdventurerFighterData fighterData;
+        public LevelUpComponent LevelUpComponent;
 
 		public override AgentType agentType => AgentType.Adventurer;
 		public override EAdventurerScreen ChosenScreen => adventurerInput.GetScreen(this, EAdventurerScreen.Main);
@@ -32,11 +34,11 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 		{
 			if (TrainingConfig.OnPurchase)
 			{
-				inventory.onItemAdd = OnItemAdd;
+				inventory.onItemAdd = OnItemAddReward;
 			}
 		}
 
-		private void OnItemAdd(UsableItem usableItem)
+		private void OnItemAddReward(UsableItem usableItem)
 		{
 			if (adventurerInventory)
 			{
@@ -44,7 +46,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 				{
 					if (usableItem.itemDetails.damage > adventurerInventory.EquipedItem.itemDetails.damage)
 					{
-						AddReward(0.75f);
+						AddReward(TrainingConfig.OnPurchaseReward);
 					}	
 				}
 			}

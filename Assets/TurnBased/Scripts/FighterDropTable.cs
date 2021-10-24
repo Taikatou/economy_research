@@ -47,6 +47,7 @@ namespace TurnBased.Scripts
     [Serializable]
     public class FighterDropTable :  GenericLootDropTable<GeneratedFighterScriptableObject, BattleDrop>
     {
+        public float Exp;
         public CraftingDropReturn GenerateItems()
         {
             var item = PickLootDropItem().item;

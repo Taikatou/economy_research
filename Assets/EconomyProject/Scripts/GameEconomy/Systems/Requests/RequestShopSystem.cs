@@ -8,7 +8,7 @@ using EconomyProject.Scripts.MLAgents.Shop;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
-    public enum EShopRequestStates { MakeRequest=EShopAgentChoices.MakeRequest, ChangePrice=EShopAgentChoices.ChangeRequest }
+    public enum EShopRequestStates { MakeRequest, ChangePrice }
 
     [Serializable]
     public class RequestShopSystem : StateEconomySystem<ShopAgent, EShopScreen, EShopAgentChoices>, ISetup
@@ -28,10 +28,15 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return _agentStateSelector.GetState(agent);
         }
 
-        public void Setup()
+        public void Start()
         {
             _agentStateSelector =
                 new AgentStateSelector<ShopAgent, EShopRequestStates>((EShopRequestStates.MakeRequest));
+        }
+
+        public void Setup()
+        {
+            _agentStateSelector.Setup();
         }
 
         public override bool CanMove(ShopAgent agent)

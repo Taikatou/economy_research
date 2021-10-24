@@ -35,7 +35,7 @@ public static class ConfigSensorUtils<T> where T : Enum
 
 public static class WeaponUtils
 {
-    public static Dictionary<string, int> NameHashTable = new Dictionary<string, int>
+    public static readonly Dictionary<string, int> NameHashTable = new Dictionary<string, int>
     {
         {"Unarmed", 6},
         {"Beginner Sword", 0},
@@ -54,19 +54,17 @@ public static class WeaponUtils
 }
 public class ConfigSensor : BaseEconomySensor
 {
-    // Update is called once per frame
-    protected override float[] Data => _data;
     private float[] _data;
-
+    private readonly ConfigSystem _configSystem;
+    
     public override string GetName() => "ConfigSensor";
+    protected override float[] Data => _data;
 
     public override void Update()
     {
-        UpdateData();
+        
     }
 
-    private readonly ConfigSystem _configSystem;
-    
     private List<ObsData> GetData(Dictionary<string, int> items)
     {
         var data = new List<ObsData>();
@@ -86,7 +84,6 @@ public class ConfigSensor : BaseEconomySensor
                 }
             });
         }
-
         return data;
     }
 
@@ -94,49 +91,67 @@ public class ConfigSensor : BaseEconomySensor
     {
         var resourceParams = _configSystem.listConfigResources.GetParameters();
         var listConfigItems = _configSystem.listConfigItems.GetParameters();
-        var listDurabilities = _configSystem.listConfigItems.GetDefaultDurabilities();
-        var listDamages = _configSystem.listConfigItems.GetDefaultDamages();
+        var listDisabilities = _configSystem.listConfigItems.GetDefaultDurabilities();
         var data = new List<ObsData>();    
         
         data.AddRange(ConfigSensorUtils<ECraftingResources>.GetData(resourceParams));
-        data.AddRange(GetData(listDurabilities));
-        data.AddRange(GetData(listDamages));
+        data.AddRange(GetData(listDisabilities));
 
-
-        foreach (var i in listConfigItems)
+        var listCraft = _configSystem.listConfigCraft.GetParameters();
+        foreach (var craft in listCraft)
         {
-            try
-            {
-                data.AddRange(new []
+            data.Add(
+                new ObsData
                 {
+                    data = (int) craft.choice,
+                    name = "Choice"
+                }
+            );
+            foreach (var item in craft.resource.resourcesRequirements)
+            {
+                data.AddRange(new [] {
                     new ObsData
                     {
-                        data = i.price,
-                        name="Price"
+                        data= item.number,
+                        name="Resource"
                     },
                     new ObsData
                     {
-                        data= WeaponUtils.NameHashTable[i.item.name],
-                        name="name"
+                        data=(int)item.type,
+                        name="item type"
                     }
                 });
             }
-            catch (Exception e)
+        }
+        foreach (var i in listConfigItems)
+        {
+            data.AddRange(new []
             {
-                Debug.Log(i.item.name);
-                throw;
-            }
+                new ObsData
+                {
+                    data = i.price,
+                    name="Price"
+                },
+                new ObsData
+                {
+                    data= WeaponUtils.NameHashTable[i.item.name],
+                    name="name"
+                }
+            });
         }
-
-        if (_data == null)
+        
+        var output = "";
+        foreach (var item in data)
         {
-            _data = new float[data.Count];
-            MObservationSpec = ObservationSpec.Vector(data.Count);
+            output += "\t" + item.name + ": " + item.data;
         }
-        var counter = 0;
-        foreach (var o in data)
+        Debug.Log(output);
+        
+        _data = new float[data.Count];
+        MObservationSpec = ObservationSpec.Vector(data.Count);
+        for (var i = 0; i < data.Count; i++)
         {
-            _data[counter++] = o.data;
+            _data[i] = data[i].data;
         }
     }
 

@@ -17,12 +17,17 @@ public class AgentStateSelector<TAgent, EStates> : ISetup where TAgent : Agent w
 
     public EStates GetState(TAgent agent)
     {
-        if (!agentStates.ContainsKey(agent))
+        var toReturn = _defaultState;
+        if (agent != null)
         {
-            agentStates.Add(agent, _defaultState);
-        }
+            if (!agentStates.ContainsKey(agent))
+            {
+                agentStates.Add(agent, _defaultState);
+            }
 
-        return agentStates[agent];
+            toReturn = agentStates[agent];
+        }
+        return toReturn;
     }
     
     public void SetState(TAgent agent, EStates state)
@@ -39,6 +44,6 @@ public class AgentStateSelector<TAgent, EStates> : ISetup where TAgent : Agent w
 
     public void Setup()
     {
-        agentStates?.Clear();
+        agentStates.Clear();
     }
 }

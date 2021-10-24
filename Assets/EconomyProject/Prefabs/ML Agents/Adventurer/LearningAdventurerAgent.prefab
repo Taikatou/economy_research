@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 8440662294524558494}
   - component: {fileID: 1401570310200512078}
   - component: {fileID: -4416621978120130695}
+  - component: {fileID: -4039075242379977448}
   m_Layer: 0
   m_Name: LearningAdventurerAgent
   m_TagString: Untagged
@@ -150,6 +151,7 @@ MonoBehaviour:
   adventurerInput: {fileID: 0}
   requestTaker: {fileID: 3175469178531096349}
   fighterData: {fileID: 342237269981398615}
+  LevelUpComponent: {fileID: -4039075242379977448}
 --- !u!114 &3175469178531096349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,8 +235,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31899ea889ad89049afba7b072550158, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Record: 1
+  Record: 0
   NumStepsToRecord: 0
   DemonstrationName: AdventurerAgent
   DemonstrationDirectory: Assets/Demonstrations
   crafting: 0
+--- !u!114 &-4039075242379977448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7707616417561859250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26a25f11e0334e447b2882b9c95661db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxExp: 10000

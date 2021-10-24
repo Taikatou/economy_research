@@ -3,13 +3,21 @@
   <component name="ChangeListManager">
     <list default="true" id="3a9a0144-2920-4427-8d8b-3fddc42186be" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.economy_research/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.economy_research/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/Inventory/AdventurerInventory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/Inventory/AdventurerInventory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Training.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Training.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Economy.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Economy.asmdef" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Monobehaviours/RequestShopSystemBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Monobehaviours/RequestShopSystemBehaviour.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Prefabs/ML Agents/Adventurer/LearningAdventurerAgent.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Prefabs/ML Agents/Adventurer/LearningAdventurerAgent.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Prefabs/ML Agents/Shop/LearningShopAgent.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Prefabs/ML Agents/Shop/LearningShopAgent.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scenes/TestScenes/EconomyScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scenes/TestScenes/EconomyScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/BattleSubSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/BattleSubSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Requests/RequestShopSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Requests/RequestShopSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Shop/AgentStateSelector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Shop/AgentStateSelector.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerAgent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/Sensors/AdventurerBaseSensor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/Sensors/AdventurerBaseSensor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/Sensors/AdventurerInventorySensor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/Sensors/AdventurerInventorySensor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/Sensors/RequestTakerSensor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/Sensors/RequestTakerSensor.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Sensors/ConfigSensor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Sensors/ConfigSensor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Shop/Sensors/ShopBaseSensor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Shop/Sensors/ShopBaseSensor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Shop/ShopAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Shop/ShopAgent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Timers/EconomyScene_timers.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Timers/EconomyScene_timers.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TurnBased/Scripts/BattleSubSystemInstance.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TurnBased/Scripts/BattleSubSystemInstance.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TurnBased/Scripts/FighterDropTable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TurnBased/Scripts/FighterDropTable.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,8 +121,10 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMPro_UGUI_Private.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.collab-proxy@1.9.0/Tests/Editor/Collaborate/Presenters/ChangesPresenterTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_SelectionCaret.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.4.8/Runtime/Animation/AnimationPreviewUpdateCallback.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.test-framework@1.1.29/UnityEngine.TestRunner/Utils/IPrebuildSceneSetup.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/UIBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.visualstudio@2.0.11/Editor/AsyncOperation.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/EventSystem/InputModuleTests/DragCallbackCheck.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Data/ObsData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.barracuda@2.0.0-pre.3/Barracuda/Runtime/Core/Backends/OpsUtils.cs" root0="SKIP_HIGHLIGHTING" />
@@ -189,6 +199,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/GetCurrentRequestsLocation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ml-agents/com.unity.ml-agents/Runtime/Agent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/GetCurrentAgentAggregator.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/LevelSystem/MediumFastLevelUpComponent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.test-framework@1.1.29/UnityEditor.TestRunner/TestLaunchers/PlatformSetup/StadiaPlatformSetup.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/BaseMenuManager.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -220,10 +231,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="34964">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="34964" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -266,7 +277,9 @@
       <workItem from="1634460174385" duration="15786000" />
       <workItem from="1634728066780" duration="15209000" />
       <workItem from="1634815491034" duration="31502000" />
-      <workItem from="1634983981611" duration="3695000" />
+      <workItem from="1634983981611" duration="4361000" />
+      <workItem from="1635064241756" duration="635000" />
+      <workItem from="1635064912029" duration="7363000" />
     </task>
     <servers />
   </component>
@@ -331,43 +344,95 @@
           <option name="timeStamp" value="163" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/AdventurerSystem.cs</url>
-          <line>41</line>
-          <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Adventurer\AdventurerSystem.cs" initialLine="41" containingFunctionPresentation="method 'Setup'">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Shop/Sensors/ShopSensorComponent.cs</url>
+          <line>12</line>
+          <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\MLAgents\Shop\Sensors\ShopSensorComponent.cs" initialLine="12" containingFunctionPresentation="method 'CreateSensors'">
             <startOffsets>
-              <option value="1545" />
+              <option value="454" />
             </startOffsets>
             <endOffsets>
-              <option value="1569" />
+              <option value="506" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="166" />
+          <option name="timeStamp" value="177" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Shop/Sensors/ShopSensorComponent.cs</url>
+          <line>11</line>
+          <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\MLAgents\Shop\Sensors\ShopSensorComponent.cs" initialLine="11" containingFunctionPresentation="method 'CreateSensors'">
+            <startOffsets>
+              <option value="380" />
+            </startOffsets>
+            <endOffsets>
+              <option value="441" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="178" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Shop/Sensors/ShopSensorComponent.cs</url>
+          <line>10</line>
+          <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\MLAgents\Shop\Sensors\ShopSensorComponent.cs" initialLine="10" containingFunctionPresentation="method 'CreateSensors'">
+            <startOffsets>
+              <option value="294" />
+            </startOffsets>
+            <endOffsets>
+              <option value="367" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="179" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Shop/Sensors/ShopSensorComponent.cs</url>
+          <line>13</line>
+          <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\MLAgents\Shop\Sensors\ShopSensorComponent.cs" initialLine="13" containingFunctionPresentation="method 'CreateSensors'">
+            <startOffsets>
+              <option value="519" />
+            </startOffsets>
+            <endOffsets>
+              <option value="806" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="180" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Sensors/ConfigSensor.cs</url>
+          <line>96</line>
+          <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\MLAgents\Sensors\ConfigSensor.cs" initialLine="96" containingFunctionPresentation="method 'UpdateData'">
+            <startOffsets>
+              <option value="2578" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2655" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="181" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Sensors/ConfigSensor.cs</url>
           <line>125</line>
-          <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\MLAgents\Sensors\ConfigSensor.cs" initialLine="105" containingFunctionPresentation="method 'UpdateData'">
+          <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\MLAgents\Sensors\ConfigSensor.cs" initialLine="125" containingFunctionPresentation="method 'UpdateData'">
             <startOffsets>
-              <option value="3445" />
+              <option value="3511" />
             </startOffsets>
             <endOffsets>
-              <option value="3468" />
+              <option value="3545" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="173" />
+          <option name="timeStamp" value="182" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Sensors/ConfigSensor.cs</url>
-          <line>126</line>
-          <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\MLAgents\Sensors\ConfigSensor.cs" initialLine="106" containingFunctionPresentation="method 'UpdateData'">
+          <line>143</line>
+          <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\MLAgents\Sensors\ConfigSensor.cs" initialLine="143" containingFunctionPresentation="method 'UpdateData'">
             <startOffsets>
-              <option value="3485" />
+              <option value="3967" />
             </startOffsets>
             <endOffsets>
-              <option value="3491" />
+              <option value="3993" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="174" />
+          <option name="timeStamp" value="183" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
