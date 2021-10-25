@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Data;
 using EconomyProject.Scripts;
+using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.MLAgents.Sensors;
 using Inventory;
@@ -70,74 +72,31 @@ public class ConfigSensor : BaseEconomySensor
         
     }
 
-    private List<ObsData> GetData(Dictionary<string, int> items)
-    {
-        var data = new List<ObsData>();
-        foreach (var i in items)
-        {
-            data.AddRange(new []
-            {
-                new SingleObsData
-                {
-                    data = i.Value,
-                    Name="Price"
-                },
-                WeaponUtils.GetObsData(i.Key, "weapon name")
-            });
-        }
-        return data;
-    }
-
     private void UpdateData()
     {
-        var data = new List<ObsData>();  
-        /*var resourceParams = _configSystem.listConfigResources.GetParameters();
-        var listConfigItems = _configSystem.listConfigItems.GetParameters();
-        foreach (var i in listConfigItems)
-        {
-            data.AddRange(new ObsData []
-            {
-                new SingleObsData
-                {
-                    data = i.price,
-                    Name="Price"
-                },
-                WeaponUtils.GetObsData(i.item.name, "weapon name")
-            });
-        }
-
-        data.AddRange(ConfigSensorUtils<ECraftingResources>.GetData(resourceParams));*/
-        
-        //var listDisabilities = _configSystem.listConfigItems.GetDefaultDurabilities();
-        // data.AddRange(GetData(listDisabilities));
+        var data = new List<ObsData>();
 
         var listCraft = _configSystem.listConfigCraft.GetParameters();
-        foreach (var craft in listCraft)
+        foreach (var item in SensorUtils<ECraftingChoice>.ValuesToArray)
         {
-            data.Add(
-                new CategoricalObsData<ECraftingChoice>(craft.choice)
-                {
-                    Name = "Choice",
-                }
-            );
-            foreach (var item in craft.resource.resourcesRequirements)
+            var length = SensorUtils<ECraftingResources>.Length;
+            var itemNumber = new int [length];
+            var requirements = listCraft.First(l => l.choice == item);
+            for (var i = ECraftingResources.Wood; (int) i < length; i++)
             {
-                data.AddRange(new ObsData [] {
-                    new SingleObsData
+                var index = (int) i;
+                foreach (var r in requirements.resource.resourcesRequirements)
+                {
+                    if (r.type == i)
                     {
-                        data= item.number / 20,
-                        Name="Resource"
-                    },
-                    new CategoricalObsData<ECraftingResources>(item.type)
-                    {
-                        Name="item type",
+                        itemNumber[(int)i] = r.number / 10;
+                        break;
                     }
-                });
+                }
+                data.Add(new SingleObsData{data = itemNumber[index], Name = i.ToString()});
             }
         }
-        
-        
-        
+
         _data = ObsData.GetEnumerableData(data);
         MObservationSpec = ObservationSpec.Vector(_data.Length);
     }
