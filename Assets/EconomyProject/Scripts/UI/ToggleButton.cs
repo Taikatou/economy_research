@@ -35,7 +35,7 @@ namespace EconomyProject.Scripts.UI
 			UpdateMenu();
         }
 
-		public void CheckActiveBattle()
+        private void CheckActiveBattle()
 		{
 			if (getCurrentAdventurerAgent.CurrentAgent == null)
 			{
