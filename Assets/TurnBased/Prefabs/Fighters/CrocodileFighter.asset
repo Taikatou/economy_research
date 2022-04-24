@@ -35,3 +35,4 @@ MonoBehaviour:
       probabilityPercent: 50
       probabilityRangeFrom: 0
       probabilityRangeTo: 0
+    Exp: 6

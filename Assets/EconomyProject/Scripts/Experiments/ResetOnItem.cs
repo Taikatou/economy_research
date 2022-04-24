@@ -25,7 +25,10 @@ namespace EconomyProject.Scripts.Experiments
 
         public void Start()
         {
-            shopCraftingBehaviour.system.shopSubSubSystem.onPurchaseItem = OnPurchase;
+            if (shopCraftingBehaviour != null)
+            {
+                shopCraftingBehaviour.system.shopSubSubSystem.onPurchaseItem = OnPurchase;   
+            }
         }
 
         private void OnPurchase(UsableItem item, ShopAgent shop)

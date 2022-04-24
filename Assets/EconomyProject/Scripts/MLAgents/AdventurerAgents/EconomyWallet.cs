@@ -58,9 +58,9 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         public void Setup(RequestSystem requestSystem, AgentType agentType)
         {
 	        if (requestSystem == null || agentType == AgentType.None)
-			{
-				throw new Exception();
-			}
+	        {
+		        return;
+	        }
 			if (!requestSystem.StartMoney.ContainsKey(agentType))
 			{
 				throw new Exception();

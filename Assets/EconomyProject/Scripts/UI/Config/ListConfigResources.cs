@@ -11,7 +11,10 @@ namespace EconomyProject.Scripts.UI.Config
 
 		public override void SetupItems()
 		{
-			_items = requestShopSystemBehaviour.system.requestSystem.defaultResourcePrices;
+			if (requestShopSystemBehaviour != null)
+			{
+				_items = requestShopSystemBehaviour.system.requestSystem.defaultResourcePrices;
+			}
 		}
 
 		public override void SetupList()

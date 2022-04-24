@@ -40,8 +40,11 @@ namespace EconomyProject.Scripts
 
 		public void Start()
 		{
-			shopCraftingSystem = shopCraftingSystemBehaviour.system;
-			agentShopSubSystem = shopCraftingSystem.shopSubSubSystem;
+			if (shopCraftingSystemBehaviour != null)
+			{
+				shopCraftingSystem = shopCraftingSystemBehaviour.system;
+				agentShopSubSystem = shopCraftingSystem.shopSubSubSystem;	
+			}
 
 			getCurrentShopAgent = FindObjectOfType<GetCurrentShopAgent>();
 			getCurrentAdventurerAgent = FindObjectOfType<GetCurrentAdventurerAgent>();
@@ -58,7 +61,10 @@ namespace EconomyProject.Scripts
 		public void SetItemsDefaultPrices(List<BaseItemPrices> listPrice)
 		{
 			//Modify the shopSystem
-			agentShopSubSystem.basePrices = listPrice;
+			if (agentShopSubSystem != null)
+			{
+				agentShopSubSystem.basePrices = listPrice;
+			}
 		}
 
 		/// <summary>
@@ -75,7 +81,10 @@ namespace EconomyProject.Scripts
 		/// </summary>
 		public void SetResourceDefaultPrices(Dictionary<ECraftingResources, int> newResourcePrices)
 		{
-			requestShopSystemBehaviour.system.requestSystem.defaultResourcePrices = newResourcePrices;
+			if (requestShopSystemBehaviour != null)
+			{
+				requestShopSystemBehaviour.system.requestSystem.defaultResourcePrices = newResourcePrices;	
+			}
 		}
 
 		/// <summary>
@@ -117,11 +126,15 @@ namespace EconomyProject.Scripts
 		{
 			//Delete previous agents
 			getCurrentAdventurerAgent.ClearGetAgents();
-			getCurrentShopAgent.ClearGetAgents();
+
+			if (!skipShopSetup)
+			{
+				getCurrentShopAgent.ClearGetAgents();
+				shopSpawner.StartSpawn();
+			}
 
 			//Generate new agents
 			adventurerSpawner.StartSpawn();
-			shopSpawner.StartSpawn();
 		}
 
 		/// <summary>
@@ -132,6 +145,7 @@ namespace EconomyProject.Scripts
 			shopCraftingSystemBehaviour.system.craftingSubSubSystem.craftingRequirement = listRequirements;
 		}
 
+		public static bool skipShopSetup = true;
 
 		/// <summary>
 		/// Apply all the default parameters to the system
@@ -141,23 +155,26 @@ namespace EconomyProject.Scripts
 		/// </summary>
 		public void StartButton()
 		{
-			//Item
-			List<BaseItemPrices> newItemPrices = listConfigItems.GetParameters();
-			SetItemsDefaultPrices(newItemPrices);
-			SetDefaultItemDetails(listConfigItems.GetDefaultDurabilities(), listConfigItems.GetDefaultDamages());
+			if (!skipShopSetup)
+			{
+				//Item
+				List<BaseItemPrices> newItemPrices = listConfigItems.GetParameters();
+				SetItemsDefaultPrices(newItemPrices);
+				SetDefaultItemDetails(listConfigItems.GetDefaultDurabilities(), listConfigItems.GetDefaultDamages());
 
-			//Resource prices
-			Dictionary<ECraftingResources, int> newResourcePrices = listConfigResources.GetParameters();
-			SetResourceDefaultPrices(newResourcePrices);
+				//Resource prices
+				Dictionary<ECraftingResources, int> newResourcePrices = listConfigResources.GetParameters();
+				SetResourceDefaultPrices(newResourcePrices);
 
+				//CraftResourceRequirement
+				List<CraftingMap> listRequirement = listConfigCraft.GetParameters();
+				SetResourceRequirements(listRequirement);	
+			}
+			
 			//Agents start money
 			Dictionary<AgentType, int> newStartMoney = listConfigAgents.GetParameters();
 			SetStartMoneyAgents(newStartMoney);
 			SetSpawnNumber(listConfigAgents.GetDefaultNbrAgents());
-
-			//CraftResourceRequirement
-			List<CraftingMap> listRequirement = listConfigCraft.GetParameters();
-			SetResourceRequirements(listRequirement);
 
 			//Hide Configuration
 			UIBlocker.SetActive(false);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace EconomyProject.Scripts.UI.Adventurer
 {
@@ -45,11 +46,14 @@ namespace EconomyProject.Scripts.UI.Adventurer
             return a == b;
         }
 
+        public Text levelText;
+
         private void Update()
         {
             var playerInput = uiAccessor.AdventurerInput;
             if (getCurrentAgent.CurrentAgent != null && playerInput != null)
             {
+                levelText.text = getCurrentAgent.CurrentAgent.levelUpComponent.Level.ToString();
                 var screen = playerInput.GetScreen(AdventurerAgent, EAdventurerScreen.Main);
                 
                 SwitchMenu(screen);

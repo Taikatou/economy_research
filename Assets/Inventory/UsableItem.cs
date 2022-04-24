@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Inventory
 {
 	public enum ECraftingChoice { BeginnerSword, IntermediateSword, AdvancedSword, EpicSword, MasterSword, UltimateSwordOfPower }
-	public enum EAdventurerTypes { All, Brawler, Swordsman, Archer }
+	public enum EAdventurerTypes { All, Brawler, Healer, Mage }
 
     [Serializable]
     public struct UsableItemDetails

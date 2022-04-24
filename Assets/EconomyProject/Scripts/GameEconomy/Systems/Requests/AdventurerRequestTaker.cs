@@ -48,7 +48,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         private Dictionary<ECraftingResources, TakenCraftingResourceRequest> _currentRequestData;
 
         //TODO THIS SHOULDN'T BE HARD LIMIT
-        public override IEnumerable<CraftingResourceRequest> GetItemList() => requestRecord.GetCurrentRequests(this);
+        public override IEnumerable<CraftingResourceRequest> GetItemList() => requestRecord != null? requestRecord.GetCurrentRequests(this) : new List<CraftingResourceRequest>();
         
         public void Start()
         {

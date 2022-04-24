@@ -42,9 +42,12 @@ namespace EconomyProject.Scripts.UI.Config
 
 		public override void SetupItems()
 		{
-			_items = shopCraftingSystemBehaviour.system.craftingSubSubSystem.craftingRequirement;
+			if (shopCraftingSystemBehaviour != null)
+			{
+				_items = shopCraftingSystemBehaviour.system.craftingSubSubSystem.craftingRequirement;
 
-			InitRequirement();
+				InitRequirement();	
+			}
 		}
 
 		public override void SetupList()

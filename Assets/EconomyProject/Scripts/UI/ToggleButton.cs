@@ -48,7 +48,7 @@ namespace EconomyProject.Scripts.UI
 
 		private void UpdateMenu()
         {
-            if (showPlayMenus)
+            if (showPlayMenus && craftMenu != null && adventurerMenu != null)
             {
                 craftMenu.SetActive(UISpec.craftActive);
                 adventurerMenu.SetActive(!UISpec.craftActive); 

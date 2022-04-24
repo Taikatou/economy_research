@@ -21,7 +21,11 @@ namespace EconomyProject.Scripts.UI
 		private int nbrAgent = 0;
 
         public void Update()
-        {		
+        {
+	        if (agentParent == null || GetAgents == null)
+	        {
+		        return;
+	        }
             if (_updateTime != agentSpawner.LastUpdated || nbrAgent != GetAgents.Length)
             {
 				nbrAgent = GetAgents.Length;

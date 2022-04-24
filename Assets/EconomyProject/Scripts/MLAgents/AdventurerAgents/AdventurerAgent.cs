@@ -29,10 +29,10 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 		{
 			get
 			{
-				var toReturn = EAdventurerScreen.Main;
+				var toReturn = EAdventurerScreen.Adventurer;
 				if (adventurerInput)
 				{
-					toReturn = adventurerInput.GetScreen(this, EAdventurerScreen.Main);
+					toReturn = adventurerInput.GetScreen(this, EAdventurerScreen.Adventurer);
 				}
 				return toReturn;
 			}
