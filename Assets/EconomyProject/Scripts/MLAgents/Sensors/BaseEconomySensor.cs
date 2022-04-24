@@ -15,7 +15,6 @@ namespace EconomyProject.Scripts.MLAgents.Sensors
 
         public int Write(ObservationWriter writer)
         {
-            Debug.Log(GetName() + "\t" + Data.Length + "\t" + MObservationSpec.Shape);
             writer.AddList(Data);
             return Data.Length;
         }

@@ -17,7 +17,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             _agentParties = new Dictionary<T, SimpleMultiAgentGroup>();
         }
 
-        public bool RemoveAgent(T a)
+        public void RemoveAgent(T a)
         {
             var contains = _agentParties.ContainsKey(a);
             if (contains)
@@ -29,8 +29,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             {
                 throw new Exception("DFSFASF");
             }
-
-            return contains;
         }
 
         public void AddAgent(T agent)

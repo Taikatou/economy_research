@@ -11,13 +11,13 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
     {
         public int startHp = 20;
         public Sprite sprite;
-        public PlayerFighterData playerData;
+        public PlayerFighterData PlayerData;
         public AdventurerInventory adventurerInventory;
-        public BaseFighterData FighterData => playerData;
+        public BaseFighterData FighterData => PlayerData;
 
         public void Setup()
         {
-            playerData = new PlayerFighterData
+            PlayerData = new PlayerFighterData
             {
                 Sprite = sprite,
                 UnitName = "Player",
@@ -28,12 +28,12 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             };
         }
 
-        public void OnAfterAttack()
+        private void OnAfterAttack()
         {
             adventurerInventory.DecreaseDurability();
         }
 
-        public UsableItem GetUsableItem()
+        private UsableItem GetUsableItem()
         {
             return adventurerInventory.EquipedItem;
         }

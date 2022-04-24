@@ -16,6 +16,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors.SystemSensors
         protected override EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices> EconomySystem
             => _adventurerSystem;
 
-        public override int SensorCount => AdventurerSystem.ObservationSize;
+        protected override int SensorCount => AdventurerSystem.ObservationSize;
     }
 }

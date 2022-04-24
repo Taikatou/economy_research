@@ -18,20 +18,20 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
         protected abstract EconomySystem<TAgent, TScreen, TChoice> EconomySystem { get; }
         protected override float[] Data => _data;
 
-        protected bool canViewConstant;
-        
-        public abstract int SensorCount { get; }
+        protected bool CanViewConstant;
+
+        protected abstract int SensorCount { get; }
 
         protected AgentMovementSensor(TAgent agent)
         {
-            canViewConstant = Observations.canViewConstant;
+            CanViewConstant = Observations.canViewConstant;
             _agent = agent;
             
             _data = new float [SensorCount];
             MObservationSpec = ObservationSpec.Vector(SensorCount);
         }
 
-        public float[] GetData()
+        private float[] GetData()
         {
             var obs =  EconomySystem.GetObservations(_agent);
             var outputData = new List<float>();
@@ -60,7 +60,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
         public override void Update()
         {
             var d = GetData();
-            if (_agent.ChosenScreen.Equals(ValidScreen) || canViewConstant)
+            if (_agent.ChosenScreen.Equals(ValidScreen) || CanViewConstant)
             {
                 Array.Copy(_data, d, _data.Length);
                 _data = d;

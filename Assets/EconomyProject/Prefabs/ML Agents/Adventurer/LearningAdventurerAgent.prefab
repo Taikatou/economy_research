@@ -127,6 +127,7 @@ MonoBehaviour:
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
+  m_DeterministicInference: 0
   m_ObservableAttributeHandling: 0
 --- !u!114 &5616954730062649782
 MonoBehaviour:
@@ -151,7 +152,7 @@ MonoBehaviour:
   adventurerInput: {fileID: 0}
   requestTaker: {fileID: 3175469178531096349}
   fighterData: {fileID: 342237269981398615}
-  LevelUpComponent: {fileID: -4039075242379977448}
+  levelUpComponent: {fileID: -4039075242379977448}
 --- !u!114 &3175469178531096349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,6 +223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DecisionPeriod: 10
   TakeActionsBetweenDecisions: 0
+  allowDecisions: 1
   crafter: 0
 --- !u!114 &-4416621978120130695
 MonoBehaviour:

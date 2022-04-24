@@ -156,7 +156,7 @@ namespace Tests.Economy
 
 			Assert.AreEqual(20, adventurerData.startHp);
 			Assert.IsNotNull(adventurerData.sprite);
-			Assert.IsNotNull(adventurerData.playerData);
+			Assert.IsNotNull(adventurerData.PlayerData);
 			Assert.IsNotNull(adventurerData.adventurerInventory);
 		}
 

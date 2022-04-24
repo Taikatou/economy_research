@@ -121,7 +121,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 {
                     agent.wallet.SpendMoney(5);
                     var fighterData = agent.GetComponent<AdventurerFighterData>();
-                    fighterData.playerData.ResetHp();
+                    fighterData.PlayerData.ResetHp();
                 }
             
                 SetAdventureState(agent, EAdventureStates.OutOfBattle);
@@ -165,9 +165,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             {
                 var craftingDrop = battle.GetCraftingDropItem();
                 var craftingInventory = agent.GetComponent<AdventurerRequestTaker>();
-                var exp = battle.GetExp();
-                agent.LevelUpComponent.AddExp(exp);
-            
+                
+                if (agent.levelUpComponent != null)
+                {
+                    var exp = battle.GetExp();
+                    agent.levelUpComponent.AddExp(exp);
+                }
+
                 craftingInventory.CheckItemAdd(craftingDrop.Resource, craftingDrop.Count, OnItemAdd, OnRequestComplete);   
             }
         }

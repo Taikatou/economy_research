@@ -21,7 +21,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         public AdventurerInput adventurerInput;
         public AdventurerRequestTaker requestTaker;
         public AdventurerFighterData fighterData;
-        public LevelUpComponent LevelUpComponent;
+        public LevelUpComponent levelUpComponent;
 
 		public override AgentType agentType => AgentType.Adventurer;
 
