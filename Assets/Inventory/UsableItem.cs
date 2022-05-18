@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Inventory
 {
 	public enum ECraftingChoice { BeginnerSword, IntermediateSword, AdvancedSword, EpicSword, MasterSword, UltimateSwordOfPower }
-	public enum EAdventurerTypes { All, Brawler, Healer, Mage }
+	public enum EAdventurerTypes { All, Tank, Healer, Brawler }
 
     [Serializable]
     public struct UsableItemDetails
@@ -20,8 +20,6 @@ namespace Inventory
         public int durability;
         
         public bool Broken => !unBreakable && durability <= 0;
-        
-        
 
         public UsableItemDetails(UsableItemDetails itemDetails)
         {

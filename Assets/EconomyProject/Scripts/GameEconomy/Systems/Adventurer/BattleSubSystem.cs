@@ -15,7 +15,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
     public class BattleSubSystem
     {
         public Dictionary<AdventurerAgent, BattleSubSystemInstance<AdventurerAgent>> battleSystems { get; }
-        private Dictionary<EBattleEnvironments, BattlePartySubsystem> currentParties { get; }
+        public Dictionary<EBattleEnvironments, BattlePartySubsystem> currentParties { get; private set; }
         private Dictionary<AdventurerAgent, EBattleEnvironments> reverseCurrentParties { get; }
         
         private static IEnumerable<EBattleEnvironments> BattleAsArray =>
@@ -59,13 +59,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             reverseCurrentParties = new Dictionary<AdventurerAgent, EBattleEnvironments>();
             foreach (var battle in BattleAsArray)
             {
-                var party = new BattlePartySubsystem(SystemTraining.partySize, battle, travelSubsystem);
+                var party = new BattlePartySubsystem(SystemTraining.PartySize, battle, travelSubsystem);
                 currentParties.Add(battle, party);
                 party.setupNewBattle = SetupNewBattle;
             }
         }
 
-        private void RemoveAgent(AdventurerAgent agent)
+        private void EndBattle(AdventurerAgent agent)
         {
             battleSystems.Remove(agent);
             reverseCurrentParties.Remove(agent);
@@ -106,6 +106,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             reverseCurrentParties.Add(agent, location);
         }
 
+        public void RemoveAgent(AdventurerAgent agent)
+        {
+            currentParties[reverseCurrentParties[agent]].RemoveFromQueue(agent);
+            SetAdventureState.Invoke(agent, EAdventureStates.OutOfBattle);
+        }
+
         private void OnComplete(BattleSubSystemInstance<AdventurerAgent> systemInstance)
         {
             foreach (var agent in systemInstance.BattleAgents)
@@ -125,7 +131,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 }
             
                 SetAdventureState(agent, EAdventureStates.OutOfBattle);
-                RemoveAgent(agent);   
+                EndBattle(agent);   
             }
         }
 
@@ -148,7 +154,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             
             if (TrainingConfig.OnWin)
             {
-                if (SystemTraining.partySize > 1)
+                if (SystemTraining.PartySize > 1)
                 {
                     battle.AgentParty.AddGroupReward(TrainingConfig.OnWinReward);   
                 }

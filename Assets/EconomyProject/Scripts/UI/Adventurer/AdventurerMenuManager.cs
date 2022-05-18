@@ -59,25 +59,5 @@ namespace EconomyProject.Scripts.UI.Adventurer
                 SwitchMenu(screen);
             }
         }
-
-        public void MainMenu()
-        {
-			// AdventurerAgent.SetAction(EAdventurerAgentChoices.MainMenu);
-        }
-
-        public void ShopMenu()
-        {
-			AdventurerAgent.SetAction(EAdventurerAgentChoices.Shop);
-        }
-        
-        public void RequestMenu()
-        {
-			AdventurerAgent.SetAction(EAdventurerAgentChoices.FindRequest);
-        }
-
-        public void BattleMenu()
-        {
-			AdventurerAgent.SetAction(EAdventurerAgentChoices.Adventure);
-        }
     }
 }

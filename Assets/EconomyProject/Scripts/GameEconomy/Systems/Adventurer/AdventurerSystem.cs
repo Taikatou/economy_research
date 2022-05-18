@@ -6,6 +6,7 @@ using EconomyProject.Scripts.GameEconomy.Systems.Adventurer;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.Interfaces;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+using Inventory;
 using TurnBased.Scripts;
 using UnityEngine;
 
@@ -20,7 +21,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public Dictionary<AdventurerAgent, EAdventureStates> adventureStates;
 
-        public static int ObservationSize => BattleSubSystem.SensorCount + AdventurerLocationSelect.SensorCount + 1;
+        public static int ObservationSize => BattleSubSystem.SensorCount + AdventurerLocationSelect.SensorCount + (SystemTraining.PartySize * Enum.GetNames(typeof(EBattleEnvironments)).Length);
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Adventurer;
 
         public AdventurerLocationSelect locationSelect;
@@ -115,9 +116,28 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             var output2 = state == EAdventureStates.OutOfBattle
                 ? locationSelect.GetTravelObservations(agent)
                 : BlankArray(AdventurerLocationSelect.SensorCount);
-            
+
+            var obsize = new List<ObsData>();
+            foreach (EBattleEnvironments battle in Enum.GetValues(typeof(EBattleEnvironments)))
+            {
+                for (var i = 0; i < SystemTraining.PartySize; i++)
+                {
+                    var party = battleSubSystem.currentParties[battle];
+                    if (i < party.PendingAgents.Count)
+                    {
+                        var a = party.PendingAgents[i];
+                        obsize.Add(new CategoricalObsData<EAdventurerTypes>(a.adventurerType));
+                    }
+                    else
+                    {
+                        obsize.Add(new CategoricalObsData<EAdventurerTypes>());
+                    }
+                }
+            }
+
             Debug.Log(output2.Sum(o => o.GetData.Length));
             battleState.AddRange(output2);
+            battleState.AddRange(obsize);
             return battleState.ToArray();
         }
 
@@ -129,7 +149,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                 switch(input)
                 {
                     case EAdventurerAgentChoices.Back:
-                        AgentInput.ChangeScreen(agent, EAdventurerScreen.Main);
+                        if (GetAdventureStates(agent) == EAdventureStates.InQueue)
+                        {
+                            battleSubSystem.RemoveAgent(agent);
+                        }
+                        else if(SystemTraining.IncludeShop)
+                        {
+                            AgentInput.ChangeScreen(agent, EAdventurerScreen.Main);
+                        }
                         break;
                     case EAdventurerAgentChoices.Select:
                         Select(agent);

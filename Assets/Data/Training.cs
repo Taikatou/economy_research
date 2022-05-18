@@ -28,8 +28,10 @@
 
     public static class SystemTraining
     {
-        public static int partySize => 1;
-        public static bool removeRequestTime => false;
+        public static int PartySize => 3;
+        public static bool RemoveRequestTime => false;
+
+        public static readonly bool IncludeShop = false;
     }
 
     public static class ParameterTuning

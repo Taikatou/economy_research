@@ -16,7 +16,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
             {
                 return new ISensor[] { 
                     new AdventurerBaseSensor(agent),
-                    new AdventurerInventorySensor(agent), 
                     new AgentAdventureSensor(agent, behave.system)
                 };
             }

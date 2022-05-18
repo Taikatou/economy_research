@@ -36,7 +36,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
             if (fighter)
             {
-                setupNewBattle?.Invoke(_pendingAgents.ToArray(), fighter, agentGroup);
+                setupNewBattle?.Invoke(PendingAgents.ToArray(), fighter, agentGroup);
             }
         }
     }

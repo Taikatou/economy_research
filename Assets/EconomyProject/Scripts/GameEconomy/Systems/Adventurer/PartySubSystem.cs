@@ -4,16 +4,19 @@ using Unity.MLAgents;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 {
+    public delegate void OnAddPlayer<in T>(T agent);
     public class PartySubSystem<T> where T : Agent
     {
         private readonly int _partySize;
-        protected readonly List<T> _pendingAgents;
+        public List<T> PendingAgents { get; private set; }
         private readonly Dictionary<T, SimpleMultiAgentGroup> _agentParties;
+
+        public OnAddPlayer<T> OnAddPlayer;
 
         protected PartySubSystem(int partySize)
         {
             _partySize = partySize;
-            _pendingAgents = new List<T>();
+            PendingAgents = new List<T>();
             _agentParties = new Dictionary<T, SimpleMultiAgentGroup>();
         }
 
@@ -31,6 +34,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             }
         }
 
+        public void RemoveFromQueue(T agent)
+        {
+            PendingAgents.Remove(agent);
+        }
+
         public void AddAgent(T agent)
         {
             if (_agentParties.ContainsKey(agent))
@@ -38,22 +46,24 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 _agentParties[agent].UnregisterAgent(agent);
                 _agentParties.Remove(agent);
             }
-            _pendingAgents.Add(agent);
-            if (_pendingAgents.Count >= _partySize)
+            PendingAgents.Add(agent);
+            if (PendingAgents.Count >= _partySize)
             {
                 var agentGroup = new SimpleMultiAgentGroup();
                 CompleteParty(agentGroup);
             }
+
+            OnAddPlayer?.Invoke(agent);
         }
 
         public virtual void CompleteParty(SimpleMultiAgentGroup agentGroup)
         {
-            foreach (var a in _pendingAgents)
+            foreach (var a in PendingAgents)
             {
                 agentGroup.RegisterAgent(a);
                 _agentParties.Add(a, agentGroup);
             }
-            _pendingAgents.Clear();
+            PendingAgents.Clear();
         }
 
         public void FinishBattle(IEnumerable<T> battleAgents)
@@ -74,7 +84,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             {
                 agent.Value.UnregisterAgent(agent.Key);
             }
-            _pendingAgents.Clear();
+            PendingAgents.Clear();
             _agentParties.Clear();
         }
     }
