@@ -24,7 +24,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
 
         protected AgentMovementSensor(TAgent agent)
         {
-            CanViewConstant = Observations.canViewConstant;
+            CanViewConstant = Observations.CanViewConstant;
             _agent = agent;
             
             _data = new float [SensorCount];
@@ -34,7 +34,12 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
         private float[] GetData()
         {
             var obs =  EconomySystem.GetObservations(_agent);
+            /*var oneHot = new float [(int)EAdventurerScreen.Adventurer];
+            var index = Convert.ToInt32(EconomySystem.ActionChoice);
+            oneHot[index] = 1;*/
+            
             var outputData = new List<float>();
+            
             foreach (var ob in obs)
             {
                 try
@@ -48,7 +53,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
                 }
             }
 
-            if (Observations.debugObs)
+            if (Observations.DebugObs)
             {
                 var outputString = GetName() + "\t" + outputData.Count + "\t" + _data.Length;
                 Debug.Log(outputString);
@@ -60,14 +65,17 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
         public override void Update()
         {
             var d = GetData();
-            if (_agent.ChosenScreen.Equals(ValidScreen) || CanViewConstant)
+            if (d.Length <= _data.Length)
             {
-                Array.Copy(_data, d, _data.Length);
-                _data = d;
-            }
-            else
-            {
-                Array.Clear(_data, 0, _data.Length);
+                if (_agent.ChosenScreen.Equals(ValidScreen) || CanViewConstant)
+                {
+                    Array.Copy(_data, d, _data.Length);
+                    _data = d;
+                }
+                else
+                {
+                    Array.Clear(_data, 0, _data.Length);
+                }
             }
         }
     }

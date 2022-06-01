@@ -24,7 +24,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
     
         public ObsData[] GetTravelObservations(AdventurerAgent agent)
         {
-            return new [] { new CategoricalObsData<EBattleEnvironments>(GetBattle(agent))
+            return new ObsData[] { new CategoricalObsData<EBattleEnvironments>(GetBattle(agent))
             {
                 Name="travelLocation",
             }};

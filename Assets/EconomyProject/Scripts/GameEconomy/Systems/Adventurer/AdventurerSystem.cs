@@ -21,7 +21,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public Dictionary<AdventurerAgent, EAdventureStates> adventureStates;
 
-        public static int ObservationSize => BattleSubSystem.SensorCount + AdventurerLocationSelect.SensorCount + (SystemTraining.PartySize * Enum.GetNames(typeof(EBattleEnvironments)).Length);
+        public static int ObservationSize => SensorUtils<EAdventureStates>.Length + BattleSubSystem.SensorCount + 
+                                             AdventurerLocationSelect.SensorCount + 
+                                             (SystemTraining.PartySize * SensorUtils<EBattleEnvironments>.Length * 
+                                              SensorUtils<EAdventurerTypes>.Length);
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Adventurer;
 
         public AdventurerLocationSelect locationSelect;
@@ -106,7 +109,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             }
             
             var state = GetAdventureStates(agent);
-            var battleState = new List<ObsData> { new SingleObsData {data=(float) state, Name="AdventureState"}};
+            var battleState = new List<ObsData> { new CategoricalObsData<EAdventureStates>(state) {Name="AdventureState"}};
 
             var output = state == EAdventureStates.InBattle
                 ? GetSubsystemData(agent)
@@ -135,7 +138,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                 }
             }
 
-            Debug.Log(output2.Sum(o => o.GetData.Length));
             battleState.AddRange(output2);
             battleState.AddRange(obsize);
             return battleState.ToArray();
@@ -206,13 +208,17 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public override EnabledInput[] GetEnabledInputs(AdventurerAgent agent)
         {
-            var inputChoices = new[]
+            var inputChoices = new List<EAdventurerAgentChoices>
             {
                 EAdventurerAgentChoices.Up,
                 EAdventurerAgentChoices.Down,
-                EAdventurerAgentChoices.Select,
-                EAdventurerAgentChoices.Back
+                EAdventurerAgentChoices.Select
             };
+            
+            if (SystemTraining.IncludeShop)
+            {
+                inputChoices.Add(EAdventurerAgentChoices.Back);
+            }
 
             var outputs = EconomySystemUtils<EAdventurerAgentChoices>.GetInputOfType(inputChoices);
 

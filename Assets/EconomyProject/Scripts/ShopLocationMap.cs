@@ -1,3 +1,4 @@
+using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.MLAgents.Shop;
 

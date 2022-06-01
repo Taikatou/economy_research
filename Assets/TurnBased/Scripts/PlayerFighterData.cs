@@ -16,7 +16,8 @@ namespace TurnBased.Scripts
         public GetUsableItem getUsableItem;
 
         protected override double Accuracy => 1;
-        
+        public override float BlockReduction => 2.0f;
+
         protected override void AfterAttack()
         {
             onAfterAttack?.Invoke();

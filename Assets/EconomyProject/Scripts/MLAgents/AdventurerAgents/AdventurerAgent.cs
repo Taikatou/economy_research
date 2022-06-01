@@ -105,7 +105,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             system.AgentSetChoice(this, action);
         }
 
-        public void SetAction(EAdventurerAgentChoices choice)
+        private void SetAction(EAdventurerAgentChoices choice)
         {
 	        _bForcedAction = true;
 	        _forcedAction = choice;
@@ -114,7 +114,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         public void SetAction(int input)
         {
 	        var action = (EAdventurerAgentChoices) input;
-	        Debug.Log(action);
 	        
 	        SetAction(action);
         }

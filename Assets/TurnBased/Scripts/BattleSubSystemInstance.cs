@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Data;
+using TurnBased.Scripts.AI;
 using Unity.MLAgents;
 
 namespace TurnBased.Scripts
@@ -9,7 +10,7 @@ namespace TurnBased.Scripts
 
 	public delegate void OnBattleComplete<T>(BattleSubSystemInstance<T> battle) where T : Agent;
 	public enum EBattleState { Start, PlayerTurn, EnemyTurn, Won, Lost, Flee }
-	public enum EBattleAction { Attack, Heal, Flee }
+	public enum EBattleAction { Attack, Block, Heal, Flee }
 
 	public class FighterGroup
 	{
@@ -30,19 +31,23 @@ namespace TurnBased.Scripts
 		public readonly FighterGroup PlayerFighterUnits;
 		public readonly FighterGroup EnemyFighterUnits;
 		
-		public static int SensorCount => 6 + 7;
-		
-		public double FleeChance = 0.8f;
+		public static int SensorCount => 6 + 7 + 3;
+
+		private double FleeChance = 0.8f;
 
 		public SimpleMultiAgentGroup AgentParty { get; }
 
 		public readonly T [] BattleAgents;
+
+		private EnemyAI _enemyAI;
 		public BattleSubSystemInstance(BaseFighterData[] playerUnit, BaseFighterData enemyUnit, FighterDropTable fighterDropTable,
 			OnWinDelegate<T> winDelegate, OnBattleComplete<T> completeDelegate, SimpleMultiAgentGroup agentParty, T [] battleAgents)
 		{
 			CurrentState = EBattleState.Start;
 			PlayerFighterUnits = new FighterGroup {FighterUnits = playerUnit};
 			EnemyFighterUnits = new FighterGroup {FighterUnits = new [] {enemyUnit}};
+
+			_enemyAI = new EnemyAI(EnemyFighterUnits);
 
 			CurrentState = EBattleState.PlayerTurn;
 			PlayerTurn();
@@ -56,7 +61,7 @@ namespace TurnBased.Scripts
 
 		public bool GameOver()
 		{
-			return CurrentState == EBattleState.Lost || CurrentState == EBattleState.Won || CurrentState == EBattleState.Flee;
+			return CurrentState is EBattleState.Lost or EBattleState.Won or EBattleState.Flee;
 		}
 
 		private void PlayerAttack()
@@ -80,8 +85,21 @@ namespace TurnBased.Scripts
 
 		private void EnemyTurn()
 		{
+			var action = _enemyAI.DecideAction(PlayerFighterUnits.Instance);
+			switch (action)
+			{
+				case EnemyAction.Attack:
+					DialogueText = EnemyFighterUnits.Instance.UnitName + " attacks!";
+					break;
+				case EnemyAction.Block:
+					DialogueText = EnemyFighterUnits.Instance.UnitName + " is preparing for an attack";
+					break;
+				case EnemyAction.Wait:
+					DialogueText = EnemyFighterUnits.Instance.UnitName + " is doing nothing";
+					break;
+			}
 			EnemyFighterUnits.Instance.Attack(PlayerFighterUnits.Instance);
-			DialogueText = EnemyFighterUnits.Instance.UnitName + " attacks!";
+			
 
 			if(PlayerFighterUnits.Instance.IsDead)
 			{
@@ -124,12 +142,31 @@ namespace TurnBased.Scripts
 			EnemyTurn();
 		}
 
+		private void Block()
+		{
+			PlayerFighterUnits.Instance.Block();
+			
+			DialogueText = "You are preparing for an attack";
+
+			CurrentState = EBattleState.EnemyTurn;
+			
+			EnemyTurn();
+		}
+
 		private void OnAttackButton()
 		{
 			if (CurrentState != EBattleState.PlayerTurn)
 				return;
 			
 			PlayerAttack();
+		}
+
+		private void OnBlockButton()
+		{
+			if (CurrentState != EBattleState.PlayerTurn)
+				return;
+
+			Block();
 		}
 
 		private void OnHealButton()
@@ -163,6 +200,9 @@ namespace TurnBased.Scripts
 				case EBattleAction.Heal:
 						OnHealButton();
 					break;
+				case EBattleAction.Block:
+						OnBlockButton();
+					break;
 				case EBattleAction.Flee:
 						OnFleeButton();
 					break;
@@ -193,6 +233,7 @@ namespace TurnBased.Scripts
 				new SingleObsData{data=EnemyFighterUnits.Instance.Damage, Name="EnemyFighterUnit.Damage"},
 				new SingleObsData{data=EnemyFighterUnits.Instance.HpPercent,  Name="EnemyFighterUnit.HpPercent"},
 				new SingleObsData{data=inputLocation, Name="InputLocation"},
+				new CategoricalObsData<EnemyAction>(_enemyAI.NextAction)
 			};
 		}
 

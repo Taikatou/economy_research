@@ -41,7 +41,7 @@
 
     public static class Observations
     {
-        public static bool debugObs => true;
-        public static bool canViewConstant => false;
+        public static bool DebugObs => true;
+        public static bool CanViewConstant => false;
     }
 }

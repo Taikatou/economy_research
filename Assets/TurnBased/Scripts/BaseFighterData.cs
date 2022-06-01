@@ -18,8 +18,14 @@ namespace TurnBased.Scripts
         public bool IsDead => CurrentHp <= 0;
         protected virtual double Accuracy => 0.8;
 
+        public abstract float BlockReduction { get; }
+
         private void TakeDamage(int dmg)
         {
+            if (Blocking)
+            {
+                dmg /= (int) BlockReduction;
+            }
             var newDmg = CurrentHp - dmg;
             if (newDmg < 0)
             {
@@ -47,6 +53,19 @@ namespace TurnBased.Scripts
                 enemy.TakeDamage(Damage);   
             }
             AfterAttack();
+            Blocking = false;
         }
+
+        public void Block()
+        {
+            Blocking = true;
+        }
+
+        public void Wait()
+        {
+            Blocking = false;
+        }
+        
+        public bool Blocking { get; private set; }
     }
 }

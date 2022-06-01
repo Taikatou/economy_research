@@ -14,6 +14,8 @@ namespace TurnBased.Scripts
             
         }
 
+        public override float BlockReduction => 4.0f;
+
         public static FighterData Clone(FighterData original)
         {
             var data = new FighterData
