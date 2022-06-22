@@ -35,7 +35,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 var playerData = new BaseFighterData[agents.Length];
                 for (var i = 0; i < playerData.Length; i++)
                 {
-                    playerData[i] = agents[i].GetComponent<AdventurerFighterData>().FighterData;   
+                    playerData[i] = agents[i].GetComponent<AdventurerFighterData>().FighterData;
+                    playerData[i].HashCode = agents[i].GetHashCode();
                 }
                 
                 var enemyData = FighterData.Clone(enemyFighter.data);
@@ -97,7 +98,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         public void SelectBattle(AdventurerAgent agent, EBattleAction action)
         {
             var battleSystem = GetSubSystem(agent);
-            battleSystem.SetInput(action);
+            battleSystem.SetInput(action, agent.GetHashCode());
         }
 
         public void StartBattle(AdventurerAgent agent, EBattleEnvironments location)

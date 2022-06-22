@@ -28,7 +28,7 @@
 
     public static class SystemTraining
     {
-        public static int PartySize => 3;
+        public static int PartySize => 2;
         public static bool RemoveRequestTime => false;
 
         public static readonly bool IncludeShop = false;

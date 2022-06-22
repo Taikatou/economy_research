@@ -104,10 +104,10 @@ namespace EconomyProject.Scripts.UI
             GetCurrentAgent.UpdateAgent(agent);
 		}
 
-		protected void UpdateSystems()
+        private void UpdateSystems()
 		{
-			requestSystem.Refresh();
-			shopCraftingSystemBehaviour.system.shopSubSubSystem.Refresh();
+			requestSystem?.Refresh();
+			shopCraftingSystemBehaviour?.system.shopSubSubSystem.Refresh();
 		}
 
         protected virtual bool Selected()

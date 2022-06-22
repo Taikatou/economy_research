@@ -67,5 +67,7 @@ namespace TurnBased.Scripts
         }
         
         public bool Blocking { get; private set; }
+
+        public int HashCode { get; set; }
     }
 }

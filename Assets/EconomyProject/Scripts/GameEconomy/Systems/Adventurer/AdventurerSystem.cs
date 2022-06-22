@@ -87,7 +87,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                 if (subSystem != null)
                 {
                     var i = battleLocationSelect.GetObs(agent);
-                    var obs = subSystem.GetSubsystemObservations(i);
+                    var obs = subSystem.GetSubsystemObservations(i, agent.GetHashCode());
                     toReturn = obs;
                 }
                 else

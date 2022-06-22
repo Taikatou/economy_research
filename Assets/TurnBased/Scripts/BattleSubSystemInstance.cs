@@ -14,7 +14,7 @@ namespace TurnBased.Scripts
 
 	public class FighterGroup
 	{
-		private int Index = 0;
+		public int Index { get; set; }
 		public BaseFighterData[] FighterUnits;
 		public BaseFighterData Instance => FighterUnits[Index];
 	}
@@ -31,7 +31,7 @@ namespace TurnBased.Scripts
 		public readonly FighterGroup PlayerFighterUnits;
 		public readonly FighterGroup EnemyFighterUnits;
 		
-		public static int SensorCount => 6 + 7 + 3;
+		public static int SensorCount => 6 + 7 + 4;
 
 		private double FleeChance = 0.8f;
 
@@ -78,8 +78,17 @@ namespace TurnBased.Scripts
 			}
 			else
 			{
-				CurrentState = EBattleState.EnemyTurn;
-				EnemyTurn();
+				PlayerFighterUnits.Index++;
+				if (PlayerFighterUnits.Index == SystemTraining.PartySize)
+				{
+					PlayerFighterUnits.Index = 0;
+					CurrentState = EBattleState.EnemyTurn;
+					EnemyTurn();	
+				}
+				else
+				{
+					DialogueText = "It is player: " + PlayerFighterUnits.Index + "s turn";
+				}
 			}
 		}
 
@@ -190,23 +199,31 @@ namespace TurnBased.Scripts
 			}
 		}
 
-		public void SetInput(EBattleAction action)
+		public void SetInput(EBattleAction action, int hashCode)
 		{
-			switch (action)
+			if (IsTurn(hashCode))
 			{
-				case EBattleAction.Attack:
+				switch (action)
+				{
+					case EBattleAction.Attack:
 						OnAttackButton();
-					break;
-				case EBattleAction.Heal:
+						break;
+					case EBattleAction.Heal:
 						OnHealButton();
-					break;
-				case EBattleAction.Block:
+						break;
+					case EBattleAction.Block:
 						OnBlockButton();
-					break;
-				case EBattleAction.Flee:
+						break;
+					case EBattleAction.Flee:
 						OnFleeButton();
-					break;
+						break;
+				}	
 			}
+		}
+
+		public bool IsTurn(int hashTurn)
+		{
+			return PlayerFighterUnits.Instance.HashCode == hashTurn;
 		}
 
 		public CraftingDropReturn GetCraftingDropItem()
@@ -219,9 +236,10 @@ namespace TurnBased.Scripts
 			return _fighterDropTable.Exp;
 		}
 
-		public ObsData[] GetSubsystemObservations(float inputLocation)
+		public ObsData[] GetSubsystemObservations(float inputLocation, int hashCode)
 		{
-			var playerName = UnitOneHotEncode[EnemyFighterUnits.Instance.UnitName];
+			var playerName = _unitOneHotEncode[EnemyFighterUnits.Instance.UnitName];
+			var yourTurn = IsTurn(hashCode)? 1.0f : 0.0f;
 			return new ObsData []
 			{
 				new BaseCategoricalObsData(playerName, 8)
@@ -233,11 +251,12 @@ namespace TurnBased.Scripts
 				new SingleObsData{data=EnemyFighterUnits.Instance.Damage, Name="EnemyFighterUnit.Damage"},
 				new SingleObsData{data=EnemyFighterUnits.Instance.HpPercent,  Name="EnemyFighterUnit.HpPercent"},
 				new SingleObsData{data=inputLocation, Name="InputLocation"},
+				new SingleObsData{data=yourTurn, Name="yourTurn"},
 				new CategoricalObsData<EnemyAction>(_enemyAI.NextAction)
 			};
 		}
 
-		private readonly Dictionary<string, int> UnitOneHotEncode = new Dictionary<string, int>()
+		private readonly Dictionary<string, int> _unitOneHotEncode = new()
 		{
 			{"Bear", 0},
 			{"Buffalo", 1},

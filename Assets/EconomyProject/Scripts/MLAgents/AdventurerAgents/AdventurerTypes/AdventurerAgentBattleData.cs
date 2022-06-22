@@ -34,7 +34,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes
                     if (TotalExp < expSum)
                     {
                         level = row.level;
-                        Debug.Log(level + "\t" + TotalExp);
                         break;
                     }
                     Debug.Log(TotalExp + "\t" + expSum + "\t" + row.level);
