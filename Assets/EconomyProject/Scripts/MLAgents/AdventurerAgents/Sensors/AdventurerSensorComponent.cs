@@ -11,6 +11,10 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
         public override ISensor[] CreateSensors()
         {
             var behave = FindObjectOfType<AdventurerSystemBehaviour>();
+            if (behave == null)
+            {
+                return new ISensor[] { };
+            }
 
             if (ConfigSystem.skipShopSetup)
             {

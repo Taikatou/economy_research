@@ -30,7 +30,7 @@ namespace EconomyProject.Scripts.UI
 
         public void SwitchButton()
         {
-	        UISpec.craftActive = !UISpec.craftActive;
+	        UISpec.CraftActive = !UISpec.CraftActive;
 			CheckActiveBattle();
 			UpdateMenu();
         }
@@ -50,12 +50,12 @@ namespace EconomyProject.Scripts.UI
         {
             if (showPlayMenus && craftMenu != null && adventurerMenu != null)
             {
-                craftMenu.SetActive(UISpec.craftActive);
-                adventurerMenu.SetActive(!UISpec.craftActive); 
+                craftMenu.SetActive(UISpec.CraftActive);
+                adventurerMenu.SetActive(!UISpec.CraftActive); 
 				
 				if(activeBattle == true)
 				{
-					BattleUI.SetActive(!UISpec.craftActive);
+					BattleUI.SetActive(!UISpec.CraftActive);
 				}
             }
         }

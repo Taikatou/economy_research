@@ -1,6 +1,7 @@
 ﻿using System;
 using EconomyProject.Scripts.Interfaces;
 using EconomyProject.Scripts.Inventory;
+using EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes;
 using Inventory;
 using TurnBased.Scripts;
 using UnityEngine;
@@ -13,6 +14,8 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         public Sprite sprite;
         public PlayerFighterData PlayerData;
         public AdventurerInventory adventurerInventory;
+
+        public AdventurerAgentBattleData adventurerAgentBattleData;
         public BaseFighterData FighterData => PlayerData;
 
         public void Setup()
@@ -23,9 +26,15 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
                 UnitName = "Player",
                 MaxHp = startHp,
                 CurrentHp = startHp,
-                onAfterAttack=OnAfterAttack,
-                getUsableItem=GetUsableItem
+                OnAfterAttack=OnAfterAttack,
+                GetUsableItem=GetUsableItem,
+                BonusDamage=GetLevelDamage
             };
+        }
+
+        private int GetLevelDamage()
+        {
+            return adventurerAgentBattleData != null ? adventurerAgentBattleData.BonusDamage : 0;
         }
 
         private void OnAfterAttack()

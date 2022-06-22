@@ -8,6 +8,6 @@ public class GetCurrentAgentAggregator : MonoBehaviour
     public GetCurrentAdventurerAgent CurrentAdventurerAgent;
     public GetCurrentShopAgent CurrentShopAgent;
 
-    public IEconomyAgent CurrentAgent => UISpec.craftActive ? (IEconomyAgent)CurrentShopAgent.CurrentAgent : 
+    public IEconomyAgent CurrentAgent => UISpec.CraftActive ? (IEconomyAgent)CurrentShopAgent.CurrentAgent : 
                                                         (IEconomyAgent)CurrentAdventurerAgent.CurrentAgent;
 }

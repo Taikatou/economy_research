@@ -212,13 +212,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             {
                 EAdventurerAgentChoices.Up,
                 EAdventurerAgentChoices.Down,
-                EAdventurerAgentChoices.Select
+                EAdventurerAgentChoices.Select,
+                EAdventurerAgentChoices.Back
             };
-            
-            if (SystemTraining.IncludeShop)
-            {
-                inputChoices.Add(EAdventurerAgentChoices.Back);
-            }
 
             var outputs = EconomySystemUtils<EAdventurerAgentChoices>.GetInputOfType(inputChoices);
 

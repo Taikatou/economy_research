@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 8440662294524558494}
   - component: {fileID: 1401570310200512078}
   - component: {fileID: -4416621978120130695}
-  - component: {fileID: -4039075242379977448}
+  - component: {fileID: 1308730154}
   m_Layer: 0
   m_Name: LearningAdventurerAgent
   m_TagString: Untagged
@@ -39,6 +39,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 18.320316, y: 2.1320171, z: -9.775942}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -145,14 +146,12 @@ MonoBehaviour:
     maxStep: 10000
   hasUpgradedFromAgentParameters: 1
   MaxStep: 10000
-  adventurerType: 2
   inventory: {fileID: 1817350387931501863}
   adventurerInventory: {fileID: 4250931923004593224}
   wallet: {fileID: -4706628768726033178}
   adventurerInput: {fileID: 0}
   requestTaker: {fileID: 3175469178531096349}
   fighterData: {fileID: 342237269981398615}
-  levelUpComponent: {fileID: -4039075242379977448}
 --- !u!114 &3175469178531096349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,7 +241,7 @@ MonoBehaviour:
   DemonstrationName: AdventurerAgent
   DemonstrationDirectory: Assets/Demonstrations
   crafting: 0
---- !u!114 &-4039075242379977448
+--- !u!114 &1308730154
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -251,7 +250,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7707616417561859250}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26a25f11e0334e447b2882b9c95661db, type: 3}
+  m_Script: {fileID: 11500000, guid: c8f7439cc90c1434dbbb54d9b14cf991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxExp: 10000
+  adventurerType: 1
+  brawlerCurve: {fileID: 11400000, guid: b6da8374fcdfc434fb1324cc90f7442a, type: 2}
+  healerCurve: {fileID: 11400000, guid: 76499ea89adf8b04dacdb5b3c11039ab, type: 2}
+  tankCurve: {fileID: 11400000, guid: 3c55869dc8cbc554590e77c71d49340e, type: 2}

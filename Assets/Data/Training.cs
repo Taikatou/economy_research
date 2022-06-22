@@ -23,7 +23,7 @@
 
     public static class UISpec
     {
-        public static bool craftActive { get; set; }
+        public static bool CraftActive { get; set; }
     }
 
     public static class SystemTraining
@@ -41,7 +41,7 @@
 
     public static class Observations
     {
-        public static bool DebugObs => true;
+        public static bool DebugObs => false;
         public static bool CanViewConstant => false;
     }
 }

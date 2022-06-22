@@ -6,25 +6,29 @@ using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.Inventory;
 using UnityEngine;
 using EconomyProject.Scripts.GameEconomy.Systems;
+using EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes;
 using Inventory;
-using LevelSystem;
 using Unity.MLAgents.Actuators;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 {
 	public class AdventurerAgent : AgentScreen<EAdventurerScreen>, IEconomyAgent
-    {
-	    public EAdventurerTypes adventurerType;
+	{
 		public AgentInventory inventory;
         public AdventurerInventory adventurerInventory;
         public EconomyWallet wallet;
         public AdventurerInput adventurerInput;
         public AdventurerRequestTaker requestTaker;
         public AdventurerFighterData fighterData;
-        public LevelUpComponent levelUpComponent;
 
-		public override AgentType agentType => AgentType.Adventurer;
+        private EAdventurerAgentChoices _forcedAction;
+        private bool _bForcedAction;
+        private IEconomyAgent _economyAgentImplementation;
 
+        public override AgentType agentType => AgentType.Adventurer;
+
+        public EAdventurerTypes adventurerType => GetComponent<AdventurerAgentBattleData>().adventurerType;
+        
 		public override EAdventurerScreen ChosenScreen
 		{
 			get
@@ -37,10 +41,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 				return toReturn;
 			}
 		}
-
-		private EAdventurerAgentChoices _forcedAction;
-		private bool _bForcedAction;
-		private IEconomyAgent _economyAgentImplementation;
 
 		public void Start()
 		{

@@ -5,12 +5,11 @@ namespace LevelSystem
 {
     public abstract class LevelUpComponent : MonoBehaviour
     {
-        public float MaxExp;
         protected float TotalExp { get; set; }
 
         public abstract int Level { get; }
 
-        public void Start()
+        public virtual void Start()
         {
             TotalExp = 0;
         }
@@ -19,7 +18,7 @@ namespace LevelSystem
         {
             if (exp > 0)
             {
-                TotalExp = Math.Max(TotalExp + exp, MaxExp);
+                TotalExp += exp;
             }
         }
     }

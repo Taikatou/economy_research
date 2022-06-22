@@ -19,10 +19,9 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Actuators
         }
         public void OnActionReceived(ActionBuffers actionBuffers)
         {
-            
             var action = (EAdventurerAgentChoices) actionBuffers.DiscreteActions[0];
 
-/*            switch (action)
+            /*switch (action)
             {
                 case EAdventurerAgentChoices.AForest:
                     StartBattle(EBattleEnvironments.Forest);

@@ -6,6 +6,7 @@ using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.UI;
+using LevelSystem;
 using TurnBased.Scripts;
 using Unity.MLAgents;
 
@@ -109,6 +110,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         public void RemoveAgent(AdventurerAgent agent)
         {
             currentParties[reverseCurrentParties[agent]].RemoveFromQueue(agent);
+            reverseCurrentParties.Remove(agent);
             SetAdventureState.Invoke(agent, EAdventureStates.OutOfBattle);
         }
 
@@ -171,11 +173,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             {
                 var craftingDrop = battle.GetCraftingDropItem();
                 var craftingInventory = agent.GetComponent<AdventurerRequestTaker>();
-                
-                if (agent.levelUpComponent != null)
+
+                var levelUpComponent = agent.GetComponent<LevelUpComponent>();
+                if (levelUpComponent != null)
                 {
                     var exp = battle.GetExp();
-                    agent.levelUpComponent.AddExp(exp);
+                    levelUpComponent.AddExp(exp);
                 }
 
                 craftingInventory.CheckItemAdd(craftingDrop.Resource, craftingDrop.Count, OnItemAdd, OnRequestComplete);   
