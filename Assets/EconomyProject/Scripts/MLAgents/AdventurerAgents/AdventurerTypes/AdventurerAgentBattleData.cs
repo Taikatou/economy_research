@@ -13,8 +13,8 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes
         public LevelCurve healerCurve;
         public LevelCurve tankCurve;
 
-        private LevelCurve _agentLevelCurve;
-        public int BonusDamage => _agentLevelCurve.levelProgressionParts[Level].damageIncrease;
+        private LevelCurve AgentLevelCurve => AdventurerData[adventurerType];
+        public int BonusDamage => AgentLevelCurve.levelProgressionParts[Level].damageIncrease;
         private Dictionary<EAdventurerTypes, LevelCurve> AdventurerData => new()
         {
             {EAdventurerTypes.Brawler, brawlerCurve},
@@ -28,24 +28,20 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes
             {
                 var level = 0;
                 var expSum = 0;
-                foreach(var row in _agentLevelCurve.levelProgressionParts)
+                foreach(var row in AgentLevelCurve.levelProgressionParts)
                 {
-                    expSum += + row.expToNextLevel;
+                    expSum += row.expToNextLevel;
                     if (TotalExp < expSum)
                     {
-                        level =  row.level;
+                        level = row.level;
+                        Debug.Log(level + "\t" + TotalExp);
                         break;
                     }
+                    Debug.Log(TotalExp + "\t" + expSum + "\t" + row.level);
                 }
 
                 return level;
             }
-        }
-
-        public override void Start()
-        {
-            base.Start();
-            _agentLevelCurve = AdventurerData[adventurerType];
         }
     }
 }
