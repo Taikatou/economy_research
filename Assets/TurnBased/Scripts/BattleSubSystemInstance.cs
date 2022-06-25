@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Data;
 using TurnBased.Scripts.AI;
 using Unity.MLAgents;
+using UnityEngine;
 
 namespace TurnBased.Scripts
 {
@@ -12,11 +13,30 @@ namespace TurnBased.Scripts
 	public enum EBattleState { Start, PlayerTurn, EnemyTurn, Won, Lost, Flee }
 	public enum EBattleAction { Attack, Block, Heal, Flee }
 
-	public class FighterGroup
+	public class FighterGroup<T> where T : BaseFighterData
 	{
 		public int Index { get; set; }
-		public BaseFighterData[] FighterUnits;
-		public BaseFighterData Instance => FighterUnits[Index];
+		public T[] FighterUnits;
+		public T Instance => FighterUnits[Index];
+	}
+
+	public class PlayerFighterGroup : FighterGroup<PlayerFighterData>
+	{
+		public PlayerFighterGroup(PlayerFighterData[] fighters)
+		{
+			FighterUnits = fighters;
+		}
+	}
+
+	public class EnemyFighterGroup : FighterGroup<FighterData>
+	{
+		public readonly FighterType FighterType;
+
+		public EnemyFighterGroup(FighterData fighter)
+		{
+			FighterUnits = new FighterData[] {fighter};
+			FighterType = fighter.fighterType;
+		}
 	}
 
 	public class BattleSubSystemInstance<T> where T : Agent
@@ -28,24 +48,24 @@ namespace TurnBased.Scripts
 		private readonly OnWinDelegate<T> _winDelegate;
 		private readonly OnBattleComplete<T> _completeDelegate;
 
-		public readonly FighterGroup PlayerFighterUnits;
-		public readonly FighterGroup EnemyFighterUnits;
+		public readonly PlayerFighterGroup PlayerFighterUnits;
+		public readonly EnemyFighterGroup EnemyFighterUnits;
 		
 		public static int SensorCount => 6 + 7 + 4;
 
-		private double FleeChance = 0.8f;
+		private readonly double _fleeChance = 0.8f;
 
 		public SimpleMultiAgentGroup AgentParty { get; }
 
 		public readonly T [] BattleAgents;
 
-		private EnemyAI _enemyAI;
-		public BattleSubSystemInstance(BaseFighterData[] playerUnit, BaseFighterData enemyUnit, FighterDropTable fighterDropTable,
+		private readonly EnemyAI _enemyAI;
+		public BattleSubSystemInstance(PlayerFighterData[] playerUnit, FighterData enemyUnit, FighterDropTable fighterDropTable,
 			OnWinDelegate<T> winDelegate, OnBattleComplete<T> completeDelegate, SimpleMultiAgentGroup agentParty, T [] battleAgents)
 		{
 			CurrentState = EBattleState.Start;
-			PlayerFighterUnits = new FighterGroup {FighterUnits = playerUnit};
-			EnemyFighterUnits = new FighterGroup {FighterUnits = new [] {enemyUnit}};
+			PlayerFighterUnits = new PlayerFighterGroup(playerUnit);
+			EnemyFighterUnits = new EnemyFighterGroup (enemyUnit);
 
 			_enemyAI = new EnemyAI(EnemyFighterUnits);
 
@@ -94,7 +114,7 @@ namespace TurnBased.Scripts
 
 		private void EnemyTurn()
 		{
-			var action = _enemyAI.DecideAction(PlayerFighterUnits.Instance);
+			var action = _enemyAI.DecideAction(PlayerFighterUnits);
 			switch (action)
 			{
 				case EnemyAction.Attack:
@@ -107,11 +127,11 @@ namespace TurnBased.Scripts
 					DialogueText = EnemyFighterUnits.Instance.UnitName + " is doing nothing";
 					break;
 			}
-			EnemyFighterUnits.Instance.Attack(PlayerFighterUnits.Instance);
-			
+
 
 			if(PlayerFighterUnits.Instance.IsDead)
 			{
+				Debug.Log("Player Lost");
 				CurrentState = EBattleState.Lost;
 				EndBattle();
 			}
@@ -192,7 +212,7 @@ namespace TurnBased.Scripts
 				return;
 
 			var rand = new System.Random();
-			if (rand.NextDouble() < FleeChance)
+			if (rand.NextDouble() < _fleeChance)
 			{
 				CurrentState = EBattleState.Flee;
 				EndBattle();

@@ -16,23 +16,23 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
     public class BattleSubSystem
     {
         public Dictionary<AdventurerAgent, BattleSubSystemInstance<AdventurerAgent>> battleSystems { get; }
-        public Dictionary<EBattleEnvironments, BattlePartySubsystem> currentParties { get; private set; }
-        private Dictionary<AdventurerAgent, EBattleEnvironments> reverseCurrentParties { get; }
+        public Dictionary<EBattleEnvironments, BattlePartySubsystem> CurrentParties { get; private set; }
+        private Dictionary<AdventurerAgent, EBattleEnvironments> ReverseCurrentParties { get; }
         
         private static IEnumerable<EBattleEnvironments> BattleAsArray =>
             Enum.GetValues(typeof(EBattleEnvironments)).Cast<EBattleEnvironments>().ToArray();
 
         public static int SensorCount => BattleSubSystemInstance<AdventurerAgent>.SensorCount;
 
-        private readonly SetAdventureState SetAdventureState;
+        private readonly SetAdventureState _setAdventureState;
 
         public BattleSubSystem(TravelSubSystem travelSubsystem, SetAdventureState setAdventureState)
         {
-            SetAdventureState = setAdventureState;
+            _setAdventureState = setAdventureState;
             
             void SetupNewBattle(AdventurerAgent[] agents, FighterObject enemyFighter, SimpleMultiAgentGroup party)
             {
-                var playerData = new BaseFighterData[agents.Length];
+                var playerData = new PlayerFighterData[agents.Length];
                 for (var i = 0; i < playerData.Length; i++)
                 {
                     playerData[i] = agents[i].GetComponent<AdventurerFighterData>().FighterData;
@@ -52,17 +52,17 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 foreach (var agent in agents)
                 {
                     battleSystems.Add(agent, newSystem);
-                    SetAdventureState.Invoke(agent, EAdventureStates.InBattle);   
+                    _setAdventureState.Invoke(agent, EAdventureStates.InBattle);   
                 }
             }
             
             battleSystems = new Dictionary<AdventurerAgent, BattleSubSystemInstance<AdventurerAgent>>();
-            currentParties = new Dictionary<EBattleEnvironments, BattlePartySubsystem>();
-            reverseCurrentParties = new Dictionary<AdventurerAgent, EBattleEnvironments>();
+            CurrentParties = new Dictionary<EBattleEnvironments, BattlePartySubsystem>();
+            ReverseCurrentParties = new Dictionary<AdventurerAgent, EBattleEnvironments>();
             foreach (var battle in BattleAsArray)
             {
                 var party = new BattlePartySubsystem(SystemTraining.PartySize, battle, travelSubsystem);
-                currentParties.Add(battle, party);
+                CurrentParties.Add(battle, party);
                 party.setupNewBattle = SetupNewBattle;
             }
         }
@@ -70,17 +70,17 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         private void EndBattle(AdventurerAgent agent)
         {
             battleSystems.Remove(agent);
-            reverseCurrentParties.Remove(agent);
+            ReverseCurrentParties.Remove(agent);
         }
 
         public void Setup()
         {
             foreach (var battle in BattleAsArray)
             {
-                currentParties[battle].Setup();
+                CurrentParties[battle].Setup();
             }
             battleSystems.Clear();
-            reverseCurrentParties.Clear();
+            ReverseCurrentParties.Clear();
         }
 
         public BattleSubSystemInstance<AdventurerAgent> GetSubSystem(AdventurerAgent agent)
@@ -103,27 +103,27 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         public void StartBattle(AdventurerAgent agent, EBattleEnvironments location)
         {
-            SetAdventureState.Invoke(agent, EAdventureStates.InQueue);
-            currentParties[location].AddAgent(agent);
-            reverseCurrentParties.Add(agent, location);
+            _setAdventureState.Invoke(agent, EAdventureStates.InQueue);
+            CurrentParties[location].AddAgent(agent);
+            ReverseCurrentParties.Add(agent, location);
         }
 
         public void RemoveAgent(AdventurerAgent agent)
         {
-            currentParties[reverseCurrentParties[agent]].RemoveFromQueue(agent);
-            reverseCurrentParties.Remove(agent);
-            SetAdventureState.Invoke(agent, EAdventureStates.OutOfBattle);
+            CurrentParties[ReverseCurrentParties[agent]].RemoveFromQueue(agent);
+            ReverseCurrentParties.Remove(agent);
+            _setAdventureState.Invoke(agent, EAdventureStates.OutOfBattle);
         }
 
         private void OnComplete(BattleSubSystemInstance<AdventurerAgent> systemInstance)
         {
             foreach (var agent in systemInstance.BattleAgents)
             {
-                if (reverseCurrentParties.ContainsKey(agent))
+                if (ReverseCurrentParties.ContainsKey(agent))
                 {
-                    var location = reverseCurrentParties[agent];
-                    currentParties[location].RemoveAgent(agent);
-                    reverseCurrentParties.Remove(agent);
+                    var location = ReverseCurrentParties[agent];
+                    CurrentParties[location].RemoveAgent(agent);
+                    ReverseCurrentParties.Remove(agent);
                 }
 
                 if(systemInstance.CurrentState == EBattleState.Lost)
@@ -133,7 +133,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                     fighterData.PlayerData.ResetHp();
                 }
             
-                SetAdventureState(agent, EAdventureStates.OutOfBattle);
+                _setAdventureState(agent, EAdventureStates.OutOfBattle);
                 EndBattle(agent);   
             }
         }

@@ -1,4 +1,5 @@
-﻿using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+﻿using Data;
+using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.UI.Adventurer

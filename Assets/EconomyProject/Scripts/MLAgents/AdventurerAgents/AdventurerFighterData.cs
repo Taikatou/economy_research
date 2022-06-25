@@ -16,7 +16,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         public AdventurerInventory adventurerInventory;
 
         public AdventurerAgentBattleData adventurerAgentBattleData;
-        public BaseFighterData FighterData => PlayerData;
+        public PlayerFighterData FighterData => PlayerData;
 
         public void Setup()
         {

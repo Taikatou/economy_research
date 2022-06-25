@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Data;
 using Inventory;
 using LevelSystem;
 using UnityEngine;
@@ -18,8 +19,8 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes
         private Dictionary<EAdventurerTypes, LevelCurve> AdventurerData => new()
         {
             {EAdventurerTypes.Brawler, brawlerCurve},
-            {EAdventurerTypes.Healer, healerCurve},
-            {EAdventurerTypes.Tank, tankCurve}
+            {EAdventurerTypes.Swordsman, healerCurve},
+            {EAdventurerTypes.Mage, tankCurve}
         };
 
         public override int Level

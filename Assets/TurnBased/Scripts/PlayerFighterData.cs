@@ -1,4 +1,5 @@
-﻿using Inventory;
+﻿using Data;
+using Inventory;
 
 
 namespace TurnBased.Scripts
@@ -10,6 +11,7 @@ namespace TurnBased.Scripts
     public delegate int BonusDamage();
     public class PlayerFighterData : BaseFighterData
     {
+        public EAdventurerTypes adventurerType;
         private UsableItem UsableItem => GetUsableItem.Invoke();
 
         public override int Damage

@@ -14,12 +14,12 @@ namespace EconomyProject.Scripts.UI.Adventurer
         public void Update()
         {
             var players = "";
-            var currentParties = adventurerSystem.system.battleSubSystem.currentParties;
+            var currentParties = adventurerSystem.system.battleSubSystem.CurrentParties;
             if(currentParties.ContainsKey(environment))
             {
                 foreach (var agent in currentParties[environment].PendingAgents)
                 {
-                    players += agent.adventurerType.ToString() + "\n";
+                    players += agent.AdventurerType.ToString() + "\n";
                 }
             }
 

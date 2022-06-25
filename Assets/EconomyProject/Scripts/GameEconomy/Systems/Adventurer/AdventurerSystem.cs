@@ -125,11 +125,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             {
                 for (var i = 0; i < SystemTraining.PartySize; i++)
                 {
-                    var party = battleSubSystem.currentParties[battle];
+                    var party = battleSubSystem.CurrentParties[battle];
                     if (i < party.PendingAgents.Count)
                     {
                         var a = party.PendingAgents[i];
-                        obsize.Add(new CategoricalObsData<EAdventurerTypes>(a.adventurerType));
+                        obsize.Add(new CategoricalObsData<EAdventurerTypes>(a.AdventurerType));
                     }
                     else
                     {

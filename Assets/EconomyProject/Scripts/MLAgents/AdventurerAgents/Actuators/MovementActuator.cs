@@ -1,3 +1,4 @@
+using Data;
 using EconomyProject.Scripts.GameEconomy;
 using Unity.MLAgents.Actuators;
 

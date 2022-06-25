@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Data;
 using UnityEngine;
 
 namespace Inventory
 {
 	public enum ECraftingChoice { BeginnerSword, IntermediateSword, AdvancedSword, EpicSword, MasterSword, UltimateSwordOfPower }
-	public enum EAdventurerTypes { All, Tank, Healer, Brawler }
 
-    [Serializable]
+	[Serializable]
     public struct UsableItemDetails
     {
 	    public Sprite icon;

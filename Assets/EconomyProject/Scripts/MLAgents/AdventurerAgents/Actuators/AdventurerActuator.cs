@@ -1,3 +1,4 @@
+using Data;
 using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using Unity.MLAgents.Actuators;

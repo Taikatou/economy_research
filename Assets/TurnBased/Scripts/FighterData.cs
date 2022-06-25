@@ -5,6 +5,7 @@ namespace TurnBased.Scripts
     [Serializable]
     public class FighterData : BaseFighterData
     {
+        public FighterType fighterType;
         public int damage;
 
         public override int Damage => damage;

@@ -9,14 +9,13 @@ namespace TurnBased.Scripts.AI
     
     public class EnemyAI
     {
-        private readonly FighterGroup _enemyFighterUnits;
+        private readonly EnemyFighterGroup _enemyFighterUnits;
 
         public EnemyAction NextAction { get; private set; }
 
-        public EnemyAI(FighterGroup enemyFighterUnits)
+        public EnemyAI(EnemyFighterGroup enemyFighterUnits)
         {
             _enemyFighterUnits = enemyFighterUnits;
-            
         }
 
         private void ChooseRandomAction()
@@ -27,13 +26,13 @@ namespace TurnBased.Scripts.AI
             NextAction = randomAction;
         }
 
-        public EnemyAction DecideAction(BaseFighterData playerInstance)
+        public EnemyAction DecideAction(PlayerFighterGroup playerInstance)
         {
             EnemyAction privateAction = NextAction;
             switch (NextAction)
             {
                 case EnemyAction.Attack:
-                    _enemyFighterUnits.Instance.Attack(playerInstance);
+                    Attack(playerInstance);
                     break;
                 case EnemyAction.Block:
                     _enemyFighterUnits.Instance.Block();
@@ -44,6 +43,35 @@ namespace TurnBased.Scripts.AI
             }
             ChooseRandomAction();
             return privateAction;
+        }
+
+        private void Attack(PlayerFighterGroup playerInstance)
+        {
+            foreach (var fighter in playerInstance.FighterUnits)
+            {
+                if (fighter.Blocking)
+                {
+                    _enemyFighterUnits.Instance.Attack(fighter);
+                    return;
+                }
+            }
+
+            var maxDamage = DamageModifier.Weak;
+            PlayerFighterData playerToAttack = null;
+            foreach (var fighter in playerInstance.FighterUnits)
+            {
+                var damage = FightingRelationships.GetDamage(fighter.adventurerType, _enemyFighterUnits.FighterType);
+                if (damage >= maxDamage)
+                {
+                    damage = maxDamage;
+                    playerToAttack = fighter;
+                }
+            }
+
+            if (playerToAttack != null)
+            {
+                _enemyFighterUnits.Instance.Attack(playerToAttack);
+            }
         }
     }
 }

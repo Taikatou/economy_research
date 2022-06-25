@@ -27,7 +27,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 
         public override AgentType agentType => AgentType.Adventurer;
 
-        public EAdventurerTypes adventurerType => GetComponent<AdventurerAgentBattleData>().adventurerType;
+        public EAdventurerTypes AdventurerType => GetComponent<AdventurerAgentBattleData>().adventurerType;
         
 		public override EAdventurerScreen ChosenScreen
 		{

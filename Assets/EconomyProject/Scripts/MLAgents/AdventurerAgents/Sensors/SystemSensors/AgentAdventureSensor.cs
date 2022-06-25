@@ -1,3 +1,4 @@
+using Data;
 using EconomyProject.Scripts.GameEconomy.Systems;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors.SystemSensors
