@@ -37,6 +37,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 {
                     playerData[i] = agents[i].GetComponent<AdventurerFighterData>().FighterData;
                     playerData[i].HashCode = agents[i].GetHashCode();
+                    var levelComp = agents[i].GetComponent<LevelUpComponent>();
+                    if (levelComp != null)
+                    {
+                        playerData[i].level = levelComp.Level;   
+                    }
                 }
                 
                 var enemyData = FighterData.Clone(enemyFighter.data);

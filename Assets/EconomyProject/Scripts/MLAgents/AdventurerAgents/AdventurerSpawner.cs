@@ -3,7 +3,6 @@ using Data;
 using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes;
-using Inventory;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
@@ -28,6 +27,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
                 var random = new System.Random();
                 var battleData = agent.GetComponent<AdventurerAgentBattleData>();
                 battleData.adventurerType = (EAdventurerTypes) values.GetValue(random.Next(1, values.Length));
+                battleData.OnLevelUp += adventurer.LevelUpCheck;
             }
 
             var taker = adventurer.GetComponent<AdventurerRequestTaker>();
@@ -35,7 +35,5 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             taker.requestRecord = requestRecord;
             return agent;
         }
-        
-        
     }
 }

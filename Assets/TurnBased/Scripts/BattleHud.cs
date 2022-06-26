@@ -16,7 +16,7 @@ namespace TurnBased.Scripts
 		{
 			_fighterUnit = fighterUnit;
 			nameText.text = fighterUnit.UnitName;
-			levelText.text = "Lvl ?";
+			levelText.text = "Lvl " + fighterUnit.Level;
 			hpSlider.maxValue = fighterUnit.MaxHp;
 			hpSlider.value = fighterUnit.CurrentHp;
 		}

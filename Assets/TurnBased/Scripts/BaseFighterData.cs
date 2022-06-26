@@ -19,6 +19,7 @@ namespace TurnBased.Scripts
         protected virtual double Accuracy => 0.8;
 
         public abstract float BlockReduction { get; }
+        public abstract int Level { get; }
 
         private void TakeDamage(int dmg)
         {

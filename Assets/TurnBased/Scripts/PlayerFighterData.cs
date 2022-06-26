@@ -33,6 +33,9 @@ namespace TurnBased.Scripts
 
         protected override double Accuracy => 1;
         public override float BlockReduction => 2.0f;
+        public override int Level => level;
+
+        public int level = 0;
 
         protected override void AfterAttack()
         {

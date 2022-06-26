@@ -27,7 +27,9 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 
         public override AgentType agentType => AgentType.Adventurer;
 
-        public EAdventurerTypes AdventurerType => GetComponent<AdventurerAgentBattleData>().adventurerType;
+        public AdventurerAgentBattleData levelComponent;
+
+        public EAdventurerTypes AdventurerType => levelComponent.adventurerType;
         
 		public override EAdventurerScreen ChosenScreen
 		{
@@ -69,6 +71,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 	        wallet.Setup(requestTaker.requestSystem, AgentType.Adventurer);
 	        inventory.Setup();
 	        fighterData.Setup();
+	        levelComponent.Reset();
 
 	        ResetOnItem.bSetupSystems = true;
         }
@@ -116,6 +119,16 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 	        var action = (EAdventurerAgentChoices) input;
 	        
 	        SetAction(action);
+        }
+        
+        public int maxLevel = 3;
+
+        public void LevelUpCheck(int level)
+        {
+	        if (level == maxLevel)
+	        {
+		        EndEpisode();
+	        }
         }
     }
 }

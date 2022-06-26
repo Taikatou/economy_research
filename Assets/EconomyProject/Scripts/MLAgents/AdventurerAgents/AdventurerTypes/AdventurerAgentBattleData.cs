@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using Data;
-using Inventory;
 using LevelSystem;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes
 {
+    public delegate void OnLevelUp(int level);
     public class AdventurerAgentBattleData : LevelUpComponent
     {
         public EAdventurerTypes adventurerType;
@@ -18,29 +18,40 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes
         public int BonusDamage => AgentLevelCurve.levelProgressionParts[Level].damageIncrease;
         private Dictionary<EAdventurerTypes, LevelCurve> AdventurerData => new()
         {
-            {EAdventurerTypes.Brawler, brawlerCurve},
-            {EAdventurerTypes.Swordsman, healerCurve},
-            {EAdventurerTypes.Mage, tankCurve}
+            { EAdventurerTypes.Brawler, brawlerCurve },
+            { EAdventurerTypes.Swordsman, healerCurve },
+            { EAdventurerTypes.Mage, tankCurve }
         };
 
-        public override int Level
+        private int GetLevel()
         {
-            get
+            var level = 0;
+            var expSum = 0;
+            foreach(var row in AgentLevelCurve.levelProgressionParts)
             {
-                var level = 0;
-                var expSum = 0;
-                foreach(var row in AgentLevelCurve.levelProgressionParts)
+                expSum += row.expToNextLevel;
+                if (TotalExp < expSum)
                 {
-                    expSum += row.expToNextLevel;
-                    if (TotalExp < expSum)
-                    {
-                        level = row.level;
-                        break;
-                    }
-                    Debug.Log(TotalExp + "\t" + expSum + "\t" + row.level);
+                    level = row.level;
+                    break;
                 }
+                Debug.Log(TotalExp + "\t" + expSum + "\t" + row.level);
+            }
 
-                return level;
+            return level;
+        }
+
+        private int _level;
+        public override int Level => _level;
+        public OnLevelUp OnLevelUp;
+
+        protected override void LevelUpCheck()
+        {
+            var newLevel = GetLevel();
+            if (_level != newLevel)
+            {
+                _level = newLevel;
+                OnLevelUp?.Invoke(_level);
             }
         }
     }

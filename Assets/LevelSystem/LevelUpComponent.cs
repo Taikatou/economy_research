@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace LevelSystem
@@ -19,7 +18,16 @@ namespace LevelSystem
             if (exp > 0)
             {
                 TotalExp += exp;
+                LevelUpCheck();
             }
         }
+
+        public void Reset()
+        {
+            TotalExp = 0;
+            LevelUpCheck();
+        }
+
+        protected abstract void LevelUpCheck();
     }
 }

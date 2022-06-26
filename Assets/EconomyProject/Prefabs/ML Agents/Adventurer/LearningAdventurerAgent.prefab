@@ -152,6 +152,8 @@ MonoBehaviour:
   adventurerInput: {fileID: 0}
   requestTaker: {fileID: 3175469178531096349}
   fighterData: {fileID: 342237269981398615}
+  levelComponent: {fileID: 1308730154}
+  maxLevel: 3
 --- !u!114 &3175469178531096349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,6 +196,7 @@ MonoBehaviour:
   startHp: 20
   sprite: {fileID: 21300000, guid: 3f3a5ea5ace79004eba15d892dcc01a3, type: 3}
   adventurerInventory: {fileID: 4250931923004593224}
+  adventurerAgentBattleData: {fileID: 1308730154}
 --- !u!114 &8440662294524558494
 MonoBehaviour:
   m_ObjectHideFlags: 0

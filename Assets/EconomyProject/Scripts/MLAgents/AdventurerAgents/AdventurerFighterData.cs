@@ -23,7 +23,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             PlayerData = new PlayerFighterData
             {
                 Sprite = sprite,
-                UnitName = "Player",
+                UnitName = adventurerAgentBattleData.adventurerType.ToString(),
                 MaxHp = startHp,
                 CurrentHp = startHp,
                 OnAfterAttack=OnAfterAttack,
