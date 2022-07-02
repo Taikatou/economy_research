@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace TurnBased.Scripts
 {
     public delegate string AttackAction(EnemyFighterGroup enemyFighterUnits, PlayerFighterData instance);
-    public abstract class BaseFighterData
+    public abstract class BaseFighterData<T> where T : Enum
     {
         public string UnitName;
         public Sprite Sprite;
@@ -23,13 +24,13 @@ namespace TurnBased.Scripts
         public abstract float BlockReduction { get; }
         public abstract int Level { get; }
 
-        public abstract Dictionary<EBattleAction, AttackAction> attackActionMap { get; }
+        public abstract Dictionary<T, AttackAction> AttackActionMap { get; }
 
-        public AttackAction GetAttackAction(EBattleAction action)
+        public AttackAction GetAttackAction(T action)
         {
-            if (attackActionMap.ContainsKey(action))
+            if (AttackActionMap.ContainsKey(action))
             {
-                return attackActionMap[action];
+                return AttackActionMap[action];
             }
 
             return null;
@@ -59,7 +60,7 @@ namespace TurnBased.Scripts
             }
         }
 
-        public void Attack(BaseFighterData enemy)
+        public void Attack<TQ>(BaseFighterData<TQ> enemy) where TQ : Enum
         {
             var rand = new System.Random();
             var randomFloat = rand.NextDouble();

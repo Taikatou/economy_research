@@ -7,13 +7,24 @@ using TurnBased.Scripts.AI;
 namespace TurnBased.Scripts
 {
     public delegate void OnAfterAttack();
-
     public delegate UsableItem GetUsableItem();
-
     public delegate int BonusDamage();
-    public class PlayerFighterData : BaseFighterData
+    public class PlayerFighterData : BaseFighterData<EBattleAction>
     {
+        public int level = 0;
         public EAdventurerTypes AdventurerType { get; }
+
+        public OnAfterAttack OnAfterAttack { get; set; }
+        public GetUsableItem GetUsableItem { get; set; }
+        public BonusDamage BonusDamage { get; set; }
+
+        protected override double Accuracy => 1;
+        public override float BlockReduction => 2.0f;
+        public override int Level => level;
+
+        public override Dictionary<EBattleAction, AttackAction> AttackActionMap =>
+            PlayerActionMap.GetAttackActionMap(AdventurerType);
+
         private UsableItem UsableItem => GetUsableItem.Invoke();
 
         public override int Damage
@@ -28,19 +39,6 @@ namespace TurnBased.Scripts
                 return damage;
             }
         }
-
-        public OnAfterAttack OnAfterAttack { get; set; }
-        public GetUsableItem GetUsableItem { get; set; }
-        public BonusDamage BonusDamage { get; set; }
-
-        protected override double Accuracy => 1;
-        public override float BlockReduction => 2.0f;
-        public override int Level => level;
-
-        public override Dictionary<EBattleAction, AttackAction> attackActionMap =>
-            PlayerActionMap.GetAttackActionMap(AdventurerType);
-
-        public int level = 0;
 
         public PlayerFighterData(EAdventurerTypes adventurerType)
         {
