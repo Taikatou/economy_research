@@ -1,5 +1,7 @@
-﻿using Data;
+﻿using System.Collections.Generic;
+using Data;
 using Inventory;
+using TurnBased.Scripts.AI;
 
 
 namespace TurnBased.Scripts
@@ -11,7 +13,7 @@ namespace TurnBased.Scripts
     public delegate int BonusDamage();
     public class PlayerFighterData : BaseFighterData
     {
-        public EAdventurerTypes adventurerType;
+        public EAdventurerTypes AdventurerType { get; }
         private UsableItem UsableItem => GetUsableItem.Invoke();
 
         public override int Damage
@@ -35,7 +37,16 @@ namespace TurnBased.Scripts
         public override float BlockReduction => 2.0f;
         public override int Level => level;
 
+        public override Dictionary<EBattleAction, AttackAction> attackActionMap =>
+            PlayerActionMap.GetAttackActionMap(AdventurerType);
+
         public int level = 0;
+
+        public PlayerFighterData(EAdventurerTypes adventurerType)
+        {
+            AdventurerType = adventurerType;
+            UnitName = adventurerType.ToString();
+        }
 
         protected override void AfterAttack()
         {

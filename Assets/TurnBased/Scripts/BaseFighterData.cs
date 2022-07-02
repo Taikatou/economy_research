@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace TurnBased.Scripts
 {
+    public delegate string AttackAction(EnemyFighterGroup enemyFighterUnits, PlayerFighterData instance);
     public abstract class BaseFighterData
     {
         public string UnitName;
@@ -20,6 +22,18 @@ namespace TurnBased.Scripts
 
         public abstract float BlockReduction { get; }
         public abstract int Level { get; }
+
+        public abstract Dictionary<EBattleAction, AttackAction> attackActionMap { get; }
+
+        public AttackAction GetAttackAction(EBattleAction action)
+        {
+            if (attackActionMap.ContainsKey(action))
+            {
+                return attackActionMap[action];
+            }
+
+            return null;
+        }
 
         private void TakeDamage(int dmg)
         {

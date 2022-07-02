@@ -60,7 +60,7 @@ namespace TurnBased.Scripts.AI
             PlayerFighterData playerToAttack = null;
             foreach (var fighter in playerInstance.FighterUnits)
             {
-                var damage = FightingRelationships.GetDamage(fighter.adventurerType, _enemyFighterUnits.FighterType);
+                var damage = FightingRelationships.GetDamage(fighter.AdventurerType, _enemyFighterUnits.FighterType);
                 if (damage >= maxDamage)
                 {
                     damage = maxDamage;

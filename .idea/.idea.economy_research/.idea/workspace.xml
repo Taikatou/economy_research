@@ -4,31 +4,13 @@
     <list default="true" id="3a9a0144-2920-4427-8d8b-3fddc42186be" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.economy_research/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.economy_research/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scenes/TestScenes/Intransitive.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scenes/TestScenes/Intransitive.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/BattleSubSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/BattleSubSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/Inventory/AgentInventory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/Inventory/AgentInventory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerTypes/AdventurerAgentBattleData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerTypes/AdventurerAgentBattleData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerTypes/BrawlerCurve.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerTypes/BrawlerCurve.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerTypes/HealerCurve.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerTypes/HealerCurve.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerTypes/LevelCurve.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerTypes/LevelCurve.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerTypes/TankCurve.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerTypes/TankCurve.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/BaseAgentSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/BaseAgentSpawner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Craftsman/CraftingInventory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Craftsman/CraftingInventory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Craftsman/Crafting/CraftingLastUpdate.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Craftsman/Crafting/CraftingLastUpdate.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Craftsman/Crafting/CraftsmanCraftingScrollList.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Craftsman/Crafting/CraftsmanCraftingScrollList.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Craftsman/CraftsmanMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Craftsman/CraftsmanMenu.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Craftsman/Request/ScrollList/ShopRequestScrollList.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Craftsman/Request/ScrollList/ShopRequestScrollList.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/GetCurrentAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/GetCurrentAgent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Inventory/AdventurerInventoryScrollView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Inventory/AdventurerInventoryScrollView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Inventory/AdventurerShopScrollView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Inventory/AdventurerShopScrollView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Inventory/ShopInventoryScrollView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Inventory/ShopInventoryScrollView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Inventory/ShopScrollView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Inventory/ShopScrollView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/ShopUI/ScrollLists/AbstractScrollList.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/ShopUI/ScrollLists/AbstractScrollList.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Timers/EconomyScene_timers.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Timers/EconomyScene_timers.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerFighterData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerFighterData.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Timers/Intransitive_timers.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Timers/Intransitive_timers.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TurnBased/Scripts/AI/EnemyAI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TurnBased/Scripts/AI/EnemyAI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TurnBased/Scripts/BaseFighterData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TurnBased/Scripts/BaseFighterData.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TurnBased/Scripts/BattleSubSystemInstance.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TurnBased/Scripts/BattleSubSystemInstance.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TurnBased/Scripts/PlayerFighterData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TurnBased/Scripts/PlayerFighterData.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/RiderScriptEditorPersistedState.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/RiderScriptEditorPersistedState.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,6 +139,7 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/SetPropertyUtility.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ml-agents/com.unity.ml-agents/Tests/Editor/Communicator/GrpcExtensionsTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/GraphicRaycaster.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/TurnBased/Scripts/AI/PlayerActionMap.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/CanvasUpdateRegistry.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerSpawner.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMPro_Private.cs" root0="SKIP_HIGHLIGHTING" />
@@ -224,7 +207,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="XThreadsFramesViewSplitterKey" value="0.32668328" />
+    <property name="XThreadsFramesViewSplitterKey" value="0.6717949" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="rider.run.widget.enabled.cache" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
@@ -241,10 +224,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="26788">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="22848">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="26788" />
+      <option name="pid" value="22848" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -312,7 +295,7 @@
       <workItem from="1656187629742" duration="601000" />
       <workItem from="1656242657444" duration="1177000" />
       <workItem from="1656246913177" duration="1195000" />
-      <workItem from="1656764234119" duration="6357000" />
+      <workItem from="1656764234119" duration="11172000" />
     </task>
     <servers />
   </component>
@@ -367,160 +350,30 @@
           <option name="timeStamp" value="213" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Battle/CurrentPlayersUi.cs</url>
-          <line>37</line>
-          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\UI\Battle\CurrentPlayersUi.cs" initialLine="37" containingFunctionPresentation="method 'GetItemList'">
-            <startOffsets>
-              <option value="1309" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1349" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="216" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Battle/CurrentPlayersUi.cs</url>
-          <line>53</line>
-          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\UI\Battle\CurrentPlayersUi.cs" initialLine="53" containingFunctionPresentation="method 'SelectItem'">
-            <startOffsets>
-              <option value="1857" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1900" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="227" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Battle/CurrentPlayersUi.cs</url>
-          <line>25</line>
-          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\UI\Battle\CurrentPlayersUi.cs" initialLine="25" containingFunctionPresentation="method 'GetAdventurerBattleSubsystem'">
-            <startOffsets>
-              <option value="907" />
-            </startOffsets>
-            <endOffsets>
-              <option value="948" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="228" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/ShopUI/ScrollLists/AbstractScrollList.cs</url>
-          <line>39</line>
-          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\UI\ShopUI\ScrollLists\AbstractScrollList.cs" initialLine="39" containingFunctionPresentation="method 'Start'">
-            <startOffsets>
-              <option value="1003" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1028" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="229" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/ShopUI/ScrollLists/AbstractScrollList.cs</url>
-          <line>81</line>
-          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\UI\ShopUI\ScrollLists\AbstractScrollList.cs" initialLine="81" containingFunctionPresentation="method 'Update'">
-            <startOffsets>
-              <option value="2123" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2181" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="230" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/ShopUI/ScrollLists/AbstractScrollList.cs</url>
-          <line>86</line>
-          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\UI\ShopUI\ScrollLists\AbstractScrollList.cs" initialLine="86" containingFunctionPresentation="method 'Update'">
-            <startOffsets>
-              <option value="2208" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2252" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="231" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Battle/PlayerTurnSampleButton.cs</url>
-          <line>11</line>
-          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\UI\Battle\PlayerTurnSampleButton.cs" initialLine="11" containingFunctionPresentation="method 'SetupButton'">
+          <line>13</line>
+          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\UI\Battle\PlayerTurnSampleButton.cs" initialLine="13" containingFunctionPresentation="method 'SetupButton'">
             <startOffsets>
-              <option value="314" />
+              <option value="504" />
             </startOffsets>
             <endOffsets>
-              <option value="375" />
+              <option value="505" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="232" />
+          <option name="timeStamp" value="239" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/ShopUI/ScrollLists/AbstractScrollList.cs</url>
-          <line>54</line>
-          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\UI\ShopUI\ScrollLists\AbstractScrollList.cs" initialLine="54" containingFunctionPresentation="method 'RemoveButtons'">
+          <url>file://$PROJECT_DIR$/Assets/TurnBased/Scripts/PlayerFighterData.cs</url>
+          <line>15</line>
+          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\TurnBased\Scripts\PlayerFighterData.cs" initialLine="15" containingFunctionPresentation="property 'AdventurerType'">
             <startOffsets>
-              <option value="1383" />
+              <option value="366" />
             </startOffsets>
             <endOffsets>
-              <option value="1423" />
+              <option value="366" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="233" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/ShopUI/ScrollLists/AbstractScrollList.cs</url>
-          <line>44</line>
-          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\UI\ShopUI\ScrollLists\AbstractScrollList.cs" initialLine="44" containingFunctionPresentation="method 'RefreshDisplay'">
-            <startOffsets>
-              <option value="1100" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1116" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="234" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/ShopUI/ScrollLists/AbstractScrollList.cs</url>
-          <line>88</line>
-          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\UI\ShopUI\ScrollLists\AbstractScrollList.cs" initialLine="88" containingFunctionPresentation="method 'Update'">
-            <startOffsets>
-              <option value="2283" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2312" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="235" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/ShopUI/ScrollLists/AbstractScrollList.cs</url>
-          <line>91</line>
-          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\UI\ShopUI\ScrollLists\AbstractScrollList.cs" initialLine="91" containingFunctionPresentation="method 'Update'">
-            <startOffsets>
-              <option value="2378" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2417" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="236" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/ShopUI/ScrollLists/AbstractScrollList.cs</url>
-          <line>53</line>
-          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\UI\ShopUI\ScrollLists\AbstractScrollList.cs" initialLine="53" containingFunctionPresentation="method 'RemoveButtons'">
-            <startOffsets>
-              <option value="1315" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1366" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="237" />
+          <option name="timeStamp" value="240" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

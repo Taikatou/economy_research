@@ -11,7 +11,7 @@ namespace TurnBased.Scripts
 
 	public delegate void OnBattleComplete<T>(BattleSubSystemInstance<T> battle) where T : Agent;
 	public enum EBattleState { Start, PlayerTurn, EnemyTurn, Won, Lost, Flee }
-	public enum EBattleAction { Attack, Block, Heal, Flee }
+	public enum EBattleAction { PrimaryAction, SecondaryAction, BonusAction, Flee }
 
 	public class FighterGroup<T> where T : BaseFighterData
 	{
@@ -86,35 +86,6 @@ namespace TurnBased.Scripts
 			return CurrentState is EBattleState.Lost or EBattleState.Won or EBattleState.Flee;
 		}
 
-		private void PlayerAttack()
-		{
-			PlayerFighterUnits.Instance.Attack(EnemyFighterUnits.Instance);
-
-			DialogueText = "The attack is successful!";
-
-			if(EnemyFighterUnits.Instance.IsDead)
-			{
-				CurrentState = EBattleState.Won;
-				_winDelegate?.Invoke(this);
-				EndBattle();
-			}
-			else
-			{
-				PlayerFighterUnits.Index++;
-				if (PlayerFighterUnits.Index == SystemTraining.PartySize)
-				{
-					PlayerFighterUnits.Index = 0;
-					CurrentState = EBattleState.EnemyTurn;
-					EnemyTurn();	
-				}
-				else
-				{
-					DialogueText = "It is player: " + PlayerFighterUnits.Index + "s turn";
-				}
-			}
-			Refresh();
-		}
-
 		public bool IsTurn(PlayerFighterData p)
 		{
 			Debug.Log(CurrentState + "\t" + (PlayerFighterUnits.Instance == p));
@@ -169,50 +140,40 @@ namespace TurnBased.Scripts
 			DialogueText = "Choose an action:";
 		}
 
-		private void PlayerHeal()
+		private void OnAttackButton(EBattleAction action)
 		{
-			PlayerFighterUnits.Instance.Heal(5);
-			
-			DialogueText = "You feel renewed strength!";
+			if (CurrentState != EBattleState.PlayerTurn)
+				return;
 
-			CurrentState = EBattleState.EnemyTurn;
+			var actionDelegate = PlayerFighterUnits.Instance.GetAttackAction(action);
+			if (actionDelegate != null)
+			{
+				var str = actionDelegate.Invoke(EnemyFighterUnits, PlayerFighterUnits.Instance);
+				DialogueText = str;
+			}
+			Refresh();
 			
+			if(EnemyFighterUnits.Instance.IsDead)
+			{
+				CurrentState = EBattleState.Won;
+				_winDelegate?.Invoke(this);
+				EndBattle();
+			}
+			else
+			{
+				PlayerFighterUnits.Index++;
+				if (PlayerFighterUnits.Index == SystemTraining.PartySize)
+				{
+					PlayerFighterUnits.Index = 0;
+					CurrentState = EBattleState.EnemyTurn;
+					EnemyTurn();	
+				}
+				else
+				{
+					DialogueText = "It is player: " + PlayerFighterUnits.Index + "s turn";
+				}
+			}
 			EnemyTurn();
-		}
-
-		private void Block()
-		{
-			PlayerFighterUnits.Instance.Block();
-			
-			DialogueText = "You are preparing for an attack";
-
-			CurrentState = EBattleState.EnemyTurn;
-			
-			EnemyTurn();
-		}
-
-		private void OnAttackButton()
-		{
-			if (CurrentState != EBattleState.PlayerTurn)
-				return;
-			
-			PlayerAttack();
-		}
-
-		private void OnBlockButton()
-		{
-			if (CurrentState != EBattleState.PlayerTurn)
-				return;
-
-			Block();
-		}
-
-		private void OnHealButton()
-		{
-			if (CurrentState != EBattleState.PlayerTurn)
-				return;
-
-			PlayerHeal();
 		}
 
 		private void OnFleeButton()
@@ -232,21 +193,14 @@ namespace TurnBased.Scripts
 		{
 			if (IsTurn(hashCode))
 			{
-				switch (action)
+				if (action == EBattleAction.Flee)
 				{
-					case EBattleAction.Attack:
-						OnAttackButton();
-						break;
-					case EBattleAction.Heal:
-						OnHealButton();
-						break;
-					case EBattleAction.Block:
-						OnBlockButton();
-						break;
-					case EBattleAction.Flee:
-						OnFleeButton();
-						break;
-				}	
+					OnFleeButton();
+				}
+				else
+				{
+					OnAttackButton(action);
+				}
 			}
 		}
 
