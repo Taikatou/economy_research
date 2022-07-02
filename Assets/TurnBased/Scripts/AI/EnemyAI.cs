@@ -4,9 +4,6 @@ using UnityEngine;
 namespace TurnBased.Scripts.AI
 {
     public enum EnemyAction { Attack, Block, Wait }
-    
-    public delegate void OnAction();
-    
     public class EnemyAI
     {
         private readonly EnemyFighterGroup _enemyFighterUnits;
@@ -49,7 +46,7 @@ namespace TurnBased.Scripts.AI
         {
             foreach (var fighter in playerInstance.FighterUnits)
             {
-                if (fighter.Blocking)
+                if (fighter.SecondaryAbilityStatus == SecondaryAbilityStatus.Blocking)
                 {
                     _enemyFighterUnits.Instance.Attack(fighter);
                     return;

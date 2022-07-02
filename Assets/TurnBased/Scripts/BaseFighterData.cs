@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace TurnBased.Scripts
 {
     public delegate string AttackAction(EnemyFighterGroup enemyFighterUnits, PlayerFighterData instance);
-    public abstract class BaseFighterData<T> where T : Enum
+    public abstract class BaseFighterData
     {
         public string UnitName;
         public Sprite Sprite;
@@ -24,32 +22,44 @@ namespace TurnBased.Scripts
         public abstract float BlockReduction { get; }
         public abstract int Level { get; }
 
-        public abstract Dictionary<T, AttackAction> AttackActionMap { get; }
-
-        public AttackAction GetAttackAction(T action)
-        {
-            if (AttackActionMap.ContainsKey(action))
-            {
-                return AttackActionMap[action];
-            }
-
-            return null;
-        }
-
         private void TakeDamage(int dmg)
         {
-            if (Blocking)
+            void AttackHit(int damage)
             {
-                dmg /= (int) BlockReduction;
+                var newDmg = CurrentHp - damage;
+                if (newDmg < 0)
+                {
+                    newDmg = 0;
+                }
+                CurrentHp = newDmg;
             }
-            var newDmg = CurrentHp - dmg;
-            if (newDmg < 0)
+            switch (SecondaryAbilityStatus)
             {
-                newDmg = 0;
-            }
+                case SecondaryAbilityStatus.Blocking:
+                    AttackHit(dmg / (int) BlockReduction);
+                    break;
+                case SecondaryAbilityStatus.Parrying:
+                    var rand = new System.Random();
+                    var randomFloat = (float) rand.NextDouble();
+                    if (randomFloat <= ParryChance)
+                    {
+                        Attack(this);
+                    }
+                    else
+                    {
+                        AttackHit(dmg);
+                    }
+                    break;
+                case SecondaryAbilityStatus.None:
+                    AttackHit(dmg);
+                    break;
+                case SecondaryAbilityStatus.Evade:
 
-            CurrentHp = newDmg;
+                    break;
+            }
         }
+
+        private float ParryChance = 0.1f;
 
         public void Heal(int amount)
         {
@@ -60,7 +70,7 @@ namespace TurnBased.Scripts
             }
         }
 
-        public void Attack<TQ>(BaseFighterData<TQ> enemy) where TQ : Enum
+        public void Attack(BaseFighterData enemy)
         {
             var rand = new System.Random();
             var randomFloat = rand.NextDouble();
@@ -69,21 +79,33 @@ namespace TurnBased.Scripts
                 enemy.TakeDamage(Damage);   
             }
             AfterAttack();
-            Blocking = false;
+            SecondaryAbilityStatus = SecondaryAbilityStatus.None;
         }
 
         public void Block()
         {
-            Blocking = true;
+            SecondaryAbilityStatus = SecondaryAbilityStatus.Blocking;
+        }
+
+        public void Parry()
+        {
+            SecondaryAbilityStatus = SecondaryAbilityStatus.Parrying;
+        }
+
+        public void Evade()
+        {
+            SecondaryAbilityStatus = SecondaryAbilityStatus.Evade;
         }
 
         public void Wait()
         {
-            Blocking = false;
+            SecondaryAbilityStatus = SecondaryAbilityStatus.None;
         }
-        
-        public bool Blocking { get; private set; }
+
+        public SecondaryAbilityStatus SecondaryAbilityStatus { get; private set; }
 
         public int HashCode { get; set; }
     }
+    
+    public enum SecondaryAbilityStatus {None, Blocking, Parrying, Evade}
 }

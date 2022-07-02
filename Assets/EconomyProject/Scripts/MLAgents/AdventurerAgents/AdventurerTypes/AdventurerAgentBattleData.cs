@@ -40,7 +40,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes
                 {
                     previousExp = row.level;
                 }
-                Debug.Log(TotalExp + "\t" + expReq + "\t" + row.level);
             }
 
             return level;

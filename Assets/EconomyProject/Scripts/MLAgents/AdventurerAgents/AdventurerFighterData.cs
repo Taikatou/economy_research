@@ -1,6 +1,4 @@
-﻿using System;
-using EconomyProject.Scripts.Interfaces;
-using EconomyProject.Scripts.Inventory;
+﻿using EconomyProject.Scripts.Inventory;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes;
 using Inventory;
 using TurnBased.Scripts;

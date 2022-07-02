@@ -9,7 +9,7 @@ namespace TurnBased.Scripts
     public delegate void OnAfterAttack();
     public delegate UsableItem GetUsableItem();
     public delegate int BonusDamage();
-    public class PlayerFighterData : BaseFighterData<EBattleAction>
+    public class PlayerFighterData : BaseFighterData
     {
         public int level = 0;
         public EAdventurerTypes AdventurerType { get; }
@@ -22,7 +22,7 @@ namespace TurnBased.Scripts
         public override float BlockReduction => 2.0f;
         public override int Level => level;
 
-        public override Dictionary<EBattleAction, AttackAction> AttackActionMap =>
+        public Dictionary<EBattleAction, AttackAction> AttackActionMap =>
             PlayerActionMap.GetAttackActionMap(AdventurerType);
 
         private UsableItem UsableItem => GetUsableItem.Invoke();
@@ -54,6 +54,16 @@ namespace TurnBased.Scripts
         public void ResetHp()
         {
             CurrentHp = MaxHp;
+        }
+
+        public AttackAction GetAttackAction(EBattleAction action)
+        {
+            if (AttackActionMap.ContainsKey(action))
+            {
+                return AttackActionMap[action];
+            }
+
+            return null;
         }
     }
 }

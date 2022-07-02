@@ -150,30 +150,31 @@ namespace TurnBased.Scripts
 			{
 				var str = actionDelegate.Invoke(EnemyFighterUnits, PlayerFighterUnits.Instance);
 				DialogueText = str;
-			}
-			Refresh();
+				
+				Refresh();
 			
-			if(EnemyFighterUnits.Instance.IsDead)
-			{
-				CurrentState = EBattleState.Won;
-				_winDelegate?.Invoke(this);
-				EndBattle();
-			}
-			else
-			{
-				PlayerFighterUnits.Index++;
-				if (PlayerFighterUnits.Index == SystemTraining.PartySize)
+				if(EnemyFighterUnits.Instance.IsDead)
 				{
-					PlayerFighterUnits.Index = 0;
-					CurrentState = EBattleState.EnemyTurn;
-					EnemyTurn();	
+					CurrentState = EBattleState.Won;
+					_winDelegate?.Invoke(this);
+					EndBattle();
 				}
 				else
 				{
-					DialogueText = "It is player: " + PlayerFighterUnits.Index + "s turn";
+					PlayerFighterUnits.Index++;
+					if (PlayerFighterUnits.Index == SystemTraining.PartySize)
+					{
+						PlayerFighterUnits.Index = 0;
+						CurrentState = EBattleState.EnemyTurn;
+						EnemyTurn();	
+					}
+					else
+					{
+						DialogueText = "It is player: " + PlayerFighterUnits.Index + "s turn";
+					}
 				}
+				EnemyTurn();
 			}
-			EnemyTurn();
 		}
 
 		private void OnFleeButton()
@@ -204,7 +205,7 @@ namespace TurnBased.Scripts
 			}
 		}
 
-		public bool IsTurn(int hashTurn)
+		private bool IsTurn(int hashTurn)
 		{
 			return PlayerFighterUnits.Instance.HashCode == hashTurn;
 		}
