@@ -39,7 +39,7 @@ namespace TurnBased.Scripts
 		}
 	}
 
-	public class BattleSubSystemInstance<T> where T : Agent
+	public class BattleSubSystemInstance<T> : ILastUpdate where T : Agent 
 	{
 		public EBattleState CurrentState { get; private set; }
 		public string DialogueText { get; private set; }
@@ -77,6 +77,8 @@ namespace TurnBased.Scripts
 			_completeDelegate += completeDelegate;
 			AgentParty = agentParty;
 			BattleAgents = battleAgents;
+			
+			Refresh();
 		}
 
 		public bool GameOver()
@@ -110,6 +112,13 @@ namespace TurnBased.Scripts
 					DialogueText = "It is player: " + PlayerFighterUnits.Index + "s turn";
 				}
 			}
+			Refresh();
+		}
+
+		public bool IsTurn(PlayerFighterData p)
+		{
+			Debug.Log(CurrentState + "\t" + (PlayerFighterUnits.Instance == p));
+			return CurrentState == EBattleState.PlayerTurn && PlayerFighterUnits.Instance == p;
 		}
 
 		private void EnemyTurn()
@@ -294,6 +303,12 @@ namespace TurnBased.Scripts
 			{
 				agent.AddReward(reward);
 			}
+		}
+
+		public DateTime LastUpdated { get; private set; }
+		public void Refresh()
+		{
+			LastUpdated = DateTime.Now;
 		}
 	}
 }

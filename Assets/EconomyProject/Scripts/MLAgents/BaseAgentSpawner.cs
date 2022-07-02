@@ -1,4 +1,5 @@
-﻿using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
+﻿using Data;
+using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.MLAgents

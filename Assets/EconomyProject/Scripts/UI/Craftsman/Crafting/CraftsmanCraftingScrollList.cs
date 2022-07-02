@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Data;
 using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.MLAgents.Shop;

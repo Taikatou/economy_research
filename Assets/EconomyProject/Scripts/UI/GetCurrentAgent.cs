@@ -1,4 +1,5 @@
 ﻿using System;
+using Data;
 using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.MLAgents;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;

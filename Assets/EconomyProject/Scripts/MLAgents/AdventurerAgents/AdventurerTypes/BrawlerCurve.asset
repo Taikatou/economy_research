@@ -14,14 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelProgressionParts:
   - level: 1
-    expToNextLevel: 10
+    expRequirement: 20
     damageIncrease: 2
     healthIncrease: 2
   - level: 2
-    expToNextLevel: 10
+    expRequirement: 40
     damageIncrease: 2
     healthIncrease: 2
   - level: 3
-    expToNextLevel: 10
+    expRequirement: 80
+    damageIncrease: 2
+    healthIncrease: 2
+  - level: 4
+    expRequirement: 160
+    damageIncrease: 2
+    healthIncrease: 2
+  - level: 5
+    expRequirement: 320
     damageIncrease: 2
     healthIncrease: 2

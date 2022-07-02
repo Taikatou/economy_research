@@ -26,16 +26,21 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes
         private int GetLevel()
         {
             var level = 0;
-            var expSum = 0;
+            var previousExp = 0;
+            var previousLevel = 0;
             foreach(var row in AgentLevelCurve.levelProgressionParts)
             {
-                expSum += row.expToNextLevel;
-                if (TotalExp < expSum)
+                var expReq = row.expRequirement;
+                if (TotalExp > previousExp && TotalExp < expReq)
                 {
-                    level = row.level;
+                    level = previousLevel;
                     break;
                 }
-                Debug.Log(TotalExp + "\t" + expSum + "\t" + row.level);
+                else
+                {
+                    previousExp = row.level;
+                }
+                Debug.Log(TotalExp + "\t" + expReq + "\t" + row.level);
             }
 
             return level;

@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes
@@ -7,7 +8,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes
     {
         public int level;
         
-        public int expToNextLevel;
+        public int expRequirement;
 
         public int damageIncrease;
 
@@ -18,5 +19,18 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes
     public class LevelCurve : ScriptableObject
     {
         public ProgressionData[] levelProgressionParts;
+    }
+    
+    [CustomEditor(typeof(LevelCurve))]
+    public class TestScriptableEditor : Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+            var script = (LevelCurve)target;
+ 
+            
+         
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using EconomyProject.Scripts.GameEconomy.Systems.Requests;
+﻿using Data;
+using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.UI.ShopUI.Buttons;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
 

@@ -6,6 +6,7 @@ using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.UI;
+using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
 using LevelSystem;
 using TurnBased.Scripts;
 using Unity.MLAgents;

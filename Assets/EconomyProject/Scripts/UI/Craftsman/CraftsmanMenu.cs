@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Data;
 using EconomyProject.Scripts.MLAgents.Craftsman;
 using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;

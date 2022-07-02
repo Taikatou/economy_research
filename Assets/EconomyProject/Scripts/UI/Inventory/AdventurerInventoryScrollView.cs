@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Data;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
 using UnityEngine;
 

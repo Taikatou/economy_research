@@ -1,4 +1,5 @@
-﻿using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
+﻿using Data;
+using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
 
 namespace EconomyProject.Scripts.UI.Craftsman.Crafting
 {
