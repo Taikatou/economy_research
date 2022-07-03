@@ -28,7 +28,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
             var walletMoney = _agent.wallet ? _agent.wallet.Money : 0.0f;
             // todo connect health data
             var health = _agent.fighterData.PlayerData?.GetObs ?? 0;
-            var screen = _agent.ChosenScreen != null ? _agent.ChosenScreen : EAdventurerScreen.Main;  
+            var screen = _agent.ChosenScreen;  
 
             var obsData = new ObsData[]
             {

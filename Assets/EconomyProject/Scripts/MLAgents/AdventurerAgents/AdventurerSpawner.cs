@@ -26,7 +26,8 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
                 var values = Enum.GetValues(typeof(EAdventurerTypes));
                 var random = new System.Random();
                 var battleData = agent.GetComponent<AdventurerAgentBattleData>();
-                battleData.adventurerType = (EAdventurerTypes) values.GetValue(random.Next(1, values.Length));
+                var validIndex = (int) EAdventurerTypes.All + 1;
+                battleData.adventurerType = (EAdventurerTypes) values.GetValue(random.Next(validIndex, values.Length));
                 battleData.OnLevelUp += adventurer.LevelUpCheck;
             }
 

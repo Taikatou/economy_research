@@ -3,8 +3,31 @@ using Data;
 
 namespace TurnBased.Scripts.AI
 {
+    public enum AttackOptions {Attack, Block, Parry, Evade, Heal, None}
     public static class PlayerActionMap
     {
+        public static Dictionary<AttackAction, AttackOptions> GetAttackString =
+            new Dictionary<AttackAction, AttackOptions>()
+            {
+                { AttackDelegate, AttackOptions.Attack },
+                { BlockDelegate, AttackOptions.Block },
+                { ParryDelegate, AttackOptions.Parry },
+                { EvadeDelegate, AttackOptions.Evade },
+                { HealDelegate, AttackOptions.Heal }
+            };
+
+        public static AttackOptions GetAttack(AttackAction action)
+        {
+            if (action != null)
+            {
+                if (GetAttackString.ContainsKey(action))
+                {
+                    return GetAttackString[action];
+                }   
+            }
+            return AttackOptions.None;
+        }
+        
         private static string AttackDelegate(EnemyFighterGroup enemyFighterUnits, PlayerFighterData instance)
         {
             instance.Attack(enemyFighterUnits.Instance);
@@ -52,7 +75,8 @@ namespace TurnBased.Scripts.AI
             var swordsManDictionary = new Dictionary<EBattleAction, AttackAction>
             {
                 { EBattleAction.PrimaryAction, AttackDelegate },
-                { EBattleAction.SecondaryAction, ParryDelegate }
+                { EBattleAction.SecondaryAction, ParryDelegate },
+                { EBattleAction.BonusAction, null }
             };
             
             var mageDictionary = new Dictionary<EBattleAction, AttackAction>
@@ -64,7 +88,7 @@ namespace TurnBased.Scripts.AI
             var agentChoices = new Dictionary<EAdventurerTypes, Dictionary<EBattleAction, AttackAction>>
             {
                 { EAdventurerTypes.Brawler, brawlerDictionary },
-                { EAdventurerTypes.Mage, brawlerDictionary },
+                { EAdventurerTypes.Mage, mageDictionary },
                 { EAdventurerTypes.Swordsman, swordsManDictionary }
             };
             return agentChoices[adventurerType];

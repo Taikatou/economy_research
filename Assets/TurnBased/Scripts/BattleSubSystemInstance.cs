@@ -26,6 +26,19 @@ namespace TurnBased.Scripts
 		{
 			FighterUnits = fighters;
 		}
+
+		public PlayerFighterData GetAgentPlayerData(int hashCode)
+		{
+			foreach (var p in FighterUnits)
+			{
+				if (p.HashCode == hashCode)
+				{
+					return p;
+				}
+			}
+
+			return null;
+		}
 	}
 
 	public class EnemyFighterGroup : FighterGroup<FighterData>
@@ -51,7 +64,7 @@ namespace TurnBased.Scripts
 		public readonly PlayerFighterGroup PlayerFighterUnits;
 		public readonly EnemyFighterGroup EnemyFighterUnits;
 		
-		public static int SensorCount => 6 + 7 + 4;
+		public static int SensorCount => 6 + 7 + 4 + (6*3);
 
 		private readonly double _fleeChance = 0.8f;
 
@@ -222,6 +235,10 @@ namespace TurnBased.Scripts
 
 		public ObsData[] GetSubsystemObservations(float inputLocation, int hashCode)
 		{
+			var index = 0;
+			var player = PlayerFighterUnits.GetAgentPlayerData(hashCode);
+			var map = PlayerActionMap.GetAttackActionMap(player.AdventurerType);
+			
 			var playerName = _unitOneHotEncode[EnemyFighterUnits.Instance.UnitName];
 			var yourTurn = IsTurn(hashCode)? 1.0f : 0.0f;
 			return new ObsData []
@@ -236,7 +253,10 @@ namespace TurnBased.Scripts
 				new SingleObsData{data=EnemyFighterUnits.Instance.HpPercent,  Name="EnemyFighterUnit.HpPercent"},
 				new SingleObsData{data=inputLocation, Name="InputLocation"},
 				new SingleObsData{data=yourTurn, Name="yourTurn"},
-				new CategoricalObsData<EnemyAction>(_enemyAI.NextAction)
+				new CategoricalObsData<EnemyAction>(_enemyAI.NextAction),
+				new CategoricalObsData<AttackOptions>(PlayerActionMap.GetAttack(map[EBattleAction.PrimaryAction])),
+				new CategoricalObsData<AttackOptions>(PlayerActionMap.GetAttack(map[EBattleAction.SecondaryAction])),
+				new CategoricalObsData<AttackOptions>(PlayerActionMap.GetAttack(map[EBattleAction.BonusAction]))
 			};
 		}
 

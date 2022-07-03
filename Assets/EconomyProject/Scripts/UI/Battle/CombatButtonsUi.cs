@@ -1,5 +1,7 @@
-﻿using EconomyProject.Scripts.GameEconomy.Systems.Adventurer;
+﻿using EconomyProject.Scripts.GameEconomy.Systems;
+using EconomyProject.Scripts.GameEconomy.Systems.Adventurer;
 using TurnBased.Scripts;
+using TurnBased.Scripts.AI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,16 +14,30 @@ namespace EconomyProject.Scripts.UI.Battle
         public GetCurrentAdventurerAgent adventurerAgent;
 
         public Image[] buttons;
-
+        
         public void Update()
         {
-            var battle = battleLocationSelect.GetBattleAction(adventurerAgent.CurrentAgent);
-            var index = 0;
-            foreach (var i in buttons)
+            var agent = adventurerAgent.CurrentAgent;
+            if (agent != null)
             {
-                var highLight = (EBattleAction) index == battle;
-                i.color = highLight ? Color.green : Color.white;
-                index++;
+                var battle = battleLocationSelect.GetBattleAction(agent);
+                var index = 0;
+                var map = PlayerActionMap.GetAttackActionMap(agent.AdventurerType);
+                foreach (var i in buttons)
+                {
+                    var battleAction = (EBattleAction) index;
+                    var highLight = battleAction == battle;
+                    i.color = highLight ? Color.green : Color.white;
+                    index++;
+
+                    var txt = "";
+                    if (map.ContainsKey(battleAction))
+                    {
+                        txt = PlayerActionMap.GetAttack(map[battleAction]).ToString();
+                    }
+                    var text = i.GetComponentInChildren<Text>();
+                    text.text = txt;
+                }   
             }
         }
     }

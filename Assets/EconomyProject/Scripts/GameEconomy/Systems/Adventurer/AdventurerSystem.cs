@@ -199,7 +199,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         public int GetBattleCount()
         {
             var count = 0;
-            foreach (var entry in battleSubSystem.battleSystems)
+            foreach (var entry in battleSubSystem.BattleSystems)
             {
                 count++;
             }

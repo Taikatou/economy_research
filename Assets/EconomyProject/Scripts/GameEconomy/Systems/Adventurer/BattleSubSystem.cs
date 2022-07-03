@@ -16,7 +16,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
     public delegate void SetAdventureState(AdventurerAgent agent, EAdventureStates state);
     public class BattleSubSystem
     {
-        public Dictionary<AdventurerAgent, BattleSubSystemInstance<AdventurerAgent>> battleSystems { get; }
+        public Dictionary<AdventurerAgent, BattleSubSystemInstance<AdventurerAgent>> BattleSystems { get; }
         public Dictionary<EBattleEnvironments, BattlePartySubsystem> CurrentParties { get; private set; }
         private Dictionary<AdventurerAgent, EBattleEnvironments> ReverseCurrentParties { get; }
         
@@ -57,12 +57,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
                 foreach (var agent in agents)
                 {
-                    battleSystems.Add(agent, newSystem);
+                    BattleSystems.Add(agent, newSystem);
                     _setAdventureState.Invoke(agent, EAdventureStates.InBattle);   
                 }
             }
             
-            battleSystems = new Dictionary<AdventurerAgent, BattleSubSystemInstance<AdventurerAgent>>();
+            BattleSystems = new Dictionary<AdventurerAgent, BattleSubSystemInstance<AdventurerAgent>>();
             CurrentParties = new Dictionary<EBattleEnvironments, BattlePartySubsystem>();
             ReverseCurrentParties = new Dictionary<AdventurerAgent, EBattleEnvironments>();
             foreach (var battle in BattleAsArray)
@@ -75,7 +75,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         private void EndBattle(AdventurerAgent agent)
         {
-            battleSystems.Remove(agent);
+            BattleSystems.Remove(agent);
             ReverseCurrentParties.Remove(agent);
         }
 
@@ -85,7 +85,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             {
                 CurrentParties[battle].Setup();
             }
-            battleSystems.Clear();
+            BattleSystems.Clear();
             ReverseCurrentParties.Clear();
         }
 
@@ -93,9 +93,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         {
             if (agent != null)
             {
-                if (battleSystems.ContainsKey(agent))
+                if (BattleSystems.ContainsKey(agent))
                 {
-                    return battleSystems[agent];
+                    return BattleSystems[agent];
                 }   
             }
             return null;

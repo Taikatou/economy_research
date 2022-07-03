@@ -22,7 +22,7 @@ namespace TurnBased.Scripts
         public override float BlockReduction => 2.0f;
         public override int Level => level;
 
-        public Dictionary<EBattleAction, AttackAction> AttackActionMap =>
+        private Dictionary<EBattleAction, AttackAction> AttackActionMap =>
             PlayerActionMap.GetAttackActionMap(AdventurerType);
 
         private UsableItem UsableItem => GetUsableItem.Invoke();
