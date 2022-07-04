@@ -16,7 +16,8 @@ MonoBehaviour:
     UnitName: Narwhale
     Sprite: {fileID: 21300000, guid: 132fd18194cf278448317e841451f39c, type: 3}
     MaxHp: 15
-    damage: 6
+    fighterType: 0
+    damage: 30
   fighterDropTable:
     lootDropItems:
     - item:
@@ -43,3 +44,4 @@ MonoBehaviour:
       probabilityPercent: 33
       probabilityRangeFrom: 0
       probabilityRangeTo: 0
+    Exp: 0

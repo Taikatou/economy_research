@@ -6,8 +6,8 @@ namespace TurnBased.Scripts.AI
     public enum AttackOptions {Attack, Block, Parry, Evade, Heal, None}
     public static class PlayerActionMap
     {
-        public static Dictionary<AttackAction, AttackOptions> GetAttackString =
-            new Dictionary<AttackAction, AttackOptions>()
+        private static readonly Dictionary<AttackAction, AttackOptions> GetAttackString =
+            new()
             {
                 { AttackDelegate, AttackOptions.Attack },
                 { BlockDelegate, AttackOptions.Block },

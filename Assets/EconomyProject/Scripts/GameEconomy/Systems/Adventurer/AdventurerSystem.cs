@@ -117,8 +117,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             battleState.AddRange(output);
 
             var output2 = state == EAdventureStates.OutOfBattle
-                ? locationSelect.GetTravelObservations(agent)
+                ? locationSelect.GetTravelObservations(agent, this)
                 : BlankArray(AdventurerLocationSelect.SensorCount);
+            Debug.Log(AdventurerLocationSelect.SensorCount);
 
             var obsize = new List<ObsData>();
             foreach (EBattleEnvironments battle in Enum.GetValues(typeof(EBattleEnvironments)))

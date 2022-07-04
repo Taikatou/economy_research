@@ -19,7 +19,7 @@ namespace EconomyProject.Scripts.UI.Adventurer
             {
                 foreach (var agent in currentParties[environment].PendingAgents)
                 {
-                    players += agent.AdventurerType.ToString() + "\n";
+                    players += agent.AdventurerType + "\t" + agent.levelComponent.Level + "\n";
                 }
             }
 

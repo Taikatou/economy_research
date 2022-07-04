@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using Data;
+using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using Unity.MLAgents;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 {
     public delegate void OnAddPlayer<in T>(T agent);
-    public class PartySubSystem<T> where T : Agent
+    public class PartySubSystem<T> where T : AdventurerAgent
     {
         private readonly int _partySize;
         public List<T> PendingAgents { get; private set; }
@@ -86,6 +88,32 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             }
             PendingAgents.Clear();
             _agentParties.Clear();
+        }
+
+        public static float MaxLevel = 10;
+
+        public List<ObsData> GetObservations()
+        {
+            var obs = new List<ObsData>();
+            var i = 0;
+            foreach (var agent in PendingAgents)
+            {
+                obs.Add(new CategoricalObsData<EAdventurerTypes>(agent.AdventurerType));
+                obs.Add(new SingleObsData
+                {
+                    data = (float)agent.levelComponent.Level / MaxLevel
+                });
+                i++;
+            }
+            for (; i < SystemTraining.PartySize - 1; i++)
+            {
+                obs.Add(new CategoricalObsData<EAdventurerTypes>(EAdventurerTypes.All));
+                obs.Add(new SingleObsData
+                {
+                    data = 0
+                });
+            }
+            return obs;
         }
     }
 }

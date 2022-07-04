@@ -16,7 +16,8 @@ MonoBehaviour:
     UnitName: Buffalo
     Sprite: {fileID: 21300000, guid: f85da1971e570094a820b7bb9d70bc12, type: 3}
     MaxHp: 10
-    damage: 5
+    fighterType: 0
+    damage: 7
   fighterDropTable:
     lootDropItems:
     - item:

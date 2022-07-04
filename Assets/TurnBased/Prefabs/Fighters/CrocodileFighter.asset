@@ -16,7 +16,8 @@ MonoBehaviour:
     UnitName: Crocodile
     Sprite: {fileID: 21300000, guid: 6523df74b7c8a6d409f7da619fc495bd, type: 3}
     MaxHp: 22
-    damage: 4
+    fighterType: 0
+    damage: 12
   fighterDropTable:
     lootDropItems:
     - item:
