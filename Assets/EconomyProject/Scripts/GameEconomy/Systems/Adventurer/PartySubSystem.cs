@@ -13,7 +13,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         public List<T> PendingAgents { get; private set; }
         private readonly Dictionary<T, SimpleMultiAgentGroup> _agentParties;
 
-        public OnAddPlayer<T> OnAddPlayer;
+        private OnAddPlayer<T> OnAddPlayer;
 
         protected PartySubSystem(int partySize)
         {
@@ -90,7 +90,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             _agentParties.Clear();
         }
 
-        public static float MaxLevel = 10;
+        private static float MaxLevel = 10;
 
         public List<ObsData> GetObservations()
         {

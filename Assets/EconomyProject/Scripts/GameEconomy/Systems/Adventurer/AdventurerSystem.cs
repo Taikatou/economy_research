@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {
-    public enum EAdventureStates { OutOfBattle, InQueue, InBattle }
+    public enum EAdventureStates { OutOfBattle, InQueue, ConfirmBattle, ConfirmAbilities, InBattle }
     
     [Serializable]
     public class AdventurerSystem : EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>, ISetup
@@ -29,6 +29,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public AdventurerLocationSelect locationSelect;
         public BattleLocationSelect battleLocationSelect;
+        public ConfirmBattleLocationSelect confirmLocationSelect;
 
         public TravelSubSystem travelSubsystem;
 
@@ -186,15 +187,36 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                     var location = locationSelect.GetBattle(agent);
                     battleSubSystem.StartBattle(agent, location);
                     break;
+                case EAdventureStates.ConfirmBattle:
+                    var confirm = confirmLocationSelect.GetConfirmation(agent);
+                    battleSubSystem.Confirmation(confirm, agent);
+                    break;
+                case EAdventureStates.ConfirmAbilities:
+                    
+                    break;
             }
         }
 
         public void UpDown(AdventurerAgent agent, int movement)
         {
-            var location = GetAdventureStates(agent) == EAdventureStates.InBattle
-                ? (LocationSelect<AdventurerAgent>) battleLocationSelect
-                : (LocationSelect<AdventurerAgent>) locationSelect;
-            location.MovePosition(agent, movement);
+            LocationSelect<AdventurerAgent> location = null;
+            switch (GetAdventureStates(agent))
+            {
+                case EAdventureStates.InBattle:
+                    location = battleLocationSelect;
+                    break;
+                case EAdventureStates.InQueue:
+                    location = battleLocationSelect;
+                    break;
+                case EAdventureStates.OutOfBattle:
+                    location = locationSelect;
+                    break;
+                case EAdventureStates.ConfirmBattle:
+                    location = confirmLocationSelect;
+                    break;
+
+            }
+            location?.MovePosition(agent, movement);
         }
 
         public int GetBattleCount()

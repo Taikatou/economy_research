@@ -15,9 +15,9 @@ MonoBehaviour:
   data:
     UnitName: Owl
     Sprite: {fileID: 21300000, guid: a1367c43df15c5147afe47d746070134, type: 3}
-    MaxHp: 10
+    MaxHp: 20
     fighterType: 0
-    damage: 6
+    damage: 10
   fighterDropTable:
     lootDropItems:
     - item:

@@ -17,7 +17,7 @@ MonoBehaviour:
     Sprite: {fileID: 21300000, guid: 455ed83fe105a1e49a7058359070b123, type: 3}
     MaxHp: 15
     fighterType: 0
-    damage: 10
+    damage: 6
   fighterDropTable:
     lootDropItems:
     - item:
@@ -27,13 +27,13 @@ MonoBehaviour:
       probabilityWeight: 1
       probabilityPercent: 50
       probabilityRangeFrom: 0
-      probabilityRangeTo: 0
+      probabilityRangeTo: 1
     - item:
         resource: 2
         minDrop: 1
         maxDrop: 2
       probabilityWeight: 1
       probabilityPercent: 50
-      probabilityRangeFrom: 0
-      probabilityRangeTo: 0
+      probabilityRangeFrom: 1
+      probabilityRangeTo: 2
     Exp: 4

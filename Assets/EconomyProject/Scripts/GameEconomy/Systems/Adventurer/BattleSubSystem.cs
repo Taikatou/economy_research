@@ -6,7 +6,6 @@ using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.UI;
-using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
 using LevelSystem;
 using TurnBased.Scripts;
 using Unity.MLAgents;
@@ -46,7 +45,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 }
                 
                 var enemyData = FighterData.Clone(enemyFighter.data);
-            
                 var newSystem = new BattleSubSystemInstance<AdventurerAgent>(   playerData,
                                                                                 enemyData,
                                                                                 enemyFighter.fighterDropTable,
@@ -54,14 +52,21 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                                                                                 OnComplete,
                                                                                 party,
                                                                                 agents);
-
                 foreach (var agent in agents)
                 {
                     BattleSystems.Add(agent, newSystem);
                     _setAdventureState.Invoke(agent, EAdventureStates.InBattle);   
                 }
             }
-            
+
+            void AskConfirmation(AdventurerAgent[] agents, FighterObject enemyFighter, SimpleMultiAgentGroup party)
+            {
+                foreach (var agent in agents)
+                {
+                    _setAdventureState.Invoke(agent, EAdventureStates.ConfirmBattle);
+                }
+            }
+
             BattleSystems = new Dictionary<AdventurerAgent, BattleSubSystemInstance<AdventurerAgent>>();
             CurrentParties = new Dictionary<EBattleEnvironments, BattlePartySubsystem>();
             ReverseCurrentParties = new Dictionary<AdventurerAgent, EBattleEnvironments>();
@@ -69,8 +74,15 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             {
                 var party = new BattlePartySubsystem(SystemTraining.PartySize, battle, travelSubsystem);
                 CurrentParties.Add(battle, party);
-                party.setupNewBattle = SetupNewBattle;
+                party.SetupNewBattle = SetupNewBattle;
+                party.AskConfirmation = AskConfirmation;
+                party.CancelAgent = RemoveAgent;
             }
+        }
+
+        public void Confirmation(EConfirmBattle confirmation, AdventurerAgent agent)
+        {
+            CurrentParties[ReverseCurrentParties[agent]].Confirmation(confirmation, agent);
         }
 
         private void EndBattle(AdventurerAgent agent)
