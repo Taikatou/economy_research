@@ -121,9 +121,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         public void StartBattle(AdventurerAgent agent, EBattleEnvironments location)
         {
-            _setAdventureState.Invoke(agent, EAdventureStates.InQueue);
-            CurrentParties[location].AddAgent(agent);
-            ReverseCurrentParties.Add(agent, location);
+            if (!CurrentParties[location].Full)
+            {
+                _setAdventureState.Invoke(agent, EAdventureStates.InQueue);
+                CurrentParties[location].AddAgent(agent);
+                ReverseCurrentParties.Add(agent, location);   
+            }
         }
 
         public void RemoveAgent(AdventurerAgent agent)
@@ -131,6 +134,31 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             CurrentParties[ReverseCurrentParties[agent]].RemoveFromQueue(agent);
             ReverseCurrentParties.Remove(agent);
             _setAdventureState.Invoke(agent, EAdventureStates.OutOfBattle);
+        }
+
+        public PartySubSystem<AdventurerAgent> GetSubsystem(AdventurerAgent agent)
+        {
+            if (agent != null)
+            {
+                if (ReverseCurrentParties.ContainsKey(agent))
+                {
+                    return CurrentParties[ReverseCurrentParties[agent]];
+                }
+            }
+            return null;
+        }
+
+        public EBattleEnvironments? GetBattleEnvironment(AdventurerAgent agent)
+        {
+            if (agent != null)
+            {
+                if (ReverseCurrentParties.ContainsKey(agent))
+                {
+                    return ReverseCurrentParties[agent];
+                }   
+            }
+
+            return null;
         }
 
         private void OnComplete(BattleSubSystemInstance<AdventurerAgent> systemInstance)

@@ -27,20 +27,15 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes
         {
             var level = 0;
             var previousExp = 0;
-            var previousLevel = 0;
             foreach(var row in AgentLevelCurve.levelProgressionParts)
             {
-                var expReq = row.expRequirement;
-                if (TotalExp > previousExp && TotalExp < expReq)
+                previousExp += row.expRequirement;
+                if (TotalExp >= previousExp)
                 {
-                    level = previousLevel;
-                    break;
-                }
-                else
-                {
-                    previousExp = row.level;
+                    level = row.level;
                 }
             }
+            Debug.Log(level + "\t" + TotalExp + "\t" + AgentLevelCurve.levelProgressionParts[0].expRequirement);
 
             return level;
         }

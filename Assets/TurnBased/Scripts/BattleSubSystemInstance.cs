@@ -39,6 +39,23 @@ namespace TurnBased.Scripts
 
 			return null;
 		}
+
+		public bool Dead
+		{
+			get
+			{
+				var dead = true;
+				foreach (var p in FighterUnits)
+				{
+					if (!p.IsDead)
+					{
+						dead = false;
+					}
+				}
+
+				return dead;
+			}
+		}
 	}
 
 	public class EnemyFighterGroup : FighterGroup<FighterData>
@@ -122,7 +139,7 @@ namespace TurnBased.Scripts
 			}
 
 
-			if(PlayerFighterUnits.Instance.IsDead)
+			if(PlayerFighterUnits.Dead)
 			{
 				Debug.Log("Player Lost");
 				CurrentState = EBattleState.Lost;
@@ -174,7 +191,12 @@ namespace TurnBased.Scripts
 				}
 				else
 				{
-					PlayerFighterUnits.Index++;
+					do
+					{
+						PlayerFighterUnits.Index++;
+					}
+					while (PlayerFighterUnits.Index < SystemTraining.PartySize && !PlayerFighterUnits.Instance.IsDead);
+						
 					if (PlayerFighterUnits.Index == SystemTraining.PartySize)
 					{
 						PlayerFighterUnits.Index = 0;

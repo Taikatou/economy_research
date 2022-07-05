@@ -15,6 +15,7 @@ namespace LevelSystem
 
         public void AddExp(float exp)
         {
+            Debug.Log(exp);
             if (exp > 0)
             {
                 TotalExp += exp;

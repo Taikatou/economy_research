@@ -49,7 +49,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 _agentParties.Remove(agent);
             }
             PendingAgents.Add(agent);
-            if (PendingAgents.Count >= _partySize)
+            if (Full)
             {
                 var agentGroup = new SimpleMultiAgentGroup();
                 CompleteParty(agentGroup);
@@ -57,6 +57,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
             OnAddPlayer?.Invoke(agent);
         }
+
+        public bool Full => PendingAgents.Count >= _partySize;
 
         public virtual void CompleteParty(SimpleMultiAgentGroup agentGroup)
         {

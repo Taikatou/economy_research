@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Data;
 using EconomyProject.Scripts.GameEconomy.Systems.Adventurer;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.Interfaces;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
-using Inventory;
 using TurnBased.Scripts;
-using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {
@@ -24,7 +21,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         public static int ObservationSize => SensorUtils<EAdventureStates>.Length + BattleSubSystem.SensorCount + 
                                              AdventurerLocationSelect.SensorCount + 
                                              (SystemTraining.PartySize * SensorUtils<EBattleEnvironments>.Length * 
-                                              SensorUtils<EAdventurerTypes>.Length);
+                                              SensorUtils<EAdventurerTypes>.Length) + 
+                                             ConfirmBattleLocationSelect.SensorCount;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Adventurer;
 
         public AdventurerLocationSelect locationSelect;
@@ -120,7 +118,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             var output2 = state == EAdventureStates.OutOfBattle
                 ? locationSelect.GetTravelObservations(agent, this)
                 : BlankArray(AdventurerLocationSelect.SensorCount);
-            Debug.Log(AdventurerLocationSelect.SensorCount);
+
+            var output3 = state == EAdventureStates.ConfirmBattle
+                ? confirmLocationSelect.GetConfirmationObservations(agent, this)
+                : BlankArray(ConfirmBattleLocationSelect.SensorCount);
 
             var obsize = new List<ObsData>();
             foreach (EBattleEnvironments battle in Enum.GetValues(typeof(EBattleEnvironments)))
@@ -139,9 +140,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                     }
                 }
             }
-
-            battleState.AddRange(output2);
+            
             battleState.AddRange(obsize);
+            battleState.AddRange(output2);
+            battleState.AddRange(output3);
             return battleState.ToArray();
         }
 

@@ -44,8 +44,14 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 			}
 		}
 
+		private void OnLevelUp(int level)
+		{
+			AddReward((float)level/10);
+		}
+
 		public void Start()
 		{
+			levelComponent.OnLevelUp += OnLevelUp;
 			if (TrainingConfig.OnPurchase)
 			{
 				inventory.onItemAdd = OnItemAddReward;
