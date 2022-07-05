@@ -259,7 +259,7 @@ namespace TurnBased.Scripts
 		{
 			var index = 0;
 			var player = PlayerFighterUnits.GetAgentPlayerData(hashCode);
-			var map = PlayerActionMap.GetAttackActionMap(player.AdventurerType);
+			var map = PlayerActionMap.GetAttackActionMap(player.AdventurerType, PlayerActionMap.GetAbilities(player.AdventurerType, player.Level));
 			
 			var playerName = _unitOneHotEncode[EnemyFighterUnits.Instance.UnitName];
 			var yourTurn = IsTurn(hashCode)? 1.0f : 0.0f;

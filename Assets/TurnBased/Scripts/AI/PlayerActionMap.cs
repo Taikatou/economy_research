@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Data;
 
 namespace TurnBased.Scripts.AI
@@ -62,36 +63,68 @@ namespace TurnBased.Scripts.AI
 			
             return "You feel renewed strength!";
         }
-        
-        public static Dictionary<EBattleAction, AttackAction> GetAttackActionMap(EAdventurerTypes adventurerType)
+
+        private static readonly Dictionary<AttackAction, int> SwordsmanLevelStructure = new()
         {
-            var brawlerDictionary = new Dictionary<EBattleAction, AttackAction>
+            {AttackDelegate, 0},
+            {ParryDelegate, 0}
+        };
+
+        
+        private static readonly Dictionary<AttackAction, int> BrawlerLevelStructure = new()
+        {
+            {AttackDelegate, 0},
+            {BlockDelegate, 0},
+            {HealDelegate, 0}
+        };
+        
+        private static readonly Dictionary<AttackAction, int> MageLevelStructure = new()
+        {
+            {AttackDelegate, 0},
+            {EvadeDelegate, 0},
+            {HealDelegate, 0}
+        };
+
+        private static readonly Dictionary<EAdventurerTypes, Dictionary<AttackAction, int>> Moves = new()
+        {
+            {EAdventurerTypes.Brawler, BrawlerLevelStructure},
+            {EAdventurerTypes.Swordsman, SwordsmanLevelStructure},
+            {EAdventurerTypes.Mage, MageLevelStructure}
+        };
+
+        private static List<AttackAction> GetAbilitiesUtil(int level, Dictionary<AttackAction, int> levelStructure)
+        {
+            var abilities = new List<AttackAction>(); 
+            foreach(var move in levelStructure)
             {
-                { EBattleAction.PrimaryAction, AttackDelegate },
-                { EBattleAction.SecondaryAction, BlockDelegate },
-                { EBattleAction.BonusAction, HealDelegate }
-            };
+                if (move.Value < level)
+                {
+                    abilities.Add(move.Key);
+                }
+            }
             
-            var swordsManDictionary = new Dictionary<EBattleAction, AttackAction>
+            return abilities;
+        }
+
+        public static List<AttackAction> GetAbilities(EAdventurerTypes adventurerType, int level)
+        {
+            List<AttackAction> toReturn = null;
+            if (Moves.ContainsKey(adventurerType))
             {
-                { EBattleAction.PrimaryAction, AttackDelegate },
-                { EBattleAction.SecondaryAction, ParryDelegate },
-                { EBattleAction.BonusAction, null }
-            };
-            
-            var mageDictionary = new Dictionary<EBattleAction, AttackAction>
+                toReturn = GetAbilitiesUtil(level, Moves[adventurerType]);
+            }
+            return toReturn;
+        }
+        
+        public static Dictionary<EBattleAction, AttackAction> GetAttackActionMap(EAdventurerTypes adventurerType, List<AttackAction> attackActions)
+        {
+            var moveDictionary = new Dictionary<EBattleAction, AttackAction>();
+            for (var i = 0; i < attackActions.Count(); i++)
             {
-                { EBattleAction.PrimaryAction, AttackDelegate },
-                { EBattleAction.SecondaryAction, EvadeDelegate },
-                { EBattleAction.BonusAction, HealDelegate }
-            };
-            var agentChoices = new Dictionary<EAdventurerTypes, Dictionary<EBattleAction, AttackAction>>
-            {
-                { EAdventurerTypes.Brawler, brawlerDictionary },
-                { EAdventurerTypes.Mage, mageDictionary },
-                { EAdventurerTypes.Swordsman, swordsManDictionary }
-            };
-            return agentChoices[adventurerType];
+                var action = (EBattleAction) i;
+                moveDictionary.Add(action, attackActions[i]);
+            }
+            return moveDictionary;
         }
     }
 }

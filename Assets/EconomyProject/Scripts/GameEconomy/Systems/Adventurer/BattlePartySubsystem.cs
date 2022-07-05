@@ -14,18 +14,16 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
     [Serializable]
     public class BattlePartySubsystem : PartySubSystem<AdventurerAgent>
     {
-        private TravelSubSystem _travelSubsystem;
-
         public SetupNewBattle SetupNewBattle;
-
         public SetupNewBattle AskConfirmation;
-
-        private EBattleEnvironments _environment;
-
-        private SimpleMultiAgentGroup _agentGroup;
-
+        public SetupNewBattle AskConfirmAbilities;
         public CancelAgent CancelAgent;
-        
+
+        private TravelSubSystem _travelSubsystem;
+        private EBattleEnvironments _environment;
+        private SimpleMultiAgentGroup _agentGroup;
+        private HashSet<AdventurerAgent> _confirmedAgents;
+
         // Start is called before the first frame update
         public BattlePartySubsystem(int partySize, EBattleEnvironments environment, TravelSubSystem travelSubsystem) : base(partySize)
         {
@@ -40,10 +38,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             AskConfirmation.Invoke(PendingAgents.ToArray(), null, agentGroup);
         }
 
-        public void StartBattle(EBattleEnvironments battleEnvironments)
+        public void StartBattle()
         {
             Debug.Log("StartBattle");
-            var fighter = _travelSubsystem.GetBattle(battleEnvironments);
+            var fighter = _travelSubsystem.GetBattle(_environment);
 
             if (fighter)
             {
@@ -52,8 +50,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
             base.CompleteParty(_agentGroup);
         }
-        
-        private HashSet<AdventurerAgent> _confirmedAgents;
+
+        public void ConfirmAbilities()
+        {
+            _confirmedAgents.Clear();
+        }
 
         public void Confirmation(EConfirmBattle confirmation, AdventurerAgent agent)
         {
@@ -64,7 +65,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                     _confirmedAgents.Add(agent);
                     if (_confirmedAgents.Count == PendingAgents.Count)
                     {
-                        StartBattle(_environment);
+                        ConfirmAbilities();
                     }   
                 }
             }

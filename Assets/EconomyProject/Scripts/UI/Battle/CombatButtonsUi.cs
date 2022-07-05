@@ -22,7 +22,7 @@ namespace EconomyProject.Scripts.UI.Battle
             {
                 var battle = battleLocationSelect.GetBattleAction(agent);
                 var index = 0;
-                var map = PlayerActionMap.GetAttackActionMap(agent.AdventurerType);
+                var map = PlayerActionMap.GetAttackActionMap(agent.AdventurerType, PlayerActionMap.GetAbilities(agent.AdventurerType, agent.levelComponent.Level));
                 foreach (var i in buttons)
                 {
                     var battleAction = (EBattleAction) index;

@@ -23,7 +23,7 @@ namespace TurnBased.Scripts
         public override int Level => level;
 
         private Dictionary<EBattleAction, AttackAction> AttackActionMap =>
-            PlayerActionMap.GetAttackActionMap(AdventurerType);
+            PlayerActionMap.GetAttackActionMap(AdventurerType, PlayerActionMap.GetAbilities(AdventurerType, level));
 
         private UsableItem UsableItem => GetUsableItem.Invoke();
 
@@ -40,10 +40,11 @@ namespace TurnBased.Scripts
             }
         }
 
-        public PlayerFighterData(EAdventurerTypes adventurerType)
+        public PlayerFighterData(EAdventurerTypes adventurerType, int level)
         {
             AdventurerType = adventurerType;
             UnitName = adventurerType.ToString();
+            this.level = level;
         }
 
         protected override void AfterAttack()

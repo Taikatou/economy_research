@@ -67,6 +67,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 }
             }
 
+            void AskConfirmAbilities(AdventurerAgent[] agents, FighterObject enemyFighter, SimpleMultiAgentGroup party)
+            {
+                foreach (var agent in agents)
+                {
+                    _setAdventureState.Invoke(agent, EAdventureStates.ConfirmAbilities);
+                }
+            }
+
             BattleSystems = new Dictionary<AdventurerAgent, BattleSubSystemInstance<AdventurerAgent>>();
             CurrentParties = new Dictionary<EBattleEnvironments, BattlePartySubsystem>();
             ReverseCurrentParties = new Dictionary<AdventurerAgent, EBattleEnvironments>();
@@ -76,6 +84,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 CurrentParties.Add(battle, party);
                 party.SetupNewBattle = SetupNewBattle;
                 party.AskConfirmation = AskConfirmation;
+                party.AskConfirmAbilities = AskConfirmAbilities;
                 party.CancelAgent = RemoveAgent;
             }
         }
@@ -83,6 +92,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         public void Confirmation(EConfirmBattle confirmation, AdventurerAgent agent)
         {
             CurrentParties[ReverseCurrentParties[agent]].Confirmation(confirmation, agent);
+        }
+
+        public void ConfirmAbilities(EConfirmBattle confirmation, AdventurerAgent agent)
+        {
+
         }
 
         private void EndBattle(AdventurerAgent agent)

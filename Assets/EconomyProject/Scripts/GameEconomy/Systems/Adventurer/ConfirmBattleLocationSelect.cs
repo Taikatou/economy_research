@@ -8,6 +8,7 @@ using EconomyProject.Scripts.UI;
 namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 {
     public enum EConfirmBattle { Confirm, Back }
+    public enum EConfirmAbilities {Confirm, Back, Up, Down};
     public class ConfirmBattleLocationSelect : LocationSelect<AdventurerAgent>
     { 
         public AdventurerSystemBehaviour adventurerSystem;
