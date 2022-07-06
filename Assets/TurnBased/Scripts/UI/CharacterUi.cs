@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace TurnBased.Scripts.UI
 {
@@ -6,7 +7,7 @@ namespace TurnBased.Scripts.UI
     {
         public SpriteRenderer spriteRenderer;
 
-        public void UpdateCharacter(BaseFighterData fighterUnit, bool flipped)
+        public void UpdateCharacter<T, Q>(BaseFighterData<T, Q> fighterUnit, bool flipped) where T : Enum where Q : Enum
         {
             spriteRenderer.sprite = fighterUnit.Sprite;
             spriteRenderer.flipX = flipped;

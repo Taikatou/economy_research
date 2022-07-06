@@ -20,18 +20,16 @@ namespace EconomyProject.Scripts.UI
         private DateTime _updateTime;
 
 		private int nbrAgent = 0;
-		private int _cacheIndex;
 
-        public void Update()
+		public void Update()
         {
 	        if (agentParent == null || GetAgents == null)
 	        {
 		        return;
 	        }
-            if (_updateTime != agentSpawner.LastUpdated || nbrAgent != GetAgents.Length || Index != _cacheIndex)
+            if (_updateTime != agentSpawner.LastUpdated || nbrAgent != GetAgents.Length)
             {
-	            _cacheIndex = Index;
-				nbrAgent = GetAgents.Length;
+	            nbrAgent = GetAgents.Length;
 				_updateTime = agentSpawner.LastUpdated;
                 Refresh();
             }

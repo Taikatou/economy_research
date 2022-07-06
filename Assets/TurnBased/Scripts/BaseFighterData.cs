@@ -1,16 +1,23 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace TurnBased.Scripts
 {
-    public delegate string AttackAction(EnemyFighterGroup enemyFighterUnits, PlayerFighterData instance);
-    public abstract class BaseFighterData
+    public interface GetCurrentHP
     {
+        int CurrentHp { get; }
+    }
+    public delegate string AttackAction(EnemyFighterGroup enemyFighterUnits, PlayerFighterData instance);
+    public delegate DamageModifier GetDamageModifier<T, Q>(T a, Q b);
+    public abstract class BaseFighterData<T, Q> : GetCurrentHP where T : Enum where Q : Enum
+    {
+        public abstract GetDamageModifier<T, Q> GetDamageModifier { get; }
         public string UnitName;
         public Sprite Sprite;
         public int MaxHp;
         public int CurrentHp { get; set; }
 
-        public float GetObs => CurrentHp / MaxHp;
+        public float GetObs => (float)CurrentHp / MaxHp;
 
         public float HpPercent => (float)CurrentHp / MaxHp;
 
@@ -22,7 +29,9 @@ namespace TurnBased.Scripts
         public abstract float BlockReduction { get; }
         public abstract int Level { get; }
 
-        private void TakeDamage(int dmg)
+        protected abstract T DamageType { get; }
+
+        private void TakeDamage(int dmg, Q damageFrom)
         {
             void AttackHit(int damage)
             {
@@ -43,7 +52,8 @@ namespace TurnBased.Scripts
                     var randomFloat = (float) rand.NextDouble();
                     if (randomFloat <= ParryChance)
                     {
-                        Attack(this);
+                        // TODO FIX THIS
+                        // Attack(this, (Q) 0);
                     }
                     else
                     {
@@ -70,13 +80,24 @@ namespace TurnBased.Scripts
             }
         }
 
-        public void Attack(BaseFighterData enemy)
+        public void Attack(BaseFighterData<Q, T> enemy)
         {
             var rand = new System.Random();
             var randomFloat = rand.NextDouble();
             if (randomFloat < Accuracy)
             {
-                enemy.TakeDamage(Damage);   
+                var modifier = GetDamageModifier.Invoke(DamageType, enemy.DamageType);
+                float dmg = Damage;
+                switch (modifier)
+                {
+                    case DamageModifier.Strong:
+                        dmg *= 1.5f;
+                        break;
+                    case DamageModifier.Weak:
+                        dmg /= 2.0f;
+                        break;
+                }
+                enemy.TakeDamage((int)dmg, DamageType);   
             }
             AfterAttack();
             SecondaryAbilityStatus = SecondaryAbilityStatus.None;

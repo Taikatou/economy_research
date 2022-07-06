@@ -35,7 +35,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes
                     level = row.level;
                 }
             }
-            Debug.Log(level + "\t" + TotalExp + "\t" + AgentLevelCurve.levelProgressionParts[0].expRequirement);
 
             return level;
         }

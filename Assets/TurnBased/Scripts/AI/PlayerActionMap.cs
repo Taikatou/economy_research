@@ -4,7 +4,7 @@ using Data;
 
 namespace TurnBased.Scripts.AI
 {
-    public enum EAttackOptions {Attack, Block, Parry, Evade, Heal, None}
+    public enum EAttackOptions {None, Attack, Block, Parry, Evade, Heal}
     public static class PlayerActionMap
     {
         public static readonly Dictionary<EAttackOptions, AttackAction> GetAttackDelegate =

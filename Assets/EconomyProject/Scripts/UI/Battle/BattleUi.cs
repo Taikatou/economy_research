@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Data;
 using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using TurnBased.Scripts;
@@ -45,7 +47,7 @@ namespace EconomyProject.Scripts.UI.Battle
             _uiGameObjects = new List<GameObject>();
         }
 
-        private void SpawnCharacter(BaseFighterData fighterData, BattleStation station)
+        private void SpawnCharacter<T, Q>(BaseFighterData<T, Q> fighterData, BattleStation station)  where T : Enum where Q : Enum
         {
             var characterGo = Instantiate(characterPrefab, station.transform);
             var playerCharacterUi = characterGo.GetComponent<CharacterUi>();
@@ -61,7 +63,7 @@ namespace EconomyProject.Scripts.UI.Battle
             }
         }
 
-        private void SetupBattle(BaseFighterData playerUnit, BaseFighterData enemyUnit)
+        private void SetupBattle(PlayerFighterData playerUnit, FighterData enemyUnit)
         {
             ClearGameObjects();
 

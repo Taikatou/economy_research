@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace TurnBased.Scripts
@@ -9,9 +10,9 @@ namespace TurnBased.Scripts
 		public Text levelText;
 		public Slider hpSlider;
 
-		private BaseFighterData _fighterUnit;
+		private GetCurrentHP _fighterUnit;
 
-		public void SetHud(BaseFighterData fighterUnit)
+		public void SetHud<T, Q>(BaseFighterData<T, Q> fighterUnit) where T : Enum where Q : Enum
 		{
 			_fighterUnit = fighterUnit;
 			nameText.text = fighterUnit.UnitName;

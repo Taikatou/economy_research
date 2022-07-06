@@ -4,36 +4,36 @@ using Data;
 namespace TurnBased.Scripts
 {
     public enum DamageModifier {Weak, Neutral, Strong};
-    public enum FighterType { Normal, Poisin, Flying, Rock }
+    public enum EFighterType { Normal, Poisin, Flying, Rock }
 
     public static class FightingRelationships
     {
-        public static Dictionary<EAdventurerTypes, Dictionary<FighterType, DamageModifier>> Relationships => new Dictionary<EAdventurerTypes, Dictionary<FighterType, DamageModifier>>
+        private static Dictionary<EAdventurerTypes, Dictionary<EFighterType, DamageModifier>> Relationships => new Dictionary<EAdventurerTypes, Dictionary<EFighterType, DamageModifier>>
         {
             {
-                EAdventurerTypes.Brawler, new Dictionary<FighterType, DamageModifier>
+                EAdventurerTypes.Brawler, new Dictionary<EFighterType, DamageModifier>
                 {
-                    {FighterType.Rock, DamageModifier.Strong},
-                    {FighterType.Flying, DamageModifier.Weak}
+                    {EFighterType.Rock, DamageModifier.Strong},
+                    {EFighterType.Flying, DamageModifier.Weak}
                 }
             },
             {
-                EAdventurerTypes.Swordsman, new Dictionary<FighterType, DamageModifier>
+                EAdventurerTypes.Swordsman, new Dictionary<EFighterType, DamageModifier>
                 {
-                    {FighterType.Poisin, DamageModifier.Strong},
-                    {FighterType.Rock, DamageModifier.Weak}
+                    {EFighterType.Poisin, DamageModifier.Strong},
+                    {EFighterType.Rock, DamageModifier.Weak}
                 }
             },
             {
-                EAdventurerTypes.Mage, new Dictionary<FighterType, DamageModifier>
+                EAdventurerTypes.Mage, new Dictionary<EFighterType, DamageModifier>
                 {
-                    {FighterType.Flying, DamageModifier.Strong},
-                    {FighterType.Poisin, DamageModifier.Weak}
+                    {EFighterType.Flying, DamageModifier.Strong},
+                    {EFighterType.Poisin, DamageModifier.Weak}
                 }
             }
         };
 
-        public static DamageModifier GetDamage(EAdventurerTypes adventurerTypes, FighterType fighterType)
+        public static DamageModifier GetDamage(EAdventurerTypes adventurerTypes, EFighterType fighterType)
         {
             var toReturn = DamageModifier.Neutral;
             if (Relationships.ContainsKey(adventurerTypes))
@@ -45,6 +45,17 @@ namespace TurnBased.Scripts
             }
 
             return toReturn;
+        }
+
+        public static DamageModifier GetDamage(EFighterType fighterType, EAdventurerTypes adventurerTypes)
+        {
+            var map = new Dictionary<DamageModifier, DamageModifier>
+            {
+                {DamageModifier.Strong, DamageModifier.Weak},
+                {DamageModifier.Neutral, DamageModifier.Neutral},
+                {DamageModifier.Weak, DamageModifier.Strong}
+            };
+            return map[GetDamage(adventurerTypes, fighterType)];
         }
     }
 }

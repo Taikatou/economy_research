@@ -13,14 +13,14 @@ namespace TurnBased.Scripts
 	public enum EBattleState { Start, PlayerTurn, EnemyTurn, Won, Lost, Flee }
 	public enum EBattleAction { PrimaryAction, SecondaryAction, BonusAction, Flee }
 
-	public class FighterGroup<T> where T : BaseFighterData
+	public class FighterGroup<T, L, F> where T : BaseFighterData<L, F> where L : Enum where F : Enum
 	{
 		public int Index { get; set; }
 		public T[] FighterUnits;
 		public T Instance => FighterUnits[Index];
 	}
 
-	public class PlayerFighterGroup : FighterGroup<PlayerFighterData>
+	public class PlayerFighterGroup : FighterGroup<PlayerFighterData, EAdventurerTypes, EFighterType>
 	{
 		public PlayerFighterGroup(PlayerFighterData[] fighters)
 		{
@@ -58,9 +58,9 @@ namespace TurnBased.Scripts
 		}
 	}
 
-	public class EnemyFighterGroup : FighterGroup<FighterData>
+	public class EnemyFighterGroup : FighterGroup<FighterData, EFighterType, EAdventurerTypes>
 	{
-		public readonly FighterType FighterType;
+		public readonly EFighterType FighterType;
 
 		public EnemyFighterGroup(FighterData fighter)
 		{
@@ -118,7 +118,6 @@ namespace TurnBased.Scripts
 
 		public bool IsTurn(PlayerFighterData p)
 		{
-			Debug.Log(CurrentState + "\t" + (PlayerFighterUnits.Instance == p));
 			return CurrentState == EBattleState.PlayerTurn && PlayerFighterUnits.Instance == p;
 		}
 
@@ -264,6 +263,7 @@ namespace TurnBased.Scripts
 			
 			var playerName = _unitOneHotEncode[EnemyFighterUnits.Instance.UnitName];
 			var yourTurn = IsTurn(hashCode)? 1.0f : 0.0f;
+			EAttackOptions bonsAction = map.ContainsKey(EBattleAction.BonusAction)? map[EBattleAction.BonusAction] : EAttackOptions.None;
 			return new ObsData []
 			{
 				new BaseCategoricalObsData(playerName, 8)
@@ -279,7 +279,7 @@ namespace TurnBased.Scripts
 				new CategoricalObsData<EnemyAction>(_enemyAI.NextAction),
 				new CategoricalObsData<EAttackOptions>(map[EBattleAction.PrimaryAction]),
 				new CategoricalObsData<EAttackOptions>(map[EBattleAction.SecondaryAction]),
-				new CategoricalObsData<EAttackOptions>(map[EBattleAction.BonusAction])
+				new CategoricalObsData<EAttackOptions>(bonsAction)
 			};
 		}
 

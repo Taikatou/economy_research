@@ -9,7 +9,7 @@ namespace TurnBased.Scripts
     public delegate void OnAfterAttack();
     public delegate UsableItem GetUsableItem();
     public delegate int BonusDamage();
-    public class PlayerFighterData : BaseFighterData
+    public class PlayerFighterData : BaseFighterData<EAdventurerTypes, EFighterType>
     {
         public int level = 0;
         public EAdventurerTypes AdventurerType { get; }
@@ -21,11 +21,15 @@ namespace TurnBased.Scripts
         protected override double Accuracy => 1;
         public override float BlockReduction => 2.0f;
         public override int Level => level;
+        protected override EAdventurerTypes DamageType => AdventurerType;
 
         private Dictionary<EBattleAction, EAttackOptions> AttackActionMap =>
             PlayerActionMap.GetAttackActionMap(AdventurerType, PlayerActionMap.GetAbilities(AdventurerType, level));
 
         private UsableItem UsableItem => GetUsableItem.Invoke();
+
+        public override GetDamageModifier<EAdventurerTypes, EFighterType> GetDamageModifier =>
+            FightingRelationships.GetDamage;
 
         public override int Damage
         {
