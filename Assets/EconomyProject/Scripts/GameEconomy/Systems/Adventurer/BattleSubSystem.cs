@@ -8,12 +8,13 @@ using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.UI;
 using LevelSystem;
 using TurnBased.Scripts;
+using TurnBased.Scripts.AI;
 using Unity.MLAgents;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 {
     public delegate void SetAdventureState(AdventurerAgent agent, EAdventureStates state);
-    public class BattleSubSystem
+    public class BattleSubSystem : ILastUpdate
     {
         public Dictionary<AdventurerAgent, BattleSubSystemInstance<AdventurerAgent>> BattleSystems { get; }
         public Dictionary<EBattleEnvironments, BattlePartySubsystem> CurrentParties { get; private set; }
@@ -22,7 +23,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         private static IEnumerable<EBattleEnvironments> BattleAsArray =>
             Enum.GetValues(typeof(EBattleEnvironments)).Cast<EBattleEnvironments>().ToArray();
 
-        public static int SensorCount => BattleSubSystemInstance<AdventurerAgent>.SensorCount;
+        public static int SensorCount => BattleSubSystemInstance<AdventurerAgent>.SensorCount + Adventurer.ConfirmAbilities.SensorCount;
 
         private readonly SetAdventureState _setAdventureState;
 
@@ -89,14 +90,25 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             }
         }
 
+        public ObsData[] GetObs(AdventurerAgent agent)
+        {
+            return CurrentParties[ReverseCurrentParties[agent]].confirmAbilities.GetObservations(agent);
+        }
+
         public void Confirmation(EConfirmBattle confirmation, AdventurerAgent agent)
         {
             CurrentParties[ReverseCurrentParties[agent]].Confirmation(confirmation, agent);
+            Refresh();
         }
 
-        public void ConfirmAbilities(EConfirmBattle confirmation, AdventurerAgent agent)
+        public void ConfirmAbilities(EAttackOptions confirmation, AdventurerAgent agent)
         {
-
+            var party = CurrentParties[ReverseCurrentParties[agent]];
+            party.confirmAbilities.ConfirmAbility(agent, confirmation);
+            if (party.confirmAbilities.Complete(SystemTraining.PartySize))
+            {
+                party.StartBattle();
+            }
         }
 
         private void EndBattle(AdventurerAgent agent)
@@ -244,6 +256,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
                 craftingInventory.CheckItemAdd(craftingDrop.Resource, craftingDrop.Count, OnItemAdd, OnRequestComplete);   
             }
+        }
+
+        public DateTime LastUpdated { get; private set; }
+        public void Refresh()
+        {
+            LastUpdated = DateTime.Now;
         }
     }
 }

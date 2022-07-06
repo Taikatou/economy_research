@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Data;
-using EconomyProject.Scripts.MLAgents.AdventurerAgents;
-using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
-using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {

@@ -176,9 +176,10 @@ namespace TurnBased.Scripts
 				return;
 
 			var actionDelegate = PlayerFighterUnits.Instance.GetAttackAction(action);
-			if (actionDelegate != null)
+			if (actionDelegate.HasValue)
 			{
-				var str = actionDelegate.Invoke(EnemyFighterUnits, PlayerFighterUnits.Instance);
+				var del = PlayerActionMap.GetAttackDelegate[actionDelegate.Value];
+				var str = del.Invoke(EnemyFighterUnits, PlayerFighterUnits.Instance);
 				DialogueText = str;
 				
 				Refresh();
@@ -276,9 +277,9 @@ namespace TurnBased.Scripts
 				new SingleObsData{data=inputLocation, Name="InputLocation"},
 				new SingleObsData{data=yourTurn, Name="yourTurn"},
 				new CategoricalObsData<EnemyAction>(_enemyAI.NextAction),
-				new CategoricalObsData<AttackOptions>(PlayerActionMap.GetAttack(map[EBattleAction.PrimaryAction])),
-				new CategoricalObsData<AttackOptions>(PlayerActionMap.GetAttack(map[EBattleAction.SecondaryAction])),
-				new CategoricalObsData<AttackOptions>(PlayerActionMap.GetAttack(map[EBattleAction.BonusAction]))
+				new CategoricalObsData<EAttackOptions>(map[EBattleAction.PrimaryAction]),
+				new CategoricalObsData<EAttackOptions>(map[EBattleAction.SecondaryAction]),
+				new CategoricalObsData<EAttackOptions>(map[EBattleAction.BonusAction])
 			};
 		}
 

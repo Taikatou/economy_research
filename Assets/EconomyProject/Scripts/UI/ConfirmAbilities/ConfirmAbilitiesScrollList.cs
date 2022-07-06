@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using Data;
+using EconomyProject.Monobehaviours;
+using EconomyProject.Scripts.GameEconomy.Systems.Adventurer;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
 using TurnBased.Scripts.AI;
 
@@ -7,27 +9,52 @@ namespace EconomyProject.Scripts.UI.ConfirmAbilities
 {
     public struct AbilityUI
     {
-        public string AbilityName;
+        public EAttackOptions AbilityName;
     }
     public class ConfirmAbilitiesScrollList : AbstractScrollList<AbilityUI, AbilityButton>
     {
+        public AdventurerSystemBehaviour adventurerSystem;
+
         public GetCurrentAdventurerAgent getCurrentAdventurer;
+
+        public ConfirmAbilitiesLocationSelect confirmAbilitySelect;
+
         protected override List<AbilityUI> GetItemList()
         {
             var toReturn = new List<AbilityUI>();
             var agent = getCurrentAdventurer.CurrentAgent;
-            foreach( var ability in PlayerActionMap.GetAbilities(agent.AdventurerType, agent.levelComponent.Level))
+            if (agent != null)
             {
-                var abilityName = PlayerActionMap.GetAttack(ability);
-                toReturn.Add(new AbilityUI{AbilityName = abilityName.ToString()});
+                foreach( var ability in PlayerActionMap.GetAbilities(agent.AdventurerType, agent.levelComponent.Level))
+                {
+                    toReturn.Add(new AbilityUI{AbilityName = ability});
+                }   
             }
 
             return toReturn;
         }
-        protected override ILastUpdate LastUpdated { get; }
+
+        protected override ILastUpdate LastUpdated
+        {
+            get
+            {
+                return getCurrentAdventurer;
+            }
+        }
+
         public override void SelectItem(AbilityUI item, int number = 1)
         {
             throw new System.NotImplementedException();
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+            var attack = confirmAbilitySelect.GetAbility(getCurrentAdventurer.CurrentAgent);
+            foreach (var button in buttons)
+            {
+                button.UpdateButton(attack);
+            }
         }
     }
 }

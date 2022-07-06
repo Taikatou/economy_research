@@ -6,6 +6,7 @@ using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.Interfaces;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using TurnBased.Scripts;
+using TurnBased.Scripts.AI;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {
@@ -22,12 +23,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                                              AdventurerLocationSelect.SensorCount + 
                                              (SystemTraining.PartySize * SensorUtils<EBattleEnvironments>.Length * 
                                               SensorUtils<EAdventurerTypes>.Length) + 
-                                             ConfirmBattleLocationSelect.SensorCount;
+                                             ConfirmBattleLocationSelect.SensorCount + ConfirmAbilitiesLocationSelect.SensorCount;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Adventurer;
 
         public AdventurerLocationSelect locationSelect;
         public BattleLocationSelect battleLocationSelect;
         public ConfirmBattleLocationSelect confirmLocationSelect;
+        public ConfirmAbilitiesLocationSelect confirmAbilitiesSelect;
 
         public TravelSubSystem travelSubsystem;
 
@@ -123,6 +125,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                 ? confirmLocationSelect.GetConfirmationObservations(agent, this)
                 : BlankArray(ConfirmBattleLocationSelect.SensorCount);
 
+            var output4 = state == EAdventureStates.ConfirmAbilities
+                ? battleSubSystem.GetObs(agent)
+                : BlankArray(ConfirmAbilities.SensorCount);
+
+            var output5 = state == EAdventureStates.ConfirmAbilities
+                ? confirmAbilitiesSelect.GetObservations(agent)
+                : BlankArray(ConfirmAbilitiesLocationSelect.SensorCount);
+
             var obsize = new List<ObsData>();
             foreach (EBattleEnvironments battle in Enum.GetValues(typeof(EBattleEnvironments)))
             {
@@ -144,6 +154,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             battleState.AddRange(obsize);
             battleState.AddRange(output2);
             battleState.AddRange(output3);
+            battleState.AddRange(output4);
+            battleState.AddRange(output5);
             return battleState.ToArray();
         }
 
@@ -194,7 +206,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                     battleSubSystem.Confirmation(confirm, agent);
                     break;
                 case EAdventureStates.ConfirmAbilities:
-                    
+                    var ability = confirmAbilitiesSelect.GetAbility(agent);
+                    battleSubSystem.ConfirmAbilities(ability, agent);
                     break;
             }
         }
@@ -215,6 +228,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                     break;
                 case EAdventureStates.ConfirmBattle:
                     location = confirmLocationSelect;
+                    break;
+                case EAdventureStates.ConfirmAbilities:
+                    location = confirmAbilitiesSelect;
                     break;
 
             }

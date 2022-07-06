@@ -33,7 +33,7 @@ namespace EconomyProject.Scripts.UI.Battle
                     var txt = "";
                     if (map.ContainsKey(battleAction))
                     {
-                        txt = PlayerActionMap.GetAttack(map[battleAction]).ToString();
+                        txt = map[battleAction].ToString();
                     }
                     var text = i.GetComponentInChildren<Text>();
                     text.text = txt;

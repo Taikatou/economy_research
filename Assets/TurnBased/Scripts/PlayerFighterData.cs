@@ -22,7 +22,7 @@ namespace TurnBased.Scripts
         public override float BlockReduction => 2.0f;
         public override int Level => level;
 
-        private Dictionary<EBattleAction, AttackAction> AttackActionMap =>
+        private Dictionary<EBattleAction, EAttackOptions> AttackActionMap =>
             PlayerActionMap.GetAttackActionMap(AdventurerType, PlayerActionMap.GetAbilities(AdventurerType, level));
 
         private UsableItem UsableItem => GetUsableItem.Invoke();
@@ -57,7 +57,7 @@ namespace TurnBased.Scripts
             CurrentHp = MaxHp;
         }
 
-        public AttackAction GetAttackAction(EBattleAction action)
+        public EAttackOptions? GetAttackAction(EBattleAction action)
         {
             if (AttackActionMap.ContainsKey(action))
             {

@@ -29,6 +29,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         {
             _environment = environment;
             _travelSubsystem = travelSubsystem;
+            confirmAbilities = new ConfirmAbilities();
         }
 
         public override void CompleteParty(SimpleMultiAgentGroup agentGroup)
@@ -65,7 +66,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                     _confirmedAgents.Add(agent);
                     if (_confirmedAgents.Count == PendingAgents.Count)
                     {
-                        ConfirmAbilities();
+                        AskConfirmAbilities.Invoke(PendingAgents.ToArray(), null, _agentGroup);
                     }   
                 }
             }
@@ -78,5 +79,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 }
             }
         }
+        
+        public readonly ConfirmAbilities confirmAbilities;
     }
 }

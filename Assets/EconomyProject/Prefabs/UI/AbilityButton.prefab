@@ -176,6 +176,7 @@ MonoBehaviour:
   selectedColor: {r: 0, g: 1, b: 0, a: 1}
   unselectedColor: {r: 1, g: 1, b: 1, a: 1}
   buttonComponent: {fileID: 5812656370461300132}
+  text: {fileID: 5812656371097282050}
 --- !u!1 &5812656371097282172
 GameObject:
   m_ObjectHideFlags: 0

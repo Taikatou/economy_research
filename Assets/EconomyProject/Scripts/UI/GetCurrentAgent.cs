@@ -20,6 +20,7 @@ namespace EconomyProject.Scripts.UI
         private DateTime _updateTime;
 
 		private int nbrAgent = 0;
+		private int _cacheIndex;
 
         public void Update()
         {
@@ -27,8 +28,9 @@ namespace EconomyProject.Scripts.UI
 	        {
 		        return;
 	        }
-            if (_updateTime != agentSpawner.LastUpdated || nbrAgent != GetAgents.Length)
+            if (_updateTime != agentSpawner.LastUpdated || nbrAgent != GetAgents.Length || Index != _cacheIndex)
             {
+	            _cacheIndex = Index;
 				nbrAgent = GetAgents.Length;
 				_updateTime = agentSpawner.LastUpdated;
                 Refresh();

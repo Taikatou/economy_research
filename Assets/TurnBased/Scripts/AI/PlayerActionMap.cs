@@ -4,31 +4,19 @@ using Data;
 
 namespace TurnBased.Scripts.AI
 {
-    public enum AttackOptions {Attack, Block, Parry, Evade, Heal, None}
+    public enum EAttackOptions {Attack, Block, Parry, Evade, Heal, None}
     public static class PlayerActionMap
     {
-        private static readonly Dictionary<AttackAction, AttackOptions> GetAttackString =
+        public static readonly Dictionary<EAttackOptions, AttackAction> GetAttackDelegate =
             new()
             {
-                { AttackDelegate, AttackOptions.Attack },
-                { BlockDelegate, AttackOptions.Block },
-                { ParryDelegate, AttackOptions.Parry },
-                { EvadeDelegate, AttackOptions.Evade },
-                { HealDelegate, AttackOptions.Heal }
+                { EAttackOptions.Attack, AttackDelegate },
+                { EAttackOptions.Block, BlockDelegate },
+                { EAttackOptions.Parry, ParryDelegate },
+                { EAttackOptions.Evade, EvadeDelegate },
+                { EAttackOptions.Heal, HealDelegate }
             };
 
-        public static AttackOptions GetAttack(AttackAction action)
-        {
-            if (action != null)
-            {
-                if (GetAttackString.ContainsKey(action))
-                {
-                    return GetAttackString[action];
-                }   
-            }
-            return AttackOptions.None;
-        }
-        
         private static string AttackDelegate(EnemyFighterGroup enemyFighterUnits, PlayerFighterData instance)
         {
             instance.Attack(enemyFighterUnits.Instance);
@@ -64,40 +52,40 @@ namespace TurnBased.Scripts.AI
             return "You feel renewed strength!";
         }
 
-        private static readonly Dictionary<AttackAction, int> SwordsmanLevelStructure = new()
+        private static readonly Dictionary<EAttackOptions, int> SwordsmanLevelStructure = new()
         {
-            {AttackDelegate, 0},
-            {ParryDelegate, 0}
+            {EAttackOptions.Attack, 0},
+            {EAttackOptions.Parry, 0}
         };
 
         
-        private static readonly Dictionary<AttackAction, int> BrawlerLevelStructure = new()
+        private static readonly Dictionary<EAttackOptions, int> BrawlerLevelStructure = new()
         {
-            {AttackDelegate, 0},
-            {BlockDelegate, 0},
-            {HealDelegate, 0}
+            {EAttackOptions.Attack, 0},
+            {EAttackOptions.Block, 0},
+            {EAttackOptions.Heal, 0}
         };
         
-        private static readonly Dictionary<AttackAction, int> MageLevelStructure = new()
+        private static readonly Dictionary<EAttackOptions, int> MageLevelStructure = new()
         {
-            {AttackDelegate, 0},
-            {EvadeDelegate, 0},
-            {HealDelegate, 0}
+            {EAttackOptions.Attack, 0},
+            {EAttackOptions.Evade, 0},
+            {EAttackOptions.Heal, 0}
         };
 
-        private static readonly Dictionary<EAdventurerTypes, Dictionary<AttackAction, int>> Moves = new()
+        private static readonly Dictionary<EAdventurerTypes, Dictionary<EAttackOptions, int>> Moves = new()
         {
             {EAdventurerTypes.Brawler, BrawlerLevelStructure},
             {EAdventurerTypes.Swordsman, SwordsmanLevelStructure},
             {EAdventurerTypes.Mage, MageLevelStructure}
         };
 
-        private static List<AttackAction> GetAbilitiesUtil(int level, Dictionary<AttackAction, int> levelStructure)
+        private static List<EAttackOptions> GetAbilitiesUtil(int level, Dictionary<EAttackOptions, int> levelStructure)
         {
-            var abilities = new List<AttackAction>(); 
+            var abilities = new List<EAttackOptions>(); 
             foreach(var move in levelStructure)
             {
-                if (move.Value < level)
+                if (move.Value <= level)
                 {
                     abilities.Add(move.Key);
                 }
@@ -106,9 +94,9 @@ namespace TurnBased.Scripts.AI
             return abilities;
         }
 
-        public static List<AttackAction> GetAbilities(EAdventurerTypes adventurerType, int level)
+        public static List<EAttackOptions> GetAbilities(EAdventurerTypes adventurerType, int level)
         {
-            List<AttackAction> toReturn = null;
+            List<EAttackOptions> toReturn = null;
             if (Moves.ContainsKey(adventurerType))
             {
                 toReturn = GetAbilitiesUtil(level, Moves[adventurerType]);
@@ -116,9 +104,9 @@ namespace TurnBased.Scripts.AI
             return toReturn;
         }
         
-        public static Dictionary<EBattleAction, AttackAction> GetAttackActionMap(EAdventurerTypes adventurerType, List<AttackAction> attackActions)
+        public static Dictionary<EBattleAction, EAttackOptions> GetAttackActionMap(EAdventurerTypes adventurerType, List<EAttackOptions> attackActions)
         {
-            var moveDictionary = new Dictionary<EBattleAction, AttackAction>();
+            var moveDictionary = new Dictionary<EBattleAction, EAttackOptions>();
             for (var i = 0; i < attackActions.Count(); i++)
             {
                 var action = (EBattleAction) i;
