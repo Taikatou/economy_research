@@ -16,6 +16,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
     public delegate void SetAdventureState(AdventurerAgent agent, EAdventureStates state);
     public class BattleSubSystem : ILastUpdate
     {
+        private readonly SetAdventureState _setAdventureState;
+        
         public Dictionary<AdventurerAgent, BattleSubSystemInstance<AdventurerAgent>> BattleSystems { get; }
         public Dictionary<EBattleEnvironments, BattlePartySubsystem> CurrentParties { get; private set; }
         private Dictionary<AdventurerAgent, EBattleEnvironments> ReverseCurrentParties { get; }
@@ -25,7 +27,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         public static int SensorCount => BattleSubSystemInstance<AdventurerAgent>.SensorCount + Adventurer.ConfirmAbilities.SensorCount;
 
-        private readonly SetAdventureState _setAdventureState;
+        public DateTime LastUpdated { get; private set; }
 
         public BattleSubSystem(TravelSubSystem travelSubsystem, SetAdventureState setAdventureState)
         {
@@ -276,11 +278,18 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 craftingInventory.CheckItemAdd(craftingDrop.Resource, craftingDrop.Count, OnItemAdd, OnRequestComplete);   
             }
         }
-
-        public DateTime LastUpdated { get; private set; }
+        
         public void Refresh()
         {
             LastUpdated = DateTime.Now;
+        }
+
+        public void Update()
+        {
+            foreach (var item in CurrentParties)
+            {
+                item.Value.Update();
+            }
         }
     }
 }

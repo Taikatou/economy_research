@@ -17,5 +17,10 @@ namespace EconomyProject.Monobehaviours
         {
             system.Setup();
         }
+
+        public void Update()
+        {
+            system.Update();
+        }
     }
 }

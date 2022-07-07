@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Data;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using TurnBased.Scripts;
+using TurnBased.Scripts.AI;
 using Unity.MLAgents;
 using UnityEngine;
 
@@ -18,11 +20,17 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         public SetupNewBattle AskConfirmation;
         public SetupNewBattle AskConfirmAbilities;
         public CancelAgent CancelAgent;
+        
+        public ConfirmAbilities confirmAbilities { get; private set; }
 
         private TravelSubSystem _travelSubsystem;
         private EBattleEnvironments _environment;
         private SimpleMultiAgentGroup _agentGroup;
         private HashSet<AdventurerAgent> _confirmedAgents;
+
+        private float _timer;
+        private bool _timerActive = false;
+        public int CountDown = 5;
 
         // Start is called before the first frame update
         public BattlePartySubsystem(int partySize, EBattleEnvironments environment, TravelSubSystem travelSubsystem) : base(partySize)
@@ -32,11 +40,18 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             confirmAbilities = new ConfirmAbilities();
         }
 
+        private void ResetTimer()
+        {
+            _timer = CountDown;
+            _timerActive = true;
+        }
+
         public override void CompleteParty(SimpleMultiAgentGroup agentGroup)
         {
             _agentGroup = agentGroup;
             _confirmedAgents = new HashSet<AdventurerAgent>();
             AskConfirmation.Invoke(PendingAgents.ToArray(), null, agentGroup);
+            ResetTimer();
         }
 
         public void StartBattle()
@@ -66,6 +81,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                     _confirmedAgents.Add(agent);
                     if (_confirmedAgents.Count == PendingAgents.Count)
                     {
+                        _timerActive = false;
+                        confirmAbilities.StartConfirm();
+                        ResetTimer(); 
                         AskConfirmAbilities.Invoke(PendingAgents.ToArray(), null, _agentGroup);
                     }   
                 }
@@ -85,6 +103,38 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             }
         }
         
-        public readonly ConfirmAbilities confirmAbilities;
+        
+
+        public void Update()
+        {
+            if (_timerActive)
+            {
+                _timer -= Time.deltaTime;
+                if (_timer <= 0)
+                {
+                    _timerActive = false;
+                    CancelConfirmation();
+                }
+            }
+
+            if (confirmAbilities.Confirm)
+            {
+                _timer -= Time.deltaTime;
+                if (_timer <= 0)
+                {
+                    foreach (var agent in PendingAgents.ToArray())
+                    {
+                        foreach (var option in SensorUtils<EAttackOptions>.ValuesToArray)
+                        {
+                            confirmAbilities.ConfirmAbility(agent, option);
+                            if (confirmAbilities.Complete(SystemTraining.PartySize))
+                            {
+                                StartBattle();
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

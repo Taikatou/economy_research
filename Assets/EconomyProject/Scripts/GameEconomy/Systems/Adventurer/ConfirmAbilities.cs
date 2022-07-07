@@ -7,11 +7,16 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 {
     public class ConfirmAbilities
     {
-        public readonly int abilitiesCount = 3;
+        private const int abilitiesCount = 3;
         private readonly Dictionary<AdventurerAgent, HashSet<EAttackOptions>> _selectedAttacks;
+        public bool Confirm { get; set; }
         public ConfirmAbilities()
         {
             _selectedAttacks = new Dictionary<AdventurerAgent, HashSet<EAttackOptions>>();
+        }
+        public void StartConfirm()
+        {
+            Confirm = true;
         }
 
         public void ConfirmAbility(AdventurerAgent agent, EAttackOptions option)

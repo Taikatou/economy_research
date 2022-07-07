@@ -6,7 +6,6 @@ using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.Interfaces;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using TurnBased.Scripts;
-using TurnBased.Scripts.AI;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {
@@ -279,6 +278,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             var outputs = EconomySystemUtils<EAdventurerAgentChoices>.GetInputOfType(inputChoices);
 
             return outputs;
+        }
+
+        public void Update()
+        {
+            battleSubSystem.Update();
         }
     }
 }
