@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Data;
+using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.Experiments;
 using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
@@ -79,6 +80,9 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 	        fighterData.Setup();
 	        levelComponent.Reset();
 
+	        var adventurerBehaviour = FindObjectOfType<AdventurerSystemBehaviour>();
+	        adventurerBehaviour.system.RemoveAgent(this);
+		
 	        ResetOnItem.bSetupSystems = true;
         }
 

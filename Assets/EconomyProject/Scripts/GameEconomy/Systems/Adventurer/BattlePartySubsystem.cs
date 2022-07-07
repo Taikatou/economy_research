@@ -10,7 +10,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 {
     public delegate void CancelAgent(AdventurerAgent agent);
     public delegate void SetupNewBattle(AdventurerAgent[] agent, FighterObject enemyFighter, SimpleMultiAgentGroup party);
-    
+
     [Serializable]
     public class BattlePartySubsystem : PartySubSystem<AdventurerAgent>
     {
@@ -72,11 +72,16 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             }
             else
             {
-                var pArray = PendingAgents.ToArray();
-                foreach (var a in pArray)
-                {
-                    CancelAgent.Invoke(a);
-                }
+                CancelConfirmation();
+            }
+        }
+
+        public void CancelConfirmation()
+        {
+            var pArray = PendingAgents.ToArray();
+            foreach (var a in pArray)
+            {
+                CancelAgent.Invoke(a);
             }
         }
         

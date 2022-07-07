@@ -80,7 +80,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public override ObsData[] GetObservations(AdventurerAgent agent)
         {
-            ObsData[] GetSubsystemData(AdventurerAgent agent)
+            ObsData[] GetSubsystemData()
             {
                 ObsData[] toReturn;
                 
@@ -113,7 +113,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             var battleState = new List<ObsData> { new CategoricalObsData<EAdventureStates>(state) {Name="AdventureState"}};
 
             var output = state == EAdventureStates.InBattle
-                ? GetSubsystemData(agent)
+                ? GetSubsystemData()
                 : BlankArray(BattleSubSystemInstance<AdventurerAgent>.SensorCount);
             battleState.AddRange(output);
 
@@ -186,6 +186,25 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                         UpDown(agent, -1);
                         break;
                 }
+            }
+        }
+        
+        public void RemoveAgent(AdventurerAgent agent)
+        {
+            switch (GetAdventureStates(agent))
+            {
+                case EAdventureStates.ConfirmBattle:
+                    battleSubSystem.CancelConfirmation(agent);
+                    break;
+                case EAdventureStates.ConfirmAbilities:
+                    battleSubSystem.CancelAbilities(agent);
+                    break;
+                case EAdventureStates.InQueue:
+                    battleSubSystem.RemoveAgent(agent);
+                    break;
+                case EAdventureStates.InBattle:
+                    battleSubSystem.BattleSystems[agent].EndBattle();
+                    break;
             }
         }
 

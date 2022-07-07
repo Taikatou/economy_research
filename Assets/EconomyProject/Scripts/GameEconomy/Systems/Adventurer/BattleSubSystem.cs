@@ -95,6 +95,22 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             return CurrentParties[ReverseCurrentParties[agent]].confirmAbilities.GetObservations(agent);
         }
 
+        public void CancelConfirmation(AdventurerAgent agent)
+        {
+            if (ReverseCurrentParties.ContainsKey(agent))
+            {
+                CurrentParties[ReverseCurrentParties[agent]].Confirmation(EConfirmBattle.Back, agent);
+            }
+        }
+
+        public void CancelAbilities(AdventurerAgent agent)
+        {
+            if (ReverseCurrentParties.ContainsKey(agent))
+            {
+                CurrentParties[ReverseCurrentParties[agent]].CancelConfirmation();
+            }
+        }
+
         public void Confirmation(EConfirmBattle confirmation, AdventurerAgent agent)
         {
             CurrentParties[ReverseCurrentParties[agent]].Confirmation(confirmation, agent);
@@ -157,9 +173,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         public void RemoveAgent(AdventurerAgent agent)
         {
-            CurrentParties[ReverseCurrentParties[agent]].RemoveFromQueue(agent);
-            ReverseCurrentParties.Remove(agent);
-            _setAdventureState.Invoke(agent, EAdventureStates.OutOfBattle);
+            if (ReverseCurrentParties.ContainsKey(agent))
+            {
+                CurrentParties[ReverseCurrentParties[agent]].RemoveFromQueue(agent);
+                ReverseCurrentParties.Remove(agent);
+                _setAdventureState.Invoke(agent, EAdventureStates.OutOfBattle);   
+            }
         }
 
         public PartySubSystem<AdventurerAgent> GetSubsystem(AdventurerAgent agent)

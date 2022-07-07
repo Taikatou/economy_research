@@ -13,7 +13,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         public List<T> PendingAgents { get; private set; }
         private readonly Dictionary<T, SimpleMultiAgentGroup> _agentParties;
 
-        private OnAddPlayer<T> OnAddPlayer;
+        private OnAddPlayer<T> _onAddPlayer;
 
         protected PartySubSystem(int partySize)
         {
@@ -55,7 +55,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 CompleteParty(agentGroup);
             }
 
-            OnAddPlayer?.Invoke(agent);
+            _onAddPlayer?.Invoke(agent);
         }
 
         public bool Full => PendingAgents.Count >= _partySize;

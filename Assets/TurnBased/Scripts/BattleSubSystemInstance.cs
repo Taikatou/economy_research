@@ -151,7 +151,7 @@ namespace TurnBased.Scripts
 			}
 		}
 
-		private void EndBattle()
+		public void EndBattle()
 		{
 			_completeDelegate.Invoke(this);
 			if (CurrentState == EBattleState.Won)
