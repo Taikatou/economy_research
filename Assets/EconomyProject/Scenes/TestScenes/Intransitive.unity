@@ -1713,6 +1713,7 @@ MonoBehaviour:
   - {fileID: 2122369838}
   - {fileID: 7559496406468258830}
   - {fileID: 7559496408255104693}
+  aSystem: {fileID: 1781114768}
 --- !u!1 &510938849
 GameObject:
   m_ObjectHideFlags: 0
@@ -4563,6 +4564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63fc3b776580b0e428533ce2fe64e9b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aSystem: {fileID: 1781114768}
 --- !u!114 &1524750397 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 734842205298679346, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}

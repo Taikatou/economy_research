@@ -23,8 +23,8 @@ namespace TurnBased.Scripts
         public override int Level => level;
         protected override EAdventurerTypes DamageType => AdventurerType;
 
-        private Dictionary<EBattleAction, EAttackOptions> AttackActionMap =>
-            PlayerActionMap.GetAttackActionMap(AdventurerType, PlayerActionMap.GetAbilities(AdventurerType, level));
+        public Dictionary<EBattleAction, EAttackOptions> AttackActionMap =>
+            PlayerActionMap.GetAttackActionMap(AttackOptions);
 
         private UsableItem UsableItem => GetUsableItem.Invoke();
 
@@ -70,5 +70,7 @@ namespace TurnBased.Scripts
 
             return null;
         }
+
+        public List<EAttackOptions> AttackOptions { get; set; }
     }
 }

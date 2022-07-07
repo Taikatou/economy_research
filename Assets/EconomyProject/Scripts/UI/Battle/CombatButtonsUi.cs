@@ -1,7 +1,6 @@
-﻿using EconomyProject.Scripts.GameEconomy.Systems;
+﻿using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems.Adventurer;
 using TurnBased.Scripts;
-using TurnBased.Scripts.AI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +13,8 @@ namespace EconomyProject.Scripts.UI.Battle
         public GetCurrentAdventurerAgent adventurerAgent;
 
         public Image[] buttons;
+
+        public AdventurerSystemBehaviour aSystem;
         
         public void Update()
         {
@@ -22,22 +23,28 @@ namespace EconomyProject.Scripts.UI.Battle
             {
                 var battle = battleLocationSelect.GetBattleAction(agent);
                 var index = 0;
-                var map = PlayerActionMap.GetAttackActionMap(agent.AdventurerType, PlayerActionMap.GetAbilities(agent.AdventurerType, agent.levelComponent.Level));
-                foreach (var i in buttons)
+                var subSystem = aSystem.system.battleSubSystem.GetSubSystem(agent);
+                if (subSystem != null)
                 {
-                    var battleAction = (EBattleAction) index;
-                    var highLight = battleAction == battle;
-                    i.color = highLight ? Color.green : Color.white;
-                    index++;
-
-                    var txt = "";
-                    if (map.ContainsKey(battleAction))
+                    var playerData = subSystem.PlayerFighterUnits.GetAgentPlayerData(agent.GetHashCode());
+                    var map = playerData.AttackActionMap;
+                    
+                    foreach (var i in buttons)
                     {
-                        txt = map[battleAction].ToString();
-                    }
-                    var text = i.GetComponentInChildren<Text>();
-                    text.text = txt;
-                }   
+                        var battleAction = (EBattleAction) index;
+                        var highLight = battleAction == battle;
+                        i.color = highLight ? Color.green : Color.white;
+                        index++;
+
+                        var txt = "";
+                        if (map.ContainsKey(battleAction))
+                        {
+                            txt = map[battleAction].ToString();
+                        }
+                        var text = i.GetComponentInChildren<Text>();
+                        text.text = txt;
+                    }   
+                }
             }
         }
     }

@@ -7,7 +7,7 @@ namespace TurnBased.Scripts.AI
     public enum EAttackOptions {None, Attack, Block, Parry, Evade, Heal}
     public static class PlayerActionMap
     {
-        public static readonly Dictionary<EAttackOptions, AttackAction> GetAttackDelegate =
+        public static Dictionary<EAttackOptions, AttackAction> GetAttackDelegate =>
             new()
             {
                 { EAttackOptions.Attack, AttackDelegate },
@@ -104,7 +104,7 @@ namespace TurnBased.Scripts.AI
             return toReturn;
         }
         
-        public static Dictionary<EBattleAction, EAttackOptions> GetAttackActionMap(EAdventurerTypes adventurerType, List<EAttackOptions> attackActions)
+        public static Dictionary<EBattleAction, EAttackOptions> GetAttackActionMap(List<EAttackOptions> attackActions)
         {
             var moveDictionary = new Dictionary<EBattleAction, EAttackOptions>();
             for (var i = 0; i < attackActions.Count(); i++)

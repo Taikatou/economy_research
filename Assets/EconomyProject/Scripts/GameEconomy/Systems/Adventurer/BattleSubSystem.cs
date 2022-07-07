@@ -33,7 +33,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         {
             _setAdventureState = setAdventureState;
             
-            void SetupNewBattle(AdventurerAgent[] agents, FighterObject enemyFighter, SimpleMultiAgentGroup party)
+            void SetupNewBattle(AdventurerAgent[] agents, FighterObject enemyFighter, SimpleMultiAgentGroup party, Dictionary<AdventurerAgent, HashSet<EAttackOptions>> selectedOptions)
             {
                 var playerData = new PlayerFighterData[agents.Length];
                 for (var i = 0; i < playerData.Length; i++)
@@ -45,6 +45,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                     {
                         playerData[i].level = levelComp.Level;   
                     }
+
+                    playerData[i].AttackOptions = selectedOptions[agents[i]].ToList();
                 }
                 
                 var enemyData = FighterData.Clone(enemyFighter.data);
@@ -62,7 +64,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 }
             }
 
-            void AskConfirmation(AdventurerAgent[] agents, FighterObject enemyFighter, SimpleMultiAgentGroup party)
+            void AskConfirmation(AdventurerAgent[] agents, FighterObject enemyFighter, SimpleMultiAgentGroup party, Dictionary<AdventurerAgent, HashSet<EAttackOptions>> selectedOptions)
             {
                 foreach (var agent in agents)
                 {
@@ -70,7 +72,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 }
             }
 
-            void AskConfirmAbilities(AdventurerAgent[] agents, FighterObject enemyFighter, SimpleMultiAgentGroup party)
+            void AskConfirmAbilities(AdventurerAgent[] agents, FighterObject enemyFighter, SimpleMultiAgentGroup party, Dictionary<AdventurerAgent, HashSet<EAttackOptions>> selectedOptions)
             {
                 foreach (var agent in agents)
                 {
@@ -86,6 +88,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 var party = new BattlePartySubsystem(SystemTraining.PartySize, battle, travelSubsystem);
                 CurrentParties.Add(battle, party);
                 party.SetupNewBattle = SetupNewBattle;
+                party.SetupNewBattle += (_, _, _, _) => CurrentParties[battle] = new BattlePartySubsystem(SystemTraining.PartySize, battle, travelSubsystem);
+                
                 party.AskConfirmation = AskConfirmation;
                 party.AskConfirmAbilities = AskConfirmAbilities;
                 party.CancelAgent = RemoveAgent;

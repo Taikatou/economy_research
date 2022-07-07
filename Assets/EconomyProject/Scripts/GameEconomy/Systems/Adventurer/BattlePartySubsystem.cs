@@ -11,7 +11,7 @@ using UnityEngine;
 namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 {
     public delegate void CancelAgent(AdventurerAgent agent);
-    public delegate void SetupNewBattle(AdventurerAgent[] agent, FighterObject enemyFighter, SimpleMultiAgentGroup party);
+    public delegate void SetupNewBattle(AdventurerAgent[] agent, FighterObject enemyFighter, SimpleMultiAgentGroup party, Dictionary<AdventurerAgent, HashSet<EAttackOptions>> selectedOptions);
 
     [Serializable]
     public class BattlePartySubsystem : PartySubSystem<AdventurerAgent>
@@ -30,7 +30,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         private float _timer;
         private bool _timerActive = false;
-        public int CountDown = 5;
+        public int countDown = 10;
 
         // Start is called before the first frame update
         public BattlePartySubsystem(int partySize, EBattleEnvironments environment, TravelSubSystem travelSubsystem) : base(partySize)
@@ -40,9 +40,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             confirmAbilities = new ConfirmAbilities();
         }
 
-        private void ResetTimer()
+        private void ResetTimer(int counter)
         {
-            _timer = CountDown;
+            _timer = counter;
             _timerActive = true;
         }
 
@@ -50,8 +50,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         {
             _agentGroup = agentGroup;
             _confirmedAgents = new HashSet<AdventurerAgent>();
-            AskConfirmation.Invoke(PendingAgents.ToArray(), null, agentGroup);
-            ResetTimer();
+            AskConfirmation.Invoke(PendingAgents.ToArray(), null, agentGroup, confirmAbilities.SelectedAttacks);
+            ResetTimer(countDown);
         }
 
         public void StartBattle()
@@ -61,7 +61,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
             if (fighter)
             {
-                SetupNewBattle.Invoke(PendingAgents.ToArray(), fighter, _agentGroup);
+                SetupNewBattle.Invoke(PendingAgents.ToArray(), fighter, _agentGroup, confirmAbilities.SelectedAttacks);
             }
 
             base.CompleteParty(_agentGroup);
@@ -83,8 +83,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                     {
                         _timerActive = false;
                         confirmAbilities.StartConfirm();
-                        ResetTimer(); 
-                        AskConfirmAbilities.Invoke(PendingAgents.ToArray(), null, _agentGroup);
+                        ResetTimer(1);
+                        AskConfirmAbilities.Invoke(PendingAgents.ToArray(), null, _agentGroup, confirmAbilities.SelectedAttacks);
                     }   
                 }
             }
@@ -102,22 +102,23 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 CancelAgent.Invoke(a);
             }
         }
-        
-        
 
         public void Update()
         {
-            if (_timerActive)
+            if (!confirmAbilities.Confirm)
             {
-                _timer -= Time.deltaTime;
-                if (_timer <= 0)
+                if (_timerActive)
                 {
-                    _timerActive = false;
-                    CancelConfirmation();
-                }
+                    _timer -= Time.deltaTime;
+                    if (_timer <= 0)
+                    {
+                        _timerActive = false;
+                        CancelConfirmation();
+                    }
+                }   
             }
 
-            if (confirmAbilities.Confirm)
+            else
             {
                 _timer -= Time.deltaTime;
                 if (_timer <= 0)
@@ -126,10 +127,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                     {
                         foreach (var option in SensorUtils<EAttackOptions>.ValuesToArray)
                         {
-                            confirmAbilities.ConfirmAbility(agent, option);
-                            if (confirmAbilities.Complete(SystemTraining.PartySize))
+                            if (option != EAttackOptions.None)
                             {
-                                StartBattle();
+                                confirmAbilities.ConfirmAbility(agent, option);
+                                if (confirmAbilities.Complete(SystemTraining.PartySize))
+                                {
+                                    StartBattle();
+                                }   
                             }
                         }
                     }

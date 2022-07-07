@@ -3,13 +3,18 @@
   <component name="ChangeListManager">
     <list default="true" id="3a9a0144-2920-4427-8d8b-3fddc42186be" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.economy_research/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.economy_research/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Monobehaviours/AdventurerSystemBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Monobehaviours/AdventurerSystemBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/AdventurerSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/AdventurerSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scenes/TestScenes/Intransitive.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scenes/TestScenes/Intransitive.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/BattleLocationSelect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/BattleLocationSelect.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/BattlePartySubsystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/BattlePartySubsystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/BattleSubSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/BattleSubSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/ConfirmAbilities.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/ConfirmAbilities.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Battle/CombatButtonsUi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Battle/CombatButtonsUi.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Timers/Intransitive_timers.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Timers/Intransitive_timers.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TurnBased/Scripts/AI/PlayerActionMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TurnBased/Scripts/AI/PlayerActionMap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TurnBased/Scripts/BattleSubSystemInstance.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TurnBased/Scripts/BattleSubSystemInstance.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TurnBased/Scripts/PlayerFighterData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TurnBased/Scripts/PlayerFighterData.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/RiderScriptEditorPersistedState.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/RiderScriptEditorPersistedState.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,6 +189,7 @@
     <setting file="file://$PROJECT_DIR$/../ml-agents/com.unity.ml-agents/Tests/Editor/Inference/ModelRunnerTest.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Editor/Properties/AssemblyInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ml-agents/com.unity.ml-agents/Tests/Editor/PublicAPI/PublicApiValidation.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.collab-proxy@1.15.15/Editor/PlasticSCM/UI/UnityPlasticTimer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.6.4/Editor/State/WindowState.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.barracuda@3.0.0/Barracuda/Runtime/Core/Resources/Barracuda/Random.cginc" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerFighterData.cs" root0="FORCE_HIGHLIGHTING" />
@@ -239,7 +245,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="XThreadsFramesViewSplitterKey" value="0.24314214" />
+    <property name="XThreadsFramesViewSplitterKey" value="0.1810585" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="rider.run.widget.enabled.cache" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
@@ -256,10 +262,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="9388">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="36196">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="9388" />
+      <option name="pid" value="36196" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -330,7 +336,7 @@
       <workItem from="1656764234119" duration="11813000" />
       <workItem from="1656799946085" duration="8725000" />
       <workItem from="1656932130789" duration="26388000" />
-      <workItem from="1657043905911" duration="20512000" />
+      <workItem from="1657043905911" duration="26751000" />
     </task>
     <servers />
   </component>
@@ -385,19 +391,6 @@
           <option name="timeStamp" value="213" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/TurnBased/Scripts/AI/PlayerActionMap.cs</url>
-          <line>42</line>
-          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\TurnBased\Scripts\AI\PlayerActionMap.cs" initialLine="53" containingFunctionPresentation="method 'EvadeDelegate'">
-            <startOffsets>
-              <option value="1461" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1478" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="242" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/ConfirmAbilities/ConfirmAbilitiesScrollList.cs</url>
           <line>26</line>
           <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\UI\ConfirmAbilities\ConfirmAbilitiesScrollList.cs" initialLine="24" containingFunctionPresentation="method 'GetItemList'">
@@ -411,56 +404,43 @@
           <option name="timeStamp" value="257" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/GetCurrentAgent.cs</url>
-          <line>32</line>
-          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\UI\GetCurrentAgent.cs" initialLine="32" containingFunctionPresentation="method 'Update'">
-            <startOffsets>
-              <option value="880" />
-            </startOffsets>
-            <endOffsets>
-              <option value="919" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="259" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/GetCurrentAgent.cs</url>
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Battle/CombatButtonsUi.cs</url>
           <line>29</line>
-          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\UI\GetCurrentAgent.cs" initialLine="29" containingFunctionPresentation="method 'Update'">
+          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\UI\Battle\CombatButtonsUi.cs" initialLine="29" containingFunctionPresentation="method 'Update'">
             <startOffsets>
-              <option value="743" />
+              <option value="986" />
             </startOffsets>
             <endOffsets>
-              <option value="819" />
+              <option value="1023" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="261" />
+          <option name="timeStamp" value="266" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/GetCurrentAgent.cs</url>
-          <line>27</line>
-          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\UI\GetCurrentAgent.cs" initialLine="27" containingFunctionPresentation="method 'Update'">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/BattleSubSystem.cs</url>
+          <line>48</line>
+          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Adventurer\BattleSubSystem.cs" initialLine="48" containingFunctionPresentation="local function 'SetupNewBattle'">
             <startOffsets>
-              <option value="712" />
+              <option value="2297" />
             </startOffsets>
             <endOffsets>
-              <option value="719" />
+              <option value="2363" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="262" />
+          <option name="timeStamp" value="267" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/TurnBased/Scripts/BaseFighterData.cs</url>
-          <line>19</line>
-          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\TurnBased\Scripts\BaseFighterData.cs" initialLine="19" containingFunctionPresentation="property 'GetObs'">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/BattleSubSystem.cs</url>
+          <line>49</line>
+          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Adventurer\BattleSubSystem.cs" initialLine="49" containingFunctionPresentation="local function 'SetupNewBattle'">
             <startOffsets>
-              <option value="661" />
+              <option value="2380" />
             </startOffsets>
             <endOffsets>
-              <option value="678" />
+              <option value="2381" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="263" />
+          <option name="timeStamp" value="268" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

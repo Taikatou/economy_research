@@ -7,12 +7,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 {
     public class ConfirmAbilities
     {
-        private const int abilitiesCount = 3;
-        private readonly Dictionary<AdventurerAgent, HashSet<EAttackOptions>> _selectedAttacks;
+        private const int AbilitiesCount = 3;
+        public readonly Dictionary<AdventurerAgent, HashSet<EAttackOptions>> SelectedAttacks;
         public bool Confirm { get; set; }
         public ConfirmAbilities()
         {
-            _selectedAttacks = new Dictionary<AdventurerAgent, HashSet<EAttackOptions>>();
+            SelectedAttacks = new Dictionary<AdventurerAgent, HashSet<EAttackOptions>>();
         }
         public void StartConfirm()
         {
@@ -21,25 +21,29 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         public void ConfirmAbility(AdventurerAgent agent, EAttackOptions option)
         {
-            if (!_selectedAttacks.ContainsKey(agent))
+            if (!SelectedAttacks.ContainsKey(agent))
             {
-                _selectedAttacks.Add(agent, new HashSet<EAttackOptions>());
+                SelectedAttacks.Add(agent, new HashSet<EAttackOptions>());
             }
-
-            if (!_selectedAttacks[agent].Contains(option) && _selectedAttacks[agent].Count < abilitiesCount)
+            
+            var abilities = PlayerActionMap.GetAbilities(agent.AdventurerType, agent.levelComponent.Level);
+            if (abilities.Contains(option))
             {
-                _selectedAttacks[agent].Add(option);
+                if (!SelectedAttacks[agent].Contains(option) && SelectedAttacks[agent].Count < AbilitiesCount)
+                {
+                    SelectedAttacks[agent].Add(option);
+                }   
             }
         }
 
         public bool Complete(int partySize)
         {
             var counter = 0;
-            foreach(var pair in _selectedAttacks)
+            foreach(var pair in SelectedAttacks)
             {
                 var abilities = pair.Value;
                 var possibleAbilities = PlayerActionMap.GetAbilities(pair.Key.AdventurerType, pair.Key.levelComponent.Level);
-                if (abilities.Count == abilitiesCount || abilities.Count == possibleAbilities.Count)
+                if (abilities.Count == AbilitiesCount || abilities.Count == possibleAbilities.Count)
                 {
                     counter++;
                 }
@@ -56,10 +60,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 new CategoricalObsData<EAttackOptions>(),
                 new CategoricalObsData<EAttackOptions>()
             };
-            if (_selectedAttacks.ContainsKey(agent))
+            if (SelectedAttacks.ContainsKey(agent))
             {
                 var index = 0;
-                foreach (var attack in _selectedAttacks[agent])
+                foreach (var attack in SelectedAttacks[agent])
                 {
                     obs[index] = new CategoricalObsData<EAttackOptions>(attack);
                 }
