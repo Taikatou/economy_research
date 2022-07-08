@@ -7,26 +7,15 @@ namespace TurnBased.Scripts.AI
     public class EnemyAI
     {
         private readonly EnemyFighterGroup _enemyFighterUnits;
-
-        public EnemyAction NextAction { get; private set; }
-
+        
         public EnemyAI(EnemyFighterGroup enemyFighterUnits)
         {
             _enemyFighterUnits = enemyFighterUnits;
         }
 
-        private void ChooseRandomAction()
-        {
-            var random = new System.Random();
-            var values = Enum.GetValues(typeof(EnemyAction));
-            var randomAction = (EnemyAction)values.GetValue(random.Next(values.Length));
-            NextAction = randomAction;
-        }
-
         public EnemyAction DecideAction(PlayerFighterGroup playerInstance)
         {
-            EnemyAction privateAction = NextAction;
-            switch (NextAction)
+            switch (EnemyAction.Attack)
             {
                 case EnemyAction.Attack:
                     Attack(playerInstance);
@@ -38,8 +27,7 @@ namespace TurnBased.Scripts.AI
                     _enemyFighterUnits.Instance.Wait();
                     break;
             }
-            ChooseRandomAction();
-            return privateAction;
+            return EnemyAction.Attack;
         }
 
         private void Attack(PlayerFighterGroup playerInstance)
