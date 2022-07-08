@@ -47,6 +47,11 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 
 		private void OnLevelUp(int level)
 		{
+			var dataLogger = FindObjectOfType<LevelDataLogger>();
+			if (dataLogger != null)
+			{
+				dataLogger.AddLevelData(level, AdventurerType, StepCount);
+			}
 			AddReward((float)level/10);
 		}
 
