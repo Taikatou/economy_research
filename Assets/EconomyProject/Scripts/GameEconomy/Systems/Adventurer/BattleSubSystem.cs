@@ -29,6 +29,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         public DateTime LastUpdated { get; private set; }
 
+
         public BattleSubSystem(TravelSubSystem travelSubsystem, SetAdventureState setAdventureState)
         {
             _setAdventureState = setAdventureState;
@@ -91,7 +92,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 {
                     CurrentParties.Remove(battle);
                 }
-                CurrentParties.Add(battle, party);
+
+                CurrentParties[battle] = party;
                 party.SetupNewBattle = SetupNewBattle;
                 party.SetupNewBattle += (_, _, _, _) => CreateBattleSystem(battle);
                 
@@ -156,6 +158,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             foreach (var battle in BattleAsArray)
             {
                 CurrentParties[battle].Setup();
+            }
+
+            foreach (var system in BattleSystems)
+            {
+                system.Value.FinishBattle();
             }
             BattleSystems.Clear();
             ReverseCurrentParties.Clear();

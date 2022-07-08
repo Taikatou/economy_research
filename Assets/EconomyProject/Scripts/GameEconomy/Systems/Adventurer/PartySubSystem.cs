@@ -70,18 +70,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             PendingAgents.Clear();
         }
 
-        public void FinishBattle(IEnumerable<T> battleAgents)
-        {
-            foreach (var agent in battleAgents)
-            {
-                if (_agentParties.ContainsKey(agent))
-                {
-                    _agentParties[agent].UnregisterAgent(agent);
-                    _agentParties.Remove(agent);
-                }
-            }
-        }
-
         public void Setup()
         {
             foreach (var agent in _agentParties)

@@ -11,7 +11,7 @@ namespace TurnBased.Scripts
 
 	public delegate void OnBattleComplete<T>(BattleSubSystemInstance<T> battle) where T : Agent;
 	public enum EBattleState { Start, PlayerTurn, EnemyTurn, Won, Lost, Flee }
-	public enum EBattleAction { PrimaryAction, SecondaryAction, BonusAction, Flee }
+	public enum EBattleAction { PrimaryAction, SecondaryAction, BonusAction }
 
 	public class FighterGroup<T, L, F> where T : BaseFighterData<L, F> where L : Enum where F : Enum
 	{
@@ -151,8 +151,17 @@ namespace TurnBased.Scripts
 			}
 		}
 
+		public void FinishBattle()
+		{
+			foreach (var agent in BattleAgents)
+			{
+				AgentParty.UnregisterAgent(agent);
+			}
+		}
+
 		public void EndBattle()
 		{
+			FinishBattle();
 			_completeDelegate.Invoke(this);
 			if (CurrentState == EBattleState.Won)
 			{
@@ -195,7 +204,7 @@ namespace TurnBased.Scripts
 					{
 						PlayerFighterUnits.Index++;
 					}
-					while (PlayerFighterUnits.Index < SystemTraining.PartySize && !PlayerFighterUnits.Instance.IsDead);
+					while (PlayerFighterUnits.Index < SystemTraining.PartySize && PlayerFighterUnits.Instance.IsDead);
 						
 					if (PlayerFighterUnits.Index == SystemTraining.PartySize)
 					{
@@ -229,14 +238,7 @@ namespace TurnBased.Scripts
 		{
 			if (IsTurn(hashCode))
 			{
-				if (action == EBattleAction.Flee)
-				{
-					OnFleeButton();
-				}
-				else
-				{
-					OnAttackButton(action);
-				}
+				OnAttackButton(action);
 			}
 		}
 
