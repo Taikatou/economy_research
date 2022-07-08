@@ -31,6 +31,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         private float _timer;
         private bool _timerActive = false;
         public int countDown = 10;
+        private bool _battleStarted;
 
         // Start is called before the first frame update
         public BattlePartySubsystem(int partySize, EBattleEnvironments environment, TravelSubSystem travelSubsystem) : base(partySize)
@@ -59,17 +60,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             Debug.Log("StartBattle");
             var fighter = _travelSubsystem.GetBattle(_environment);
 
-            if (fighter)
+            if (fighter && !_battleStarted)
             {
                 SetupNewBattle.Invoke(PendingAgents.ToArray(), fighter, _agentGroup, confirmAbilities.SelectedAttacks);
             }
 
+            _battleStarted = true;
             base.CompleteParty(_agentGroup);
-        }
-
-        public void ConfirmAbilities()
-        {
-            _confirmedAgents.Clear();
         }
 
         public void Confirmation(EConfirmBattle confirmation, AdventurerAgent agent)
@@ -118,10 +115,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 }   
             }
 
-            else
+            else if(!_battleStarted)
             {
                 _timer -= Time.deltaTime;
-                if (_timer <= 0)
+                if (_timer <= 0 && _confirmedAgents.Count == PendingAgents.Count)
                 {
                     foreach (var agent in PendingAgents.ToArray())
                     {
@@ -133,6 +130,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                                 if (confirmAbilities.Complete(SystemTraining.PartySize))
                                 {
                                     StartBattle();
+                                    return;
                                 }   
                             }
                         }

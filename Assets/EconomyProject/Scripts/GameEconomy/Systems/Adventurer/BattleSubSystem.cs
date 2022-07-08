@@ -35,6 +35,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             
             void SetupNewBattle(AdventurerAgent[] agents, FighterObject enemyFighter, SimpleMultiAgentGroup party, Dictionary<AdventurerAgent, HashSet<EAttackOptions>> selectedOptions)
             {
+                foreach (var agent in agents)
+                {
+                    ReverseCurrentParties.Remove(agent);
+                }
                 var playerData = new PlayerFighterData[agents.Length];
                 for (var i = 0; i < playerData.Length; i++)
                 {
@@ -80,19 +84,27 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 }
             }
 
+            void CreateBattleSystem(EBattleEnvironments battle)
+            {
+                var party = new BattlePartySubsystem(SystemTraining.PartySize, battle, travelSubsystem);
+                if (CurrentParties.ContainsKey(battle))
+                {
+                    CurrentParties.Remove(battle);
+                }
+                CurrentParties.Add(battle, party);
+                party.SetupNewBattle = SetupNewBattle;
+                party.SetupNewBattle += (_, _, _, _) => CreateBattleSystem(battle);
+                
+                party.AskConfirmation = AskConfirmation;
+                party.AskConfirmAbilities = AskConfirmAbilities;
+                party.CancelAgent = RemoveAgent;
+            }
             BattleSystems = new Dictionary<AdventurerAgent, BattleSubSystemInstance<AdventurerAgent>>();
             CurrentParties = new Dictionary<EBattleEnvironments, BattlePartySubsystem>();
             ReverseCurrentParties = new Dictionary<AdventurerAgent, EBattleEnvironments>();
             foreach (var battle in BattleAsArray)
             {
-                var party = new BattlePartySubsystem(SystemTraining.PartySize, battle, travelSubsystem);
-                CurrentParties.Add(battle, party);
-                party.SetupNewBattle = SetupNewBattle;
-                party.SetupNewBattle += (_, _, _, _) => CurrentParties[battle] = new BattlePartySubsystem(SystemTraining.PartySize, battle, travelSubsystem);
-                
-                party.AskConfirmation = AskConfirmation;
-                party.AskConfirmAbilities = AskConfirmAbilities;
-                party.CancelAgent = RemoveAgent;
+                CreateBattleSystem(battle);
             }
         }
 
@@ -216,13 +228,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         {
             foreach (var agent in systemInstance.BattleAgents)
             {
-                if (ReverseCurrentParties.ContainsKey(agent))
-                {
-                    var location = ReverseCurrentParties[agent];
-                    CurrentParties[location].RemoveAgent(agent);
-                    ReverseCurrentParties.Remove(agent);
-                }
-
                 if(systemInstance.CurrentState == EBattleState.Lost)
                 {
                     agent.wallet.SpendMoney(5);
@@ -290,9 +295,19 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         public void Update()
         {
-            foreach (var item in CurrentParties)
+            var values = CurrentParties.Values.ToArray();
+            for (var i = 0; i < values.Length;)
             {
-                item.Value.Update();
+                var size = values.Length;
+                values[i].Update();
+                if (size != values.Length)
+                {
+                    values = CurrentParties.Values.ToArray();
+                }
+                else
+                {
+                    i++;
+                }
             }
         }
     }
