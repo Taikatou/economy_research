@@ -34,7 +34,7 @@ namespace TurnBased.Scripts.AI
         {
             foreach (var fighter in playerInstance.FighterUnits)
             {
-                if (fighter.SecondaryAbilityStatus == SecondaryAbilityStatus.Blocking)
+                if (fighter.SecondaryAbilityStatus == SecondaryAbilityStatus.Blocking && !fighter.IsDead)
                 {
                     _enemyFighterUnits.Instance.Attack(fighter);
                     return;
@@ -45,11 +45,14 @@ namespace TurnBased.Scripts.AI
             PlayerFighterData playerToAttack = null;
             foreach (var fighter in playerInstance.FighterUnits)
             {
-                var damage = FightingRelationships.GetDamage(fighter.AdventurerType, _enemyFighterUnits.FighterType);
-                if (damage >= maxDamage)
+                if (!fighter.IsDead)
                 {
-                    damage = maxDamage;
-                    playerToAttack = fighter;
+                    var damage = FightingRelationships.GetDamage(fighter.AdventurerType, _enemyFighterUnits.FighterType);
+                    if (damage >= maxDamage)
+                    {
+                        maxDamage = damage;
+                        playerToAttack = fighter;
+                    }
                 }
             }
 

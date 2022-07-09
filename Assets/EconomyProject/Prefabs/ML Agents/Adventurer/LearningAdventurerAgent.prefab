@@ -145,7 +145,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 10000
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 10000
+  MaxStep: 1000000
   inventory: {fileID: 1817350387931501863}
   adventurerInventory: {fileID: 4250931923004593224}
   wallet: {fileID: -4706628768726033178}

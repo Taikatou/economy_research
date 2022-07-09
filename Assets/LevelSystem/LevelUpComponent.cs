@@ -4,7 +4,7 @@ namespace LevelSystem
 {
     public abstract class LevelUpComponent : MonoBehaviour
     {
-        protected float TotalExp { get; set; }
+        public float TotalExp { get; private set; }
 
         public abstract int Level { get; }
 

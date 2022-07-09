@@ -105,7 +105,7 @@ namespace EconomyProject.Scripts
 				switch (agentType.Key)
 				{
 					case AgentType.Adventurer:
-						adventurerSpawner.numLearningAgents = agentType.Value;
+						
 						break;
 					case AgentType.Shop:
 						shopSpawner.numLearningAgents = agentType.Value;

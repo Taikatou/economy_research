@@ -43,7 +43,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 var playerData = new PlayerFighterData[agents.Length];
                 for (var i = 0; i < playerData.Length; i++)
                 {
-                    playerData[i] = agents[i].GetComponent<AdventurerFighterData>().FighterData;
+                    var fighterData = agents[i].GetComponent<AdventurerFighterData>().FighterData;
+                    fighterData.ResetHp();
+                    playerData[i] = fighterData;
                     playerData[i].HashCode = agents[i].GetHashCode();
                     var levelComp = agents[i].GetComponent<LevelUpComponent>();
                     if (levelComp != null)
