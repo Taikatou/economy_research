@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Data;
+using EconomyProject.Scripts.GameEconomy.DataLoggers;
 using EconomyProject.Scripts.GameEconomy.Systems.Adventurer;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.Interfaces;
@@ -31,10 +32,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         public ConfirmAbilitiesLocationSelect confirmAbilitiesSelect;
 
         public TravelSubSystem travelSubsystem;
+        public BattleEnvironmentDataLogger dataLogger;
 
         public void Start()
         {
-            battleSubSystem = new BattleSubSystem(travelSubsystem, SetAdventureState);
+            battleSubSystem = new BattleSubSystem(travelSubsystem, SetAdventureState, dataLogger);
             adventureStates = new Dictionary<AdventurerAgent, EAdventureStates>();
         }
 

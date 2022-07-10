@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Data;
+using EconomyProject.Scripts.GameEconomy.DataLoggers;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using TurnBased.Scripts;
@@ -16,6 +17,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
     [Serializable]
     public class BattlePartySubsystem : PartySubSystem<AdventurerAgent>
     {
+        public int countDown = 10;
         public SetupNewBattle SetupNewBattle;
         public SetupNewBattle AskConfirmation;
         public SetupNewBattle AskConfirmAbilities;
@@ -30,14 +32,17 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         private float _timer;
         private bool _timerActive = false;
-        public int countDown = 10;
         private bool _battleStarted;
+        private static int _battleID = 0;
+
+        private BattleEnvironmentDataLogger _dataLogger;
 
         // Start is called before the first frame update
-        public BattlePartySubsystem(int partySize, EBattleEnvironments environment, TravelSubSystem travelSubsystem) : base(partySize)
+        public BattlePartySubsystem(int partySize, EBattleEnvironments environment, TravelSubSystem travelSubsystem, BattleEnvironmentDataLogger dataLogger) : base(partySize)
         {
             _environment = environment;
             _travelSubsystem = travelSubsystem;
+            _dataLogger = dataLogger;
             confirmAbilities = new ConfirmAbilities();
         }
 
@@ -63,6 +68,18 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             if (fighter && !_battleStarted)
             {
                 SetupNewBattle.Invoke(PendingAgents.ToArray(), fighter, _agentGroup, confirmAbilities.SelectedAttacks);
+                _battleID++;
+                foreach (var agent in PendingAgents)
+                {
+                    var environmentData = new EBattleEnvironmentSelection
+                    {
+                        BattleEnvironments = _environment,
+                        Level = agent.levelComponent.Level,
+                        AdventurerTypes = agent.AdventurerType,
+                        ID = _battleID
+                    };
+                    _dataLogger.AddEnvironmentSelection(environmentData);
+                }
             }
 
             _battleStarted = true;
@@ -80,7 +97,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                     {
                         _timerActive = false;
                         confirmAbilities.StartConfirm();
-                        ResetTimer(1);
+                        ResetTimer(5);
                         AskConfirmAbilities.Invoke(PendingAgents.ToArray(), null, _agentGroup, confirmAbilities.SelectedAttacks);
                     }   
                 }

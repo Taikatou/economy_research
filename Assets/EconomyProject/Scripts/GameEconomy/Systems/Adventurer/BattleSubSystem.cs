@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Data;
+using EconomyProject.Scripts.GameEconomy.DataLoggers;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
@@ -30,7 +31,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         public DateTime LastUpdated { get; private set; }
 
 
-        public BattleSubSystem(TravelSubSystem travelSubsystem, SetAdventureState setAdventureState)
+        public BattleSubSystem(TravelSubSystem travelSubsystem, SetAdventureState setAdventureState, BattleEnvironmentDataLogger dataLogger)
         {
             _setAdventureState = setAdventureState;
             
@@ -89,7 +90,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
             void CreateBattleSystem(EBattleEnvironments battle)
             {
-                var party = new BattlePartySubsystem(SystemTraining.PartySize, battle, travelSubsystem);
+                var party = new BattlePartySubsystem(SystemTraining.PartySize, battle, travelSubsystem, dataLogger);
                 if (CurrentParties.ContainsKey(battle))
                 {
                     CurrentParties.Remove(battle);

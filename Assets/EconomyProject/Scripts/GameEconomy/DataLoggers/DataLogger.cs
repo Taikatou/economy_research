@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Inventory;
 using UnityEngine;
 
-namespace EconomyProject.Scripts.GameEconomy
+namespace EconomyProject.Scripts.GameEconomy.DataLoggers
 {
 // CODE COURTESY OF https://sushanta1991.blogspot.com/2015/02/how-to-write-data-to-csv-file-in-unity.html
 

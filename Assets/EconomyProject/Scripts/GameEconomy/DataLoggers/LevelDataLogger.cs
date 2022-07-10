@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.Globalization;
 using Data;
-using UnityEngine;
 
-namespace EconomyProject.Scripts.GameEconomy
+namespace EconomyProject.Scripts.GameEconomy.DataLoggers
 {
     struct LevelData
     {

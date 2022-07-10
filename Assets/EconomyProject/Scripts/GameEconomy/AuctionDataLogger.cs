@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Globalization;
+using EconomyProject.Scripts.GameEconomy.DataLoggers;
 using EconomyProject.Scripts.MLAgents;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using Inventory;

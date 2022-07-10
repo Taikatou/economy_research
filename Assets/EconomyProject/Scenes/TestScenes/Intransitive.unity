@@ -5149,6 +5149,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1612661705}
   - component: {fileID: 1612661706}
+  - component: {fileID: 1612661707}
   m_Layer: 0
   m_Name: DataLogger
   m_TagString: Untagged
@@ -5184,6 +5185,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   learningEnvironmentId: level_id
+  loggerId: 0
+--- !u!114 &1612661707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612661703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06f8654017ff7484b9517575cc6404c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  learningEnvironmentId: battle_environment_
   loggerId: 0
 --- !u!1 &1622193142
 GameObject:
