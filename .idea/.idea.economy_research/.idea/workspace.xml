@@ -3,20 +3,21 @@
   <component name="ChangeListManager">
     <list default="true" id="3a9a0144-2920-4427-8d8b-3fddc42186be" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.economy_research/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.economy_research/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/ResetScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/ResetScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Training.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Training.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scenes/TestScenes/Intransitive.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scenes/TestScenes/Intransitive.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/AuctionDataLogger.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/AuctionDataLogger.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/DataLogger.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/DataLogger.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/LevelDataLogger.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/LevelDataLogger.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/DataLoggers/BattleEnvironmentDataLogger.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/DataLoggers/BattleEnvironmentDataLogger.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/AdventurerSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/AdventurerSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/BattlePartySubsystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/BattlePartySubsystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/BattleSubSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/BattleSubSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerAgent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Timers/Intransitive_timers.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Timers/Intransitive_timers.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TurnBased/Prefabs/Fighters/BearFighter.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TurnBased/Prefabs/Fighters/BearFighter.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TurnBased/Prefabs/Fighters/CrocodileFighter.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TurnBased/Prefabs/Fighters/CrocodileFighter.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TurnBased/Prefabs/Fighters/GorillaFighter.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TurnBased/Prefabs/Fighters/GorillaFighter.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TurnBased/Prefabs/Fighters/NarwhaleFighter.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TurnBased/Prefabs/Fighters/NarwhaleFighter.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TurnBased/Prefabs/Fighters/OwlFighter.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TurnBased/Prefabs/Fighters/OwlFighter.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TurnBased/Prefabs/Fighters/SnakeFighter.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TurnBased/Prefabs/Fighters/SnakeFighter.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TurnBased/Scripts/BattleSubSystemInstance.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TurnBased/Scripts/BattleSubSystemInstance.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/RiderScriptEditorPersistedState.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/RiderScriptEditorPersistedState.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -252,7 +253,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="XThreadsFramesViewSplitterKey" value="0.1836478" />
+    <property name="XThreadsFramesViewSplitterKey" value="0.1820449" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="rider.run.widget.enabled.cache" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
@@ -269,10 +270,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="41400">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="45656">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="41400" />
+      <option name="pid" value="45656" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -347,7 +348,7 @@
       <workItem from="1657291684959" duration="1513000" />
       <workItem from="1657295652644" duration="168000" />
       <workItem from="1657295874192" duration="684000" />
-      <workItem from="1657395761243" duration="6749000" />
+      <workItem from="1657395761243" duration="14887000" />
     </task>
     <servers />
   </component>
@@ -415,56 +416,17 @@
           <option name="timeStamp" value="287" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/BattlePartySubsystem.cs</url>
-          <line>73</line>
-          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Adventurer\BattlePartySubsystem.cs" initialLine="73" containingFunctionPresentation="method 'StartBattle'">
-            <startOffsets>
-              <option value="2827" />
-            </startOffsets>
-            <endOffsets>
-              <option value="3147" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="291" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/BattlePartySubsystem.cs</url>
-          <line>80</line>
-          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Adventurer\BattlePartySubsystem.cs" initialLine="80" containingFunctionPresentation="method 'StartBattle'">
-            <startOffsets>
-              <option value="3168" />
-            </startOffsets>
-            <endOffsets>
-              <option value="3221" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="292" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/BattlePartySubsystem.cs</url>
-          <line>45</line>
-          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Adventurer\BattlePartySubsystem.cs" initialLine="45" containingFunctionPresentation="constructor 'BattlePartySubsystem'">
-            <startOffsets>
-              <option value="1848" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1890" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="293" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/BattleSubSystem.cs</url>
-          <line>92</line>
-          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Adventurer\BattleSubSystem.cs" initialLine="94" containingFunctionPresentation="local function 'CreateBattleSystem'">
+          <line>46</line>
+          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Adventurer\BattleSubSystem.cs" initialLine="46" containingFunctionPresentation="local function 'SetupNewBattle'">
             <startOffsets>
-              <option value="4551" />
+              <option value="2135" />
             </startOffsets>
             <endOffsets>
-              <option value="4651" />
+              <option value="2155" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="294" />
+          <option name="timeStamp" value="296" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

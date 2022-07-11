@@ -76,6 +76,7 @@ namespace TurnBased.Scripts
 		
 		private readonly FighterDropTable _fighterDropTable;
 		private readonly OnWinDelegate<T> _winDelegate;
+		private readonly OnWinDelegate<T> _loseDelegate;
 		private readonly OnBattleComplete<T> _completeDelegate;
 
 		public readonly PlayerFighterGroup PlayerFighterUnits;
@@ -91,7 +92,7 @@ namespace TurnBased.Scripts
 
 		private readonly EnemyAI _enemyAI;
 		public BattleSubSystemInstance(PlayerFighterData[] playerUnit, FighterData enemyUnit, FighterDropTable fighterDropTable,
-			OnWinDelegate<T> winDelegate, OnBattleComplete<T> completeDelegate, SimpleMultiAgentGroup agentParty, T [] battleAgents)
+			OnWinDelegate<T> winDelegate, OnBattleComplete<T> completeDelegate, OnWinDelegate<T> loseDelegate, SimpleMultiAgentGroup agentParty, T [] battleAgents)
 		{
 			CurrentState = EBattleState.Start;
 			PlayerFighterUnits = new PlayerFighterGroup(playerUnit);
@@ -105,6 +106,7 @@ namespace TurnBased.Scripts
 			_fighterDropTable = fighterDropTable;
 			_winDelegate += winDelegate;
 			_completeDelegate += completeDelegate;
+			_loseDelegate = loseDelegate;
 			AgentParty = agentParty;
 			BattleAgents = battleAgents;
 			
@@ -141,6 +143,7 @@ namespace TurnBased.Scripts
 			if(PlayerFighterUnits.Dead)
 			{
 				Debug.Log("Player Lost");
+				_loseDelegate.Invoke(this);
 				CurrentState = EBattleState.Lost;
 				EndBattle();
 			}

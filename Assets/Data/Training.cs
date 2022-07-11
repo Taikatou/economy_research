@@ -11,6 +11,9 @@
         public static bool OnWin => true;
         public static float OnWinReward = 0.1f;
 
+        public static bool OnLose => true;
+        public static float OnLoseReward = -0.05f;
+
         public static bool OnResource => true;
         public static float OnResourceReward = 0.1f;
 

@@ -126,13 +126,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                 ? confirmLocationSelect.GetConfirmationObservations(agent, this)
                 : BlankArray(ConfirmBattleLocationSelect.SensorCount);
 
-            var output4 = state == EAdventureStates.ConfirmAbilities
-                ? battleSubSystem.GetObs(agent)
-                : BlankArray(ConfirmAbilities.SensorCount);
-
             var output5 = state == EAdventureStates.ConfirmAbilities
                 ? confirmAbilitiesSelect.GetObservations(agent)
                 : BlankArray(ConfirmAbilitiesLocationSelect.SensorCount);
+            
+            var output4 = state == EAdventureStates.ConfirmAbilities
+                ? battleSubSystem.GetObs(agent)
+                : BlankArray(ConfirmAbilities.SensorCount);
 
             var obsize = new List<ObsData>();
             foreach (EBattleEnvironments battle in Enum.GetValues(typeof(EBattleEnvironments)))
@@ -207,6 +207,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                     battleSubSystem.BattleSystems[agent].EndBattle();
                     break;
             }
+
+            adventureStates[agent] = EAdventureStates.OutOfBattle;
         }
 
         public void Select(AdventurerAgent agent)

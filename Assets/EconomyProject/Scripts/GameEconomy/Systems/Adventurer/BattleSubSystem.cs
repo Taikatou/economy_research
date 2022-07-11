@@ -40,6 +40,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 foreach (var agent in agents)
                 {
                     ReverseCurrentParties.Remove(agent);
+                    if (!selectedOptions.ContainsKey(agent))
+                    {
+                        foreach (var agentb in agents)
+                        {
+                            RemoveAgent(agentb);
+                            return;
+                        }
+                    }
                 }
                 var playerData = new PlayerFighterData[agents.Length];
                 for (var i = 0; i < playerData.Length; i++)
@@ -63,6 +71,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                                                                                 enemyFighter.fighterDropTable,
                                                                                 OnWin,
                                                                                 OnComplete,
+                                                                                OnLose,
                                                                                 party,
                                                                                 agents);
                 foreach (var agent in agents)
@@ -115,7 +124,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         public ObsData[] GetObs(AdventurerAgent agent)
         {
-            return CurrentParties[ReverseCurrentParties[agent]].confirmAbilities.GetObservations(agent);
+            if (ReverseCurrentParties.ContainsKey(agent))
+            {
+                return CurrentParties[ReverseCurrentParties[agent]].confirmAbilities.GetObservations(agent);
+            }
+
+            return null;
         }
 
         public void CancelConfirmation(AdventurerAgent agent)
@@ -247,6 +261,17 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             
                 _setAdventureState(agent, EAdventureStates.OutOfBattle);
                 EndBattle(agent);   
+            }
+        }
+
+        private static void OnLose(BattleSubSystemInstance<AdventurerAgent> battle)
+        {
+            if (TrainingConfig.OnLose)
+            {
+                if (SystemTraining.PartySize > 1)
+                {
+                    battle.AgentParty.AddGroupReward(TrainingConfig.OnLoseReward);
+                }
             }
         }
 

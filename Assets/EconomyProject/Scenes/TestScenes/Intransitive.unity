@@ -6170,6 +6170,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6537886292755821190, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
+      propertyPath: system.dataLogger
+      value: 
+      objectReference: {fileID: 1612661707}
+    - target: {fileID: 6537886292755821190, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
       propertyPath: system.locationSelect
       value: 
       objectReference: {fileID: 1519652986}

@@ -58,7 +58,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 
 		public void Start()
 		{
-			levelComponent.OnLevelUp += OnLevelUp;
+			levelComponent.OnLevelUp = OnLevelUp + levelComponent.OnLevelUp;
 			if (TrainingConfig.OnPurchase)
 			{
 				inventory.onItemAdd = OnItemAddReward;

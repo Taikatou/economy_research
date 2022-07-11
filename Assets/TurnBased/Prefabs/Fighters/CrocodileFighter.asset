@@ -15,9 +15,9 @@ MonoBehaviour:
   data:
     UnitName: Crocodile
     Sprite: {fileID: 21300000, guid: 6523df74b7c8a6d409f7da619fc495bd, type: 3}
-    MaxHp: 22
+    MaxHp: 25
     fighterType: 0
-    damage: 12
+    damage: 18
   fighterDropTable:
     lootDropItems:
     - item:
@@ -27,13 +27,13 @@ MonoBehaviour:
       probabilityWeight: 1
       probabilityPercent: 50
       probabilityRangeFrom: 0
-      probabilityRangeTo: 0
+      probabilityRangeTo: 1
     - item:
         resource: 3
         minDrop: 1
         maxDrop: 1
       probabilityWeight: 1
       probabilityPercent: 50
-      probabilityRangeFrom: 0
-      probabilityRangeTo: 0
-    Exp: 6
+      probabilityRangeFrom: 1
+      probabilityRangeTo: 2
+    Exp: 18

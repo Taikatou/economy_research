@@ -34,7 +34,7 @@ namespace EconomyProject.Scripts.GameEconomy.DataLoggers
         
         private void PrintLevelData(List<EBattleEnvironmentSelection> levelData)
         {
-            var rowData = new List<string[]> { new[]{ "Level", "AdventurerType", "MaxCount", "ID" } };
+            var rowData = new List<string[]> { new[]{ "BattleEnvironment", "Level", "AdventurerType", "ID" } };
             foreach (var item in levelData)
             {
                 var row = new string[] {
