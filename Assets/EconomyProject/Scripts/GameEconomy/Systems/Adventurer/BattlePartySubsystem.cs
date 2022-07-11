@@ -76,7 +76,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                         BattleEnvironments = _environment,
                         Level = agent.levelComponent.Level,
                         AdventurerTypes = agent.AdventurerType,
-                        ID = _battleID
+                        ID = _battleID,
+                        AverageStepCount = agent.StepCount
                     };
                     _dataLogger.AddEnvironmentSelection(environmentData);
                 }

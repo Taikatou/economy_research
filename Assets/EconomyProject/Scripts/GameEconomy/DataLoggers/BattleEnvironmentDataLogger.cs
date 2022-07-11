@@ -10,6 +10,7 @@ namespace EconomyProject.Scripts.GameEconomy.DataLoggers
         public EBattleEnvironments BattleEnvironments;
         public int Level;
         public EAdventurerTypes AdventurerTypes;
+        public int AverageStepCount;
         public int ID;
     }
     public class BattleEnvironmentDataLogger : DataLogger
@@ -34,13 +35,14 @@ namespace EconomyProject.Scripts.GameEconomy.DataLoggers
         
         private void PrintLevelData(List<EBattleEnvironmentSelection> levelData)
         {
-            var rowData = new List<string[]> { new[]{ "BattleEnvironment", "Level", "AdventurerType", "ID" } };
+            var rowData = new List<string[]> { new[]{ "BattleEnvironment", "Level", "AdventurerType", "AverageStepCount", "ID" } };
             foreach (var item in levelData)
             {
                 var row = new string[] {
                     item.BattleEnvironments.ToString(),
                     item.Level.ToString(),
                     item.AdventurerTypes.ToString(CultureInfo.InvariantCulture),
+                    item.AverageStepCount.ToString(),
                     item.ID.ToString()
                 };
                 rowData.Add(row);

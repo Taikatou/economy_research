@@ -137,7 +137,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 	        SetAction(action);
         }
         
-        public int maxLevel = 3;
+        public int maxLevel = 5;
 
         public void LevelUpCheck(int level)
         {
