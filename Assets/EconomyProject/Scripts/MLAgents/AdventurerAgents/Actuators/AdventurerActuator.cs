@@ -1,3 +1,4 @@
+using Data;
 using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using Unity.MLAgents.Actuators;
@@ -19,10 +20,9 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Actuators
         }
         public void OnActionReceived(ActionBuffers actionBuffers)
         {
-            
             var action = (EAdventurerAgentChoices) actionBuffers.DiscreteActions[0];
 
-/*            switch (action)
+            /*switch (action)
             {
                 case EAdventurerAgentChoices.AForest:
                     StartBattle(EBattleEnvironments.Forest);

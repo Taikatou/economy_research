@@ -1,19 +1,24 @@
 using System;
 using System.Collections.Generic;
+using Data;
+using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using Unity.MLAgents;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 {
-    public class PartySubSystem<T> where T : Agent
+    public delegate void OnAddPlayer<in T>(T agent);
+    public class PartySubSystem<T> where T : AdventurerAgent
     {
         private readonly int _partySize;
-        protected readonly List<T> _pendingAgents;
+        public List<T> PendingAgents { get; private set; }
         private readonly Dictionary<T, SimpleMultiAgentGroup> _agentParties;
+
+        private OnAddPlayer<T> _onAddPlayer;
 
         protected PartySubSystem(int partySize)
         {
             _partySize = partySize;
-            _pendingAgents = new List<T>();
+            PendingAgents = new List<T>();
             _agentParties = new Dictionary<T, SimpleMultiAgentGroup>();
         }
 
@@ -31,6 +36,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             }
         }
 
+        public void RemoveFromQueue(T agent)
+        {
+            PendingAgents.Remove(agent);
+        }
+
         public void AddAgent(T agent)
         {
             if (_agentParties.ContainsKey(agent))
@@ -38,34 +48,26 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 _agentParties[agent].UnregisterAgent(agent);
                 _agentParties.Remove(agent);
             }
-            _pendingAgents.Add(agent);
-            if (_pendingAgents.Count >= _partySize)
+            PendingAgents.Add(agent);
+            if (Full)
             {
                 var agentGroup = new SimpleMultiAgentGroup();
                 CompleteParty(agentGroup);
             }
+
+            _onAddPlayer?.Invoke(agent);
         }
+
+        public bool Full => PendingAgents.Count >= _partySize;
 
         public virtual void CompleteParty(SimpleMultiAgentGroup agentGroup)
         {
-            foreach (var a in _pendingAgents)
+            foreach (var a in PendingAgents)
             {
                 agentGroup.RegisterAgent(a);
                 _agentParties.Add(a, agentGroup);
             }
-            _pendingAgents.Clear();
-        }
-
-        public void FinishBattle(IEnumerable<T> battleAgents)
-        {
-            foreach (var agent in battleAgents)
-            {
-                if (_agentParties.ContainsKey(agent))
-                {
-                    _agentParties[agent].UnregisterAgent(agent);
-                    _agentParties.Remove(agent);
-                }
-            }
+            PendingAgents.Clear();
         }
 
         public void Setup()
@@ -74,8 +76,34 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             {
                 agent.Value.UnregisterAgent(agent.Key);
             }
-            _pendingAgents.Clear();
+            PendingAgents.Clear();
             _agentParties.Clear();
+        }
+
+        private static float MaxLevel = 10;
+
+        public List<ObsData> GetObservations()
+        {
+            var obs = new List<ObsData>();
+            var i = 0;
+            foreach (var agent in PendingAgents)
+            {
+                obs.Add(new CategoricalObsData<EAdventurerTypes>(agent.AdventurerType));
+                obs.Add(new SingleObsData
+                {
+                    data = (float)agent.levelComponent.Level / MaxLevel
+                });
+                i++;
+            }
+            for (; i < SystemTraining.PartySize - 1; i++)
+            {
+                obs.Add(new CategoricalObsData<EAdventurerTypes>(EAdventurerTypes.All));
+                obs.Add(new SingleObsData
+                {
+                    data = 0
+                });
+            }
+            return obs;
         }
     }
 }

@@ -1,65 +1,67 @@
-using System;
 using System.Collections.Generic;
 using EconomyProject.Scripts.Interfaces;
 using Unity.MLAgents;
 using UnityEngine;
 
-public abstract class LocationSelect<T> : MonoBehaviour, IMoveMenu<T>, ISetup where T : Agent
+namespace EconomyProject.Scripts.GameEconomy.Systems
 {
-    public abstract int GetLimit(T agent);
-
-    protected Dictionary<T, int> currentLocation => _currentLocation ??= new Dictionary<T, int>();
-
-    private Dictionary<T, int> _currentLocation;
-
-    public virtual void Setup()
+    public abstract class LocationSelect<T> : MonoBehaviour, IMoveMenu<T>, ISetup where T : Agent
     {
-        currentLocation.Clear();
-    }
+        public abstract int GetLimit(T agent);
 
-    public void RemoveAgent(T agent)
-    {
-        if (currentLocation.ContainsKey(agent))
+        protected Dictionary<T, int> currentLocation => _currentLocation ??= new Dictionary<T, int>();
+
+        private Dictionary<T, int> _currentLocation;
+
+        public virtual void Setup()
         {
-            currentLocation.Remove(agent);   
+            currentLocation.Clear();
         }
-    }
+
+        public void RemoveAgent(T agent)
+        {
+            if (currentLocation.ContainsKey(agent))
+            {
+                currentLocation.Remove(agent);   
+            }
+        }
     
-    public int GetCurrentLocation(T agent)
-    {
-        var toReturn = 0;
-        if (agent != null)
+        public int GetCurrentLocation(T agent)
         {
-            if (!currentLocation.ContainsKey(agent))
+            var toReturn = 0;
+            if (agent != null)
             {
-                currentLocation.Add(agent, 0);
-            }
-            else
-            {
-                var limit = GetLimit(agent);
-                if (currentLocation[agent] >= limit && currentLocation[agent] > 0)
+                if (!currentLocation.ContainsKey(agent))
                 {
-                    currentLocation[agent] = limit - 1;
+                    currentLocation.Add(agent, 0);
                 }
+                else
+                {
+                    var limit = GetLimit(agent);
+                    if (currentLocation[agent] >= limit && currentLocation[agent] > 0)
+                    {
+                        currentLocation[agent] = limit - 1;
+                    }
+                }
+                toReturn = currentLocation[agent];
             }
-            toReturn = currentLocation[agent];
+
+            return toReturn;
         }
 
-        return toReturn;
-    }
-
-    public float GetObs(T agent)
-    {
-        var limit = GetLimit(agent);
-        return limit==0? 0 : GetCurrentLocation(agent) / GetLimit(agent);
-    }
-
-    public void MovePosition(T agent, int movement)
-    {
-        var newPosition = GetCurrentLocation(agent) + movement;
-        if (newPosition >= 0 && newPosition < GetLimit(agent))
+        public float GetObs(T agent)
         {
-            currentLocation[agent] = newPosition;
+            var limit = GetLimit(agent);
+            return limit==0? 0 : GetCurrentLocation(agent) / GetLimit(agent);
+        }
+
+        public void MovePosition(T agent, int movement)
+        {
+            var newPosition = GetCurrentLocation(agent) + movement;
+            if (newPosition >= 0 && newPosition < GetLimit(agent))
+            {
+                currentLocation[agent] = newPosition;
+            }
         }
     }
 }

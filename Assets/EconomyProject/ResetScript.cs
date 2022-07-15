@@ -1,4 +1,5 @@
-﻿using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+﻿using EconomyProject.Scripts.GameEconomy.DataLoggers;
+using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy

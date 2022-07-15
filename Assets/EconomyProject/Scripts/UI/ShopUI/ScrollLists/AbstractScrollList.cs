@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Data;
 using EconomyProject.Scripts.UI.ShopUI.Buttons;
 using UnityEngine;
 
@@ -11,21 +12,6 @@ namespace EconomyProject.Scripts.UI.ShopUI.ScrollLists
         void SelectItem(T item, int number = 1);
     }
 
-    public interface ILastUpdate
-    {
-        DateTime LastUpdated { get; }
-        void Refresh();
-    }
-
-    public class LastUpdate : MonoBehaviour, ILastUpdate
-    {
-        public DateTime LastUpdated { get; private set; }
-        public virtual void Refresh()
-        {
-            LastUpdated = DateTime.Now;
-        }
-    }
-    
     public class LastUpdateClass : ILastUpdate
     {
         public DateTime LastUpdated { get; private set; }

@@ -1,34 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Text;
-using Inventory;
-using EconomyProject.Scripts.MLAgents;
-using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using UnityEngine;
 
-namespace EconomyProject.Scripts.GameEconomy
+namespace EconomyProject.Scripts.GameEconomy.DataLoggers
 {
 // CODE COURTESY OF https://sushanta1991.blogspot.com/2015/02/how-to-write-data-to-csv-file-in-unity.html
-
-    struct AuctionItem
-    {
-        public UsableItem item;
-        public float price;
-        public int agentId;
-        public string currentTime;
-
-        public string Name => item.itemDetails.itemName;
-
-        public AuctionItem(UsableItem item, float price, int agentId, string currentTime) : this()
-        {
-            this.item = item;
-            this.price = price;
-            this.agentId = agentId;
-            this.currentTime = currentTime;
-        }
-    }
 
     public class DataLogger : MonoBehaviour
     {
@@ -37,12 +15,6 @@ namespace EconomyProject.Scripts.GameEconomy
         public string learningEnvironmentId = "agent_id_";
 
         public int loggerId;
-
-        private int _resetCount = 0;
-
-        private List<AuctionItem> _auctionItems;
-
-        private Dictionary<UsableItem, List<float>> _itemPrices;
 
         public string CurrentTime
         {
@@ -58,24 +30,10 @@ namespace EconomyProject.Scripts.GameEconomy
             return fileName + loggerId + nowStr + ".csv";
         }
 
-        private void Start()
+        protected virtual void Start()
         {
             staticLoggerId++;
             loggerId = staticLoggerId;
-            _auctionItems = new List<AuctionItem>();
-            _itemPrices = new Dictionary<UsableItem, List<float>>();
-        }
-
-        public void AddAuctionItem(UsableItem item, float price, AdventurerAgent agent)
-        {
-            AuctionItem newItem = new AuctionItem(item, price, agent.GetComponent<AgentID>().agentId, CurrentTime);
-            _auctionItems.Add(newItem);
-
-            if (!_itemPrices.ContainsKey(item))
-            {
-                _itemPrices.Add(item, new List<float>());
-            }
-            _itemPrices[item].Add(price);
         }
 
         public void OutputCsv(List<string[]> rowData, string fileName)
@@ -127,27 +85,6 @@ namespace EconomyProject.Scripts.GameEconomy
         private string GetPath(string fileName)
         {
             return GetPath() + GetFileName(fileName);
-        }
-
-        void OnApplicationQuit()
-        {
-            var rowData = new List<string[]> { new[]{ "Item Name", "Item Price", "AgentID", "Event Time" } };
-            foreach (var item in _auctionItems)
-            {
-                var row = new[] {
-                    item.Name,
-                    item.price.ToString(CultureInfo.InvariantCulture),
-                    item.agentId.ToString(),
-                    item.currentTime
-                };
-                rowData.Add(row);
-            }
-            OutputCsv(rowData, learningEnvironmentId);
-        }
-
-        public void Reset()
-        {
-            _resetCount++;
         }
     }
 }

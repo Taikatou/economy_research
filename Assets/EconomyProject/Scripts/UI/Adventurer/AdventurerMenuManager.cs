@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Data;
 using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+using LevelSystem;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace EconomyProject.Scripts.UI.Adventurer
 {
@@ -45,35 +48,19 @@ namespace EconomyProject.Scripts.UI.Adventurer
             return a == b;
         }
 
+        public Text levelText;
+
         private void Update()
         {
             var playerInput = uiAccessor.AdventurerInput;
             if (getCurrentAgent.CurrentAgent != null && playerInput != null)
             {
+                var levelUpComponent = getCurrentAgent.CurrentAgent.GetComponent<LevelUpComponent>();
+                levelText.text = levelUpComponent.Level.ToString();
                 var screen = playerInput.GetScreen(AdventurerAgent, EAdventurerScreen.Main);
                 
                 SwitchMenu(screen);
             }
-        }
-
-        public void MainMenu()
-        {
-			// AdventurerAgent.SetAction(EAdventurerAgentChoices.MainMenu);
-        }
-
-        public void ShopMenu()
-        {
-			AdventurerAgent.SetAction(EAdventurerAgentChoices.Shop);
-        }
-        
-        public void RequestMenu()
-        {
-			AdventurerAgent.SetAction(EAdventurerAgentChoices.FindRequest);
-        }
-
-        public void BattleMenu()
-        {
-			AdventurerAgent.SetAction(EAdventurerAgentChoices.Adventure);
         }
     }
 }

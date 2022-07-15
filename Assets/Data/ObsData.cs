@@ -54,5 +54,10 @@ namespace Data
         public CategoricalObsData(T data) : base (Convert.ToInt32(data), SensorUtils<T>.Length)
         {
         }
+
+        public CategoricalObsData() : base (-1, SensorUtils<T>.Length)
+        {
+            
+        }
     }
 }

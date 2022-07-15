@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Data;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using Inventory;
 using UnityEngine;
@@ -26,7 +27,7 @@ namespace EconomyProject.Scripts.Inventory
                 {
                     if (Items.Count > 0)
                     {
-                        var validItems = GetItems(agent.adventurerType).ToList();
+                        var validItems = GetItems(agent.AdventurerType).ToList();
                         validItems.AddRange(GetItems(EAdventurerTypes.All));
                         toReturn = validItems.Count;
                     }
@@ -47,7 +48,7 @@ namespace EconomyProject.Scripts.Inventory
                 {
                     if (Items.Count > 0)
                     {
-                        var validItems = GetItems(agent.adventurerType).ToList();
+                        var validItems = GetItems(agent.AdventurerType).ToList();
                         validItems.AddRange(GetItems(EAdventurerTypes.All));
                         if (validItems.Any())
                         {
@@ -76,7 +77,7 @@ namespace EconomyProject.Scripts.Inventory
             var valid = canObtainAllWeapons;
             if (!canObtainAllWeapons)
             {
-                var filter = new[] { agent.adventurerType, EAdventurerTypes.All };
+                var filter = new[] { agent.AdventurerType, EAdventurerTypes.All };
                 valid = usableItem.validAdventurer.Intersect(filter).Any();
             }
 

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Data;
 using UnityEngine;
 
 namespace Inventory
 {
 	public enum ECraftingChoice { BeginnerSword, IntermediateSword, AdvancedSword, EpicSword, MasterSword, UltimateSwordOfPower }
-	public enum EAdventurerTypes { All, Brawler, Swordsman, Archer }
 
-    [Serializable]
+	[Serializable]
     public struct UsableItemDetails
     {
 	    public Sprite icon;
@@ -20,8 +20,6 @@ namespace Inventory
         public int durability;
         
         public bool Broken => !unBreakable && durability <= 0;
-        
-        
 
         public UsableItemDetails(UsableItemDetails itemDetails)
         {

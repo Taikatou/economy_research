@@ -1,5 +1,8 @@
-public enum EAdventurerAgentChoices { None=0, FindRequest, Shop, Adventure, 
-    Up, Down, SetShop, PurchaseItem, Back, Select }
+namespace Data
+{
+    public enum EAdventurerAgentChoices { None=0,
+        Up, Down, Back, Select, SetShop, PurchaseItem }
 
-public enum EAdventurerScreen { Main=EAdventurerAgentChoices.None, Request=EAdventurerAgentChoices.FindRequest, 
-    Shop=EAdventurerAgentChoices.Shop, Adventurer=EAdventurerAgentChoices.Adventure, Rest=EAdventurerAgentChoices.Back + 1}
+    public enum EAdventurerScreen { Main=EAdventurerAgentChoices.None, Request, 
+        Shop, Adventurer, Rest=EAdventurerAgentChoices.Back + 1}
+}

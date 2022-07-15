@@ -15,8 +15,9 @@ MonoBehaviour:
   data:
     UnitName: Owl
     Sprite: {fileID: 21300000, guid: a1367c43df15c5147afe47d746070134, type: 3}
-    MaxHp: 10
-    damage: 2
+    MaxHp: 20
+    fighterType: 2
+    damage: 10
   fighterDropTable:
     lootDropItems:
     - item:
@@ -35,3 +36,4 @@ MonoBehaviour:
       probabilityPercent: 50
       probabilityRangeFrom: 1
       probabilityRangeTo: 2
+    Exp: 8

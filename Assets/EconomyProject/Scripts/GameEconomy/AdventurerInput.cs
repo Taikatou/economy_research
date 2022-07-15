@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Data;
 using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
@@ -27,7 +28,7 @@ namespace EconomyProject.Scripts.GameEconomy
 
         public override EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices> GetEconomySystem(AdventurerAgent agent)
         {
-            var screen = GetScreen(agent, EAdventurerScreen.Main);
+            var screen = GetScreen(agent, EAdventurerScreen.Adventurer);
             switch (screen)
             {
                 case EAdventurerScreen.Main:
@@ -50,8 +51,15 @@ namespace EconomyProject.Scripts.GameEconomy
         protected override void SetupScreens()
         {
             MainMenuSystem.system.AgentInput = this;
-            AdventurerShopSystem.system.AgentInput = this;
-            RequestSystem.system.AgentInput = this;
+            if (AdventurerShopSystem != null)
+            {
+                AdventurerShopSystem.system.AgentInput = this;
+            }
+
+            if (RequestSystem != null)
+            {
+                RequestSystem.system.AgentInput = this;   
+            }
             AdventurerSystem.system.AgentInput = this;
         }
 

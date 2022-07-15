@@ -9,7 +9,7 @@ namespace EconomyProject.Scripts.MLAgents
 
         protected override void MakeRequests(int academyStepCount)
         {
-            if (crafter == UISpec.craftActive || Academy.Instance.IsCommunicatorOn)
+            if (crafter == UISpec.CraftActive || Academy.Instance.IsCommunicatorOn)
             {
                 base.MakeRequests(academyStepCount);
             }

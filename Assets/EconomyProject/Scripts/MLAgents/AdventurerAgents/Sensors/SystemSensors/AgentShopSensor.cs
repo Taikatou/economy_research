@@ -1,3 +1,4 @@
+using Data;
 using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.GameEconomy.Systems.Shop;
 

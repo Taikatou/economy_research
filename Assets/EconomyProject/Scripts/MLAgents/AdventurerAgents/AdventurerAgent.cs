@@ -1,49 +1,64 @@
 ﻿using System.Collections.Generic;
 using Data;
+using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.Experiments;
 using EconomyProject.Scripts.GameEconomy;
+using EconomyProject.Scripts.GameEconomy.DataLoggers;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.Inventory;
 using UnityEngine;
 using EconomyProject.Scripts.GameEconomy.Systems;
+using EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes;
 using Inventory;
-using LevelSystem;
 using Unity.MLAgents.Actuators;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 {
 	public class AdventurerAgent : AgentScreen<EAdventurerScreen>, IEconomyAgent
-    {
-	    public EAdventurerTypes adventurerType;
+	{
 		public AgentInventory inventory;
         public AdventurerInventory adventurerInventory;
         public EconomyWallet wallet;
         public AdventurerInput adventurerInput;
         public AdventurerRequestTaker requestTaker;
         public AdventurerFighterData fighterData;
-        public LevelUpComponent levelUpComponent;
 
-		public override AgentType agentType => AgentType.Adventurer;
+        private EAdventurerAgentChoices _forcedAction;
+        private bool _bForcedAction;
+        private IEconomyAgent _economyAgentImplementation;
 
+        public override AgentType agentType => AgentType.Adventurer;
+
+        public AdventurerAgentBattleData levelComponent;
+
+        public EAdventurerTypes AdventurerType => levelComponent.adventurerType;
+        
 		public override EAdventurerScreen ChosenScreen
 		{
 			get
 			{
-				var toReturn = EAdventurerScreen.Main;
+				var toReturn = EAdventurerScreen.Adventurer;
 				if (adventurerInput)
 				{
-					toReturn = adventurerInput.GetScreen(this, EAdventurerScreen.Main);
+					toReturn = adventurerInput.GetScreen(this, EAdventurerScreen.Adventurer);
 				}
 				return toReturn;
 			}
 		}
 
-		private EAdventurerAgentChoices _forcedAction;
-		private bool _bForcedAction;
-		private IEconomyAgent _economyAgentImplementation;
+		private void OnLevelUp(int level)
+		{
+			var dataLogger = FindObjectOfType<LevelDataLogger>();
+			if (dataLogger != null)
+			{
+				dataLogger.AddLevelData(level, AdventurerType, StepCount);
+			}
+			AddReward((float)level/10);
+		}
 
 		public void Start()
 		{
+			levelComponent.OnLevelUp = OnLevelUp + levelComponent.OnLevelUp;
 			if (TrainingConfig.OnPurchase)
 			{
 				inventory.onItemAdd = OnItemAddReward;
@@ -69,7 +84,11 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 	        wallet.Setup(requestTaker.requestSystem, AgentType.Adventurer);
 	        inventory.Setup();
 	        fighterData.Setup();
+	        levelComponent.Reset();
 
+	        var adventurerBehaviour = FindObjectOfType<AdventurerSystemBehaviour>();
+	        adventurerBehaviour.system.RemoveAgent(this);
+		
 	        ResetOnItem.bSetupSystems = true;
         }
 
@@ -105,7 +124,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             system.AgentSetChoice(this, action);
         }
 
-        public void SetAction(EAdventurerAgentChoices choice)
+        private void SetAction(EAdventurerAgentChoices choice)
         {
 	        _bForcedAction = true;
 	        _forcedAction = choice;
@@ -114,9 +133,18 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         public void SetAction(int input)
         {
 	        var action = (EAdventurerAgentChoices) input;
-	        Debug.Log(action);
 	        
 	        SetAction(action);
+        }
+        
+        public int maxLevel = 5;
+
+        public void LevelUpCheck(int level)
+        {
+	        if (level == maxLevel)
+	        {
+		        EndEpisode();
+	        }
         }
     }
 }

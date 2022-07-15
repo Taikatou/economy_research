@@ -1,4 +1,5 @@
 ﻿using System;
+using Data;
 using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.MLAgents;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
@@ -20,11 +21,15 @@ namespace EconomyProject.Scripts.UI
 
 		private int nbrAgent = 0;
 
-        public void Update()
-        {		
+		public void Update()
+        {
+	        if (agentParent == null || GetAgents == null)
+	        {
+		        return;
+	        }
             if (_updateTime != agentSpawner.LastUpdated || nbrAgent != GetAgents.Length)
             {
-				nbrAgent = GetAgents.Length;
+	            nbrAgent = GetAgents.Length;
 				_updateTime = agentSpawner.LastUpdated;
                 Refresh();
             }

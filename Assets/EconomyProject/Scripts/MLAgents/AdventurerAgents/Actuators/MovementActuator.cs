@@ -1,3 +1,4 @@
+using Data;
 using EconomyProject.Scripts.GameEconomy;
 using Unity.MLAgents.Actuators;
 
@@ -27,7 +28,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Actuators
 /*                case EAdventurerAgentChoices.MainMenu:
                     AdventurerInput.ChangeScreen(_agent, EAdventurerScreen.Main);
                     break;*/
-                case EAdventurerAgentChoices.FindRequest:
+      /*          case EAdventurerAgentChoices.FindRequest:
                     AdventurerInput.ChangeScreen(_agent, EAdventurerScreen.Request);
                     break;
                 case EAdventurerAgentChoices.Shop:
@@ -35,7 +36,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Actuators
                     break;
                 case EAdventurerAgentChoices.Adventure:
                     AdventurerInput.ChangeScreen(_agent, EAdventurerScreen.Adventurer);
-                    break;
+                    break;*/
             }
         }
 

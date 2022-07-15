@@ -1,4 +1,4 @@
-﻿
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,13 +10,13 @@ namespace TurnBased.Scripts
 		public Text levelText;
 		public Slider hpSlider;
 
-		private BaseFighterData _fighterUnit;
+		private GetCurrentHP _fighterUnit;
 
-		public void SetHud(BaseFighterData fighterUnit)
+		public void SetHud<T, Q>(BaseFighterData<T, Q> fighterUnit) where T : Enum where Q : Enum
 		{
 			_fighterUnit = fighterUnit;
 			nameText.text = fighterUnit.UnitName;
-			levelText.text = "Lvl ?";
+			levelText.text = "Lvl " + fighterUnit.Level;
 			hpSlider.maxValue = fighterUnit.MaxHp;
 			hpSlider.value = fighterUnit.CurrentHp;
 		}

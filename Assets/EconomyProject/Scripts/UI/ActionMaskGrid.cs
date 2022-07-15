@@ -24,7 +24,7 @@ namespace EconomyProject.Scripts.UI
         // Update is called once per frame
         public void Start()
         {
-            _cachedCraftActive = UISpec.craftActive;
+            _cachedCraftActive = UISpec.CraftActive;
             UpdateMenus();
         }
 
@@ -78,7 +78,7 @@ namespace EconomyProject.Scripts.UI
 
         private void Update()
         {
-            var newToggle = UISpec.craftActive;
+            var newToggle = UISpec.CraftActive;
             if (_cachedCraftActive != newToggle)
             {
                 Debug.Log(newToggle);

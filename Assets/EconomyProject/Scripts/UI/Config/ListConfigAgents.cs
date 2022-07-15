@@ -16,9 +16,13 @@ namespace EconomyProject.Scripts.UI.Config
 
 		public override void SetupItems()
 		{
-			_items = GameObject.FindObjectOfType<RequestSystem>().StartMoney;
-			nbrAgents.Add(AgentType.Adventurer, adventurerSpawner.numLearningAgents);
-			nbrAgents.Add(AgentType.Shop, shopSpawner.numLearningAgents);
+			var requestSystem = FindObjectOfType<RequestSystem>();
+			if (requestSystem != null)
+			{
+				_items = requestSystem.StartMoney;
+				nbrAgents.Add(AgentType.Adventurer, adventurerSpawner.numLearningAgents);
+				nbrAgents.Add(AgentType.Shop, shopSpawner.numLearningAgents);	
+			}
 		}
 
 		public override void SetupList()

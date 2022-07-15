@@ -1,26 +1,34 @@
-using System;
 using UnityEngine;
 
 namespace LevelSystem
 {
     public abstract class LevelUpComponent : MonoBehaviour
     {
-        public float MaxExp;
-        protected float TotalExp { get; set; }
+        public float TotalExp { get; private set; }
 
         public abstract int Level { get; }
 
-        public void Start()
+        public virtual void Start()
         {
             TotalExp = 0;
         }
 
         public void AddExp(float exp)
         {
+            Debug.Log(exp);
             if (exp > 0)
             {
-                TotalExp = Math.Max(TotalExp + exp, MaxExp);
+                TotalExp += exp;
+                LevelUpCheck();
             }
         }
+
+        public void Reset()
+        {
+            TotalExp = 0;
+            LevelUpCheck();
+        }
+
+        protected abstract void LevelUpCheck();
     }
 }

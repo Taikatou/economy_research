@@ -360,7 +360,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
         public void Update()
         {
-            if (SystemTraining.removeRequestTime)
+            if (SystemTraining.RemoveRequestTime)
             {
                 UpdateRemove();
             }

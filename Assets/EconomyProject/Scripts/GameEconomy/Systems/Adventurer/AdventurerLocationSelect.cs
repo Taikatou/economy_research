@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Data;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
@@ -8,28 +9,34 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 {
     public class AdventurerLocationSelect : LocationSelect<AdventurerAgent>
     {
-        private static readonly EBattleEnvironments [] valuesAsArray
+        private static readonly EBattleEnvironments [] ValuesAsArray
             = Enum.GetValues(typeof(EBattleEnvironments)).Cast<EBattleEnvironments>().ToArray();
         
         public override int GetLimit(AdventurerAgent agent)
         {
-            return valuesAsArray.Length;
+            return ValuesAsArray.Length;
         }
 
         public EBattleEnvironments GetBattle(AdventurerAgent agent)
         {
             var location = GetCurrentLocation(agent);
-            return valuesAsArray[location];
+            return ValuesAsArray[location];
         }
     
-        public ObsData[] GetTravelObservations(AdventurerAgent agent)
+        public ObsData[] GetTravelObservations(AdventurerAgent agent, AdventurerSystem system)
         {
-            return new [] { new CategoricalObsData<EBattleEnvironments>(GetBattle(agent))
+            var currentParties = system.battleSubSystem.CurrentParties; 
+            var obs = new List<ObsData> {
+                new CategoricalObsData<EBattleEnvironments>(GetBattle(agent)) { Name="travelLocation" }
+            };
+            foreach (EBattleEnvironments b in Enum.GetValues(typeof(EBattleEnvironments)))
             {
-                Name="travelLocation",
-            }};
+                obs.AddRange(currentParties[b].GetObservations());
+            }
+            return obs.ToArray();
         }
 
-        public static int SensorCount => SensorUtils<EBattleEnvironments>.Length;
+        public static int SensorCount => SensorUtils<EBattleEnvironments>.Length + 
+                                         (SensorUtils<EAdventurerTypes>.Length + 1) * (SystemTraining.PartySize - 1);
     }
 }

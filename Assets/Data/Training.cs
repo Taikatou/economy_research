@@ -11,6 +11,9 @@
         public static bool OnWin => true;
         public static float OnWinReward = 0.1f;
 
+        public static bool OnLose => true;
+        public static float OnLoseReward = -0.05f;
+
         public static bool OnResource => true;
         public static float OnResourceReward = 0.1f;
 
@@ -23,13 +26,15 @@
 
     public static class UISpec
     {
-        public static bool craftActive { get; set; }
+        public static bool CraftActive { get; set; }
     }
 
     public static class SystemTraining
     {
-        public static int partySize => 1;
-        public static bool removeRequestTime => false;
+        public static int PartySize => 2;
+        public static bool RemoveRequestTime => false;
+
+        public static readonly bool IncludeShop = true;
     }
 
     public static class ParameterTuning
@@ -39,7 +44,7 @@
 
     public static class Observations
     {
-        public static bool debugObs => true;
-        public static bool canViewConstant => false;
+        public static bool DebugObs => false;
+        public static bool CanViewConstant => false;
     }
 }

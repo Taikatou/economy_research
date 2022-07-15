@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI.Inventory;
