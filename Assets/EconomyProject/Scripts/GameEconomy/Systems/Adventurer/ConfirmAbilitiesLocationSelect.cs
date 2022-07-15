@@ -6,7 +6,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 {
     public class ConfirmAbilitiesLocationSelect : LocationSelect<AdventurerAgent>
     {
-        public static readonly int SensorCount = SensorUtils<EAttackOptions>.Length;
+        public static readonly int SensorCount = SensorUtils<EAttackOptions>.Length + 1;
         public override int GetLimit(AdventurerAgent agent)
         {
             return PlayerActionMap.GetAbilities(agent.AdventurerType, agent.levelComponent.Level).Count;
@@ -25,8 +25,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         public ObsData[] GetObservations(AdventurerAgent agent)
         {
+            var selected = (float)GetCurrentLocation(agent) / (float) GetLimit(agent);
             var ability = GetAbility(agent);
-            return new ObsData[] {new CategoricalObsData<EAttackOptions>(ability)};
+            return new ObsData[]
+            {
+                new CategoricalObsData<EAttackOptions>(ability),
+                new SingleObsData{data=selected}
+            };
         }
     }
 }
