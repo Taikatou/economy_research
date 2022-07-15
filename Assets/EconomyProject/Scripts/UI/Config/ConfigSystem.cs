@@ -145,7 +145,7 @@ namespace EconomyProject.Scripts
 			shopCraftingSystemBehaviour.system.craftingSubSubSystem.craftingRequirement = listRequirements;
 		}
 
-		public static bool skipShopSetup = true;
+		public static bool skipShopSetup = false;
 
 		/// <summary>
 		/// Apply all the default parameters to the system

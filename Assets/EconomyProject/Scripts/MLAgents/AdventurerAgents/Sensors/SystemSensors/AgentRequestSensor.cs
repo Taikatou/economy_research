@@ -6,12 +6,12 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors.SystemSensors
 {
     public class AgentRequestSensor : AgentMovementSensor<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
     {
-        private readonly RequestAdventurerSystem requestAdventurerSystem;
+        private readonly RequestAdventurerSystem _requestAdventurerSystem;
 
         protected override EAdventurerScreen ValidScreen => EAdventurerScreen.Request;
 
         protected override EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices> EconomySystem
-            => requestAdventurerSystem;
+            => _requestAdventurerSystem;
 
         protected override int SensorCount => RequestAdventurerSystem.ObservationSize;
 
@@ -19,7 +19,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors.SystemSensors
 
         public AgentRequestSensor(AdventurerAgent agent, RequestAdventurerSystem requestAdventurerSystem) : base(agent)
         {
-            this.requestAdventurerSystem = requestAdventurerSystem;
+            this._requestAdventurerSystem = requestAdventurerSystem;
         }
     }
 }

@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a078cb379edffdd41bf6d99d79c46ead, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomiseAdventurerType: 0
+  randomiseAdventurerType: 1
   adventurerInput: {fileID: 5506223566058285588}
   requestSystem: {fileID: 0}
   requestRecord: {fileID: 0}
@@ -154,9 +154,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1f6fe6f1d91931489594cbf8472196c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numLearningAgents: 5
+  numLearningAgents: 50
   numAgents: 30
-  learningAgentPrefab: {fileID: 7707616417561859250, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
+  learningAgentPrefab: {fileID: 8706436983826652453, guid: 77159f6238fb6bf48add153f5a21d5bc, type: 3}
 --- !u!1 &773018212726770299
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,6 +167,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4366262713495188402}
   - component: {fileID: 6537886292755821190}
+  - component: {fileID: 1519652986}
+  - component: {fileID: 1519652987}
+  - component: {fileID: 1781114770}
+  - component: {fileID: 1781114772}
   m_Layer: 0
   m_Name: AdventureSystem
   m_TagString: Untagged
@@ -205,11 +209,62 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   system:
     agents: {fileID: 1781114766}
-    locationSelect: {fileID: 0}
-    battleLocationSelect: {fileID: 0}
-    confirmLocationSelect: {fileID: 0}
-    confirmAbilitiesSelect: {fileID: 0}
+    locationSelect: {fileID: 1519652986}
+    battleLocationSelect: {fileID: 1519652987}
+    confirmLocationSelect: {fileID: 1781114770}
+    confirmAbilitiesSelect: {fileID: 1781114772}
     travelSubsystem: {fileID: 6537886292603187203}
+    dataLogger: {fileID: 0}
+--- !u!114 &1519652986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 773018212726770299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 398d1225ee200814b870ba258ddb6fdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1519652987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 773018212726770299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63fc3b776580b0e428533ce2fe64e9b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aSystem: {fileID: 6537886292755821190}
+--- !u!114 &1781114770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 773018212726770299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa88b5ebfdbee54428eb0c84c868c3cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  adventurerSystem: {fileID: 6537886292755821190}
+--- !u!114 &1781114772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 773018212726770299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e390ffd1824e82d48a0dff44bc4356ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3628054232348685043
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,7 +326,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4930224491371596782
 Transform:
   m_ObjectHideFlags: 0
@@ -369,7 +424,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4930224492024530451
 Transform:
   m_ObjectHideFlags: 0
@@ -684,8 +739,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74c74fa29712e1d44a8421d60c2153ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentParent: {fileID: 1781114766}
-  agentSpawner: {fileID: 734842205298679346}
+  agentParent: {fileID: 0}
+  agentSpawner: {fileID: 0}
 --- !u!1 &6537886292968362111
 GameObject:
   m_ObjectHideFlags: 0

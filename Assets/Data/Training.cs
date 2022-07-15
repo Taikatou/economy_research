@@ -34,7 +34,7 @@
         public static int PartySize => 2;
         public static bool RemoveRequestTime => false;
 
-        public static readonly bool IncludeShop = false;
+        public static readonly bool IncludeShop = true;
     }
 
     public static class ParameterTuning

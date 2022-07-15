@@ -3,7 +3,18 @@
   <component name="ChangeListManager">
     <list default="true" id="3a9a0144-2920-4427-8d8b-3fddc42186be" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.economy_research/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.economy_research/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/ConfirmAbilitiesLocationSelect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/ConfirmAbilitiesLocationSelect.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Training.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Training.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Prefabs/AdventurerGameSystem.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Prefabs/AdventurerGameSystem.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scenes/TestScenes/EconomyScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scenes/TestScenes/EconomyScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scenes/TestScenes/Intransitive.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scenes/TestScenes/Intransitive.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/MainMenuSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/MainMenuSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/Sensors/AdventurerSensorComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/Sensors/AdventurerSensorComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/Sensors/SystemSensors/AgentRequestSensor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/Sensors/SystemSensors/AgentRequestSensor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Config/ConfigSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Config/ConfigSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Timers/EconomyScene_timers.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Timers/EconomyScene_timers.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Timers/Intransitive_timers.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Timers/Intransitive_timers.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/RiderScriptEditorPersistedState.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/RiderScriptEditorPersistedState.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +38,6 @@
     <setting file="file://$PROJECT_DIR$/../ml-agents/com.unity.ml-agents/Tests/Runtime/Sensor/VectorSensorTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ml-agents/com.unity.ml-agents/Tests/Runtime/Sensor/GridSensorTestUtils.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Shop/Sensors/ShopRequestSensor.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Data/AbstractBattleHub.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Shop/Sensors/ShopCraftingSensor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Layout/GridLayoutGroup.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Shop/ShopAgent.cs" root0="FORCE_HIGHLIGHTING" />
@@ -38,7 +48,6 @@
     <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/IEconomyAgent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Tests/Editor/TMP_EditorTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/EconomyDemonstrationRecorder.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Data/AdventurerTypes.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Utility/VertexHelper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.6.5/Tests/Runtime/NativeTriggeredManagedExceptionsBurstJobs.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Configuration/ConfigHolder.cs" root0="FORCE_HIGHLIGHTING" />
@@ -65,17 +74,13 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.6.4/Editor/treeview/Drawers/Layers/ItemsLayer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ml-agents/com.unity.ml-agents/Runtime/Agent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Editor/GlyphInfoDrawer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/DataLoggers/BattleEnvironmentDataLogger.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/TurnBased/Scripts/AI/EnemyAI.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/Sensors/SystemSensors/AgentMenuSensor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Editor/TMP_SpriteAssetMenu.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Editor/TMP_BaseEditorPanel.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Battle/PlayerTurnSampleButton.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Editor/InputField/CharacterLimitValidation.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Battle/CurrentPlayersUi.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_ListPool.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Editor/UnityEvent/UnityEventInvoke.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_MeshInfo.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/ConfirmAbilities/AbilityButton.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_SpriteAsset.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/MaterialReferenceManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_TextElement.cs" root0="SKIP_HIGHLIGHTING" />
@@ -85,9 +90,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/BaseMenuManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_SelectionCaret.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_Style.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/TurnBased/Scripts/AI/PlayerActionMap.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMPro_Private.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerTypes/AdventurerAgentBattleData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/LevelSystem/MediumFastLevelUpComponent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_DefaultControls.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/Image/ImageTests.cs" root0="SKIP_HIGHLIGHTING" />
@@ -111,6 +114,7 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.test-framework@1.1.31/UnityEngine.TestRunner/NUnitExtensions/Runner/UnityLogCheckDelegatingCommand.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/Layout/AspectRatioFitterTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Data/ObsData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/AdventurerSystemLocationSelect.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TurnBased/Scripts/PlayerFighterData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/GetCurrentAgentAggregator.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_Text.cs" root0="SKIP_HIGHLIGHTING" />
@@ -169,7 +173,6 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.barracuda@3.0.0/Barracuda/Runtime/ONNX/ONNXLayout.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.barracuda@3.0.0/Barracuda/Runtime/ONNX/HalfHelper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ml-agents/com.unity.ml-agents/Tests/Editor/TimerTest.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/AuctionDataLogger.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ml-agents/com.unity.ml-agents/Tests/Editor/MultiAgentGroupTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/EconomyPredictorAgent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ml-agents/com.unity.ml-agents/Tests/Editor/Actuators/ActionSpecTests.cs" root0="SKIP_HIGHLIGHTING" />
@@ -185,6 +188,7 @@
     <setting file="file://$PROJECT_DIR$/../ml-agents/com.unity.ml-agents/Tests/Editor/Inference/ModelRunnerTest.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Editor/Properties/AssemblyInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ml-agents/com.unity.ml-agents/Tests/Editor/PublicAPI/PublicApiValidation.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/SystemSelector.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.collab-proxy@1.15.15/Editor/PlasticSCM/UI/UnityPlasticTimer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.6.4/Editor/State/WindowState.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.barracuda@3.0.0/Barracuda/Runtime/Core/Resources/Barracuda/Random.cginc" root0="SKIP_HIGHLIGHTING" />
@@ -196,7 +200,6 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/GraphicRaycaster.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/CanvasUpdateRegistry.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerSpawner.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/ConfirmAbilities.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ml-agents/com.unity.ml-agents/Tests/Editor/Integrations/Match3/Match3SensorTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.6.4/Editor/Window/TimelineWindow.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ml-agents/com.unity.ml-agents/Tests/Editor/Integrations/Match3/AbstractBoardTests.cs" root0="SKIP_HIGHLIGHTING" />
@@ -210,8 +213,6 @@
     <setting file="file://$PROJECT_DIR$/../ml-agents/com.unity.ml-agents/Tests/Runtime/RuntimeAPITest.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/InputField.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Button.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/ConfirmBattleLocationSelect.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/ConfirmAbilitiesLocationSelect.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ml-agents/com.unity.ml-agents/Tests/Runtime/Utils/TestClasses.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ml-agents/com.unity.ml-agents/Tests/Runtime/Sensor/SimpleTestGridSensor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.collab-proxy@1.15.15/Editor/PlasticSCM/UI/Progress/ProgressControlsForDialogs.cs" root0="SKIP_HIGHLIGHTING" />
@@ -242,7 +243,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="XThreadsFramesViewSplitterKey" value="0.1820449" />
+    <property name="XThreadsFramesViewSplitterKey" value="0.32717678" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="rider.run.widget.enabled.cache" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
@@ -314,30 +315,8 @@
       <workItem from="1644009238660" duration="967000" />
       <workItem from="1646944475682" duration="651000" />
       <workItem from="1647115359280" duration="1550000" />
-      <workItem from="1650811742493" duration="8472000" />
-      <workItem from="1650912751592" duration="7082000" />
-      <workItem from="1653075727248" duration="1396000" />
-      <workItem from="1654036502492" duration="1990000" />
-      <workItem from="1654104223847" duration="6418000" />
-      <workItem from="1654277885748" duration="3099000" />
-      <workItem from="1654375218068" duration="1000" />
-      <workItem from="1655852243576" duration="5547000" />
-      <workItem from="1655930736910" duration="2299000" />
-      <workItem from="1656010115763" duration="3557000" />
-      <workItem from="1656109022669" duration="3542000" />
-      <workItem from="1656151549473" duration="2293000" />
-      <workItem from="1656154554180" duration="645000" />
-      <workItem from="1656187629742" duration="601000" />
-      <workItem from="1656242657444" duration="1177000" />
-      <workItem from="1656246913177" duration="1195000" />
-      <workItem from="1656764234119" duration="11813000" />
-      <workItem from="1656799946085" duration="8725000" />
-      <workItem from="1656932130789" duration="26388000" />
-      <workItem from="1657043905911" duration="26751000" />
-      <workItem from="1657291684959" duration="1513000" />
-      <workItem from="1657295652644" duration="168000" />
-      <workItem from="1657295874192" duration="684000" />
-      <workItem from="1657395761243" duration="18014000" />
+      <workItem from="1650811742493" duration="2454000" />
+      <workItem from="1657902349464" duration="2724000" />
     </task>
     <servers />
   </component>
@@ -369,7 +348,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/Inventory/AdventurerInventory.cs</url>
-          <line>61</line>
+          <line>60</line>
           <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\Inventory\AdventurerInventory.cs" initialLine="36" containingFunctionPresentation="property 'EquipedItem'" />
           <option name="timeStamp" value="125" />
         </line-breakpoint>
@@ -390,32 +369,6 @@
           <line>105</line>
           <properties documentPath="C:\Users\Conor\Downloads\Github\Phd\economy_research\Assets\EconomyProject\Scripts\MLAgents\Sensors\ConfigSensor.cs" initialLine="105" containingFunctionPresentation="constructor 'ConfigSensor'" />
           <option name="timeStamp" value="213" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Config/ConfigSystem.cs</url>
-          <line>107</line>
-          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\UI\Config\ConfigSystem.cs" initialLine="107" containingFunctionPresentation="method 'SetSpawnNumber'">
-            <startOffsets>
-              <option value="3307" />
-            </startOffsets>
-            <endOffsets>
-              <option value="3307" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="287" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/BattleSubSystem.cs</url>
-          <line>46</line>
-          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Adventurer\BattleSubSystem.cs" initialLine="46" containingFunctionPresentation="local function 'SetupNewBattle'">
-            <startOffsets>
-              <option value="2135" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2155" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="296" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
