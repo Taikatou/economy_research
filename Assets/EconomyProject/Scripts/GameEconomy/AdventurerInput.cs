@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Data;
 using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems;
@@ -17,12 +16,19 @@ namespace EconomyProject.Scripts.GameEconomy
 
         private static EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>[] GetSystems()
         {
+            if (SystemTraining.IncludeShop)
+            {
+                return new EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>[]
+                {
+                    MainMenuSystem.system,
+                    AdventurerSystem.system,
+                    RequestSystem.system,
+                    AdventurerSystem.system
+                };
+            }
             return new EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>[]
             {
-                MainMenuSystem.system,
                 AdventurerSystem.system,
-                RequestSystem.system,
-                AdventurerSystem.system
             };
         }
 

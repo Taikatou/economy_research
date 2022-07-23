@@ -532,6 +532,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 281730510}
   m_CullTransparentMesh: 0
+--- !u!1 &286680593 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 734842205981775738, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
+  m_PrefabInstance: {fileID: 1781114761}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &286680596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286680593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dce07babdfa69a4a971adee7609aec4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &293587979 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6537886293126695446, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
@@ -2484,6 +2501,10 @@ PrefabInstance:
       propertyPath: system.dataLogger
       value: 
       objectReference: {fileID: 1612661707}
+    - target: {fileID: 6537886292755821194, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
+      propertyPath: system.adventurerSystemLocationSelect
+      value: 
+      objectReference: {fileID: 286680596}
     - target: {fileID: 6537886293989600544, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
       propertyPath: toCheck
       value: 
@@ -3129,6 +3150,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8559902237832678561, guid: 644a22fc169f4b544bc97513c5d92ad4, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8559902237832678563, guid: 644a22fc169f4b544bc97513c5d92ad4, type: 3}
+      propertyPath: skipShop
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8559902237832678563, guid: 644a22fc169f4b544bc97513c5d92ad4, type: 3}

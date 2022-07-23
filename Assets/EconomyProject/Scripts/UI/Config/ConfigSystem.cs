@@ -127,6 +127,8 @@ namespace EconomyProject.Scripts
 			//Delete previous agents
 			getCurrentAdventurerAgent.ClearGetAgents();
 
+			skipShopSetup = skipShop;
+			
 			if (!skipShopSetup)
 			{
 				getCurrentShopAgent.ClearGetAgents();
@@ -142,8 +144,13 @@ namespace EconomyProject.Scripts
 		/// </summary>
 		public void SetResourceRequirements(List<CraftingMap> listRequirements)
 		{
-			shopCraftingSystemBehaviour.system.craftingSubSubSystem.craftingRequirement = listRequirements;
+			if (shopCraftingSystemBehaviour != null)
+			{
+				shopCraftingSystemBehaviour.system.craftingSubSubSystem.craftingRequirement = listRequirements;
+			}
 		}
+		
+		public bool skipShop = false;
 
 		public static bool skipShopSetup = false;
 
