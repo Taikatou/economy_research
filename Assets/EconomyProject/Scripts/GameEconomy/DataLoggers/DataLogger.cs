@@ -10,13 +10,13 @@ namespace EconomyProject.Scripts.GameEconomy.DataLoggers
 
     public class DataLogger : MonoBehaviour
     {
-        public static int staticLoggerId = 0;
+        private static int staticLoggerId = 0;
 
         public string learningEnvironmentId = "agent_id_";
 
         public int loggerId;
 
-        public string CurrentTime
+        protected string CurrentTime
         {
             get
             {
@@ -24,7 +24,8 @@ namespace EconomyProject.Scripts.GameEconomy.DataLoggers
                 return endTimer ? endTimer.CurrentTime : "";
             }
         }
-        public string GetFileName(string fileName)
+
+        private string GetFileName(string fileName)
         {
             var nowStr = DateTime.Now.ToString("_dd_MM_yyyy_HH_mm");
             return fileName + loggerId + nowStr + ".csv";
@@ -36,7 +37,7 @@ namespace EconomyProject.Scripts.GameEconomy.DataLoggers
             loggerId = staticLoggerId;
         }
 
-        public void OutputCsv(List<string[]> rowData, string fileName)
+        protected void OutputCsv(List<string[]> rowData, string fileName)
         {
             string[][] output = new string[rowData.Count][];
 

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Data;
+using EconomyProject.Scripts.GameEconomy.ConfigurationSystem;
 using LevelSystem;
-using UnityEngine;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes
 {
@@ -29,7 +29,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes
             var previousExp = 0;
             foreach(var row in AgentLevelCurve.levelProgressionParts)
             {
-                previousExp += row.expRequirement;
+                previousExp += (int) (row.expRequirement * RandomConfigurationSystem.GetExpBonus(adventurerType));
                 if (TotalExp >= previousExp)
                 {
                     level = row.level;

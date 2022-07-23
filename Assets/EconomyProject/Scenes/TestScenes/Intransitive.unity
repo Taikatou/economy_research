@@ -2231,6 +2231,8 @@ GameObject:
   - component: {fileID: 1612661705}
   - component: {fileID: 1612661706}
   - component: {fileID: 1612661707}
+  - component: {fileID: 1612661709}
+  - component: {fileID: 1612661708}
   m_Layer: 0
   m_Name: DataLogger
   m_TagString: Untagged
@@ -2280,6 +2282,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   learningEnvironmentId: battle_environment_
+  loggerId: 0
+--- !u!114 &1612661708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612661703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4f9dfb0d4638ca4b8f1caa089e4b4f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  configurationLogger: {fileID: 1612661709}
+  lowerExpRange: 0.8
+  highExpRange: 1.2
+--- !u!114 &1612661709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612661703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f760e5eeec8200498e9323517f5b562, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  learningEnvironmentId: agent_id_
   loggerId: 0
 --- !u!1 &1645288877 stripped
 GameObject:
