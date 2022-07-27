@@ -2310,8 +2310,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f760e5eeec8200498e9323517f5b562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  learningEnvironmentId: agent_id_
+  learningEnvironmentId: level_configuration
   loggerId: 0
+  randomConfig: {fileID: 1612661708}
 --- !u!1 &1645288877 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8559902237832678561, guid: 644a22fc169f4b544bc97513c5d92ad4, type: 3}

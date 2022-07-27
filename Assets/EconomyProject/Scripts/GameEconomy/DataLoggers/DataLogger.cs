@@ -39,15 +39,15 @@ namespace EconomyProject.Scripts.GameEconomy.DataLoggers
 
         protected void OutputCsv(List<string[]> rowData, string fileName)
         {
-            string[][] output = new string[rowData.Count][];
+            var output = new string[rowData.Count][];
 
             for (int i = 0; i < output.Length; i++)
             {
                 output[i] = rowData[i];
             }
 
-            int length = output.GetLength(0);
-            string delimiter = ",";
+            var length = output.GetLength(0);
+            var delimiter = ",";
 
             StringBuilder sb = new StringBuilder();
 

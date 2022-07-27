@@ -13,6 +13,10 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes
         public LevelCurve brawlerCurve;
         public LevelCurve healerCurve;
         public LevelCurve tankCurve;
+        
+        private int _level;
+        public override int Level => _level;
+        public OnLevelUp OnLevelUp;
 
         private LevelCurve AgentLevelCurve => AdventurerData[adventurerType];
         public int BonusDamage => AgentLevelCurve.levelProgressionParts[Level].damageIncrease;
@@ -38,10 +42,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes
 
             return level;
         }
-
-        private int _level;
-        public override int Level => _level;
-        public OnLevelUp OnLevelUp;
 
         protected override void LevelUpCheck()
         {

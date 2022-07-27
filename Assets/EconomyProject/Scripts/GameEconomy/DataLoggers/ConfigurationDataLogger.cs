@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using EconomyProject.Scripts.GameEconomy.ConfigurationSystem;
 using Sirenix.Utilities;
 
 namespace EconomyProject.Scripts.GameEconomy.DataLoggers
@@ -6,17 +8,19 @@ namespace EconomyProject.Scripts.GameEconomy.DataLoggers
     
     public class ConfigurationDataLogger : DataLogger
     {
-        public Dictionary<string, Dictionary<string, string>> ConfigurationValues;
+        public RandomConfigurationSystem randomConfig;
+        private Dictionary<string, Dictionary<string, string>> _configurationValues;
 
         protected override void Start()
         {
             base.Start();
-            ConfigurationValues = new Dictionary<string, Dictionary<string, string>>();
+            _configurationValues = new Dictionary<string, Dictionary<string, string>>();
+            randomConfig.UpdateValues();
         }
 
         public void AddData(string identifier, Dictionary<string, string> configurationData)
         {
-            ConfigurationValues.Add(identifier, configurationData);
+            _configurationValues.Add(identifier, configurationData);
         }
         
         void OnApplicationQuit()
@@ -26,19 +30,23 @@ namespace EconomyProject.Scripts.GameEconomy.DataLoggers
         
         private void PrintLevelData()
         {
-            var rowData = new List<string[]> { new[]{ "ID" }};
-            var added = false;
-            foreach (var item in ConfigurationValues)
+            bool header = false;
+            var rowData = new List<string[]>();
+            foreach (var item in _configurationValues)
             {
+                if (!header)
+                {
+                    header = true;
+                    var head = new List<string> {"DateTime"};
+                    head.AddRange(item.Value.Keys);
+                    rowData.Add(head.ToArray());
+                }
                 var row = new List<string> {
                     item.Key
                 };
+                
                 row.AddRange(item.Value.Values);
-                if (!added)
-                {
-                    rowData[0].AddRange(item.Value.Keys);
-                    added = true;
-                }
+                
                 rowData.Add(row.ToArray());
             }
             OutputCsv(rowData, "level_configuration_");
