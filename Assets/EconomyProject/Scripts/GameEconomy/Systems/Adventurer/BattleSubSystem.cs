@@ -128,8 +128,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             {
                 return CurrentParties[ReverseCurrentParties[agent]].confirmAbilities.GetObservations(agent);
             }
-
-            return null;
+            else
+            {
+                RemoveAgent(agent);
+                return null;
+            }
         }
 
         public void CancelConfirmation(AdventurerAgent agent)

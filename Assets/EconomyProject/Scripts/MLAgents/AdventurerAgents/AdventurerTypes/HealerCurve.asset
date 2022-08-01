@@ -29,10 +29,6 @@ MonoBehaviour:
     expRequirement: 130
     damageIncrease: 2
     healthIncrease: 2
-  - level: 4
-    expRequirement: 275
-    damageIncrease: 2
-    healthIncrease: 2
   - level: 5
     expRequirement: 275
     damageIncrease: 2

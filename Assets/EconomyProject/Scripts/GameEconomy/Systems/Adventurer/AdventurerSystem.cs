@@ -134,6 +134,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                 ? battleSubSystem.GetObs(agent)
                 : BlankArray(ConfirmAbilities.SensorCount);
 
+            if (output4 == null)
+            {
+                output4 = BlankArray(ConfirmAbilities.SensorCount);
+            }
+
             var obsize = new List<ObsData>();
             foreach (EBattleEnvironments battle in Enum.GetValues(typeof(EBattleEnvironments)))
             {
