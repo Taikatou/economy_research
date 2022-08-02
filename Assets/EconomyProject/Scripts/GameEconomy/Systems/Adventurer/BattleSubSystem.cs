@@ -159,11 +159,18 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         public void ConfirmAbilities(EAttackOptions confirmation, AdventurerAgent agent)
         {
-            var party = CurrentParties[ReverseCurrentParties[agent]];
-            party.confirmAbilities.ConfirmAbility(agent, confirmation);
-            if (party.confirmAbilities.Complete(SystemTraining.PartySize))
+            if (!ReverseCurrentParties.ContainsKey(agent))
             {
-                party.StartBattle();
+                
+            }
+            else
+            {
+                var party = CurrentParties[ReverseCurrentParties[agent]];
+                party.confirmAbilities.ConfirmAbility(agent, confirmation);
+                if (party.confirmAbilities.Complete(SystemTraining.PartySize))
+                {
+                    party.StartBattle();
+                }   
             }
         }
 

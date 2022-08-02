@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Data;
 using EconomyProject.Scripts.GameEconomy.ConfigurationSystem;
 using LevelSystem;
+using UnityEngine;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes
 {
@@ -19,7 +20,22 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes
         public OnLevelUp OnLevelUp;
 
         private LevelCurve AgentLevelCurve => AdventurerData[adventurerType];
-        public int BonusDamage => AgentLevelCurve.levelProgressionParts[Level].damageIncrease;
+
+        public int BonusDamage
+        {
+            get
+            {
+                if (Level >= AgentLevelCurve.levelProgressionParts.Length)
+                {
+                    Debug.Log(Level);
+                    return 0;
+                }
+                else
+                {
+                    return AgentLevelCurve.levelProgressionParts[Level].damageIncrease;
+                }
+            }
+        }
         private Dictionary<EAdventurerTypes, LevelCurve> AdventurerData => new()
         {
             { EAdventurerTypes.Brawler, brawlerCurve },

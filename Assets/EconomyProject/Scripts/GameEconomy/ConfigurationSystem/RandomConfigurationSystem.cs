@@ -28,14 +28,17 @@ namespace EconomyProject.Scripts.GameEconomy.ConfigurationSystem
             var rand = new System.Random();
             var randVal = rand.NextDouble() * (highExpRange - lowerExpRange);
             SwordsmanExpBonus = (float) (lowerExpRange + randVal);
+            SwordsmanExpBonus /= 5;
             configurationValues.Add("SwordsmanExpBonus", SwordsmanExpBonus.ToString());
             
             randVal = rand.NextDouble() * (highExpRange - lowerExpRange);
             MageExpBonus = (float) (lowerExpRange + randVal);
+            MageExpBonus /= 5;
             configurationValues.Add("MageExpBonus", MageExpBonus.ToString());
             
             randVal = rand.NextDouble() * (highExpRange - lowerExpRange);
             BrawlerExpBonus = (float) (lowerExpRange + randVal);
+            BrawlerExpBonus /= 5;
             configurationValues.Add("TankExpBonus", BrawlerExpBonus.ToString());
             
             var randomId = DateTime.Now.ToString();

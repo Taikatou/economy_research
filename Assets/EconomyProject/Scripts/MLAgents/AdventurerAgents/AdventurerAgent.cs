@@ -50,15 +50,22 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 		{
 			var dataLogger = FindObjectOfType<LevelDataLogger>();
 			if (dataLogger != null)
-			{
+			{ 
+				Debug.LogWarning(level);
 				dataLogger.AddLevelData(level, AdventurerType, StepCount);
 			}
 			AddReward((float)level/10);
+
+			if (level == maxLevel)
+			{
+				EndEpisode();
+				levelComponent.Reset();
+			}
 		}
 
 		public void Start()
 		{
-			levelComponent.OnLevelUp = OnLevelUp + levelComponent.OnLevelUp;
+			levelComponent.OnLevelUp = OnLevelUp;
 			if (TrainingConfig.OnPurchase)
 			{
 				inventory.onItemAdd = OnItemAddReward;
@@ -84,7 +91,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 	        wallet.Setup(requestTaker.requestSystem, AgentType.Adventurer);
 	        inventory.Setup();
 	        fighterData.Setup();
-	        levelComponent.Reset();
 
 	        var adventurerBehaviour = FindObjectOfType<AdventurerSystemBehaviour>();
 	        adventurerBehaviour.system.RemoveAgent(this);
@@ -137,14 +143,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 	        SetAction(action);
         }
         
-        public int maxLevel = 5;
-
-        public void LevelUpCheck(int level)
-        {
-	        if (level == maxLevel)
-	        {
-		        EndEpisode();
-	        }
-        }
-    }
+        public int maxLevel => 5;
+	}
 }

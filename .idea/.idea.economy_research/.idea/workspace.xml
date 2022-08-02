@@ -3,8 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="3a9a0144-2920-4427-8d8b-3fddc42186be" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.economy_research/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.economy_research/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Analytics/active_learning.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/active_learning.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Analytics/adventurer_analysis.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/adventurer_analysis.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Analytics/level_selection_analytics.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Analytics/level_selection_analytics.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/ConfigurationSystem/RandomConfigurationSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/ConfigurationSystem/RandomConfigurationSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/BattleSubSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/BattleSubSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerAgent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerSpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerTypes/AdventurerAgentBattleData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerTypes/AdventurerAgentBattleData.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Timers/Intransitive_timers.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Timers/Intransitive_timers.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/RiderScriptEditorPersistedState.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/RiderScriptEditorPersistedState.asset" afterDir="false" />
     </list>
@@ -238,7 +243,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="XThreadsFramesViewSplitterKey" value="0.32717678" />
+    <property name="XThreadsFramesViewSplitterKey" value="0.2181987" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="rider.run.widget.enabled.cache" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
@@ -316,6 +321,9 @@
       <workItem from="1658599245975" duration="5126000" />
       <workItem from="1658910593195" duration="2505000" />
       <workItem from="1659211153750" duration="1430000" />
+      <workItem from="1659370937664" duration="2955000" />
+      <workItem from="1659394959773" duration="2675000" />
+      <workItem from="1659481745051" duration="1000" />
     </task>
     <servers />
   </component>
@@ -384,19 +392,6 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/DataLoggers/ConfigurationDataLogger.cs</url>
-          <line>42</line>
-          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\DataLoggers\ConfigurationDataLogger.cs" initialLine="41" containingFunctionPresentation="method 'PrintLevelData'">
-            <startOffsets>
-              <option value="1365" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1366" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="221" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/DataLoggers/ConfigurationDataLogger.cs</url>
           <line>50</line>
           <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\GameEconomy\DataLoggers\ConfigurationDataLogger.cs" initialLine="52" containingFunctionPresentation="method 'PrintLevelData'">
             <startOffsets>
@@ -407,6 +402,32 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="222" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerAgent.cs</url>
+          <line>60</line>
+          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\MLAgents\AdventurerAgents\AdventurerAgent.cs" initialLine="60" containingFunctionPresentation="method 'OnLevelUp'">
+            <startOffsets>
+              <option value="1857" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1870" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="223" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerAgent.cs</url>
+          <line>61</line>
+          <properties documentPath="C:\Users\Conor\Documents\Phd\economy_research\Assets\EconomyProject\Scripts\MLAgents\AdventurerAgents\AdventurerAgent.cs" initialLine="61" containingFunctionPresentation="method 'OnLevelUp'">
+            <startOffsets>
+              <option value="1875" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1898" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="224" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

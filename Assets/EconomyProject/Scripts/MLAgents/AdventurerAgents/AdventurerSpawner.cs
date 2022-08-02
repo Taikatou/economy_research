@@ -28,7 +28,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
                 var battleData = agent.GetComponent<AdventurerAgentBattleData>();
                 var validIndex = (int) EAdventurerTypes.All + 1;
                 battleData.adventurerType = (EAdventurerTypes) values.GetValue(random.Next(validIndex, values.Length));
-                battleData.OnLevelUp += adventurer.LevelUpCheck;
             }
 
             var taker = adventurer.GetComponent<AdventurerRequestTaker>();
