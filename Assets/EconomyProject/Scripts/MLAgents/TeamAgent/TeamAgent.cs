@@ -10,8 +10,9 @@ namespace EconomyProject.Scripts.MLAgents.TeamAgent
 
         private Guid PlayerId { get; set; }
 
-        public void Start()
+        public override void Start()
         {
+            base.Start();
             PlayerId = Guid.NewGuid();
             teamManager.AddToTeam(teamName, PlayerId);
         }

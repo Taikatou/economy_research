@@ -63,7 +63,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 			}
 		}
 
-		public void Start()
+		public virtual void Start()
 		{
 			levelComponent.OnLevelUp = OnLevelUp;
 			if (TrainingConfig.OnPurchase)

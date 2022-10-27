@@ -7,7 +7,7 @@ namespace EconomyProject.Scripts.MLAgents
     {
         public bool crafting;
 
-        protected override DemonstrationWriter CreateDemonstrator(Stream stream)
+        protected DemonstrationWriter CreateDemonstrator(Stream stream)
         {
             return new EconomyDemonstrationWriter(stream, crafting);
         }

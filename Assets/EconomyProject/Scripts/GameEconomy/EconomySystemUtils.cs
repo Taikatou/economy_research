@@ -7,7 +7,7 @@ namespace EconomyProject.Scripts.GameEconomy
 {
     public static class EconomySystemUtils<T> where T : Enum
     {
-        private static EnabledInput[] GetInputOfType<T>(bool enabled)
+        private static EnabledInput[] GetInputOfType(bool enabled)
         {
             var actions = Enum.GetValues(typeof(T));
             var output = new EnabledInput[actions.Length];
@@ -21,7 +21,7 @@ namespace EconomyProject.Scripts.GameEconomy
 
         public static EnabledInput[] GetInputOfType(IEnumerable<T> enabledChoices)
         {
-            var outputs = GetInputOfType<T>(false);
+            var outputs = GetInputOfType(false);
             foreach (var c in enabledChoices)
             {
                 var i = Convert.ToInt32(c);
