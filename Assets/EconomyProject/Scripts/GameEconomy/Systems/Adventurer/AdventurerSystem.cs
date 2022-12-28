@@ -209,6 +209,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                     battleSubSystem.RemoveAgent(agent);
                     break;
                 case EAdventureStates.InBattle:
+                    battleSubSystem.RemoveAgent(agent);
                     battleSubSystem.BattleSystems[agent].EndBattle();
                     break;
             }
