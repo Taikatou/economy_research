@@ -136,7 +136,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         {
             if (ReverseCurrentParties.ContainsKey(agent))
             {
-                return CurrentParties[ReverseCurrentParties[agent]].ConfirmAbilities.GetObservations(agent);
+                return CurrentParties[ReverseCurrentParties[agent]].confirmAbilities.GetObservations(agent);
             }
             else
             {
@@ -176,8 +176,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             else
             {
                 var party = CurrentParties[ReverseCurrentParties[agent]];
-                party.ConfirmAbilities.ConfirmAbility(agent, confirmation);
-                if (party.ConfirmAbilities.Complete(SystemTraining.PartySize))
+                party.confirmAbilities.ConfirmAbility(agent, confirmation);
+                if (party.confirmAbilities.Complete(SystemTraining.PartySize))
                 {
                     party.StartBattle();
                 }   
