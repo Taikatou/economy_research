@@ -44,7 +44,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                     {
                         foreach (var agentb in agents)
                         {
-                            RemoveAgentFromQueue(agentb);
+                            RemoveAgent(agentb);
                             return;
                         }
                     }
@@ -111,7 +111,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 
                 party.AskConfirmation = AskConfirmation;
                 party.AskConfirmAbilities = AskConfirmAbilities;
-                party.CancelAgent = RemoveAgentFromQueue;
+                party.CancelAgent = RemoveAgent;
             }
             BattleSystems = new Dictionary<AdventurerAgent, BattleSubSystemInstance<AdventurerAgent>>();
             CurrentParties = new Dictionary<EBattleEnvironments, BattlePartySubsystem>();
@@ -130,7 +130,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             }
             else
             {
-                RemoveAgentFromQueue(agent);
+                RemoveAgent(agent);
                 return null;
             }
         }
@@ -223,22 +223,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             }
         }
 
-        public void RemoveAgentFromQueue(AdventurerAgent agent)
+        public void RemoveAgent(AdventurerAgent agent)
         {
             if (ReverseCurrentParties.ContainsKey(agent))
             {
                 CurrentParties[ReverseCurrentParties[agent]].RemoveFromQueue(agent);
                 ReverseCurrentParties.Remove(agent);
                 _setAdventureState.Invoke(agent, EAdventureStates.OutOfBattle);   
-            }
-        }
-
-        public void RemoveAgentFromParty(AdventurerAgent agent)
-        {
-            var subsystem = GetSubsystem(agent);
-            if (subsystem != null)
-            {
-                subsystem.RemoveAgent(agent);
             }
         }
 
