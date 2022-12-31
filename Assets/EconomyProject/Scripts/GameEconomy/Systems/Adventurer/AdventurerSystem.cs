@@ -175,7 +175,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                     case EAdventurerAgentChoices.Back:
                         if (GetAdventureStates(agent) == EAdventureStates.InQueue)
                         {
-                            battleSubSystem.RemoveAgent(agent);
+                            battleSubSystem.RemoveAgentFromQueue(agent);
                         }
                         else if(SystemTraining.IncludeShop)
                         {
@@ -197,6 +197,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         
         public void RemoveAgent(AdventurerAgent agent)
         {
+            battleSubSystem.RemoveAgentFromParty(agent);
             switch (GetAdventureStates(agent))
             {
                 case EAdventureStates.ConfirmBattle:
@@ -206,13 +207,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                     battleSubSystem.CancelAbilities(agent);
                     break;
                 case EAdventureStates.InQueue:
-                    battleSubSystem.RemoveAgent(agent);
+                    battleSubSystem.RemoveAgentFromQueue(agent);
                     break;
                 case EAdventureStates.InBattle:
                     battleSubSystem.BattleSystems[agent].EndBattle();
                     break;
             }
-
+            
             adventureStates[agent] = EAdventureStates.OutOfBattle;
         }
 

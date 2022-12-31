@@ -207,7 +207,10 @@ namespace TurnBased.Scripts
 					{
 						PlayerFighterUnits.Index++;
 					}
-					while (PlayerFighterUnits.Index < SystemTraining.PartySize && PlayerFighterUnits.Instance.IsDead);
+					while (PlayerFighterUnits.Index < SystemTraining.PartySize && PlayerFighterUnits.Instance is
+					       {
+						       IsDead: true
+					       });
 						
 					if (PlayerFighterUnits.Index == SystemTraining.PartySize)
 					{
