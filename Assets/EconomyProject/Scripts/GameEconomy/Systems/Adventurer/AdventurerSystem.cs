@@ -197,8 +197,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         
         public void RemoveAgent(AdventurerAgent agent)
         {
-            battleSubSystem.RemoveAgentFromParty(agent);
-            switch (GetAdventureStates(agent))
+            var state = GetAdventureStates(agent);
+            if (state != EAdventureStates.InBattle && state != EAdventureStates.OutOfBattle)
+            {
+                battleSubSystem.RemoveAgentFromParty(agent);    
+            }
+            
+            switch (state)
             {
                 case EAdventureStates.ConfirmBattle:
                     battleSubSystem.CancelConfirmation(agent);
