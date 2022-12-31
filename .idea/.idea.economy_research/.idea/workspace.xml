@@ -3,12 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="3a9a0144-2920-4427-8d8b-3fddc42186be" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.economy_research/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.economy_research/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/BattlePartySubsystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/BattlePartySubsystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scenes/TestScenes/Intransitive.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scenes/TestScenes/Intransitive.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/BattleSubSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/BattleSubSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Adventurer/AdventurerBattleMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Adventurer/AdventurerBattleMenu.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Timers/Intransitive_timers.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Timers/Intransitive_timers.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TurnBased/Scripts/BattleSubSystemInstance.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TurnBased/Scripts/BattleSubSystemInstance.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TimeManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TimeManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,6 +151,7 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/Raycasters/PhysicsRaycaster.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/UIBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/UIElements/PanelEventHandler.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/UIElements/PanelRaycaster.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Animation/CoroutineTween.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Button.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/CanvasUpdateRegistry.cs" root0="SKIP_HIGHLIGHTING" />

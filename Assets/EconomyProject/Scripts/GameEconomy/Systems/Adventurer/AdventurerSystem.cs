@@ -198,7 +198,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         public void RemoveAgent(AdventurerAgent agent)
         {
             var state = GetAdventureStates(agent);
-            if (state != EAdventureStates.InBattle && state != EAdventureStates.OutOfBattle)
+            if (state != EAdventureStates.OutOfBattle)
             {
                 battleSubSystem.RemoveAgentFromParty(agent);    
             }

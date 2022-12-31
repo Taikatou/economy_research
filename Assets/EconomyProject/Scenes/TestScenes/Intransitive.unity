@@ -3023,6 +3023,14 @@ PrefabInstance:
       propertyPath: adventurerSystem
       value: 
       objectReference: {fileID: 1781114768}
+    - target: {fileID: 8095951849265185913, guid: eb33c2d3c6946d443b4061c79708afa8, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8095951849265185913, guid: eb33c2d3c6946d443b4061c79708afa8, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8095951849412838853, guid: eb33c2d3c6946d443b4061c79708afa8, type: 3}
       propertyPath: adventurerSystem
       value: 
@@ -3143,6 +3151,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: AdventureMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 8095951849796880810, guid: eb33c2d3c6946d443b4061c79708afa8, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8095951849796880810, guid: eb33c2d3c6946d443b4061c79708afa8, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8095951849796880810, guid: eb33c2d3c6946d443b4061c79708afa8, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8095951849796880810, guid: eb33c2d3c6946d443b4061c79708afa8, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8095951849874587294, guid: eb33c2d3c6946d443b4061c79708afa8, type: 3}
       propertyPath: adventurerSystem
       value: 
@@ -3171,6 +3195,14 @@ PrefabInstance:
       propertyPath: currentAdventurerAgent
       value: 
       objectReference: {fileID: 1140675891193372856}
+    - target: {fileID: 8095951850118331505, guid: eb33c2d3c6946d443b4061c79708afa8, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8095951850118331505, guid: eb33c2d3c6946d443b4061c79708afa8, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8095951850241694532, guid: eb33c2d3c6946d443b4061c79708afa8, type: 3}
       propertyPath: aSystem
       value: 
@@ -3183,10 +3215,30 @@ PrefabInstance:
       propertyPath: battleLocationSelect
       value: 
       objectReference: {fileID: 1519652987}
+    - target: {fileID: 8095951850371826207, guid: eb33c2d3c6946d443b4061c79708afa8, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8095951850371826207, guid: eb33c2d3c6946d443b4061c79708afa8, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8095951850604737146, guid: eb33c2d3c6946d443b4061c79708afa8, type: 3}
       propertyPath: adventurerSystem
       value: 
       objectReference: {fileID: 1781114768}
+    - target: {fileID: 8095951850851016967, guid: eb33c2d3c6946d443b4061c79708afa8, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8095951850851016967, guid: eb33c2d3c6946d443b4061c79708afa8, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8095951851016649247, guid: eb33c2d3c6946d443b4061c79708afa8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8095951851146048784, guid: eb33c2d3c6946d443b4061c79708afa8, type: 3}
       propertyPath: currentAgent
       value: 

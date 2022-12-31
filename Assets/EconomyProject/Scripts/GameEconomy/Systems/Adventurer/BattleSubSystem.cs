@@ -169,11 +169,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         public void ConfirmAbilities(EAttackOptions confirmation, AdventurerAgent agent)
         {
-            if (!ReverseCurrentParties.ContainsKey(agent))
-            {
-                throw new Exception("Should not be here");
-            }
-            else
+            if (ReverseCurrentParties.ContainsKey(agent))
             {
                 var party = CurrentParties[ReverseCurrentParties[agent]];
                 party.ConfirmAbilities.ConfirmAbility(agent, confirmation);

@@ -30,10 +30,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 _agentParties[a].UnregisterAgent(a);
                 _agentParties.Remove(a);
             }
-            else
-            {
-                throw new Exception("DFSFASF");
-            }
         }
 
         public void RemoveFromQueue(T agent)
