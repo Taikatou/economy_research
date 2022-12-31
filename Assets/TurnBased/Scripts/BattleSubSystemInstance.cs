@@ -97,15 +97,21 @@ namespace TurnBased.Scripts
 	// @TIMER CHANGE
 		public float CurrentTimerValue { get; private set; }
 
-		private const float TurnCount = 2.0f;
+		private const float TurnCount = 5.0f;
+
+		public bool TurnCountDown => false;
 
 		public void Update()
 		{
-			CurrentTimerValue -= Time.deltaTime * Time.timeScale;
-			if (CurrentTimerValue <= 0)
+			if (CurrentState == EBattleState.PlayerTurn && TurnCountDown)
 			{
-				_attackValue = -1;
-				StartNextTurn();
+				CurrentTimerValue -= Time.deltaTime;
+				if (CurrentTimerValue <= 0)
+				{
+					_attackValue = -1;
+					StartNextTurn();
+					Debug.Log("Turn end due to timer");
+				}	
 			}
 		}
 
@@ -162,7 +168,6 @@ namespace TurnBased.Scripts
 					break;
 			}
 
-
 			if(PlayerFighterUnits.Dead)
 			{
 				Debug.Log("Player Lost");
@@ -210,10 +215,7 @@ namespace TurnBased.Scripts
 			{
 				PlayerFighterUnits.Index++;
 			}
-			while (PlayerFighterUnits.Index < SystemTraining.PartySize && PlayerFighterUnits.Instance is
-			       {
-				       IsDead: true
-			       });
+			while (PlayerFighterUnits.Index < SystemTraining.PartySize && PlayerFighterUnits.Instance.IsDead);
 						
 			if (PlayerFighterUnits.Index == SystemTraining.PartySize)
 			{

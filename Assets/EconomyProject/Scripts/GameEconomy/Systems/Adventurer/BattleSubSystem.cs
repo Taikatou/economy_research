@@ -227,10 +227,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         {
             if (!CurrentParties[location].Full)
             {
+                _setAdventureState.Invoke(agent, EAdventureStates.InQueue);
                 ReverseCurrentParties.Add(agent, location);
                 CurrentParties[location].AddAgent(agent);
-
-                _setAdventureState.Invoke(agent, EAdventureStates.InQueue);
             }
         }
 

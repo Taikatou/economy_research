@@ -30,7 +30,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         private SimpleMultiAgentGroup _agentGroup;
         private HashSet<AdventurerAgent> _confirmedAgents;
 
-        private float _timer;
+        private float Timer { get; set; }
         private bool _timerActive = false;
         private bool _battleStarted;
         private static int _battleID = 0;
@@ -48,7 +48,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         private void ResetTimer(int counter)
         {
-            _timer = counter;
+            Timer = counter;
             _timerActive = true;
         }
 
@@ -56,8 +56,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         {
             _agentGroup = agentGroup;
             _confirmedAgents = new HashSet<AdventurerAgent>();
-            AskConfirmation.Invoke(PendingAgents.ToArray(), null, agentGroup, ConfirmAbilities.SelectedAttacks);
             ResetTimer(countDown);
+            AskConfirmation.Invoke(PendingAgents.ToArray(), null, agentGroup, ConfirmAbilities.SelectedAttacks);
         }
 
         public void StartBattle()
@@ -124,8 +124,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             {
                 if (_timerActive)
                 {
-                    _timer -= Time.deltaTime;
-                    if (_timer <= 0)
+                    Timer -= Time.deltaTime;
+                    if (Timer <= 0)
                     {
                         _timerActive = false;
                         CancelConfirmation();
@@ -135,8 +135,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
             else if(!_battleStarted)
             {
-                _timer -= Time.deltaTime;
-                if (_timer <= 0 && _confirmedAgents.Count == PendingAgents.Count)
+                Timer -= Time.deltaTime;
+                if (Timer <= 0 && _confirmedAgents.Count == PendingAgents.Count)
                 {
                     foreach (var agent in PendingAgents.ToArray())
                     {
