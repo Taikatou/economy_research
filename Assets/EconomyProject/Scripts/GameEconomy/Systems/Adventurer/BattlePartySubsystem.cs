@@ -15,7 +15,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
     public delegate void SetupNewBattle(AdventurerAgent[] agent, FighterObject enemyFighter, SimpleMultiAgentGroup party, Dictionary<AdventurerAgent, HashSet<EAttackOptions>> selectedOptions);
 
     [Serializable]
-    public class BattlePartySubsystem : PartySubSystem<AdventurerAgent>
+    public class BattlePartySubsystem : PartySubSystem<AdventurerAgent>, IUpdate
     {
         public int countDown = 10;
         public SetupNewBattle SetupNewBattle;
