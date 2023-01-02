@@ -40,7 +40,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 				var toReturn = EAdventurerScreen.Adventurer;
 				if (adventurerInput)
 				{
-					toReturn = adventurerInput.GetScreen(this, EAdventurerScreen.Adventurer);
+					toReturn = adventurerInput.GetScreen(this, TrainingConfig.StartScreen);
 				}
 				return toReturn;
 			}
@@ -51,10 +51,14 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 			var dataLogger = FindObjectOfType<LevelDataLogger>();
 			if (dataLogger != null)
 			{ 
-				Debug.LogWarning(level);
 				dataLogger.AddLevelData(level, AdventurerType, StepCount);
 			}
-			AddReward((float)level/10);
+
+			if (TrainingConfig.OnLevelUp)
+			{
+				Debug.Log("Add reward level up");
+				AddReward(TrainingConfig.OnLevelUpReward);
+			}
 
 			if (level == maxLevel)
 			{

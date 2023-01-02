@@ -11,6 +11,7 @@ using LevelSystem;
 using TurnBased.Scripts;
 using TurnBased.Scripts.AI;
 using Unity.MLAgents;
+using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 {
@@ -293,9 +294,23 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         {
             if (TrainingConfig.OnLose)
             {
-                if (SystemTraining.PartySize > 1)
+                AddTeamReward(battle, TrainingConfig.OnLoseReward);
+            }
+        }
+
+        private static void AddTeamReward(BattleSubSystemInstance<AdventurerAgent> battle, float reward)
+        {
+            if (SystemTraining.PartySize > 1)
+            {
+                Debug.Log("Add group reward: " + reward);
+                battle.AgentParty.AddGroupReward(TrainingConfig.OnWinReward);   
+            }
+            else
+            {
+                Debug.Log("Add individual reward: " + reward);
+                foreach (var agent in battle.BattleAgents)
                 {
-                    battle.AgentParty.AddGroupReward(TrainingConfig.OnLoseReward);
+                    agent.AddReward(reward);
                 }
             }
         }
@@ -319,17 +334,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             
             if (TrainingConfig.OnWin)
             {
-                if (SystemTraining.PartySize > 1)
-                {
-                    battle.AgentParty.AddGroupReward(TrainingConfig.OnWinReward);   
-                }
-                else
-                {
-                    foreach (var agent in battle.BattleAgents)
-                    {
-                        agent.AddReward(TrainingConfig.OnWinReward);
-                    }
-                }
+                AddTeamReward(battle, TrainingConfig.OnWinReward);
             }
             OverviewVariables.WonBattle();
             foreach (var agent in battle.BattleAgents)
