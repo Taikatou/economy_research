@@ -127,7 +127,7 @@ namespace EconomyProject.Scripts
 			//Delete previous agents
 			getCurrentAdventurerAgent.ClearGetAgents();
 
-			skipShopSetup = skipShop;
+			// skipShopSetup = skipShop;
 			
 			if (!skipShopSetup)
 			{
@@ -152,7 +152,7 @@ namespace EconomyProject.Scripts
 		
 		public bool skipShop = false;
 
-		public static bool skipShopSetup = false;
+		public static bool skipShopSetup => true;
 
 		/// <summary>
 		/// Apply all the default parameters to the system

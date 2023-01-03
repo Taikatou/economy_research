@@ -7,7 +7,7 @@ namespace EconomyProject.Scripts.UI
     {
         public static void TakeControl()
         {
-            DecisionRequester.AllowDecisions = !DecisionRequester.AllowDecisions;
+            //DecisionRequester.AllowDecisions = !DecisionRequester.AllowDecisions;
         }
     }
 }
