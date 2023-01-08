@@ -27,6 +27,9 @@
         public static readonly float OnLevelUpReward = 0.1f;
 
         public static EAdventurerScreen StartScreen => EAdventurerScreen.Adventurer;
+
+        public static bool PunishMovement => false;
+        public static readonly float OnPunishMovementReward = 0.0005f;
     }
 
     public static class UISpec

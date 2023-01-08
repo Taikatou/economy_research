@@ -132,6 +132,10 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             
             var system = adventurerInput.GetEconomySystem(this);
             system.AgentSetChoice(this, action);
+            if (TrainingConfig.PunishMovement)
+            {
+	            AddReward(TrainingConfig.OnPunishMovementReward);   
+            }
         }
 
         private void SetAction(EAdventurerAgentChoices choice)
