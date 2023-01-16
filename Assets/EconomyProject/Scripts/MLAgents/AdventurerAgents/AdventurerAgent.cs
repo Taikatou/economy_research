@@ -23,8 +23,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         public AdventurerRequestTaker requestTaker;
         public AdventurerFighterData fighterData;
 
-        private EAdventurerAgentChoices _forcedAction;
-        private bool _bForcedAction;
         private IEconomyAgent _economyAgentImplementation;
 
         public override AgentType agentType => AgentType.Adventurer;
@@ -60,7 +58,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 				AddReward(TrainingConfig.OnLevelUpReward);
 			}
 
-			if (level == maxLevel)
+			if (level == MaxLevel)
 			{
 				EndEpisode();
 				levelComponent.Reset();
@@ -104,8 +102,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 
 		public override void Heuristic(in ActionBuffers actionsOut)
         {
-	        var actionB = actionsOut.DiscreteActions;
-	        actionB[0] = NumberKey;
+
         }
         
         public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
@@ -120,37 +117,33 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         {
 	        return adventurerInput.GetActionMask(this);
         }
+        
 
         public override void OnActionReceived(ActionBuffers actions)
         {
 	        var action = (EAdventurerAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[0]);;
-            if (_bForcedAction)
-            {
-	            _bForcedAction = false;
-	            action = _forcedAction;
-            }
-            
-            var system = adventurerInput.GetEconomySystem(this);
-            system.AgentSetChoice(this, action);
-            if (TrainingConfig.PunishMovement)
-            {
-	            AddReward(TrainingConfig.OnPunishMovementReward);   
-            }
+	        SetAction(action);
         }
 
-        private void SetAction(EAdventurerAgentChoices choice)
+        private void SetAction(EAdventurerAgentChoices action)
         {
-	        _bForcedAction = true;
-	        _forcedAction = choice;
+	        if (action != EAdventurerAgentChoices.None)
+	        {
+		        var system = adventurerInput.GetEconomySystem(this);
+		        system.AgentSetChoice(this, action);
+		        if (TrainingConfig.PunishMovement)
+		        {
+			        AddReward(TrainingConfig.OnPunishMovementReward);   
+		        }
+	        }
         }
 
         public void SetAction(int input)
         {
 	        var action = (EAdventurerAgentChoices) input;
-	        
 	        SetAction(action);
         }
-        
-        public int maxLevel => 5;
+
+        private static int MaxLevel => 5;
 	}
 }

@@ -2670,6 +2670,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 286680596}
     - target: {fileID: 6537886293585817439, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
+      propertyPath: numLearningAgents
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6537886293585817439, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
       propertyPath: recordDemonstrations
       value: 1
       objectReference: {fileID: 0}

@@ -7,6 +7,7 @@ using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.Interfaces;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using TurnBased.Scripts;
+using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {
@@ -247,6 +248,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public void UpDown(AdventurerAgent agent, int movement)
         {
+            Debug.Log(movement);
             LocationSelect<AdventurerAgent> location = null;
             switch (GetAdventureStates(agent))
             {
