@@ -1,10 +1,13 @@
-﻿using EconomyProject.Scripts.GameEconomy.Systems.Requests;
+﻿using Data;
+using EconomyProject.Scripts.GameEconomy.Systems;
+using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.Interfaces;
+using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using UnityEngine;
 
 namespace EconomyProject.Monobehaviours
 {
-    public class RequestAdventurerSystemBehaviour : MonoBehaviour, ISetup
+    public class RequestAdventurerSystemBehaviour : MonoBehaviour, ISetup, IGetSystem
     {
         public RequestAdventurerSystem system;
 
@@ -17,5 +20,7 @@ namespace EconomyProject.Monobehaviours
         {
             // system.setup();
         }
+
+        public EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices> GetSystem => system;
     }
 }
