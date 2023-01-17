@@ -2,7 +2,7 @@
 using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.MLAgents;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
-using Unity.MLAgents;
+using Unity.MLAgents.Demonstrations;
 using UnityEngine;
 
 namespace EconomyProject.Scripts
@@ -25,9 +25,8 @@ namespace EconomyProject.Scripts
             if (recordDemonstrations)
             {
                 var agentObject = agents[0];
-                
-                var decisionRequester = agentObject.GetComponent<DecisionRequester>();
-                decisionRequester.pauseAllDecisions = true;
+                var recorder = agentObject.GetComponent<DemonstrationRecorder>();
+                recorder.Record = true;
 
                 var agent = agentObject.GetComponent<AdventurerAgent>();
                 adventurerInput.ChangeScreen(agent, EAdventurerScreen.Adventurer);

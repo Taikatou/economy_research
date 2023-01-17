@@ -102,7 +102,12 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 
 		public override void Heuristic(in ActionBuffers actionsOut)
         {
-
+	        if (_choosenAction != EAdventurerAgentChoices.None)
+	        {
+		        var actions = actionsOut.DiscreteActions;
+		        actions[0] = (int)_choosenAction;
+		        _choosenAction = EAdventurerAgentChoices.None;
+	        }
         }
         
         public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
@@ -122,10 +127,10 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         public override void OnActionReceived(ActionBuffers actions)
         {
 	        var action = (EAdventurerAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[0]);;
-	        SetAction(action);
+	        ChooseAction(action);
         }
 
-        private void SetAction(EAdventurerAgentChoices action)
+        private void ChooseAction(EAdventurerAgentChoices action)
         {
 	        if (action != EAdventurerAgentChoices.None)
 	        {
@@ -140,9 +145,10 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 
         public void SetAction(int input)
         {
-	        var action = (EAdventurerAgentChoices) input;
-	        SetAction(action);
+	        _choosenAction = (EAdventurerAgentChoices) input;
         }
+
+        private EAdventurerAgentChoices _choosenAction;
 
         private static int MaxLevel => 5;
 	}
