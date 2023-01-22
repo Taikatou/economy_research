@@ -84,7 +84,8 @@ namespace TurnBased.Scripts
 		public readonly PlayerFighterGroup PlayerFighterUnits;
 		public readonly EnemyFighterGroup EnemyFighterUnits;
 		
-		public static int SensorCount => 8 + SensorUtils<EAdventurerTypes>.Length + (SensorUtils<EAttackOptions>.Length*3);
+		public static int SensorCount => 8 + SensorUtils<EAdventurerTypes>.Length + (SensorUtils<EAttackOptions>.Length*3) + 
+		                                 SensorUtils<EnemyAction>.Length;
 
 		private const double FleeChance = 0.8f;
 
@@ -152,10 +153,12 @@ namespace TurnBased.Scripts
 			return CurrentState == EBattleState.PlayerTurn && PlayerFighterUnits.Instance == p;
 		}
 
+		
+
 		private void EnemyTurn()
 		{
-			var action = _enemyAI.DecideAction(PlayerFighterUnits);
-			switch (action)
+			var chosenAction = _enemyAI.DecideAction(PlayerFighterUnits);
+			switch (chosenAction)
 			{
 				case EnemyAction.Attack:
 					DialogueText = EnemyFighterUnits.Instance.UnitName + " attacks!";
@@ -166,6 +169,11 @@ namespace TurnBased.Scripts
 				case EnemyAction.Wait:
 					DialogueText = EnemyFighterUnits.Instance.UnitName + " is doing nothing";
 					break;
+				case EnemyAction.PrepareAttack:
+					DialogueText = EnemyFighterUnits.Instance.UnitName + " is preparing an attack";
+					break;
+				default:
+					throw new Exception("EEEEK");
 			}
 
 			if(PlayerFighterUnits.Dead)
@@ -320,6 +328,7 @@ namespace TurnBased.Scripts
 				new CategoricalObsData<EAttackOptions>(map[EBattleAction.PrimaryAction]),
 				new CategoricalObsData<EAttackOptions>(map[EBattleAction.SecondaryAction]),
 				new CategoricalObsData<EAttackOptions>(bonsAction),
+				new CategoricalObsData<EnemyAction>(_enemyAI.PreviousAction),
 				new SingleObsData{data=CurrentTimerValue / TurnCount, Name="EnemyFighterUnit.turnTimer"},
 				new SingleObsData{data=_attackValue, Name="Attack Option"}
 			};
