@@ -7,6 +7,7 @@ namespace EconomyProject.Scripts.GameEconomy.DataLoggers
 {
     public struct EBattleEnvironmentSelection
     {
+        public string ConfigurationID;
         public EBattleEnvironments BattleEnvironments;
         public int Level;
         public EAdventurerTypes AdventurerTypes;
@@ -32,13 +33,14 @@ namespace EconomyProject.Scripts.GameEconomy.DataLoggers
         {
             PrintLevelData(_environmentSelection);
         }
-        
+
         private void PrintLevelData(List<EBattleEnvironmentSelection> levelData)
         {
-            var rowData = new List<string[]> { new[]{ "BattleEnvironment", "Level", "AdventurerType", "AverageStepCount", "ID" } };
+            var rowData = new List<string[]> { new[]{ "ConfigurationID", "BattleEnvironment", "Level", "AdventurerType", "AverageStepCount", "ID" } };
             foreach (var item in levelData)
             {
                 var row = new string[] {
+                    item.ConfigurationID,
                     item.BattleEnvironments.ToString(),
                     item.Level.ToString(),
                     item.AdventurerTypes.ToString(CultureInfo.InvariantCulture),

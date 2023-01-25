@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Data;
 using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.Experiments;
 using EconomyProject.Scripts.GameEconomy;
+using EconomyProject.Scripts.GameEconomy.ConfigurationSystem;
 using EconomyProject.Scripts.GameEconomy.DataLoggers;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.Inventory;
@@ -61,7 +63,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 			if (level == MaxLevel)
 			{
 				EndEpisode();
-				levelComponent.Reset();
 			}
 		}
 
@@ -90,6 +91,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 
 		public override void OnEpisodeBegin()
         {
+	        levelComponent.Reset();
 	        wallet.Setup(requestTaker.requestSystem, AgentType.Adventurer);
 	        inventory.Setup();
 	        fighterData.Setup();

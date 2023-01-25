@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using System.Globalization;
 using Data;
+using EconomyProject.Scripts.GameEconomy.ConfigurationSystem;
 
 namespace EconomyProject.Scripts.GameEconomy.DataLoggers
 {
     struct LevelData
     {
+        public string Configuration;
         public int Level;
         public EAdventurerTypes Adventurer;
         public int StepsFromLast;
@@ -37,10 +39,11 @@ namespace EconomyProject.Scripts.GameEconomy.DataLoggers
 
         private void PrintLevelData(List<LevelData> levelData, EAdventurerTypes adventurerTypes)
         {
-            var rowData = new List<string[]> { new[]{ "Level", "AdventurerType", "MaxCount" } };
+            var rowData = new List<string[]> { new[]{ "Configuration", "Level", "AdventurerType", "MaxCount" } };
             foreach (var item in levelData)
             {
                 var row = new[] {
+                    RandomConfigurationSystem.Guid.ToString(),
                     item.Level.ToString(),
                     item.Adventurer.ToString(CultureInfo.InvariantCulture),
                     item.StepsFromLast.ToString()

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Data;
+using EconomyProject.Scripts.GameEconomy.ConfigurationSystem;
 using EconomyProject.Scripts.GameEconomy.DataLoggers;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
@@ -73,6 +74,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 {
                     var environmentData = new EBattleEnvironmentSelection
                     {
+                        ConfigurationID = RandomConfigurationSystem.Guid.ToString(),
                         BattleEnvironments = _environment,
                         Level = agent.levelComponent.Level,
                         AdventurerTypes = agent.AdventurerType,
