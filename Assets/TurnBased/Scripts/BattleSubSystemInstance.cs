@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Codice.Client.Common;
 using Data;
 using TurnBased.Scripts.AI;
 using Unity.MLAgents;
 using UnityEngine;
+using Time = UnityEngine.Time;
 
 namespace TurnBased.Scripts
 {
@@ -69,7 +71,7 @@ namespace TurnBased.Scripts
 		}
 	}
 
-	public class BattleSubSystemInstance<T> : ILastUpdate where T : Agent 
+	public class BattleSubSystemInstance<T> : ILastUpdate, IUpdate where T : Agent
 	{
 		public EBattleState CurrentState { get; private set; }
 		public string DialogueText { get; private set; }
@@ -82,15 +84,43 @@ namespace TurnBased.Scripts
 		public readonly PlayerFighterGroup PlayerFighterUnits;
 		public readonly EnemyFighterGroup EnemyFighterUnits;
 		
-		public static int SensorCount => 6 + SensorUtils<EAdventurerTypes>.Length + (SensorUtils<EAttackOptions>.Length*3);
+		public static int SensorCount => 8 + SensorUtils<EAdventurerTypes>.Length + (SensorUtils<EAttackOptions>.Length*3) + 
+		                                 SensorUtils<EnemyAction>.Length;
 
-		private readonly double _fleeChance = 0.8f;
+		private const double FleeChance = 0.8f;
 
 		public SimpleMultiAgentGroup AgentParty { get; }
 
 		public readonly T [] BattleAgents;
 
 		private readonly EnemyAI _enemyAI;
+		
+	// @TIMER CHANGE
+		public float CurrentTimerValue { get; private set; }
+
+		private const float TurnCount = 5.0f;
+
+		public bool TurnCountDown => false;
+
+		public void Update()
+		{
+			if (CurrentState == EBattleState.PlayerTurn && TurnCountDown)
+			{
+				CurrentTimerValue -= Time.deltaTime;
+				if (CurrentTimerValue <= 0)
+				{
+					_attackValue = -1;
+					StartNextTurn();
+					Debug.Log("Turn end due to timer");
+				}	
+			}
+		}
+
+		private void ResetTimer()
+		{
+			CurrentTimerValue = TurnCount;
+		}
+	// END
 		public BattleSubSystemInstance(PlayerFighterData[] playerUnit, FighterData enemyUnit, FighterDropTable fighterDropTable,
 			OnWinDelegate<T> winDelegate, OnBattleComplete<T> completeDelegate, OnWinDelegate<T> loseDelegate, SimpleMultiAgentGroup agentParty, T [] battleAgents)
 		{
@@ -123,10 +153,12 @@ namespace TurnBased.Scripts
 			return CurrentState == EBattleState.PlayerTurn && PlayerFighterUnits.Instance == p;
 		}
 
+		
+
 		private void EnemyTurn()
 		{
-			var action = _enemyAI.DecideAction(PlayerFighterUnits);
-			switch (action)
+			var chosenAction = _enemyAI.DecideAction(PlayerFighterUnits);
+			switch (chosenAction)
 			{
 				case EnemyAction.Attack:
 					DialogueText = EnemyFighterUnits.Instance.UnitName + " attacks!";
@@ -137,8 +169,12 @@ namespace TurnBased.Scripts
 				case EnemyAction.Wait:
 					DialogueText = EnemyFighterUnits.Instance.UnitName + " is doing nothing";
 					break;
+				case EnemyAction.PrepareAttack:
+					DialogueText = EnemyFighterUnits.Instance.UnitName + " is preparing an attack";
+					break;
+				default:
+					throw new Exception("EEEEK");
 			}
-
 
 			if(PlayerFighterUnits.Dead)
 			{
@@ -181,6 +217,28 @@ namespace TurnBased.Scripts
 			DialogueText = "Choose an action:";
 		}
 
+		private void StartNextTurn()
+		{
+			do
+			{
+				PlayerFighterUnits.Index++;
+			}
+			while (PlayerFighterUnits.Index < SystemTraining.PartySize && PlayerFighterUnits.Instance.IsDead);
+						
+			if (PlayerFighterUnits.Index == SystemTraining.PartySize)
+			{
+				PlayerFighterUnits.Index = 0;
+				CurrentState = EBattleState.EnemyTurn;
+				EnemyTurn();	
+			}
+			else
+			{
+				DialogueText = "It is player: " + PlayerFighterUnits.Index + "s turn";
+			}
+
+			ResetTimer();
+		}
+
 		private void OnAttackButton(EBattleAction action)
 		{
 			if (CurrentState != EBattleState.PlayerTurn)
@@ -189,6 +247,7 @@ namespace TurnBased.Scripts
 			var actionDelegate = PlayerFighterUnits.Instance.GetAttackAction(action);
 			if (actionDelegate.HasValue)
 			{
+				_attackValue = (int) actionDelegate.Value;
 				var del = PlayerActionMap.GetAttackDelegate[actionDelegate.Value];
 				var str = del.Invoke(EnemyFighterUnits, PlayerFighterUnits.Instance);
 				DialogueText = str;
@@ -203,37 +262,20 @@ namespace TurnBased.Scripts
 				}
 				else
 				{
-					do
-					{
-						PlayerFighterUnits.Index++;
-					}
-					while (PlayerFighterUnits.Index < SystemTraining.PartySize && PlayerFighterUnits.Instance is
-					       {
-						       IsDead: true
-					       });
-						
-					if (PlayerFighterUnits.Index == SystemTraining.PartySize)
-					{
-						PlayerFighterUnits.Index = 0;
-						CurrentState = EBattleState.EnemyTurn;
-						EnemyTurn();	
-					}
-					else
-					{
-						DialogueText = "It is player: " + PlayerFighterUnits.Index + "s turn";
-					}
+					StartNextTurn();
 				}
 				EnemyTurn();
 			}
 		}
 
+		// out of use in multiplayer environment
 		private void OnFleeButton()
 		{
 			if (CurrentState != EBattleState.PlayerTurn)
 				return;
 
 			var rand = new System.Random();
-			if (rand.NextDouble() < _fleeChance)
+			if (rand.NextDouble() < FleeChance)
 			{
 				CurrentState = EBattleState.Flee;
 				EndBattle();
@@ -271,7 +313,7 @@ namespace TurnBased.Scripts
 			
 			var yourTurn = IsTurn(hashCode)? 1.0f : 0.0f;
 			EAttackOptions bonsAction = map.ContainsKey(EBattleAction.BonusAction)? map[EBattleAction.BonusAction] : EAttackOptions.None;
-			return new ObsData []
+			var obs = new ObsData []
 			{
 				new CategoricalObsData<EAdventurerTypes>(player.AdventurerType)
 				{
@@ -285,9 +327,16 @@ namespace TurnBased.Scripts
 				new SingleObsData{data=yourTurn, Name="yourTurn"},
 				new CategoricalObsData<EAttackOptions>(map[EBattleAction.PrimaryAction]),
 				new CategoricalObsData<EAttackOptions>(map[EBattleAction.SecondaryAction]),
-				new CategoricalObsData<EAttackOptions>(bonsAction)
+				new CategoricalObsData<EAttackOptions>(bonsAction),
+				new CategoricalObsData<EnemyAction>(_enemyAI.PreviousAction),
+				new SingleObsData{data=CurrentTimerValue / TurnCount, Name="EnemyFighterUnit.turnTimer"},
+				new SingleObsData{data=_attackValue, Name="Attack Option"}
 			};
+			_attackValue = 0;
+			return obs;
 		}
+
+		private int _attackValue = 0;
 
 		private readonly Dictionary<string, int> _unitOneHotEncode = new()
 		{

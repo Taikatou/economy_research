@@ -1,4 +1,8 @@
-﻿using EconomyProject.Scripts.MLAgents;
+﻿using Data;
+using EconomyProject.Scripts.GameEconomy;
+using EconomyProject.Scripts.MLAgents;
+using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+using Unity.MLAgents.Demonstrations;
 using UnityEngine;
 
 namespace EconomyProject.Scripts
@@ -8,12 +12,25 @@ namespace EconomyProject.Scripts
         public int numLearningAgents = 1;
         public int numAgents = 30;
         public GameObject learningAgentPrefab;
+        public bool recordDemonstrations = true;
+        
+        public AdventurerInput adventurerInput;
 
         public void StartSpawn()
         {
             var spawner = GetComponentInChildren<BaseAgentSpawner>();
             var adventurerPrefab = learningAgentPrefab;
-            spawner.SpawnAgents(adventurerPrefab, numAgents);
+            var agents = spawner.SpawnAgents(adventurerPrefab, numAgents);
+            
+            if (recordDemonstrations)
+            {
+                var agentObject = agents[0];
+                var recorder = agentObject.GetComponent<DemonstrationRecorder>();
+                recorder.Record = true;
+
+                var agent = agentObject.GetComponent<AdventurerAgent>();
+                adventurerInput.ChangeScreen(agent, EAdventurerScreen.Adventurer);
+            }
         }
     }
 }

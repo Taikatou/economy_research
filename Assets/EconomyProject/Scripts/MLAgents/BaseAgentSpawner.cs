@@ -1,5 +1,5 @@
-﻿using Data;
-using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
+﻿using System.Collections.Generic;
+using Data;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.MLAgents
@@ -7,15 +7,19 @@ namespace EconomyProject.Scripts.MLAgents
     public class BaseAgentSpawner : LastUpdate
     {
         private int _counter = 0;
-        public void SpawnAgents(GameObject learningAgentPrefab, int numLearningAgents)
+        public List<GameObject> SpawnAgents(GameObject learningAgentPrefab, int numLearningAgents)
         {
+            var output = new List<GameObject>();
             for (var i = 0; i < numLearningAgents; i++)
             {
                 var agent = Spawn(learningAgentPrefab);
                 var agentId = agent.GetComponent<AgentID>();
                 agentId.agentId = _counter;
                 _counter++;
+                output.Add(agent);
             }
+
+            return output;
         }
 
         protected virtual GameObject Spawn(GameObject toSpawnPrefab)

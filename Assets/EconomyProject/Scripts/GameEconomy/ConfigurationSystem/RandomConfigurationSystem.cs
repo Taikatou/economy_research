@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Data;
 using EconomyProject.Scripts.GameEconomy.DataLoggers;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+using Unity.MLAgents;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.ConfigurationSystem
@@ -20,6 +21,8 @@ namespace EconomyProject.Scripts.GameEconomy.ConfigurationSystem
         public float lowerExpRange = 0.8f;
 
         public float highExpRange = 1.2f;
+        
+        public static System.Guid Guid = System.Guid.NewGuid();
 
         public void UpdateValues()
         {
@@ -41,9 +44,27 @@ namespace EconomyProject.Scripts.GameEconomy.ConfigurationSystem
             BrawlerExpBonus /= 2;
             configurationValues.Add("TankExpBonus", BrawlerExpBonus.ToString());
             
-            var randomId = DateTime.Now.ToString();
-            
-            configurationLogger.AddData(randomId, configurationValues);
+            Guid = System.Guid.NewGuid();
+
+            configurationLogger.AddData(Guid.ToString(), configurationValues);
+        }
+
+        private int _steps = 0;
+
+        public void FixedUpdate()
+        {
+            _steps++;
+            if (_steps >= 35000)
+            {
+                UpdateValues();
+                var agents = FindObjectsOfType<Agent>();
+                foreach (var agent in agents)
+                {
+                    agent.EndEpisode();
+                }
+
+                _steps = 0;
+            }
         }
 
         public static float GetExpBonus(EAdventurerTypes agent)

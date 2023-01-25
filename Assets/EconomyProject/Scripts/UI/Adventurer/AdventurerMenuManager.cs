@@ -57,9 +57,12 @@ namespace EconomyProject.Scripts.UI.Adventurer
             {
                 var levelUpComponent = getCurrentAgent.CurrentAgent.GetComponent<LevelUpComponent>();
                 levelText.text = levelUpComponent.Level.ToString();
-                var screen = playerInput.GetScreen(AdventurerAgent, EAdventurerScreen.Main);
-                
-                SwitchMenu(screen);
+                var screen = playerInput.GetScreen(AdventurerAgent, TrainingConfig.StartScreen);
+
+                if (_openedMenus.ContainsKey(screen))
+                {
+                    SwitchMenu(screen);   
+                }
             }
         }
     }

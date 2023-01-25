@@ -11,6 +11,7 @@ using LevelSystem;
 using TurnBased.Scripts;
 using TurnBased.Scripts.AI;
 using Unity.MLAgents;
+using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 {
@@ -30,12 +31,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         public DateTime LastUpdated { get; private set; }
 
-
+        public readonly bool RequireConfirmation = false;
+        
         public BattleSubSystem(TravelSubSystem travelSubsystem, SetAdventureState setAdventureState, BattleEnvironmentDataLogger dataLogger)
         {
             _setAdventureState = setAdventureState;
-            
-            void SetupNewBattle(AdventurerAgent[] agents, FighterObject enemyFighter, SimpleMultiAgentGroup party, Dictionary<AdventurerAgent, HashSet<EAttackOptions>> selectedOptions)
+
+            void SetupNewBattle(AdventurerAgent[] agents, FighterObject enemyFighter, SimpleMultiAgentGroup party,
+                Dictionary<AdventurerAgent, HashSet<EAttackOptions>> selectedOptions)
             {
                 foreach (var agent in agents)
                 {
@@ -49,6 +52,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                         }
                     }
                 }
+
                 var playerData = new PlayerFighterData[agents.Length];
                 for (var i = 0; i < playerData.Length; i++)
                 {
@@ -59,25 +63,25 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                     var levelComp = agents[i].GetComponent<LevelUpComponent>();
                     if (levelComp != null)
                     {
-                        playerData[i].level = levelComp.Level;   
+                        playerData[i].level = levelComp.Level;
                     }
 
                     playerData[i].AttackOptions = selectedOptions[agents[i]].ToList();
                 }
-                
+
                 var enemyData = FighterData.Clone(enemyFighter.data);
-                var newSystem = new BattleSubSystemInstance<AdventurerAgent>(   playerData,
-                                                                                enemyData,
-                                                                                enemyFighter.fighterDropTable,
-                                                                                OnWin,
-                                                                                OnComplete,
-                                                                                OnLose,
-                                                                                party,
-                                                                                agents);
+                var newSystem = new BattleSubSystemInstance<AdventurerAgent>(playerData,
+                    enemyData,
+                    enemyFighter.fighterDropTable,
+                    OnWin,
+                    OnComplete,
+                    OnLose,
+                    party,
+                    agents);
                 foreach (var agent in agents)
                 {
                     BattleSystems.Add(agent, newSystem);
-                    _setAdventureState.Invoke(agent, EAdventureStates.InBattle);   
+                    _setAdventureState.Invoke(agent, EAdventureStates.InBattle);
                 }
             }
 
@@ -86,6 +90,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 foreach (var agent in agents)
                 {
                     _setAdventureState.Invoke(agent, EAdventureStates.ConfirmBattle);
+                }
+                if (!RequireConfirmation)
+                {
+                    foreach (var agent in agents)
+                    {
+                        Confirmation(EConfirmBattle.Confirm, agent);
+                    }
                 }
             }
 
@@ -159,11 +170,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         public void ConfirmAbilities(EAttackOptions confirmation, AdventurerAgent agent)
         {
-            if (!ReverseCurrentParties.ContainsKey(agent))
-            {
-                
-            }
-            else
+            if (ReverseCurrentParties.ContainsKey(agent))
             {
                 var party = CurrentParties[ReverseCurrentParties[agent]];
                 party.ConfirmAbilities.ConfirmAbility(agent, confirmation);
@@ -218,8 +225,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             if (!CurrentParties[location].Full)
             {
                 _setAdventureState.Invoke(agent, EAdventureStates.InQueue);
+                ReverseCurrentParties.Add(agent, location);
                 CurrentParties[location].AddAgent(agent);
-                ReverseCurrentParties.Add(agent, location);   
             }
         }
 
@@ -287,9 +294,23 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         {
             if (TrainingConfig.OnLose)
             {
-                if (SystemTraining.PartySize > 1)
+                AddTeamReward(battle, TrainingConfig.OnLoseReward);
+            }
+        }
+
+        private static void AddTeamReward(BattleSubSystemInstance<AdventurerAgent> battle, float reward)
+        {
+            if (SystemTraining.PartySize > 1)
+            {
+                Debug.Log("Add group reward: " + reward);
+                battle.AgentParty.AddGroupReward(TrainingConfig.OnWinReward);   
+            }
+            else
+            {
+                Debug.Log("Add individual reward: " + reward);
+                foreach (var agent in battle.BattleAgents)
                 {
-                    battle.AgentParty.AddGroupReward(TrainingConfig.OnLoseReward);
+                    agent.AddReward(reward);
                 }
             }
         }
@@ -313,17 +334,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             
             if (TrainingConfig.OnWin)
             {
-                if (SystemTraining.PartySize > 1)
-                {
-                    battle.AgentParty.AddGroupReward(TrainingConfig.OnWinReward);   
-                }
-                else
-                {
-                    foreach (var agent in battle.BattleAgents)
-                    {
-                        agent.AddReward(TrainingConfig.OnWinReward);
-                    }
-                }
+                AddTeamReward(battle, TrainingConfig.OnWinReward);
             }
             OverviewVariables.WonBattle();
             foreach (var agent in battle.BattleAgents)
@@ -347,22 +358,28 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             LastUpdated = DateTime.Now;
         }
 
-        public void Update()
+        public static void UpdateArray<T, L>(Dictionary<T, L> itterDict) where L : IUpdate
         {
-            var values = CurrentParties.Values.ToArray();
+            var values = itterDict.Values.ToArray();
             for (var i = 0; i < values.Length;)
             {
                 var size = values.Length;
                 values[i].Update();
                 if (size != values.Length)
                 {
-                    values = CurrentParties.Values.ToArray();
+                    values = itterDict.Values.ToArray();
                 }
                 else
                 {
                     i++;
                 }
             }
+        }
+
+        public void Update()
+        {
+            UpdateArray(CurrentParties);
+            UpdateArray(BattleSystems);
         }
     }
 }

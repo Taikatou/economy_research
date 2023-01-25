@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using EconomyProject.Monobehaviours;
+using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.GameEconomy.Systems;
 using UnityEngine;
 
@@ -45,7 +46,6 @@ namespace EconomyProject.Scripts.UI.Adventurer
         private void Update()
         {
             var state = adventurerSystem.system.GetAdventureStates(getCurrentAdventurerAgent.CurrentAgent);
-            
             SwitchMenu(state);
         }
     }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Data;
+using EconomyProject.Scripts.GameEconomy.ConfigurationSystem;
 using EconomyProject.Scripts.GameEconomy.DataLoggers;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
@@ -15,7 +16,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
     public delegate void SetupNewBattle(AdventurerAgent[] agent, FighterObject enemyFighter, SimpleMultiAgentGroup party, Dictionary<AdventurerAgent, HashSet<EAttackOptions>> selectedOptions);
 
     [Serializable]
-    public class BattlePartySubsystem : PartySubSystem<AdventurerAgent>
+    public class BattlePartySubsystem : PartySubSystem<AdventurerAgent>, IUpdate
     {
         public int countDown = 10;
         public SetupNewBattle SetupNewBattle;
@@ -30,7 +31,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         private SimpleMultiAgentGroup _agentGroup;
         private HashSet<AdventurerAgent> _confirmedAgents;
 
-        private float _timer;
+        private float Timer { get; set; }
         private bool _timerActive = false;
         private bool _battleStarted;
         private static int _battleID = 0;
@@ -48,7 +49,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         private void ResetTimer(int counter)
         {
-            _timer = counter;
+            Timer = counter;
             _timerActive = true;
         }
 
@@ -56,8 +57,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         {
             _agentGroup = agentGroup;
             _confirmedAgents = new HashSet<AdventurerAgent>();
-            AskConfirmation.Invoke(PendingAgents.ToArray(), null, agentGroup, ConfirmAbilities.SelectedAttacks);
             ResetTimer(countDown);
+            AskConfirmation.Invoke(PendingAgents.ToArray(), null, agentGroup, ConfirmAbilities.SelectedAttacks);
         }
 
         public void StartBattle()
@@ -73,6 +74,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 {
                     var environmentData = new EBattleEnvironmentSelection
                     {
+                        ConfigurationID = RandomConfigurationSystem.Guid.ToString(),
                         BattleEnvironments = _environment,
                         Level = agent.levelComponent.Level,
                         AdventurerTypes = agent.AdventurerType,
@@ -124,8 +126,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             {
                 if (_timerActive)
                 {
-                    _timer -= Time.deltaTime;
-                    if (_timer <= 0)
+                    Timer -= Time.deltaTime;
+                    if (Timer <= 0)
                     {
                         _timerActive = false;
                         CancelConfirmation();
@@ -135,8 +137,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
             else if(!_battleStarted)
             {
-                _timer -= Time.deltaTime;
-                if (_timer <= 0 && _confirmedAgents.Count == PendingAgents.Count)
+                Timer -= Time.deltaTime;
+                if (Timer <= 0 && _confirmedAgents.Count == PendingAgents.Count)
                 {
                     foreach (var agent in PendingAgents.ToArray())
                     {

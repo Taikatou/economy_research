@@ -60,10 +60,9 @@ namespace EconomyProject.Scripts.GameEconomy.DataLoggers
             var exists = Directory.Exists(GetPath());
             if (!exists)
             {
-                Directory.CreateDirectory(filePath);   
+                Directory.CreateDirectory(GetPath());   
             }
 
-            System.IO.Directory.CreateDirectory(GetPath(""));
             StreamWriter outStream = File.CreateText(filePath);
             outStream.WriteLine(sb);
             outStream.Close();

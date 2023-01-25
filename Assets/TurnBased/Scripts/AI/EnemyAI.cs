@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TurnBased.Scripts.AI
 {
-    public enum EnemyAction { Attack, Block, Wait }
+    public enum EnemyAction { Attack, PrepareAttack, Block, Wait, None }
     public class EnemyAI
     {
         private readonly EnemyFighterGroup _enemyFighterUnits;
@@ -13,21 +13,34 @@ namespace TurnBased.Scripts.AI
             _enemyFighterUnits = enemyFighterUnits;
         }
 
+        public EnemyAction PreviousAction = EnemyAction.None;
+        
         public EnemyAction DecideAction(PlayerFighterGroup playerInstance)
         {
-            switch (EnemyAction.Attack)
+            if (PreviousAction == EnemyAction.PrepareAttack)
             {
-                case EnemyAction.Attack:
-                    Attack(playerInstance);
-                    break;
-                case EnemyAction.Block:
-                    _enemyFighterUnits.Instance.Block();
-                    break;
-                case EnemyAction.Wait:
-                    _enemyFighterUnits.Instance.Wait();
-                    break;
+                Attack(playerInstance);
+                Attack(playerInstance);
             }
-            return EnemyAction.Attack;
+            else
+            {
+                var random = new System.Random();
+                PreviousAction = (EnemyAction)random.Next((int)EnemyAction.None);
+                switch (PreviousAction)
+                {
+                    case EnemyAction.Attack:
+                        Attack(playerInstance);
+                        break;
+                    case EnemyAction.Block:
+                        _enemyFighterUnits.Instance.Block();
+                        break;
+                    case EnemyAction.Wait:
+                        _enemyFighterUnits.Instance.Wait();
+                        break;
+                }
+            }
+            
+            return PreviousAction;
         }
 
         private void Attack(PlayerFighterGroup playerInstance)

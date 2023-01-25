@@ -145,7 +145,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 10000
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 1000000
+  MaxStep: 10000
   inventory: {fileID: 1817350387931501863}
   adventurerInventory: {fileID: 4250931923004593224}
   wallet: {fileID: -4706628768726033178}
@@ -153,7 +153,6 @@ MonoBehaviour:
   requestTaker: {fileID: 3175469178531096349}
   fighterData: {fileID: 342237269981398615}
   levelComponent: {fileID: 1308730154}
-  maxLevel: 3
 --- !u!114 &3175469178531096349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,7 +238,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31899ea889ad89049afba7b072550158, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Record: 0
   NumStepsToRecord: 0
   DemonstrationName: AdventurerAgent
   DemonstrationDirectory: Assets/Demonstrations

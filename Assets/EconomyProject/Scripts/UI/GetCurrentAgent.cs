@@ -2,7 +2,6 @@
 using Data;
 using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.MLAgents;
-using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
 using Unity.MLAgents;
 using UnityEditor;
 using UnityEngine;
@@ -13,7 +12,14 @@ namespace EconomyProject.Scripts.UI
 	{
 		public GetAgents agentParent;
 		public int Index { get; private set; }
-		public TAgent[] GetAgents => agentParent.GetComponentsInChildren<TAgent>();
+
+		public TAgent[] GetAgents
+		{
+			get
+			{
+				return agentParent != null ? agentParent.GetComponentsInChildren<TAgent>() : new TAgent[] { };
+			}
+		}
 
 		public BaseAgentSpawner agentSpawner;
 
@@ -66,12 +72,12 @@ namespace EconomyProject.Scripts.UI
 				//In Editor mode for the unit tests
 				if (!EditorApplication.isPlaying)
 				{
-					GameObject.DestroyImmediate(child.gameObject);
+					DestroyImmediate(child.gameObject);
 				}
 				//In Play mode
 				else
 				{
-					GameObject.Destroy(child.gameObject);
+					Destroy(child.gameObject);
 				}
 			}
 		}

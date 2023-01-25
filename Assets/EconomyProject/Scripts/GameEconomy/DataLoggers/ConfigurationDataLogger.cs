@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using System.Linq;
 using EconomyProject.Scripts.GameEconomy.ConfigurationSystem;
-using Sirenix.Utilities;
 
 namespace EconomyProject.Scripts.GameEconomy.DataLoggers
 {
@@ -20,7 +18,15 @@ namespace EconomyProject.Scripts.GameEconomy.DataLoggers
 
         public void AddData(string identifier, Dictionary<string, string> configurationData)
         {
-            _configurationValues.Add(identifier, configurationData);
+            if (_configurationValues.ContainsKey(identifier))
+            {
+                _configurationValues[identifier] = configurationData;
+            }
+            else
+            {
+                _configurationValues.Add(identifier, configurationData);
+            }
+            
         }
         
         void OnApplicationQuit()
@@ -37,7 +43,7 @@ namespace EconomyProject.Scripts.GameEconomy.DataLoggers
                 if (!header)
                 {
                     header = true;
-                    var head = new List<string> {"DateTime"};
+                    var head = new List<string> {"Configuration ID"};
                     head.AddRange(item.Value.Keys);
                     rowData.Add(head.ToArray());
                 }

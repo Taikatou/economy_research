@@ -7,6 +7,7 @@ using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.Interfaces;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using TurnBased.Scripts;
+using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {
@@ -197,8 +198,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         
         public void RemoveAgent(AdventurerAgent agent)
         {
-            battleSubSystem.RemoveAgentFromParty(agent);
-            switch (GetAdventureStates(agent))
+            var state = GetAdventureStates(agent);
+            if (state != EAdventureStates.OutOfBattle)
+            {
+                battleSubSystem.RemoveAgentFromParty(agent);    
+            }
+            
+            switch (state)
             {
                 case EAdventureStates.ConfirmBattle:
                     battleSubSystem.CancelConfirmation(agent);
@@ -242,6 +248,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public void UpDown(AdventurerAgent agent, int movement)
         {
+            Debug.Log(movement);
             LocationSelect<AdventurerAgent> location = null;
             switch (GetAdventureStates(agent))
             {

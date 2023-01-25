@@ -1,10 +1,12 @@
-﻿using EconomyProject.Scripts.GameEconomy.Systems;
+﻿using Data;
+using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.Interfaces;
+using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using UnityEngine;
 
 namespace EconomyProject.Monobehaviours
 {
-    public class AdventurerSystemBehaviour : MonoBehaviour, ISetup
+    public class AdventurerSystemBehaviour : MonoBehaviour, ISetup, IGetSystem
     {
         public AdventurerSystem system;
 
@@ -22,5 +24,7 @@ namespace EconomyProject.Monobehaviours
         {
             system.Update();
         }
+
+        public EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices> GetSystem => system;
     }
 }

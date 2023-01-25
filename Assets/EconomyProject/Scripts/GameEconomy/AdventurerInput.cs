@@ -34,19 +34,29 @@ namespace EconomyProject.Scripts.GameEconomy
 
         public override EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices> GetEconomySystem(AdventurerAgent agent)
         {
-            var screen = GetScreen(agent, EAdventurerScreen.Adventurer);
+            var screen = GetScreen(agent, TrainingConfig.StartScreen);
+            IGetSystem system = null;
             switch (screen)
             {
                 case EAdventurerScreen.Main:
-                    return MainMenuSystem.system;
+                    system = MainMenuSystem;
+                    break;
                 case EAdventurerScreen.Shop:
-                    return AdventurerShopSystem.system;
+                    system = AdventurerShopSystem;
+                    break;
                 case EAdventurerScreen.Request:
-                    return RequestSystem.system;
+                    system = RequestSystem;
+                    break;
                 case EAdventurerScreen.Adventurer:
-                    return AdventurerSystem.system;
+                    system = AdventurerSystem;
+                    break;
             }
-            return null;
+
+            if (system == null)
+            {
+                system = AdventurerSystem;
+            }
+            return system.GetSystem;
         }
 
         public void Reset()

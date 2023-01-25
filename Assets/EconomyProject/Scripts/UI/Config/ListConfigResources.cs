@@ -21,7 +21,6 @@ namespace EconomyProject.Scripts.UI.Config
 		{
 			if(_items == null)
 			{
-				Debug.Log("ListResources null");
 				return;
 			}
 

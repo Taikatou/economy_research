@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Data;
 using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.Experiments;
 using EconomyProject.Scripts.GameEconomy;
+using EconomyProject.Scripts.GameEconomy.ConfigurationSystem;
 using EconomyProject.Scripts.GameEconomy.DataLoggers;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.Inventory;
@@ -23,8 +25,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         public AdventurerRequestTaker requestTaker;
         public AdventurerFighterData fighterData;
 
-        private EAdventurerAgentChoices _forcedAction;
-        private bool _bForcedAction;
         private IEconomyAgent _economyAgentImplementation;
 
         public override AgentType agentType => AgentType.Adventurer;
@@ -40,7 +40,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 				var toReturn = EAdventurerScreen.Adventurer;
 				if (adventurerInput)
 				{
-					toReturn = adventurerInput.GetScreen(this, EAdventurerScreen.Adventurer);
+					toReturn = adventurerInput.GetScreen(this, TrainingConfig.StartScreen);
 				}
 				return toReturn;
 			}
@@ -51,15 +51,18 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 			var dataLogger = FindObjectOfType<LevelDataLogger>();
 			if (dataLogger != null)
 			{ 
-				Debug.LogWarning(level);
 				dataLogger.AddLevelData(level, AdventurerType, StepCount);
 			}
-			AddReward((float)level/10);
 
-			if (level == maxLevel)
+			if (TrainingConfig.OnLevelUp)
+			{
+				Debug.Log("Add reward level up");
+				AddReward(TrainingConfig.OnLevelUpReward);
+			}
+
+			if (level == MaxLevel)
 			{
 				EndEpisode();
-				levelComponent.Reset();
 			}
 		}
 
@@ -88,6 +91,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 
 		public override void OnEpisodeBegin()
         {
+	        levelComponent.Reset();
 	        wallet.Setup(requestTaker.requestSystem, AgentType.Adventurer);
 	        inventory.Setup();
 	        fighterData.Setup();
@@ -100,8 +104,12 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 
 		public override void Heuristic(in ActionBuffers actionsOut)
         {
-	        var actionB = actionsOut.DiscreteActions;
-	        actionB[0] = NumberKey;
+	        if (_choosenAction != EAdventurerAgentChoices.None)
+	        {
+		        var actions = actionsOut.DiscreteActions;
+		        actions[0] = (int)_choosenAction;
+		        _choosenAction = EAdventurerAgentChoices.None;
+	        }
         }
         
         public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
@@ -116,33 +124,34 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         {
 	        return adventurerInput.GetActionMask(this);
         }
+        
 
         public override void OnActionReceived(ActionBuffers actions)
         {
 	        var action = (EAdventurerAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[0]);;
-            if (_bForcedAction)
-            {
-	            _bForcedAction = false;
-	            action = _forcedAction;
-            }
-            
-            var system = adventurerInput.GetEconomySystem(this);
-            system.AgentSetChoice(this, action);
+	        ChooseAction(action);
         }
 
-        private void SetAction(EAdventurerAgentChoices choice)
+        private void ChooseAction(EAdventurerAgentChoices action)
         {
-	        _bForcedAction = true;
-	        _forcedAction = choice;
+	        if (action != EAdventurerAgentChoices.None)
+	        {
+		        var system = adventurerInput.GetEconomySystem(this);
+		        system.AgentSetChoice(this, action);
+		        if (TrainingConfig.PunishMovement)
+		        {
+			        AddReward(TrainingConfig.OnPunishMovementReward);   
+		        }
+	        }
         }
 
         public void SetAction(int input)
         {
-	        var action = (EAdventurerAgentChoices) input;
-	        
-	        SetAction(action);
+	        _choosenAction = (EAdventurerAgentChoices) input;
         }
-        
-        public int maxLevel => 5;
+
+        private EAdventurerAgentChoices _choosenAction;
+
+        private static int MaxLevel => 5;
 	}
 }
