@@ -57,8 +57,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public void MovePosition(T agent, int movement)
         {
-            var newPosition = GetCurrentLocation(agent) + movement;
-            if (newPosition >= 0 && newPosition < GetLimit(agent))
+            var currentPosition = GetCurrentLocation(agent);
+            var newPosition = currentPosition + movement;
+            var limit = GetLimit(agent);
+            if (newPosition >= 0 && newPosition < limit)
             {
                 currentLocation[agent] = newPosition;
             }

@@ -308,7 +308,7 @@ PrefabInstance:
     - target: {fileID: 1686162216, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: getLocationSelect
       value: 
-      objectReference: {fileID: 1519652986}
+      objectReference: {fileID: 0}
     - target: {fileID: 1759824689, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -501,6 +501,18 @@ PrefabInstance:
       propertyPath: adventurerSystem
       value: 
       objectReference: {fileID: 1781114768}
+    - target: {fileID: 2467934214095089179, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
+      propertyPath: aSystem
+      value: 
+      objectReference: {fileID: 1781114768}
+    - target: {fileID: 2467934214095089179, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
+      propertyPath: adventurerAgent
+      value: 
+      objectReference: {fileID: 275464626}
+    - target: {fileID: 2467934214095089179, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
+      propertyPath: battleLocationSelect
+      value: 
+      objectReference: {fileID: 1781114776}
     - target: {fileID: 2467934214465568847, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: currentAgent
       value: 
@@ -522,6 +534,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1781114768}
     - target: {fileID: 2467934215142011034, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
+      propertyPath: adventurerSystem
+      value: 
+      objectReference: {fileID: 1781114768}
+    - target: {fileID: 2467934215154860122, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
+      propertyPath: adventurerAgent
+      value: 
+      objectReference: {fileID: 275464626}
+    - target: {fileID: 2467934215154860122, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: adventurerSystem
       value: 
       objectReference: {fileID: 1781114768}
@@ -569,6 +589,10 @@ PrefabInstance:
       propertyPath: getCurrentAdventurerAgent
       value: 
       objectReference: {fileID: 275464626}
+    - target: {fileID: 2467934215943156403, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2467934215943156413, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: getLocationSelect
       value: 
@@ -2135,18 +2159,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 773018212726770299, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
   m_PrefabInstance: {fileID: 1781114761}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1519652986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1519652984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 398d1225ee200814b870ba258ddb6fdb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1519652987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2375,6 +2387,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1612661705}
   - component: {fileID: 1612661704}
+  - component: {fileID: 1612661706}
   m_Layer: 0
   m_Name: DataLogger
   m_TagString: Untagged
@@ -2411,6 +2424,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1612661706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612661703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06f8654017ff7484b9517575cc6404c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  learningEnvironmentId: learning_environment
+  loggerId: 0
 --- !u!1 &1645288877 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8559902237832678561, guid: 644a22fc169f4b544bc97513c5d92ad4, type: 3}
@@ -3050,9 +3077,13 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6537886292755821190, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
+      propertyPath: system.dataLogger
+      value: 
+      objectReference: {fileID: 1612661706}
+    - target: {fileID: 6537886292755821190, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
       propertyPath: system.locationSelect
       value: 
-      objectReference: {fileID: 1519652986}
+      objectReference: {fileID: 1781114774}
     - target: {fileID: 6537886292755821190, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
       propertyPath: system.battleLocationSelect
       value: 
@@ -3073,6 +3104,10 @@ PrefabInstance:
       propertyPath: dataLogger
       value: 
       objectReference: {fileID: 1612661704}
+    - target: {fileID: 6537886293585817439, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
+      propertyPath: adventurerInput
+      value: 
+      objectReference: {fileID: 1426365425}
     - target: {fileID: 6537886293585817439, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
       propertyPath: numLearningAgents
       value: 1
@@ -3161,6 +3196,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 398d1225ee200814b870ba258ddb6fdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1781114776 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1519652987, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
+  m_PrefabInstance: {fileID: 1781114761}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519652984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63fc3b776580b0e428533ce2fe64e9b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1782114390 stripped
@@ -3525,6 +3571,10 @@ PrefabInstance:
       propertyPath: requestSystem
       value: 
       objectReference: {fileID: 1430326707}
+    - target: {fileID: 8673866656677757538, guid: 76e01213f4befdd40ae8c9e3a4d6426a, type: 3}
+      propertyPath: shopSubSystem
+      value: 
+      objectReference: {fileID: 473122264}
     - target: {fileID: 8673866656677757538, guid: 76e01213f4befdd40ae8c9e3a4d6426a, type: 3}
       propertyPath: adventurerInput
       value: 

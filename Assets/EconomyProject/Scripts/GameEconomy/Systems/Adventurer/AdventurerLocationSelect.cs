@@ -22,12 +22,16 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             var location = GetCurrentLocation(agent);
             return ValuesAsArray[location];
         }
+
+        private static readonly bool ObserveAdventurerLocation = true;
     
         public ObsData[] GetTravelObservations(AdventurerAgent agent, AdventurerSystem system)
         {
-            var currentParties = system.battleSubSystem.CurrentParties; 
+            var currentParties = system.battleSubSystem.CurrentParties;
+            var battle = ObserveAdventurerLocation ? GetBattle(agent) : EBattleEnvironments.Forest;
+            
             var obs = new List<ObsData> {
-                new CategoricalObsData<EBattleEnvironments>(GetBattle(agent)) { Name="travelLocation" }
+                new CategoricalObsData<EBattleEnvironments>(battle) { Name="travelLocation" }
             };
             foreach (EBattleEnvironments b in Enum.GetValues(typeof(EBattleEnvironments)))
             {

@@ -27,7 +27,7 @@ namespace EconomyProject.Scripts.Experiments
         {
             if (shopCraftingBehaviour != null)
             {
-                shopCraftingBehaviour.system.shopSubSubSystem.onPurchaseItem = OnPurchase;   
+                shopCraftingBehaviour.system.shopSubSubSystem.OnPurchaseItem = OnPurchase;   
             }
         }
 

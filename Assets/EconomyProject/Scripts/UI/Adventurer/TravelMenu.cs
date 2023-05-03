@@ -14,6 +14,7 @@ namespace EconomyProject.Scripts.UI.Adventurer
         public void Update()
         {
 	        var battle = getLocationSelect.GetBattle(currentAdventurerAgent.CurrentAgent);
+	        Debug.Log(battle);
 	        var index = 0;
 	        foreach (var i in buttons)
 	        {

@@ -22,7 +22,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         public List<BaseItemPrices> basePrices;
         private Dictionary<ShopAgent, AgentData> _shopSystems;
 
-        public OnPurchaseItem onPurchaseItem;
+        public OnPurchaseItem OnPurchaseItem;
 
         public AgentShopSubSystem()
         {
@@ -138,7 +138,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             {
                 OverviewVariables.SoldItem();
                 
-                onPurchaseItem?.Invoke(item, shopAgent);
+                OnPurchaseItem?.Invoke(item, shopAgent);
             }
             Refresh();
         }

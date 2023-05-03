@@ -32,6 +32,10 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         public AdventurerAgentBattleData levelComponent;
 
         public EAdventurerTypes AdventurerType => levelComponent.adventurerType;
+
+        private static int _idCounter = 0;
+
+        public int agentId;
         
 		public override EAdventurerScreen ChosenScreen
 		{
@@ -73,6 +77,9 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 			{
 				inventory.onItemAdd = OnItemAddReward;
 			}
+
+			agentId = _idCounter;
+			_idCounter++;
 		}
 
 		private void OnItemAddReward(UsableItem usableItem)

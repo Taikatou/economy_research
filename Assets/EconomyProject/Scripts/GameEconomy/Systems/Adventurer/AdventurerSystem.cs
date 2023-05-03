@@ -25,7 +25,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                                              (SystemTraining.PartySize * SensorUtils<EBattleEnvironments>.Length * 
                                               SensorUtils<EAdventurerTypes>.Length) + 
                                              ConfirmBattleLocationSelect.SensorCount + ConfirmAbilitiesLocationSelect.SensorCount;
-        public override EAdventurerScreen ActionChoice => EAdventurerScreen.Adventurer;
+        public override EAdventurerScreen ActionChoice => TrainingConfig.StartScreen;
 
         public AdventurerLocationSelect locationSelect;
         public BattleLocationSelect battleLocationSelect;
@@ -225,7 +225,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public void Select(AdventurerAgent agent)
         {
-            switch (GetAdventureStates(agent))
+            var adventurerState = GetAdventureStates(agent);
+            switch (adventurerState)
             {
                 case EAdventureStates.InBattle:
                     var action = battleLocationSelect.GetBattleAction(agent);
@@ -269,7 +270,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                     break;
 
             }
-            location?.MovePosition(agent, movement);
+            if(location != null)
+                location.MovePosition(agent, movement);
         }
 
         public int GetBattleCount()
