@@ -30,6 +30,8 @@
 
         public static bool PunishMovement => false;
         public static readonly float OnPunishMovementReward = 0.0005f;
+        
+        public static bool SkipShopSetup => false;
     }
 
     public static class UISpec

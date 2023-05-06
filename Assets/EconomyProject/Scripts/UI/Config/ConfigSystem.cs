@@ -7,6 +7,7 @@ using EconomyProject.Scripts.UI.Adventurer;
 using EconomyProject.Scripts.UI.Config;
 using Inventory;
 using System.Collections.Generic;
+using Data;
 using UnityEngine;
 
 namespace EconomyProject.Scripts
@@ -129,7 +130,7 @@ namespace EconomyProject.Scripts
 
 			// skipShopSetup = skipShop;
 			
-			if (!skipShopSetup)
+			if (!TrainingConfig.SkipShopSetup)
 			{
 				getCurrentShopAgent.ClearGetAgents();
 				shopSpawner.StartSpawn();
@@ -149,10 +150,6 @@ namespace EconomyProject.Scripts
 				shopCraftingSystemBehaviour.system.craftingSubSubSystem.craftingRequirement = listRequirements;
 			}
 		}
-		
-		public bool skipShop = false;
-
-		public static bool skipShopSetup => true;
 
 		/// <summary>
 		/// Apply all the default parameters to the system
@@ -162,7 +159,7 @@ namespace EconomyProject.Scripts
 		/// </summary>
 		public void StartButton()
 		{
-			if (!skipShopSetup)
+			if (!TrainingConfig.SkipShopSetup)
 			{
 				//Item
 				List<BaseItemPrices> newItemPrices = listConfigItems.GetParameters();

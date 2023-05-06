@@ -29,7 +29,10 @@ namespace EconomyProject.Scripts
                 recorder.Record = true;
 
                 var agent = agentObject.GetComponent<AdventurerAgent>();
-                adventurerInput.ChangeScreen(agent, TrainingConfig.StartScreen);
+                if (agent != null)
+                {
+                    adventurerInput.ChangeScreen(agent, TrainingConfig.StartScreen);
+                }
             }
         }
     }

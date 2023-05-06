@@ -1,3 +1,4 @@
+using Data;
 using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors.SystemSensors;
 using Unity.MLAgents.Sensors;
@@ -16,7 +17,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
                 return new ISensor[] { };
             }
 
-            if (ConfigSystem.skipShopSetup)
+            if (TrainingConfig.SkipShopSetup)
             {
                 return new ISensor[] { 
                     new AdventurerBaseSensor(agent),
