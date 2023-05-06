@@ -55,12 +55,19 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return limit==0? 0 : GetCurrentLocation(agent) / GetLimit(agent);
         }
 
+        protected virtual bool CircleOption => false;
+
         public void MovePosition(T agent, int movement)
         {
             var currentPosition = GetCurrentLocation(agent);
             var newPosition = currentPosition + movement;
             var limit = GetLimit(agent);
-            if (newPosition >= 0 && newPosition < limit)
+
+            if (newPosition >= limit && CircleOption)
+            {
+                currentLocation[agent] = 0;
+            }
+            else if (newPosition >= 0 && newPosition < limit)
             {
                 currentLocation[agent] = newPosition;
             }

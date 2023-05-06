@@ -13,7 +13,7 @@ using Unity.MLAgents.Actuators;
 
 namespace EconomyProject.Scripts.MLAgents.Shop
 {
-	public enum EShopAgentChoices { None = 0, Back, SubmitToShop, IncreasePrice, DecreasePrice, Up, Down, Select, MakeRequest, ChangeRequest, EditPrice, RemoveRequest }
+	public enum EShopAgentChoices { None = 0, Back, IncreasePrice, DecreasePrice, Up, Down, Select, IncrementMode, RemoveRequest }
 
 	public enum EShopScreen { Main = EShopAgentChoices.None, Request, Craft}
     
@@ -109,12 +109,12 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 				case EShopAgentChoices.None:
 					shopInput.ChangeScreen(this, EShopScreen.Main);
 					break;
-				case EShopAgentChoices.SubmitToShop:
+	/*			case EShopAgentChoices.SubmitToShop:
 					if (item)
 					{
 						shopInput.shopCraftingSystem.system.shopSubSubSystem.SubmitToShop(this, item);	
 					}
-					break;
+					break;*/
 				case EShopAgentChoices.IncreasePrice:
 					shopInput.shopCraftingSystem.system.SetPrice(this, item, 1);
 					break;

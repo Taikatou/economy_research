@@ -93,6 +93,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             }
         }
 
+        public RequestSystemLocationSelect requestLocationSelect;
+
         protected override void SetChoice(ShopAgent agent, EShopAgentChoices input)
         {
             switch (input)
@@ -109,11 +111,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                 case EShopAgentChoices.Select:
                     Select(agent);
                     break;
-                case EShopAgentChoices.MakeRequest:
-                    _agentStateSelector.SetState(agent, EShopRequestStates.MakeRequest);
-                    break;
-                case EShopAgentChoices.ChangeRequest:
-                    _agentStateSelector.SetState(agent, EShopRequestStates.ChangePrice);
+                case EShopAgentChoices.IncrementMode:
+                    requestLocationSelect.MovePosition(agent, 1);
+                    var subSystem = requestLocationSelect.GetShopOption(agent);
+                    _agentStateSelector.SetState(agent, subSystem);
                     break;
                 case EShopAgentChoices.IncreasePrice:
                     ChangePrice(agent, 1);
@@ -121,7 +122,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                 case EShopAgentChoices.DecreasePrice:
                     ChangePrice(agent, -1);
                     break;
-                case EShopAgentChoices.RemoveRequest:
+            case EShopAgentChoices.RemoveRequest:
                     RemoveRequest(agent);
                     break;
             }
@@ -153,17 +154,16 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             {
                 inputChoices.AddRange(new []
                 {
-                    EShopAgentChoices.MakeRequest,
                     EShopAgentChoices.IncreasePrice,
                     EShopAgentChoices.DecreasePrice,
-                    EShopAgentChoices.RemoveRequest
+                    EShopAgentChoices.IncrementMode
                 });
             }
             else
             {
                 inputChoices.AddRange(new[]
                 {
-                    EShopAgentChoices.ChangeRequest,
+                    EShopAgentChoices.IncrementMode,
                     EShopAgentChoices.Select
                 });
             }

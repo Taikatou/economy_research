@@ -1432,6 +1432,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1361981015}
     - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
+      propertyPath: system.systemLocationSelect
+      value: 
+      objectReference: {fileID: 1361981019}
+    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
       propertyPath: system.shopSubSubSystem.resetScript
       value: 
       objectReference: {fileID: 394064042}
@@ -1985,6 +1989,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe9587232bfa2ab4a9587823e50f5b1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1361981019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361981014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a93d8945de2cc0e4ebd6d3efa0481c11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1426365425 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5506223566058285588, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
@@ -2005,6 +2021,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 093d0bc8a9af2e84697692bf2706d515, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1429334513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550517041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4050936c186107e42b64a5dc3734aaaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1430326706
@@ -2098,6 +2126,10 @@ PrefabInstance:
       propertyPath: getCurrentRequestsLocation
       value: 
       objectReference: {fileID: 550517042}
+    - target: {fileID: 5057450104275261200, guid: 9ceee204f5dc32646817fe57efe8de76, type: 3}
+      propertyPath: system.requestLocationSelect
+      value: 
+      objectReference: {fileID: 1429334513}
     - target: {fileID: 5057450104275261200, guid: 9ceee204f5dc32646817fe57efe8de76, type: 3}
       propertyPath: shopMakeCraftingRequestLocationMap
       value: 

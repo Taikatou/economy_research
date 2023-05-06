@@ -61,7 +61,7 @@ namespace EconomyProject.Scripts.UI.Inventory
 
         public override void SelectItem(ShopItem shopItem, int number = 1)
         {
-			shopAgent.CurrentAgent.SetAction(EShopAgentChoices.SubmitToShop, null, null, shopItem.Item);
+			//shopAgent.CurrentAgent.SetAction(EShopAgentChoices.SubmitToShop, null, null, shopItem.Item);
 		}
 
         public void FixedUpdate()

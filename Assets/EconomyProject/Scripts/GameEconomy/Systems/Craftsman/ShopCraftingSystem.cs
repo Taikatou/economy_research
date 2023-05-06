@@ -149,6 +149,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 	        ShopLocationMap.RemoveAgent(agent);
 	        AgentInput.ChangeScreen(agent, EShopScreen.Main);
         }
+
+        public CraftingSystemLocationSelect systemLocationSelect;
         
         protected override void SetChoice(ShopAgent agent, EShopAgentChoices input)
         {
@@ -166,14 +168,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 		        case EShopAgentChoices.Up:
 					UpDown(agent, 1);
 			        break;
-		        case EShopAgentChoices.SubmitToShop:
-			        SetState(agent, ECraftingOptions.SubmitToShop);
-			        break;
-/*		        case EShopAgentChoices.Craft:
-			        SetState(agent, ECraftingOptions.Craft);
-			        break;*/
-		        case EShopAgentChoices.EditPrice:
-			        SetState(agent, ECraftingOptions.EditShop);
+		        case EShopAgentChoices.IncrementMode:
+			        systemLocationSelect.MovePosition(agent, 1);
+			        var choice = systemLocationSelect.GetCraftingOption(agent);
+			        SetState(agent, choice);
 			        break;
 		        case EShopAgentChoices.IncreasePrice:
 			        PriceUpDown(agent, 1);
@@ -283,8 +281,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 				case ECraftingOptions.Craft:
 					inputChoices.AddRange(new []
 					{
-						EShopAgentChoices.SubmitToShop,
-						EShopAgentChoices.EditPrice
+						EShopAgentChoices.IncrementMode,
 					});
 					var resource = CraftingLocationMap.GetCraftingChoice(agent);
 					select = craftingSubSubSystem.CanCraft(agent, resource);
@@ -294,7 +291,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 				case ECraftingOptions.SubmitToShop:
 					inputChoices.AddRange(new []
 					{
-						EShopAgentChoices.EditPrice,
+						EShopAgentChoices.IncrementMode,
 				//		EShopAgentChoices.Craft
 					});
 					var shopItem = SubmitToShopLocationMap.GetCraftingChoice(agent);
@@ -308,7 +305,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 						EShopAgentChoices.IncreasePrice,
 						EShopAgentChoices.DecreasePrice,
 			//			EShopAgentChoices.Craft,
-						EShopAgentChoices.SubmitToShop
+						EShopAgentChoices.IncrementMode
 					});
 					up = GetUpStateFromAgent(agent, ShopLocationMap);
 					down = GetDownStateFromAgent(agent, ShopLocationMap);
