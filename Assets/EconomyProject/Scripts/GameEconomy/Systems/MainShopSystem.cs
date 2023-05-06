@@ -1,5 +1,6 @@
 ﻿using System;
 using Data;
+using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.MLAgents.Shop;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
@@ -7,6 +8,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
     [Serializable]
     public class MainShopSystem : EconomySystem<ShopAgent, EShopScreen, EShopAgentChoices>
     {
+        public ShopMainLocationSelect mainLocationSelect;
         public override EShopScreen ActionChoice => EShopScreen.Main;
         
         public override bool CanMove(ShopAgent agent)
@@ -21,10 +23,18 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         protected override void SetChoice(ShopAgent agent, EShopAgentChoices input)
         {
-            var s = (EShopScreen) input;
-            if (Enum.IsDefined(typeof(EShopScreen), s))
+            switch (input)
             {
-                AgentInput.ChangeScreen(agent, s);
+                case EShopAgentChoices.Up:
+                    mainLocationSelect.MovePosition(agent, 1);
+                    break;
+                case EShopAgentChoices.Down:
+                    mainLocationSelect.MovePosition(agent, -1);
+                    break;
+                case EShopAgentChoices.Select:
+                    var environment = mainLocationSelect.GetMenu(agent);
+                    AgentInput.ChangeScreen(agent, environment);
+                    break;
             }
         }
 
@@ -32,8 +42,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         {
             var inputChoices = new []
             {
-                EShopAgentChoices.Craft,
-                EShopAgentChoices.Resources
+                EShopAgentChoices.Up,
+                EShopAgentChoices.Down,
+                EShopAgentChoices.Select
             };
             var outputs = EconomySystemUtils<EShopAgentChoices>.GetInputOfType(inputChoices);
             return outputs;

@@ -19,9 +19,9 @@ namespace EconomyProject.Scripts.UI.Craftsman
 
         private void Update()
         {
-            if (CraftsmanUiControls.shopAgent)
+            if (CraftsmanUiControls.ShopAgent)
             {
-                var nextScreen = CraftsmanUiControls.shopAgent.ChosenScreen;
+                var nextScreen = CraftsmanUiControls.ShopAgent.ChosenScreen;
                 SwitchMenu(nextScreen);
             }
         }

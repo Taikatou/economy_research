@@ -7,7 +7,7 @@ namespace EconomyProject.Scripts.UI.Craftsman
     {
         public GetCurrentShopAgent getCurrentAgent;
 
-        public ShopAgent shopAgent
+        public ShopAgent ShopAgent
 		{
 			get
 			{
@@ -22,17 +22,17 @@ namespace EconomyProject.Scripts.UI.Craftsman
 
 		public void MoveToRequest()
 		{
-			shopAgent.SetAction(EShopAgentChoices.Resources);
+			//shopAgent.SetAction(EShopAgentChoices.Resources);
         }
 
         public void MoveToCraft()
         {
-			shopAgent.SetAction(EShopAgentChoices.Craft);
+			//shopAgent.SetAction(EShopAgentChoices.Craft);
         }
 
         public void ReturnToMain()
         {
-			shopAgent.SetAction(EShopAgentChoices.Back);
+			ShopAgent.SetAction(EShopAgentChoices.Back);
         }
     }
 }

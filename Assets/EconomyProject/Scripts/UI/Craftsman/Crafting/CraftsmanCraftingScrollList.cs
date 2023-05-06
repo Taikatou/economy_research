@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using Data;
 using EconomyProject.Monobehaviours;
-using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
-using UnityEngine;
 
 namespace EconomyProject.Scripts.UI.Craftsman.Crafting
 {
@@ -29,7 +27,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Crafting
         }
         public override void SelectItem(CraftingInfo item, int number = 1)
         {
-			Agent.SetAction(EShopAgentChoices.Craft, null, item.craftingMap.choice);
+			//Agent.SetAction(EShopAgentChoices.Craft, null, item.craftingMap.choice);
 
             LastUpdated.Refresh();
         }

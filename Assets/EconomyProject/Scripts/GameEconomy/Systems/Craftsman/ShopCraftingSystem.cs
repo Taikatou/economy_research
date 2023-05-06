@@ -169,9 +169,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 		        case EShopAgentChoices.SubmitToShop:
 			        SetState(agent, ECraftingOptions.SubmitToShop);
 			        break;
-		        case EShopAgentChoices.Craft:
+/*		        case EShopAgentChoices.Craft:
 			        SetState(agent, ECraftingOptions.Craft);
-			        break;
+			        break;*/
 		        case EShopAgentChoices.EditPrice:
 			        SetState(agent, ECraftingOptions.EditShop);
 			        break;
@@ -295,7 +295,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 					inputChoices.AddRange(new []
 					{
 						EShopAgentChoices.EditPrice,
-						EShopAgentChoices.Craft
+				//		EShopAgentChoices.Craft
 					});
 					var shopItem = SubmitToShopLocationMap.GetCraftingChoice(agent);
 					select = shopItem.HasValue;
@@ -307,7 +307,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 					{
 						EShopAgentChoices.IncreasePrice,
 						EShopAgentChoices.DecreasePrice,
-						EShopAgentChoices.Craft,
+			//			EShopAgentChoices.Craft,
 						EShopAgentChoices.SubmitToShop
 					});
 					up = GetUpStateFromAgent(agent, ShopLocationMap);

@@ -13,9 +13,9 @@ using Unity.MLAgents.Actuators;
 
 namespace EconomyProject.Scripts.MLAgents.Shop
 {
-	public enum EShopAgentChoices { None = 0, Resources, Craft, Back, SubmitToShop, IncreasePrice, DecreasePrice, Up, Down, Select, MakeRequest, ChangeRequest, EditPrice, RemoveRequest }
+	public enum EShopAgentChoices { None = 0, Back, SubmitToShop, IncreasePrice, DecreasePrice, Up, Down, Select, MakeRequest, ChangeRequest, EditPrice, RemoveRequest }
 
-	public enum EShopScreen { Main = EShopAgentChoices.None, Request = EShopAgentChoices.Resources, Craft = EShopAgentChoices.Craft}
+	public enum EShopScreen { Main = EShopAgentChoices.None, Request, Craft}
     
 	public class ShopAgent : AgentScreen<EShopScreen>, IEconomyAgent
     {
@@ -109,12 +109,12 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 				case EShopAgentChoices.None:
 					shopInput.ChangeScreen(this, EShopScreen.Main);
 					break;
-				case EShopAgentChoices.Resources:
+		/*		case EShopAgentChoices.Resources:
 					shopInput.ChangeScreen(this, EShopScreen.Request);
 					break;
 				case EShopAgentChoices.Craft:
 					shopInput.ChangeScreen(this, EShopScreen.Craft);
-					break;
+					break;*/
 			/*	case EShopAgentChoices.CraftItem:
 					if (craftingChoice.HasValue)
 					{
@@ -132,9 +132,6 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 					break;
 				case EShopAgentChoices.DecreasePrice:
 					shopInput.shopCraftingSystem.system.SetPrice(this, item, -1);
-					break;
-				default:
-					Debug.Log("Wrong EShopAgentChoices : " + choice);
 					break;
 			}
 		}
