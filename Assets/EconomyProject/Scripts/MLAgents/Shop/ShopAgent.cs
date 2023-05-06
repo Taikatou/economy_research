@@ -109,18 +109,6 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 				case EShopAgentChoices.None:
 					shopInput.ChangeScreen(this, EShopScreen.Main);
 					break;
-		/*		case EShopAgentChoices.Resources:
-					shopInput.ChangeScreen(this, EShopScreen.Request);
-					break;
-				case EShopAgentChoices.Craft:
-					shopInput.ChangeScreen(this, EShopScreen.Craft);
-					break;*/
-			/*	case EShopAgentChoices.CraftItem:
-					if (craftingChoice.HasValue)
-					{
-						shopInput.shopCraftingSystem.system.craftingSubSubSystem.MakeRequest(this, craftingChoice.Value);
-					}
-					break;*/
 				case EShopAgentChoices.SubmitToShop:
 					if (item)
 					{

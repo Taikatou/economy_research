@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Data;
+using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.MLAgents.Sensors;
 using Unity.MLAgents.Sensors;
@@ -15,14 +16,19 @@ namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
         protected override float[] Data { get; }
         public override string GetName() => "ShopBaseSensor";
 
+        private ShopMainLocationSelect _locationSelect;
+
         private float[] UpdateData()
         {
             var screen =  _shopAgent.ChosenScreen != null? _shopAgent.ChosenScreen : EShopScreen.Main;
             var walletMoney = _shopAgent.wallet ? _shopAgent.wallet.Money : 0.0f;
+
+            var selectedScreen = screen != EShopScreen.Main ? EShopScreen.Main : _locationSelect.GetMenu(_shopAgent);
             var obsData = new List<ObsData>
             {
                 new SingleObsData { data=walletMoney, Name="Shop Wallet" },
-                new CategoricalObsData<EShopScreen>(screen) { Name="Chosen Screen"}
+                new CategoricalObsData<EShopScreen>(screen) { Name="Chosen Screen"},
+                new CategoricalObsData<EShopScreen>(selectedScreen) {Name="Selected Screen"}
             };
             foreach (var resource in CraftingAsList)
             {
@@ -50,8 +56,9 @@ namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
             }
         }
 
-        public ShopBaseSensor(ShopAgent shopAgent)
+        public ShopBaseSensor(ShopAgent shopAgent, ShopMainLocationSelect locationSelect)
         {
+            _locationSelect = locationSelect;
             _shopAgent = shopAgent;
             var data = UpdateData();
             Data = new float [data.Length];
