@@ -9,15 +9,34 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
     public enum EAdventurerSystem { Adventure, Shop, Request}
     public class AdventurerSystemLocationSelect : LocationSelect<AdventurerAgent>
     {
-        public static readonly Dictionary<EAdventurerSystem, EAdventurerScreen> GetMap = new Dictionary<EAdventurerSystem, EAdventurerScreen>
+        public Dictionary<EAdventurerSystem, EAdventurerScreen> GetMap;
+
+        public override void Setup()
         {
-            {EAdventurerSystem.Adventure, EAdventurerScreen.Adventurer},
-            {EAdventurerSystem.Shop, EAdventurerScreen.Shop},
-            {EAdventurerSystem.Request, EAdventurerScreen.Request}
-        };
-        
-        private static readonly EAdventurerSystem [] ValuesAsArray
-            = Enum.GetValues(typeof(EAdventurerSystem)).Cast<EAdventurerSystem>().ToArray();
+            base.Setup();
+                
+            GetMap = new()
+            {
+                {EAdventurerSystem.Adventure, EAdventurerScreen.Adventurer},
+                {EAdventurerSystem.Shop, EAdventurerScreen.Shop},
+                
+            };
+
+            if (!TrainingConfig.AdventurerNoRequestMenu)
+            {
+                GetMap.Add(EAdventurerSystem.Request, EAdventurerScreen.Request);
+            }
+        }
+
+        private EAdventurerSystem[] ValuesAsArray
+        {
+            get
+            {
+                return TrainingConfig.AdventurerNoRequestMenu
+                    ? new[] { EAdventurerSystem.Adventure, EAdventurerSystem.Shop }
+                    : new[] { EAdventurerSystem.Adventure, EAdventurerSystem.Shop, EAdventurerSystem.Request };
+            }
+        }
         
         public override int GetLimit(AdventurerAgent agent)
         {

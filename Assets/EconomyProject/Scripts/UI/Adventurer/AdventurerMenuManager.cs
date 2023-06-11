@@ -39,7 +39,15 @@ namespace EconomyProject.Scripts.UI.Adventurer
                         closedMenus.Add(menu2.menu);
                     }
                 }
-                _openedMenus.Add(menu.screen, new OpenedMenu(menu.menu, closedMenus));
+
+                if (menu.screen == EAdventurerScreen.Request && TrainingConfig.AdventurerNoRequestMenu)
+                {
+                    
+                }
+                else
+                {
+                    _openedMenus.Add(menu.screen, new OpenedMenu(menu.menu, closedMenus));   
+                }
             }
         }
 

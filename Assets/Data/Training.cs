@@ -34,6 +34,8 @@
         public static bool SkipShopSetup => false;
         
         public static bool RequireConfirmation => false;
+
+        public static bool AdventurerNoRequestMenu => true;
     }
 
     public static class UISpec

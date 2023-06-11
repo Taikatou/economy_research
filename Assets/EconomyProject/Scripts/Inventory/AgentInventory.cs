@@ -15,6 +15,18 @@ namespace EconomyProject.Scripts.Inventory
         public CheckIfAdd checkIfAdd;
         public List<UsableItem> startInventory;
         public Dictionary<string, List<UsableItem>> Items { get; private set; }
+
+        public int NumItems()
+        {
+            var num = 0;
+
+            foreach (var item in Items)
+            {
+                num += item.Value.Count;
+            }
+            return num;
+        }
+        
         public OnItemAdd onItemAdd;
 
         public void AddItem(UsableItem usableItem)

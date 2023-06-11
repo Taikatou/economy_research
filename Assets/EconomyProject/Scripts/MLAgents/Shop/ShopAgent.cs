@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Data;
 using EconomyProject.Scripts.Experiments;
 using EconomyProject.Scripts.GameEconomy;
@@ -10,15 +12,19 @@ using UnityEngine;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using Unity.MLAgents.Actuators;
+using Unity.MLAgents.Sensors;
 
 namespace EconomyProject.Scripts.MLAgents.Shop
 {
 	public enum EShopAgentChoices { None = 0, Back, IncreasePrice, DecreasePrice, Up, Down, Select, IncrementMode, RemoveRequest }
 
 	public enum EShopScreen { Main = EShopAgentChoices.None, Request, Craft}
+	
+	public enum EGoalSignal { MakeRequests, CreateItem, EditShop, FreeRoam }
     
 	public class ShopAgent : AgentScreen<EShopScreen>, IEconomyAgent
-    {
+	{
+		public VectorSensorComponent vectorSensor;
 	    public ShopInput shopInput;
         public EconomyWallet wallet;
         public CraftingInventory craftingInventory;
@@ -48,6 +54,30 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 			{
 				AddReward(TrainingConfig.OnCraftReward);
 			}
+		}
+
+		public override void CollectObservations(VectorSensor sensor)
+		{
+			EGoalSignal goalSignal;
+			if (craftingInventory.GetResourceNumber() == 0)
+			{
+				goalSignal = EGoalSignal.MakeRequests;
+			}
+			else if (agentInventory.NumItems() == 0)
+			{
+				goalSignal = EGoalSignal.CreateItem;
+			}
+			else if (shopInput.shopCraftingSystem.system.shopSubSubSystem.GetShopItems(this).Count == 0)
+			{
+				goalSignal = EGoalSignal.EditShop;
+			}
+			else
+			{
+				goalSignal = EGoalSignal.FreeRoam;
+			}
+			
+			var num = Enum.GetValues(typeof(EGoalSignal)).Cast<EGoalSignal>().Count();
+			vectorSensor.GetSensor().AddOneHotObservation((int) goalSignal, num);
 		}
 
 		public override EShopScreen ChosenScreen
