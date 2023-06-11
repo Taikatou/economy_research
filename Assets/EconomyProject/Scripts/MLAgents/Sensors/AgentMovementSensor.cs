@@ -70,7 +70,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
                 Array.Clear(_data, 0, _data.Length);
                 if (_agent.ChosenScreen.Equals(ValidScreen) || CanViewConstant)
                 {
-                    Array.Copy(d, _data, _data.Length);
+                    Array.Copy(d, _data, d.Length);
                 }
             }
         }

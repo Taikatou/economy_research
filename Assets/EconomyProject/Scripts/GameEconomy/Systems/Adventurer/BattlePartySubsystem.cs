@@ -138,7 +138,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             else if(!_battleStarted)
             {
                 Timer -= Time.deltaTime;
-                if (Timer <= 0 && _confirmedAgents.Count == PendingAgents.Count)
+                if ((Timer <= 0 && _confirmedAgents.Count == PendingAgents.Count) || !TrainingConfig.RequireConfirmation)
                 {
                     foreach (var agent in PendingAgents.ToArray())
                     {

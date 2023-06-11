@@ -26,8 +26,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         public ObsData[] GetConfirmationObservations(AdventurerAgent agent, AdventurerSystem system)
         {
-            var currentParties = adventurerSystem.system.battleSubSystem.GetSubsystem(agent);
-
             var environment = adventurerSystem.system.battleSubSystem.GetBattleEnvironment(agent);
             var obs = new List<ObsData> {
                 new CategoricalObsData<EConfirmBattle>(GetConfirmation(agent)) { Name="confirmation" },
@@ -35,7 +33,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 new CategoricalObsData<EBattleEnvironments>(environment.HasValue?environment.Value : EBattleEnvironments.Forest)
             };
 
-            obs.AddRange(currentParties.GetObservations());
+            var currentParties = adventurerSystem.system.battleSubSystem.GetSubsystem(agent);
+            if(currentParties != null)
+                obs.AddRange(currentParties.GetObservations());
 
             return obs.ToArray();
         }

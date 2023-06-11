@@ -31,8 +31,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         public DateTime LastUpdated { get; private set; }
 
-        public readonly bool RequireConfirmation = false;
-        
         public BattleSubSystem(TravelSubSystem travelSubsystem, SetAdventureState setAdventureState, BattleEnvironmentDataLogger dataLogger)
         {
             _setAdventureState = setAdventureState;
@@ -91,20 +89,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 {
                     _setAdventureState.Invoke(agent, EAdventureStates.ConfirmBattle);
                 }
-                if (!RequireConfirmation)
+                if (!TrainingConfig.RequireConfirmation)
                 {
                     foreach (var agent in agents)
                     {
                         Confirmation(EConfirmBattle.Confirm, agent);
                     }
-                }
-            }
-
-            void AskConfirmAbilities(AdventurerAgent[] agents, FighterObject enemyFighter, SimpleMultiAgentGroup party, Dictionary<AdventurerAgent, HashSet<EAttackOptions>> selectedOptions)
-            {
-                foreach (var agent in agents)
-                {
-                    _setAdventureState.Invoke(agent, EAdventureStates.ConfirmAbilities);
                 }
             }
 
@@ -166,6 +156,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         {
             CurrentParties[ReverseCurrentParties[agent]].Confirmation(confirmation, agent);
             Refresh();
+        }
+        
+        void AskConfirmAbilities(AdventurerAgent[] agents, FighterObject enemyFighter, SimpleMultiAgentGroup party, Dictionary<AdventurerAgent, HashSet<EAttackOptions>> selectedOptions)
+        {
+            foreach (var agent in agents)
+            {
+                _setAdventureState.Invoke(agent, EAdventureStates.ConfirmAbilities);
+            }
         }
 
         public void ConfirmAbilities(EAttackOptions confirmation, AdventurerAgent agent)
