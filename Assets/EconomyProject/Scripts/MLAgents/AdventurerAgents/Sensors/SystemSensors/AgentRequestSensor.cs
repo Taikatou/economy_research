@@ -17,9 +17,9 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors.SystemSensors
 
         public override string GetName() => "RequestSensor";
 
-        public AgentRequestSensor(AdventurerAgent agent, RequestAdventurerSystem requestAdventurerSystem) : base(agent)
+        public AgentRequestSensor(AdventurerAgent agent, RequestAdventurerSystem requestAdventurerSystem) : base(agent, null)
         {
-            this._requestAdventurerSystem = requestAdventurerSystem;
+            _requestAdventurerSystem = requestAdventurerSystem;
         }
     }
 }

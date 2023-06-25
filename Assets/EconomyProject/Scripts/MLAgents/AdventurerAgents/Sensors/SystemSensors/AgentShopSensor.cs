@@ -1,6 +1,7 @@
 using Data;
 using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.GameEconomy.Systems.Shop;
+using Unity.MLAgents.Sensors;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors.SystemSensors
 {
@@ -17,7 +18,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors.SystemSensors
 
         protected override int SensorCount => AdventurerShopSystem.ObservationSize;
 
-        public AgentShopSensor(AdventurerAgent agent, AdventurerShopSystem system) : base(agent)
+        public AgentShopSensor(AdventurerAgent agent, AdventurerShopSystem system, BufferSensorComponent buffer) : base(agent, buffer)
         {
             shopSystem = system;
         }

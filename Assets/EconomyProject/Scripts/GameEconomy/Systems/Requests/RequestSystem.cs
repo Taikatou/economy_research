@@ -7,6 +7,7 @@ using EconomyProject.Scripts.MLAgents.Craftsman;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
+using Unity.MLAgents.Sensors;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
@@ -316,14 +317,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             Refresh();
         }
 
-        public ObsData[] GetObservations(AdventurerAgent agent)
+        public ObsData[] GetObservations(AdventurerAgent agent, BufferSensorComponent bufferSensorComponent)
         {
             var craftingRequests = GetAllCraftingRequestsObservations();
             
             return CraftingResourceRequest.GetObservations(craftingRequests);
         }
 
-        public ObsData[] GetObservations(ShopAgent agent)
+        public ObsData[] GetObservations(ShopAgent agent, BufferSensorComponent bufferSensorComponent)
         {
             var craftingRequests = GetAllCraftingRequestsObservations(agent.craftingInventory);
             return CraftingResourceRequest.GetObservations(craftingRequests);

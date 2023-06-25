@@ -7,6 +7,7 @@ using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.Interfaces;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using TurnBased.Scripts;
+using Unity.MLAgents.Sensors;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
@@ -80,7 +81,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return GetAdventureStates(agent) == EAdventureStates.OutOfBattle;
         }
 
-        public override ObsData[] GetObservations(AdventurerAgent agent)
+        public override ObsData[] GetObservations(AdventurerAgent agent, BufferSensorComponent bufferSensorComponent)
         {
             ObsData[] GetSubsystemData()
             {
@@ -127,18 +128,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                 ? confirmLocationSelect.GetConfirmationObservations(agent, this)
                 : BlankArray(ConfirmBattleLocationSelect.SensorCount);
 
+            var output4 = state == EAdventureStates.InBattle
+                ? battleSubSystem.GetObs(agent)
+                : BlankArray(ConfirmAbilities.SensorCount);
+            
             var output5 = state == EAdventureStates.ConfirmAbilities
                 ? confirmAbilitiesSelect.GetObservations(agent)
                 : BlankArray(ConfirmAbilitiesLocationSelect.SensorCount);
-            
-            var output4 = state == EAdventureStates.ConfirmAbilities
-                ? battleSubSystem.GetObs(agent)
-                : BlankArray(ConfirmAbilities.SensorCount);
-
-            if (output4 == null)
-            {
-                output4 = BlankArray(ConfirmAbilities.SensorCount);
-            }
 
             var obsize = new List<ObsData>();
             foreach (EBattleEnvironments battle in Enum.GetValues(typeof(EBattleEnvironments)))

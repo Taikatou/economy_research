@@ -1,5 +1,6 @@
 using Data;
 using EconomyProject.Scripts.GameEconomy.Systems;
+using Unity.MLAgents.Sensors;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors.SystemSensors
 {
@@ -7,7 +8,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors.SystemSensors
     {
         private readonly AdventurerSystem _adventurerSystem;
         public override string GetName() => "AdventurerMovementSensor";
-        public AgentAdventureSensor(AdventurerAgent agent, AdventurerSystem system) : base(agent)
+        public AgentAdventureSensor(AdventurerAgent agent, AdventurerSystem system, BufferSensorComponent buffer) : base(agent, buffer)
         {
             _adventurerSystem = system;
         }

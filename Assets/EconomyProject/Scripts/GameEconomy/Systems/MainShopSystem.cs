@@ -2,6 +2,7 @@
 using Data;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.MLAgents.Shop;
+using Unity.MLAgents.Sensors;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {
@@ -16,7 +17,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return true;
         }
 
-        public override ObsData[] GetObservations(ShopAgent agent)
+        public override ObsData[] GetObservations(ShopAgent agent, BufferSensorComponent bufferSensorComponent)
         {
             return Array.Empty<ObsData>() ;
         }

@@ -20,6 +20,8 @@ GameObject:
   - component: {fileID: 2919118168214096668}
   - component: {fileID: 3657407672704079423}
   - component: {fileID: 3166944455631899140}
+  - component: {fileID: 8550901587663867689}
+  - component: {fileID: 7770867615519519944}
   m_Layer: 0
   m_Name: LearningShopAgent
   m_TagString: Untagged
@@ -170,6 +172,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b184bdee98114b64c8a2b7944c1c075d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  craftingBufferComp: {fileID: 8550901587663867689}
+  requestBufferComp: {fileID: 7770867615519519944}
   shopAgent: {fileID: 2696612896792117499}
 --- !u!114 &2919118168214096668
 MonoBehaviour:
@@ -219,3 +223,33 @@ MonoBehaviour:
   m_ObservationSize: 4
   m_ObservationType: 1
   m_ObservationStacks: 1
+--- !u!114 &8550901587663867689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6220377510714029038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd8012d5925524537b27131fef517017, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: CraftingBufferComp
+  m_ObservableSize: 9
+  m_MaxNumObservables: 3
+--- !u!114 &7770867615519519944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6220377510714029038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd8012d5925524537b27131fef517017, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: RequestBufferComp
+  m_ObservableSize: 6
+  m_MaxNumObservables: 3

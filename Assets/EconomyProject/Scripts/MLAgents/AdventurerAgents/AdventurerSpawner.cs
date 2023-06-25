@@ -3,6 +3,7 @@ using Data;
 using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes;
+using Unity.MLAgents;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
@@ -33,6 +34,8 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             var taker = adventurer.GetComponent<AdventurerRequestTaker>();
             taker.requestSystem = requestSystem;
             taker.requestRecord = requestRecord;
+
+            DecisionRequester.AllowDecisions = true;
             return agent;
         }
     }

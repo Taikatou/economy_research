@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Data;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
-using UnityEngine;
+using Unity.MLAgents.Sensors;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 {
@@ -20,9 +20,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 
         public Dictionary<AdventurerAgent, ESelectionState> currentStates;
 
-        public static int SensorSize => 30;
-
-        public static int ObservationSize => SensorSize + ShopChooserSubSystem.SensorCount + AdventurerShopSubSystem.SensorCount;
+        public static int ObservationSize => 4;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Shop;
 
         public int GetScrollLocation(AdventurerAgent agent)
@@ -50,7 +48,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             return true;
         }
 
-        public override ObsData[] GetObservations(AdventurerAgent agent)
+        public override ObsData[] GetObservations(AdventurerAgent agent, BufferSensorComponent bufferSensorComponent)
         {
             var choice = GetChoice(agent);
             var obs = new List<ObsData>
@@ -68,9 +66,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 
             var shopSelectData =  shopChooserSubSystem.GetObservations(agent);
             obs.AddRange(shopSelectData);
-
-            var purchaseItem =  adventurerShopSubSystem.GetObservations(agent);
-            obs.AddRange(purchaseItem);
+            adventurerShopSubSystem.GetObservations(agent, bufferSensorComponent);
             
             return obs.ToArray();
         }

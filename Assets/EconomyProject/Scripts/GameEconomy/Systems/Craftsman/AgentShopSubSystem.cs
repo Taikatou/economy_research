@@ -9,7 +9,7 @@ using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI;
 using EconomyProject.Scripts.UI.Inventory;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
-using Unity.Plastic.Newtonsoft.Json;
+using Unity.MLAgents.Sensors;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
@@ -143,68 +143,33 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             Refresh();
         }
 
-        public ObsData[] GetItemSenses(ShopAgent agent)
+        public void GetItemSenses(ShopAgent agent, BufferSensorComponent bufferSensorComponent)
         {
             var items = GetShop(agent).GetShopItemsObs(agent);
-            var itemsObs = GetWeaponObservations(items);
+            var outputs = new float[9];
+            foreach (var item in items)
+            {
+                outputs[(int)item.Key] = 1;
+                if (item.Value != null)
+                {
+                    outputs[7] = item.Value.Value.Price;
+                    outputs[7] = item.Value.Value.Item.itemDetails.damage;
+                    outputs[8] = item.Value.Value.Item.itemDetails.durability;
+                }
+            }
 
-            return itemsObs;
+            if (bufferSensorComponent != null)
+            {
+                bufferSensorComponent.AppendObservation(outputs);
+            }
+            else
+            {
+                Debug.Log("FUCK");
+            }
         }
 
         public static int WeaponList => Enum.GetValues(typeof(ECraftingChoice)).Length;
 
         public static readonly int SensorCount = WeaponList * 4;
-        
-        public ObsData[] GetWeaponObservations(Dictionary<ECraftingChoice, ShopItem?> items)
-        {
-            var craftingLength = SensorUtils<ECraftingChoice>.Length;
-            var outputs = new List<ObsData>();
-            var valuesAsArray = Enum.GetValues(typeof(ECraftingChoice)).Cast<ECraftingChoice>().ToArray();
-            var counter = 0;
-            foreach (var craft in valuesAsArray)
-            {
-                outputs.Add(new CategoricalObsData<ECraftingChoice>(craft)
-                {
-                    Name="craftingChoice"
-                });
-                
-                if (items.ContainsKey(craft))
-                {
-                    var found = false;
-                    if (items[craft] != null)
-                    {
-                        var f = items.Any(i => craft == i.Value.Value.Item.craftChoice);
-                        if (f)
-                        {
-                            found = true;
-                            var i = items.First(i => craft == i.Value.Value.Item.craftChoice);
-                            outputs.Add(new SingleObsData
-                            {
-                                data=i.Value.Value.Price,
-                                Name="itemPrice"
-                            });
-                            outputs.Add(new SingleObsData
-                            {
-                                data=i.Value.Value.Item.itemDetails.damage,
-                                Name="itemDamage"
-                            });
-                            outputs.Add(new SingleObsData
-                            {
-                                data=i.Value.Value.Item.itemDetails.durability,
-                                Name="itemDurability"
-                            });
-                        }
-                    }
-                    if(!found)
-                    {
-                        outputs.Add(new SingleObsData { Name = "itemPrice" });
-                        outputs.Add(new SingleObsData { Name = "itemDamage" });
-                        outputs.Add(new SingleObsData { Name = "itemDurability" });
-                    }   
-                }
-            }
-
-            return outputs.ToArray();
-        }
     }
 }

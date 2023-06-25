@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Data;
 using EconomyProject.Scripts.GameEconomy.Systems.Adventurer;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+using Unity.MLAgents.Sensors;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
@@ -18,7 +19,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return true;
         }
 
-        public override ObsData [] GetObservations(AdventurerAgent agent)
+        public override ObsData [] GetObservations(AdventurerAgent agent, BufferSensorComponent bufferSensorComponent)
         {
             return adventurerSystemLocationSelect.GetTravelObservations(agent);
         }

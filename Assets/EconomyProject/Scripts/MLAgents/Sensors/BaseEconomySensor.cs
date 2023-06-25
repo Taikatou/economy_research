@@ -8,6 +8,13 @@ namespace EconomyProject.Scripts.MLAgents.Sensors
         protected ObservationSpec MObservationSpec { get; set; }
         protected abstract float [] Data { get; }
 
+        protected readonly BufferSensorComponent BufferSensorComponent;
+
+        protected BaseEconomySensor(BufferSensorComponent bufferSensorComponent)
+        {
+            BufferSensorComponent = bufferSensorComponent;
+        }
+
         public ObservationSpec GetObservationSpec()
         {
             return MObservationSpec;

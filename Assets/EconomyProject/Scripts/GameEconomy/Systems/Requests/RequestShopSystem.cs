@@ -5,6 +5,7 @@ using EconomyProject.Scripts.GameEconomy.Systems.Requests.ShopLocationMaps;
 using EconomyProject.Scripts.Interfaces;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.MLAgents.Shop;
+using Unity.MLAgents.Sensors;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
@@ -46,7 +47,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return true;
         }
 
-        public override ObsData[] GetObservations(ShopAgent agent)
+        public override ObsData[] GetObservations(ShopAgent agent, BufferSensorComponent bufferSensorComponent)
         {
             var state = _agentStateSelector.GetState(agent);
             var outputSenses = new List<ObsData>
@@ -56,7 +57,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                     Name = "AgentState"
                 }
             };
-            var requestSense = requestSystem.GetObservations(agent);
+            var requestSense = requestSystem.GetObservations(agent, bufferSensorComponent);
             outputSenses.AddRange(requestSense);
             return outputSenses.ToArray();
         }

@@ -6,12 +6,13 @@ using Inventory;
 using EconomyProject.Scripts.MLAgents.Craftsman;
 using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI;
+using Unity.MLAgents.Sensors;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 {
     [Serializable]
-    public class CraftingSubSystem :  IShopSense
+    public class CraftingSubSystem : IShopSense
     {
         public List<CraftingMap> craftingRequirement;
         private Dictionary<ShopAgent, CraftingRequest> _shopRequests;
@@ -95,14 +96,15 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             return toReturn;
         }
 
-        public ObsData[] GetObservations(ShopAgent agent)
+        public ObsData[] GetObservations(ShopAgent agent, BufferSensorComponent bufferSensorComponent)
         {
-            var output = CraftingRequest.GetTemplateSenses();
             if (_shopRequests.ContainsKey(agent))
             {
                 var senseA = _shopRequests[agent].GetSenses();
-                senseA.CopyTo(output, 0);
+                return senseA;
             }
+
+            var output = CraftingRequest.GetTemplateSenses();
             return output;
         }
 

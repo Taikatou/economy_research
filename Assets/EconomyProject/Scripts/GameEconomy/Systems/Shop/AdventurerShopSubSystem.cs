@@ -3,6 +3,7 @@ using Data;
 using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+using Unity.MLAgents.Sensors;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 {
@@ -35,15 +36,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             }
         }
 
-        public ObsData[] GetObservations(AdventurerAgent agent)
+        public void GetObservations(AdventurerAgent agent, BufferSensorComponent bufferSensorComponent)
         {
-            var output = new List<ObsData>();
-
             var shop = shopChooserSubSystem.GetCurrentShop(agent);
-            var senseA = shopCraftingSystem.system.shopSubSubSystem.GetItemSenses(shop);
-            output.AddRange(senseA);
-
-            return output.ToArray();
+            shopCraftingSystem.system.shopSubSubSystem.GetItemSenses(shop, bufferSensorComponent);
         }
     }
 }

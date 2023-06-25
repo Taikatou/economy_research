@@ -56,6 +56,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2072330097273742403, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
+      propertyPath: m_BehaviorType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2072330097273742403, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
       propertyPath: m_BrainParameters.VectorActionSize.Array.data[0]
       value: 5
       objectReference: {fileID: 0}
@@ -67,5 +71,67 @@ PrefabInstance:
       propertyPath: m_Name
       value: LearningAdventurerAgentIntransitive
       objectReference: {fileID: 0}
+    - target: {fileID: 8440662294524558494, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
+      propertyPath: agentShopBufferComponent
+      value: 
+      objectReference: {fileID: 6720971554557575677}
+    - target: {fileID: 8440662294524558494, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
+      propertyPath: requestTakenBufferComponent
+      value: 
+      objectReference: {fileID: 2161452550862858902}
+    - target: {fileID: 8440662294524558494, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
+      propertyPath: requestAvailableBufferComponent
+      value: 
+      objectReference: {fileID: 6996576085831411743}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
+--- !u!1 &8706436983826652453 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7707616417561859250, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
+  m_PrefabInstance: {fileID: 1307607420724431255}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2161452550862858902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8706436983826652453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd8012d5925524537b27131fef517017, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: CurrentRequests
+  m_ObservableSize: 6
+  m_MaxNumObservables: 3
+--- !u!114 &6996576085831411743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8706436983826652453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd8012d5925524537b27131fef517017, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: AvailableRequests
+  m_ObservableSize: 4
+  m_MaxNumObservables: 3
+--- !u!114 &6720971554557575677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8706436983826652453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd8012d5925524537b27131fef517017, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: AdventurerBufferSensor
+  m_ObservableSize: 9
+  m_MaxNumObservables: 3

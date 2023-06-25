@@ -8,7 +8,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors.SystemSensors
     {
         private readonly MainMenuSystem _adventurerSystem;
         
-        public AgentMenuSensor(AdventurerAgent agent, MainMenuSystem system) : base(agent)
+        public AgentMenuSensor(AdventurerAgent agent, MainMenuSystem system) : base(agent, null)
         {
             _adventurerSystem = system;
         }

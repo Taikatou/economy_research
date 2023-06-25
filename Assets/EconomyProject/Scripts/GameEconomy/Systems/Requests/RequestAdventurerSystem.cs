@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Data;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
+using Unity.MLAgents.Sensors;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
@@ -21,7 +22,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         {
             return true;
         }
-        public override ObsData[] GetObservations(AdventurerAgent agent)
+        public override ObsData[] GetObservations(AdventurerAgent agent, BufferSensorComponent bufferSensorComponent)
         {
             var input = new List<ObsData>();
             
@@ -32,13 +33,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                 {ECraftingResources.Wood, null},
                 {ECraftingResources.DragonScale, null},
             };
+            // todo use buffer
             foreach (var i in agent.requestTaker.GetItemList())
             {
                 itemList[i.Resource] = i;
             }
             var senseA = CraftingResourceRequest.GetObservations(itemList);
             input.AddRange(senseA);
-            var senseB = requestSystem.GetObservations(agent);
+            var senseB = requestSystem.GetObservations(agent, bufferSensorComponent);
             input.AddRange(senseB);
             return input.ToArray();
         }

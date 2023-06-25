@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Data;
+using Unity.MLAgents.Sensors;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {
@@ -47,7 +48,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         public AgentInput<TAgent, TScreen, TInput> AgentInput { get; set; }
         public abstract TScreen ActionChoice { get; }
         public abstract bool CanMove(TAgent agent);
-        public abstract ObsData [] GetObservations(TAgent agent);
+        public abstract ObsData [] GetObservations(TAgent agent, BufferSensorComponent bufferSensorComponent);
 
         protected EconomySystem()
         {

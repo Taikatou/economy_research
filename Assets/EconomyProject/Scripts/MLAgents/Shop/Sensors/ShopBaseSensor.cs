@@ -20,7 +20,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
 
         private float[] UpdateData()
         {
-            var screen =  _shopAgent.ChosenScreen != null? _shopAgent.ChosenScreen : EShopScreen.Main;
+            var screen =  _shopAgent.ChosenScreen;
             var walletMoney = _shopAgent.wallet ? _shopAgent.wallet.Money : 0.0f;
 
             var selectedScreen = screen != EShopScreen.Main ? EShopScreen.Main : _locationSelect.GetMenu(_shopAgent);
@@ -56,7 +56,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
             }
         }
 
-        public ShopBaseSensor(ShopAgent shopAgent, ShopMainLocationSelect locationSelect)
+        public ShopBaseSensor(ShopAgent shopAgent, ShopMainLocationSelect locationSelect) : base(null)
         {
             _locationSelect = locationSelect;
             _shopAgent = shopAgent;

@@ -5,6 +5,7 @@ using EconomyProject.Scripts.Interfaces;
 using Inventory;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.MLAgents.Shop;
+using Unity.MLAgents.Sensors;
 using Debug = UnityEngine.Debug;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
@@ -48,8 +49,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
     [Serializable]
     public class ShopCraftingSystem : StateEconomySystem<ShopAgent, EShopScreen, EShopAgentChoices>, ISetup
     {
-	    public static int SensorCount = 4;
-	    public static int ObservationSize => SensorCount + AgentShopSubSystem.SensorCount + CraftingSubSystem.SenseCount;
 	    public override EShopScreen ActionChoice => EShopScreen.Craft;
 
 	    public CraftingSubSystem craftingSubSubSystem;
@@ -108,7 +107,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 			return index;
 		}
 
-        public override ObsData[] GetObservations(ShopAgent agent)
+        public override ObsData[] GetObservations(ShopAgent agent, BufferSensorComponent bufferSensorComponent)
         {
 	        var shopL = GetScrollObs(agent);
 			var outputs = new List<ObsData>
@@ -123,11 +122,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 					Name="shopLocation"
 				},
 			};
-			var sensesA = shopSubSubSystem.GetItemSenses(agent);
-			outputs.AddRange(sensesA);
-            var sensesB = craftingSubSubSystem.GetObservations(agent);
-            outputs.AddRange(sensesB);
-            return outputs.ToArray();
+			shopSubSubSystem.GetItemSenses(agent, bufferSensorComponent);
+			return outputs.ToArray();
         }
 
         public void SetPrice(ShopAgent shopAgent, UsableItem item, int increment)

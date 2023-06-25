@@ -1,6 +1,7 @@
 using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors;
+using Unity.MLAgents.Sensors;
 
 namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
 {
@@ -9,10 +10,10 @@ namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
         private readonly ShopCraftingSystem _shopCraftingSystem;
         protected override EShopScreen ValidScreen => EShopScreen.Craft;
         protected override EconomySystem<ShopAgent, EShopScreen, EShopAgentChoices> EconomySystem => _shopCraftingSystem;
-        protected override int SensorCount => ShopCraftingSystem.ObservationSize + 27;
+        protected override int SensorCount => 4;
         public override string GetName() => "ShopCraftingSensor";
 
-        public ShopCraftingSensor(ShopAgent agent, ShopCraftingSystem system) : base(agent)
+        public ShopCraftingSensor(ShopAgent agent, ShopCraftingSystem system, BufferSensorComponent buffer) : base(agent, buffer)
         {
             _shopCraftingSystem = system;
             CanViewConstant = true;

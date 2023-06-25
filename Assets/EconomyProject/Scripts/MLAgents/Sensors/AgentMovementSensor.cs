@@ -11,7 +11,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
 {
     public abstract class AgentMovementSensor<TAgent, TScreen, TChoice> : BaseEconomySensor where TAgent : AgentScreen<TScreen> where TScreen : Enum where TChoice : Enum
     {
-        private float[] _data;
+        private readonly float[] _data;
         
         private readonly TAgent _agent;
         protected abstract TScreen ValidScreen { get; }
@@ -22,7 +22,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
 
         protected abstract int SensorCount { get; }
 
-        protected AgentMovementSensor(TAgent agent)
+        protected AgentMovementSensor(TAgent agent, BufferSensorComponent buffer) : base(buffer)
         {
             CanViewConstant = Observations.CanViewConstant;
             _agent = agent;
@@ -31,9 +31,10 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
             MObservationSpec = ObservationSpec.Vector(SensorCount);
         }
 
-        private float[] GetData()
+        private float[] GetData(BufferSensorComponent buffer)
         {
-            var obs =  EconomySystem.GetObservations(_agent);
+            var name = GetName();
+            var obs =  EconomySystem.GetObservations(_agent, buffer);
             /*var oneHot = new float [(int)EAdventurerScreen.Adventurer];
             var index = Convert.ToInt32(EconomySystem.ActionChoice);
             oneHot[index] = 1;*/
@@ -64,9 +65,13 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
         
         public override void Update()
         {
-            var d = GetData();
+            var d = GetData(BufferSensorComponent);
             if (d.Length <= _data.Length)
             {
+                if (d.Length != _data.Length)
+                {
+                    Debug.Log(d.Length + "\t" + _data.Length + "\t" + GetName());
+                }
                 Array.Clear(_data, 0, _data.Length);
                 if (_agent.ChosenScreen.Equals(ValidScreen) || CanViewConstant)
                 {

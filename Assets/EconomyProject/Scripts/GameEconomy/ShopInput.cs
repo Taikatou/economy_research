@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Data;
 using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.MLAgents.Shop;
@@ -7,7 +6,7 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy
 {
-    public class ShopInput : AgentInput<ShopAgent, EShopScreen, EShopAgentChoices>, IShopSense
+    public class ShopInput : AgentInput<ShopAgent, EShopScreen, EShopAgentChoices>
     {
         public MainShopSystemBehaviour mainSystem;
         public ShopCraftingSystemBehaviour shopCraftingSystem;
@@ -41,11 +40,6 @@ namespace EconomyProject.Scripts.GameEconomy
             requestSystem.system.AgentInput = this;
         }
 
-        public ObsData[] GetObservations(ShopAgent agent)
-        {
-            return GetEconomySystem(agent).GetObservations(agent);
-        }
-        
         public IEnumerable<EnabledInput> GetActionMask(ShopAgent agent)
         {
             var inputsEnabled = GetEconomySystem(agent).GetEnabledInputs(agent);

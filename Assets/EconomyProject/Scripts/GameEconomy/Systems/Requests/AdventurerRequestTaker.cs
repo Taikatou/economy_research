@@ -4,6 +4,7 @@ using System.Linq;
 using Data;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
+using Unity.MLAgents.Sensors;
 using UnityEngine;
 using UnityEngine.iOS;
 
@@ -19,11 +20,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             CurrentAmount += amount;
         }
 
-        public static float[] GetSenses(Dictionary<ECraftingResources, TakenCraftingResourceRequest> dictionary, ECraftingResources key, int SensorCount)
+        public static float[] GetSenses(Dictionary<ECraftingResources, TakenCraftingResourceRequest> dictionary, ECraftingResources key)
         {
-            var output = new float [SensorCount];
-            return output;
-            
+            var output = new float[4];
             if (dictionary.ContainsKey(key))
             {
                 output[0] = (float) dictionary[key].Request.Resource;
@@ -139,22 +138,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return amount;
         }
 
-        public IEnumerable<float> GetCurrentRequestData(int sensorCount)
+        public void GetCurrentRequestData(BufferSensorComponent requestTakenBufferComponent)
         {
             var resources = CraftingUtils.GetCraftingResources();
-            var outputSize =  resources.Count * sensorCount;
-            var output = new float[outputSize];
-            for (var i = 0; i < resources.Count; i++ )
+            foreach (var r in resources)
             {
-                var senses = TakenCraftingResourceRequest.GetSenses(CurrentRequestData, resources[i], sensorCount);
-                for (var j = 0; j < senses.Length; j++)
-                {
-                    var index = i*sensorCount + j;
-                    output[index] = senses[j];
-                }
+                var senses = TakenCraftingResourceRequest.GetSenses(CurrentRequestData, r);
+                requestTakenBufferComponent.AppendObservation(senses);
             }
-
-            return output;
         }
     }
 }

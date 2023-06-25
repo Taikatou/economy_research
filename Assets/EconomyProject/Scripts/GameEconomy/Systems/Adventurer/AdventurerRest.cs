@@ -1,8 +1,8 @@
 ﻿using Data;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
-using UnityEngine;
+using Unity.MLAgents.Sensors;
 
-namespace EconomyProject.Scripts.GameEconomy.Systems
+namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 {
     public class AdventurerRest : EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerScreen>
     {
@@ -12,7 +12,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return true;
         }
 
-        public override ObsData[] GetObservations(AdventurerAgent agent)
+        public override ObsData[] GetObservations(AdventurerAgent agent, BufferSensorComponent bufferSensorComponent)
         {
             throw new System.NotImplementedException();
         }

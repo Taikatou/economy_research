@@ -7,10 +7,9 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
 {
     public class AdventurerInventorySensor : BaseEconomySensor
     {
-        private static int SensorCount => 3;
         private readonly AdventurerAgent _agent;
 
-        public AdventurerInventorySensor(AdventurerAgent agent)
+        public AdventurerInventorySensor(AdventurerAgent agent) : base(null)
         {
             _agent = agent;
             var obs = GetData();

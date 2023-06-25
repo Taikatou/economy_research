@@ -1,5 +1,5 @@
+using System;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
-using EconomyProject.Scripts.MLAgents.Craftsman;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.MLAgents.Sensors;
 using Unity.MLAgents.Sensors;
@@ -8,20 +8,27 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
 {
     public class RequestTakerSensor : BaseEconomySensor
     {
+        private static readonly int CraftingResourceList = Enum.GetNames(typeof(ECraftingResources)).Length - 1;
+        
+        private readonly BufferSensorComponent _requestTakenBufferComponent;
+        
+        private readonly BufferSensorComponent _requestAvailableBufferComponent;
+        
         private readonly AdventurerRequestTaker _requestTaker;
-
-        private readonly int _requestLimit;
+        
         protected override float[] Data { get; }
 
         public override string GetName() => "RequestTakerSensor";
 
-        private int SensorCount => 3 * _requestLimit * 2;
+        private int SensorCount => 0;
 
-        public RequestTakerSensor(AdventurerRequestTaker requestTaker, int requestLimit)
+        public RequestTakerSensor(BufferSensorComponent requestBufferComponent, 
+            BufferSensorComponent requestTakenBufferComponent, AdventurerRequestTaker requestTaker) : base(null)
         {
             _requestTaker = requestTaker;
-            _requestLimit = requestLimit;
-            
+            _requestAvailableBufferComponent = requestBufferComponent;
+            _requestTakenBufferComponent = requestTakenBufferComponent;
+
             Data = new float[SensorCount];
             MObservationSpec = ObservationSpec.Vector(SensorCount);
         }
@@ -29,22 +36,20 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
         public override void Update()
         {
             // Player Observations
-            var requests = _requestTaker.requestSystem.craftingRequestRecord.GetCurrentRequests(_requestTaker, _requestLimit);
-            var i = 0;
-            foreach (var t in requests)
+            var requests = _requestTaker.requestSystem.craftingRequestRecord.GetCurrentRequests(_requestTaker);
+            foreach (var request in requests)
             {
-                var request = t ?? new CraftingResourceRequest(ECraftingResources.Nothing, null, 0, null);
-                Data[i++] = (int)request .Resource;
-                Data[i++] = request.Number;
-                
+                var obs = new float[CraftingResourceList + 2];
+                obs[(int)request.Resource - 1] = 1;
+                obs[CraftingResourceList] = request.Number;
+
                 var amount = _requestTaker.GetCurrentStock(request.Resource);
-                Data[i++] = amount;
+                obs[CraftingResourceList + 1] = amount;
+                
+                _requestTakenBufferComponent.AppendObservation(obs);
             }
 
-            foreach (var sense in _requestTaker.GetCurrentRequestData(_requestLimit))
-            {
-                Data[i++] = sense;
-            }
+            _requestTaker.GetCurrentRequestData(_requestAvailableBufferComponent);
         }
     }
 }

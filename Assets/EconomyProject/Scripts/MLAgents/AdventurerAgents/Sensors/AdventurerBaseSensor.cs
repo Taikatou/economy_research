@@ -14,7 +14,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
 
         private float[] _data;
 
-        public AdventurerBaseSensor(AdventurerAgent agent)
+        public AdventurerBaseSensor(AdventurerAgent agent) : base(null)
         {
             _agent = agent;
 

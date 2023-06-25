@@ -63,14 +63,14 @@ public class ConfigSensor : BaseEconomySensor
 {
     private float[] _data;
     private readonly ConfigSystem _configSystem;
-    
-    public override string GetName() => "ConfigSensor";
-    protected override float[] Data => _data;
 
     public override void Update()
     {
         
     }
+
+    public override string GetName() => "ConfigSensor";
+    protected override float[] Data => _data;
 
     private void UpdateData()
     {
@@ -101,7 +101,7 @@ public class ConfigSensor : BaseEconomySensor
         MObservationSpec = ObservationSpec.Vector(_data.Length);
     }
 
-    public ConfigSensor(ConfigSystem configSystem) : base()
+    public ConfigSensor(ConfigSystem configSystem) : base(null)
     {
         _configSystem = configSystem;
         UpdateData();
