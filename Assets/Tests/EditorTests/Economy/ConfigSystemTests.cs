@@ -104,7 +104,7 @@ namespace Tests.Economy
 		[Test]
 		public void Config_SetResourceDefaultPrices()
 		{
-			Dictionary<ECraftingResources, int> defaultResourcePrices = requestShopSystemBehaviour.system.requestSystem.defaultResourcePrices;
+			Dictionary<ECraftingResources, int> defaultResourcePrices = requestShopSystemBehaviour.system.requestSystem.DefaultResourcePrices;
 			Dictionary<ECraftingResources, int> newResourcePrices = new Dictionary<ECraftingResources, int>();
 
 			foreach (var item in defaultResourcePrices)
@@ -114,7 +114,7 @@ namespace Tests.Economy
 
 			configSystem.SetResourceDefaultPrices(newResourcePrices);
 
-			Assert.AreEqual(requestShopSystemBehaviour.system.requestSystem.defaultResourcePrices, newResourcePrices);
+			Assert.AreEqual(requestShopSystemBehaviour.system.requestSystem.DefaultResourcePrices, newResourcePrices);
 			Assert.AreNotEqual(defaultResourcePrices, newResourcePrices);
 		}
 

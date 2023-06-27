@@ -10,7 +10,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
     // 
     public class CraftingResourceRequest
     {
-        public readonly float CreationTime;
+        public float TakenTime;
+        public float CompletedTime;
+        
+        public float CreationTime { get; }
         private bool _resourceAdded;
         public ECraftingResources Resource { get; }
         public CraftingInventory Inventory { get; }

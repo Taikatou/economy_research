@@ -285,5 +285,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SensorName: ShopInventorySensorComp
-  m_ObservableSize: 9
+  m_ObservableSize: 8
   m_MaxNumObservables: 4

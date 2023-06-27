@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Data;
+using EconomyProject.Scripts.GameEconomy.DataLoggers;
 using EconomyProject.Scripts.Inventory;
 using Inventory;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
@@ -23,6 +24,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         private Dictionary<ShopAgent, AgentData> _shopSystems;
 
         public OnPurchaseItem OnPurchaseItem;
+
+        public PurchaseItemDataLogger purchaseDataLogger;
 
         public AgentShopSubSystem()
         {
@@ -133,7 +136,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         public void PurchaseItem(ShopAgent shopAgent, UsableItem item, EconomyWallet wallet, AgentInventory inventory)
         {
             var shop = GetShop(shopAgent);
-            var success = shop.PurchaseItems(shopAgent.wallet, item.itemDetails, wallet, inventory);
+            var success = shop.PurchaseItems(shopAgent.wallet, item.itemDetails, wallet, inventory, purchaseDataLogger);
             if (success)
             {
                 OverviewVariables.SoldItem();

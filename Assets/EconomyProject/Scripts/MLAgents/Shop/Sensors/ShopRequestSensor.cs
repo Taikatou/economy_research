@@ -16,7 +16,6 @@ namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
         public ShopRequestSensor(ShopAgent agent, RequestShopSystem system, BufferSensorComponent buffer) : base(agent, buffer)
         {
             _requestShopSystem = system;
-            ObserveObservations = true;
         }
     }
 }

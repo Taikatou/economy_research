@@ -13,7 +13,7 @@ namespace EconomyProject.Scripts.UI.Config
 		{
 			if (requestShopSystemBehaviour != null)
 			{
-				_items = requestShopSystemBehaviour.system.requestSystem.defaultResourcePrices;
+				_items = requestShopSystemBehaviour.system.requestSystem.DefaultResourcePrices;
 			}
 		}
 

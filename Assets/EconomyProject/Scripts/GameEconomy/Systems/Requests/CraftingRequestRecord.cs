@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using EconomyProject.Scripts.GameEconomy.DataLoggers;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
     public class CraftingRequestRecord : MonoBehaviour
     {
+        public RequestDataLogger rDataLogger;
+        
         private Dictionary<RequestTaker, List<CraftingResourceRequest>> _currentRequests;
 
         public CraftingResourceRequest[] GetCurrentRequests(RequestTaker requestTaker)
@@ -31,14 +34,15 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 		}
 
 
-		public void AddRequest(RequestTaker requestTaker, CraftingResourceRequest craftingResourceRequest)
+		public void TakeRequest(RequestTaker requestTaker, CraftingResourceRequest craftingResourceRequest)
         {
             var contains = _currentRequests.ContainsKey(requestTaker);
             if (!contains)
             {
                 _currentRequests[requestTaker] = new List<CraftingResourceRequest>();
             }
-            _currentRequests[requestTaker].Add(craftingResourceRequest); 
+            _currentRequests[requestTaker].Add(craftingResourceRequest);
+            craftingResourceRequest.TakenTime = Time.time;
         }
 
         public void CompleteRequest(RequestTaker taker, CraftingResourceRequest request)
@@ -57,6 +61,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                     {
                         _currentRequests.Remove(taker);
                     }
+
+                    request.CompletedTime = Time.time;
+                    rDataLogger.AddRequestCompleted(request);
                 }
             }
         }

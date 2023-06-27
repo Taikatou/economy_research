@@ -84,7 +84,7 @@ namespace EconomyProject.Scripts
 		{
 			if (requestShopSystemBehaviour != null)
 			{
-				requestShopSystemBehaviour.system.requestSystem.defaultResourcePrices = newResourcePrices;	
+				requestShopSystemBehaviour.system.requestSystem.DefaultResourcePrices = newResourcePrices;	
 			}
 		}
 

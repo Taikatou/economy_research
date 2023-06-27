@@ -1462,6 +1462,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 394064042}
     - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
+      propertyPath: system.shopSubSubSystem.purchaseDataLogger
+      value: 
+      objectReference: {fileID: 1361981021}
+    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
       propertyPath: system.craftingSubSubSystem.craftingRequirement.Array.size
       value: 6
       objectReference: {fileID: 0}
@@ -1481,6 +1485,10 @@ PrefabInstance:
       propertyPath: system.mainLocationSelect
       value: 
       objectReference: {fileID: 1445173360}
+    - target: {fileID: 432687344008383920, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
+      propertyPath: adventurerInput
+      value: 
+      objectReference: {fileID: 1426365425}
     - target: {fileID: 432687344008383920, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
       propertyPath: numLearningAgents
       value: 1
@@ -2023,6 +2031,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a93d8945de2cc0e4ebd6d3efa0481c11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1361981021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361981014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfc7c62c653d9074f9095a18fc2be3a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  learningEnvironmentId: purchase_items_
+  loggerId: 0
 --- !u!114 &1426365425 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5506223566058285588, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
@@ -2064,6 +2086,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4581337674247264042, guid: 9ceee204f5dc32646817fe57efe8de76, type: 3}
+      propertyPath: rDataLogger
+      value: 
+      objectReference: {fileID: 1784262869}
     - target: {fileID: 4581337674247264043, guid: 9ceee204f5dc32646817fe57efe8de76, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -2108,6 +2134,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4581337674247264052, guid: 9ceee204f5dc32646817fe57efe8de76, type: 3}
+      propertyPath: rDataLogger
+      value: 
+      objectReference: {fileID: 1784262869}
     - target: {fileID: 4581337674247264052, guid: 9ceee204f5dc32646817fe57efe8de76, type: 3}
       propertyPath: testRequests
       value: 1
@@ -3294,6 +3324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dce07babdfa69a4a971adee7609aec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Initialized: 0
 --- !u!114 &1781114771 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1781114772, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
@@ -3366,6 +3397,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f002c2d191232e4d847ecc768fab97a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1784262869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784262866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86021ac39f9388740b3e02b641216002, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  learningEnvironmentId: request_
+  loggerId: 0
 --- !u!114 &1790685403 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5057450104797709618, guid: 9ceee204f5dc32646817fe57efe8de76, type: 3}

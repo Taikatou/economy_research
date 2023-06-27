@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Data;
+using EconomyProject.Scripts.GameEconomy.DataLoggers;
 using EconomyProject.Scripts.Inventory;
 using Inventory;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
@@ -60,7 +61,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             ChangeItem(item, price);
         }
 
-        public bool PurchaseItems(EconomyWallet shopAgentWallet, UsableItemDetails itemDetails, EconomyWallet adventurerAgentWallet, AgentInventory inventory)
+        public bool PurchaseItems(EconomyWallet shopAgentWallet, UsableItemDetails itemDetails, EconomyWallet adventurerAgentWallet, AgentInventory inventory, PurchaseItemDataLogger purchaseDataLogger)
         {
 	        int GetStock()
 	        {
@@ -89,6 +90,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
 					adventurerAgentWallet.SpendMoney(price);
 					shopAgentWallet.EarnMoney(price, true);
+					
+					purchaseDataLogger.AddPurchaseItem(new PurchaseItemData {ItemName = itemDetails.itemName, Price = price});
 				}
 				else
 				{

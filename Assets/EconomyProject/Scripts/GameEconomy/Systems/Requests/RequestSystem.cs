@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Data;
+using EconomyProject.Scripts.GameEconomy.DataLoggers;
 using EconomyProject.Scripts.Interfaces;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Craftsman;
@@ -26,7 +27,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 		private Dictionary<CraftingInventory, Dictionary<ECraftingResources, CraftingResourceRequest>> _craftingRequests;
         private Dictionary<CraftingResourceRequest, EconomyWallet> _requestWallets;
 
-		public Dictionary<ECraftingResources, int> defaultResourcePrices = new Dictionary<ECraftingResources, int> {
+        public Dictionary<ECraftingResources, int> DefaultResourcePrices = new()
+        {
 			{ECraftingResources.Wood, 5},
 			{ECraftingResources.Metal, 6},
 			{ECraftingResources.Gem, 7},
@@ -39,8 +41,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             _craftingRequests.Clear();
         }
 
-		public Dictionary<AgentType, int> StartMoney => new Dictionary<AgentType, int>
-		{
+		public Dictionary<AgentType, int> StartMoney => new()
+        {
 			{AgentType.Adventurer, 100},
 			{AgentType.Shop, 1000},
 		};
@@ -61,8 +63,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
             return returnList;
         }
-        
-        public Dictionary<ECraftingResources, CraftingResourceRequest> GetAllCraftingRequestsObservations()
+
+        private Dictionary<ECraftingResources, CraftingResourceRequest> GetAllCraftingRequestsObservations()
         {
             var returnList = new Dictionary<ECraftingResources, CraftingResourceRequest>
             {
@@ -85,8 +87,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
             return returnList;
         }
-        
-        public Dictionary<ECraftingResources, CraftingResourceRequest> GetAllCraftingRequestsObservations(CraftingInventory inventory)
+
+        private Dictionary<ECraftingResources, CraftingResourceRequest> GetAllCraftingRequestsObservations(CraftingInventory inventory)
         {
             var returnList = new Dictionary<ECraftingResources, CraftingResourceRequest>
             {
@@ -215,7 +217,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 				if (!containsKey)
                 {
 					Sprite icon = GetIconByResource(resources);
-                    var newResource = new CraftingResourceRequest(resources, inventory, defaultResourcePrices[resources], icon);
+                    var newResource = new CraftingResourceRequest(resources, inventory, DefaultResourcePrices[resources], icon);
                     _requestWallets.Add(newResource, wallet);
                     CheckExchange(newResource);
                 }
@@ -310,7 +312,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             if (containsResource && validRequests)
             {
                 Debug.Log("Took request");
-                craftingRequestRecord.AddRequest(requestTaker, takeRequest);
+                craftingRequestRecord.TakeRequest(requestTaker, takeRequest);
                 _craftingRequests[inventory].Remove(takeRequest.Resource);
             }
 
