@@ -20,11 +20,11 @@ namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
 
         public override void Update()
         {
-            
             foreach (var item in _shopAgent.agentInventory.Items)
             {
                 var price = _shopSubSystem.shopSubSubSystem.GetPrice(_shopAgent, item.Value[0].itemDetails);
-                var obs = new List<float> {(float)item.Value.Count / 10, (float)price/TrainingConfig.MaxPrice };
+                var obs = new List<float> {(float)
+                    item.Value.Count / 10, (float)price/TrainingConfig.MaxPrice };
                 var itemType = new float[Enum.GetValues(typeof(ECraftingChoice)).Length];
                 itemType[(int)item.Value[0].craftChoice] = 1;
                 obs.AddRange(itemType);

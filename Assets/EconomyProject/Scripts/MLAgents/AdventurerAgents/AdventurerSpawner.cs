@@ -34,8 +34,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             var taker = adventurer.GetComponent<AdventurerRequestTaker>();
             taker.requestSystem = requestSystem;
             taker.requestRecord = requestRecord;
-
-            DecisionRequester.AllowDecisions = true;
+            
             return agent;
         }
     }

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Data;
-using EconomyProject.Monobehaviours;
+﻿using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using Unity.MLAgents.Sensors;
@@ -10,36 +8,32 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
     public class AdventurerShopSubSystem : LocationSelect<AdventurerAgent>
     {
         public ShopCraftingSystemBehaviour shopCraftingSystem;
-        public ShopChooserSubSystem shopChooserSubSystem;
         
         public static readonly int SensorCount = AgentShopSubSystem.SensorCount;
 
         public override int GetLimit(AdventurerAgent agent)
         {
-            var shopAgent = shopChooserSubSystem.GetCurrentShop(agent);
-            var shopItems = shopCraftingSystem.system.shopSubSubSystem.GetShopUsableItems(shopAgent);
+            var shopItems = shopCraftingSystem.system.shopSubSubSystem.GetAllUsableItems();
             return shopItems.Count;
         }
 
         public void PurchaseItem(AdventurerAgent agent)
         {
-            var shopAgent = shopChooserSubSystem.GetCurrentShop(agent);
-            var shopItems = shopCraftingSystem.system.shopSubSubSystem.GetShopUsableItems(shopAgent);
+            var shopItems = shopCraftingSystem.system.shopSubSubSystem.GetAllUsableItems();
             if (currentLocation[agent] < shopItems.Count)
             {
                 var item = shopItems[currentLocation[agent]];
-                var canUse = agent.adventurerInventory.CanObtainItem(item);
+                var canUse = agent.adventurerInventory.CanObtainItem(item.Item1);
                 if (canUse)
                 {
-                    shopCraftingSystem.system.shopSubSubSystem.PurchaseItem(shopAgent, item, agent.wallet, agent.inventory);   
+                    shopCraftingSystem.system.shopSubSubSystem.PurchaseItem(item.Item2, item.Item1, agent.wallet, agent.inventory);   
                 }
             }
         }
 
-        public void GetObservations(AdventurerAgent agent, BufferSensorComponent bufferSensorComponent)
+        public void GetObservations(BufferSensorComponent bufferSensorComponent)
         {
-            var shop = shopChooserSubSystem.GetCurrentShop(agent);
-            shopCraftingSystem.system.shopSubSubSystem.GetItemSenses(shop, bufferSensorComponent);
+            shopCraftingSystem.system.shopSubSubSystem.GetItemSenses(bufferSensorComponent, null);
         }
     }
 }

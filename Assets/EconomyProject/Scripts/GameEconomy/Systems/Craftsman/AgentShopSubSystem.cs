@@ -57,20 +57,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             return itemList;
         }
 
-		public void SubmitToShop(ShopAgent agent, int item)
-        {
-            var items = GetItems(agent);
-            if (item < items.Count)
-            {
-                var shopItem = items[item];
-                SubmitToShop(agent, shopItem);   
-            }
-            else
-            {
-                Debug.Log("Out of range submit");
-            }
-        }
-
         public void SubmitToShop(ShopAgent agent, UsableItem item)
         {
 			if (agent.agentInventory.ContainsItem(item) == false)
@@ -94,6 +80,20 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         public List<UsableItem> GetShopUsableItems(ShopAgent shopAgent)
         {
             return GetShop(shopAgent).GetShopUsableItems();
+        }
+
+        public List<Tuple<UsableItem, ShopAgent>> GetAllUsableItems()
+        {
+            var output = new List<Tuple<UsableItem, ShopAgent>>();
+            foreach (var shop in _shopSystems)
+            {
+                var items = GetShop(shop.Key).GetShopUsableItems();
+                foreach (var item in items)
+                {
+                    output.Add(new Tuple<UsableItem, ShopAgent>(item, shop.Key));
+                }
+            }
+            return output;
         }
         
         public List<ShopItem> GetShopItems(ShopAgent shopAgent)
@@ -146,9 +146,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             Refresh();
         }
 
-        public void GetItemSenses(ShopAgent agent, BufferSensorComponent bufferSensorComponent)
+        public void UpdateShopSenses(ShopAgent shop, BufferSensorComponent bufferSensorComponent)
         {
-            var items = GetShop(agent).GetShopItemsObs(agent);
+            var items = GetShop(shop).GetShopItemsObs(shop);
+                
             var outputs = new float[9];
             foreach (var item in items)
             {
@@ -169,6 +170,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             {
                 Debug.Log("FUCK");
             }
+        }
+
+        public void GetItemSenses(BufferSensorComponent bufferSensorComponent, ShopAgent toIgnore)
+        {
+            foreach (var shop in _shopSystems)
+                if(shop.Key != toIgnore)
+                    UpdateShopSenses(shop.Key, bufferSensorComponent);
         }
 
         public static int WeaponList => Enum.GetValues(typeof(ECraftingChoice)).Length;

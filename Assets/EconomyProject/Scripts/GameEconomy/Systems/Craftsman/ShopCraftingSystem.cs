@@ -132,7 +132,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 				}
 			}
 			
-			shopSubSubSystem.GetItemSenses(agent, bufferSensorComponent);
+			shopSubSubSystem.UpdateShopSenses(agent, bufferSensorComponent);
+			shopSubSubSystem.GetItemSenses(bufferSensorComponent, agent);
+			
 			outputs.AddRange(craftingSubSubSystem.GetObservations(agent, bufferSensorComponent));
 			return outputs.ToArray();
         }

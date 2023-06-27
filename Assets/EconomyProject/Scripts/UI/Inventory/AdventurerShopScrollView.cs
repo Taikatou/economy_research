@@ -32,12 +32,9 @@ namespace EconomyProject.Scripts.UI.Inventory
 	        {
 		        var index = adventurerShopSystem.system.adventurerShopSubSystem.GetCurrentLocation(
 			        currentAdventurerAgent.CurrentAgent);
-		        button.UpdateData(index, Selected);
+		        button.UpdateData(index, true);
 	        }
         }
-
-        private bool Selected => adventurerShopSystem.system.GetChoice(currentAdventurerAgent.CurrentAgent) 
-                                 == ESelectionState.PurchaseItem;
 
         public override void SelectItem(ShopItem item, int number = 1)
         {

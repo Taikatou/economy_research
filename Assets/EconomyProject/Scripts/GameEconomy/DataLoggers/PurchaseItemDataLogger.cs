@@ -7,6 +7,8 @@ namespace EconomyProject.Scripts.GameEconomy.DataLoggers
     {
         public string ItemName;
         public int Price;
+        public float SaleTime;
+        public float EnterTime;
     }
     public class PurchaseItemDataLogger : DataLogger
     {
@@ -24,17 +26,29 @@ namespace EconomyProject.Scripts.GameEconomy.DataLoggers
 
         public void AddPurchaseItem(PurchaseItemData resourceRequest)
         {
-            _purchaseItems.Add(new PurchaseItemData { });
+            _purchaseItems.Add(resourceRequest);
         }
 
         private void PrintResourceRequests()
         {
             var rowData = new List<string[]>
             {
-                new[] { "Resource", "CompletedTime", "CreationTme", "TakenTime", "Number", "Price" }
+                new[] { "Item", "Price", "SaleTime" }
             };
-            
-            OutputCsv(rowData, "request_data");
+
+            foreach (var item in _purchaseItems)
+            {
+                var row = new[]
+                {
+                    item.ItemName,
+                    item.Price.ToString(),
+                    item.SaleTime.ToString(),
+                    item.EnterTime.ToString()
+                };
+                rowData.Add(row);
+            }
+
+            OutputCsv(rowData, "purchase_data");
         }
     }
 }

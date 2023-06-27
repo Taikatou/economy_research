@@ -17,9 +17,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         public List<CraftingMap> craftingRequirement;
         private Dictionary<ShopAgent, CraftingRequest> _shopRequests;
         private List<ShopAgent> _shopAgents;
-        
-        public static bool IGNORE_RESOURCES = true;
-        
+
         public static int SenseCount => CraftingRequest.SenseCount;
         
         public float Progress(ShopAgent agent)
@@ -90,7 +88,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             {
                 var craftingInventory = shopAgent.GetComponent<CraftingInventory>();
                 var hasResources = craftingInventory.HasResources(foundChoice.resource);
-                toReturn = hasResources || IGNORE_RESOURCES;
+                toReturn = hasResources || TrainingConfig.IGNORE_RESOURCES;
             }
 
             return toReturn;

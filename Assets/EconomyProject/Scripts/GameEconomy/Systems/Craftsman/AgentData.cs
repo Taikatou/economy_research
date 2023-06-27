@@ -23,12 +23,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         private readonly Dictionary<string, int> _stockPrices;
         private readonly Dictionary<string, int> _previousPrices;
         private readonly Dictionary<string, List<UsableItem>> _shopItems;
+        private readonly Dictionary<UsableItem, float> _enterTimes;
 
         public AgentData(IEnumerable<BaseItemPrices> items)
         {
             _shopItems = new Dictionary<string, List<UsableItem>>();
             _stockPrices = new Dictionary<string, int>();
 			_previousPrices = new Dictionary<string, int>();
+			_enterTimes = new Dictionary<UsableItem, float>();
             
             _defaultPrices = new Dictionary<string, int>();
             foreach(var item in items)
@@ -59,6 +61,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             var price = GetPrice(item.itemDetails);
  
             ChangeItem(item, price);
+            _enterTimes.Add(item, Time.time);
+            Debug.LogWarning("Submitted " + price);
         }
 
         public bool PurchaseItems(EconomyWallet shopAgentWallet, UsableItemDetails itemDetails, EconomyWallet adventurerAgentWallet, AgentInventory inventory, PurchaseItemDataLogger purchaseDataLogger)
@@ -76,9 +80,19 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 				if (GetStock() > 0)
 				{
 					toReturn = true;
+					var itemRemove = _shopItems[itemDetails.itemName][0];
+					purchaseDataLogger.AddPurchaseItem(new PurchaseItemData
+					{
+						ItemName = itemDetails.itemName,
+						Price = price,
+						SaleTime = Time.time,
+						EnterTime = _enterTimes[itemRemove]
+					});
 					
-					inventory.AddItem(_shopItems[itemDetails.itemName][0]);
+					inventory.AddItem(itemRemove);
 					_shopItems[itemDetails.itemName].RemoveAt(0);
+
+					_enterTimes.Remove(itemRemove);
 					_stockPrices[itemDetails.itemName] = price;
 
 					if (GetStock() <= 0)
@@ -90,8 +104,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
 					adventurerAgentWallet.SpendMoney(price);
 					shopAgentWallet.EarnMoney(price, true);
-					
-					purchaseDataLogger.AddPurchaseItem(new PurchaseItemData {ItemName = itemDetails.itemName, Price = price});
 				}
 				else
 				{

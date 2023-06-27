@@ -41,6 +41,8 @@
         public static bool AdventurerNoRequestMenu => true;
 
         public static int MaxPrice => 250;
+        
+        public static bool IGNORE_RESOURCES => true;
     }
 
     public static class UISpec
