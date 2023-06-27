@@ -35,10 +35,9 @@ namespace EconomyProject.Scripts.UI.Craftsman.Crafting
         public void FixedUpdate()
         {
             var resource = craftingRequestLocationMap.GetCraftingChoice(Agent);
-            var system = shopCraftingSystem.system.GetState(Agent);
             foreach (var button in buttons)
             {
-                button.UpdateData(resource, system);
+                button.UpdateData(resource);
             }
         }
     }

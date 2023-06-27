@@ -20,6 +20,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
         public void PurchaseItem(AdventurerAgent agent)
         {
             var shopItems = shopCraftingSystem.system.shopSubSubSystem.GetAllUsableItems();
+            if (!currentLocation.ContainsKey(agent))
+            {
+                return;
+            }
             if (currentLocation[agent] < shopItems.Count)
             {
                 var item = shopItems[currentLocation[agent]];

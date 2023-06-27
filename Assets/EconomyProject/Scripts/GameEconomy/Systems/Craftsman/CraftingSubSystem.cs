@@ -25,6 +25,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             return _shopRequests.ContainsKey(agent) ? _shopRequests[agent].Progress : 0.0f;
         }
         
+        public AgentShopSubSystem shopSubSubSystem;
+        
         public CraftingSubSystem()
         {
             _shopRequests = new Dictionary<ShopAgent, CraftingRequest>();
@@ -53,8 +55,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
                     Debug.Log("Complete");
                     var generatedItem = UsableItem.GenerateItem(_shopRequests[agent].CraftingRequirements.resultingItem);
                     agent.agentInventory.AddItem(generatedItem);
-                    OverviewVariables.CraftItem();
 
+                    if (TrainingConfig.SubmitDirectToShop)
+                    {
+                        shopSubSubSystem.SubmitToShop(agent, generatedItem);   
+                    }
+                    OverviewVariables.CraftItem();
+                      
                     toRemove.Add(agent);
                 }
             }

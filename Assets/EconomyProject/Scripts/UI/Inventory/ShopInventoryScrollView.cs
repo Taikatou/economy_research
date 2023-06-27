@@ -66,11 +66,10 @@ namespace EconomyProject.Scripts.UI.Inventory
 
         public void FixedUpdate()
         {
-	        var system = shopSubSystem.system.GetState(shopAgent.CurrentAgent);
 	        var count = craftLocationMap.GetCurrentLocation(shopAgent.CurrentAgent);
 	        foreach (var button in buttons)
 	        {
-		        button.UpdateData(count, system == ECraftingOptions.SubmitToShop);
+		        button.UpdateData(count, true);
 	        }
         }
     }

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Data;
 using EconomyProject.Monobehaviours;
-using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
 using UnityEngine;
 using EconomyProject.Scripts.MLAgents.Shop;
@@ -46,12 +44,11 @@ namespace EconomyProject.Scripts.UI.Inventory
 
         public void FixedUpdate()
 		{
-			var system = shopSubSystem.system.GetState(Agent);
 			var index = shopSubSystem.shopLocationMap.GetCurrentLocation(Agent);
 
 			foreach (var button in buttons)
 			{
-				button.UpdateData(index, system == ECraftingOptions.EditShop);
+				button.UpdateData(index, true);
 			}
 		}
     }

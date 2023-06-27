@@ -13,12 +13,10 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.Buttons
         public Text numberText;
 
         private ECraftingResources _currentECraftingResource;
-        private EShopRequestStates _requestState;
 
-        public void UpdateData(ECraftingResources resource, EShopRequestStates state)
+        public void UpdateData(ECraftingResources resource)
         {
             _currentECraftingResource = resource;
-            _requestState = state;
         }
 
         protected override void SetupButton()
@@ -30,8 +28,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.Buttons
         
         protected override bool Selected()
         {
-            var toReturn = _currentECraftingResource == ItemDetails.ResourceType &&
-                           _requestState == EShopRequestStates.MakeRequest;
+            var toReturn = _currentECraftingResource == ItemDetails.ResourceType;
 
             return toReturn;
         }

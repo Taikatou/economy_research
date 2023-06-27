@@ -149,10 +149,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         public void UpdateShopSenses(ShopAgent shop, BufferSensorComponent bufferSensorComponent)
         {
             var items = GetShop(shop).GetShopItemsObs(shop);
-                
-            var outputs = new float[9];
             foreach (var item in items)
             {
+                var outputs = new float[9];
                 outputs[(int)item.Key] = 1;
                 if (item.Value != null)
                 {
@@ -160,15 +159,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
                     outputs[7] = item.Value.Value.Item.itemDetails.damage;
                     outputs[8] = item.Value.Value.Item.itemDetails.durability;
                 }
-            }
-
-            if (bufferSensorComponent != null)
-            {
+                
                 bufferSensorComponent.AppendObservation(outputs);
-            }
-            else
-            {
-                Debug.Log("FUCK");
             }
         }
 

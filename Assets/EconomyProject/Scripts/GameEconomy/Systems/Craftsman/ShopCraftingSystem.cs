@@ -35,7 +35,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public const int SenseCount = 1;
     }
-    public enum ECraftingOptions { Craft, SubmitToShop, EditShop }
 
     [Serializable]
     public class ShopCraftingSystem : StateEconomySystem<ShopAgent, EShopScreen, EShopAgentChoices>, ISetup
@@ -46,35 +45,23 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public AgentShopSubSystem shopSubSubSystem;
 
-        private AgentStateSelector<ShopAgent, ECraftingOptions> _agentChoices;
-
         public CraftLocationMap SubmitToShopLocationMap { get; set; }
         
         public ShopLocationMap ShopLocationMap { get; set; }
         
         public CraftingRequestLocationMap CraftingLocationMap { get; set; }
-        
-        public void Setup()
-        {
-	        _agentChoices.Setup();
-        }
-
-        public ECraftingOptions GetState(ShopAgent agent)
-        {
-	        return _agentChoices.GetState(agent);
-        }
 
         public void Start()
-		{
-			if (craftingSubSubSystem == null)
-			{
-				craftingSubSubSystem = new CraftingSubSystem();
-			}
+        {
+	        if (craftingSubSubSystem == null)
+	        {
+		        craftingSubSubSystem = new CraftingSubSystem();
+	        }
 
-			_agentChoices = new AgentStateSelector<ShopAgent, ECraftingOptions>(ECraftingOptions.Craft);
-		}
+	        craftingSubSubSystem.shopSubSubSystem = shopSubSubSystem;
+        }
 
-		public override bool CanMove(ShopAgent agent)
+        public override bool CanMove(ShopAgent agent)
         {
             return !craftingSubSubSystem.HasRequest(agent);
         }
@@ -90,10 +77,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         {
 	        var outputs = new List<ObsData>
 			{
-				new CategoricalObsData<ECraftingOptions>(_agentChoices.GetState(agent))
-				{
-					Name="craftingState"
-				},
 				new SingleObsData
 				{
 					data=CraftingLocationMap.GetLimit(agent),
@@ -104,19 +87,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 					data=CraftingLocationMap.GetCurrentLocation(agent)
 				},
 				new CategoricalObsData<ECraftingChoice> (CraftingLocationMap.GetCraftingChoice(agent)),
-				new SingleObsData
-				{
-					data=SubmitToShopLocationMap.GetCurrentLocation(agent)
-				},
-				GetECraftingChoiceObs(SubmitToShopLocationMap.GetShopItemChoice(agent)),
-				new SingleObsData
-				{
-					data=ShopLocationMap.GetCurrentLocation(agent)
-				},
-				new SingleObsData
-				{
-					data=ShopLocationMap.GetLimit(agent)
-				}
 			};
 			
 			var shopItems = craftingSubSubSystem.craftingRequirement;
@@ -159,8 +129,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 	        AgentInput.ChangeScreen(agent, EShopScreen.Main);
         }
 
-        public CraftingSystemLocationSelect systemLocationSelect;
-        
         protected override void SetChoice(ShopAgent agent, EShopAgentChoices input)
         {
 	        switch (input)
@@ -172,15 +140,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 			        Select(agent);
 			        break;
 		        case EShopAgentChoices.Down:
-			        UpDown(agent, -1);
+			        CraftingLocationMap.MovePosition(agent, -1);
 			        break;
 		        case EShopAgentChoices.Up:
-					UpDown(agent, 1);
-			        break;
-		        case EShopAgentChoices.IncrementMode:
-			        systemLocationSelect.MovePosition(agent, 1);
-			        var choice = systemLocationSelect.GetCraftingOption(agent);
-			        SetState(agent, choice);
+			        CraftingLocationMap.MovePosition(agent, 1);
 			        break;
 		        case EShopAgentChoices.IncreasePrice:
 			        PriceUpDown(agent, 1);
@@ -189,11 +152,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 			        PriceUpDown(agent, -1);
 			        break;
 	        }
-        }
-
-        public void SetState(ShopAgent agent, ECraftingOptions state)
-        {
-	        _agentChoices.SetState(agent, state);
         }
 
         public void PriceUpDown(ShopAgent agent, int increment)
@@ -210,41 +168,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public void Select(ShopAgent agent)
         {
-	        var state = _agentChoices.GetState(agent);
-	        switch (state)
-	        {
-		        case ECraftingOptions.Craft:
-			        var resource = CraftingLocationMap.GetCraftingChoice(agent);
-			        craftingSubSubSystem.MakeRequest(agent, resource);
-			        break;
-		        case ECraftingOptions.SubmitToShop:
-			        var shopItem = SubmitToShopLocationMap.GetShopItemChoice(agent);
-			        if (shopItem.HasValue)
-			        {
-				        shopSubSubSystem.SubmitToShop(agent, shopItem.Value.Item);	   
-			        }
-			        break;
-		        case ECraftingOptions.EditShop:
-			        
-			        break;
-	        }
-        }
-        
-        public void UpDown(ShopAgent agent, int movement)
-        {
-	        var state = _agentChoices.GetState(agent);
-	        switch (state)
-	        {
-		        case ECraftingOptions.Craft:
-					CraftingLocationMap.MovePosition(agent, movement);
-			        break;
-		        case ECraftingOptions.SubmitToShop:
-			        SubmitToShopLocationMap.MovePosition(agent, movement);
-			        break;
-		        case ECraftingOptions.EditShop:
-			        ShopLocationMap.MovePosition(agent, movement);
-			        break;
-	        }
+	        var resource = CraftingLocationMap.GetCraftingChoice(agent);
+	        craftingSubSubSystem.MakeRequest(agent, resource);
         }
 
         public int GetIndexInShopList(ShopAgent shopAgent, UsableItem item)
@@ -269,72 +194,29 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 		
 		public override EnabledInput[] GetEnabledInputs(ShopAgent agent)
 		{
-			bool GetDownStateFromAgent(ShopAgent agent, LocationSelect<ShopAgent> locationSelect)
-			{
-				return locationSelect.GetCurrentLocation(agent) > 0;
-			}
-			bool GetUpStateFromAgent(ShopAgent agent, LocationSelect<ShopAgent> locationSelect)
-			{
-				return locationSelect.GetCurrentLocation(agent) < locationSelect.GetLimit(agent) - 1;
-			}
-			
-			var state = GetState(agent);
-
-			bool up = false, down = false, select = false;
 			var inputChoices = new List<EShopAgentChoices>
 			{
-				EShopAgentChoices.Back
+				EShopAgentChoices.Select,
+				EShopAgentChoices.Back,
+				EShopAgentChoices.IncreasePrice,
+				EShopAgentChoices.DecreasePrice,
 			};
-			switch (state)
-			{
-				case ECraftingOptions.Craft:
-					inputChoices.AddRange(new []
-					{
-						EShopAgentChoices.IncrementMode,
-					});
-					var resource = CraftingLocationMap.GetCraftingChoice(agent);
-					select = craftingSubSubSystem.CanCraft(agent, resource);
-					up = GetUpStateFromAgent(agent, CraftingLocationMap);
-					down = GetDownStateFromAgent(agent, CraftingLocationMap);
-					break;
-				case ECraftingOptions.SubmitToShop:
-					inputChoices.AddRange(new []
-					{
-						EShopAgentChoices.IncrementMode,
-				//		EShopAgentChoices.Craft
-					});
-					var shopItem = SubmitToShopLocationMap.GetShopItemChoice(agent);
-					select = shopItem.HasValue;
-					up = GetUpStateFromAgent(agent, SubmitToShopLocationMap);
-					down = GetDownStateFromAgent(agent, SubmitToShopLocationMap);
-					break;
-				case ECraftingOptions.EditShop:
-					inputChoices.AddRange(new []
-					{
-						EShopAgentChoices.IncreasePrice,
-						EShopAgentChoices.DecreasePrice,
-			//			EShopAgentChoices.Craft,
-						EShopAgentChoices.IncrementMode
-					});
-					up = GetUpStateFromAgent(agent, ShopLocationMap);
-					down = GetDownStateFromAgent(agent, ShopLocationMap);
-					break;
-			}
 
-			if (up)
+			if (CraftingLocationMap.GetCurrentLocation(agent) < CraftingLocationMap.GetLimit(agent) - 1)
 			{
 				inputChoices.Add(EShopAgentChoices.Up);
 			}
-			if (down)
+			if (CraftingLocationMap.GetCurrentLocation(agent) > 0)
 			{
 				inputChoices.Add(EShopAgentChoices.Down);
 			}
-			if (select)
-			{
-				inputChoices.Add(EShopAgentChoices.Select);
-			}
 			var outputs = EconomySystemUtils<EShopAgentChoices>.GetInputOfType(inputChoices);
 			return outputs;
+		}
+
+		public void Setup()
+		{
+			
 		}
     }
 }

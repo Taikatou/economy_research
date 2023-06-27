@@ -16,9 +16,9 @@ using Unity.MLAgents.Sensors;
 
 namespace EconomyProject.Scripts.MLAgents.Shop
 {
-	public enum EShopAgentChoices { None = 0, Back, IncreasePrice, DecreasePrice, Up, Down, Select, IncrementMode, RemoveRequest }
+	public enum EShopAgentChoices { Back, IncreasePrice, DecreasePrice, Up, Down, Select, RemoveRequest, None }
 
-	public enum EShopScreen { Main = EShopAgentChoices.None, Request, Craft}
+	public enum EShopScreen { Main, Request, Craft}
 	
 	public enum EGoalSignal { MakeRequests, CreateItem, EditShop, FreeRoam }
     
@@ -109,7 +109,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop
         public override void Heuristic(in ActionBuffers actionsOut)
         {
 	        var actionB = actionsOut.DiscreteActions;
-	        actionB[0] = NumberKey;
+	        actionB[0] = (int) EShopAgentChoices.None;
         }
 
         public override void OnActionReceived(ActionBuffers actions)

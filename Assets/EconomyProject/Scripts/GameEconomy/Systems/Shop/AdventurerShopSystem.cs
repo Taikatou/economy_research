@@ -13,7 +13,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
     public class AdventurerShopSystem : StateEconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
     {
         public AdventurerShopSubSystem adventurerShopSubSystem;
-        public static int ObservationSize => 4;
+        public static int ObservationSize => 2;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Shop;
 
         public override bool CanMove(AdventurerAgent agent)
@@ -27,7 +27,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             {
                 new SingleObsData
                 {
-                    data=(float)adventurerShopSubSystem.GetCurrentLocation(agent) / adventurerShopSubSystem.GetLimit(agent),
+                    data=adventurerShopSubSystem.GetCurrentLocation(agent),
+                    Name="scrollLocation",
+                },
+                new SingleObsData
+                {
+                    data=adventurerShopSubSystem.GetLimit(agent),
                     Name="scrollLocation",
                 }
             };

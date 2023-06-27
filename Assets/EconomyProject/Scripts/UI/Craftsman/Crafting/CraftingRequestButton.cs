@@ -27,11 +27,9 @@ namespace EconomyProject.Scripts.UI.Craftsman.Crafting
         public Text specsText;
 
         private ECraftingChoice _currentChoice;
-        private ECraftingOptions _currentSystemChoice;
-        public void UpdateData(ECraftingChoice currentChoice, ECraftingOptions currentSystemChoice)
+        public void UpdateData(ECraftingChoice currentChoice)
         {
             _currentChoice = currentChoice;
-            _currentSystemChoice = currentSystemChoice;
         }
         
         protected override void SetupButton()
@@ -51,8 +49,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Crafting
 
         protected override bool Selected()
         {
-            var highlight = _currentChoice == ItemDetails.craftingMap.choice &&
-                            _currentSystemChoice == ECraftingOptions.Craft;
+            var highlight = _currentChoice == ItemDetails.craftingMap.choice;
             return highlight;
         }
     }

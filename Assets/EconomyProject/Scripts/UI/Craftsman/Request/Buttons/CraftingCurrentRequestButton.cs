@@ -24,10 +24,9 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.Buttons
             price.text = ItemDetails.Price.ToString();
         }
 
-        public void UpdateData(ECraftingResources resource, EShopRequestStates state)
+        public void UpdateData(ECraftingResources resource)
         {
-            var correct = state == EShopRequestStates.ChangePrice;
-            UpdateData(resource, correct);
+            UpdateData(resource);
         }
 
         public void UpdateData(ECraftingResources resource, bool correctState)

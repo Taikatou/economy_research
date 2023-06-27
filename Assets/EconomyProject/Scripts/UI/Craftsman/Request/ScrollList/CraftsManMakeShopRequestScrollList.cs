@@ -56,15 +56,13 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
         protected override void Update()
         {
             base.Update();
-
-            var state = requestShopSystem.system.GetState(CraftsmanAgent);
             
             var resource = requestShopSystem.shopMakeCraftingRequestLocationMap.GetItem(CraftsmanAgent);
             if (resource.HasValue)
             {
                 foreach (var button in buttons)
                 {
-                    button.UpdateData(resource.Value, state);
+                    button.UpdateData(resource.Value);
                 }   
             }
         }
