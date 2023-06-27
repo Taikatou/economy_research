@@ -261,7 +261,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                         }
                         else
                         {
-                            wallet.EarnMoney(Mathf.Abs(rewardDifference));
+                            wallet.EarnMoney(Mathf.Abs(rewardDifference), false);
                             validTransaction = true;
                         }
 
@@ -284,7 +284,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                     var request = _craftingRequests[inventory][resource];
                     if (_requestWallets.ContainsKey(request))
                     {
-                        _requestWallets[request].EarnMoney(request.Reward);   
+                        _requestWallets[request].EarnMoney(request.Reward, false);   
                         _requestWallets.Remove(request);
                     }
 

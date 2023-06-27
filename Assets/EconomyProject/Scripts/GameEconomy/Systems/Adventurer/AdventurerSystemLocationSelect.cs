@@ -8,7 +8,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
     public class AdventurerSystemLocationSelect : LocationSelect<AdventurerAgent>
     {
         public Dictionary<EAdventurerSystem, EAdventurerScreen> GetMap;
-
+        public bool Initialized = false;
         public override void Setup()
         {
             base.Setup();
@@ -24,6 +24,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             {
                 GetMap.Add(EAdventurerSystem.Request, EAdventurerScreen.Request);
             }
+
+            Initialized = true;
         }
 
         private EAdventurerSystem[] ValuesAsArray

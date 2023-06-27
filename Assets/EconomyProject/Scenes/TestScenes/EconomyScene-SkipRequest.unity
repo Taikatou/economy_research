@@ -958,6 +958,7 @@ GameObject:
   - component: {fileID: 394064044}
   - component: {fileID: 394064043}
   - component: {fileID: 394064042}
+  - component: {fileID: 394064045}
   m_Layer: 0
   m_Name: Environment
   m_TagString: Untagged
@@ -984,6 +985,7 @@ MonoBehaviour:
   configSystem: {fileID: 1153069262}
   UIBlocker: {fileID: 2077745776}
   ConfigUI: {fileID: 1981813375}
+  shopInput: {fileID: 0}
 --- !u!114 &394064043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1014,6 +1016,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &394064045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394064041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd8dda8ccf647b74fbad1b6d10f75cb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walletParent: {fileID: 559110488}
+  distributeEvery: 20
+  amount: 1
 --- !u!1 &417453023 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5057450105845858796, guid: 9ceee204f5dc32646817fe57efe8de76, type: 3}
@@ -1153,6 +1170,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6adf0ce589c37942a4b6839512596b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &559110488 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1165008175406999974, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
+  m_PrefabInstance: {fileID: 848789777}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &580421037 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 682089260, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
@@ -1526,7 +1548,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1165008175406999968, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
   m_PrefabInstance: {fileID: 848789777}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 559110488}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2ad85d46c36566479f1b6cecb396dbb, type: 3}
@@ -1537,7 +1559,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 848789782, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
   m_PrefabInstance: {fileID: 848789777}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 559110488}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfeb3955dd980fc4b90b9b0c2d4d9d94, type: 3}
@@ -2207,8 +2229,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locationSelect: {fileID: 1445173360}
   buttons:
-  - {fileID: 118464115}
   - {fileID: 1519869622}
+  - {fileID: 118464115}
   currentShopAgent: {fileID: 1754627098}
 --- !u!1 &1506593177
 GameObject:
@@ -2808,7 +2830,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5650685738332813760, guid: bfb27ce5ce1a1704faa38a1c8396b866, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5650685738332813761, guid: bfb27ce5ce1a1704faa38a1c8396b866, type: 3}
       propertyPath: m_Pivot.x
@@ -2944,7 +2966,7 @@ PrefabInstance:
       objectReference: {fileID: 1430326707}
     - target: {fileID: 5650685739867454911, guid: bfb27ce5ce1a1704faa38a1c8396b866, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5650685740070171036, guid: bfb27ce5ce1a1704faa38a1c8396b866, type: 3}
       propertyPath: shopSystem
@@ -2960,7 +2982,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5650685740278010410, guid: bfb27ce5ce1a1704faa38a1c8396b866, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408067281612259157, guid: bfb27ce5ce1a1704faa38a1c8396b866, type: 3}
+      propertyPath: m_Text
+      value: 'CRAFT ITEM
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 7049906391602306454, guid: bfb27ce5ce1a1704faa38a1c8396b866, type: 3}
       propertyPath: requestSystem

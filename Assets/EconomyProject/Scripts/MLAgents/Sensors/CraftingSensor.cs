@@ -12,7 +12,7 @@ namespace EconomyProject.Scripts.MLAgents.Sensors
         private readonly CraftingSubSystem _craftingSubSystem;
         private float[] _data;
             
-        public CraftingSensor(ShopAgent agent, CraftingSubSystem craftingSubSystem, BufferSensorComponent buffer) : base(buffer)
+        public CraftingSensor(ShopAgent agent, CraftingSubSystem craftingSubSystem) : base(null)
         {
             _shopAgent = agent;
             _data = new float[1];

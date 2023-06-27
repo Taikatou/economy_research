@@ -1,160 +1,166 @@
-﻿using EconomyProject.Monobehaviours;
+﻿using System.Collections.Generic;
+using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts;
+using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.MLAgents.Shop;
 using EconomyProject.Scripts.UI;
 using Inventory;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class EnvironmentReset : MonoBehaviour
+namespace EconomyProject
 {
-	protected GetCurrentAdventurerAgent getCurrentAdventurerAgent;
-	protected GetCurrentShopAgent getCurrentShopAgent;
-	public ShopCraftingSystemBehaviour shopCraftingSystemBehaviour;
-	public RequestShopSystemBehaviour requestShopSystemBehaviour;
-	public RequestAdventurerSystemBehaviour requestAdventurerSystemBehaviour;
-	public AdventurerSystemBehaviour adventurerSystemBehaviour;
-	public ConfigSystem configSystem;
-
-	public GameObject UIBlocker;
-	public GameObject ConfigUI;
-
-	public void Start()
+	public class EnvironmentReset : MonoBehaviour
 	{
-		getCurrentAdventurerAgent = FindObjectOfType<GetCurrentAdventurerAgent>();
-		getCurrentShopAgent = FindObjectOfType<GetCurrentShopAgent>();
-	}
+		protected GetCurrentAdventurerAgent getCurrentAdventurerAgent;
+		protected GetCurrentShopAgent getCurrentShopAgent;
+		public ShopCraftingSystemBehaviour shopCraftingSystemBehaviour;
+		public RequestShopSystemBehaviour requestShopSystemBehaviour;
+		public RequestAdventurerSystemBehaviour requestAdventurerSystemBehaviour;
+		public AdventurerSystemBehaviour adventurerSystemBehaviour;
+		public ConfigSystem configSystem;
 
-	public void ResetScript()
-	{
-		Debug.Log("RESET");
+		public GameObject UIBlocker;
+		public GameObject ConfigUI;
 
-		UIBlocker.SetActive(true);
-		ConfigUI.SetActive(true);
-
-		ResetBattle();
-		ResetShop();
-		ResetRequest();
-		ResetAgents();
-		GoBackToMainMenu();
-	}
-
-	/// <summary>
-	/// Reset battles
-	/// </summary>
-	public void ResetBattle()
-	{
-		adventurerSystemBehaviour.system.Setup();
-	}
-
-	/// <summary>
-	/// Reset all the shop requests
-	/// </summary>
-	public void ResetShop()
-	{
-		shopCraftingSystemBehaviour.system.shopSubSubSystem.ResetShop();
-		shopCraftingSystemBehaviour.system.craftingSubSubSystem.ResetCraftingSubSystem();
-
-		shopCraftingSystemBehaviour.system.shopSubSubSystem.Refresh();
-	}
-
-	/// <summary>
-	/// Reset all the resource requests taken and the resource requests made
-	/// </summary>
-	public void ResetRequest()
-	{
-		requestAdventurerSystemBehaviour.system.requestSystem.ResetRequestSystem();
-		requestShopSystemBehaviour.system.requestSystem.ResetRequestSystem();
-
-		requestAdventurerSystemBehaviour.system.requestSystem.craftingRequestRecord.ResetCraftingRequestRecord();
-		requestShopSystemBehaviour.system.requestSystem.craftingRequestRecord.ResetCraftingRequestRecord();
-
-		requestAdventurerSystemBehaviour.system.requestSystem.Refresh();
-		requestShopSystemBehaviour.system.requestSystem.Refresh();
-	}
-
-	/// <summary>
-	/// Reset wallets + inventories of all agents
-	/// </summary>
-	public void ResetAgents()
-	{
-		foreach (var agent in getCurrentAdventurerAgent.GetAgents)
+		public void Start()
 		{
-			//agent.ResetEconomyAgent();
-			agent.OnEpisodeBegin();
+			getCurrentAdventurerAgent = FindObjectOfType<GetCurrentAdventurerAgent>();
+			getCurrentShopAgent = FindObjectOfType<GetCurrentShopAgent>();
 		}
 
-		foreach (var agent in getCurrentShopAgent.GetAgents)
+		public void ResetScript()
 		{
-			//agent.ResetEconomyAgent();
-			agent.OnEpisodeBegin();
-		}
-	}
+			Debug.Log("RESET");
 
-	/// <summary>
-	/// Get all the agents to the main menu
-	/// </summary>
-	public void GoBackToMainMenu()
-	{
-		foreach (var agent in getCurrentAdventurerAgent.GetAgents)
-		{
-			//Not working if the adventurer is in a battle
-			//agent.SetAction(EAdventurerAgentChoices.MainMenu);
+			UIBlocker.SetActive(true);
+			ConfigUI.SetActive(true);
+
+			ResetBattle();
+			ResetShop();
+			ResetRequest();
+			ResetAgents();
+			GoBackToMainMenu();
 		}
 
-		foreach (var agent in getCurrentShopAgent.GetAgents)
+		/// <summary>
+		/// Reset battles
+		/// </summary>
+		public void ResetBattle()
 		{
-			agent.SetAction(EShopAgentChoices.None);
+			adventurerSystemBehaviour.system.Setup();
 		}
-	}
 
-	/// <summary>
-	/// Reset Config changements
-	/// </summary>
-	public void ResetConfig()
-	{
-		return;
-		//Make the default price 
-		List<BaseItemPrices> defaultPrices = new List<BaseItemPrices>();
-		var basePrices = shopCraftingSystemBehaviour.system.shopSubSubSystem.basePrices;
-		foreach (BaseItemPrices itemPrice in basePrices)
+		/// <summary>
+		/// Reset all the shop requests
+		/// </summary>
+		public void ResetShop()
 		{
-			UsableItem newItem = itemPrice.item;
-			int newPrice = 0;
-			switch (itemPrice.item.ToString())
+			shopCraftingSystemBehaviour.system.shopSubSubSystem.ResetShop();
+			shopCraftingSystemBehaviour.system.craftingSubSubSystem.ResetCraftingSubSystem();
+
+			shopCraftingSystemBehaviour.system.shopSubSubSystem.Refresh();
+		}
+
+		/// <summary>
+		/// Reset all the resource requests taken and the resource requests made
+		/// </summary>
+		public void ResetRequest()
+		{
+			requestAdventurerSystemBehaviour.system.requestSystem.ResetRequestSystem();
+			requestShopSystemBehaviour.system.requestSystem.ResetRequestSystem();
+
+			requestAdventurerSystemBehaviour.system.requestSystem.craftingRequestRecord.ResetCraftingRequestRecord();
+			requestShopSystemBehaviour.system.requestSystem.craftingRequestRecord.ResetCraftingRequestRecord();
+
+			requestAdventurerSystemBehaviour.system.requestSystem.Refresh();
+			requestShopSystemBehaviour.system.requestSystem.Refresh();
+		}
+
+		/// <summary>
+		/// Reset wallets + inventories of all agents
+		/// </summary>
+		public void ResetAgents()
+		{
+			foreach (var agent in getCurrentAdventurerAgent.GetAgents)
 			{
-				case "Beginner Sword":
-					newPrice = 50;
-					break;
-				case "Intermediate Sword":
-					newPrice = 70;
-					break;
-				case "Advanced Sword":
-					newPrice = 90;
-					break;
-				case "Epic Sword":
-					newPrice = 110;
-					break;
-				case "Master Sword":
-					newPrice = 140;
-					break;
-				case "Ultimate Sword":
-					newPrice = 180;
-					break;
-				default:
-					Debug.Log("Wrong name : " + itemPrice.item.ToString());
-					break;
+				//agent.ResetEconomyAgent();
+				agent.OnEpisodeBegin();
 			}
-			defaultPrices.Add(new BaseItemPrices
+
+			foreach (var agent in getCurrentShopAgent.GetAgents)
 			{
-				item = newItem,
-				price = newPrice
-			});
+				//agent.ResetEconomyAgent();
+				agent.OnEpisodeBegin();
+			}
 		}
 
-		//Reset config
-		configSystem.SetDefaultItemDetails(ItemData.GetDefaultDurabilities(), ItemData.GetDefaultDamages());
-		configSystem.SetItemsDefaultPrices(defaultPrices);
+		/// <summary>
+		/// Get all the agents to the main menu
+		/// </summary>
+		public void GoBackToMainMenu()
+		{
+			foreach (var agent in getCurrentAdventurerAgent.GetAgents)
+			{
+				//Not working if the adventurer is in a battle
+				//agent.SetAction(EAdventurerAgentChoices.MainMenu);
+			}
+
+			foreach (var agent in getCurrentShopAgent.GetAgents)
+			{
+				shopInput.ChangeScreen(agent, EShopScreen.Main);
+			}
+		}
+
+		public ShopInput shopInput;
+
+		/// <summary>
+		/// Reset Config changements
+		/// </summary>
+		public void ResetConfig()
+		{
+			return;
+			//Make the default price 
+			List<BaseItemPrices> defaultPrices = new List<BaseItemPrices>();
+			var basePrices = shopCraftingSystemBehaviour.system.shopSubSubSystem.basePrices;
+			foreach (BaseItemPrices itemPrice in basePrices)
+			{
+				UsableItem newItem = itemPrice.item;
+				int newPrice = 0;
+				switch (itemPrice.item.ToString())
+				{
+					case "Beginner Sword":
+						newPrice = 50;
+						break;
+					case "Intermediate Sword":
+						newPrice = 70;
+						break;
+					case "Advanced Sword":
+						newPrice = 90;
+						break;
+					case "Epic Sword":
+						newPrice = 110;
+						break;
+					case "Master Sword":
+						newPrice = 140;
+						break;
+					case "Ultimate Sword":
+						newPrice = 180;
+						break;
+					default:
+						Debug.Log("Wrong name : " + itemPrice.item.ToString());
+						break;
+				}
+				defaultPrices.Add(new BaseItemPrices
+				{
+					item = newItem,
+					price = newPrice
+				});
+			}
+
+			//Reset config
+			configSystem.SetDefaultItemDetails(ItemData.GetDefaultDurabilities(), ItemData.GetDefaultDamages());
+			configSystem.SetItemsDefaultPrices(defaultPrices);
+		}
 	}
 }

@@ -18,7 +18,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         private Dictionary<ShopAgent, CraftingRequest> _shopRequests;
         private List<ShopAgent> _shopAgents;
         
-        public static bool IGNORE_RESOURCES = false;
+        public static bool IGNORE_RESOURCES = true;
         
         public static int SenseCount => CraftingRequest.SenseCount;
         
@@ -98,15 +98,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public ObsData[] GetObservations(ShopAgent agent, BufferSensorComponent bufferSensorComponent)
         {
-            if (_shopRequests.ContainsKey(agent))
-            {
-                var senseA = _shopRequests[agent].GetSenses();
-                return senseA;
-            }
-
-            var output = CraftingRequest.GetTemplateSenses();
-            return output;
-        }
+            var output = _shopRequests.ContainsKey(agent)
+                ? _shopRequests[agent].GetCraftingProgressionObservation()
+                : new SingleObsData { data = 0, Name = "CraftingProgress" };
+            return new[] {output };
+    }
 
 		public Dictionary<ShopAgent, CraftingRequest> GetShopRequests()
 		{

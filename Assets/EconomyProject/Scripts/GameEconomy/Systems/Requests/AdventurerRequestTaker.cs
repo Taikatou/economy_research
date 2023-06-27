@@ -65,7 +65,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
         public override void CompleteRequest(int reward)
         {
-            wallet.EarnMoney(reward);
+            wallet.EarnMoney(reward, true);
         }
 
         public void CheckItemAdd(ECraftingResources resource, int amount, OnResources onResourceAdd=null, OnResources onResourceComplete=null)

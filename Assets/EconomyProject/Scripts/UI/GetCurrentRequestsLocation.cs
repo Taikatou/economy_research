@@ -7,11 +7,11 @@ namespace EconomyProject.Scripts.UI
 {
     public class GetCurrentRequestsLocation : ShopRequestLocationMap
     {
-        public RequestSystem requestSystem { get; set; }
+        public RequestSystem RequestSystem { get; set; }
         public override int GetLimit(ShopAgent agent)
         {
             var inventory = agent.craftingInventory;
-            var items = requestSystem.GetAllCraftingRequests(inventory);
+            var items = RequestSystem.GetAllCraftingRequests(inventory);
             return items.Count;
         }
 
@@ -19,7 +19,7 @@ namespace EconomyProject.Scripts.UI
         {
             ECraftingResources? toReturn = null;
             var inventory = agent.craftingInventory;
-            var items = requestSystem.GetAllCraftingRequests(inventory);
+            var items = RequestSystem.GetAllCraftingRequests(inventory);
             var index = GetCurrentLocation(agent);
             if (index < items.Count && index >= 0)
             {

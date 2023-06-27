@@ -200,7 +200,7 @@ namespace Tests.Economy
 			int money = adventurerAgent.wallet.Money;
 			Assert.IsNotNull(money);
 
-			adventurerAgent.wallet.EarnMoney(10);
+			adventurerAgent.wallet.EarnMoney(10, false);
 			Assert.AreEqual(money + 10, adventurerAgent.wallet.Money);
 
 			adventurerAgent.wallet.LoseMoney(-20);

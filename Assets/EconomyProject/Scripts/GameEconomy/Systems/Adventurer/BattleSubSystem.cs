@@ -123,19 +123,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             }
         }
 
-        public ObsData[] GetObs(AdventurerAgent agent)
-        {
-            if (ReverseCurrentParties.ContainsKey(agent))
-            {
-                return CurrentParties[ReverseCurrentParties[agent]].ConfirmAbilities.GetObservations(agent);
-            }
-            else
-            {
-                RemoveAgentFromQueue(agent);
-                return null;
-            }
-        }
-
         public void CancelConfirmation(AdventurerAgent agent)
         {
             if (ReverseCurrentParties.ContainsKey(agent))
@@ -293,6 +280,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             if (TrainingConfig.OnLose)
             {
                 AddTeamReward(battle, TrainingConfig.OnLoseReward);
+            }
+
+            if (TrainingConfig.LoseMoney)
+            {
+                foreach (var agent in battle.BattleAgents)
+                {
+                    agent.wallet.LoseMoney(TrainingConfig.MoneyToLose);
+                }
             }
         }
 

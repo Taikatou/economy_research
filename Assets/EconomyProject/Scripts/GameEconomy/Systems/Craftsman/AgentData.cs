@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Data;
 using EconomyProject.Scripts.Inventory;
 using Inventory;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
@@ -87,7 +88,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 					}
 
 					adventurerAgentWallet.SpendMoney(price);
-					shopAgentWallet.EarnMoney(price);
+					shopAgentWallet.EarnMoney(price, true);
 				}
 				else
 				{
@@ -184,8 +185,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         public void SetCurrentPrice(UsableItemDetails item, int increment)
         {
             var price = _stockPrices[item.itemName];
-			_stockPrices[item.itemName] = price + increment;
-		}
+            if (price + increment > 0 && price + increment < TrainingConfig.MaxPrice)
+            {
+	            _stockPrices[item.itemName] = price + increment;
+            }
+        }
 
 		public int GetStock(UsableItem item)
 		{

@@ -21,11 +21,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public Dictionary<AdventurerAgent, EAdventureStates> adventureStates;
 
-        public static int ObservationSize => SensorUtils<EAdventureStates>.Length + BattleSubSystem.SensorCount + 
-                                             AdventurerLocationSelect.SensorCount + 
-                                             (SystemTraining.PartySize * SensorUtils<EBattleEnvironments>.Length * 
-                                              SensorUtils<EAdventurerTypes>.Length) + 
-                                             ConfirmBattleLocationSelect.SensorCount + ConfirmAbilitiesLocationSelect.SensorCount;
+        public static int ObservationSize => 75;
         public override EAdventurerScreen ActionChoice => TrainingConfig.StartScreen;
 
         public AdventurerLocationSelect locationSelect;
@@ -128,10 +124,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                 ? confirmLocationSelect.GetConfirmationObservations(agent, this)
                 : BlankArray(ConfirmBattleLocationSelect.SensorCount);
 
-            var output4 = state == EAdventureStates.InBattle
-                ? battleSubSystem.GetObs(agent)
-                : BlankArray(ConfirmAbilities.SensorCount);
-            
             var output5 = state == EAdventureStates.ConfirmAbilities
                 ? confirmAbilitiesSelect.GetObservations(agent)
                 : BlankArray(ConfirmAbilitiesLocationSelect.SensorCount);
@@ -157,7 +149,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             battleState.AddRange(obsize);
             battleState.AddRange(output2);
             battleState.AddRange(output3);
-            battleState.AddRange(output4);
             battleState.AddRange(output5);
             return battleState.ToArray();
         }

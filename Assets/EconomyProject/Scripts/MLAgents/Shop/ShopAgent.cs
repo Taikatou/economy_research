@@ -124,37 +124,8 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 	        var system = shopInput.GetEconomySystem(this);
             system.AgentSetChoice(this, action);
         }
-        
-		/// <summary>
-		/// Manage UI 
-		/// </summary>
-		/// <param name="choice">Int associate to a specific UI action</param>
-		/// <param name="resourceRequest">Mandatory if choice = MakeResourceRequest</param>
-		/// <param name="craftingChoice">Mandatory if choice = CraftItem</param>
-		/// <param name="item">Mandatory if choice = SubmitToShop or choice = IncreasePrice or choice = DecreasePrice</param>
-		public void SetAction(EShopAgentChoices choice, ECraftingResources? resourceRequest = null, ECraftingChoice? craftingChoice = null, UsableItem item = null)
-		{
-			switch (choice)
-			{
-				case EShopAgentChoices.None:
-					shopInput.ChangeScreen(this, EShopScreen.Main);
-					break;
-	/*			case EShopAgentChoices.SubmitToShop:
-					if (item)
-					{
-						shopInput.shopCraftingSystem.system.shopSubSubSystem.SubmitToShop(this, item);	
-					}
-					break;*/
-				case EShopAgentChoices.IncreasePrice:
-					shopInput.shopCraftingSystem.system.SetPrice(this, item, 1);
-					break;
-				case EShopAgentChoices.DecreasePrice:
-					shopInput.shopCraftingSystem.system.SetPrice(this, item, -1);
-					break;
-			}
-		}
 
-		public void SetAction(EShopAgentChoices choice)
+        public void SetAction(EShopAgentChoices choice)
 		{
 			_bForcedAction = true;
 			_forcedAction = choice;

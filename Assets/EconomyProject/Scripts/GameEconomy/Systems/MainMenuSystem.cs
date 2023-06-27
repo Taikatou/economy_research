@@ -48,8 +48,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         public void ChooseScreen(AdventurerAgent agent)
         {
             var system = adventurerSystemLocationSelect.GetEnvironment(agent);
-            var map = adventurerSystemLocationSelect.GetMap[system];
-            AgentInput.ChangeScreen(agent, map);
+            if (adventurerSystemLocationSelect.Initialized)
+            {
+                var map = adventurerSystemLocationSelect.GetMap[system];
+                AgentInput.ChangeScreen(agent, map);   
+            }
         }
 
         public override EnabledInput[] GetEnabledInputs(AdventurerAgent agent)

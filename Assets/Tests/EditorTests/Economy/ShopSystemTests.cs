@@ -152,7 +152,7 @@ namespace Tests.Economy
 		public void Shop_PurchaseItem()
 		{
 			//To be able to buy any sword because some swords cost more than the default start money
-			adventurerAgent.wallet.EarnMoney(1000);
+			adventurerAgent.wallet.EarnMoney(1000, true);
 
 			//ShopAgent sells a sword
 			ECraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];

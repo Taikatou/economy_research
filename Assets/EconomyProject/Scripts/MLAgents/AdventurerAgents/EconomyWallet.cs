@@ -15,13 +15,16 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         private int SpentMoney { get; set; }
         public int Money { get; private set; }
 
-        public void EarnMoney(int amount)
+        public void EarnMoney(int amount, bool earnedMoney)
         {
             if (amount > 0)
             {
                 Money += amount;
                 EarnedMoney += amount;
-                onEarnMoney?.Invoke(amount);
+                if (earnedMoney)
+                {
+	                onEarnMoney?.Invoke(amount);   
+                }
             }
         }
 

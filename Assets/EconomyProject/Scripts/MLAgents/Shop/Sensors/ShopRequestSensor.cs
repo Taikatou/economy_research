@@ -1,6 +1,6 @@
 using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
-using EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors;
+using EconomyProject.Scripts.MLAgents.Sensors;
 using Unity.MLAgents.Sensors;
 
 namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
@@ -16,6 +16,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
         public ShopRequestSensor(ShopAgent agent, RequestShopSystem system, BufferSensorComponent buffer) : base(agent, buffer)
         {
             _requestShopSystem = system;
+            ObserveObservations = true;
         }
     }
 }

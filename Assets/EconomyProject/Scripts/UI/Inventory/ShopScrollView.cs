@@ -44,17 +44,7 @@ namespace EconomyProject.Scripts.UI.Inventory
             throw new System.NotImplementedException();
         }
 
-		public void IncreasePrice(ShopItem item)
-		{
-			shopAgent.CurrentAgent.SetAction(EShopAgentChoices.IncreasePrice, null, null, item.Item);
-		}
-
-		public void DecreasePrice(ShopItem item)
-		{
-			shopAgent.CurrentAgent.SetAction(EShopAgentChoices.DecreasePrice, null, null, item.Item);
-		}
-
-		public void FixedUpdate()
+        public void FixedUpdate()
 		{
 			var system = shopSubSystem.system.GetState(Agent);
 			var index = shopSubSystem.shopLocationMap.GetCurrentLocation(Agent);

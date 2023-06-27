@@ -16,7 +16,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
         protected override float[] Data { get; }
         public override string GetName() => "ShopBaseSensor";
 
-        private ShopMainLocationSelect _locationSelect;
+        private readonly ShopMainLocationSelect _locationSelect;
 
         private float[] UpdateData()
         {
@@ -30,6 +30,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
                 new CategoricalObsData<EShopScreen>(screen) { Name="Chosen Screen"},
                 new CategoricalObsData<EShopScreen>(selectedScreen) {Name="Selected Screen"}
             };
+            
             foreach (var resource in CraftingAsList)
             {
                 var obs = new SingleObsData

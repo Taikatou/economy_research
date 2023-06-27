@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 
 namespace Data
 {
@@ -54,7 +55,6 @@ namespace Data
         public CategoricalObsData(T data) : base (Convert.ToInt32(data), SensorUtils<T>.Length)
         {
         }
-
         public CategoricalObsData() : base (-1, SensorUtils<T>.Length)
         {
             

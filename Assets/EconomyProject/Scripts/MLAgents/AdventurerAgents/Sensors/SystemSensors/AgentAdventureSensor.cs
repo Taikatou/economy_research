@@ -1,5 +1,6 @@
 using Data;
 using EconomyProject.Scripts.GameEconomy.Systems;
+using EconomyProject.Scripts.MLAgents.Sensors;
 using Unity.MLAgents.Sensors;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors.SystemSensors

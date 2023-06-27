@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Data;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests.ShopLocationMaps;
 using EconomyProject.Scripts.Interfaces;
@@ -15,10 +16,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
     public class RequestShopSystem : StateEconomySystem<ShopAgent, EShopScreen, EShopAgentChoices>, ISetup
     {
         public RequestSystem requestSystem;
-        public static int ObservationSize => CraftingResourceRequest.SensorCount + SensorCount;
+        public static int ObservationSize => 13;
         public override EShopScreen ActionChoice => EShopScreen.Request;
-
-        public static int SensorCount = 18;
 
         public ShopRequestLocationMap MakeRequestGetLocation { get; set; }
         
@@ -47,19 +46,49 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return true;
         }
 
+        private ObsData GetItemObs(ECraftingResources? resource, string name)
+        {
+            return resource.HasValue
+                ? new CategoricalObsData<ECraftingResources>(resource.Value){ Name = name }
+                : new CategoricalObsData<ECraftingResources>(ECraftingResources.Nothing){ Name = name };
+        }
+
         public override ObsData[] GetObservations(ShopAgent agent, BufferSensorComponent bufferSensorComponent)
         {
             var state = _agentStateSelector.GetState(agent);
+            var item = MakeRequestGetLocation.GetItem(agent);
+            var changePrice = ChangePriceGetLocation.GetItem(agent);
+            
+            
             var outputSenses = new List<ObsData>
             {
-                new CategoricalObsData<EShopRequestStates>(state)
-                {
-                    Name = "AgentState"
-                }
+                new CategoricalObsData<EShopRequestStates>(state) { Name = "AgentState" },
+                GetItemObs(item, "resource selection"),
+                GetItemObs(changePrice, "resource selection"),
+                new SingleObsData(){ data=ChangePriceGetLocation.GetLimit(agent), Name = "currentRequestLimit"}
             };
-            var requestSense = requestSystem.GetObservations(agent, bufferSensorComponent);
-            outputSenses.AddRange(requestSense);
             return outputSenses.ToArray();
+        }
+        
+        public void GetRequestObservations(ShopAgent agent, BufferSensorComponent bufferSensorComponent)
+        {
+            var inventory = agent.craftingInventory;
+            var items = requestSystem.GetAllCraftingRequests(inventory);
+
+            var outputs = new List<float>();
+            foreach (var request in items)
+            {
+                var r = new float[Enum.GetNames(typeof(ECraftingResources)).Length];
+                r[(int)request.Resource] = 1;
+                outputs.AddRange(r);
+                outputs.Add(request.Price);
+                outputs.Add(request.Number);
+            }
+
+            if (bufferSensorComponent != null)
+            {
+                bufferSensorComponent.AppendObservation(outputs.ToArray());
+            }
         }
 
         public LocationSelect<ShopAgent> GetLocationSelect(ShopAgent agent)

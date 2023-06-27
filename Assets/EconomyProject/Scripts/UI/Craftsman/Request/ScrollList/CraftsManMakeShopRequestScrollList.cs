@@ -48,6 +48,11 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
             return null;
         }
 
+        public override void SelectItem(CraftingResourceUi item, int number = 1)
+        {
+            throw new System.NotImplementedException();
+        }
+
         protected override void Update()
         {
             base.Update();
@@ -63,10 +68,5 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
                 }   
             }
         }
-
-        public override void SelectItem(CraftingResourceUi item, int number = 1)
-        {
-			CraftsmanAgent.SetAction(EShopAgentChoices.Select, item.ResourceType);
-		}
-	}
+    }
 }

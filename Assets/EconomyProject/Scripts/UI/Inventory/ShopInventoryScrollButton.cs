@@ -47,30 +47,6 @@ namespace EconomyProject.Scripts.UI.Inventory
         }
 
 		/// <summary>
-		/// Increment price by +1
-		/// </summary>
-		public void IncreasePrice()
-		{
-			FindObjectOfType<ShopScrollView>().IncreasePrice(ItemDetails);
-			UpdateButtonsPrice(ItemDetails.Price+1);
-		}
-
-		/// <summary>
-		/// Increment price by -1
-		/// Minimum price = 1
-		/// </summary>
-		public void DecreasePrice()
-		{
-			if(ItemDetails.Price - 1 <= 0)
-			{
-				return;
-			}
-
-			FindObjectOfType<ShopScrollView>().DecreasePrice(ItemDetails);
-			UpdateButtonsPrice(ItemDetails.Price-1);
-		}
-
-		/// <summary>
 		/// To refresh data of all the shop buttons
 		/// It is useful to update the price text if the same type of sword is present in both inventory column and shop column and if the price is changed
 		/// </summary>

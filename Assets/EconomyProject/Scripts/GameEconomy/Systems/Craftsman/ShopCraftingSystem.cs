@@ -5,6 +5,8 @@ using EconomyProject.Scripts.Interfaces;
 using Inventory;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.MLAgents.Shop;
+using EconomyProject.Scripts.UI.Craftsman.Crafting;
+using EconomyProject.Scripts.UI.Inventory;
 using Unity.MLAgents.Sensors;
 using Debug = UnityEngine.Debug;
 
@@ -26,20 +28,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public bool Complete => CraftingTime >= CraftingRequirements.timeToCreation;
 
-        public ObsData[] GetSenses()
+        public ObsData GetCraftingProgressionObservation()
         {
-            return new ObsData [SenseCount]
-            {
-                new SingleObsData { data=Progress, Name="CraftingProgress"}
-            };
-        }
-
-        public static ObsData[] GetTemplateSenses()
-        {
-	        return new ObsData [SenseCount]
-	        {
-		        new SingleObsData { data=0, Name="CraftingProgress"}
-	        };
+	        return new SingleObsData { data = Progress, Name = "CraftingProgress" };
         }
 
         public const int SenseCount = 1;
@@ -88,29 +79,16 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             return !craftingSubSubSystem.HasRequest(agent);
         }
 
-		public float GetScrollObs(ShopAgent agent)
+		public ObsData GetECraftingChoiceObs(ShopItem? value)
 		{
-			var index = 0.0f;
-			var state = _agentChoices.GetState(agent);
-			switch (state)
-			{
-				case ECraftingOptions.Craft:
-					index = CraftingLocationMap.GetObs(agent);
-					break;
-				case ECraftingOptions.SubmitToShop:
-					index = SubmitToShopLocationMap.GetObs(agent);
-					break;
-				case ECraftingOptions.EditShop:
-					index = ShopLocationMap.GetObs(agent);
-					break;
-			}
-			return index;
+			return value.HasValue
+				? new CategoricalObsData<ECraftingChoice>(value.Value.Item.craftChoice)
+				: new CategoricalObsData<ECraftingChoice>();
 		}
 
-        public override ObsData[] GetObservations(ShopAgent agent, BufferSensorComponent bufferSensorComponent)
+		public override ObsData[] GetObservations(ShopAgent agent, BufferSensorComponent bufferSensorComponent)
         {
-	        var shopL = GetScrollObs(agent);
-			var outputs = new List<ObsData>
+	        var outputs = new List<ObsData>
 			{
 				new CategoricalObsData<ECraftingOptions>(_agentChoices.GetState(agent))
 				{
@@ -118,11 +96,44 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 				},
 				new SingleObsData
 				{
-					data=shopL,
+					data=CraftingLocationMap.GetLimit(agent),
 					Name="shopLocation"
 				},
+				new SingleObsData
+				{
+					data=CraftingLocationMap.GetCurrentLocation(agent)
+				},
+				new CategoricalObsData<ECraftingChoice> (CraftingLocationMap.GetCraftingChoice(agent)),
+				new SingleObsData
+				{
+					data=SubmitToShopLocationMap.GetCurrentLocation(agent)
+				},
+				GetECraftingChoiceObs(SubmitToShopLocationMap.GetShopItemChoice(agent)),
+				new SingleObsData
+				{
+					data=ShopLocationMap.GetCurrentLocation(agent)
+				},
+				new SingleObsData
+				{
+					data=ShopLocationMap.GetLimit(agent)
+				}
 			};
+			
+			var shopItems = craftingSubSubSystem.craftingRequirement;
+			foreach (var item in shopItems)
+			{
+				var craftInfo = new CraftingInfo(item, agent.craftingInventory);
+				foreach (var requirement in craftInfo.craftingMap.resource.resourcesRequirements)
+				{
+					outputs.AddRange(new ObsData [] {
+						new SingleObsData { data = craftInfo.craftingInventory.GetResourceNumber(requirement.type), Name = "resource" },
+						new CategoricalObsData<ECraftingResources>(requirement.type)}
+					);
+				}
+			}
+			
 			shopSubSubSystem.GetItemSenses(agent, bufferSensorComponent);
+			outputs.AddRange(craftingSubSubSystem.GetObservations(agent, bufferSensorComponent));
 			return outputs.ToArray();
         }
 
@@ -205,7 +216,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 			        craftingSubSubSystem.MakeRequest(agent, resource);
 			        break;
 		        case ECraftingOptions.SubmitToShop:
-			        var shopItem = SubmitToShopLocationMap.GetCraftingChoice(agent);
+			        var shopItem = SubmitToShopLocationMap.GetShopItemChoice(agent);
 			        if (shopItem.HasValue)
 			        {
 				        shopSubSubSystem.SubmitToShop(agent, shopItem.Value.Item);	   
@@ -290,7 +301,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 						EShopAgentChoices.IncrementMode,
 				//		EShopAgentChoices.Craft
 					});
-					var shopItem = SubmitToShopLocationMap.GetCraftingChoice(agent);
+					var shopItem = SubmitToShopLocationMap.GetShopItemChoice(agent);
 					select = shopItem.HasValue;
 					up = GetUpStateFromAgent(agent, SubmitToShopLocationMap);
 					down = GetDownStateFromAgent(agent, SubmitToShopLocationMap);

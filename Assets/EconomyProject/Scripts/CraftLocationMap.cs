@@ -30,7 +30,7 @@ namespace EconomyProject.Scripts
             return itemList;
         }
     
-        public ShopItem? GetCraftingChoice(ShopAgent agent)
+        public ShopItem? GetShopItemChoice(ShopAgent agent)
         {
             ShopItem? toReturn = null;
             var items = GetData(agent);

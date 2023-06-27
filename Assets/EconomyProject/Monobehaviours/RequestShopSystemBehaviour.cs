@@ -18,7 +18,7 @@ namespace EconomyProject.Monobehaviours
         {
             system.MakeRequestGetLocation = shopMakeCraftingRequestLocationMap;
             system.ChangePriceGetLocation = getCurrentRequestsLocation;
-            getCurrentRequestsLocation.requestSystem = system.requestSystem;
+            getCurrentRequestsLocation.RequestSystem = system.requestSystem;
             system.Start();
         }
 

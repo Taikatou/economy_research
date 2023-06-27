@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using Data;
 using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.GameEconomy.Systems;
-using EconomyProject.Scripts.MLAgents.Sensors;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 
-namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
+namespace EconomyProject.Scripts.MLAgents.Sensors
 {
     public abstract class AgentMovementSensor<TAgent, TScreen, TChoice> : BaseEconomySensor where TAgent : AgentScreen<TScreen> where TScreen : Enum where TChoice : Enum
     {
@@ -31,9 +30,10 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
             MObservationSpec = ObservationSpec.Vector(SensorCount);
         }
 
+        protected bool ObserveObservations = false;
+
         private float[] GetData(BufferSensorComponent buffer)
         {
-            var name = GetName();
             var obs =  EconomySystem.GetObservations(_agent, buffer);
             /*var oneHot = new float [(int)EAdventurerScreen.Adventurer];
             var index = Convert.ToInt32(EconomySystem.ActionChoice);
@@ -54,9 +54,13 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
                 }
             }
 
-            if (Observations.DebugObs)
+            if (ObserveObservations)
             {
-                var outputString = GetName() + "\t" + outputData.Count + "\t" + _data.Length;
+                var outputString = GetName() + "\t" + outputData.Count + "\t" + _data.Length + "\n";
+                foreach (var ob in obs)
+                {
+                    outputString += ob.Name += "\t";
+                }
                 Debug.Log(outputString);
             }
 
