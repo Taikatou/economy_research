@@ -73,7 +73,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 				: new CategoricalObsData<ECraftingChoice>();
 		}
 
-		public override ObsData[] GetObservations(ShopAgent agent, BufferSensorComponent bufferSensorComponent)
+		public override ObsData[] GetObservations(ShopAgent agent, BufferSensorComponent[] bufferSensorComponent)
         {
 	        var outputs = new List<ObsData>
 			{
@@ -102,10 +102,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 				}
 			}
 			
-			shopSubSubSystem.UpdateShopSenses(agent, bufferSensorComponent);
-			shopSubSubSystem.GetItemSenses(bufferSensorComponent, agent);
+			shopSubSubSystem.UpdateShopSenses(agent, bufferSensorComponent[0]);
+			//shopSubSubSystem.GetItemSenses(bufferSensorComponent[1], agent);
 			
-			outputs.AddRange(craftingSubSubSystem.GetObservations(agent, bufferSensorComponent));
+			outputs.AddRange(craftingSubSubSystem.GetObservations(agent, null));
 			return outputs.ToArray();
         }
 

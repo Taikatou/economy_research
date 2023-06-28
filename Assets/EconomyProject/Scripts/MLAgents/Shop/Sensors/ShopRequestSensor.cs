@@ -13,7 +13,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
         protected override EconomySystem<ShopAgent, EShopScreen, EShopAgentChoices> EconomySystem => _requestShopSystem;
         protected override int SensorCount => RequestShopSystem.ObservationSize;
 
-        public ShopRequestSensor(ShopAgent agent, RequestShopSystem system, BufferSensorComponent buffer) : base(agent, buffer)
+        public ShopRequestSensor(ShopAgent agent, RequestShopSystem system, BufferSensorComponent buffer) : base(agent, new []{buffer})
         {
             _requestShopSystem = system;
         }

@@ -305,13 +305,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             var inventory = takeRequest.Inventory;
             
             var containsResource = _craftingRequests[inventory].ContainsKey(takeRequest.Resource);
-            Debug.Log("Contains resource " + containsResource);
-
+            
             var currentRequests = craftingRequestRecord.GetCurrentRequests(requestTaker);
             var validRequests = currentRequests.Length < maxRequests;
             if (containsResource && validRequests)
             {
-                Debug.Log("Took request");
                 craftingRequestRecord.TakeRequest(requestTaker, takeRequest);
                 _craftingRequests[inventory].Remove(takeRequest.Resource);
             }

@@ -25,7 +25,7 @@ namespace EconomyProject.Scripts.MLAgents.Sensors
         public override void Update()
         {
             var outputData = new List<float>();
-            var obs = _craftingSubSystem.GetObservations(_shopAgent, BufferSensorComponent);
+            var obs = _craftingSubSystem.GetObservations(_shopAgent, null);
             foreach (var ob in obs)
             {
                 outputData.AddRange(ob.GetData);

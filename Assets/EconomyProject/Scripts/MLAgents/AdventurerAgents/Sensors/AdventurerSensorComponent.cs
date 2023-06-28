@@ -10,7 +10,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
     {
         public BufferSensorComponent requestTakenBufferComponent;
         public BufferSensorComponent requestAvailableBufferComponent;
-
         public BufferSensorComponent agentShopBufferComponent;
         
         public AdventurerAgent agent;
@@ -26,7 +25,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
             {
                 return new ISensor[] { 
                     new AdventurerBaseSensor(agent),
-                    new AgentAdventureSensor(agent, behave.system, null)
+                    new AgentAdventureSensor(agent, behave.system)
                 };
             }
             else
@@ -40,7 +39,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
                     new AdventurerInventorySensor(agent), 
                     new RequestTakerSensor(requestAvailableBufferComponent, requestTakenBufferComponent, 
                         agent.requestTaker),
-                    new AgentAdventureSensor(agent, behave.system, null),
+                    new AgentAdventureSensor(agent, behave.system),
                     new AgentRequestSensor(agent, request.system),
                     new AgentShopSensor(agent, shop.system, agentShopBufferComponent),
                     new AgentMenuSensor(agent, main.system)

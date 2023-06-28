@@ -107,7 +107,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
                 ? _shopRequests[agent].GetCraftingProgressionObservation()
                 : new SingleObsData { data = 0, Name = "CraftingProgress" };
             return new[] {output };
-    }
+        }
 
 		public Dictionary<ShopAgent, CraftingRequest> GetShopRequests()
 		{

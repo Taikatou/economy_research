@@ -20,19 +20,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             CurrentAmount += amount;
         }
 
-        public static float[] GetSenses(Dictionary<ECraftingResources, TakenCraftingResourceRequest> dictionary, ECraftingResources key)
-        {
-            var output = new float[4];
-            if (dictionary.ContainsKey(key))
-            {
-                output[0] = (float) dictionary[key].Request.Resource;
-                output[1] = dictionary[key].Request.Price;
-                output[2] = dictionary[key].Request.Number;
-                output[3] = dictionary[key].CurrentAmount;
-            }
-            return output;
-        }
-
         public bool Complete => Request.Number <= CurrentAmount;
     }
     
@@ -75,9 +62,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             {
                 Debug.Log(item.Resource);
             }
-            Debug.Log("Resource: " + resource + " - amount: " + amount);
-            
-            
+
             // Check if we have current request for this resource
             if (TrainingConfig.AdventurerNoRequestMenu && !CurrentRequestData.ContainsKey(resource))
             {
@@ -143,8 +128,18 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             var resources = CraftingUtils.GetCraftingResources();
             foreach (var r in resources)
             {
-                var senses = TakenCraftingResourceRequest.GetSenses(CurrentRequestData, r);
-                requestTakenBufferComponent.AppendObservation(senses);
+                if (r != ECraftingResources.Nothing)
+                {
+                    if (CurrentRequestData.ContainsKey(r))
+                    {
+                        var output = new float[4];
+                        output[0] = (float) CurrentRequestData[r].Request.Resource;
+                        output[1] = CurrentRequestData[r].Request.Price;
+                        output[2] = CurrentRequestData[r].Request.Number;
+                        output[3] = CurrentRequestData[r].CurrentAmount;
+                        requestTakenBufferComponent.AppendObservation(output);   
+                    }
+                }
             }
         }
     }

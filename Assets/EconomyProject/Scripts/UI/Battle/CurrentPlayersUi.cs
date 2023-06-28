@@ -27,7 +27,7 @@ namespace EconomyProject.Scripts.UI.Battle
             var system = adventurerSystem.system.GetAdventureStates(agent);
             if (system == EAdventureStates.InBattle)
             {
-                return adventurerSystem.system.battleSubSystem.GetSubSystem(agent);
+                return adventurerSystem.system.BattleSubSystem.GetSubSystem(agent);
             }
 
             return null;

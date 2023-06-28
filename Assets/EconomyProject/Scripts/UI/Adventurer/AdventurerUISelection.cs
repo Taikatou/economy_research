@@ -14,7 +14,7 @@ namespace EconomyProject.Scripts.UI.Adventurer
         public void Update()
         {
             var players = "";
-            var currentParties = adventurerSystem.system.battleSubSystem.CurrentParties;
+            var currentParties = adventurerSystem.system.BattleSubSystem.CurrentParties;
             if(currentParties.ContainsKey(environment))
             {
                 foreach (var agent in currentParties[environment].PendingAgents)

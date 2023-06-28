@@ -1,4 +1,5 @@
-﻿using EconomyProject.Monobehaviours;
+﻿using System;
+using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using Unity.MLAgents.Sensors;
@@ -20,13 +21,16 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
         public void PurchaseItem(AdventurerAgent agent)
         {
             var shopItems = shopCraftingSystem.system.shopSubSubSystem.GetAllUsableItems();
-            if (!currentLocation.ContainsKey(agent))
+            
+            if (!CurrentLocation.ContainsKey(agent))
             {
                 return;
             }
-            if (currentLocation[agent] < shopItems.Count)
+            
+            var location = CurrentLocation[agent];
+            if (location < shopItems.Count && location >= 0)
             {
-                var item = shopItems[currentLocation[agent]];
+                var item = shopItems[location];
                 var canUse = agent.adventurerInventory.CanObtainItem(item.Item1);
                 if (canUse)
                 {

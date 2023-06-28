@@ -11,7 +11,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         private EBattleAction[] GetBattleActions(AdventurerAgent agent)
         {
-            var subSystem = aSystem.system.battleSubSystem.GetSubSystem(agent);
+            var subSystem = aSystem.system.BattleSubSystem.GetSubSystem(agent);
             if (subSystem != null)
             {
                 var playerData = subSystem.PlayerFighterUnits.GetAgentPlayerData(agent.GetHashCode());

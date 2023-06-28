@@ -9,7 +9,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors.SystemSensors
     {
         private readonly AdventurerSystem _adventurerSystem;
         public override string GetName() => "AdventurerMovementSensor";
-        public AgentAdventureSensor(AdventurerAgent agent, AdventurerSystem system, BufferSensorComponent buffer) : base(agent, buffer)
+        public AgentAdventureSensor(AdventurerAgent agent, AdventurerSystem system) : base(agent, null)
         {
             _adventurerSystem = system;
         }

@@ -34,7 +34,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
 
         public override string GetName() => "ShopSensor";
 
-        public ShopInventorySensor(ShopAgent shopAgent, ShopCraftingSystem shopSubSystem, BufferSensorComponent bufferSensorComponent) : base(bufferSensorComponent)
+        public ShopInventorySensor(ShopAgent shopAgent, ShopCraftingSystem shopSubSystem, BufferSensorComponent bufferSensorComponent) : base(null)
         {
             _shopSubSystem = shopSubSystem;
             _shopAgent = shopAgent;

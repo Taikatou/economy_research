@@ -63,7 +63,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         public void StartBattle()
         {
-            Debug.Log("StartBattle");
             var fighter = _travelSubsystem.GetBattle(_environment);
 
             if (fighter && !_battleStarted)

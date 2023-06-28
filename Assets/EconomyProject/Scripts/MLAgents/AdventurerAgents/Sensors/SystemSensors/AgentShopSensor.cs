@@ -19,7 +19,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors.SystemSensors
 
         protected override int SensorCount => AdventurerShopSystem.ObservationSize;
 
-        public AgentShopSensor(AdventurerAgent agent, AdventurerShopSystem system, BufferSensorComponent buffer) : base(agent, buffer)
+        public AgentShopSensor(AdventurerAgent agent, AdventurerShopSystem system, BufferSensorComponent buffer) : base(agent, new []{buffer})
         {
             shopSystem = system;
         }

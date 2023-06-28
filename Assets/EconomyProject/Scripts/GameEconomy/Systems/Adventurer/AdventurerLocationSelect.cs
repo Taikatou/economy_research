@@ -27,7 +27,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
     
         public ObsData[] GetTravelObservations(AdventurerAgent agent, AdventurerSystem system)
         {
-            var currentParties = system.battleSubSystem.CurrentParties;
+            var currentParties = system.BattleSubSystem.CurrentParties;
             var battle = ObserveAdventurerLocation ? GetBattle(agent) : EBattleEnvironments.Forest;
             
             var obs = new List<ObsData> {

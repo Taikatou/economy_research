@@ -159,7 +159,7 @@ namespace Tests.Economy
 		public BattleSubSystemInstance<AdventurerAgent> StartBattle(EBattleEnvironments env)
 		{
 			//TODO adventurerSystem.StartBattle(adventurerAgent, env);
-			return adventurerSystem.battleSubSystem.GetSubSystem(adventurerAgent);
+			return adventurerSystem.BattleSubSystem.GetSubSystem(adventurerAgent);
 		}
 
 		/********************************************Adventurer*********************************************/

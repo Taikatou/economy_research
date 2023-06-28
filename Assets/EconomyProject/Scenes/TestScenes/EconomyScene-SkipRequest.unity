@@ -1486,6 +1486,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1445173360}
     - target: {fileID: 432687344008383920, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
+      propertyPath: numAgents
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 432687344008383920, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
       propertyPath: adventurerInput
       value: 
       objectReference: {fileID: 1426365425}
@@ -3263,6 +3267,10 @@ PrefabInstance:
       propertyPath: dataLogger
       value: 
       objectReference: {fileID: 1612661704}
+    - target: {fileID: 6537886293585817439, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
+      propertyPath: numAgents
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6537886293585817439, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
       propertyPath: adventurerInput
       value: 

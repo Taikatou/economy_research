@@ -151,24 +151,30 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             var items = GetShop(shop).GetShopItemsObs(shop);
             foreach (var item in items)
             {
-                var outputs = new float[9];
-                outputs[(int)item.Key] = 1;
-                if (item.Value != null)
+                if (item.Value.HasValue)
                 {
-                    outputs[7] = item.Value.Value.Price;
-                    outputs[7] = item.Value.Value.Item.itemDetails.damage;
-                    outputs[8] = item.Value.Value.Item.itemDetails.durability;
-                }
+                    var outputs = new float[9];
+                    outputs[(int)item.Key] = 1;
+                    if (item.Value != null)
+                    {
+                        outputs[7] = item.Value.Value.Price;
+                        outputs[7] = item.Value.Value.Item.itemDetails.damage;
+                        outputs[8] = item.Value.Value.Item.itemDetails.durability;
+                    }
                 
-                bufferSensorComponent.AppendObservation(outputs);
+                    bufferSensorComponent.AppendObservation(outputs);   
+                }
             }
         }
 
         public void GetItemSenses(BufferSensorComponent bufferSensorComponent, ShopAgent toIgnore)
         {
             foreach (var shop in _shopSystems)
-                if(shop.Key != toIgnore)
+                if (shop.Key != toIgnore)
+                {
                     UpdateShopSenses(shop.Key, bufferSensorComponent);
+                }
+                    
         }
 
         public static int WeaponList => Enum.GetValues(typeof(ECraftingChoice)).Length;

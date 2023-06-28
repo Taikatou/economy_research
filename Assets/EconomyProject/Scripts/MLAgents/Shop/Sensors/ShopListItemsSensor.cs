@@ -18,7 +18,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
 
         private readonly BufferSensorComponent _bufferSensorComponent;
     
-        public ShopListItemsSensor(ShopAgent shopAgent, ShopCraftingSystem shopSubSystem, BufferSensorComponent bufferSensorComponent) : base(bufferSensorComponent)
+        public ShopListItemsSensor(ShopAgent shopAgent, ShopCraftingSystem shopSubSystem, BufferSensorComponent bufferSensorComponent) : base(new []{bufferSensorComponent})
         {
             _shopSubSystem = shopSubSystem;
             _shopAgent = shopAgent;

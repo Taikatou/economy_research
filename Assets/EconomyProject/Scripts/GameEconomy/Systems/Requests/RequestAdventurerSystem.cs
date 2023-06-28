@@ -22,7 +22,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         {
             return true;
         }
-        public override ObsData[] GetObservations(AdventurerAgent agent, BufferSensorComponent bufferSensorComponent)
+        public override ObsData[] GetObservations(AdventurerAgent agent, BufferSensorComponent[] bufferSensorComponent)
         {
             var input = new List<ObsData>();
             
@@ -40,7 +40,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             }
             var senseA = CraftingResourceRequest.GetObservations(itemList);
             input.AddRange(senseA);
-            var senseB = requestSystem.GetObservations(agent, bufferSensorComponent);
+            var senseB = requestSystem.GetObservations(agent, null);
             input.AddRange(senseB);
             return input.ToArray();
         }

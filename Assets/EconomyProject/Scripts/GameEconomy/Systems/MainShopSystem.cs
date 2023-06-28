@@ -17,9 +17,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return true;
         }
 
-        public override ObsData[] GetObservations(ShopAgent agent, BufferSensorComponent bufferSensorComponent)
+        public override ObsData[] GetObservations(ShopAgent agent, BufferSensorComponent[] bufferSensorComponent)
         {
-            return Array.Empty<ObsData>() ;
+            return new ObsData[]
+            {
+                new CategoricalObsData<EShopScreen>(mainLocationSelect.GetMenu(agent))
+            };
         }
 
         protected override void SetChoice(ShopAgent agent, EShopAgentChoices input)

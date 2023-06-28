@@ -13,7 +13,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
         protected override int SensorCount => 4;
         public override string GetName() => "ShopCraftingSensor";
 
-        public ShopCraftingSensor(ShopAgent agent, ShopCraftingSystem system, BufferSensorComponent buffer) : base(agent, buffer)
+        public ShopCraftingSensor(ShopAgent agent, ShopCraftingSystem system, BufferSensorComponent buffer, BufferSensorComponent otherShopBuffer) : base(agent, new []{buffer, otherShopBuffer})
         {
             _shopCraftingSystem = system;
             CanViewConstant = true;

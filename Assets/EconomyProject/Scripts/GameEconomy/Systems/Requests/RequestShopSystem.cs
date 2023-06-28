@@ -36,7 +36,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                 : new CategoricalObsData<ECraftingResources>(ECraftingResources.Nothing){ Name = name };
         }
 
-        public override ObsData[] GetObservations(ShopAgent agent, BufferSensorComponent bufferSensorComponent)
+        public override ObsData[] GetObservations(ShopAgent agent, BufferSensorComponent[] bufferSensorComponent)
         {
             var item = MakeRequestGetLocation.GetItem(agent);
 
@@ -44,7 +44,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             {
                 GetItemObs(item, "resource selection"),
             };
-            GetRequestObservations(agent, bufferSensorComponent);
+            GetRequestObservations(agent, bufferSensorComponent[0]);
             return outputSenses.ToArray();
         }
         

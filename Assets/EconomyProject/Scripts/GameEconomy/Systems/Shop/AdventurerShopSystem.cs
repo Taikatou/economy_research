@@ -21,7 +21,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             return true;
         }
 
-        public override ObsData[] GetObservations(AdventurerAgent agent, BufferSensorComponent bufferSensorComponent)
+        public override ObsData[] GetObservations(AdventurerAgent agent, BufferSensorComponent[] bufferSensorComponent)
         {
             var obs = new List<ObsData>
             {
@@ -37,7 +37,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
                 }
             };
 
-            adventurerShopSubSystem.GetObservations(bufferSensorComponent);
+            adventurerShopSubSystem.GetObservations(bufferSensorComponent[0]);
             
             return obs.ToArray();
         }

@@ -21,7 +21,7 @@ namespace EconomyProject.Scripts.MLAgents.Sensors
 
         protected abstract int SensorCount { get; }
 
-        protected AgentMovementSensor(TAgent agent, BufferSensorComponent buffer) : base(buffer)
+        protected AgentMovementSensor(TAgent agent, BufferSensorComponent[] buffer) : base(buffer)
         {
             CanViewConstant = Observations.CanViewConstant;
             _agent = agent;
@@ -32,7 +32,7 @@ namespace EconomyProject.Scripts.MLAgents.Sensors
 
         protected bool ObserveObservations = false;
 
-        private float[] GetData(BufferSensorComponent buffer)
+        private float[] GetData(BufferSensorComponent[] buffer)
         {
             var obs =  EconomySystem.GetObservations(_agent, buffer);
             /*var oneHot = new float [(int)EAdventurerScreen.Adventurer];

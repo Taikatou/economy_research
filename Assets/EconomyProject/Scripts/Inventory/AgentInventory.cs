@@ -99,7 +99,6 @@ namespace EconomyProject.Scripts.Inventory
 
             if (usableItems.Count == 0)
             {
-                Debug.Log("Remove key");
                 Items.Remove(key);
             }
 

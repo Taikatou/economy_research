@@ -12,7 +12,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             return true;
         }
 
-        public override ObsData[] GetObservations(AdventurerAgent agent, BufferSensorComponent bufferSensorComponent)
+        public override ObsData[] GetObservations(AdventurerAgent agent, BufferSensorComponent[] bufferSensorComponent)
         {
             throw new System.NotImplementedException();
         }

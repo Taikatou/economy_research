@@ -295,12 +295,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         {
             if (SystemTraining.PartySize > 1)
             {
-                Debug.Log("Add group reward: " + reward);
                 battle.AgentParty.AddGroupReward(TrainingConfig.OnWinReward);   
             }
             else
             {
-                Debug.Log("Add individual reward: " + reward);
                 foreach (var agent in battle.BattleAgents)
                 {
                     agent.AddReward(reward);

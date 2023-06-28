@@ -178,7 +178,6 @@ namespace TurnBased.Scripts
 
 			if(PlayerFighterUnits.Dead)
 			{
-				Debug.Log("Player Lost");
 				_loseDelegate.Invoke(this);
 				CurrentState = EBattleState.Lost;
 				EndBattle();

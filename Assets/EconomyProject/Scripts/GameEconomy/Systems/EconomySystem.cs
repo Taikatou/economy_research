@@ -48,7 +48,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         public AgentInput<TAgent, TScreen, TInput> AgentInput { get; set; }
         public abstract TScreen ActionChoice { get; }
         public abstract bool CanMove(TAgent agent);
-        public abstract ObsData [] GetObservations(TAgent agent, BufferSensorComponent bufferSensorComponent);
+        public abstract ObsData [] GetObservations(TAgent agent, BufferSensorComponent[] bufferSensorComponent);
 
         protected EconomySystem()
         {

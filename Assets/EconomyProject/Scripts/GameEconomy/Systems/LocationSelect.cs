@@ -9,20 +9,20 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
     {
         public abstract int GetLimit(T agent);
 
-        protected Dictionary<T, int> currentLocation => _currentLocation ??= new Dictionary<T, int>();
+        protected Dictionary<T, int> CurrentLocation => _currentLocation ??= new Dictionary<T, int>();
 
         private Dictionary<T, int> _currentLocation;
 
         public virtual void Setup()
         {
-            currentLocation.Clear();
+            CurrentLocation.Clear();
         }
 
         public void RemoveAgent(T agent)
         {
-            if (currentLocation.ContainsKey(agent))
+            if (CurrentLocation.ContainsKey(agent))
             {
-                currentLocation.Remove(agent);   
+                CurrentLocation.Remove(agent);   
             }
         }
     
@@ -31,19 +31,19 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             var toReturn = 0;
             if (agent != null)
             {
-                if (!currentLocation.ContainsKey(agent))
+                if (!CurrentLocation.ContainsKey(agent))
                 {
-                    currentLocation.Add(agent, 0);
+                    CurrentLocation.Add(agent, 0);
                 }
                 else
                 {
                     var limit = GetLimit(agent);
-                    if (currentLocation[agent] >= limit && currentLocation[agent] > 0)
+                    if (CurrentLocation[agent] >= limit && CurrentLocation[agent] > 0)
                     {
-                        currentLocation[agent] = limit - 1;
+                        CurrentLocation[agent] = limit - 1;
                     }
                 }
-                toReturn = currentLocation[agent];
+                toReturn = CurrentLocation[agent];
             }
 
             return toReturn;
@@ -65,11 +65,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
             if (newPosition >= limit && CircleOption)
             {
-                currentLocation[agent] = 0;
+                CurrentLocation[agent] = 0;
             }
             else if (newPosition >= 0 && newPosition < limit)
             {
-                currentLocation[agent] = newPosition;
+                CurrentLocation[agent] = newPosition;
             }
         }
     }
