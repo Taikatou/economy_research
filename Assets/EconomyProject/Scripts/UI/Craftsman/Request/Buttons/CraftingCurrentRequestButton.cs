@@ -26,7 +26,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.Buttons
 
         public void UpdateData(ECraftingResources resource)
         {
-            UpdateData(resource);
+            _currentECraftingResource = resource;
         }
 
         public void UpdateData(ECraftingResources resource, bool correctState)

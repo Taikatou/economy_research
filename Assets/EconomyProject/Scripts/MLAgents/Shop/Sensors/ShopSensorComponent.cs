@@ -10,18 +10,17 @@ namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
     {
         public BufferSensorComponent craftingBufferComp;
         public BufferSensorComponent requestBufferComp;
-        public BufferSensorComponent shopShopComp;
+        public BufferSensorComponent ownShopBufferComp;
         public ShopAgent shopAgent;
         public override ISensor[] CreateSensors()
         {
             var shopCraftingSystem = FindObjectOfType<ShopCraftingSystemBehaviour>();
             var request = FindObjectOfType<RequestShopSystemBehaviour>();
             var locationSelect = FindObjectOfType<ShopMainLocationSelect>();
-            Debug.Log(shopShopComp.SensorName);
 
             return new ISensor[]
             {
-                new ShopCraftingSensor(shopAgent, shopCraftingSystem.system, craftingBufferComp),
+                new ShopCraftingSensor(shopAgent, shopCraftingSystem.system, craftingBufferComp, ownShopBufferComp),
                 new ShopRequestSensor(shopAgent, request.system, requestBufferComp),
                 new CraftingSensor(shopAgent, shopCraftingSystem.system.craftingSubSubSystem),
                 new ShopBaseSensor(shopAgent, locationSelect),

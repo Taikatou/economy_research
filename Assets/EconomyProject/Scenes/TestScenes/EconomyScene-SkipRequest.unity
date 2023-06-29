@@ -3269,7 +3269,7 @@ PrefabInstance:
       objectReference: {fileID: 1612661704}
     - target: {fileID: 6537886293585817439, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
       propertyPath: numAgents
-      value: 1
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6537886293585817439, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
       propertyPath: adventurerInput
