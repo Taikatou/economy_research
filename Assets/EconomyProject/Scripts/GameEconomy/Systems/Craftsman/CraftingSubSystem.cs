@@ -95,7 +95,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             {
                 var craftingInventory = shopAgent.GetComponent<CraftingInventory>();
                 var hasResources = craftingInventory.HasResources(foundChoice.resource);
-                toReturn = hasResources || TrainingConfig.IGNORE_RESOURCES;
+                toReturn = hasResources || TrainingConfig.IgnoreResources;
             }
 
             return toReturn;

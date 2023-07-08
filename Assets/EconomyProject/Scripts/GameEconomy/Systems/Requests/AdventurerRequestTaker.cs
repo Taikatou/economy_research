@@ -58,10 +58,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         public void CheckItemAdd(ECraftingResources resource, int amount, OnResources onResourceAdd=null, OnResources onResourceComplete=null)
         {
             var itemList = GetItemList();
-            foreach (var item in itemList)
-            {
-                Debug.Log(item.Resource);
-            }
 
             // Check if we have current request for this resource
             if (TrainingConfig.AdventurerNoRequestMenu && !CurrentRequestData.ContainsKey(resource))

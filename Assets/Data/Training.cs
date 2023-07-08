@@ -9,7 +9,7 @@
         public static readonly float OnSellReward = 0.2f;
 
         public static bool OnWin => true;
-        public static readonly float OnWinReward = 0.01f;
+        public static readonly float OnWinReward = 0.03f;
 
         public static bool OnLose => true;
         public static readonly float OnLoseReward = -0.01f;
@@ -42,7 +42,7 @@
 
         public static int MaxPrice => 250;
         
-        public static bool IGNORE_RESOURCES => true;
+        public static bool IgnoreResources => false;
 
         public static bool SubmitDirectToShop => true;
     }

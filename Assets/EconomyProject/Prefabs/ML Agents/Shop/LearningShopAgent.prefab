@@ -240,7 +240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SensorName: CraftingBufferComp
   m_ObservableSize: 9
-  m_MaxNumObservables: 3
+  m_MaxNumObservables: 6
 --- !u!114 &7770867615519519944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SensorName: RequestBufferComp
-  m_ObservableSize: 7
+  m_ObservableSize: 6
   m_MaxNumObservables: 4
 --- !u!114 &4374801647268451552
 MonoBehaviour:

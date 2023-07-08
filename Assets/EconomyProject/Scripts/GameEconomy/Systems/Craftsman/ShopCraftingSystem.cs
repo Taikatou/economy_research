@@ -102,8 +102,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 				}
 			}
 			
-			shopSubSubSystem.UpdateShopSenses(agent, bufferSensorComponent[0]);
-			//shopSubSubSystem.GetItemSenses(bufferSensorComponent[1], agent);
+			shopSubSubSystem.UpdateShopSenses(agent, bufferSensorComponent[1]);
+			shopSubSubSystem.GetItemSenses(bufferSensorComponent[0], agent);
 			
 			outputs.AddRange(craftingSubSubSystem.GetObservations(agent, null));
 			return outputs.ToArray();
@@ -197,9 +197,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 			var inputChoices = new List<EShopAgentChoices>
 			{
 				EShopAgentChoices.Select,
-				EShopAgentChoices.Back,
-				EShopAgentChoices.IncreasePrice,
-				EShopAgentChoices.DecreasePrice,
+				EShopAgentChoices.Back
 			};
 
 			if (CraftingLocationMap.GetCurrentLocation(agent) < CraftingLocationMap.GetLimit(agent) - 1)
@@ -210,6 +208,29 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 			{
 				inputChoices.Add(EShopAgentChoices.Down);
 			}
+
+			var choice = CraftingLocationMap.GetCraftingChoice(agent);
+			var items = shopSubSubSystem.GetShopUsableItems(agent);
+			var found = false;
+			foreach (var i in items)
+			{
+				if (i.craftChoice == choice)
+				{
+					found = true;
+					break;
+				}
+			}
+
+			if(found)
+			{
+				inputChoices.AddRange(
+					new [] {
+						EShopAgentChoices.IncreasePrice,
+						EShopAgentChoices.DecreasePrice
+					});
+			}
+			
+			
 			var outputs = EconomySystemUtils<EShopAgentChoices>.GetInputOfType(inputChoices);
 			return outputs;
 		}
