@@ -135,6 +135,14 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 		{
 			SetAction((EShopAgentChoices) action);
 		}
+		
+		public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
+		{
+			foreach (var input in GetEnabledInput())
+			{
+				actionMask.SetActionEnabled(0, input.Input, input.Enabled);   
+			}
+		}
 
 		public IEnumerable<EnabledInput> GetEnabledInput()
 		{

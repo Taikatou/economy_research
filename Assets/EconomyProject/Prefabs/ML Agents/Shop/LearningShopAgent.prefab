@@ -175,7 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   craftingBufferComp: {fileID: 8550901587663867689}
   requestBufferComp: {fileID: 7770867615519519944}
-  ownShopBufferComp: {fileID: 0}
+  ownShopBufferComp: {fileID: 4374801647268451552}
   shopAgent: {fileID: 2696612896792117499}
 --- !u!114 &2919118168214096668
 MonoBehaviour:
