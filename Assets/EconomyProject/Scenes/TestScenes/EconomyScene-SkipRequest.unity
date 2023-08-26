@@ -1466,6 +1466,30 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1361981021}
     - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
+      propertyPath: system.shopSubSubSystem.basePrices.Array.data[0].price
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
+      propertyPath: system.shopSubSubSystem.basePrices.Array.data[1].price
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
+      propertyPath: system.shopSubSubSystem.basePrices.Array.data[2].price
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
+      propertyPath: system.shopSubSubSystem.basePrices.Array.data[3].price
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
+      propertyPath: system.shopSubSubSystem.basePrices.Array.data[4].price
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
+      propertyPath: system.shopSubSubSystem.basePrices.Array.data[5].price
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 432687343617946948, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
       propertyPath: system.craftingSubSubSystem.craftingRequirement.Array.size
       value: 6
       objectReference: {fileID: 0}

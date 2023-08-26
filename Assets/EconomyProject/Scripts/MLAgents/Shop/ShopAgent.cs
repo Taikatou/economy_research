@@ -9,7 +9,6 @@ using EconomyProject.Scripts.Inventory;
 using Inventory;
 using EconomyProject.Scripts.MLAgents.Craftsman;
 using UnityEngine;
-using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;

@@ -16,10 +16,10 @@ MonoBehaviour:
   timeToCreation: 3
   resourcesRequirements:
   - type: 1
-    number: 3
-  - type: 2
-    number: 3
-  - type: 3
-    number: 3
-  - type: 4
     number: 2
+  - type: 2
+    number: 2
+  - type: 3
+    number: 2
+  - type: 4
+    number: 1

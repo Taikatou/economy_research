@@ -44,12 +44,25 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public override EnabledInput[] GetEnabledInputs(ShopAgent agent)
         {
-            var inputChoices = new []
+            var screen = mainLocationSelect.GetMenu(agent);
+
+            EShopAgentChoices[] inputChoices = null;
+            if(screen == EShopScreen.Request)
             {
-                EShopAgentChoices.Up,
-                EShopAgentChoices.Down,
-                EShopAgentChoices.Select
-            };
+                inputChoices = new[]
+                {
+                    EShopAgentChoices.Down,
+                    EShopAgentChoices.Select
+                };
+            }
+            else
+            {
+                inputChoices = new[]
+                {
+                    EShopAgentChoices.Up,
+                    EShopAgentChoices.Select
+                };
+            }
             var outputs = EconomySystemUtils<EShopAgentChoices>.GetInputOfType(inputChoices);
             return outputs;
         }

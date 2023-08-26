@@ -129,12 +129,19 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         {
             var inputChoices = new List<EShopAgentChoices>
             {
-                EShopAgentChoices.Up,
-                EShopAgentChoices.Down,
                 EShopAgentChoices.Back,
                 EShopAgentChoices.Select
             };
             var resource = MakeRequestGetLocation.GetItem(agent);
+            if (resource != ECraftingResources.Wood)
+            {
+                inputChoices.Add(EShopAgentChoices.Down);
+            }
+            if (resource != ECraftingResources.DragonScale)
+            {
+                inputChoices.Add(EShopAgentChoices.Up);
+            }
+            
             var requests = requestSystem.GetAllCraftingRequests(agent.craftingInventory);
             
             if (resource.HasValue)
