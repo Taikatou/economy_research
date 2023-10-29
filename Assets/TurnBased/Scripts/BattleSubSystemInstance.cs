@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Codice.Client.Common;
 using Data;
 using TurnBased.Scripts.AI;
 using Unity.MLAgents;
-using UnityEngine;
-using Time = UnityEngine.Time;
 
 namespace TurnBased.Scripts
 {
-	public delegate void OnWinDelegate<T>(BattleSubSystemInstance<T> battle) where T : Agent;
-
-	public delegate void OnBattleComplete<T>(BattleSubSystemInstance<T> battle) where T : Agent;
 	public enum EBattleState { Start, PlayerTurn, EnemyTurn, Won, Lost, Flee }
 	public enum EBattleAction { PrimaryAction, SecondaryAction, BonusAction }
 
@@ -71,58 +65,17 @@ namespace TurnBased.Scripts
 		}
 	}
 
-	public class BattleSubSystemInstance<T> : ILastUpdate, IUpdate where T : Agent
+	public class BattleSubSystemInstance<T> : IBattleSubSystemInstance<T>, IUpdate where T : Agent
 	{
-		public EBattleState CurrentState { get; private set; }
-		public string DialogueText { get; private set; }
-		
-		private readonly FighterDropTable _fighterDropTable;
-		private readonly OnWinDelegate<T> _winDelegate;
-		private readonly OnWinDelegate<T> _loseDelegate;
-		private readonly OnBattleComplete<T> _completeDelegate;
-
-		public readonly PlayerFighterGroup PlayerFighterUnits;
-		public readonly EnemyFighterGroup EnemyFighterUnits;
-		
-		public static int SensorCount => 8 + SensorUtils<EAdventurerTypes>.Length + (SensorUtils<EAttackOptions>.Length*3) + 
-		                                 SensorUtils<EnemyAction>.Length;
-
 		private const double FleeChance = 0.8f;
-
-		public SimpleMultiAgentGroup AgentParty { get; }
-
-		public readonly T [] BattleAgents;
 
 		private readonly EnemyAI _enemyAI;
 		
 	// @TIMER CHANGE
-		public float CurrentTimerValue { get; private set; }
 
-		private const float TurnCount = 5.0f;
-
-		public bool TurnCountDown => false;
-
-		public void Update()
-		{
-			if (CurrentState == EBattleState.PlayerTurn && TurnCountDown)
-			{
-				CurrentTimerValue -= Time.deltaTime;
-				if (CurrentTimerValue <= 0)
-				{
-					_attackValue = -1;
-					StartNextTurn();
-					Debug.Log("Turn end due to timer");
-				}	
-			}
-		}
-
-		private void ResetTimer()
-		{
-			CurrentTimerValue = TurnCount;
-		}
 	// END
 		public BattleSubSystemInstance(PlayerFighterData[] playerUnit, FighterData enemyUnit, FighterDropTable fighterDropTable,
-			OnWinDelegate<T> winDelegate, OnBattleComplete<T> completeDelegate, OnWinDelegate<T> loseDelegate, SimpleMultiAgentGroup agentParty, T [] battleAgents)
+			OnWinDelegate<T> winDelegate, OnBattleComplete<T> completeDelegate, OnWinDelegate<T> loseDelegate, SimpleMultiAgentGroup agentParty, T [] battleAgents) : base(winDelegate, completeDelegate, loseDelegate, battleAgents, fighterDropTable, agentParty)
 		{
 			CurrentState = EBattleState.Start;
 			PlayerFighterUnits = new PlayerFighterGroup(playerUnit);
@@ -133,13 +86,6 @@ namespace TurnBased.Scripts
 			CurrentState = EBattleState.PlayerTurn;
 			PlayerTurn();
 
-			_fighterDropTable = fighterDropTable;
-			_winDelegate += winDelegate;
-			_completeDelegate += completeDelegate;
-			_loseDelegate = loseDelegate;
-			AgentParty = agentParty;
-			BattleAgents = battleAgents;
-			
 			Refresh();
 		}
 
@@ -148,12 +94,10 @@ namespace TurnBased.Scripts
 			return CurrentState is EBattleState.Lost or EBattleState.Won or EBattleState.Flee;
 		}
 
-		public bool IsTurn(PlayerFighterData p)
+		public override bool IsTurn(PlayerFighterData p)
 		{
 			return CurrentState == EBattleState.PlayerTurn && PlayerFighterUnits.Instance == p;
 		}
-
-		
 
 		private void EnemyTurn()
 		{
@@ -189,7 +133,7 @@ namespace TurnBased.Scripts
 			}
 		}
 
-		public void FinishBattle()
+		public override void FinishBattle()
 		{
 			foreach (var agent in BattleAgents)
 			{
@@ -197,12 +141,13 @@ namespace TurnBased.Scripts
 			}
 		}
 
-		public void EndBattle()
+		public override void EndBattle()
 		{
 			FinishBattle();
-			_completeDelegate.Invoke(this);
+			base.EndBattle();
 			if (CurrentState == EBattleState.Won)
 			{
+				_winDelegate.Invoke(this);
 				DialogueText = "You won the battle!";
 			}
 			else if (CurrentState == EBattleState.Lost)
@@ -216,7 +161,36 @@ namespace TurnBased.Scripts
 			DialogueText = "Choose an action:";
 		}
 
-		private void StartNextTurn()
+		private void OnAttackButton(EBattleAction action)
+		{
+			if (CurrentState != EBattleState.PlayerTurn)
+				return;
+
+			var actionDelegate = PlayerFighterUnits.Instance.GetAttackAction(action);
+			if (actionDelegate.HasValue)
+			{
+				AttackValue = (int) actionDelegate.Value;
+				var del = PlayerActionMap.GetAttackDelegate[actionDelegate.Value];
+				var str = del.Invoke(EnemyFighterUnits, PlayerFighterUnits.Instance);
+				DialogueText = str;
+				
+				Refresh();
+			
+				if(EnemyFighterUnits.Instance.IsDead)
+				{
+					CurrentState = EBattleState.Won;
+					_winDelegate?.Invoke(this);
+					EndBattle();
+				}
+				else
+				{
+					StartNextTurn();
+				}
+				EnemyTurn();
+			}
+		}
+		
+		protected override void StartNextTurn()
 		{
 			do
 			{
@@ -238,35 +212,6 @@ namespace TurnBased.Scripts
 			ResetTimer();
 		}
 
-		private void OnAttackButton(EBattleAction action)
-		{
-			if (CurrentState != EBattleState.PlayerTurn)
-				return;
-
-			var actionDelegate = PlayerFighterUnits.Instance.GetAttackAction(action);
-			if (actionDelegate.HasValue)
-			{
-				_attackValue = (int) actionDelegate.Value;
-				var del = PlayerActionMap.GetAttackDelegate[actionDelegate.Value];
-				var str = del.Invoke(EnemyFighterUnits, PlayerFighterUnits.Instance);
-				DialogueText = str;
-				
-				Refresh();
-			
-				if(EnemyFighterUnits.Instance.IsDead)
-				{
-					CurrentState = EBattleState.Won;
-					_winDelegate?.Invoke(this);
-					EndBattle();
-				}
-				else
-				{
-					StartNextTurn();
-				}
-				EnemyTurn();
-			}
-		}
-
 		// out of use in multiplayer environment
 		private void OnFleeButton()
 		{
@@ -281,7 +226,7 @@ namespace TurnBased.Scripts
 			}
 		}
 
-		public void SetInput(EBattleAction action, int hashCode)
+		public override void SetInput(EBattleAction action, int hashCode)
 		{
 			if (IsTurn(hashCode))
 			{
@@ -294,17 +239,7 @@ namespace TurnBased.Scripts
 			return PlayerFighterUnits.Instance.HashCode == hashTurn;
 		}
 
-		public CraftingDropReturn GetCraftingDropItem()
-		{
-			return _fighterDropTable.GenerateItems();
-		}
-
-		public float GetExp()
-		{
-			return _fighterDropTable.Exp;
-		}
-
-		public ObsData[] GetSubsystemObservations(float inputLocation, int hashCode)
+		public override ObsData[] GetSubsystemObservations(float inputLocation, int hashCode)
 		{
 			var index = 0;
 			var player = PlayerFighterUnits.GetAgentPlayerData(hashCode);
@@ -329,13 +264,11 @@ namespace TurnBased.Scripts
 				new CategoricalObsData<EAttackOptions>(bonsAction),
 				new CategoricalObsData<EnemyAction>(_enemyAI.PreviousAction),
 				new SingleObsData{data=CurrentTimerValue / TurnCount, Name="EnemyFighterUnit.turnTimer"},
-				new SingleObsData{data=_attackValue, Name="Attack Option"}
+				new SingleObsData{data=AttackValue, Name="Attack Option"}
 			};
-			_attackValue = 0;
+			AttackValue = 0;
 			return obs;
 		}
-
-		private int _attackValue = 0;
 
 		private readonly Dictionary<string, int> _unitOneHotEncode = new()
 		{
@@ -348,19 +281,5 @@ namespace TurnBased.Scripts
 			{"Owl", 6},
 			{"Snake", 7}
 		};
-
-		public void AddReward(float reward)
-		{
-			foreach (var agent in BattleAgents)
-			{
-				agent.AddReward(reward);
-			}
-		}
-
-		public DateTime LastUpdated { get; private set; }
-		public void Refresh()
-		{
-			LastUpdated = DateTime.Now;
-		}
 	}
 }
