@@ -227,14 +227,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         public void RemoveAgentFromParty(AdventurerAgent agent)
         {
-            var subsystem = GetSubsystem(agent);
+            var subsystem = GetAgentParty(agent);
             if (subsystem != null)
             {
                 subsystem.RemoveAgent(agent);
             }
         }
 
-        public PartySubSystem<AdventurerAgent> GetSubsystem(AdventurerAgent agent)
+        public PartySubSystem<AdventurerAgent> GetAgentParty(AdventurerAgent agent)
         {
             if (agent != null)
             {
@@ -259,7 +259,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             return null;
         }
 
-        private void OnComplete(BattleSubSystemInstance<AdventurerAgent> systemInstance)
+        private void OnComplete(IBattleSubSystemInstance<AdventurerAgent> systemInstance)
         {
             foreach (var agent in systemInstance.BattleAgents)
             {
@@ -275,7 +275,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             }
         }
 
-        private static void OnLose(BattleSubSystemInstance<AdventurerAgent> battle)
+        private static void OnLose(IBattleSubSystemInstance<AdventurerAgent> battle)
         {
             if (TrainingConfig.OnLose)
             {
@@ -291,7 +291,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             }
         }
 
-        private static void AddTeamReward(BattleSubSystemInstance<AdventurerAgent> battle, float reward)
+        private static void AddTeamReward(IBattleSubSystemInstance<AdventurerAgent> battle, float reward)
         {
             if (SystemTraining.PartySize > 1)
             {
@@ -306,7 +306,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             }
         }
 
-        private static void OnWin(BattleSubSystemInstance<AdventurerAgent> battle)
+        private static void OnWin(IBattleSubSystemInstance<AdventurerAgent> battle)
         {
             void OnItemAdd()
             {

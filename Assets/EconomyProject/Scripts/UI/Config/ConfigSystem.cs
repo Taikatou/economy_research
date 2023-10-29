@@ -20,8 +20,8 @@ namespace EconomyProject.Scripts
 		public ShopCraftingSystemBehaviour shopCraftingSystemBehaviour;
 		protected ShopCraftingSystem shopCraftingSystem;
 		protected AgentShopSubSystem agentShopSubSystem;
-		protected GetCurrentShopAgent getCurrentShopAgent;
-		protected GetCurrentAdventurerAgent getCurrentAdventurerAgent;
+		public GetCurrentShopAgent getCurrentShopAgent;
+		public GetCurrentAdventurerAgent getCurrentAdventurerAgent;
 		public SystemSpawner adventurerSpawner;
 		public SystemSpawner shopSpawner;
 		public Transform listAdventurerAgents;
@@ -46,9 +46,6 @@ namespace EconomyProject.Scripts
 				shopCraftingSystem = shopCraftingSystemBehaviour.system;
 				agentShopSubSystem = shopCraftingSystem.shopSubSubSystem;	
 			}
-
-			getCurrentShopAgent = FindObjectOfType<GetCurrentShopAgent>();
-			getCurrentAdventurerAgent = FindObjectOfType<GetCurrentAdventurerAgent>();
 
 			if (!showConfig)
 			{

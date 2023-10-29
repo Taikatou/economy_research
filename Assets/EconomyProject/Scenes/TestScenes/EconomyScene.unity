@@ -338,27 +338,27 @@ PrefabInstance:
       objectReference: {fileID: 473122264}
     - target: {fileID: 31325030924436079, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 31325030924436079, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -17
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 31325030972046747, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 31325030972046747, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 31325030972046747, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -17
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 31325030972046747, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -17
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 31325031451023568, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: requestSystem
@@ -366,27 +366,27 @@ PrefabInstance:
       objectReference: {fileID: 1430326707}
     - target: {fileID: 31325031607189772, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 31325031607189772, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 31325031938821056, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 31325031938821056, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 31325032494151707, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 31325032494151707, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -17
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1140675890918039831, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: agentParent
@@ -486,7 +486,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2011312968382217253, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2011312968382217257, guid: 7984588dcb920ef4d82ce338990a333a, type: 3}
       propertyPath: coreGameSystem
@@ -984,6 +984,7 @@ MonoBehaviour:
   configSystem: {fileID: 1153069262}
   UIBlocker: {fileID: 2077745776}
   ConfigUI: {fileID: 1981813375}
+  shopInput: {fileID: 0}
 --- !u!114 &394064043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1459,6 +1460,10 @@ PrefabInstance:
       propertyPath: system.mainLocationSelect
       value: 
       objectReference: {fileID: 1445173360}
+    - target: {fileID: 432687344008383920, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
+      propertyPath: numAgents
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 432687344008383920, guid: 6bf88d751f8c06d46a6ae748d77326d1, type: 3}
       propertyPath: numLearningAgents
       value: 1
@@ -3206,6 +3211,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1612661704}
     - target: {fileID: 6537886293585817439, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
+      propertyPath: numAgents
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6537886293585817439, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
       propertyPath: adventurerInput
       value: 
       objectReference: {fileID: 1426365425}
@@ -3266,6 +3275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dce07babdfa69a4a971adee7609aec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Initialized: 0
 --- !u!114 &1781114771 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1781114772, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
@@ -3553,7 +3563,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8559902237832678563, guid: 644a22fc169f4b544bc97513c5d92ad4, type: 3}
       propertyPath: showConfig
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8559902237832678563, guid: 644a22fc169f4b544bc97513c5d92ad4, type: 3}
       propertyPath: shopSpawner
@@ -3572,6 +3582,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1343938954}
     - target: {fileID: 8559902237832678563, guid: 644a22fc169f4b544bc97513c5d92ad4, type: 3}
+      propertyPath: getCurrentShopAgent
+      value: 
+      objectReference: {fileID: 1754627098}
+    - target: {fileID: 8559902237832678563, guid: 644a22fc169f4b544bc97513c5d92ad4, type: 3}
       propertyPath: listAdventurerAgents
       value: 
       objectReference: {fileID: 47698758}
@@ -3579,6 +3593,10 @@ PrefabInstance:
       propertyPath: adventurerAgentDropDown
       value: 
       objectReference: {fileID: 729098965}
+    - target: {fileID: 8559902237832678563, guid: 644a22fc169f4b544bc97513c5d92ad4, type: 3}
+      propertyPath: getCurrentAdventurerAgent
+      value: 
+      objectReference: {fileID: 275464626}
     - target: {fileID: 8559902237832678563, guid: 644a22fc169f4b544bc97513c5d92ad4, type: 3}
       propertyPath: requestShopSystemBehaviour
       value: 
