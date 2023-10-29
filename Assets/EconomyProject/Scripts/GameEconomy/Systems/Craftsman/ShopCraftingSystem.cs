@@ -169,7 +169,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         public void Select(ShopAgent agent)
         {
 	        var resource = CraftingLocationMap.GetCraftingChoice(agent);
-	        craftingSubSubSystem.MakeRequest(agent, resource);
+	        craftingSubSubSystem.MakeCraftRequest(agent, resource);
         }
 
         public int GetIndexInShopList(ShopAgent shopAgent, UsableItem item)

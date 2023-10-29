@@ -8,9 +8,10 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
 {
     public class AdventurerSensorComponent : SensorComponent
     {
-        public BufferSensorComponent requestTakenBufferComponent;
         public BufferSensorComponent requestAvailableBufferComponent;
         public BufferSensorComponent agentShopBufferComponent;
+        
+        public BufferSensorComponent availableRequestsBufferComponent;
         
         public AdventurerAgent agent;
         public override ISensor[] CreateSensors()
@@ -37,10 +38,9 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
                 var sensors = new List<ISensor> { 
                     new AdventurerBaseSensor(agent),
                     new AdventurerInventorySensor(agent), 
-                    new RequestTakerSensor(requestAvailableBufferComponent, requestTakenBufferComponent, 
-                        agent.requestTaker),
+                    new RequestTakerSensor(requestAvailableBufferComponent, agent.requestTaker),
                     new AgentAdventureSensor(agent, behave.system),
-                    new AgentRequestSensor(agent, request.system),
+                    new AgentRequestSensor(agent, request.system, availableRequestsBufferComponent),
                     new AgentShopSensor(agent, shop.system, agentShopBufferComponent),
                     new AgentMenuSensor(agent, main.system)
                 };

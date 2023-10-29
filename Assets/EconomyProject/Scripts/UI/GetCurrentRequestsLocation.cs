@@ -1,3 +1,4 @@
+using System.Linq;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests.ShopLocationMaps;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
@@ -23,7 +24,7 @@ namespace EconomyProject.Scripts.UI
             var index = GetCurrentLocation(agent);
             if (index < items.Count && index >= 0)
             {
-                toReturn = items[index].Resource;
+                toReturn = items.Values.ToList()[index].Resource;
             }
             return toReturn;
         }

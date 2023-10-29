@@ -22,12 +22,10 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
 
         private int SensorCount => 0;
 
-        public RequestTakerSensor(BufferSensorComponent requestBufferComponent, 
-            BufferSensorComponent requestTakenBufferComponent, AdventurerRequestTaker requestTaker) : base(null)
+        public RequestTakerSensor(BufferSensorComponent requestBufferComponent, AdventurerRequestTaker requestTaker) : base(null)
         {
             _requestTaker = requestTaker;
             _requestAvailableBufferComponent = requestBufferComponent;
-            _requestTakenBufferComponent = requestTakenBufferComponent;
 
             Data = new float[SensorCount];
             MObservationSpec = ObservationSpec.Vector(SensorCount);
@@ -35,19 +33,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
         
         public override void Update()
         {
-            // Player Observations
-            var requests = _requestTaker.requestSystem.craftingRequestRecord.GetCurrentRequests(_requestTaker);
-            foreach (var request in requests)
-            {
-                var obs = new float[CraftingResourceList + 2];
-                obs[(int)request.Resource - 1] = 1;
-                obs[CraftingResourceList] = request.Number;
-
-                var amount = _requestTaker.GetCurrentStock(request.Resource);
-                obs[CraftingResourceList + 1] = amount;
-                
-                _requestTakenBufferComponent.AppendObservation(obs);
-            }
+            // observe current requests
 
             _requestTaker.GetCurrentRequestData(_requestAvailableBufferComponent);
         }

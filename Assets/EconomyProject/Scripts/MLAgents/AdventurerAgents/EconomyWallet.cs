@@ -64,11 +64,11 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 	        {
 		        return;
 	        }
-			if (!requestSystem.StartMoney.ContainsKey(agentType))
+			if (!RequestSystem.StartMoney.ContainsKey(agentType))
 			{
 				throw new Exception();
 			}
-			startMoney = requestSystem.StartMoney[agentType];
+			startMoney = RequestSystem.StartMoney[agentType];
 			Money = startMoney;
         }
     }

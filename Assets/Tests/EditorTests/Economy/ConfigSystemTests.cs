@@ -124,7 +124,7 @@ namespace Tests.Economy
 		[Test]
 		public void Config_SetStartMoneyAgents()
 		{
-			Dictionary<AgentType, int> defaultStartMoney = requestShopSystemBehaviour.system.requestSystem.StartMoney;
+			Dictionary<AgentType, int> defaultStartMoney = RequestSystem.StartMoney;
 			Dictionary<AgentType, int> newStartMoney = new Dictionary<AgentType, int>();
 
 			foreach (var item in defaultStartMoney)
@@ -134,7 +134,7 @@ namespace Tests.Economy
 
 			configSystem.SetStartMoneyAgents(newStartMoney);
 
-			Assert.AreEqual(requestShopSystemBehaviour.system.requestSystem.StartMoney, newStartMoney);
+			Assert.AreEqual(RequestSystem.StartMoney, newStartMoney);
 			Assert.AreNotEqual(defaultStartMoney, newStartMoney);
 		}
 

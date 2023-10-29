@@ -105,10 +105,20 @@ namespace EconomyProject.Scripts.MLAgents.Shop
             ResetOnItem.bSetupSystems = true;
         }
 
+        public ShopHeuristic shopHeuristic;
+        public bool controlWithHeuristic;
+
         public override void Heuristic(in ActionBuffers actionsOut)
         {
-	        var actionB = actionsOut.DiscreteActions;
-	        actionB[0] = (int) EShopAgentChoices.None;
+	        if (controlWithHeuristic)
+	        {
+		        shopHeuristic.Heuristic(shopInput.requestSystem.system.requestSystem, shopInput.shopCraftingSystem.system, this);
+	        }
+	        else
+	        {
+		        var actionB = actionsOut.DiscreteActions;
+		        actionB[0] = (int)EShopAgentChoices.None;
+	        }
         }
 
         public override void OnActionReceived(ActionBuffers actions)

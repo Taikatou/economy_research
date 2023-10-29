@@ -73,7 +73,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             }
         }
 
-        public void MakeRequest(ShopAgent shopAgent, ECraftingChoice input)
+        public void MakeCraftRequest(ShopAgent shopAgent, ECraftingChoice input)
         {
             var foundChoice = GetMap(input);
             if (CanCraft(shopAgent, input))

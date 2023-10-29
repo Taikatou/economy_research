@@ -99,6 +99,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                 {
                     requestRecord.CompleteRequest(this, CurrentRequestData[resource].Request);
                     CurrentRequestData.Remove(resource);
+                    Debug.Log("Request Completed");
                     onResourceComplete?.Invoke();
                 }
                 else
@@ -124,7 +125,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             var resources = CraftingUtils.GetCraftingResources();
             foreach (var r in resources)
             {
-                if (r != ECraftingResources.Nothing)
+                if (r != ECraftingResources.Nothing && CurrentRequestData != null)
                 {
                     if (CurrentRequestData.ContainsKey(r))
                     {

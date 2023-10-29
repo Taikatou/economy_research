@@ -19,7 +19,7 @@ namespace EconomyProject.Scripts.UI.Config
 			var requestSystem = FindObjectOfType<RequestSystem>();
 			if (requestSystem != null)
 			{
-				_items = requestSystem.StartMoney;
+				_items = RequestSystem.StartMoney;
 				nbrAgents.Add(AgentType.Adventurer, adventurerSpawner.numLearningAgents);
 				nbrAgents.Add(AgentType.Shop, shopSpawner.numLearningAgents);	
 			}

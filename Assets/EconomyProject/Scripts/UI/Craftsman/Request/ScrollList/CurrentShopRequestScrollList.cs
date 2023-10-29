@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.MLAgents.Shop;
@@ -22,7 +23,7 @@ namespace EconomyProject.Scripts.UI.Craftsman.Request.ScrollList
 
             var inventory = getCurrentAgent.CurrentAgent.craftingInventory;
             var items = requestSystem.GetAllCraftingRequests(inventory);
-            return items;
+            return items.Values.ToList();
         }
         
         protected override void Update()

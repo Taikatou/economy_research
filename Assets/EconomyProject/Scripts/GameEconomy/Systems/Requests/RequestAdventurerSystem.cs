@@ -15,34 +15,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         public RequestSystem requestSystem;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Request;
 
-        public static int ObservationSize =>
-            CraftingResourceRequest.SensorCount + CraftingResourceRequest.SensorCount + 32;
-        
         public override bool CanMove(AdventurerAgent agent)
         {
             return true;
         }
         public override ObsData[] GetObservations(AdventurerAgent agent, BufferSensorComponent[] bufferSensorComponent)
         {
-            var input = new List<ObsData>();
-            
-            var itemList = new Dictionary<ECraftingResources, CraftingResourceRequest>
-            {
-                {ECraftingResources.Gem, null},
-                {ECraftingResources.Metal, null},
-                {ECraftingResources.Wood, null},
-                {ECraftingResources.DragonScale, null},
-            };
-            // todo use buffer
-            foreach (var i in agent.requestTaker.GetItemList())
-            {
-                itemList[i.Resource] = i;
-            }
-            var senseA = CraftingResourceRequest.GetObservations(itemList);
-            input.AddRange(senseA);
-            var senseB = requestSystem.GetObservations(agent, null);
-            input.AddRange(senseB);
-            return input.ToArray();
+            requestSystem.GetObservations(bufferSensorComponent[0]);
+            return Array.Empty<ObsData>();
         }
 
         protected override void SetChoice(AdventurerAgent agent, EAdventurerAgentChoices input)

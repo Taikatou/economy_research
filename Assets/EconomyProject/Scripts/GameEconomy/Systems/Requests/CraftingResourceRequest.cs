@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Data;
 using EconomyProject.Scripts.MLAgents.Craftsman;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
+using Unity.MLAgents.Sensors;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
@@ -46,44 +47,51 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                 Inventory.AddResource(Resource, Number);
             }
         }
-
-        public static ObsData[] GetObservations(Dictionary<ECraftingResources, CraftingResourceRequest> craftingRequests)
+        
+        public static void GetObservations(Dictionary<ECraftingResources, List<CraftingResourceRequest>> craftingRequests, BufferSensorComponent requestBuffer)
         {
-            var output = new ObsData[SensorCount];
+            foreach (var item in craftingRequests)
+            {
+                foreach (var resource in item.Value)
+                {
+                    var output = new ObsData[3];
+                    ObserveData(resource, output);
+                    requestBuffer.AppendObservation(ObsData.GetEnumerableData(output));
+                }
+            }
+        }
+
+        private static void ObserveData(CraftingResourceRequest value, ObsData[] output)
+        {
+            var resource = value?.Resource ?? ECraftingResources.Nothing;
+            var price = value?.Price ?? 0;
+            var number = value?.Number ?? 0;
+            output[0] = new CategoricalObsData<ECraftingResources>(resource)
+            {
+                Name="resource",
+            };
+            output[1] = new SingleObsData
+            {
+                data=price,
+                Name="itemPrice"
+            };
+            output[2] = new SingleObsData
+            {
+                data=number / 10,
+                Name="itemNumber"
+            };
+            
+        }
+
+        public static void GetObservations(Dictionary<ECraftingResources, CraftingResourceRequest> craftingRequests, BufferSensorComponent requestBuffer)
+        {
             var counter = 0;
             foreach (var item in craftingRequests)
             {
-                var resource = item.Value?.Resource ?? ECraftingResources.Nothing;
-                var price = item.Value?.Price ?? 0;
-                var number = item.Value?.Number ?? 0;
-                output[counter++] = new CategoricalObsData<ECraftingResources>(resource)
-                {
-                    Name="resource",
-                };
-                output[counter++] = new SingleObsData
-                {
-                    data=price,
-                    Name="itemPrice"
-                };
-                output[counter++] = new SingleObsData
-                {
-                    data=number / 10,
-                    Name="itemNumber"
-                };
-                if (counter >= SensorCount)
-                {
-                    break;
-                }
+                var output = new ObsData[3];
+                ObserveData(item.Value, output);
+                requestBuffer.AppendObservation(ObsData.GetEnumerableData(output));
             }
-
-            while(counter < SensorCount)
-            {
-                output[counter++] = new SingleObsData { Name="resource"};
-                output[counter++] = new SingleObsData { Name="itemPrice"};
-                output[counter++] = new SingleObsData { Name="itemNumber"};
-            }
-
-            return output;
         }
 
         private static int ItemCount => Enum.GetValues(typeof(ECraftingResources)).Length;

@@ -33,7 +33,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 new CategoricalObsData<EBattleEnvironments>(environment.HasValue?environment.Value : EBattleEnvironments.Forest)
             };
 
-            var currentParties = adventurerSystem.system.BattleSubSystem.GetSubsystem(agent);
+            var currentParties = adventurerSystem.system.BattleSubSystem.GetAgentParty(agent);
             if(currentParties != null)
                 obs.AddRange(currentParties.GetObservations());
 

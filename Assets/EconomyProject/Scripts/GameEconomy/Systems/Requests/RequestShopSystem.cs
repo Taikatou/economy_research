@@ -54,11 +54,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         
         public void GetRequestObservations(ShopAgent agent, BufferSensorComponent bufferSensorComponent)
         {
-            var inventory = agent.craftingInventory;
-            var items = requestSystem.GetAllCraftingRequests(inventory);
+            var items = requestSystem.GetAllCraftingRequests(agent.craftingInventory);
 
-            
-            foreach (var request in items)
+            foreach (var request in items.Values)
             {
                 var outputs = new List<float>();
                 var r = new float[_craftingLength];
@@ -147,7 +145,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             if (resource.HasValue)
             {
                 var foundRequest = false;
-                foreach (var req in requests)
+                foreach (var req in requests.Values)
                 {
                     if (req.Resource == resource.Value)
                     {
