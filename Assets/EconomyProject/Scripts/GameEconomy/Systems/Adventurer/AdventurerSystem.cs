@@ -18,11 +18,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
     [Serializable]
     public class AdventurerSystem : EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>, ISetup
     {
-        public BattleSubSystem battleSubSystem;
+        public BattleSubSystem<AdventurerAgent> battleSubSystem;
 
         public Dictionary<AdventurerAgent, EAdventureStates> AdventureStates;
 
-        public static int ObservationSize => TrainingConfig.SimpleAdventurerSystem? 8 : 75;
+        public static int ObservationSize => 75;
         public override EAdventurerScreen ActionChoice => TrainingConfig.StartScreen;
 
         public AdventurerLocationSelect locationSelect;
@@ -35,7 +35,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public void Start()
         {
-            battleSubSystem = new BattleSubSystem(travelSubsystem, SetAdventureState, dataLogger);
+            battleSubSystem = new BattleSubSystem<AdventurerAgent>(travelSubsystem, SetAdventureState, dataLogger);
             AdventureStates = new Dictionary<AdventurerAgent, EAdventureStates>();
         }
 
@@ -80,12 +80,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public override ObsData[] GetObservations(AdventurerAgent agent, BufferSensorComponent[] bufferSensorComponent)
         {
-            if (TrainingConfig.SimpleAdventurerSystem)
-            {
-                var obsData = locationSelect.GetTravelObservations(agent, this);
-                return obsData;
-            }
-            
             ObsData[] GetSubsystemData()
             {
                 ObsData[] toReturn;
@@ -227,21 +221,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                     battleSubSystem.SelectBattle(agent, action);
                     break;
                 case EAdventureStates.OutOfBattle:
-                    if (!TrainingConfig.SimpleAdventurerSystem)
-                    {
-                        var location = locationSelect.GetBattle(agent);
-                        battleSubSystem.StartBattle(agent, location);
-                    }
-                    else
-                    {
-                        var location = locationSelect.GetBattle(agent);
-                        var getLootBox = travelSubsystem.GetLootBox(location);
-                        if (getLootBox.HasValue)
-                        {
-                            var craftingInventory = agent.GetComponent<AdventurerRequestTaker>();
-                            craftingInventory.CheckItemAdd(agent, getLootBox.Value.Resource, getLootBox.Value.Count, battleSubSystem.OnItemAdd, battleSubSystem.OnRequestComplete);  
-                        }
-                    }
+                    var location = locationSelect.GetBattle(agent);
+                    battleSubSystem.StartBattle(agent, location);
                     break;
                 case EAdventureStates.ConfirmBattle:
                     var confirm = confirmLocationSelect.GetConfirmation(agent);
@@ -256,28 +237,30 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public void UpDown(AdventurerAgent agent, int movement)
         {
-            LocationSelect<AdventurerAgent> location = null;
             switch (GetAdventureStates(agent))
             {
                 case EAdventureStates.InBattle:
-                    location = battleLocationSelect;
+                    var location = battleLocationSelect;
+                    location?.MovePosition(agent, movement);
                     break;
                 case EAdventureStates.InQueue:
-                    location = battleLocationSelect;
+                    var locationB = battleLocationSelect;
+                    locationB?.MovePosition(agent, movement);
                     break;
                 case EAdventureStates.OutOfBattle:
-                    location = locationSelect;
+                    var locationC = locationSelect;
+                    locationC?.MovePosition(agent, movement);
                     break;
                 case EAdventureStates.ConfirmBattle:
-                    location = confirmLocationSelect;
+                    var locationD = confirmLocationSelect;
+                    locationD?.MovePosition(agent, movement);
                     break;
                 case EAdventureStates.ConfirmAbilities:
-                    location = confirmAbilitiesSelect;
+                    var locationE = confirmAbilitiesSelect;
+                    locationE?.MovePosition(agent, movement);
                     break;
 
             }
-            if(location != null)
-                location.MovePosition(agent, movement);
         }
 
         public int GetBattleCount()

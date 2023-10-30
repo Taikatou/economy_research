@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Data;
 using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.Experiments;
 using EconomyProject.Scripts.GameEconomy;
-using EconomyProject.Scripts.GameEconomy.ConfigurationSystem;
 using EconomyProject.Scripts.GameEconomy.DataLoggers;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.Inventory;
@@ -12,11 +10,18 @@ using UnityEngine;
 using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes;
 using Inventory;
+using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 {
-	public class AdventurerAgent : AgentScreen<EAdventurerScreen>, IEconomyAgent
+	public interface IAdventurerAgent
+	{
+		public AdventurerAgentBattleData LevelComponent { get; }
+		public EAdventurerTypes AdventurerType { get; }
+		public EconomyWallet Wallet { get; }
+	}
+	public class AdventurerAgent : AgentScreen<EAdventurerScreen>, IEconomyAgent, IAdventurerAgent
 	{
 		public AgentInventory inventory;
         public AdventurerInventory adventurerInventory;
@@ -24,9 +29,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         public AdventurerInput adventurerInput;
         public AdventurerRequestTaker requestTaker;
         public AdventurerFighterData fighterData;
-
-        private IEconomyAgent _economyAgentImplementation;
-
+        public EconomyWallet Wallet => wallet;
         public override AgentType agentType => AgentType.Adventurer;
 
         public AdventurerAgentBattleData levelComponent;
@@ -153,5 +156,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         private EAdventurerAgentChoices _choosenAction;
 
         private static int MaxLevel => 5;
+        public AdventurerAgentBattleData LevelComponent => levelComponent;
 	}
 }

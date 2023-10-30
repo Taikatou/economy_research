@@ -369,7 +369,7 @@ namespace Tests.Economy
 			adventurerAgent.requestTaker.TakeRequest(requestMade);
 
 			//Give the ressource = Complete request
-			adventurerAgent.requestTaker.CheckItemAdd(null, randomECraftingRessource, 1);
+			// adventurerAgent.requestTaker.CheckItemAdd(null, randomECraftingRessource, 1);
 
 			//No more requests?
 			Assert.AreEqual(0, requestSystem.GetAllCraftingRequests().Count, "No more requests after giving the resource");

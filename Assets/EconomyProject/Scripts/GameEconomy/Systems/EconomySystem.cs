@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Data;
+using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
@@ -41,7 +42,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         }
     }
 
-    public abstract class EconomySystem<TAgent, TScreen, TInput> where TAgent : AgentScreen<TScreen> where TScreen : Enum where TInput : Enum
+    public abstract class BaseEconomySystem<TAgent> where TAgent : Agent
+    {
+        
+    }
+    
+
+    public abstract class EconomySystem<TAgent, TScreen, TInput> : BaseEconomySystem<TAgent> where TAgent : AgentScreen<TScreen> where TScreen : Enum where TInput : Enum
     {
         public GetAgents agents;
         private readonly Dictionary<TAgent, DateTime> _refreshTime;

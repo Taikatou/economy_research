@@ -12,24 +12,24 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 {
-    public delegate void CancelAgent(AdventurerAgent agent);
-    public delegate void SetupNewBattle(AdventurerAgent[] agent, FighterObject enemyFighter, SimpleMultiAgentGroup party, Dictionary<AdventurerAgent, HashSet<EAttackOptions>> selectedOptions);
+    public delegate void CancelAgent<T>(T agent) where T : Agent;
+    public delegate void SetupNewBattle<T>(T[] agent, FighterObject enemyFighter, SimpleMultiAgentGroup party, Dictionary<T, HashSet<EAttackOptions>> selectedOptions) where T : Agent;
 
     [Serializable]
-    public class BattlePartySubsystem : PartySubSystem<AdventurerAgent>, IUpdate
+    public class BattlePartySubsystem<T> : PartySubSystem<T>, IUpdate where T : Agent, IAdventurerAgent
     {
         public int countDown = 10;
-        public SetupNewBattle SetupNewBattle;
-        public SetupNewBattle AskConfirmation;
-        public SetupNewBattle AskConfirmAbilities;
-        public CancelAgent CancelAgent;
+        public SetupNewBattle<T> SetupNewBattle;
+        public SetupNewBattle<T> AskConfirmation;
+        public SetupNewBattle<T> AskConfirmAbilities;
+        public CancelAgent<T> CancelAgent;
         
-        public ConfirmAbilities ConfirmAbilities { get; private set; }
+        public ConfirmAbilities<T> ConfirmAbilities { get; private set; }
 
         private TravelSubSystem _travelSubsystem;
         private EBattleEnvironments _environment;
         private SimpleMultiAgentGroup _agentGroup;
-        private HashSet<AdventurerAgent> _confirmedAgents;
+        private HashSet<Agent> _confirmedAgents;
 
         private float Timer { get; set; }
         private bool _timerActive = false;
@@ -44,7 +44,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             _environment = environment;
             _travelSubsystem = travelSubsystem;
             _dataLogger = dataLogger;
-            ConfirmAbilities = new ConfirmAbilities();
+            ConfirmAbilities = new ConfirmAbilities<T>();
         }
 
         private void ResetTimer(int counter)
@@ -56,7 +56,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         public override void CompleteParty(SimpleMultiAgentGroup agentGroup)
         {
             _agentGroup = agentGroup;
-            _confirmedAgents = new HashSet<AdventurerAgent>();
+            _confirmedAgents = new HashSet<Agent>();
             ResetTimer(countDown);
             AskConfirmation.Invoke(PendingAgents.ToArray(), null, agentGroup, ConfirmAbilities.SelectedAttacks);
         }
@@ -75,7 +75,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                     {
                         ConfigurationID = RandomConfigurationSystem.Guid.ToString(),
                         BattleEnvironments = _environment,
-                        Level = agent.levelComponent.Level,
+                        Level = agent.LevelComponent.Level,
                         AdventurerTypes = agent.AdventurerType,
                         ID = _battleID,
                         AverageStepCount = agent.StepCount
@@ -88,7 +88,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             base.CompleteParty(_agentGroup);
         }
 
-        public void Confirmation(EConfirmBattle confirmation, AdventurerAgent agent)
+        public void Confirmation(EConfirmBattle confirmation, Agent agent)
         {
             if (confirmation == EConfirmBattle.Confirm)
             {

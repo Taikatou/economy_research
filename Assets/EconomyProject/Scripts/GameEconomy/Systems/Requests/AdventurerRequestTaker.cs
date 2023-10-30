@@ -4,6 +4,7 @@ using System.Linq;
 using Data;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
+using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 using UnityEngine.iOS;
@@ -23,7 +24,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         public bool Complete => Request.Number <= CurrentAmount;
     }
     
-    public delegate void OnResources(AdventurerAgent agent);
+    public delegate void OnResources<T>(T agent) where T : Agent;
     
     public class AdventurerRequestTaker : RequestTaker
     {
@@ -55,7 +56,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             wallet.EarnMoney(reward, true);
         }
 
-        public void CheckItemAdd(AdventurerAgent agent, ECraftingResources resource, int amount, OnResources onResourceAdd=null, OnResources onResourceComplete=null)
+        public void CheckItemAdd<T>(T agent, ECraftingResources resource, int amount, OnResources<T> onResourceAdd=null, OnResources<T> onResourceComplete=null) where T : Agent
         {
             var itemList = GetItemList();
 

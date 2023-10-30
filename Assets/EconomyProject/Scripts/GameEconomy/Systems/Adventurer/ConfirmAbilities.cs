@@ -2,31 +2,32 @@ using System.Collections.Generic;
 using Data;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using TurnBased.Scripts.AI;
+using Unity.MLAgents;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 {
-    public class ConfirmAbilities
+    public class ConfirmAbilities <T> where T : Agent, IAdventurerAgent
     {
         private const int AbilitiesCount = 3;
-        public readonly Dictionary<AdventurerAgent, HashSet<EAttackOptions>> SelectedAttacks;
+        public readonly Dictionary<T, HashSet<EAttackOptions>> SelectedAttacks;
         public bool Confirm { get; set; }
         public ConfirmAbilities()
         {
-            SelectedAttacks = new Dictionary<AdventurerAgent, HashSet<EAttackOptions>>();
+            SelectedAttacks = new Dictionary<T, HashSet<EAttackOptions>>();
         }
         public void StartConfirm()
         {
             Confirm = true;
         }
 
-        public void ConfirmAbility(AdventurerAgent agent, EAttackOptions option)
+        public void ConfirmAbility(T agent, EAttackOptions option)
         {
             if (!SelectedAttacks.ContainsKey(agent))
             {
                 SelectedAttacks.Add(agent, new HashSet<EAttackOptions>());
             }
             
-            var abilities = PlayerActionMap.GetAbilities(agent.AdventurerType, agent.levelComponent.Level);
+            var abilities = PlayerActionMap.GetAbilities(agent.AdventurerType, agent.LevelComponent.Level);
             if (abilities.Contains(option))
             {
                 if (!SelectedAttacks[agent].Contains(option) && SelectedAttacks[agent].Count < AbilitiesCount)
@@ -42,7 +43,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             foreach(var pair in SelectedAttacks)
             {
                 var abilities = pair.Value;
-                var possibleAbilities = PlayerActionMap.GetAbilities(pair.Key.AdventurerType, pair.Key.levelComponent.Level);
+                var possibleAbilities = PlayerActionMap.GetAbilities(pair.Key.AdventurerType, pair.Key.LevelComponent.Level);
                 if (abilities.Count == AbilitiesCount || abilities.Count == possibleAbilities.Count)
                 {
                     counter++;
@@ -52,7 +53,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             return counter == partySize;
         }
 
-        public ObsData[] GetObservations(AdventurerAgent agent)
+        public ObsData[] GetObservations(T agent)
         {
             var obs = new CategoricalObsData<EAttackOptions>[]
             {

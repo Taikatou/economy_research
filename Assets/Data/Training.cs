@@ -45,8 +45,6 @@
         public static bool IgnoreResources => false;
 
         public static bool SubmitDirectToShop => true;
-
-        public static bool SimpleAdventurerSystem => true;
     }
 
     public static class UISpec
