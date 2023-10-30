@@ -23,7 +23,7 @@ namespace EconomyProject.Scripts.UI.Battle
             {
                 var battle = battleLocationSelect.GetBattleAction(agent);
                 var index = 0;
-                var subSystem = aSystem.system.BattleSubSystem.GetSubSystem(agent);
+                var subSystem = aSystem.system.battleSubSystem.GetSubSystem(agent);
                 if (subSystem != null)
                 {
                     var playerData = subSystem.PlayerFighterUnits.GetAgentPlayerData(agent.GetHashCode());

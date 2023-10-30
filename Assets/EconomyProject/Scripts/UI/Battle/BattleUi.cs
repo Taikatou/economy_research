@@ -32,7 +32,7 @@ namespace EconomyProject.Scripts.UI.Battle
                 BattleSubSystemInstance<AdventurerAgent> toReturn = null;
                 if (currentAgent.CurrentAgent != null)
                 {
-                    toReturn = adventurerSystem.system.BattleSubSystem.GetSubSystem(currentAgent.CurrentAgent);
+                    toReturn = adventurerSystem.system.battleSubSystem.GetSubSystem(currentAgent.CurrentAgent);
                 }
                 return toReturn;
             }

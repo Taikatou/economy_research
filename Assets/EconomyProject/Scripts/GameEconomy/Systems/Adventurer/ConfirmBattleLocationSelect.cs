@@ -26,14 +26,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         public ObsData[] GetConfirmationObservations(AdventurerAgent agent, AdventurerSystem system)
         {
-            var environment = adventurerSystem.system.BattleSubSystem.GetBattleEnvironment(agent);
+            var environment = adventurerSystem.system.battleSubSystem.GetBattleEnvironment(agent);
             var obs = new List<ObsData> {
                 new CategoricalObsData<EConfirmBattle>(GetConfirmation(agent)) { Name="confirmation" },
                 new SingleObsData() {data=environment.HasValue? 1 : 0},
                 new CategoricalObsData<EBattleEnvironments>(environment.HasValue?environment.Value : EBattleEnvironments.Forest)
             };
 
-            var currentParties = adventurerSystem.system.BattleSubSystem.GetAgentParty(agent);
+            var currentParties = adventurerSystem.system.battleSubSystem.GetAgentParty(agent);
             if(currentParties != null)
                 obs.AddRange(currentParties.GetObservations());
 

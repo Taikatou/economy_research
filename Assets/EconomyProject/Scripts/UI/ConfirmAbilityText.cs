@@ -11,7 +11,7 @@ namespace EconomyProject.Scripts.UI
         public Text textBox;
         void Update()
         {
-            var currentParties = adventurerSystem.system.BattleSubSystem.GetAgentParty(adventurerAgent.CurrentAgent);
+            var currentParties = adventurerSystem.system.battleSubSystem.GetAgentParty(adventurerAgent.CurrentAgent);
             if (currentParties != null)
             {
                 var players = "";

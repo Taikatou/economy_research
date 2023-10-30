@@ -23,7 +23,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         public bool Complete => Request.Number <= CurrentAmount;
     }
     
-    public delegate void OnResources();
+    public delegate void OnResources(AdventurerAgent agent);
     
     public class AdventurerRequestTaker : RequestTaker
     {
@@ -55,7 +55,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             wallet.EarnMoney(reward, true);
         }
 
-        public void CheckItemAdd(ECraftingResources resource, int amount, OnResources onResourceAdd=null, OnResources onResourceComplete=null)
+        public void CheckItemAdd(AdventurerAgent agent, ECraftingResources resource, int amount, OnResources onResourceAdd=null, OnResources onResourceComplete=null)
         {
             var itemList = GetItemList();
 
@@ -100,11 +100,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                     requestRecord.CompleteRequest(this, CurrentRequestData[resource].Request);
                     CurrentRequestData.Remove(resource);
                     Debug.Log("Request Completed");
-                    onResourceComplete?.Invoke();
+                    onResourceComplete?.Invoke(agent);
                 }
                 else
                 {
-                    onResourceAdd?.Invoke();
+                    onResourceAdd?.Invoke(agent);
                 }
                 requestSystem.Refresh();
             }

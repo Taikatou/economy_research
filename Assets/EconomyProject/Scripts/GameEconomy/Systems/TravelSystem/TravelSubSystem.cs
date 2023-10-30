@@ -40,5 +40,15 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.TravelSystem
             }
             return null;
         }
+
+        public CraftingDropReturn? GetLootBox(EBattleEnvironments environment)
+        {
+            if (_environmentLootTable.ContainsKey(environment))
+            {
+                var fighter = GetBattle(environment);
+                return fighter.fighterDropTable.GenerateItems();
+            }
+            return null;
+        }
     }
 }

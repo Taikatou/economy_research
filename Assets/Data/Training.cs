@@ -20,7 +20,7 @@
         public static bool OnResource => false;
         public static readonly float OnResourceReward = 0.1f;
 
-        public static bool OnResourceComplete => true;
+        public static bool OnResourceComplete => false;
         public static readonly float OnResourceCompleteReward = 0.2f;
 
         public static bool OnCraft => false;
@@ -45,6 +45,8 @@
         public static bool IgnoreResources => false;
 
         public static bool SubmitDirectToShop => true;
+
+        public static bool SimpleAdventurerSystem => true;
     }
 
     public static class UISpec

@@ -259,7 +259,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             return null;
         }
 
-        private void OnComplete(IBattleSubSystemInstance<AdventurerAgent> systemInstance)
+        public void OnComplete(IBattleSubSystemInstance<AdventurerAgent> systemInstance)
         {
             foreach (var agent in systemInstance.BattleAgents)
             {
@@ -275,7 +275,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             }
         }
 
-        private static void OnLose(IBattleSubSystemInstance<AdventurerAgent> battle)
+        public static void OnLose(IBattleSubSystemInstance<AdventurerAgent> battle)
         {
             if (TrainingConfig.OnLose)
             {
@@ -305,24 +305,26 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 }
             }
         }
-
-        private static void OnWin(IBattleSubSystemInstance<AdventurerAgent> battle)
+        
+        public void OnItemAdd(AdventurerAgent agent)
         {
-            void OnItemAdd()
+            var battle = GetSubSystem(agent);
+            if (TrainingConfig.OnResource)
             {
-                if (TrainingConfig.OnResource)
-                {
-                    battle.AddReward(TrainingConfig.OnResourceReward);   
-                }
+                battle.AddReward(TrainingConfig.OnResourceReward);   
             }
-            void OnRequestComplete()
+        }
+        public void OnRequestComplete(AdventurerAgent agent)
+        {
+            var battle = GetSubSystem(agent);
+            if (TrainingConfig.OnResourceComplete)
             {
-                if (TrainingConfig.OnResourceComplete)
-                {
-                    battle.AddReward(TrainingConfig.OnResourceCompleteReward);   
-                }
+                battle.AddReward(TrainingConfig.OnResourceCompleteReward);   
             }
-            
+        }
+
+        public void OnWin(IBattleSubSystemInstance<AdventurerAgent> battle)
+        {
             if (TrainingConfig.OnWin)
             {
                 AddTeamReward(battle, TrainingConfig.OnWinReward);
@@ -340,7 +342,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                     levelUpComponent.AddExp(exp);
                 }
 
-                craftingInventory.CheckItemAdd(craftingDrop.Resource, craftingDrop.Count, OnItemAdd, OnRequestComplete);   
+                craftingInventory.CheckItemAdd(agent, craftingDrop.Resource, craftingDrop.Count, OnItemAdd, OnRequestComplete);   
             }
         }
         

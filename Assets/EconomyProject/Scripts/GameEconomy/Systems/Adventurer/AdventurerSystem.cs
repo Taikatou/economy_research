@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Data;
 using EconomyProject.Scripts.GameEconomy.DataLoggers;
 using EconomyProject.Scripts.GameEconomy.Systems.Adventurer;
+using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.Interfaces;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
@@ -17,11 +18,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
     [Serializable]
     public class AdventurerSystem : EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>, ISetup
     {
-        public BattleSubSystem BattleSubSystem;
+        public BattleSubSystem battleSubSystem;
 
-        public Dictionary<AdventurerAgent, EAdventureStates> adventureStates;
+        public Dictionary<AdventurerAgent, EAdventureStates> AdventureStates;
 
-        public static int ObservationSize => 75;
+        public static int ObservationSize => TrainingConfig.SimpleAdventurerSystem? 8 : 75;
         public override EAdventurerScreen ActionChoice => TrainingConfig.StartScreen;
 
         public AdventurerLocationSelect locationSelect;
@@ -34,14 +35,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public void Start()
         {
-            BattleSubSystem = new BattleSubSystem(travelSubsystem, SetAdventureState, dataLogger);
-            adventureStates = new Dictionary<AdventurerAgent, EAdventureStates>();
+            battleSubSystem = new BattleSubSystem(travelSubsystem, SetAdventureState, dataLogger);
+            AdventureStates = new Dictionary<AdventurerAgent, EAdventureStates>();
         }
 
         public void Setup()
 		{
-            BattleSubSystem.Setup();
-            adventureStates.Clear();
+            battleSubSystem.Setup();
+            AdventureStates.Clear();
         }
 
         public EAdventureStates GetAdventureStates(AdventurerAgent agent)
@@ -49,25 +50,25 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             var toReturn = EAdventureStates.OutOfBattle;
             if (agent != null)
             {
-                if (!adventureStates.ContainsKey(agent))
+                if (!AdventureStates.ContainsKey(agent))
                 {
-                    adventureStates.Add(agent, EAdventureStates.OutOfBattle);
+                    AdventureStates.Add(agent, EAdventureStates.OutOfBattle);
                 }
 
-                toReturn = adventureStates[agent];
+                toReturn = AdventureStates[agent];
             }
             return toReturn;
         }
 
         private void SetAdventureState(AdventurerAgent agent, EAdventureStates state)
         {
-            if (!adventureStates.ContainsKey(agent))
+            if (!AdventureStates.ContainsKey(agent))
             {
-                adventureStates.Add(agent, state);
+                AdventureStates.Add(agent, state);
             }
             else
             {
-                adventureStates[agent] = state;
+                AdventureStates[agent] = state;
             }
             Refresh(agent);
         }
@@ -79,11 +80,17 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public override ObsData[] GetObservations(AdventurerAgent agent, BufferSensorComponent[] bufferSensorComponent)
         {
+            if (TrainingConfig.SimpleAdventurerSystem)
+            {
+                var obsData = locationSelect.GetTravelObservations(agent, this);
+                return obsData;
+            }
+            
             ObsData[] GetSubsystemData()
             {
                 ObsData[] toReturn;
                 
-                var subSystem = BattleSubSystem.GetSubSystem(agent);
+                var subSystem = battleSubSystem.GetSubSystem(agent);
                 if (subSystem != null)
                 {
                     var i = battleLocationSelect.GetObs(agent);
@@ -133,7 +140,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             {
                 for (var i = 0; i < SystemTraining.PartySize; i++)
                 {
-                    var party = BattleSubSystem.CurrentParties[battle];
+                    var party = battleSubSystem.CurrentParties[battle];
                     if (i < party.PendingAgents.Count)
                     {
                         var a = party.PendingAgents[i];
@@ -163,7 +170,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                     case EAdventurerAgentChoices.Back:
                         if (GetAdventureStates(agent) == EAdventureStates.InQueue)
                         {
-                            BattleSubSystem.RemoveAgentFromQueue(agent);
+                            battleSubSystem.RemoveAgentFromQueue(agent);
                         }
                         else if(SystemTraining.IncludeShop)
                         {
@@ -188,26 +195,26 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             var state = GetAdventureStates(agent);
             if (state != EAdventureStates.OutOfBattle)
             {
-                BattleSubSystem.RemoveAgentFromParty(agent);    
+                battleSubSystem.RemoveAgentFromParty(agent);    
             }
             
             switch (state)
             {
                 case EAdventureStates.ConfirmBattle:
-                    BattleSubSystem.CancelConfirmation(agent);
+                    battleSubSystem.CancelConfirmation(agent);
                     break;
                 case EAdventureStates.ConfirmAbilities:
-                    BattleSubSystem.CancelAbilities(agent);
+                    battleSubSystem.CancelAbilities(agent);
                     break;
                 case EAdventureStates.InQueue:
-                    BattleSubSystem.RemoveAgentFromQueue(agent);
+                    battleSubSystem.RemoveAgentFromQueue(agent);
                     break;
                 case EAdventureStates.InBattle:
-                    BattleSubSystem.BattleSystems[agent].EndBattle();
+                    battleSubSystem.BattleSystems[agent].EndBattle();
                     break;
             }
             
-            adventureStates[agent] = EAdventureStates.OutOfBattle;
+            AdventureStates[agent] = EAdventureStates.OutOfBattle;
         }
 
         public void Select(AdventurerAgent agent)
@@ -217,19 +224,32 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             {
                 case EAdventureStates.InBattle:
                     var action = battleLocationSelect.GetBattleAction(agent);
-                    BattleSubSystem.SelectBattle(agent, action);
+                    battleSubSystem.SelectBattle(agent, action);
                     break;
                 case EAdventureStates.OutOfBattle:
-                    var location = locationSelect.GetBattle(agent);
-                    BattleSubSystem.StartBattle(agent, location);
+                    if (!TrainingConfig.SimpleAdventurerSystem)
+                    {
+                        var location = locationSelect.GetBattle(agent);
+                        battleSubSystem.StartBattle(agent, location);
+                    }
+                    else
+                    {
+                        var location = locationSelect.GetBattle(agent);
+                        var getLootBox = travelSubsystem.GetLootBox(location);
+                        if (getLootBox.HasValue)
+                        {
+                            var craftingInventory = agent.GetComponent<AdventurerRequestTaker>();
+                            craftingInventory.CheckItemAdd(agent, getLootBox.Value.Resource, getLootBox.Value.Count, battleSubSystem.OnItemAdd, battleSubSystem.OnRequestComplete);  
+                        }
+                    }
                     break;
                 case EAdventureStates.ConfirmBattle:
                     var confirm = confirmLocationSelect.GetConfirmation(agent);
-                    BattleSubSystem.Confirmation(confirm, agent);
+                    battleSubSystem.Confirmation(confirm, agent);
                     break;
                 case EAdventureStates.ConfirmAbilities:
                     var ability = confirmAbilitiesSelect.GetAbility(agent);
-                    BattleSubSystem.ConfirmAbilities(ability, agent);
+                    battleSubSystem.ConfirmAbilities(ability, agent);
                     break;
             }
         }
@@ -263,7 +283,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         public int GetBattleCount()
         {
             var count = 0;
-            foreach (var entry in BattleSubSystem.BattleSystems)
+            foreach (var entry in battleSubSystem.BattleSystems)
             {
                 count++;
             }
@@ -291,7 +311,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public void Update()
         {
-            BattleSubSystem.Update();
+            battleSubSystem.Update();
         }
     }
 }
