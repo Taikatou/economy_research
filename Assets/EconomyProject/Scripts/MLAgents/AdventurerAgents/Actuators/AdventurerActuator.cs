@@ -7,13 +7,13 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Actuators
 {
     public class AdventurerActuator : IActuator
     {
-        private readonly AdventurerAgent _agent;
+        private readonly BaseAdventurerAgent _agent;
         
         public ActionSpec ActionSpec { get; }
 
         public string Name => "AdventurerActuator";
         
-        public AdventurerActuator(AdventurerAgent agent)
+        public AdventurerActuator(BaseAdventurerAgent agent)
         {
             ActionSpec = ActionSpec.MakeDiscrete(3);
             _agent = agent;

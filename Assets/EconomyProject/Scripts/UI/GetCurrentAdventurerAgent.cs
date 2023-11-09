@@ -2,7 +2,7 @@
 
 namespace EconomyProject.Scripts.UI
 {
-    public class GetCurrentAdventurerAgent : GetCurrentAgent<AdventurerAgent>
+    public class GetCurrentAdventurerAgent : GetCurrentAgent<BaseAdventurerAgent>
     {
     }
 }

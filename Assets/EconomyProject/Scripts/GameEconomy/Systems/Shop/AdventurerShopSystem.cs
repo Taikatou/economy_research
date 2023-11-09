@@ -2,26 +2,27 @@
 using System.Collections.Generic;
 using Data;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 {
 
-    public delegate void SetChoice(AdventurerAgent agent);
+    public delegate void SetChoice(BaseAdventurerAgent agent);
     
     [Serializable]
-    public class AdventurerShopSystem : StateEconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
+    public class AdventurerShopSystem : StateEconomySystem<BaseAdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
     {
         public AdventurerShopSubSystem adventurerShopSubSystem;
         public static int ObservationSize => 2;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Shop;
 
-        public override bool CanMove(AdventurerAgent agent)
+        public override bool CanMove(BaseAdventurerAgent agent)
         {
             return true;
         }
 
-        public override ObsData[] GetObservations(AdventurerAgent agent, BufferSensorComponent[] bufferSensorComponent)
+        public override ObsData[] GetObservations(BaseAdventurerAgent agent, BufferSensorComponent[] bufferSensorComponent)
         {
             var obs = new List<ObsData>
             {
@@ -42,7 +43,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             return obs.ToArray();
         }
 
-        protected override void SetChoice(AdventurerAgent agent, EAdventurerAgentChoices input)
+        protected override void SetChoice(BaseAdventurerAgent agent, EAdventurerAgentChoices input)
         {
             switch (input)
             {
@@ -55,7 +56,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
                     break;
                 
                 case EAdventurerAgentChoices.Back:
-                    AgentInput.ChangeScreen(agent, EAdventurerScreen.Main);
+                    BaseAdventurerAgent baseAdventurerAgent = null; //(AdventurerAgent) agent;
+                    if (baseAdventurerAgent)
+                    {
+                        AgentInput.ChangeScreen(baseAdventurerAgent, EAdventurerScreen.Main);
+                    }
                     break;
                 case EAdventurerAgentChoices.Select:
                     adventurerShopSubSystem.PurchaseItem(agent);
@@ -63,7 +68,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
             }
         }
 
-        public override EnabledInput[] GetEnabledInputs(AdventurerAgent agent)
+        public override EnabledInput[] GetEnabledInputs(Agent agent)
         {
             var inputChoices = new List<EAdventurerAgentChoices>
             {

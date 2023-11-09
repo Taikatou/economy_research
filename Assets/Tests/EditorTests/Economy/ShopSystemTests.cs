@@ -152,7 +152,7 @@ namespace Tests.Economy
 		public void Shop_PurchaseItem()
 		{
 			//To be able to buy any sword because some swords cost more than the default start money
-			adventurerAgent.wallet.EarnMoney(1000, true);
+			BaseAdventurerAgent.Wallet.EarnMoney(1000, true);
 
 			//ShopAgent sells a sword
 			ECraftingChoice randomSword = listCraftingChoices[UnityEngine.Random.Range(0, listCraftingChoices.Count)];
@@ -160,7 +160,7 @@ namespace Tests.Economy
 			agentShopSubSystem.SubmitToShop(shopAgent, sword);
 
 			//Adventurer buy the sword
-			agentShopSubSystem.PurchaseItem(shopAgent, sword, adventurerAgent.wallet, adventurerAgent.inventory);
+			agentShopSubSystem.PurchaseItem(shopAgent, sword, BaseAdventurerAgent.Wallet, BaseAdventurerAgent.Inventory);
 
 			//Check if no more sword in the ShopAgent inventory
 			List<UsableItem> shop = agentShopSubSystem.GetShopUsableItems(shopAgent);
@@ -169,12 +169,12 @@ namespace Tests.Economy
 			Assert.AreEqual(0, agentShopSubSystem.GetNumber(shopAgent, sword.itemDetails));
 
 			//Check if adventurer agent get the sword equipped
-			Assert.True(adventurerAgent.adventurerInventory.agentInventory.ContainsItem(sword));
-			Assert.AreEqual(sword, adventurerAgent.adventurerInventory.EquipedItem);
+			Assert.True(BaseAdventurerAgent.AdventurerInventory.agentInventory.ContainsItem(sword));
+			Assert.AreEqual(sword, BaseAdventurerAgent.AdventurerInventory.EquipedItem);
 
 			//Check wallet of the agents
 			int priceSword = GetPriceByItemName(sword.itemDetails.itemName);
-			Assert.AreEqual(adventurerAgent.wallet.startMoney + 1000 - priceSword, adventurerAgent.wallet.Money, "Current adventurerAgent money should be StartMoney - PriceSword");
+			Assert.AreEqual(BaseAdventurerAgent.Wallet.startMoney + 1000 - priceSword, BaseAdventurerAgent.Wallet.Money, "Current adventurerAgent money should be StartMoney - PriceSword");
 			Assert.AreEqual(shopAgent.wallet.startMoney + priceSword, shopAgent.wallet.Money, "Current shopAgent money should be StartMoney + PriceSword");
 		}
 

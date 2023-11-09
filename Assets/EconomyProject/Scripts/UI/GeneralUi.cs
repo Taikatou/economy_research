@@ -15,14 +15,14 @@ namespace EconomyProject.Scripts.UI
 
         public GetCurrentAdventurerAgent getAgent;
 
-        private AdventurerAgent AdventurerAgent
+        private BaseAdventurerAgent BaseAdventurerAgent
         {
             get
             {
-                AdventurerAgent toReturn = null;
+                BaseAdventurerAgent toReturn = null;
                 if (getAgent.CurrentAgent)
                 {
-                    toReturn = getAgent.CurrentAgent.GetComponent<AdventurerAgent>();
+                    toReturn = getAgent.CurrentAgent.GetComponent<BaseAdventurerAgent>();
                 }
                 return toReturn;
             }
@@ -31,9 +31,9 @@ namespace EconomyProject.Scripts.UI
         // Update is called once per frame
         private void Update()
         {
-            if(AdventurerAgent)
+            if(BaseAdventurerAgent)
             {
-                var item = AdventurerAgent.adventurerInventory.EquipedItem;
+                var item = BaseAdventurerAgent.AdventurerInventory.EquipedItem;
                 if(item)
                 {
                     durabilityText.text = "DURABILITY: " + (item.itemDetails.unBreakable? "∞" : item.itemDetails.durability.ToString());

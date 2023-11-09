@@ -17,7 +17,7 @@ namespace EconomyProject.Scripts.UI
                 var players = "";
                 foreach (var agent in currentParties.PendingAgents)
                 {
-                    players += agent.AdventurerType + "\t" + agent.levelComponent.Level + "\n";
+                    players += agent.AdventurerType + "\t" + agent.LevelComponent.Level + "\n";
                 }
 
                 textBox.text = players;

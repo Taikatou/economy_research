@@ -24,7 +24,7 @@ namespace Tests.Economy
 		public AdventurerSystemBehaviour adventurerSystemBehaviour;
 		public AdventurerSystem adventurerSystem;
 		public GetCurrentAdventurerAgent getAdventurerAgent;
-		public AdventurerAgent adventurerAgent;
+		public BaseAdventurerAgent BaseAdventurerAgent;
 
 		public TravelSubSystem travelSubsystem;
 		public AdventurerInventory adventurerInventory;
@@ -62,7 +62,7 @@ namespace Tests.Economy
 
 			//Get Adventurer Agent
 			getAdventurerAgent = GameObject.FindObjectOfType<GetCurrentAdventurerAgent>();
-			adventurerAgent = getAdventurerAgent.CurrentAgent;
+			BaseAdventurerAgent = getAdventurerAgent.CurrentAgent;
 
 			//Generate travelSubsystem of the adventurerSystem
 			travelSubsystem.Start();
@@ -74,14 +74,14 @@ namespace Tests.Economy
 			requestSystem.Start();
 
 			//Generate PlayerFighterData of the adventurerAgent
-			adventurerAgent.OnEpisodeBegin();
+			BaseAdventurerAgent.OnEpisodeBegin();
 			//Generate adventurerInventory of the adventurerAgent
-			adventurerInventory = adventurerAgent.adventurerInventory;
+			adventurerInventory = BaseAdventurerAgent.AdventurerInventory;
 			//Generate agentInventory of the adventurerAgent
-			adventurerAgentInventory = adventurerAgent.inventory;
-			adventurerAgent.OnEpisodeBegin();
+			adventurerAgentInventory = BaseAdventurerAgent.Inventory;
+			BaseAdventurerAgent.OnEpisodeBegin();
 			//Generate AdventurerRequestTaker
-			adventurerAgent.requestTaker.Start();
+			BaseAdventurerAgent.RequestTaker.Start();
 
 
 			//Get ShopAgent
@@ -156,10 +156,10 @@ namespace Tests.Economy
 		/// <summary>
 		/// Start a battle and return the BattleSubSystem associated to this battle
 		/// </summary>
-		public BattleSubSystemInstance<AdventurerAgent> StartBattle(EBattleEnvironments env)
+		public BattleSubSystemInstance<BaseAdventurerAgent> StartBattle(EBattleEnvironments env)
 		{
 			//TODO adventurerSystem.StartBattle(adventurerAgent, env);
-			return adventurerSystem.battleSubSystem.GetSubSystem(adventurerAgent);
+			return adventurerSystem.battleSubSystem.GetSubSystem(BaseAdventurerAgent);
 		}
 
 		/********************************************Adventurer*********************************************/
@@ -167,9 +167,9 @@ namespace Tests.Economy
 		/// <summary>
 		/// Debug Adventurer Agents items in inventory
 		/// </summary>
-		public void DebugItemsInInventory(AdventurerAgent agent)
+		public void DebugItemsInInventory(BaseAdventurerAgent agent)
 		{
-			AgentInventory inventory = agent.inventory;
+			AgentInventory inventory = agent.Inventory;
 
 			Debug.Log("Number of Items : " + inventory.Items.Count);
 			foreach (KeyValuePair<string, List<UsableItem>> item in inventory.Items)

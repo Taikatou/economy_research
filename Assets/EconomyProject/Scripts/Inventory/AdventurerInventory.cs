@@ -13,7 +13,7 @@ namespace EconomyProject.Scripts.Inventory
     public class AdventurerInventory : MonoBehaviour
     {
         public bool canObtainAllWeapons;
-        public AdventurerAgent agent;
+        public BaseAdventurerAgent agent;
         
         public AgentInventory agentInventory;
         private Dictionary<string, List<UsableItem>> Items => agentInventory.Items;

@@ -25,11 +25,11 @@ namespace EconomyProject.Scripts.UI.Battle
         public BattleHud playerHud;
         public BattleHud enemyHud;
         
-        private BattleSubSystemInstance<AdventurerAgent> BattleSubSystemInstance
+        private BattleSubSystemInstance<BaseAdventurerAgent> BattleSubSystemInstance
         {
             get
             {
-                BattleSubSystemInstance<AdventurerAgent> toReturn = null;
+                BattleSubSystemInstance<BaseAdventurerAgent> toReturn = null;
                 if (currentAgent.CurrentAgent != null)
                 {
                     toReturn = adventurerSystem.system.battleSubSystem.GetSubSystem(currentAgent.CurrentAgent);
@@ -38,7 +38,7 @@ namespace EconomyProject.Scripts.UI.Battle
             }
         }
 
-        private BattleSubSystemInstance<AdventurerAgent> _cachedSubSystemInstance;
+        private BattleSubSystemInstance<BaseAdventurerAgent> _cachedSubSystemInstance;
 
         private List<GameObject> _uiGameObjects;
 

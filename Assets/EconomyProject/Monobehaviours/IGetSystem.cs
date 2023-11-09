@@ -6,6 +6,6 @@ namespace EconomyProject.Monobehaviours
 {
     public interface IGetSystem
     {
-        EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices> GetSystem { get; }
+        EconomySystem<BaseAdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices> GetSystem { get; }
     }
 }

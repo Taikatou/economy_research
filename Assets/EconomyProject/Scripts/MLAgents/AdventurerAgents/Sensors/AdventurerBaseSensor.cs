@@ -6,7 +6,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
 {
     public class AdventurerBaseSensor : BaseEconomySensor
     {
-        private readonly AdventurerAgent _agent;
+        private readonly BaseAdventurerAgent _agent;
 
         public override string GetName() => "AdventurerSensor";
 
@@ -14,7 +14,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
 
         private float[] _data;
 
-        public AdventurerBaseSensor(AdventurerAgent agent) : base(null)
+        public AdventurerBaseSensor(BaseAdventurerAgent agent) : base(null)
         {
             _agent = agent;
 
@@ -25,10 +25,10 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
 
         private float[] GetData()
         {
-            var walletMoney = _agent.wallet ? _agent.wallet.Money : 0.0f;
+            var walletMoney = _agent.Wallet ? _agent.Wallet.Money : 0.0f;
             // todo connect health data
-            var health = _agent.fighterData.PlayerData?.GetObs ?? 0;
-            var screen = _agent.ChosenScreen;  
+            var health = _agent.FighterData.PlayerData?.GetObs ?? 0;
+            var screen = _agent.ChosenScreenInt;  
 
             var obsData = new ObsData[]
             {
@@ -37,7 +37,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
                     data = health,
                     Name = "health"
                 },
-                new CategoricalObsData<EAdventurerScreen>(screen)
+                new CategoricalObsData<EAdventurerScreen>((EAdventurerScreen)screen)
                 {
                     Name="Screen"
                 },

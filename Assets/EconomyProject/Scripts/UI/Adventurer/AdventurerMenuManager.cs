@@ -23,7 +23,7 @@ namespace EconomyProject.Scripts.UI.Adventurer
         public UiAccessor uiAccessor;
 
         private Dictionary<EAdventurerScreen, OpenedMenu> _openedMenus;
-        private AdventurerAgent AdventurerAgent => getCurrentAgent.CurrentAgent.GetComponent<AdventurerAgent>();
+        private BaseAdventurerAgent BaseAdventurerAgent => getCurrentAgent.CurrentAgent.GetComponent<BaseAdventurerAgent>();
         protected override Dictionary<EAdventurerScreen, OpenedMenu> OpenedMenus => _openedMenus;
 
         private void Start()
@@ -65,7 +65,7 @@ namespace EconomyProject.Scripts.UI.Adventurer
             {
                 var levelUpComponent = getCurrentAgent.CurrentAgent.GetComponent<LevelUpComponent>();
                 levelText.text = levelUpComponent.Level.ToString();
-                var screen = playerInput.GetScreen(AdventurerAgent, TrainingConfig.StartScreen);
+                var screen = playerInput.GetScreen(BaseAdventurerAgent, TrainingConfig.StartScreen);
 
                 if (_openedMenus.ContainsKey(screen))
                 {

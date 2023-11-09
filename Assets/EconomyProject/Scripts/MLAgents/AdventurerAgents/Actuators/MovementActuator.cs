@@ -10,11 +10,9 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Actuators
 
         public string Name => "BattleActuator";
         
-        private AdventurerInput AdventurerInput => _agent.adventurerInput;
-
-        private readonly AdventurerAgent _agent;
+        private readonly BaseAdventurerAgent _agent;
         
-        public MovementActuator(AdventurerAgent agent)
+        public MovementActuator(BaseAdventurerAgent agent)
         {
             _agent = agent;
             ActionSpec = ActionSpec.MakeDiscrete(4);

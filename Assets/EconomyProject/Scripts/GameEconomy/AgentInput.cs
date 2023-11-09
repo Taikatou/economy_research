@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy
 {
-    public abstract class AgentInput<TAgent, TScreen, TInput> : MonoBehaviour where TAgent : AgentScreen<TScreen> where TScreen : Enum where TInput : Enum
+    public abstract class AgentInput<TAgent, TScreen, TInput> : MonoBehaviour where TAgent : AgentScreen where TScreen : Enum where TInput : Enum
     {
         public abstract EconomySystem<TAgent, TScreen, TInput> GetEconomySystem(TAgent agent);
         

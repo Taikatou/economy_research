@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.MLAgents.Sensors
 {
-    public abstract class AgentMovementSensor<TAgent, TScreen, TChoice> : BaseEconomySensor where TAgent : AgentScreen<TScreen> where TScreen : Enum where TChoice : Enum
+    public abstract class AgentMovementSensor<TAgent, TScreen, TChoice> : BaseEconomySensor where TAgent : AgentScreen where TScreen : Enum where TChoice : Enum
     {
         private readonly float[] _data;
         
@@ -77,7 +77,7 @@ namespace EconomyProject.Scripts.MLAgents.Sensors
                     Debug.Log(d.Length + "\t" + _data.Length + "\t" + GetName());
                 }
                 Array.Clear(_data, 0, _data.Length);
-                if (_agent.ChosenScreen.Equals(ValidScreen) || CanViewConstant)
+                if (_agent.ChosenScreenInt.Equals(ValidScreen) || CanViewConstant)
                 {
                     Array.Copy(d, _data, d.Length);
                 }

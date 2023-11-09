@@ -9,23 +9,23 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
 
     [Serializable]
-    public class RequestAdventurerSystem : EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
+    public class RequestAdventurerSystem : EconomySystem<BaseAdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
     {
         public AdventureRequestLocationSetter adventureRequestLocationSetter;
         public RequestSystem requestSystem;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Request;
 
-        public override bool CanMove(AdventurerAgent agent)
+        public override bool CanMove(BaseAdventurerAgent agent)
         {
             return true;
         }
-        public override ObsData[] GetObservations(AdventurerAgent agent, BufferSensorComponent[] bufferSensorComponent)
+        public override ObsData[] GetObservations(BaseAdventurerAgent agent, BufferSensorComponent[] bufferSensorComponent)
         {
             requestSystem.GetObservations(bufferSensorComponent[0]);
             return Array.Empty<ObsData>();
         }
 
-        protected override void SetChoice(AdventurerAgent agent, EAdventurerAgentChoices input)
+        protected override void SetChoice(BaseAdventurerAgent agent, EAdventurerAgentChoices input)
         {
             switch (input)
             {
@@ -39,7 +39,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                     var resource = adventureRequestLocationSetter.GetRequest(agent);
                     if (resource != null)
                     {
-                        agent.requestTaker.TakeRequest(resource);
+                        agent.RequestTaker.TakeRequest(resource);
                     }
                     break;
                 case EAdventurerAgentChoices.Back:
@@ -48,7 +48,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             }
         }
 
-        public void UpDown(AdventurerAgent agent, int movement)
+        public void UpDown(BaseAdventurerAgent agent, int movement)
         {
             adventureRequestLocationSetter.MovePosition(agent, movement);
         }
@@ -68,7 +68,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return output;
         }
         
-        public override EnabledInput[] GetEnabledInputs(AdventurerAgent agent)
+        public override EnabledInput[] GetEnabledInputs(BaseAdventurerAgent agent)
         {
             var inputChoices = new[]
             {

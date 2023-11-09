@@ -30,11 +30,11 @@ namespace Tests.Economy
 		{
 			Assert.AreEqual(0, adventurerSystem.GetBattleCount(), "No battle by default. Number of active battles : " + adventurerSystem.GetBattleCount());
 
-			Assert.True(adventurerSystem.CanMove(adventurerAgent) == true, "CanMove=true by default");
+			Assert.True(adventurerSystem.CanMove(BaseAdventurerAgent) == true, "CanMove=true by default");
 
-			Assert.AreEqual(adventurerSystem.GetAdventureStates(adventurerAgent), EAdventureStates.OutOfBattle, "AdventureStates.OutOfBattle by default");
+			Assert.AreEqual(adventurerSystem.GetAdventureStates(BaseAdventurerAgent), EAdventureStates.OutOfBattle, "AdventureStates.OutOfBattle by default");
 
-			Assert.AreEqual(adventurerSystem.GetObservations(adventurerAgent, null), new float[5], "[0,0,0,0,0] by default");
+			Assert.AreEqual(adventurerSystem.GetObservations(BaseAdventurerAgent, null), new float[5], "[0,0,0,0,0] by default");
 		}
 
 		/// <summary>
@@ -75,12 +75,12 @@ namespace Tests.Economy
 		[Test]
 		public void Battle_GetAdventureStates()
 		{
-			Assert.AreEqual(adventurerSystem.GetAdventureStates(adventurerAgent), EAdventureStates.OutOfBattle, "AdventureStates.OutOfBattle by default");
+			Assert.AreEqual(adventurerSystem.GetAdventureStates(BaseAdventurerAgent), EAdventureStates.OutOfBattle, "AdventureStates.OutOfBattle by default");
 
 			//Start battle
 	//TODO		adventurerSystem.StartBattle(adventurerAgent, EBattleEnvironments.Forest);
 
-			Assert.AreEqual(adventurerSystem.GetAdventureStates(adventurerAgent), EAdventureStates.InBattle, "AdventureStates.InBattle while a battle");
+			Assert.AreEqual(adventurerSystem.GetAdventureStates(BaseAdventurerAgent), EAdventureStates.InBattle, "AdventureStates.InBattle while a battle");
 		}
 
 		/// <summary>
@@ -89,7 +89,7 @@ namespace Tests.Economy
 		[Test]
 		public void Battle_FighterDataPlayer()
 		{
-			BattleSubSystemInstance<AdventurerAgent> battleSubSystemInstance = StartBattle(EBattleEnvironments.Forest);
+			BattleSubSystemInstance<BaseAdventurerAgent> battleSubSystemInstance = StartBattle(EBattleEnvironments.Forest);
 
 			/**Player**/
 			Assert.IsNotNull(battleSubSystemInstance.PlayerFighterUnits.Instance);
@@ -121,7 +121,7 @@ namespace Tests.Economy
 		[Test]
 		public void Battle_FighterDataEnemy()
 		{
-			BattleSubSystemInstance<AdventurerAgent> battleSubSystemInstance = StartBattle(EBattleEnvironments.Forest);
+			BattleSubSystemInstance<BaseAdventurerAgent> battleSubSystemInstance = StartBattle(EBattleEnvironments.Forest);
 
 			/**Enemy**/
 			Assert.IsNotNull(battleSubSystemInstance.EnemyFighterUnits.Instance);
@@ -152,7 +152,7 @@ namespace Tests.Economy
 		[Test]
 		public void Battle_AdventurerFighterData()
 		{
-			AdventurerFighterData adventurerData = adventurerAgent.GetComponent<AdventurerFighterData>();
+			AdventurerFighterData adventurerData = BaseAdventurerAgent.GetComponent<AdventurerFighterData>();
 
 			Assert.AreEqual(20, adventurerData.startHp);
 			Assert.IsNotNull(adventurerData.sprite);
@@ -184,7 +184,7 @@ namespace Tests.Economy
 		[Test]
 		public void Battle_StatePlayerTurnByDefault()
 		{
-			BattleSubSystemInstance<AdventurerAgent> battleSubSystemInstance = StartBattle(EBattleEnvironments.Forest);
+			BattleSubSystemInstance<BaseAdventurerAgent> battleSubSystemInstance = StartBattle(EBattleEnvironments.Forest);
 			Assert.AreEqual(EBattleState.PlayerTurn, battleSubSystemInstance.CurrentState, "battleSubSystem.CurrentState : " + battleSubSystemInstance.CurrentState);
 		}
 
@@ -195,7 +195,7 @@ namespace Tests.Economy
 		[Test]
 		public void Battle_StateWon()
 		{
-			BattleSubSystemInstance<AdventurerAgent> battleSubSystemInstance = StartBattle(EBattleEnvironments.Forest);
+			BattleSubSystemInstance<BaseAdventurerAgent> battleSubSystemInstance = StartBattle(EBattleEnvironments.Forest);
 
 			//Attack => Won
 			battleSubSystemInstance.EnemyFighterUnits.Instance.CurrentHp = 1;
@@ -209,7 +209,7 @@ namespace Tests.Economy
 		[Test]
 		public void Battle_StateLost()
 		{
-			BattleSubSystemInstance<AdventurerAgent> battleSubSystemInstance = StartBattle(EBattleEnvironments.Forest);
+			BattleSubSystemInstance<BaseAdventurerAgent> battleSubSystemInstance = StartBattle(EBattleEnvironments.Forest);
 
 			//EnemyAttack => Loose
 			battleSubSystemInstance.PlayerFighterUnits.Instance.CurrentHp = 1;
@@ -223,9 +223,9 @@ namespace Tests.Economy
 		[Test]
 		public void Battle_ActionHeal()
 		{
-			BattleSubSystemInstance<AdventurerAgent> battleSubSystemInstance = StartBattle(EBattleEnvironments.Forest);
+			BattleSubSystemInstance<BaseAdventurerAgent> battleSubSystemInstance = StartBattle(EBattleEnvironments.Forest);
 
-			AdventurerFighterData adventurerData = adventurerAgent.GetComponent<AdventurerFighterData>();
+			AdventurerFighterData adventurerData = BaseAdventurerAgent.GetComponent<AdventurerFighterData>();
 
 			//adventurerSystem.OnHealButton(adventurerAgent);
 
@@ -244,7 +244,7 @@ namespace Tests.Economy
 		[Test]
 		public void Battle_ActionFlee()
 		{
-			BattleSubSystemInstance<AdventurerAgent> battleSubSystemInstance = StartBattle(EBattleEnvironments.Forest);
+			BattleSubSystemInstance<BaseAdventurerAgent> battleSubSystemInstance = StartBattle(EBattleEnvironments.Forest);
 
 			//Flee
 			// adventurerSystem.OnFleeButton(adventurerAgent);
@@ -257,7 +257,7 @@ namespace Tests.Economy
 		[Test]
 		public void Battle_ActionAttack()
 		{
-			BattleSubSystemInstance<AdventurerAgent> battleSubSystemInstance = StartBattle(EBattleEnvironments.Forest);
+			BattleSubSystemInstance<BaseAdventurerAgent> battleSubSystemInstance = StartBattle(EBattleEnvironments.Forest);
 
 			//Attack Dmg
 			int enemyHPBeforeAttack = battleSubSystemInstance.EnemyFighterUnits.Instance.CurrentHp;
@@ -344,10 +344,10 @@ namespace Tests.Economy
 			Assert.NotNull(requestMade, "CraftingResourceRequest empty");
 
 			//Take a request
-			adventurerAgent.requestTaker.TakeRequest(requestMade);
+			BaseAdventurerAgent.RequestTaker.TakeRequest(requestMade);
 
 			//Check the taken quest
-			var takenQuests = adventurerAgent.requestTaker.GetItemList();
+			var takenQuests = BaseAdventurerAgent.RequestTaker.GetItemList();
 			Assert.AreEqual(1, takenQuests.Count(), "The adventurer should have one request");
 		}
 
@@ -366,7 +366,7 @@ namespace Tests.Economy
 			int reward = requestMade.Reward;
 
 			//Take a request
-			adventurerAgent.requestTaker.TakeRequest(requestMade);
+			BaseAdventurerAgent.RequestTaker.TakeRequest(requestMade);
 
 			//Give the ressource = Complete request
 			// adventurerAgent.requestTaker.CheckItemAdd(null, randomECraftingRessource, 1);
@@ -374,9 +374,9 @@ namespace Tests.Economy
 			//No more requests?
 			Assert.AreEqual(0, requestSystem.GetAllCraftingRequests().Count, "No more requests after giving the resource");
 			//Reward obtained?
-			Assert.AreEqual(adventurerAgent.wallet.startMoney + reward, adventurerAgent.wallet.Money);
+			Assert.AreEqual(BaseAdventurerAgent.Wallet.startMoney + reward, BaseAdventurerAgent.Wallet.Money);
 			//Resource given?
-			Assert.AreEqual(0, adventurerAgent.requestTaker.GetCurrentStock(randomECraftingRessource));
+			Assert.AreEqual(0, BaseAdventurerAgent.RequestTaker.GetCurrentStock(randomECraftingRessource));
 		}
 
 		/********************************************TearDown*********************************************/

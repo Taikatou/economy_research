@@ -13,9 +13,9 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Actuators
         
         private AdventurerSystem AdventurerSystem => AdventurerInput.AdventurerSystem.system;
 
-        private readonly AdventurerAgent _agent;
+        private readonly BaseAdventurerAgent _agent;
         
-        public BattleActuator(AdventurerAgent agent)
+        public BattleActuator(BaseAdventurerAgent agent)
         {
             _agent = agent;
             ActionSpec = ActionSpec.MakeDiscrete(3);

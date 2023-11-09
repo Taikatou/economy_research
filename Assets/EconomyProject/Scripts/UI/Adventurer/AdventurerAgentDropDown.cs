@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.UI.Adventurer
 {
-    public class AdventurerAgentDropDown : AgentDropDown<AdventurerAgent, EAdventurerScreen>
+    public class AdventurerAgentDropDown : AgentDropDown<BaseAdventurerAgent, EAdventurerScreen>
     {
         public GetCurrentAdventurerAgent currentAdventurerAgent;
         
-        protected override GetCurrentAgent<AdventurerAgent> GetCurrentAgent => currentAdventurerAgent;
+        protected override GetCurrentAgent<BaseAdventurerAgent> GetCurrentAgent => currentAdventurerAgent;
     }
 }

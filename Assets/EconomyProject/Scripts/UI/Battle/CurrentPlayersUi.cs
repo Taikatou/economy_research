@@ -12,7 +12,7 @@ namespace EconomyProject.Scripts.UI.Battle
     public struct FightingData
     {
         public PlayerFighterData PlayerFighterData;
-        public BattleSubSystemInstance<AdventurerAgent> BattleSubSystem;
+        public BattleSubSystemInstance<BaseAdventurerAgent> BattleSubSystem;
     }
     public class CurrentPlayersUi : AbstractScrollList<FightingData,PlayerTurnSampleButton>
     {
@@ -21,7 +21,7 @@ namespace EconomyProject.Scripts.UI.Battle
 
         protected override ILastUpdate LastUpdated => GetAdventurerBattleSubsystem();
 
-        private BattleSubSystemInstance<AdventurerAgent> GetAdventurerBattleSubsystem()
+        private BattleSubSystemInstance<BaseAdventurerAgent> GetAdventurerBattleSubsystem()
         {
             var agent = adventurerAgent.CurrentAgent;
             var system = adventurerSystem.system.GetAdventureStates(agent);

@@ -5,11 +5,11 @@ using TurnBased.Scripts;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 {
-    public class BattleLocationSelect : LocationSelect<AdventurerAgent>
+    public class BattleLocationSelect : LocationSelect<BaseAdventurerAgent>
     {
         public AdventurerSystemBehaviour aSystem;
 
-        private EBattleAction[] GetBattleActions(AdventurerAgent agent)
+        private EBattleAction[] GetBattleActions(BaseAdventurerAgent agent)
         {
             var subSystem = aSystem.system.battleSubSystem.GetSubSystem(agent);
             if (subSystem != null)
@@ -20,12 +20,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             }
             return new EBattleAction [] { };
         }
-        public override int GetLimit(AdventurerAgent agent)
+        public override int GetLimit(BaseAdventurerAgent agent)
         {
             return GetBattleActions(agent).Length;
         }
 
-        public EBattleAction GetBattleAction(AdventurerAgent agent)
+        public EBattleAction GetBattleAction(BaseAdventurerAgent agent)
         {
             var valuesAsArray = GetBattleActions(agent);
             var location = GetCurrentLocation(agent);

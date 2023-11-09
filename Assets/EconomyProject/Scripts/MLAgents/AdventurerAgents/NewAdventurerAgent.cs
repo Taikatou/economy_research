@@ -1,17 +1,19 @@
+using System;
 using System.Collections.Generic;
 using Data;
-using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.Inventory;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes;
 using Inventory;
-using Unity.MLAgents;
+using Unity.MLAgents.Actuators;
+using UnityEngine;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 {
-    public class NewAdventurerAgent : Agent, IAdventurerAgent
+    public enum NewAdventurerScreen {Main}
+    public class NewAdventurerAgent : BaseAdventurerAgent, IScreenSelect<NewAdventurerScreen>
     {
         public AgentInventory inventory;
         public AdventurerInventory adventurerInventory;
@@ -26,7 +28,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 
         public IEnumerable<EnabledInput> GetEnabledInput()
         {
-            throw new System.NotImplementedException();
+            return AdventurerInput.AdventurerShopSystem.system.GetEnabledInputs(this);
         }
         
         public virtual void Start()
@@ -50,6 +52,8 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
                 }
             }
         }
+        
+        public AdventurerInput adventurerInput;
 
         public override void OnEpisodeBegin()
         {
@@ -57,9 +61,32 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             inventory.Setup();
             fighterData.Setup();
         }
+        
+        public override void OnActionReceived(ActionBuffers actions)
+        {
+            var battleAction = (EAdventurerAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[0]);
+            var shopAction = (EAdventurerAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[1]);
+            
+            AdventurerInput.AdventurerShopSystem.system.AgentSetChoice(this, battleAction);
+        }
+        
+        public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
+        {
+            foreach (var input in GetEnabledInput())
+            {
+                actionMask.SetActionEnabled(0, input.Input, input.Enabled);   
+            }
+        }
 
-        public AdventurerAgentBattleData LevelComponent => null;
-        public EAdventurerTypes AdventurerType => EAdventurerTypes.All;
-        public EconomyWallet Wallet => wallet;
+        public override AdventurerAgentBattleData LevelComponent => null;
+        public override EAdventurerTypes AdventurerType => EAdventurerTypes.All;
+        public override EconomyWallet Wallet => wallet;
+        public override AdventurerInventory AdventurerInventory => adventurerInventory;
+        public override AgentInventory Inventory => inventory;
+        public override AdventurerRequestTaker RequestTaker => requestTaker;
+        public override AdventurerFighterData FighterData => fighterData;
+        public override int ChosenScreenInt => (int)ChosenScreen;
+        public override AgentType agentType => AgentType.Adventurer;
+        public NewAdventurerScreen ChosenScreen =>  NewAdventurerScreen.Main;
     }
 }

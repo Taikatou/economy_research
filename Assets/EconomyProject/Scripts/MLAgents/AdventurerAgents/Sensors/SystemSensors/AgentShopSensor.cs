@@ -6,7 +6,7 @@ using Unity.MLAgents.Sensors;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors.SystemSensors
 {
-    public class AgentShopSensor : AgentMovementSensor<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
+    public class AgentShopSensor : AgentMovementSensor<BaseAdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
     {
         private readonly AdventurerShopSystem shopSystem;
 
@@ -14,12 +14,12 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors.SystemSensors
 
         protected override EAdventurerScreen ValidScreen => EAdventurerScreen.Shop;
 
-        protected override EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices> EconomySystem
+        protected override EconomySystem<BaseAdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices> EconomySystem
             => shopSystem;
 
         protected override int SensorCount => AdventurerShopSystem.ObservationSize;
 
-        public AgentShopSensor(AdventurerAgent agent, AdventurerShopSystem system, BufferSensorComponent buffer) : base(agent, new []{buffer})
+        public AgentShopSensor(BaseAdventurerAgent agent, AdventurerShopSystem system, BufferSensorComponent buffer) : base(agent, new []{buffer})
         {
             shopSystem = system;
         }

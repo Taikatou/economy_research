@@ -6,20 +6,20 @@ using Unity.MLAgents.Sensors;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors.SystemSensors
 {
-    public class AgentRequestSensor : AgentMovementSensor<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
+    public class AgentRequestSensor : AgentMovementSensor<BaseAdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
     {
         private readonly RequestAdventurerSystem _requestAdventurerSystem;
 
         protected override EAdventurerScreen ValidScreen => EAdventurerScreen.Request;
 
-        protected override EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices> EconomySystem
+        protected override EconomySystem<BaseAdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices> EconomySystem
             => _requestAdventurerSystem;
 
         protected override int SensorCount => 0;
 
         public override string GetName() => "RequestSensor";
 
-        public AgentRequestSensor(AdventurerAgent agent, RequestAdventurerSystem requestAdventurerSystem, BufferSensorComponent availableRequests) : base(agent, new []{availableRequests})
+        public AgentRequestSensor(BaseAdventurerAgent agent, RequestAdventurerSystem requestAdventurerSystem, BufferSensorComponent availableRequests) : base(agent, new []{availableRequests})
         {
             _requestAdventurerSystem = requestAdventurerSystem;
         }

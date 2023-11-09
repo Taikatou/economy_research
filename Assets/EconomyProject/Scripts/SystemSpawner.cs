@@ -28,7 +28,7 @@ namespace EconomyProject.Scripts
                 var recorder = agentObject.GetComponent<DemonstrationRecorder>();
                 recorder.Record = true;
 
-                var agent = agentObject.GetComponent<AdventurerAgent>();
+                var agent = agentObject.GetComponent<BaseAdventurerAgent>();
                 if (agent != null)
                 {
                     adventurerInput.ChangeScreen(agent, TrainingConfig.StartScreen);

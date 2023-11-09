@@ -6,7 +6,7 @@ using Unity.MLAgents;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 {
-    public class ConfirmAbilities <T> where T : Agent, IAdventurerAgent
+    public class ConfirmAbilities <T> where T : BaseAdventurerAgent
     {
         private const int AbilitiesCount = 3;
         public readonly Dictionary<T, HashSet<EAttackOptions>> SelectedAttacks;

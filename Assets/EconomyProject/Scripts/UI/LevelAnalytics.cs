@@ -10,10 +10,10 @@ namespace EconomyProject.Scripts.UI
         private void Update()
         {
             var txt = "";
-            var agents = FindObjectsOfType<AdventurerAgent>();
+            var agents = FindObjectsOfType<BaseAdventurerAgent>();
             foreach (var agent in agents)
             {
-                txt += agent.levelComponent.TotalExp + "\t" + agent.levelComponent.Level + "\n";
+                txt += agent.LevelComponent.TotalExp + "\t" + agent.LevelComponent.Level + "\n";
             }
 
             text.text = txt;

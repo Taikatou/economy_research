@@ -56,7 +56,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             wallet.EarnMoney(reward, true);
         }
 
-        public void CheckItemAdd<T>(T agent, ECraftingResources resource, int amount, OnResources<T> onResourceAdd=null, OnResources<T> onResourceComplete=null) where T : Agent
+        public void CheckItemAdd(BaseAdventurerAgent agent, ECraftingResources resource, int amount, OnResources<BaseAdventurerAgent> onResourceAdd=null, OnResources<BaseAdventurerAgent> onResourceComplete=null)
         {
             var itemList = GetItemList();
 

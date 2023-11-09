@@ -16,11 +16,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
     public enum EAdventureStates { OutOfBattle, InQueue, ConfirmBattle, ConfirmAbilities, InBattle }
     
     [Serializable]
-    public class AdventurerSystem : EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>, ISetup
+    public class AdventurerSystem : EconomySystem<BaseAdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>, ISetup
     {
-        public BattleSubSystem<AdventurerAgent> battleSubSystem;
+        public BattleSubSystem battleSubSystem;
 
-        public Dictionary<AdventurerAgent, EAdventureStates> AdventureStates;
+        public Dictionary<BaseAdventurerAgent, EAdventureStates> AdventureStates;
 
         public static int ObservationSize => 75;
         public override EAdventurerScreen ActionChoice => TrainingConfig.StartScreen;
@@ -35,8 +35,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public void Start()
         {
-            battleSubSystem = new BattleSubSystem<AdventurerAgent>(travelSubsystem, SetAdventureState, dataLogger);
-            AdventureStates = new Dictionary<AdventurerAgent, EAdventureStates>();
+            battleSubSystem = new BattleSubSystem(travelSubsystem, SetAdventureState, dataLogger);
+            AdventureStates = new Dictionary<BaseAdventurerAgent, EAdventureStates>();
         }
 
         public void Setup()
@@ -45,7 +45,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             AdventureStates.Clear();
         }
 
-        public EAdventureStates GetAdventureStates(AdventurerAgent agent)
+        public EAdventureStates GetAdventureStates(BaseAdventurerAgent agent)
         {
             var toReturn = EAdventureStates.OutOfBattle;
             if (agent != null)
@@ -60,7 +60,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return toReturn;
         }
 
-        private void SetAdventureState(AdventurerAgent agent, EAdventureStates state)
+        private void SetAdventureState(BaseAdventurerAgent agent, EAdventureStates state)
         {
             if (!AdventureStates.ContainsKey(agent))
             {
@@ -73,12 +73,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             Refresh(agent);
         }
         
-        public override bool CanMove(AdventurerAgent agent)
+        public override bool CanMove(BaseAdventurerAgent agent)
         {
             return GetAdventureStates(agent) == EAdventureStates.OutOfBattle;
         }
 
-        public override ObsData[] GetObservations(AdventurerAgent agent, BufferSensorComponent[] bufferSensorComponent)
+        public override ObsData[] GetObservations(BaseAdventurerAgent agent, BufferSensorComponent[] bufferSensorComponent)
         {
             ObsData[] GetSubsystemData()
             {
@@ -93,7 +93,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                 }
                 else
                 {
-                    toReturn = BlankArray(BattleSubSystemInstance<AdventurerAgent>.SensorCount);
+                    toReturn = BlankArray(BattleSubSystemInstance<BaseAdventurerAgent>.SensorCount);
                 }
 
                 return toReturn;
@@ -114,7 +114,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
             var output = state == EAdventureStates.InBattle
                 ? GetSubsystemData()
-                : BlankArray(BattleSubSystemInstance<AdventurerAgent>.SensorCount);
+                : BlankArray(BattleSubSystemInstance<BaseAdventurerAgent>.SensorCount);
             battleState.AddRange(output);
 
             var output2 = state == EAdventureStates.OutOfBattle
@@ -154,7 +154,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return battleState.ToArray();
         }
 
-        protected override void SetChoice(AdventurerAgent agent, EAdventurerAgentChoices input)
+        protected override void SetChoice(BaseAdventurerAgent agent, EAdventurerAgentChoices input)
         {
             var validInput = ValidInput(agent, input);
             if (validInput)
@@ -184,7 +184,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             }
         }
         
-        public void RemoveAgent(AdventurerAgent agent)
+        public void RemoveAgent(BaseAdventurerAgent agent)
         {
             var state = GetAdventureStates(agent);
             if (state != EAdventureStates.OutOfBattle)
@@ -211,7 +211,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             AdventureStates[agent] = EAdventureStates.OutOfBattle;
         }
 
-        public void Select(AdventurerAgent agent)
+        public void Select(BaseAdventurerAgent agent)
         {
             var adventurerState = GetAdventureStates(agent);
             switch (adventurerState)
@@ -235,7 +235,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             }
         }
 
-        public void UpDown(AdventurerAgent agent, int movement)
+        public void UpDown(BaseAdventurerAgent agent, int movement)
         {
             switch (GetAdventureStates(agent))
             {
@@ -273,7 +273,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return count;
         }
 
-        public override EnabledInput[] GetEnabledInputs(AdventurerAgent agent)
+        public override EnabledInput[] GetEnabledInputs(BaseAdventurerAgent agent)
         {
             var inputChoices = new List<EAdventurerAgentChoices>
             {

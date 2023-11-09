@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Data;
+using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 
@@ -42,13 +43,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         }
     }
 
-    public abstract class BaseEconomySystem<TAgent> where TAgent : Agent
-    {
-        
-    }
-    
 
-    public abstract class EconomySystem<TAgent, TScreen, TInput> : BaseEconomySystem<TAgent> where TAgent : AgentScreen<TScreen> where TScreen : Enum where TInput : Enum
+    public abstract class EconomySystem<TAgent, TScreen, TInput> where TAgent : AgentScreen where TScreen : Enum where TInput : Enum
     {
         public GetAgents agents;
         private readonly Dictionary<TAgent, DateTime> _refreshTime;
@@ -94,23 +90,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
             return DateTime.MinValue;
         }
-        
-        protected TAgent[] CurrentPlayers
-        {
-            get
-            {
-                var playerAgents = agents.GetComponentsInChildren<TAgent>();
-                return Array.FindAll(playerAgents, element => element.ChosenScreen.Equals(ActionChoice));
-            }
-        }
-
-        protected void RequestDecisions()
-        {
-            foreach(var agent in CurrentPlayers)
-            {
-                agent.RequestDecision();
-            }
-        }
 
         protected virtual void SetChoice(TAgent agent, TInput input)
         {
@@ -131,6 +110,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             }
         }
 
+        public virtual EnabledInput[] GetEnabledInputs(Agent agent)
+        {
+            return new EnabledInput[] { };
+        }
+        
         public virtual EnabledInput[] GetEnabledInputs(TAgent agent)
         {
             return new EnabledInput[] { };

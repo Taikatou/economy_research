@@ -7,9 +7,9 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
 {
     public class AdventurerInventorySensor : BaseEconomySensor
     {
-        private readonly AdventurerAgent _agent;
+        private readonly BaseAdventurerAgent _agent;
 
-        public AdventurerInventorySensor(AdventurerAgent agent) : base(null)
+        public AdventurerInventorySensor(BaseAdventurerAgent agent) : base(null)
         {
             _agent = agent;
             var obs = GetData();
@@ -19,7 +19,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
 
         private float[] GetData()
         {
-            var item = _agent.adventurerInventory.EquipedItem;
+            var item = _agent.AdventurerInventory.EquipedItem;
             var damage = item == null? 0 : item.itemDetails.damage;
             var craft = item == null ? ECraftingChoice.BeginnerSword : item.craftChoice;
             var obs = new ObsData[]
@@ -35,7 +35,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
                 },
                 new SingleObsData
                 {
-                    data=_agent.adventurerInventory.ItemCount / 10,
+                    data=_agent.AdventurerInventory.ItemCount / 10,
                     Name="Item Count"
                 }
             };

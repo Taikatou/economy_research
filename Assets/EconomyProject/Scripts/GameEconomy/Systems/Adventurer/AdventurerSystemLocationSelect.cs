@@ -5,7 +5,7 @@ using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 {
     public enum EAdventurerSystem { Adventure, Shop, Request}
-    public class AdventurerSystemLocationSelect : LocationSelect<AdventurerAgent>
+    public class AdventurerSystemLocationSelect : LocationSelect<BaseAdventurerAgent>
     {
         public Dictionary<EAdventurerSystem, EAdventurerScreen> GetMap;
         public bool Initialized = false;
@@ -38,12 +38,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             }
         }
         
-        public override int GetLimit(AdventurerAgent agent)
+        public override int GetLimit(BaseAdventurerAgent agent)
         {
             return ValuesAsArray.Length;
         }
 
-        public EAdventurerSystem GetEnvironment(AdventurerAgent agent)
+        public EAdventurerSystem GetEnvironment(BaseAdventurerAgent agent)
         {
             var location = GetCurrentLocation(agent);
             return ValuesAsArray[location];
@@ -51,7 +51,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         public static int SensorCount => SensorUtils<EAdventurerSystem>.Length;
 
-        public ObsData[] GetTravelObservations(AdventurerAgent agent)
+        public ObsData[] GetTravelObservations(BaseAdventurerAgent agent)
         {
             var obs = new List<ObsData> {
                 new CategoricalObsData<EAdventurerSystem>(GetEnvironment(agent)) { Name="travelLocation" }

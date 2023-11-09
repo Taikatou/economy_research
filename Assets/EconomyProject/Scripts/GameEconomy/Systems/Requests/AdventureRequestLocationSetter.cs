@@ -2,15 +2,15 @@ using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
-    public class AdventureRequestLocationSetter : LocationSelect<AdventurerAgent>
+    public class AdventureRequestLocationSetter : LocationSelect<BaseAdventurerAgent>
     {
         public RequestSystem requestSystem { get; set; }
-        public override int GetLimit(AdventurerAgent agent)
+        public override int GetLimit(BaseAdventurerAgent agent)
         {
             return requestSystem.GetAllCraftingRequests().Count;
         }
 
-        public CraftingResourceRequest GetRequest(AdventurerAgent agent)
+        public CraftingResourceRequest GetRequest(BaseAdventurerAgent agent)
         {
             CraftingResourceRequest toReturn = null;
             var items = requestSystem.GetAllCraftingRequests();

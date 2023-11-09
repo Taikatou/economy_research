@@ -21,6 +21,6 @@ namespace EconomyProject.Monobehaviours
             // system.setup();
         }
 
-        public EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices> GetSystem => system;
+        public EconomySystem<BaseAdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices> GetSystem => system;
     }
 }

@@ -1,17 +1,22 @@
-﻿using Unity.MLAgents;
+﻿using System;
+using Unity.MLAgents;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy
 {
+    public interface IScreenSelect<out T> where T : Enum
+    {
+        public T ChosenScreen { get; }
+    }
 	public enum AgentType { Adventurer, Shop, None }
 
-	public abstract class AgentScreen<TScreen> : Agent
+	public abstract class AgentScreen : Agent
     {
+        public abstract int ChosenScreenInt { get; }
 		public abstract AgentType agentType { get; }
 
-		private int _previousDown = -1;
-        public abstract TScreen ChosenScreen { get; }
-        
+        private int _previousDown = -1;
+
         private readonly KeyCode[] _keyCodes = {
             KeyCode.Alpha0,
             KeyCode.Alpha1,

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Data;
 using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.Experiments;
@@ -10,18 +11,22 @@ using UnityEngine;
 using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes;
 using Inventory;
-using Unity.MLAgents;
+using TurnBased.Scripts;
 using Unity.MLAgents.Actuators;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 {
-	public interface IAdventurerAgent
+	public abstract class BaseAdventurerAgent : AgentScreen
 	{
-		public AdventurerAgentBattleData LevelComponent { get; }
-		public EAdventurerTypes AdventurerType { get; }
-		public EconomyWallet Wallet { get; }
+		public abstract AdventurerAgentBattleData LevelComponent { get; }
+		public abstract EAdventurerTypes AdventurerType { get; }
+		public abstract EconomyWallet Wallet { get; }
+		public abstract AdventurerInventory AdventurerInventory { get; }
+		public abstract AgentInventory Inventory { get; }
+		public abstract AdventurerRequestTaker RequestTaker { get; }
+		public abstract AdventurerFighterData FighterData { get; }
 	}
-	public class AdventurerAgent : AgentScreen<EAdventurerScreen>, IEconomyAgent, IAdventurerAgent
+	public class AdventurerAgent : BaseAdventurerAgent, IEconomyAgent, IScreenSelect<EAdventurerScreen>
 	{
 		public AgentInventory inventory;
         public AdventurerInventory adventurerInventory;
@@ -29,14 +34,13 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         public AdventurerInput adventurerInput;
         public AdventurerRequestTaker requestTaker;
         public AdventurerFighterData fighterData;
-        public EconomyWallet Wallet => wallet;
+        public override int ChosenScreenInt => (int)ChosenScreen;
         public override AgentType agentType => AgentType.Adventurer;
 
         public AdventurerAgentBattleData levelComponent;
 
-        public EAdventurerTypes AdventurerType => levelComponent.adventurerType;
 
-        public override EAdventurerScreen ChosenScreen
+        public EAdventurerScreen ChosenScreen
 		{
 			get
 			{
@@ -156,6 +160,12 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         private EAdventurerAgentChoices _choosenAction;
 
         private static int MaxLevel => 5;
-        public AdventurerAgentBattleData LevelComponent => levelComponent;
+        public override AdventurerAgentBattleData LevelComponent => levelComponent;
+        public override EAdventurerTypes AdventurerType => EAdventurerTypes.All;
+        public override EconomyWallet Wallet => wallet;
+        public override AdventurerInventory AdventurerInventory => adventurerInventory;
+        public override AgentInventory Inventory => inventory;
+        public override AdventurerRequestTaker RequestTaker => requestTaker;
+        public override AdventurerFighterData FighterData => fighterData;
 	}
 }

@@ -5,7 +5,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 {
     public class AdventurerActuatorComponent : ActuatorComponent
     {
-        public AdventurerAgent agent;
+        public BaseAdventurerAgent agent;
         
         private ActionSpec _mActionSpec;
         public override ActionSpec ActionSpec => _mActionSpec;

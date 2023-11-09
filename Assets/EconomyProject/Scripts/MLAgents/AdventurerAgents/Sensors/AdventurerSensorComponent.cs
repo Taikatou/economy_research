@@ -13,7 +13,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
         
         public BufferSensorComponent availableRequestsBufferComponent;
         
-        public AdventurerAgent agent;
+        public BaseAdventurerAgent agent;
         public override ISensor[] CreateSensors()
         {
             var behave = FindObjectOfType<AdventurerSystemBehaviour>();
@@ -38,7 +38,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
                 var sensors = new List<ISensor> { 
                     new AdventurerBaseSensor(agent),
                     new AdventurerInventorySensor(agent), 
-                    new RequestTakerSensor(requestAvailableBufferComponent, agent.requestTaker),
+                    new RequestTakerSensor(requestAvailableBufferComponent, agent.RequestTaker),
                     new AgentAdventureSensor(agent, behave.system),
                     new AgentRequestSensor(agent, request.system, availableRequestsBufferComponent),
                     new AgentShopSensor(agent, shop.system, agentShopBufferComponent),

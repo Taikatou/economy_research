@@ -15,7 +15,7 @@ namespace EconomyProject.Scripts.UI.Battle
         public AdventurerSystemBehaviour adventurerSystem;
         public GetCurrentAdventurerAgent adventurerAgent;
         
-        private BattleSubSystemInstance<AdventurerAgent> GetAdventurerBattleSubsystem()
+        private BattleSubSystemInstance<BaseAdventurerAgent> GetAdventurerBattleSubsystem()
         {
             var agent = adventurerAgent.CurrentAgent;
             var system = adventurerSystem.system.GetAdventureStates(agent);

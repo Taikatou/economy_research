@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace EconomyProject.Scripts.UI
 {
-    public abstract class AgentDropDown<TAgent, T> : MonoBehaviour where TAgent : AgentScreen<T>
+    public abstract class AgentDropDown<TAgent, T> : MonoBehaviour where TAgent : AgentScreen
     {
         public Color OnSelected = Color.green;
         public Color OriginalColor = Color.white;

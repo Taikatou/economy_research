@@ -4,26 +4,26 @@ using TurnBased.Scripts.AI;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 {
-    public class ConfirmAbilitiesLocationSelect : LocationSelect<AdventurerAgent>
+    public class ConfirmAbilitiesLocationSelect : LocationSelect<BaseAdventurerAgent>
     {
         public static readonly int SensorCount = SensorUtils<EAttackOptions>.Length + 1;
-        public override int GetLimit(AdventurerAgent agent)
+        public override int GetLimit(BaseAdventurerAgent agent)
         {
-            return PlayerActionMap.GetAbilities(agent.AdventurerType, agent.levelComponent.Level).Count;
+            return PlayerActionMap.GetAbilities(agent.AdventurerType, agent.LevelComponent.Level).Count;
         }
 
-        public EAttackOptions GetAbility(AdventurerAgent agent)
+        public EAttackOptions GetAbility(BaseAdventurerAgent agent)
         {
             if (agent != null)
             {
-                var abilities = PlayerActionMap.GetAbilities(agent.AdventurerType, agent.levelComponent.Level);
+                var abilities = PlayerActionMap.GetAbilities(agent.AdventurerType, agent.LevelComponent.Level);
                 return abilities[GetCurrentLocation(agent)];
             }
 
             return EAttackOptions.None;
         }
 
-        public ObsData[] GetObservations(AdventurerAgent agent)
+        public ObsData[] GetObservations(BaseAdventurerAgent agent)
         {
             var selected = (float)GetCurrentLocation(agent) / (float) GetLimit(agent);
             var ability = GetAbility(agent);

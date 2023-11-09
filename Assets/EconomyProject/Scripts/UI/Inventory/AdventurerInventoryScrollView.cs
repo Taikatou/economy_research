@@ -9,12 +9,12 @@ namespace EconomyProject.Scripts.UI.Inventory
     {
         public GetCurrentAdventurerAgent adventurerAgent;
 
-        protected override ILastUpdate LastUpdated => adventurerAgent.CurrentAgent.inventory;
+        protected override ILastUpdate LastUpdated => adventurerAgent.CurrentAgent.Inventory;
 
         protected override List<ItemUi> GetItemList()
         {
             var itemList = new List<ItemUi>();
-            foreach (var item in adventurerAgent.CurrentAgent.inventory.Items)
+            foreach (var item in adventurerAgent.CurrentAgent.Inventory.Items)
             {
                 itemList.Add(new ItemUi
                 {

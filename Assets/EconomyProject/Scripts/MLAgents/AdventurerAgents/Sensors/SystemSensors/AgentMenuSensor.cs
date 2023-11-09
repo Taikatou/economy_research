@@ -5,11 +5,11 @@ using EconomyProject.Scripts.MLAgents.Sensors;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors.SystemSensors
 {
-    public class AgentMenuSensor : AgentMovementSensor<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
+    public class AgentMenuSensor : AgentMovementSensor<BaseAdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
     {
         private readonly MainMenuSystem _adventurerSystem;
         
-        public AgentMenuSensor(AdventurerAgent agent, MainMenuSystem system) : base(agent, null)
+        public AgentMenuSensor(BaseAdventurerAgent agent, MainMenuSystem system) : base(agent, null)
         {
             _adventurerSystem = system;
         }
@@ -18,7 +18,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors.SystemSensors
 
         protected override EAdventurerScreen ValidScreen => EAdventurerScreen.Main;
 
-        protected override EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices> EconomySystem =>
+        protected override EconomySystem<BaseAdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices> EconomySystem =>
             _adventurerSystem;
 
         protected override int SensorCount => AdventurerSystemLocationSelect.SensorCount;

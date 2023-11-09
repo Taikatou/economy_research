@@ -17,7 +17,7 @@ namespace EconomyProject.Scripts.UI
         private void Update()
         {
             var txt = "";
-            var agents = FindObjectsOfType<AdventurerAgent>();
+            var agents = FindObjectsOfType<BaseAdventurerAgent>();
             foreach (var agent in agents)
             {
                 var system = adventurerInput.GetScreen(agent, EAdventurerScreen.Main);

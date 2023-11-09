@@ -27,7 +27,7 @@ namespace EconomyProject.Scripts.UI.ConfirmAbilities
             var agent = getCurrentAdventurer.CurrentAgent;
             if (agent != null)
             {
-                foreach( var ability in PlayerActionMap.GetAbilities(agent.AdventurerType, agent.levelComponent.Level))
+                foreach( var ability in PlayerActionMap.GetAbilities(agent.AdventurerType, agent.LevelComponent.Level))
                 {
                     toReturn.Add(new AbilityUI{AbilityName = ability});
                 }   

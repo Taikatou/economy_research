@@ -37,7 +37,7 @@ namespace EconomyProject.Scripts.GameEconomy
             _itemPrices = new Dictionary<UsableItem, List<float>>();
         }
 
-        public void AddAuctionItem(UsableItem item, float price, AdventurerAgent agent)
+        public void AddAuctionItem(UsableItem item, float price, BaseAdventurerAgent agent)
         {
             AuctionItem newItem = new AuctionItem(item, price, agent.GetComponent<AgentID>().agentId, CurrentTime);
             _auctionItems.Add(newItem);

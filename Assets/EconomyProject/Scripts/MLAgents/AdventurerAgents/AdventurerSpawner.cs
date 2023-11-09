@@ -20,8 +20,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         protected override GameObject Spawn(GameObject toSpawnPrefab)
         {
             var agent = base.Spawn(toSpawnPrefab);
-            var adventurer = agent.GetComponent<AdventurerAgent>();
-            adventurer.adventurerInput = adventurerInput;
+            var adventurer = agent.GetComponent<BaseAdventurerAgent>();
             if (randomiseAdventurerType)
             {
                 var values = Enum.GetValues(typeof(EAdventurerTypes));

@@ -20,7 +20,7 @@ namespace EconomyProject.Scripts.Experiments
 
         public ShopCraftingSystemBehaviour shopCraftingBehaviour;
 
-        private IEnumerable<AdventurerAgent> AdventurerAgents => FindObjectsOfType<AdventurerAgent>();
+        private IEnumerable<BaseAdventurerAgent> AdventurerAgents => FindObjectsOfType<BaseAdventurerAgent>();
         private IEnumerable<ShopAgent> ShopAgents => FindObjectsOfType<ShopAgent>();
 
         public void Start()

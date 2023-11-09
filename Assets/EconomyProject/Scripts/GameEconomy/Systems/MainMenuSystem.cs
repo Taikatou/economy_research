@@ -9,22 +9,22 @@ using UnityEngine;
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {
     [Serializable]
-    public class MainMenuSystem : EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
+    public class MainMenuSystem : EconomySystem<BaseAdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
     {
         public AdventurerSystemLocationSelect adventurerSystemLocationSelect;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Main;
         
-        public override bool CanMove(AdventurerAgent agent)
+        public override bool CanMove(BaseAdventurerAgent agent)
         {
             return true;
         }
 
-        public override ObsData [] GetObservations(AdventurerAgent agent, BufferSensorComponent[] bufferSensorComponent)
+        public override ObsData [] GetObservations(BaseAdventurerAgent agent, BufferSensorComponent[] bufferSensorComponent)
         {
             return adventurerSystemLocationSelect.GetTravelObservations(agent);
         }
 
-        protected override void SetChoice(AdventurerAgent agent, EAdventurerAgentChoices input)
+        protected override void SetChoice(BaseAdventurerAgent agent, EAdventurerAgentChoices input)
         {
             switch (input)
             {
@@ -40,12 +40,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             }
         }
         
-        public void UpDown(AdventurerAgent agent, int movement)
+        public void UpDown(BaseAdventurerAgent agent, int movement)
         {
             adventurerSystemLocationSelect.MovePosition(agent, movement);
         }
 
-        public void ChooseScreen(AdventurerAgent agent)
+        public void ChooseScreen(BaseAdventurerAgent agent)
         {
             var system = adventurerSystemLocationSelect.GetEnvironment(agent);
             if (adventurerSystemLocationSelect.Initialized)
@@ -55,7 +55,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             }
         }
 
-        public override EnabledInput[] GetEnabledInputs(AdventurerAgent agent)
+        public override EnabledInput[] GetEnabledInputs(BaseAdventurerAgent agent)
         {
             var inputChoices = new[]
             {

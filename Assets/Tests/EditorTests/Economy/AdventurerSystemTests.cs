@@ -31,19 +31,19 @@ namespace Tests.Economy
 		public void Inventory_UnarmedDefault()
 		{
 			//Reset inventory
-			adventurerAgent.OnEpisodeBegin();
+			BaseAdventurerAgent.OnEpisodeBegin();
 
-			if (adventurerAgent.inventory.Items.Count > 1)
+			if (BaseAdventurerAgent.Inventory.Items.Count > 1)
 			{
-				DebugItemsInInventory(adventurerAgent);
-				Assert.True(false, "adventurerAgent.inventory.Items.Count : " + adventurerAgent.inventory.Items.Count);
+				DebugItemsInInventory(BaseAdventurerAgent);
+				Assert.True(false, "adventurerAgent.inventory.Items.Count : " + BaseAdventurerAgent.Inventory.Items.Count);
 			}
 
-			Assert.AreEqual(1, adventurerAgent.inventory.Items.Count, "Unarmed by default");
+			Assert.AreEqual(1, BaseAdventurerAgent.Inventory.Items.Count, "Unarmed by default");
 			// TODO FIX THIS PLEASE
 			// Assert.True(adventurerAgent.inventory.Items.ContainsKey("Unarmed"), "Unarmed by default");
 
-			Assert.AreEqual(1, adventurerAgent.inventory.Items.Count, "Unarmed by default");
+			Assert.AreEqual(1, BaseAdventurerAgent.Inventory.Items.Count, "Unarmed by default");
 		}
 
 		/// <summary>
@@ -53,11 +53,11 @@ namespace Tests.Economy
 		public void Inventory_UnarmedDetails()
 		{
 			//Reset inventory
-			adventurerAgent.OnEpisodeBegin();
+			BaseAdventurerAgent.OnEpisodeBegin();
 
 			//Unarmed
 			//TODO FIX THIS PLEASE
-			UsableItemDetails itemDetails = adventurerAgent.inventory.Items["Unarmed"][0].itemDetails;
+			UsableItemDetails itemDetails = BaseAdventurerAgent.Inventory.Items["Unarmed"][0].itemDetails;
 			Assert.AreEqual("Unarmed", itemDetails.itemName);
 			Assert.AreEqual(ItemData.BaseDurabilities["Unarmed"], itemDetails.baseDurability);
 			Assert.AreEqual(itemDetails.durability, itemDetails.baseDurability);
@@ -73,7 +73,7 @@ namespace Tests.Economy
 		public void Inventory_ContainItem()
 		{
 			//Reset inventory
-			adventurerAgent.OnEpisodeBegin();
+			BaseAdventurerAgent.OnEpisodeBegin();
 
 			List<BaseItemPrices> basePrices = agentShopSubSystem.basePrices;
 			
@@ -83,10 +83,10 @@ namespace Tests.Economy
 				UsableItem itemToAdd = basePrices[i].item;
 
 				//Add to the inventory
-				adventurerAgent.inventory.AddItem(itemToAdd);
+				BaseAdventurerAgent.Inventory.AddItem(itemToAdd);
 
 				//Check if contains it
-				Assert.True(adventurerAgent.inventory.ContainsItem(itemToAdd));
+				Assert.True(BaseAdventurerAgent.Inventory.ContainsItem(itemToAdd));
 			}
 		}
 
@@ -97,7 +97,7 @@ namespace Tests.Economy
 		public void Inventory_RemoveItem()
 		{
 			//Reset inventory
-			adventurerAgent.OnEpisodeBegin();
+			BaseAdventurerAgent.OnEpisodeBegin();
 
 			List<BaseItemPrices> basePrices = agentShopSubSystem.basePrices;
 
@@ -107,13 +107,13 @@ namespace Tests.Economy
 				UsableItem itemToAdd = basePrices[i].item;
 
 				//Add to the inventory
-				adventurerAgent.inventory.AddItem(itemToAdd);
+				BaseAdventurerAgent.Inventory.AddItem(itemToAdd);
 
 				//Remove from the inventory
-				adventurerAgent.inventory.RemoveItem(itemToAdd);
+				BaseAdventurerAgent.Inventory.RemoveItem(itemToAdd);
 
 				//Check if contains it
-				Assert.False(adventurerAgent.inventory.ContainsItem(itemToAdd));
+				Assert.False(BaseAdventurerAgent.Inventory.ContainsItem(itemToAdd));
 			}
 		}
 
@@ -124,7 +124,7 @@ namespace Tests.Economy
 		public void Inventory_DecreaseDurability()
 		{
 			//Reset inventory
-			adventurerAgent.OnEpisodeBegin();
+			BaseAdventurerAgent.OnEpisodeBegin();
 
 			List<BaseItemPrices> basePrices = agentShopSubSystem.basePrices;
 
@@ -135,16 +135,16 @@ namespace Tests.Economy
 				itemToAdd.itemDetails.ResetDurability();
 
 				//Add to the inventory
-				adventurerAgent.inventory.AddItem(itemToAdd);
+				BaseAdventurerAgent.Inventory.AddItem(itemToAdd);
 				
 				//TODO FIX THIS PLEASE
-				UsableItem itemInInventory = adventurerAgent.inventory.Items[itemToAdd.ToString()][0];
+				UsableItem itemInInventory = BaseAdventurerAgent.Inventory.Items[itemToAdd.ToString()][0];
 
 				//Check durability by default
 				int durability = itemInInventory.itemDetails.durability;
 				Assert.AreEqual(itemInInventory.itemDetails.durability, itemInInventory.itemDetails.baseDurability);
 
-				adventurerAgent.inventory.DecreaseDurability(itemInInventory);
+				BaseAdventurerAgent.Inventory.DecreaseDurability(itemInInventory);
 
 				//Check if it decreased
 				Assert.AreEqual(durability - 1 , itemInInventory.itemDetails.durability);
@@ -158,32 +158,32 @@ namespace Tests.Economy
 		public void Inventory_EquipItem()
 		{
 			//Reset inventory
-			adventurerAgent.OnEpisodeBegin();
+			BaseAdventurerAgent.OnEpisodeBegin();
 			//Reset Item
-			adventurerAgent.adventurerInventory.EquipedItem.itemDetails.damage = ItemData.BaseDamages[adventurerAgent.adventurerInventory.EquipedItem.ToString()];
+			BaseAdventurerAgent.AdventurerInventory.EquipedItem.itemDetails.damage = ItemData.BaseDamages[BaseAdventurerAgent.AdventurerInventory.EquipedItem.ToString()];
 
 			List<BaseItemPrices> basePrices = agentShopSubSystem.basePrices;
 
 			for (int i = 0; i < basePrices.Count; i++)
 			{
 				//Reset inventory
-				adventurerAgent.OnEpisodeBegin();
+				BaseAdventurerAgent.OnEpisodeBegin();
 
 				//Sword
 				UsableItem itemToAdd = basePrices[i].item;
 
 				//Add to the inventory
-				adventurerAgent.inventory.AddItem(itemToAdd);
+				BaseAdventurerAgent.Inventory.AddItem(itemToAdd);
 
 				//Check if contains it
-				Assert.AreEqual(itemToAdd, adventurerAgent.adventurerInventory.EquipedItem, "i : " + i + " - Equiped Item : " + adventurerAgent.adventurerInventory.EquipedItem.ToString());
+				Assert.AreEqual(itemToAdd, BaseAdventurerAgent.AdventurerInventory.EquipedItem, "i : " + i + " - Equiped Item : " + BaseAdventurerAgent.AdventurerInventory.EquipedItem.ToString());
 			}
 
 			//Try to check if the player equips the stronger sword
-			adventurerAgent.inventory.AddItem(basePrices[0].item);
+			BaseAdventurerAgent.Inventory.AddItem(basePrices[0].item);
 			UsableItem ultimateSword = GetSwordByName("Ultimate Sword");
-			Assert.AreEqual(ultimateSword,adventurerAgent.adventurerInventory.EquipedItem, 
-				"Should keep the best equipment. Equiped Item : " + adventurerAgent.adventurerInventory.EquipedItem.ToString());
+			Assert.AreEqual(ultimateSword,BaseAdventurerAgent.AdventurerInventory.EquipedItem, 
+				"Should keep the best equipment. Equiped Item : " + BaseAdventurerAgent.AdventurerInventory.EquipedItem.ToString());
 
 		}
 
@@ -194,26 +194,26 @@ namespace Tests.Economy
 		[Test]
 		public void Wallet_Wallet()
 		{
-			adventurerAgent.OnEpisodeBegin();
-			Assert.AreEqual(adventurerAgent.wallet.startMoney, adventurerAgent.wallet.Money, "Start money should be 100");
+			BaseAdventurerAgent.OnEpisodeBegin();
+			Assert.AreEqual(BaseAdventurerAgent.Wallet.startMoney, BaseAdventurerAgent.Wallet.Money, "Start money should be 100");
 
-			int money = adventurerAgent.wallet.Money;
+			int money = BaseAdventurerAgent.Wallet.Money;
 			Assert.IsNotNull(money);
 
-			adventurerAgent.wallet.EarnMoney(10, false);
-			Assert.AreEqual(money + 10, adventurerAgent.wallet.Money);
+			BaseAdventurerAgent.Wallet.EarnMoney(10, false);
+			Assert.AreEqual(money + 10, BaseAdventurerAgent.Wallet.Money);
 
-			adventurerAgent.wallet.LoseMoney(-20);
-			Assert.AreEqual(money - 10, adventurerAgent.wallet.Money);
+			BaseAdventurerAgent.Wallet.LoseMoney(-20);
+			Assert.AreEqual(money - 10, BaseAdventurerAgent.Wallet.Money);
 
-			adventurerAgent.wallet.SpendMoney(30);
-			Assert.AreEqual(money - 40, adventurerAgent.wallet.Money);
+			BaseAdventurerAgent.Wallet.SpendMoney(30);
+			Assert.AreEqual(money - 40, BaseAdventurerAgent.Wallet.Money);
 
-			adventurerAgent.wallet.SetMoney(234);
-			Assert.AreEqual(234, adventurerAgent.wallet.Money);
+			BaseAdventurerAgent.Wallet.SetMoney(234);
+			Assert.AreEqual(234, BaseAdventurerAgent.Wallet.Money);
 
-			adventurerAgent.wallet.LoseMoney(1000);
-			Assert.AreEqual(0, adventurerAgent.wallet.Money);
+			BaseAdventurerAgent.Wallet.LoseMoney(1000);
+			Assert.AreEqual(0, BaseAdventurerAgent.Wallet.Money);
 		}
 
 		/********************************************Enum**************************************************/
@@ -307,7 +307,7 @@ namespace Tests.Economy
 		[Test]
 		public void Spawn_OneAdventurerSpawned()
 		{
-			AdventurerAgent[] adventurerAgents = getAdventurerAgent.GetAgents;
+			BaseAdventurerAgent[] adventurerAgents = getAdventurerAgent.GetAgents;
 			Assert.AreEqual(1, adventurerAgents.Length);
 		}
 

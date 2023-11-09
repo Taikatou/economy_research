@@ -7,18 +7,18 @@ using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 namespace EconomyProject.Scripts.GameEconomy
 {
     
-    public class AdventurerInput : AgentInput<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
+    public class AdventurerInput : AgentInput<BaseAdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
     {
         private static MainMenuSystemBehaviour MainMenuSystem => FindObjectOfType<MainMenuSystemBehaviour>();
-        private static AdventurerShopSystemBehaviour AdventurerShopSystem => FindObjectOfType<AdventurerShopSystemBehaviour>();
+        public static AdventurerShopSystemBehaviour AdventurerShopSystem => FindObjectOfType<AdventurerShopSystemBehaviour>();
         private static RequestAdventurerSystemBehaviour RequestSystem => FindObjectOfType<RequestAdventurerSystemBehaviour>();
         public static AdventurerSystemBehaviour AdventurerSystem => FindObjectOfType<AdventurerSystemBehaviour>();
 
-        private static EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>[] GetSystems()
+        private static EconomySystem<BaseAdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>[] GetSystems()
         {
             if (SystemTraining.IncludeShop)
             {
-                return new EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>[]
+                return new EconomySystem<BaseAdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>[]
                 {
                     MainMenuSystem.system,
                     AdventurerSystem.system,
@@ -26,13 +26,13 @@ namespace EconomyProject.Scripts.GameEconomy
                     AdventurerSystem.system
                 };
             }
-            return new EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>[]
+            return new EconomySystem<BaseAdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>[]
             {
                 AdventurerSystem.system,
             };
         }
 
-        public override EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices> GetEconomySystem(AdventurerAgent agent)
+        public override EconomySystem<BaseAdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices> GetEconomySystem(BaseAdventurerAgent agent)
         {
             var screen = GetScreen(agent, TrainingConfig.StartScreen);
             IGetSystem system = null;
@@ -79,7 +79,7 @@ namespace EconomyProject.Scripts.GameEconomy
             AdventurerSystem.system.AgentInput = this;
         }
 
-        public IEnumerable<EnabledInput> GetActionMask(AdventurerAgent agent)
+        public IEnumerable<EnabledInput> GetActionMask(BaseAdventurerAgent agent)
         {
             var inputsEnabled = GetEconomySystem(agent).GetEnabledInputs(agent);
             return inputsEnabled;

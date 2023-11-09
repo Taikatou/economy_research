@@ -4,15 +4,15 @@ using Unity.MLAgents.Sensors;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 {
-    public class AdventurerRest : EconomySystem<AdventurerAgent, EAdventurerScreen, EAdventurerScreen>
+    public class AdventurerRest : EconomySystem<BaseAdventurerAgent, EAdventurerScreen, EAdventurerScreen>
     {
         public override EAdventurerScreen ActionChoice => (EAdventurerScreen.Rest);
-        public override bool CanMove(AdventurerAgent agent)
+        public override bool CanMove(BaseAdventurerAgent agent)
         {
             return true;
         }
 
-        public override ObsData[] GetObservations(AdventurerAgent agent, BufferSensorComponent[] bufferSensorComponent)
+        public override ObsData[] GetObservations(BaseAdventurerAgent agent, BufferSensorComponent[] bufferSensorComponent)
         {
             throw new System.NotImplementedException();
         }

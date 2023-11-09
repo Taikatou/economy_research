@@ -9,22 +9,22 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 {
     public enum EConfirmBattle { Confirm, Back }
     public enum EConfirmAbilities {Confirm, Back, Up, Down};
-    public class ConfirmBattleLocationSelect : LocationSelect<AdventurerAgent>
+    public class ConfirmBattleLocationSelect : LocationSelect<BaseAdventurerAgent>
     { 
         public AdventurerSystemBehaviour adventurerSystem;
         public static int SensorCount => SensorUtils<EConfirmBattle>.Length + 1 + ((SensorUtils<EAdventurerTypes>.Length + 1) * SystemTraining.PartySize);
-        public override int GetLimit(AdventurerAgent agent)
+        public override int GetLimit(BaseAdventurerAgent agent)
         {
             return SensorUtils<EConfirmBattle>.Length;
         }
         
-        public EConfirmBattle GetConfirmation(AdventurerAgent agent)
+        public EConfirmBattle GetConfirmation(BaseAdventurerAgent agent)
         {
             var location = GetCurrentLocation(agent);
             return SensorUtils<EConfirmBattle>.ValuesToArray[location];
         }
 
-        public ObsData[] GetConfirmationObservations(AdventurerAgent agent, AdventurerSystem system)
+        public ObsData[] GetConfirmationObservations(BaseAdventurerAgent agent, AdventurerSystem system)
         {
             var environment = adventurerSystem.system.battleSubSystem.GetBattleEnvironment(agent);
             var obs = new List<ObsData> {

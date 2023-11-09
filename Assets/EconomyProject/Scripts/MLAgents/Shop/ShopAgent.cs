@@ -21,7 +21,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 	
 	public enum EGoalSignal { MakeRequests, CreateItem, EditShop, FreeRoam }
     
-	public class ShopAgent : AgentScreen<EShopScreen>, IEconomyAgent
+	public class ShopAgent : AgentScreen, IEconomyAgent, IScreenSelect<EShopScreen>
 	{
 		public VectorSensorComponent vectorSensor;
 	    public ShopInput shopInput;
@@ -31,7 +31,8 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 
         private EShopAgentChoices _forcedAction;
         private bool _bForcedAction;
-		public override AgentType agentType => AgentType.Shop;
+        public override int ChosenScreenInt => (int) ChosenScreen;
+        public override AgentType agentType => AgentType.Shop;
 
 		public void Start()
 		{
@@ -79,7 +80,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 			vectorSensor.GetSensor().AddOneHotObservation((int) goalSignal, num);
 		}
 
-		public override EShopScreen ChosenScreen
+		public EShopScreen ChosenScreen
         {
             get
             {
