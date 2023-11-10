@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 4250931923004593224}
   - component: {fileID: 1817350387931501863}
   - component: {fileID: 2072330097273742403}
-  - component: {fileID: 5616954730062649782}
   - component: {fileID: 3175469178531096349}
   - component: {fileID: 8133029727072223212}
   - component: {fileID: 342237269981398615}
@@ -83,7 +82,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canObtainAllWeapons: 0
-  agent: {fileID: 5616954730062649782}
+  agent: {fileID: 0}
   agentInventory: {fileID: 1817350387931501863}
 --- !u!114 &1817350387931501863
 MonoBehaviour:
@@ -130,29 +129,6 @@ MonoBehaviour:
   m_UseChildActuators: 1
   m_DeterministicInference: 0
   m_ObservableAttributeHandling: 0
---- !u!114 &5616954730062649782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7707616417561859250}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e382e919727daf446bb2e1e0636e1726, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 10000
-  hasUpgradedFromAgentParameters: 1
-  MaxStep: 10000
-  inventory: {fileID: 1817350387931501863}
-  adventurerInventory: {fileID: 4250931923004593224}
-  wallet: {fileID: -4706628768726033178}
-  adventurerInput: {fileID: 0}
-  requestTaker: {fileID: 3175469178531096349}
-  fighterData: {fileID: 342237269981398615}
-  levelComponent: {fileID: 1308730154}
 --- !u!114 &3175469178531096349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,8 +184,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea71049e3e366be42b47b27c2b2a8d5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requestLimit: 3
-  agent: {fileID: 5616954730062649782}
+  requestAvailableBufferComponent: {fileID: 0}
+  agentShopBufferComponent: {fileID: 0}
+  availableRequestsBufferComponent: {fileID: 0}
+  agent: {fileID: 0}
 --- !u!114 &1401570310200512078
 MonoBehaviour:
   m_ObjectHideFlags: 0

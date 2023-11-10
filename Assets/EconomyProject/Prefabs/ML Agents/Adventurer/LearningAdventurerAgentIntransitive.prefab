@@ -67,10 +67,18 @@ PrefabInstance:
       propertyPath: m_BrainParameters.m_ActionSpec.BranchSizes.Array.data[0]
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 4250931923004593224, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
+      propertyPath: agent
+      value: 
+      objectReference: {fileID: 7231880060680091862}
     - target: {fileID: 7707616417561859250, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
       propertyPath: m_Name
       value: LearningAdventurerAgentIntransitive
       objectReference: {fileID: 0}
+    - target: {fileID: 8440662294524558494, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
+      propertyPath: agent
+      value: 
+      objectReference: {fileID: 7231880060680091862}
     - target: {fileID: 8440662294524558494, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
       propertyPath: agentShopBufferComponent
       value: 
@@ -89,41 +97,66 @@ PrefabInstance:
       objectReference: {fileID: 5309837427188852087}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
+--- !u!114 &800805697420958896 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1817350387931501863, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
+  m_PrefabInstance: {fileID: 1307607420724431255}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8706436983826652453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf88a2c3c27c9b4b804eeb1c5a32011, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1628703270116904896 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 342237269981398615, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
+  m_PrefabInstance: {fileID: 1307607420724431255}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8706436983826652453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2ff084ce61324a4f9b84839d0b10828, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2944182122723630559 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4250931923004593224, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
+  m_PrefabInstance: {fileID: 1307607420724431255}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8706436983826652453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a01aab7e5f3c274a90a9307fb39ef3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3209725229979047281 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -4706628768726033178, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
+  m_PrefabInstance: {fileID: 1307607420724431255}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8706436983826652453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce000fa4147eec844b7cdd831ec766ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4482214546387103370 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3175469178531096349, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
+  m_PrefabInstance: {fileID: 1307607420724431255}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8706436983826652453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fedbbfa33a0403e4f8304a75d17c2150, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8706436983826652453 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7707616417561859250, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
   m_PrefabInstance: {fileID: 1307607420724431255}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6720971554557575677
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8706436983826652453}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd8012d5925524537b27131fef517017, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SensorName: AdventurerShopComponent
-  m_ObservableSize: 9
-  m_MaxNumObservables: 3
---- !u!114 &8714013410508497553
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8706436983826652453}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd8012d5925524537b27131fef517017, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SensorName: TakenRequests
-  m_ObservableSize: 3
-  m_MaxNumObservables: 4
 --- !u!114 &5309837427188852087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,3 +172,55 @@ MonoBehaviour:
   m_SensorName: AvailableRequests
   m_ObservableSize: 7
   m_MaxNumObservables: 5
+--- !u!114 &6720971554557575677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8706436983826652453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd8012d5925524537b27131fef517017, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: AdventurerShopComponent
+  m_ObservableSize: 9
+  m_MaxNumObservables: 3
+--- !u!114 &7231880060680091862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8706436983826652453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2638744897b6674aac54e0c95f66017, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  inventory: {fileID: 800805697420958896}
+  adventurerInventory: {fileID: 2944182122723630559}
+  wallet: {fileID: 3209725229979047281}
+  requestTaker: {fileID: 4482214546387103370}
+  fighterData: {fileID: 1628703270116904896}
+  adventurerInput: {fileID: 0}
+--- !u!114 &8714013410508497553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8706436983826652453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd8012d5925524537b27131fef517017, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: TakenRequests
+  m_ObservableSize: 3
+  m_MaxNumObservables: 4

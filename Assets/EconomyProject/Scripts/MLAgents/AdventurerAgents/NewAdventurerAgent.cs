@@ -13,7 +13,7 @@ using UnityEngine;
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 {
     public enum NewAdventurerScreen {Main}
-    public class NewAdventurerAgent : BaseAdventurerAgent, IScreenSelect<NewAdventurerScreen>
+    public class NewAdventurerAgent : BaseAdventurerAgent, IScreenSelect<NewAdventurerScreen>, IEconomyAgent
     {
         public AgentInventory inventory;
         public AdventurerInventory adventurerInventory;
@@ -23,8 +23,10 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         
         public void SetAction(int action)
         {
-            throw new System.NotImplementedException();
+            _choosenAction = (ENewAdventurerAgentChoices) action;
         }
+        
+        private ENewAdventurerAgentChoices _choosenAction;
 
         public IEnumerable<EnabledInput> GetEnabledInput()
         {
@@ -64,10 +66,13 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         
         public override void OnActionReceived(ActionBuffers actions)
         {
-            var battleAction = (EAdventurerAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[0]);
-            var shopAction = (EAdventurerAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[1]);
+            var action = (ENewAdventurerAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[0]);
+            if (battleAction >= ENewAdventurerAgentChoices.ShopBack)
+            {
+                AdventurerInput.AdventurerShopSystem.system.AgentSetChoice(this, battleAction);
+            }
             
-            AdventurerInput.AdventurerShopSystem.system.AgentSetChoice(this, battleAction);
+            
         }
         
         public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
