@@ -66,13 +66,17 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         
         public override void OnActionReceived(ActionBuffers actions)
         {
-            var action = (ENewAdventurerAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[0]);
-            if (battleAction >= ENewAdventurerAgentChoices.ShopBack)
+            var battleAction = (EAdventurerAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[0]);
+            if(battleAction != EAdventurerAgentChoices.None)
             {
                 AdventurerInput.AdventurerShopSystem.system.AgentSetChoice(this, battleAction);
             }
             
-            
+            var shopAction = (EAdventurerAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[1]);
+            if (shopAction != EAdventurerAgentChoices.None)
+            {
+                AdventurerInput.AdventurerSystem.system.AgentSetChoice(this, shopAction);
+            }
         }
         
         public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)

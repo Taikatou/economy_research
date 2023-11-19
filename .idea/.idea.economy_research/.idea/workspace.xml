@@ -3,11 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="3a9a0144-2920-4427-8d8b-3fddc42186be" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.economy_research/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.economy_research/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Data/AdventurerData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/AdventurerData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Prefabs/ML Agents/Adventurer/LearningAdventurerAgent.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Prefabs/ML Agents/Adventurer/LearningAdventurerAgent.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Prefabs/ML Agents/Adventurer/LearningAdventurerAgentIntransitive.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Prefabs/ML Agents/Adventurer/LearningAdventurerAgentIntransitive.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scenes/TestScenes/EconomyScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scenes/TestScenes/EconomyScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/NewAdventurerAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/NewAdventurerAgent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Adventurer/AdventurerAgentDropDown.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Adventurer/AdventurerAgentDropDown.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/GetCurrentAdventurerAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/GetCurrentAdventurerAgent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Timers/EconomyScene_timers.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Timers/EconomyScene_timers.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -366,10 +366,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="2192">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="2192" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -464,6 +464,7 @@
       <workItem from="1698687635838" duration="4726000" />
       <workItem from="1699124743950" duration="941000" />
       <workItem from="1699546899249" duration="1009000" />
+      <workItem from="1700407622053" duration="2394000" />
     </task>
     <servers />
   </component>
@@ -622,6 +623,58 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="306" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Inventory/AdventurerInventoryScrollView.cs</url>
+          <line>11</line>
+          <properties documentPath="C:\Users\conor\Documents\GitHub\economy_research\Assets\EconomyProject\Scripts\UI\Inventory\AdventurerInventoryScrollView.cs" initialLine="11" containingFunctionPresentation="property 'LastUpdated'">
+            <startOffsets>
+              <option value="394" />
+            </startOffsets>
+            <endOffsets>
+              <option value="432" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="307" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/GetCurrentAgent.cs</url>
+          <line>47</line>
+          <properties documentPath="C:\Users\conor\Documents\GitHub\economy_research\Assets\EconomyProject\Scripts\UI\GetCurrentAgent.cs" initialLine="47" containingFunctionPresentation="property 'CurrentAgent'">
+            <startOffsets>
+              <option value="1074" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1103" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="308" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/GetCurrentAgent.cs</url>
+          <line>49</line>
+          <properties documentPath="C:\Users\conor\Documents\GitHub\economy_research\Assets\EconomyProject\Scripts\UI\GetCurrentAgent.cs" initialLine="49" containingFunctionPresentation="property 'CurrentAgent'">
+            <startOffsets>
+              <option value="1142" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1166" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="309" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/GetCurrentAgent.cs</url>
+          <line>51</line>
+          <properties documentPath="C:\Users\conor\Documents\GitHub\economy_research\Assets\EconomyProject\Scripts\UI\GetCurrentAgent.cs" initialLine="51" containingFunctionPresentation="property 'CurrentAgent'">
+            <startOffsets>
+              <option value="1201" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1213" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="310" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

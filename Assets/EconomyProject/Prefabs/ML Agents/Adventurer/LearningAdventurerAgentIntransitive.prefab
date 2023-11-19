@@ -60,12 +60,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2072330097273742403, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
+      propertyPath: m_BrainParameters.VectorActionSize.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2072330097273742403, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
       propertyPath: m_BrainParameters.VectorActionSize.Array.data[0]
-      value: 7
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2072330097273742403, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
+      propertyPath: m_BrainParameters.VectorActionSize.Array.data[1]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2072330097273742403, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
+      propertyPath: m_BrainParameters.m_ActionSpec.BranchSizes.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2072330097273742403, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
       propertyPath: m_BrainParameters.m_ActionSpec.BranchSizes.Array.data[0]
-      value: 7
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2072330097273742403, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
+      propertyPath: m_BrainParameters.m_ActionSpec.BranchSizes.Array.data[1]
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4250931923004593224, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
       propertyPath: agent
@@ -95,7 +111,8 @@ PrefabInstance:
       propertyPath: availableRequestsBufferComponent
       value: 
       objectReference: {fileID: 5309837427188852087}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8127034746003450137, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
 --- !u!114 &800805697420958896 stripped
 MonoBehaviour:
