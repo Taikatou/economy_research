@@ -86,6 +86,23 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
                 actionMask.SetActionEnabled(0, input.Input, input.Enabled);   
             }
         }
+        
+        public override void Heuristic(in ActionBuffers actionsOut)
+        {
+            if (_choosenAction != ENewAdventurerAgentChoices.None)
+            {
+                var actions = actionsOut.DiscreteActions;
+                if (_choosenAction <= ENewAdventurerAgentChoices.AdvSelect)
+                {
+                    actions[1] = (int)_choosenAction;
+                }
+                else
+                {
+                    actions[0] = (int)_choosenAction - (int)ENewAdventurerAgentChoices.AdvSelect - 1;
+                }
+                _choosenAction = ENewAdventurerAgentChoices.None;
+            }
+        }
 
         public override AdventurerAgentBattleData LevelComponent => null;
         public override EAdventurerTypes AdventurerType => EAdventurerTypes.All;

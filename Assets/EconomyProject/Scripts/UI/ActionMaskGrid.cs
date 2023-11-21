@@ -41,7 +41,7 @@ namespace EconomyProject.Scripts.UI
             }
             else
             {
-                InitMenus<EAdventurerAgentChoices>();
+                InitMenus<ENewAdventurerAgentChoices>();
             }
         }
 

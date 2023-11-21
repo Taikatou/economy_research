@@ -101,7 +101,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop
             agentInventory.Setup();
             craftingInventory.ResetInventory();
             agentInventory.Setup();
-            wallet.Setup(shopInput.requestSystem.system.requestSystem, AgentType.Adventurer);
+            wallet.Setup(shopInput.requestSystem.system.requestSystem, AgentType.Shop);
             
             ResetOnItem.bSetupSystems = true;
         }

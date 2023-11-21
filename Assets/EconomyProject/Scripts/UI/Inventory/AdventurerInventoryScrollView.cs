@@ -9,7 +9,18 @@ namespace EconomyProject.Scripts.UI.Inventory
     {
         public GetCurrentAdventurerAgent adventurerAgent;
 
-        protected override ILastUpdate LastUpdated => adventurerAgent.CurrentAgent.Inventory;
+        protected override ILastUpdate LastUpdated
+        {
+            get
+            {
+                if (adventurerAgent.CurrentAgent != null)
+                {
+                    return adventurerAgent.CurrentAgent.Inventory;
+                }
+
+                return null;
+            }
+        }
 
         protected override List<ItemUi> GetItemList()
         {
