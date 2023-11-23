@@ -32,7 +32,10 @@ namespace EconomyProject.Scripts.UI
         {
             foreach (var toOpen in menus)
             {
-                toOpen.SetActive(open);
+                if (toOpen != null)
+                {
+                    toOpen.SetActive(open);
+                }
             }
         }
     }

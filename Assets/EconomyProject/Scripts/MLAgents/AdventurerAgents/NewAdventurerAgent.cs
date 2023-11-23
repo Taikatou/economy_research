@@ -55,8 +55,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             }
         }
         
-        public AdventurerInput adventurerInput;
-
         public override void OnEpisodeBegin()
         {
             wallet.Setup(requestTaker.requestSystem, AgentType.Adventurer);

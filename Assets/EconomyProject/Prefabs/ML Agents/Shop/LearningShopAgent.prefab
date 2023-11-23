@@ -127,8 +127,8 @@ MonoBehaviour:
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 09000000
-    VectorActionSize: 09000000
+      BranchSizes: 0600000007000000
+    VectorActionSize: 0600000007000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
@@ -193,8 +193,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DecisionPeriod: 10
-  DecisionStep: 0
   TakeActionsBetweenDecisions: 0
+  allowDecisions: 1
   crafter: 1
 --- !u!114 &3657407672704079423
 MonoBehaviour:
@@ -208,7 +208,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31899ea889ad89049afba7b072550158, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Record: 0
   NumStepsToRecord: 0
   DemonstrationName: ShopAgent
   DemonstrationDirectory: Assets/Demonstrations

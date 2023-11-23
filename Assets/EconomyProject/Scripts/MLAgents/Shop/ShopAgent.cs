@@ -15,13 +15,30 @@ using Unity.MLAgents.Sensors;
 
 namespace EconomyProject.Scripts.MLAgents.Shop
 {
-	public enum EShopAgentChoices { Back, IncreasePrice, DecreasePrice, Up, Down, Select, RemoveRequest, None }
+	public enum EShopAgentChoices
+	{
+		None,
+		IncreasePrice,
+		DecreasePrice,
+		Up,
+		Down,
+		Select,
+		RemoveRequest,
+		RequestIncreasePrice,
+		RequestDecreasePrice,
+		RequestUp,
+		RequestDown,
+		RequestSelect,
+		Back
+	}
 
 	public enum EShopScreen { Main, Request, Craft}
 	
+	public enum ENewShopScreen { Main }
+	
 	public enum EGoalSignal { MakeRequests, CreateItem, EditShop, FreeRoam }
     
-	public class ShopAgent : AgentScreen, IEconomyAgent, IScreenSelect<EShopScreen>
+	public class ShopAgent : AgentScreen, IEconomyAgent, IScreenSelect<ENewShopScreen>
 	{
 		public VectorSensorComponent vectorSensor;
 	    public ShopInput shopInput;
@@ -76,21 +93,17 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 				goalSignal = EGoalSignal.FreeRoam;
 			}
 			
-			var num = Enum.GetValues(typeof(EGoalSignal)).Cast<EGoalSignal>().Count();
-			vectorSensor.GetSensor().AddOneHotObservation((int) goalSignal, num);
+			//var num = Enum.GetValues(typeof(EGoalSignal)).Cast<EGoalSignal>().Count();
+			//vectorSensor.GetSensor().AddOneHotObservation((int) goalSignal, num);
 		}
 
-		public EShopScreen ChosenScreen
+		public ENewShopScreen ChosenScreen
         {
             get
             {
-	            var toReturn = EShopScreen.Main;
-	            if (shopInput != null)
-	            {
-		            toReturn = shopInput.GetScreen(this, EShopScreen.Main);
-	            }
-                
-                return toReturn;
+	            var toReturn = ENewShopScreen.Main;
+
+	            return toReturn;
             }
         }
 
@@ -111,28 +124,35 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 
         public override void Heuristic(in ActionBuffers actionsOut)
         {
-	        if (controlWithHeuristic)
+	        if (_forcedAction != EShopAgentChoices.None)
 	        {
-		        shopHeuristic.Heuristic(shopInput.requestSystem.system.requestSystem, shopInput.shopCraftingSystem.system, this);
-	        }
-	        else
-	        {
-		        var actionB = actionsOut.DiscreteActions;
-		        actionB[0] = (int)EShopAgentChoices.None;
+		        var actions = actionsOut.DiscreteActions;
+		        if (_forcedAction <= EShopAgentChoices.RemoveRequest)
+		        {
+			        var index = _forcedAction == EShopAgentChoices.RemoveRequest ? 1 : 0;
+			        actions[index] = (int)_forcedAction;
+		        }
+		        else
+		        {
+			        actions[1] = (int)_forcedAction - (int)EShopAgentChoices.RemoveRequest;
+		        }
+
+		        _forcedAction = EShopAgentChoices.None;
 	        }
         }
 
         public override void OnActionReceived(ActionBuffers actions)
         {
-	        var action = (EShopAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[0]);;
-	        if (_bForcedAction)
+	        var battleAction = (EShopAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[0]);
+	        if (battleAction != EShopAgentChoices.None)
 	        {
-		        _bForcedAction = false;
-		        action = _forcedAction;
+		        shopInput.shopCraftingSystem.system.AgentSetChoice(this, battleAction);
 	        }
-	        
-	        var system = shopInput.GetEconomySystem(this);
-            system.AgentSetChoice(this, action);
+	        var requestAction = (EShopAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[1]);
+	        if (requestAction != EShopAgentChoices.None)
+	        {
+		        shopInput.requestSystem.system.AgentSetChoice(this, requestAction);
+	        }
         }
 
         public void SetAction(EShopAgentChoices choice)

@@ -23,12 +23,10 @@ namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
             var screen =  _shopAgent.ChosenScreen;
             var walletMoney = _shopAgent.wallet ? _shopAgent.wallet.Money : 0.0f;
 
-            var selectedScreen = screen != EShopScreen.Main ? EShopScreen.Main : _locationSelect.GetMenu(_shopAgent);
+            var selectedScreen = ENewShopScreen.Main;
             var obsData = new List<ObsData>
             {
                 new SingleObsData { data=walletMoney, Name="Shop Wallet" },
-                new CategoricalObsData<EShopScreen>(screen) { Name="Chosen Screen"},
-                new CategoricalObsData<EShopScreen>(selectedScreen) {Name="Selected Screen"}
             };
             
             foreach (var resource in CraftingAsList)

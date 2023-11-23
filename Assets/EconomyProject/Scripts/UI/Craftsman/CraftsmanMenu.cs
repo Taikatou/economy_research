@@ -21,7 +21,7 @@ namespace EconomyProject.Scripts.UI.Craftsman
         {
             if (CraftsmanUiControls.ShopAgent)
             {
-                var nextScreen = CraftsmanUiControls.ShopAgent.ChosenScreen;
+                var nextScreen = (EShopScreen) CraftsmanUiControls.ShopAgent.ChosenScreen;
                 SwitchMenu(nextScreen);
             }
         }
@@ -37,6 +37,7 @@ namespace EconomyProject.Scripts.UI.Craftsman
         {
             return a == b;
         }
+        
 
         protected override bool SwitchMenu(EShopScreen whichMenu)
         {
@@ -44,7 +45,7 @@ namespace EconomyProject.Scripts.UI.Craftsman
 
             if (valid)
             {
-                var children = craftMenu.GetComponentsInChildren<LastUpdate>();
+                var children = mainMenu.GetComponentsInChildren<LastUpdate>();
                 foreach (var child in children)
                 {
                     child.Refresh();
