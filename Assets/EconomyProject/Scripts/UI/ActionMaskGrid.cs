@@ -14,7 +14,7 @@ namespace EconomyProject.Scripts.UI
         public GridLayoutGroup gridLayout;
         public ActionMaskButton maskUI;
 
-        private Dictionary<int, ActionMaskButton> _textBoxes;
+        private Dictionary<int, ActionMaskButton>[] _textBoxes;
 
         private List<EAdventurerAgentChoices> _actions;
 
@@ -34,27 +34,43 @@ namespace EconomyProject.Scripts.UI
             {
                 Destroy(child.gameObject);
             }
-            _textBoxes = new Dictionary<int, ActionMaskButton>();
+
+            _textBoxes = new Dictionary<int, ActionMaskButton>[2];
+            _textBoxes[0] = new Dictionary<int, ActionMaskButton>();
+            _textBoxes[1] = new Dictionary<int, ActionMaskButton>();
             if (_cachedCraftActive)
             {
-                InitMenus<EShopAgentChoices>();
+                InitMenus<EShopAgentChoices>(EShopAgentChoices.RequestNone);
             }
             else
             {
-                InitMenus<ENewAdventurerAgentChoices>();
+                InitMenus<ENewAdventurerAgentChoices>(ENewAdventurerAgentChoices.ShopNone);
             }
         }
 
-        private void AddTextBox<T>(List<T> actions) where T : Enum
+        private void AddTextBox<T>(List<T> actions, T swapValue) where T : Enum
         {
+            bool flipped = false;
+            int counter = 0;
+            var index = 0;
             foreach (var a in actions)
             {
                 var t = Instantiate(maskUI, gridLayout.transform, true);
-                _textBoxes.Add(Convert.ToInt32(a), t);
+                if (!flipped)
+                {
+                    if(Convert.ToInt32(a) >= Convert.ToInt32(swapValue))
+                    {
+                        index = 1;
+                        counter = 0;
+                        flipped = true;
+                    }
+                }
+                _textBoxes[index].Add(Convert.ToInt32(counter), t);
+                counter++;
             }
         }
 
-        private void InitMenus<T> () where T : Enum
+        private void InitMenus<T> (T swapValue) where T : Enum
         {
             var actions = Enum.GetValues(typeof(T)).Cast<T>().ToList();
             var x = (float) 1920 / actions.Count;
@@ -68,7 +84,7 @@ namespace EconomyProject.Scripts.UI
                 t.buttonUI.onClick.AddListener(() => ButtonClicked(a));
             }
 
-            AddTextBox(actions);
+            AddTextBox(actions, swapValue);
         }
 
         private void ButtonClicked<T> (T a) where T : Enum
@@ -87,14 +103,20 @@ namespace EconomyProject.Scripts.UI
             }
             else if (getCurrentAgentAggregator.CurrentAgent != null)
             {
-                var inputs= getCurrentAgentAggregator.CurrentAgent.GetEnabledInput();
-                foreach (var i in inputs)
+                var inputs= getCurrentAgentAggregator.CurrentAgent.GetEnabledInputNew();
+                var j = 0;
+                foreach (var enabledInput in inputs)
                 {
-                    var a = Convert.ToInt32(i.Input);
-                    if (_textBoxes.ContainsKey(a))
+                    foreach (var i in enabledInput)
                     {
-                        _textBoxes[a].textUI.text = i.Enabled.ToString();
+                        var a = Convert.ToInt32(i.Input);
+                        if (_textBoxes[j].ContainsKey(a))
+                        {
+                            _textBoxes[j][a].textUI.text = i.Enabled.ToString();
+                        }
                     }
+
+                    j++;
                 }   
             }
         }

@@ -14,6 +14,14 @@ using UnityEngine;
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {
     public enum EAdventureStates { OutOfBattle, InQueue, ConfirmBattle, ConfirmAbilities, InBattle }
+
+    [Serializable]
+    public struct EnvironmentDropTable
+    {
+        public FighterDropTable [] fighterDropTable;
+
+        public EBattleEnvironments battleEnvironment;
+    }
     
     [Serializable]
     public class AdventurerSystem : EconomySystem<BaseAdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>, ISetup
@@ -22,7 +30,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public Dictionary<BaseAdventurerAgent, EAdventureStates> AdventureStates;
 
-        public static int ObservationSize => 75;
+        public static int ObservationSize => 4;
         public override EAdventurerScreen ActionChoice => TrainingConfig.StartScreen;
 
         public AdventurerLocationSelect locationSelect;
@@ -108,55 +116,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
                 return toReturn;
             }
-            
-            var state = GetAdventureStates(agent);
-            var battleState = new List<ObsData> { new CategoricalObsData<EAdventureStates>(state) {Name="AdventureState"}};
 
-            var output = state == EAdventureStates.InBattle
-                ? GetSubsystemData()
-                : BlankArray(BattleSubSystemInstance<BaseAdventurerAgent>.SensorCount);
-            battleState.AddRange(output);
-
-            var output2 = state == EAdventureStates.OutOfBattle
-                ? locationSelect.GetTravelObservations(agent, this)
-                : BlankArray(AdventurerLocationSelect.SensorCount);
-
-            var output3 = state == EAdventureStates.ConfirmBattle
-                ? confirmLocationSelect.GetConfirmationObservations(agent, this)
-                : BlankArray(ConfirmBattleLocationSelect.SensorCount);
-
-            var output5 = state == EAdventureStates.ConfirmAbilities
-                ? confirmAbilitiesSelect.GetObservations(agent)
-                : BlankArray(ConfirmAbilitiesLocationSelect.SensorCount);
-
-            var obsize = new List<ObsData>();
-            foreach (EBattleEnvironments battle in Enum.GetValues(typeof(EBattleEnvironments)))
-            {
-                for (var i = 0; i < SystemTraining.PartySize; i++)
-                {
-                    var party = battleSubSystem.CurrentParties[battle];
-                    if (i < party.PendingAgents.Count)
-                    {
-                        var a = party.PendingAgents[i];
-                        obsize.Add(new CategoricalObsData<EAdventurerTypes>(a.AdventurerType));
-                    }
-                    else
-                    {
-                        obsize.Add(new CategoricalObsData<EAdventurerTypes>());
-                    }
-                }
-            }
-            
-            battleState.AddRange(obsize);
-            battleState.AddRange(output2);
-            battleState.AddRange(output3);
-            battleState.AddRange(output5);
-            return battleState.ToArray();
+            var output2 = locationSelect.GetTravelObservations(agent, this);
+            return output2;
         }
 
         protected override void SetChoice(BaseAdventurerAgent agent, EAdventurerAgentChoices input)
         {
-            var validInput = ValidInput(agent, input);
+            var validInput = ValidInput(agent, input, 0);
             if (validInput)
             {
                 switch(input)
@@ -216,24 +183,18 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             var adventurerState = GetAdventureStates(agent);
             switch (adventurerState)
             {
-                case EAdventureStates.InBattle:
-                    var action = battleLocationSelect.GetBattleAction(agent);
-                    battleSubSystem.SelectBattle(agent, action);
-                    break;
                 case EAdventureStates.OutOfBattle:
                     var location = locationSelect.GetBattle(agent);
-                    battleSubSystem.StartBattle(agent, location);
-                    break;
-                case EAdventureStates.ConfirmBattle:
-                    var confirm = confirmLocationSelect.GetConfirmation(agent);
-                    battleSubSystem.Confirmation(confirm, agent);
-                    break;
-                case EAdventureStates.ConfirmAbilities:
-                    var ability = confirmAbilitiesSelect.GetAbility(agent);
-                    battleSubSystem.ConfirmAbilities(ability, agent);
+                    var getLootBox = travelSubsystem.GetLootBox(location);
+                    if (getLootBox.HasValue)
+                    {
+                        agent.RequestTaker.CheckItemAdd(agent, getLootBox.Value.Resource, getLootBox.Value.Count, battleSubSystem.OnItemAdd, battleSubSystem.OnRequestComplete);  
+                    }
                     break;
             }
         }
+
+        public EnvironmentDropTable[] EnvironmentDropTable;
 
         public void UpDown(BaseAdventurerAgent agent, int movement)
         {
@@ -273,7 +234,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return count;
         }
 
-        public override EnabledInput[] GetEnabledInputs(BaseAdventurerAgent agent)
+        public override EnabledInput[] GetEnabledInputs(BaseAdventurerAgent agent, int branch)
         {
             var inputChoices = new List<EAdventurerAgentChoices>
             {
@@ -287,7 +248,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                 inputChoices.Add(EAdventurerAgentChoices.Back);
             }
 
-            var outputs = EconomySystemUtils<EAdventurerAgentChoices>.GetInputOfType(inputChoices);
+            var outputs = EconomySystemUtils<EAdventurerAgentChoices>.GetInputOfType(inputChoices, branch);
 
             return outputs;
         }

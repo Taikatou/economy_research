@@ -63,7 +63,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                     }
 
                     request.CompletedTime = Time.time;
-                    rDataLogger.AddRequestCompleted(request);
+                    //rDataLogger.AddRequestCompleted(request);
                 }
             }
         }

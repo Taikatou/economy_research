@@ -225,7 +225,6 @@ MonoBehaviour:
   wallet: {fileID: 3209725229979047281}
   requestTaker: {fileID: 4482214546387103370}
   fighterData: {fileID: 1628703270116904896}
-  adventurerInput: {fileID: 0}
 --- !u!114 &8714013410508497553
 MonoBehaviour:
   m_ObjectHideFlags: 0

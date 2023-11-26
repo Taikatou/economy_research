@@ -129,9 +129,16 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 
         public IEnumerable<EnabledInput> GetEnabledInput()
         {
-	        return adventurerInput.GetActionMask(this);
+	        return adventurerInput.GetActionMask(this, 0);
         }
-        
+
+        public List<EnabledInput[]> GetEnabledInputNew()
+        {
+	        throw new NotImplementedException();
+        }
+
+        public int HalfSize { get; }
+
 
         public override void OnActionReceived(ActionBuffers actions)
         {
@@ -144,7 +151,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 	        if (action != EAdventurerAgentChoices.None)
 	        {
 		        var system = adventurerInput.GetEconomySystem(this);
-		        system.AgentSetChoice(this, action);
+		        system.AgentSetChoice(this, action, 0);
 		        if (TrainingConfig.PunishMovement)
 		        {
 			        AddReward(TrainingConfig.OnPunishMovementReward);   

@@ -7,5 +7,9 @@ namespace EconomyProject.Scripts.MLAgents
     {
         public void SetAction(int action);
         public IEnumerable<EnabledInput> GetEnabledInput();
+
+        public List<EnabledInput[]> GetEnabledInputNew();
+        
+        public int HalfSize { get; }
     }
 }

@@ -123,7 +123,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             }
         }
 
-        public override EnabledInput[] GetEnabledInputs(ShopAgent agent)
+        public override EnabledInput[] GetEnabledInputs(ShopAgent agent, int branch)
         {
             var inputChoices = new List<EShopAgentChoices>
             {
@@ -165,7 +165,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                 }   
             }
 
-            var outputs = EconomySystemUtils<EShopAgentChoices>.GetInputOfType(inputChoices);
+            var outputs = EconomySystemUtils<EShopAgentChoices>.GetInputOfType(inputChoices, branch);
             return outputs;
         }
     }

@@ -19,13 +19,14 @@ namespace EconomyProject.Scripts.GameEconomy
             return output;
         }
 
-        public static EnabledInput[] GetInputOfType(IEnumerable<T> enabledChoices)
+        public static EnabledInput[] GetInputOfType(IEnumerable<T> enabledChoices, int branch)
         {
             var outputs = GetInputOfType(false);
             foreach (var c in enabledChoices)
             {
                 var i = Convert.ToInt32(c);
                 outputs[i].Enabled = true;
+                outputs[i].Branch = branch;
             }
 
             return outputs;

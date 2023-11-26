@@ -59,7 +59,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         public void CheckItemAdd(BaseAdventurerAgent agent, ECraftingResources resource, int amount, OnResources<BaseAdventurerAgent> onResourceAdd=null, OnResources<BaseAdventurerAgent> onResourceComplete=null)
         {
             var itemList = GetItemList();
-
+            if (CurrentRequestData == null)
+            {
+                return;
+            }
             // Check if we have current request for this resource
             if (TrainingConfig.AdventurerNoRequestMenu && !CurrentRequestData.ContainsKey(resource))
             {

@@ -55,7 +55,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             locationSelect.MovePosition(agent, movement);
         }
         
-        public EnabledInput[] GetEnabledInputs(Agent agent)
+        public EnabledInput[] GetEnabledInputs(Agent agent, int branch)
         {
             var inputChoices = new List<EAdventurerAgentChoices>
             {
@@ -69,7 +69,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
                 inputChoices.Add(EAdventurerAgentChoices.Back);
             }
 
-            var outputs = EconomySystemUtils<EAdventurerAgentChoices>.GetInputOfType(inputChoices);
+            var outputs = EconomySystemUtils<EAdventurerAgentChoices>.GetInputOfType(inputChoices, branch);
 
             return outputs;
         }

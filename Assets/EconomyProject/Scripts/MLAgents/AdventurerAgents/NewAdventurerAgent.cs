@@ -25,14 +25,27 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         {
             _choosenAction = (ENewAdventurerAgentChoices) action;
         }
-        
-        private ENewAdventurerAgentChoices _choosenAction;
 
         public IEnumerable<EnabledInput> GetEnabledInput()
         {
-            return AdventurerInput.AdventurerShopSystem.system.GetEnabledInputs(this);
+            throw new NotImplementedException();
         }
-        
+
+        private ENewAdventurerAgentChoices _choosenAction;
+
+        public List<EnabledInput[]> GetEnabledInputNew()
+        {
+            var advInputs = AdventurerInput.AdventurerSystem.system.GetEnabledInputs(this, 0);
+            var shopInputs = AdventurerInput.AdventurerShopSystem.system.GetEnabledInputs(this, 1);
+            return new List<EnabledInput[]>
+            {
+                advInputs,
+                shopInputs
+            };
+        }
+
+        public int HalfSize => 4;
+
         public virtual void Start()
         {
             if (TrainingConfig.OnPurchase)
@@ -67,21 +80,26 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             var battleAction = (EAdventurerAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[0]);
             if(battleAction != EAdventurerAgentChoices.None)
             {
-                AdventurerInput.AdventurerShopSystem.system.AgentSetChoice(this, battleAction);
+                AdventurerInput.AdventurerSystem.system.AgentSetChoice(this, battleAction, 0);
             }
             
             var shopAction = (EAdventurerAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[1]);
             if (shopAction != EAdventurerAgentChoices.None)
             {
-                AdventurerInput.AdventurerSystem.system.AgentSetChoice(this, shopAction);
+                AdventurerInput.AdventurerShopSystem.system.AgentSetChoice(this, shopAction, 1);
             }
         }
         
         public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
         {
-            foreach (var input in GetEnabledInput())
+            var i = 0;
+            foreach (var sysInputs in GetEnabledInputNew())
             {
-                actionMask.SetActionEnabled(0, input.Input, input.Enabled);   
+                foreach (var input in sysInputs)
+                {
+                    actionMask.SetActionEnabled(i, input.Input, input.Enabled);
+                }
+                i++;
             }
         }
         
@@ -96,11 +114,21 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
                 }
                 else
                 {
-                    actions[0] = (int)_choosenAction - (int)ENewAdventurerAgentChoices.AdvSelect - 1;
+                    actions[0] = (int)ChoiceMaps[_choosenAction];
                 }
                 _choosenAction = ENewAdventurerAgentChoices.None;
             }
         }
+
+        public static readonly Dictionary<ENewAdventurerAgentChoices, ENewAdventurerAgentChoices> ChoiceMaps =
+            new()
+            {
+                { ENewAdventurerAgentChoices.ShopBack, ENewAdventurerAgentChoices.AdvBack },
+                { ENewAdventurerAgentChoices.ShopDown, ENewAdventurerAgentChoices.AdvDown },
+                { ENewAdventurerAgentChoices.ShopUp, ENewAdventurerAgentChoices.AdvUp },
+                { ENewAdventurerAgentChoices.ShopSelect, ENewAdventurerAgentChoices.AdvSelect },
+                { ENewAdventurerAgentChoices.ShopNone, ENewAdventurerAgentChoices.None }
+            };
 
         public override AdventurerAgentBattleData LevelComponent => null;
         public override EAdventurerTypes AdventurerType => EAdventurerTypes.All;

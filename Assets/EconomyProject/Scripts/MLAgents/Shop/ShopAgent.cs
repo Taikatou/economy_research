@@ -23,12 +23,13 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 		Up,
 		Down,
 		Select,
-		RemoveRequest,
+		RequestNone,
 		RequestIncreasePrice,
 		RequestDecreasePrice,
 		RequestUp,
 		RequestDown,
 		RequestSelect,
+		RemoveRequest,
 		Back
 	}
 
@@ -127,31 +128,40 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 	        if (_forcedAction != EShopAgentChoices.None)
 	        {
 		        var actions = actionsOut.DiscreteActions;
-		        if (_forcedAction <= EShopAgentChoices.RemoveRequest)
+		        if (_forcedAction < EShopAgentChoices.RequestIncreasePrice)
 		        {
-			        var index = _forcedAction == EShopAgentChoices.RemoveRequest ? 1 : 0;
-			        actions[index] = (int)_forcedAction;
+			        actions[0] = (int)_forcedAction;
 		        }
 		        else
 		        {
-			        actions[1] = (int)_forcedAction - (int)EShopAgentChoices.RemoveRequest;
+			        actions[1] = (int)ChoicesMap[_forcedAction];
 		        }
 
 		        _forcedAction = EShopAgentChoices.None;
 	        }
         }
 
+        public static Dictionary<EShopAgentChoices, EShopAgentChoices> ChoicesMap = new Dictionary<EShopAgentChoices, EShopAgentChoices>
+        {
+	        { EShopAgentChoices.RemoveRequest, EShopAgentChoices.RemoveRequest },
+	        { EShopAgentChoices.RequestUp, EShopAgentChoices.Up },
+	        { EShopAgentChoices.RequestDown, EShopAgentChoices.Down },
+	        { EShopAgentChoices.RequestSelect, EShopAgentChoices.Select },
+	        { EShopAgentChoices.RequestIncreasePrice, EShopAgentChoices.IncreasePrice },
+	        { EShopAgentChoices.RequestDecreasePrice, EShopAgentChoices.DecreasePrice },
+        };
+
         public override void OnActionReceived(ActionBuffers actions)
         {
 	        var battleAction = (EShopAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[0]);
 	        if (battleAction != EShopAgentChoices.None)
 	        {
-		        shopInput.shopCraftingSystem.system.AgentSetChoice(this, battleAction);
+		        shopInput.shopCraftingSystem.system.AgentSetChoice(this, battleAction, 0);
 	        }
 	        var requestAction = (EShopAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[1]);
 	        if (requestAction != EShopAgentChoices.None)
 	        {
-		        shopInput.requestSystem.system.AgentSetChoice(this, requestAction);
+		        shopInput.requestSystem.system.AgentSetChoice(this, requestAction, 1);
 	        }
         }
 
@@ -165,18 +175,36 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 		{
 			SetAction((EShopAgentChoices) action);
 		}
-		
-		public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
-		{
-			foreach (var input in GetEnabledInput())
-			{
-				actionMask.SetActionEnabled(0, input.Input, input.Enabled);   
-			}
-		}
 
 		public IEnumerable<EnabledInput> GetEnabledInput()
 		{
-			return shopInput.GetActionMask(this);
+			throw new NotImplementedException();
 		}
-    }
+
+		public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
+		{
+			var i = 0;
+			foreach (var sysInputs in GetEnabledInputNew())
+			{
+				foreach (var input in sysInputs)
+				{
+					actionMask.SetActionEnabled(i, input.Input, input.Enabled);
+				}
+				i++;
+			}
+		}
+
+		public List<EnabledInput[]> GetEnabledInputNew()
+		{
+			var craftInputs = shopInput.shopCraftingSystem.system.GetEnabledInputs(this, 0);
+			var requestInputs = shopInput.requestSystem.system.GetEnabledInputs(this, 1);
+			return new List<EnabledInput[]>()
+			{
+				craftInputs,
+				requestInputs
+			};
+		}
+
+		public int HalfSize => 6;
+	}
 }

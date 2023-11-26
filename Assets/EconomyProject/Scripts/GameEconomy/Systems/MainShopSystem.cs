@@ -42,7 +42,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             }
         }
 
-        public override EnabledInput[] GetEnabledInputs(ShopAgent agent)
+        public override EnabledInput[] GetEnabledInputs(ShopAgent agent, int branch)
         {
             var screen = mainLocationSelect.GetMenu(agent);
 
@@ -63,7 +63,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                     EShopAgentChoices.Select
                 };
             }
-            var outputs = EconomySystemUtils<EShopAgentChoices>.GetInputOfType(inputChoices);
+            var outputs = EconomySystemUtils<EShopAgentChoices>.GetInputOfType(inputChoices, branch);
             return outputs;
         }
     }
