@@ -21,13 +21,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
         public ShopRequestLocationMap MakeRequestGetLocation { get; set; }
 
-        private int _craftingLength;
-
-        public void Setup()
-        {
-            _craftingLength = Enum.GetNames(typeof(ECraftingResources)).Length - 1;
-        }
-
         public override bool CanMove(ShopAgent agent)
         {
             return true;
@@ -59,8 +52,16 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             foreach (var request in items.Values)
             {
                 var outputs = new List<float>();
-                var r = new float[_craftingLength];
-                r[(int)request.Resource-1] = 1;
+                var r = new float[4];
+                if (request.Resource > ECraftingResources.Nothing)
+                {
+                    var index = (int)request.Resource - 1;
+                    if(index < r.Length)
+                        r[index] = 1;
+                    else
+                        Debug.Log(request.Resource);
+                }
+
                 outputs.AddRange(r);
                 outputs.Add(request.Price);
                 outputs.Add(request.Number);
@@ -167,6 +168,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
             var outputs = EconomySystemUtils<EShopAgentChoices>.GetInputOfType(inputChoices, branch);
             return outputs;
+        }
+
+        public void Setup()
+        {
+            
         }
     }
 }
