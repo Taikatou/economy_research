@@ -25,8 +25,6 @@ namespace EconomyProject.Scripts
             if (recordDemonstrations)
             {
                 var agentObject = agents[0];
-                var recorder = agentObject.GetComponent<DemonstrationRecorder>();
-                recorder.Record = true;
 
                 var agent = agentObject.GetComponent<BaseAdventurerAgent>();
                 if (agent != null)

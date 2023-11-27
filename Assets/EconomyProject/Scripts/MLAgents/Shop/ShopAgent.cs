@@ -120,9 +120,6 @@ namespace EconomyProject.Scripts.MLAgents.Shop
             ResetOnItem.bSetupSystems = true;
         }
 
-        public ShopHeuristic shopHeuristic;
-        public bool controlWithHeuristic;
-
         public override void Heuristic(in ActionBuffers actionsOut)
         {
 	        if (_forcedAction != EShopAgentChoices.None)
@@ -169,6 +166,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 		{
 			_bForcedAction = true;
 			_forcedAction = choice;
+			RequestDecision();
 		}
 
 		public void SetAction(int action)

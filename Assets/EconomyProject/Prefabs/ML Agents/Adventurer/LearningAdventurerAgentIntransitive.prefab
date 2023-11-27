@@ -207,6 +207,7 @@ PrefabInstance:
       objectReference: {fileID: 9018790431179389205}
     m_RemovedComponents:
     - {fileID: 8127034746003450137, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
+    - {fileID: -4416621978120130695, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
 --- !u!114 &800805697420958896 stripped
 MonoBehaviour:
@@ -324,3 +325,18 @@ MonoBehaviour:
   m_SensorName: TakenRequests
   m_ObservableSize: 3
   m_MaxNumObservables: 4
+--- !u!114 &5152742442250170143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8706436983826652453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2902496c0120472b90269f94a0aec7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NumStepsToRecord: 0
+  DemonstrationName: AdventurerAgent
+  DemonstrationDirectory: 

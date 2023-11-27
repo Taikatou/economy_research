@@ -24,6 +24,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         public void SetAction(int action)
         {
             _choosenAction = (ENewAdventurerAgentChoices) action;
+            RequestDecision();
         }
 
         public IEnumerable<EnabledInput> GetEnabledInput()
@@ -110,11 +111,11 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
                 var actions = actionsOut.DiscreteActions;
                 if (_choosenAction <= ENewAdventurerAgentChoices.AdvSelect)
                 {
-                    actions[1] = (int)_choosenAction;
+                    actions[0] = (int)_choosenAction;
                 }
                 else
                 {
-                    actions[0] = (int)ChoiceMaps[_choosenAction];
+                    actions[1] = (int)ChoiceMaps[_choosenAction];
                 }
                 _choosenAction = ENewAdventurerAgentChoices.None;
             }

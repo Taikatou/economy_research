@@ -78,7 +78,7 @@ namespace EconomyProject.Scripts.MLAgents.Craftsman
                 found = _numResources.ContainsKey(item.type);
                 if (found)
                 {
-                    found = _numResources[item.type] < item.number;
+                    found = _numResources[item.type] >= item.number;
                 }
             }
 

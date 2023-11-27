@@ -4,7 +4,14 @@
     <list default="true" id="3a9a0144-2920-4427-8d8b-3fddc42186be" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.economy_research/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.economy_research/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Prefabs/ML Agents/Adventurer/LearningAdventurerAgentIntransitive.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Prefabs/ML Agents/Adventurer/LearningAdventurerAgentIntransitive.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Requests/RequestShopSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Requests/RequestShopSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Prefabs/ML Agents/Shop/LearningShopAgent.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Prefabs/ML Agents/Shop/LearningShopAgent.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scenes/TestScenes/EconomyScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scenes/TestScenes/EconomyScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/NewAdventurerAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/NewAdventurerAgent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Craftsman/CraftingInventory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Craftsman/CraftingInventory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/EconomyDecisionRequester.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/EconomyDecisionRequester.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Shop/ShopAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Shop/ShopAgent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/SystemSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/SystemSpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Craftsman/Request/ScrollList/CurrentShopRequestScrollList.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Craftsman/Request/ScrollList/CurrentShopRequestScrollList.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Timers/EconomyScene_timers.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Timers/EconomyScene_timers.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
@@ -243,6 +250,7 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/Button/TestButton.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/Canvas/CanvasGroupInheritedAlpha.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/Canvas/NestedCanvas.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/Canvas/RectMask2DWithNestedCanvasCullsUsingCorrectCanvasRect.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/Canvas/SiblingOrderChangesLayout.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/Dropdown/DropdownTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/EventSystem/InputModuleTests/DragCallbackCheck.cs" root0="SKIP_HIGHLIGHTING" />
@@ -279,6 +287,16 @@
     <setting file="file://$PROJECT_DIR$/../ml-agents-2/com.unity.ml-agents/Tests/Editor/Policies/HeuristicPolicyTest.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ml-agents-2/com.unity.ml-agents/Tests/Runtime/Sensor/BufferSensorTest.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ml-agents-2/com.unity.ml-agents/Tests/Runtime/Sensor/StackingSensorTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../ml-agents-3/com.unity.ml-agents/Tests/Editor/AcademyTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../ml-agents-3/com.unity.ml-agents/Tests/Editor/Analytics/InferenceAnalyticsTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../ml-agents-3/com.unity.ml-agents/Tests/Editor/Analytics/TrainingAnalyticsTest.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../ml-agents-3/com.unity.ml-agents/Tests/Editor/DemonstrationTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../ml-agents-3/com.unity.ml-agents/Tests/Editor/Integrations/Match3/Match3ActuatorTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../ml-agents-3/com.unity.ml-agents/Tests/Editor/MLAgentsEditModeTest.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../ml-agents-3/com.unity.ml-agents/Tests/Editor/Policies/HeuristicPolicyTest.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../ml-agents-3/com.unity.ml-agents/Tests/Editor/PublicAPI/PublicApiValidation.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../ml-agents-3/com.unity.ml-agents/Tests/Runtime/Sensor/StackingSensorTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../ml-agents-3/com.unity.ml-agents/Tests/Runtime/Utils/TestClasses.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ml-agents/com.unity.ml-agents/Runtime/Agent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ml-agents/com.unity.ml-agents/Runtime/Sensors/BufferSensor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ml-agents/com.unity.ml-agents/Runtime/Sensors/BufferSensorComponent.cs" root0="SKIP_HIGHLIGHTING" />
@@ -312,15 +330,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Discover.Launch.Via.Unity": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "XThreadsFramesViewSplitterKey": "0.46576878",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Discover.Launch.Via.Unity&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.46576878&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="UnitTests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.16f1\Editor\Unity.exe" />
@@ -340,10 +358,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="34520">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="22788">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="34520" />
+      <option name="pid" value="22788" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -444,6 +462,7 @@
       <workItem from="1700924430003" duration="3883000" />
       <workItem from="1700944262414" duration="4887000" />
       <workItem from="1701026984997" duration="2107000" />
+      <workItem from="1701114552169" duration="2215000" />
     </task>
     <servers />
   </component>
@@ -550,6 +569,175 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="344" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/CraftingSubSystem.cs</url>
+          <line>95</line>
+          <properties documentPath="C:\Users\conor\Documents\GitHub\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Craftsman\CraftingSubSystem.cs" initialLine="95" containingFunctionPresentation="method 'CanCraft'">
+            <startOffsets>
+              <option value="3215" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3283" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="350" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/CraftingSubSystem.cs</url>
+          <line>96</line>
+          <properties documentPath="C:\Users\conor\Documents\GitHub\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Craftsman\CraftingSubSystem.cs" initialLine="96" containingFunctionPresentation="method 'CanCraft'">
+            <startOffsets>
+              <option value="3300" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3372" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="351" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/CraftingSubSystem.cs</url>
+          <line>97</line>
+          <properties documentPath="C:\Users\conor\Documents\GitHub\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Craftsman\CraftingSubSystem.cs" initialLine="97" containingFunctionPresentation="method 'CanCraft'">
+            <startOffsets>
+              <option value="3389" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3447" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="352" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Craftsman/CraftingInventory.cs</url>
+          <line>77</line>
+          <properties documentPath="C:\Users\conor\Documents\GitHub\economy_research\Assets\EconomyProject\Scripts\MLAgents\Craftsman\CraftingInventory.cs" initialLine="77" containingFunctionPresentation="method 'HasResources'">
+            <startOffsets>
+              <option value="2132" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2177" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="353" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Craftsman/CraftingInventory.cs</url>
+          <line>76</line>
+          <properties documentPath="C:\Users\conor\Documents\GitHub\economy_research\Assets\EconomyProject\Scripts\MLAgents\Craftsman\CraftingInventory.cs" initialLine="76" containingFunctionPresentation="method 'HasResources'">
+            <startOffsets>
+              <option value="2070" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2115" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="354" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Craftsman/CraftingInventory.cs</url>
+          <line>80</line>
+          <properties documentPath="C:\Users\conor\Documents\GitHub\economy_research\Assets\EconomyProject\Scripts\MLAgents\Craftsman\CraftingInventory.cs" initialLine="80" containingFunctionPresentation="method 'HasResources'">
+            <startOffsets>
+              <option value="2243" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2291" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="355" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Craftsman/CraftingInventory.cs</url>
+          <line>86</line>
+          <properties documentPath="C:\Users\conor\Documents\GitHub\economy_research\Assets\EconomyProject\Scripts\MLAgents\Craftsman\CraftingInventory.cs" initialLine="86" containingFunctionPresentation="method 'HasResources'">
+            <startOffsets>
+              <option value="2378" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2430" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="357" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Craftsman/CraftingInventory.cs</url>
+          <line>88</line>
+          <properties documentPath="C:\Users\conor\Documents\GitHub\economy_research\Assets\EconomyProject\Scripts\MLAgents\Craftsman\CraftingInventory.cs" initialLine="88" containingFunctionPresentation="method 'HasResources'">
+            <startOffsets>
+              <option value="2469" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2509" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="358" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Craftsman/CraftingInventory.cs</url>
+          <line>91</line>
+          <properties documentPath="C:\Users\conor\Documents\GitHub\economy_research\Assets\EconomyProject\Scripts\MLAgents\Craftsman\CraftingInventory.cs" initialLine="91" containingFunctionPresentation="method 'HasResources'">
+            <startOffsets>
+              <option value="2554" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2567" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="359" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Craftsman/CraftingInventory.cs</url>
+          <line>78</line>
+          <properties documentPath="C:\Users\conor\Documents\GitHub\economy_research\Assets\EconomyProject\Scripts\MLAgents\Craftsman\CraftingInventory.cs" initialLine="78" containingFunctionPresentation="method 'HasResources'">
+            <startOffsets>
+              <option value="2194" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2204" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="360" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/AgentData.cs</url>
+          <line>83</line>
+          <properties documentPath="C:\Users\conor\Documents\GitHub\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Craftsman\AgentData.cs" initialLine="83" containingFunctionPresentation="method 'PurchaseItems'">
+            <startOffsets>
+              <option value="2816" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3017" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="363" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/AgentData.cs</url>
+          <line>79</line>
+          <properties documentPath="C:\Users\conor\Documents\GitHub\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Craftsman\AgentData.cs" initialLine="79" containingFunctionPresentation="method 'PurchaseItems'">
+            <startOffsets>
+              <option value="2704" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2723" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="364" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/AgentData.cs</url>
+          <line>77</line>
+          <properties documentPath="C:\Users\conor\Documents\GitHub\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Craftsman\AgentData.cs" initialLine="77" containingFunctionPresentation="method 'PurchaseItems'">
+            <startOffsets>
+              <option value="2653" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2694" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="365" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

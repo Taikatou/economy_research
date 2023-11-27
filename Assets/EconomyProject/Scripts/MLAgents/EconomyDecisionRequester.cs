@@ -5,6 +5,5 @@ namespace EconomyProject.Scripts.MLAgents
 {
     public class EconomyDecisionRequester : DecisionRequester
     {
-        public bool crafter;
     }
 }
