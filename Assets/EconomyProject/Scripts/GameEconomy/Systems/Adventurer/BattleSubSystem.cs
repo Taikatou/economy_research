@@ -322,10 +322,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         }
         public void OnRequestComplete(BaseAdventurerAgent agent)
         {
-            var battle = GetSubSystem(agent);
             if (TrainingConfig.OnResourceComplete)
             {
-                battle.AddReward(TrainingConfig.OnResourceCompleteReward);   
+                agent.AddReward(TrainingConfig.OnResourceCompleteReward);
             }
         }
 

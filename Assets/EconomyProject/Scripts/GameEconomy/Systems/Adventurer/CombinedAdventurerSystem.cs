@@ -50,7 +50,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             }
         }
 
-        public void UpDownBattle(Agent agent, int movement)
+        public void UpDownBattle(BaseAdventurerAgent agent, int movement)
         {
             locationSelect.MovePosition(agent, movement);
         }

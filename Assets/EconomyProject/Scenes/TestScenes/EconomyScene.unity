@@ -1098,6 +1098,7 @@ GameObject:
   - component: {fileID: 394064044}
   - component: {fileID: 394064043}
   - component: {fileID: 394064042}
+  - component: {fileID: 394064045}
   m_Layer: 0
   m_Name: Environment
   m_TagString: Untagged
@@ -1155,6 +1156,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &394064045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394064041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08fea0e000da64a4aae2e3c58c854c25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  adventurerSystem: {fileID: 1781114768}
+  requestSystem: {fileID: 1429334511}
+  shopCraftingBehaviour: {fileID: 473122264}
+  maxTime: 520
 --- !u!1 &417453023 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5057450105845858796, guid: 9ceee204f5dc32646817fe57efe8de76, type: 3}
@@ -3329,6 +3346,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1519652986, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
+      propertyPath: adventurerRestrictions.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1519652986, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
+      propertyPath: adventurerRestrictions.Array.data[1].environment
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1519652986, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
+      propertyPath: adventurerRestrictions.Array.data[2].environment
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1519652986, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
+      propertyPath: adventurerRestrictions.Array.data[3].environment
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1519652986, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
+      propertyPath: adventurerRestrictions.Array.data[0].requiredDamage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1519652986, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
+      propertyPath: adventurerRestrictions.Array.data[1].requiredDamage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1519652986, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
+      propertyPath: adventurerRestrictions.Array.data[2].requiredDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1519652986, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
+      propertyPath: adventurerRestrictions.Array.data[3].requiredDamage
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 734842205298679346, guid: 5aa5546e137b74945a31aa19b12060f0, type: 3}
       propertyPath: requestRecord
       value: 

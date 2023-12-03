@@ -8,17 +8,53 @@ using Unity.MLAgents;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 {
-    public class AdventurerLocationSelect : LocationSelect<Agent>
+    [Serializable]
+    public struct AdventurerRestrictions
+    {
+        public EBattleEnvironments environment;
+
+        public int requiredDamage;
+    }
+    
+    public class AdventurerLocationSelect : LocationSelect<BaseAdventurerAgent>
     {
         private static readonly EBattleEnvironments [] ValuesAsArray
             = Enum.GetValues(typeof(EBattleEnvironments)).Cast<EBattleEnvironments>().ToArray();
-        
-        public override int GetLimit(Agent agent)
+
+        public AdventurerRestrictions[] adventurerRestrictions;
+
+        private Dictionary<EBattleEnvironments, int> requiredDamageMap;
+
+        public override void Setup()
         {
-            return ValuesAsArray.Length;
+            base.Setup();
+            requiredDamageMap = new Dictionary<EBattleEnvironments, int>();
+            foreach (var item in adventurerRestrictions)
+            {
+                requiredDamageMap.Add(item.environment, item.requiredDamage);
+            }
         }
 
-        public EBattleEnvironments GetBattle(Agent agent)
+        public override int GetLimit(BaseAdventurerAgent agent)
+        {
+            if (requiredDamageMap == null)
+                return 0;
+            var limit = 0;
+            foreach (var item in ValuesAsArray)
+            {
+                if (agent.AdventurerInventory.EquipedItem.itemDetails.damage >= requiredDamageMap[item])
+                {
+                    limit++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            return limit;
+        }
+
+        public EBattleEnvironments GetBattle(BaseAdventurerAgent agent)
         {
             var location = GetCurrentLocation(agent);
             return ValuesAsArray[location];
@@ -26,7 +62,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         private static readonly bool ObserveAdventurerLocation = true;
     
-        public ObsData[] GetTravelObservations(Agent agent, AdventurerSystem system)
+        public ObsData[] GetTravelObservations(BaseAdventurerAgent agent, AdventurerSystem system)
         {
             var currentParties = system.battleSubSystem.CurrentParties;
             var battle = ObserveAdventurerLocation ? GetBattle(agent) : EBattleEnvironments.Forest;
@@ -41,7 +77,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             return obs.ToArray();
         }
         
-        public ObsData[] GetTravelObservations(Agent agent)
+        public ObsData[] GetTravelObservations(BaseAdventurerAgent agent)
         {
             var battle = ObserveAdventurerLocation ? GetBattle(agent) : EBattleEnvironments.Forest;
             

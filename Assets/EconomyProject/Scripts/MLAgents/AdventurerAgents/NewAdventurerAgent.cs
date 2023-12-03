@@ -63,8 +63,13 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
                 {
                     if (usableItem.itemDetails.damage > adventurerInventory.EquipedItem.itemDetails.damage)
                     {
-                        AddReward(TrainingConfig.OnPurchaseReward);
+                        AddReward(TrainingConfig.OnPurchaseReward * ((float)usableItem.itemDetails.durability/20));
                     }	
+                }
+
+                if (usableItem.craftChoice == ECraftingChoice.UltimateSwordOfPower)
+                {
+                    EndEpisode();
                 }
             }
         }

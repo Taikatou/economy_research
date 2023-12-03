@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23bec5fbd5edd9b4ab62e476059b76fd, type: 3}
   m_Name: 5_MasterSword
   m_EditorClassIdentifier: 
+  craftChoice: 0
   validAdventurer: 02000000
   itemDetails:
     icon: {fileID: 5608727682196630789, guid: 077eb57d7d4406940a76cc89cf6ab2c2, type: 3}
     unBreakable: 0
     itemName: Master Sword
-    baseDurability: 22
+    baseDurability: 40
     damage: 12
     durability: 0

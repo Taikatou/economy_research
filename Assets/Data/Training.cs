@@ -3,7 +3,7 @@
     public static class TrainingConfig
     {
         public static bool OnPurchase => true;
-        public static readonly float OnPurchaseReward = 0.3f;
+        public static readonly float OnPurchaseReward = 0.2f;
 
         public static bool OnSell => true;
         public static readonly float OnSellReward = 0.2f;
@@ -20,8 +20,8 @@
         public static bool OnResource => false;
         public static readonly float OnResourceReward = 0.1f;
 
-        public static bool OnResourceComplete => false;
-        public static readonly float OnResourceCompleteReward = 0.2f;
+        public static bool OnResourceComplete => true;
+        public static readonly float OnResourceCompleteReward = 0.1f;
 
         public static bool OnCraft => false;
         public static readonly float OnCraftReward = 0.4f;

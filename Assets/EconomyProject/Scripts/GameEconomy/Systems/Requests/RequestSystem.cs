@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Data;
 using EconomyProject.Scripts.Interfaces;
+using EconomyProject.Scripts.Inventory;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using EconomyProject.Scripts.MLAgents.Craftsman;
 using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
@@ -185,6 +186,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 		{
 			_craftingRequests = new Dictionary<CraftingInventory, Dictionary<ECraftingResources, CraftingResourceRequest>>();
 			_requestWallets = new Dictionary<CraftingResourceRequest, EconomyWallet>();
+            craftingRequestRecord.ResetCraftingRequestRecord();
 			Refresh();
 		}
         
@@ -192,10 +194,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         {
             bool CheckExchange(CraftingResourceRequest request)
             {
-                if(request.Price <= wallet.Money)
+                if(request.Price <= wallet.Money && inventory.GetResourceNumber(resources) < 6)
                 {
                     if (_craftingRequests[inventory].ContainsKey(resources))
                     {
+                        if (_craftingRequests[inventory][resources].Number > 3)
+                        {
+                            return false;
+                        }
                         _craftingRequests[inventory][resources].Number++;
                     }
                     else
