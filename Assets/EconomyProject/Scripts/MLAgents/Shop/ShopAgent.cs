@@ -179,19 +179,6 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 			throw new NotImplementedException();
 		}
 
-		public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
-		{
-			var i = 0;
-			foreach (var sysInputs in GetEnabledInputNew())
-			{
-				foreach (var input in sysInputs)
-				{
-					actionMask.SetActionEnabled(i, input.Input, input.Enabled);
-				}
-				i++;
-			}
-		}
-
 		public List<EnabledInput[]> GetEnabledInputNew()
 		{
 			var craftInputs = shopInput.shopCraftingSystem.system.GetEnabledInputs(this, 0);

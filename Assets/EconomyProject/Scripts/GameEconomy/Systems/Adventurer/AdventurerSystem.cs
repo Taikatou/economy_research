@@ -186,10 +186,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                 case EAdventureStates.OutOfBattle:
                     var location = locationSelect.GetBattle(agent);
                     var getLootBox = travelSubsystem.GetLootBox(location);
-                    agent.AdventurerInventory.DecreaseDurability();
+                    
                     if (getLootBox.HasValue)
                     {
-                        agent.RequestTaker.CheckItemAdd(agent, getLootBox.Value.Resource, getLootBox.Value.Count, battleSubSystem.OnItemAdd, battleSubSystem.OnRequestComplete);  
+                        var requestReceived = agent.RequestTaker.CheckItemAdd(agent, getLootBox.Value.Resource, getLootBox.Value.Count, battleSubSystem.OnItemAdd, battleSubSystem.OnRequestComplete);
+                        if (requestReceived)
+                        {
+                            agent.AdventurerInventory.DecreaseDurability();
+                        }
                     }
                     break;
             }

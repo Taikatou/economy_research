@@ -56,12 +56,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             wallet.EarnMoney(reward, true);
         }
 
-        public void CheckItemAdd(BaseAdventurerAgent agent, ECraftingResources resource, int amount, OnResources<BaseAdventurerAgent> onResourceAdd=null, OnResources<BaseAdventurerAgent> onResourceComplete=null)
+        public bool CheckItemAdd(BaseAdventurerAgent agent, ECraftingResources resource, int amount, OnResources<BaseAdventurerAgent> onResourceAdd=null, OnResources<BaseAdventurerAgent> onResourceComplete=null)
         {
             var itemList = GetItemList();
             if (CurrentRequestData == null)
             {
-                return;
+                return false;
             }
             // Check if we have current request for this resource
             if (TrainingConfig.AdventurerNoRequestMenu && !CurrentRequestData.ContainsKey(resource))
@@ -111,7 +111,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                     onResourceAdd?.Invoke(agent);
                 }
                 requestSystem.Refresh();
+                return true;
             }
+
+            return false;
         }
 
         public int GetCurrentStock(ECraftingResources resource)

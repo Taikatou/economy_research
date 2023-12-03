@@ -94,6 +94,11 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 					}	
 				}
 			}
+
+			if (usableItem.craftChoice == ECraftingChoice.UltimateSwordOfPower)
+			{
+				EndEpisode();
+			}
 		}
 
 		public override void OnEpisodeBegin()
