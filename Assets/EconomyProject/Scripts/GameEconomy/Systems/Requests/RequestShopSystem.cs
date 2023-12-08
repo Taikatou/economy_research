@@ -124,23 +124,33 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             }
         }
 
-        public override EnabledInput[] GetEnabledInputs(ShopAgent agent, int branch)
+        public override EnabledInput[] GetEnabledInputs(ShopAgent agent)
         {
             var inputChoices = new List<EShopAgentChoices>
             {
-                EShopAgentChoices.Back,
                 EShopAgentChoices.Select
             };
-            var resource = MakeRequestGetLocation.GetItem(agent);
-            if (resource != ECraftingResources.Wood)
-            {
-                inputChoices.Add(EShopAgentChoices.Down);
-            }
-            if (resource != ECraftingResources.DragonScale)
-            {
-                inputChoices.Add(EShopAgentChoices.Up);
-            }
             
+            var resource = MakeRequestGetLocation.GetItem(agent);
+            if (resource.HasValue)
+            {
+                var canSelect = requestSystem.CanMakeRequest(agent.craftingInventory, resource.Value);
+                if (canSelect)
+                {
+                    inputChoices.Add(EShopAgentChoices.Select);   
+                }
+
+                if (resource != ECraftingResources.Wood)
+                {
+                    inputChoices.Add(EShopAgentChoices.Down);
+                }
+
+                if (resource != ECraftingResources.DragonScale)
+                {
+                    inputChoices.Add(EShopAgentChoices.Up);
+                }
+            }
+
             var requests = requestSystem.GetAllCraftingRequests(agent.craftingInventory);
             
             if (resource.HasValue)
@@ -166,7 +176,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                 }   
             }
 
-            var outputs = EconomySystemUtils<EShopAgentChoices>.GetInputOfType(inputChoices, branch);
+            var outputs = EconomySystemUtils<EShopAgentChoices>.GetInputOfType(inputChoices);
             return outputs;
         }
 

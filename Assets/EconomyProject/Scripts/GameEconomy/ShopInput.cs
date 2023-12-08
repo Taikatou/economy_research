@@ -40,9 +40,9 @@ namespace EconomyProject.Scripts.GameEconomy
             requestSystem.system.AgentInput = this;
         }
 
-        public IEnumerable<EnabledInput> GetActionMask(ShopAgent agent, int branch)
+        public IEnumerable<EnabledInput> GetActionMask(ShopAgent agent)
         {
-            var inputsEnabled = GetEconomySystem(agent).GetEnabledInputs(agent, branch);
+            var inputsEnabled = GetEconomySystem(agent).GetEnabledInputs(agent);
             return inputsEnabled;
         }
     }

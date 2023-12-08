@@ -36,8 +36,8 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 
         public List<EnabledInput[]> GetEnabledInputNew()
         {
-            var advInputs = AdventurerInput.AdventurerSystem.system.GetEnabledInputs(this, 0);
-            var shopInputs = AdventurerInput.AdventurerShopSystem.system.GetEnabledInputs(this, 1);
+            var advInputs = AdventurerInput.AdventurerSystem.system.GetEnabledInputs(this);
+            var shopInputs = AdventurerInput.AdventurerShopSystem.system.GetEnabledInputs(this);
             return new List<EnabledInput[]>
             {
                 advInputs,
@@ -86,26 +86,28 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             var battleAction = (EAdventurerAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[0]);
             if(battleAction != EAdventurerAgentChoices.None)
             {
-                AdventurerInput.AdventurerSystem.system.AgentSetChoice(this, battleAction, 0);
+                AdventurerInput.AdventurerSystem.system.AgentSetChoice(this, battleAction);
             }
             
             var shopAction = (EAdventurerAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[1]);
             if (shopAction != EAdventurerAgentChoices.None)
             {
-                AdventurerInput.AdventurerShopSystem.system.AgentSetChoice(this, shopAction, 1);
+                AdventurerInput.AdventurerShopSystem.system.AgentSetChoice(this, shopAction);
             }
         }
         
         public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
         {
-            var i = 0;
-            foreach (var sysInputs in GetEnabledInputNew())
+            var advInputs = AdventurerInput.AdventurerSystem.system.GetEnabledInputs(this);
+            var shopInputs = AdventurerInput.AdventurerShopSystem.system.GetEnabledInputs(this);
+            
+            foreach (var input in advInputs)
             {
-                foreach (var input in sysInputs)
-                {
-                    actionMask.SetActionEnabled(i, input.Input, input.Enabled);
-                }
-                i++;
+                actionMask.SetActionEnabled(0, input.Input, input.Enabled);
+            }
+            foreach (var input in shopInputs)
+            {
+                actionMask.SetActionEnabled(1, input.Input, input.Enabled);
             }
         }
         

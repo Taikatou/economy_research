@@ -1,4 +1,5 @@
 using EconomyProject.Monobehaviours;
+using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using Unity.MLAgents;
 using UnityEngine;
@@ -38,6 +39,12 @@ public class EnvironmentResetter : MonoBehaviour
             shopCraftingBehaviour.system.shopSubSubSystem.ResetShop();
             adventurerSystem.system.Setup();
             _currentTime = maxTime;
+            
+            var locationSelect = FindObjectsOfType<Resetable>();
+            foreach (var l in locationSelect)
+            {
+                l.Reset();
+            }
         }
     }
 }

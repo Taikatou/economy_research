@@ -5,13 +5,22 @@ using UnityEngine;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {
-    public abstract class LocationSelect<T> : MonoBehaviour, IMoveMenu<T>, ISetup where T : Agent
+    public abstract class Resetable : MonoBehaviour
+    {
+        public abstract void Reset();
+    }
+    public abstract class LocationSelect<T> : Resetable, IMoveMenu<T>, ISetup where T : Agent
     {
         public abstract int GetLimit(T agent);
 
         protected Dictionary<T, int> CurrentLocation => _currentLocation ??= new Dictionary<T, int>();
 
         private Dictionary<T, int> _currentLocation;
+
+        public override void Reset()
+        {
+            _currentLocation = new Dictionary<T, int>();
+        }
 
         public virtual void Setup()
         {

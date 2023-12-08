@@ -192,7 +192,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 	        craftingSubSubSystem.Update();
 		}
 		
-		public override EnabledInput[] GetEnabledInputs(ShopAgent agent, int branch)
+		public override EnabledInput[] GetEnabledInputs(ShopAgent agent)
 		{
 			var inputChoices = new List<EShopAgentChoices>
 			{
@@ -231,7 +231,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 			}
 			
 			
-			var outputs = EconomySystemUtils<EShopAgentChoices>.GetInputOfType(inputChoices, branch);
+			var outputs = EconomySystemUtils<EShopAgentChoices>.GetInputOfType(inputChoices);
 			return outputs;
 		}
 

@@ -123,7 +123,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         protected override void SetChoice(BaseAdventurerAgent agent, EAdventurerAgentChoices input)
         {
-            var validInput = ValidInput(agent, input, 0);
+            var validInput = ValidInput(agent, input);
             if (validInput)
             {
                 switch(input)
@@ -239,7 +239,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return count;
         }
 
-        public override EnabledInput[] GetEnabledInputs(BaseAdventurerAgent agent, int branch)
+        public override EnabledInput[] GetEnabledInputs(BaseAdventurerAgent agent)
         {
             var inputChoices = new List<EAdventurerAgentChoices>
             {
@@ -253,7 +253,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                 inputChoices.Add(EAdventurerAgentChoices.Back);
             }
 
-            var outputs = EconomySystemUtils<EAdventurerAgentChoices>.GetInputOfType(inputChoices, branch);
+            var outputs = EconomySystemUtils<EAdventurerAgentChoices>.GetInputOfType(inputChoices);
 
             return outputs;
         }

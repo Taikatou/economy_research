@@ -79,9 +79,9 @@ namespace EconomyProject.Scripts.GameEconomy
             AdventurerSystem.system.AgentInput = this;
         }
 
-        public IEnumerable<EnabledInput> GetActionMask(BaseAdventurerAgent agent, int branch)
+        public IEnumerable<EnabledInput> GetActionMask(BaseAdventurerAgent agent)
         {
-            var inputsEnabled = GetEconomySystem(agent).GetEnabledInputs(agent, branch);
+            var inputsEnabled = GetEconomySystem(agent).GetEnabledInputs(agent);
             return inputsEnabled;
         }
     }

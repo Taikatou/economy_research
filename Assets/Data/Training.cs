@@ -20,7 +20,7 @@
         public static bool OnResource => false;
         public static readonly float OnResourceReward = 0.1f;
 
-        public static bool OnResourceComplete => true;
+        public static bool OnResourceComplete => false;
         public static readonly float OnResourceCompleteReward = 0.1f;
 
         public static bool OnCraft => false;

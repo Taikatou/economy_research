@@ -41,8 +41,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop
     
 	public class ShopAgent : AgentScreen, IEconomyAgent, IScreenSelect<ENewShopScreen>
 	{
-		public VectorSensorComponent vectorSensor;
-	    public ShopInput shopInput;
+		public ShopInput shopInput;
         public EconomyWallet wallet;
         public CraftingInventory craftingInventory;
         public AgentInventory agentInventory;
@@ -72,30 +71,6 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 			{
 				AddReward(TrainingConfig.OnCraftReward);
 			}
-		}
-
-		public override void CollectObservations(VectorSensor sensor)
-		{
-			EGoalSignal goalSignal;
-			if (craftingInventory.GetResourceNumber() == 0)
-			{
-				goalSignal = EGoalSignal.MakeRequests;
-			}
-			else if (agentInventory.NumItems() == 0)
-			{
-				goalSignal = EGoalSignal.CreateItem;
-			}
-			else if (shopInput.shopCraftingSystem.system.shopSubSubSystem.GetShopItems(this).Count == 0)
-			{
-				goalSignal = EGoalSignal.EditShop;
-			}
-			else
-			{
-				goalSignal = EGoalSignal.FreeRoam;
-			}
-			
-			//var num = Enum.GetValues(typeof(EGoalSignal)).Cast<EGoalSignal>().Count();
-			//vectorSensor.GetSensor().AddOneHotObservation((int) goalSignal, num);
 		}
 
 		public ENewShopScreen ChosenScreen
@@ -136,6 +111,29 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 
 		        _forcedAction = EShopAgentChoices.None;
 	        }
+	        else
+	        {
+		        var actions = actionsOut.DiscreteActions;
+		        var craftInputs = shopInput.shopCraftingSystem.system.GetEnabledInputs(this);
+
+		        actions[0] = GetAction(craftInputs, 6);
+		        
+		        var requestInputs = shopInput.requestSystem.system.GetEnabledInputs(this);
+		        actions[1] = GetAction(requestInputs, 7);
+		        
+	        }
+        }
+
+        public int GetAction(EnabledInput[] choices, int maxValue)
+        {
+	        var random = new System.Random();
+	        var chosenAction = 0;
+	        do
+	        {
+		        chosenAction = random.Next(0, maxValue);
+	        } while (!choices[chosenAction].Enabled);
+
+	        return choices[chosenAction].Input;
         }
 
         public static Dictionary<EShopAgentChoices, EShopAgentChoices> ChoicesMap = new Dictionary<EShopAgentChoices, EShopAgentChoices>
@@ -153,12 +151,12 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 	        var battleAction = (EShopAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[0]);
 	        if (battleAction != EShopAgentChoices.None)
 	        {
-		        shopInput.shopCraftingSystem.system.AgentSetChoice(this, battleAction, 0);
+		        shopInput.shopCraftingSystem.system.AgentSetChoice(this, battleAction);
 	        }
 	        var requestAction = (EShopAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[1]);
 	        if (requestAction != EShopAgentChoices.None)
 	        {
-		        shopInput.requestSystem.system.AgentSetChoice(this, requestAction, 1);
+		        shopInput.requestSystem.system.AgentSetChoice(this, requestAction);
 	        }
         }
 
@@ -178,11 +176,26 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 		{
 			throw new NotImplementedException();
 		}
+		
+		public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
+		{
+			var craftInputs = shopInput.shopCraftingSystem.system.GetEnabledInputs(this);
+			foreach (var input in craftInputs)
+			{
+				actionMask.SetActionEnabled(0, input.Input, input.Enabled);
+			}
+			
+			var requestInputs = shopInput.requestSystem.system.GetEnabledInputs(this);
+			foreach (var input in requestInputs)
+			{
+				actionMask.SetActionEnabled(0, input.Input, input.Enabled);
+			}
+		}
 
 		public List<EnabledInput[]> GetEnabledInputNew()
 		{
-			var craftInputs = shopInput.shopCraftingSystem.system.GetEnabledInputs(this, 0);
-			var requestInputs = shopInput.requestSystem.system.GetEnabledInputs(this, 1);
+			var craftInputs = shopInput.shopCraftingSystem.system.GetEnabledInputs(this);
+			var requestInputs = shopInput.requestSystem.system.GetEnabledInputs(this);
 			return new List<EnabledInput[]>()
 			{
 				craftInputs,

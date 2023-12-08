@@ -134,7 +134,7 @@ MonoBehaviour:
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
-  m_BehaviorType: 0
+  m_BehaviorType: 1
   m_BehaviorName: ShopAgent
   TeamId: 0
   m_UseChildSensors: 1
@@ -157,13 +157,10 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  vectorSensor: {fileID: 3166944455631899140}
   shopInput: {fileID: 0}
   wallet: {fileID: 568787241}
   craftingInventory: {fileID: 8868528098903630128}
   agentInventory: {fileID: 1690807225}
-  shopHeuristic: {fileID: 0}
-  controlWithHeuristic: 0
 --- !u!114 &3047744921912511194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,7 +192,6 @@ MonoBehaviour:
   DecisionPeriod: 10
   TakeActionsBetweenDecisions: 0
   allowDecisions: 1
-  crafter: 1
 --- !u!114 &3657407672704079423
 MonoBehaviour:
   m_ObjectHideFlags: 0

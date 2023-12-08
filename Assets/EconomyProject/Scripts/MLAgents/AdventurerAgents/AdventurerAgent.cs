@@ -134,7 +134,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 
         public IEnumerable<EnabledInput> GetEnabledInput()
         {
-	        return adventurerInput.GetActionMask(this, 0);
+	        return adventurerInput.GetActionMask(this);
         }
 
         public List<EnabledInput[]> GetEnabledInputNew()
@@ -156,7 +156,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 	        if (action != EAdventurerAgentChoices.None)
 	        {
 		        var system = adventurerInput.GetEconomySystem(this);
-		        system.AgentSetChoice(this, action, 0);
+		        system.AgentSetChoice(this, action);
 		        if (TrainingConfig.PunishMovement)
 		        {
 			        AddReward(TrainingConfig.OnPunishMovementReward);   

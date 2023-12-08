@@ -18,7 +18,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
     {
         public int Input;
         public bool Enabled;
-        public int Branch;
     }
 
     public static class EconomySystemUtils
@@ -71,15 +70,15 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             }
         }
         
-        private bool ValidInput(TAgent agent, int input, int branch)
+        private bool ValidInput(TAgent agent, int input)
         {
-            var inputs = GetEnabledInputs(agent, branch);
+            var inputs = GetEnabledInputs(agent);
             return inputs.Any(x => x.Input == input && x.Enabled);
         }
 
-        public bool ValidInput(TAgent agent, TInput input, int branch)
+        public bool ValidInput(TAgent agent, TInput input)
         {
-            return ValidInput(agent, Convert.ToInt32(input), branch);
+            return ValidInput(agent, Convert.ToInt32(input));
         }
 
         public DateTime GetRefreshTime(TAgent agent)
@@ -97,10 +96,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             
         }
 
-        public void AgentSetChoice(TAgent agent, TInput input, int branch)
+        public void AgentSetChoice(TAgent agent, TInput input)
         {
             var inputInt = Convert.ToInt32(input);
-            var enabledInputs = GetEnabledInputs(agent, branch);
+            var enabledInputs = GetEnabledInputs(agent);
             if (Array.Exists(enabledInputs, e => e.Input == inputInt))
             {
                 var i = enabledInputs.First(x => x.Input == inputInt);
@@ -111,14 +110,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             }
         }
 
-        public virtual EnabledInput[] GetEnabledInputs(Agent agent,  int branch)
+        public virtual EnabledInput[] GetEnabledInputs(Agent agent)
         {
             return new EnabledInput[] { };
         }
         
-        public virtual EnabledInput[] GetEnabledInputs(TAgent agent, int branch)
+        public virtual EnabledInput[] GetEnabledInputs(TAgent agent)
         {
-            return GetEnabledInputs((Agent)agent, branch);
+            return GetEnabledInputs((Agent)agent);
         }
     }
 }

@@ -68,7 +68,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return output;
         }
         
-        public override EnabledInput[] GetEnabledInputs(BaseAdventurerAgent agent, int branch)
+        public override EnabledInput[] GetEnabledInputs(BaseAdventurerAgent agent)
         {
             var inputChoices = new[]
             {
@@ -77,7 +77,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                 EAdventurerAgentChoices.Up,
                 EAdventurerAgentChoices.Down
             };
-            var outputs = EconomySystemUtils<EAdventurerAgentChoices>.GetInputOfType(inputChoices, branch);
+            var outputs = EconomySystemUtils<EAdventurerAgentChoices>.GetInputOfType(inputChoices);
 
             return outputs;
         }

@@ -189,19 +189,31 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             craftingRequestRecord.ResetCraftingRequestRecord();
 			Refresh();
 		}
+
+        public bool CanMakeRequest(CraftingInventory inventory, ECraftingResources resources)
+        {
+            var canRequest = inventory.GetResourceNumber(resources) < 6;
+            if (canRequest && _craftingRequests.ContainsKey(inventory))
+            {
+                if (_craftingRequests[inventory].ContainsKey(resources))
+                {
+                    if (_craftingRequests[inventory][resources].Number > 3)
+                    {
+                        canRequest = false;
+                    }
+                }
+            }
+            return canRequest;
+        }
         
         public bool MakeRequest(ECraftingResources resources, CraftingInventory inventory, EconomyWallet wallet)
         {
             bool CheckExchange(CraftingResourceRequest request)
             {
-                if(request.Price <= wallet.Money && inventory.GetResourceNumber(resources) < 6)
+                if(request.Price <= wallet.Money && CanMakeRequest(inventory, resources))
                 {
                     if (_craftingRequests[inventory].ContainsKey(resources))
                     {
-                        if (_craftingRequests[inventory][resources].Number > 3)
-                        {
-                            return false;
-                        }
                         _craftingRequests[inventory][resources].Number++;
                     }
                     else
