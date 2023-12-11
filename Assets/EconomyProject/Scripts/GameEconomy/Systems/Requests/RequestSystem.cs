@@ -27,6 +27,20 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 		private Dictionary<CraftingInventory, Dictionary<ECraftingResources, CraftingResourceRequest>> _craftingRequests;
         private Dictionary<CraftingResourceRequest, EconomyWallet> _requestWallets;
 
+        public int GetCraftingRequests()
+        {
+            int count = 0;
+            foreach (var op in _craftingRequests)
+            {
+                foreach (var b in op.Value.Keys)
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+
         public Dictionary<ECraftingResources, int> DefaultResourcePrices = new()
         {
 			{ECraftingResources.Wood, 5},

@@ -190,8 +190,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DecisionPeriod: 10
+  DecisionStep: 0
   TakeActionsBetweenDecisions: 0
-  allowDecisions: 1
+  adventurer: 0
+  shopSubSystem: {fileID: 0}
+  requestBehaviour: {fileID: 0}
 --- !u!114 &3657407672704079423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,7 +279,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6220377510714029038}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2902496c0120472b90269f94a0aec7e, type: 3}
   m_Name: 

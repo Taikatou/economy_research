@@ -99,12 +99,11 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
         public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
         {
             var advInputs = AdventurerInput.AdventurerSystem.system.GetEnabledInputs(this);
-            var shopInputs = AdventurerInput.AdventurerShopSystem.system.GetEnabledInputs(this);
-            
             foreach (var input in advInputs)
             {
                 actionMask.SetActionEnabled(0, input.Input, input.Enabled);
             }
+            var shopInputs = AdventurerInput.AdventurerShopSystem.system.GetEnabledInputs(this);
             foreach (var input in shopInputs)
             {
                 actionMask.SetActionEnabled(1, input.Input, input.Enabled);

@@ -17,7 +17,7 @@ namespace EconomyProject.Scripts.MLAgents.Sensors
             _shopAgent = agent;
             _data = new float[1];
             _craftingSubSystem = craftingSubSystem;
-            MObservationSpec = ObservationSpec.Vector(1);
+            MObservationSpec = ObservationSpec.Vector(2);
         }
 
         protected override float[] Data => _data;

@@ -11,6 +11,7 @@ using EconomyProject.Scripts.MLAgents.Craftsman;
 using UnityEngine;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using Unity.MLAgents.Actuators;
+using Unity.MLAgents.Policies;
 using Unity.MLAgents.Sensors;
 
 namespace EconomyProject.Scripts.MLAgents.Shop
@@ -111,7 +112,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 
 		        _forcedAction = EShopAgentChoices.None;
 	        }
-	        else
+	        else if (GetComponent<BehaviorParameters>().BehaviorType == BehaviorType.HeuristicOnly)
 	        {
 		        var actions = actionsOut.DiscreteActions;
 		        var craftInputs = shopInput.shopCraftingSystem.system.GetEnabledInputs(this);
@@ -179,7 +180,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 		
 		public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
 		{
-			var craftInputs = shopInput.shopCraftingSystem.system.GetEnabledInputs(this);
+		/*	var craftInputs = shopInput.shopCraftingSystem.system.GetEnabledInputs(this);
 			foreach (var input in craftInputs)
 			{
 				actionMask.SetActionEnabled(0, input.Input, input.Enabled);
@@ -188,8 +189,8 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 			var requestInputs = shopInput.requestSystem.system.GetEnabledInputs(this);
 			foreach (var input in requestInputs)
 			{
-				actionMask.SetActionEnabled(0, input.Input, input.Enabled);
-			}
+				actionMask.SetActionEnabled(1, input.Input, input.Enabled);
+			}*/
 		}
 
 		public List<EnabledInput[]> GetEnabledInputNew()

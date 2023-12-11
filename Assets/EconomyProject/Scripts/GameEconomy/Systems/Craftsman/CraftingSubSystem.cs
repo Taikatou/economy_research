@@ -43,6 +43,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         {
             return _shopRequests.ContainsKey(agent);
         }
+
+        public bool IsCrafting(ShopAgent agent)
+        {
+            return _shopRequests.ContainsKey(agent);
+        }
         
         public void Update()
         {
@@ -88,6 +93,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public bool CanCraft(ShopAgent shopAgent, ECraftingChoice input)
         {
+            if (TrainingConfig.IgnoreResources)
+                return true;
+            
             var toReturn = false;
             var foundChoice = GetMap(input);
             var hasRequest = HasRequest(shopAgent);
@@ -95,7 +103,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             {
                 var craftingInventory = shopAgent.GetComponent<CraftingInventory>();
                 var hasResources = craftingInventory.HasResources(foundChoice.resource);
-                toReturn = hasResources || TrainingConfig.IgnoreResources;
+                toReturn = hasResources;
             }
 
             return toReturn;
@@ -103,10 +111,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public ObsData[] GetObservations(ShopAgent agent, BufferSensorComponent bufferSensorComponent)
         {
-            var output = _shopRequests.ContainsKey(agent)
+            var hasProgress = new SingleObsData { data = IsCrafting(agent) ? 1.0f : 0.0f };
+            var output = IsCrafting(agent)
                 ? _shopRequests[agent].GetCraftingProgressionObservation()
                 : new SingleObsData { data = 0, Name = "CraftingProgress" };
-            return new[] {output };
+            return new[] { hasProgress, output };
         }
 
 		public Dictionary<ShopAgent, CraftingRequest> GetShopRequests()

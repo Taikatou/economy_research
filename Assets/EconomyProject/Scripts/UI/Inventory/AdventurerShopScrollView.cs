@@ -19,9 +19,18 @@ namespace EconomyProject.Scripts.UI.Inventory
         {
 	        // TODO fix this please
 	        var counter = 0;
-	        var items = shopSubSystem.system.shopSubSubSystem.GetShopItems(currentShopAgent.CurrentAgent);
+	        var items = shopSubSystem.system.shopSubSubSystem.GetAllUsableItems();
 
-	        return items;
+	        List<ShopItem> toreturn = new List<ShopItem>();
+	        foreach (var item in items)
+	        {
+		        toreturn.Add(new ShopItem
+		        {
+			        Seller = item.Item2,
+			        Item=item.Item1
+		        });
+	        }
+	        return toreturn;
         }
 
         protected override void Update()

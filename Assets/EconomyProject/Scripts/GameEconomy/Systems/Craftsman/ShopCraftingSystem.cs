@@ -22,7 +22,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
     public class CraftingRequest
     {
         public CraftingRequirements CraftingRequirements;
-        public float CraftingTime;
+        public float CraftingTime { get; set; }
 
         public float Progress => CraftingTime / CraftingRequirements.timeToCreation;
 
@@ -33,7 +33,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 	        return new SingleObsData { data = Progress, Name = "CraftingProgress" };
         }
 
-        public const int SenseCount = 1;
+        public const int SenseCount = 2;
     }
 
     [Serializable]
@@ -194,43 +194,48 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 		
 		public override EnabledInput[] GetEnabledInputs(ShopAgent agent)
 		{
-			var inputChoices = new List<EShopAgentChoices>
+			var inputChoices = new List<EShopAgentChoices>();
+			if (!craftingSubSubSystem.IsCrafting(agent))
 			{
-				EShopAgentChoices.Select,
-				EShopAgentChoices.Back
-			};
+				inputChoices.Add(EShopAgentChoices.Select);
 
-			if (CraftingLocationMap.GetCurrentLocation(agent) < CraftingLocationMap.GetLimit(agent) - 1)
-			{
-				inputChoices.Add(EShopAgentChoices.Up);
-			}
-			if (CraftingLocationMap.GetCurrentLocation(agent) > 0)
-			{
-				inputChoices.Add(EShopAgentChoices.Down);
-			}
-
-			var choice = CraftingLocationMap.GetCraftingChoice(agent);
-			var items = shopSubSubSystem.GetShopUsableItems(agent);
-			var found = false;
-			foreach (var i in items)
-			{
-				if (i.craftChoice == choice)
+				if (CraftingLocationMap.GetCurrentLocation(agent) < CraftingLocationMap.GetLimit(agent) - 1)
 				{
-					found = true;
-					break;
+					inputChoices.Add(EShopAgentChoices.Up);
+				}
+
+				if (CraftingLocationMap.GetCurrentLocation(agent) > 0)
+				{
+					inputChoices.Add(EShopAgentChoices.Down);
+				}
+
+				var choice = CraftingLocationMap.GetCraftingChoice(agent);
+				var items = shopSubSubSystem.GetShopUsableItems(agent);
+				var found = false;
+				foreach (var i in items)
+				{
+					if (i.craftChoice == choice)
+					{
+						found = true;
+						break;
+					}
+				}
+
+				if (found)
+				{
+					inputChoices.AddRange(
+						new[]
+						{
+							EShopAgentChoices.IncreasePrice,
+							EShopAgentChoices.DecreasePrice
+						});
 				}
 			}
-
-			if(found)
+			else
 			{
-				inputChoices.AddRange(
-					new [] {
-						EShopAgentChoices.IncreasePrice,
-						EShopAgentChoices.DecreasePrice
-					});
+				inputChoices.Add(EShopAgentChoices.Back);
 			}
-			
-			
+
 			var outputs = EconomySystemUtils<EShopAgentChoices>.GetInputOfType(inputChoices);
 			return outputs;
 		}

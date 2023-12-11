@@ -1,3 +1,4 @@
+using System;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 
@@ -22,7 +23,16 @@ namespace EconomyProject.Scripts.MLAgents.Sensors
 
         public int Write(ObservationWriter writer)
         {
-            writer.AddList(Data);
+            try
+            {
+                writer.AddList(Data);
+            }
+            catch (Exception e)
+            {
+                Debug.Log(GetName() + ": writing error");
+                throw;
+            }
+            
             return Data.Length;
         }
 
