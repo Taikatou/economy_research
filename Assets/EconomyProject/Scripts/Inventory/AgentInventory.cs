@@ -51,7 +51,7 @@ namespace EconomyProject.Scripts.Inventory
         }
 
 
-        public void Setup()
+        public void Reset()
         {
             if(Items == null)
                 Items = new Dictionary<string, List<UsableItem>>();
@@ -70,6 +70,11 @@ namespace EconomyProject.Scripts.Inventory
             }
 
             Refresh();
+        }
+
+        public void Setup()
+        {
+            Reset();
         }
 
         public void DecreaseDurability(UsableItem item)

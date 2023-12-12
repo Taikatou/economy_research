@@ -16,7 +16,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
     public class RequestShopSystem : StateEconomySystem<ShopAgent, EShopScreen, EShopAgentChoices>, ISetup
     {
         public RequestSystem requestSystem;
-        public static int ObservationSize => 4;
+        public static int ObservationSize => 5;
         public override EShopScreen ActionChoice => EShopScreen.Request;
 
         public ShopRequestLocationMap MakeRequestGetLocation { get; set; }

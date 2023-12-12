@@ -10,7 +10,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
         private readonly ShopCraftingSystem _shopCraftingSystem;
         protected override EShopScreen ValidScreen => EShopScreen.Craft;
         protected override EconomySystem<ShopAgent, EShopScreen, EShopAgentChoices> EconomySystem => _shopCraftingSystem;
-        protected override int SensorCount => 4;
+        protected override int SensorCount => 118;
         public override string GetName() => "ShopCraftingSensor";
 
         public ShopCraftingSensor(ShopAgent agent, ShopCraftingSystem system, BufferSensorComponent buffer, BufferSensorComponent otherShopBuffer) : base(agent, new []{buffer, otherShopBuffer})

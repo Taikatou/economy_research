@@ -67,7 +67,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public bool PurchaseItems(EconomyWallet shopAgentWallet, UsableItemDetails itemDetails, EconomyWallet adventurerAgentWallet, AgentInventory inventory, PurchaseItemDataLogger purchaseDataLogger)
         {
-	        int GetStock()
+	        int GetShopStock()
 	        {
 		        return _shopItems[itemDetails.itemName].Count;
 	        }
@@ -77,7 +77,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
 			if (adventurerAgentWallet.Money >= price)
 			{
-				if (GetStock() > 0)
+				if (GetShopStock() > 0)
 				{
 					toReturn = true;
 					var itemRemove = _shopItems[itemDetails.itemName][0];
@@ -95,7 +95,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 					_enterTimes.Remove(itemRemove);
 					_stockPrices[itemDetails.itemName] = price;
 
-					if (GetStock() <= 0)
+					if (GetShopStock() <= 0)
 					{
 						_stockPrices.Remove(itemDetails.itemName);
 						_shopItems.Remove(itemDetails.itemName);

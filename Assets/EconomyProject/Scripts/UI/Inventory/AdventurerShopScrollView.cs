@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Data;
 using EconomyProject.Monobehaviours;
-using EconomyProject.Scripts.GameEconomy.Systems.Shop;
 using EconomyProject.Scripts.UI.ShopUI.ScrollLists;
 
 namespace EconomyProject.Scripts.UI.Inventory
@@ -10,7 +9,6 @@ namespace EconomyProject.Scripts.UI.Inventory
     {
         public ShopCraftingSystemBehaviour shopSubSystem;
         public GetCurrentAdventurerAgent currentAdventurerAgent;
-		public GetCurrentShopAgent currentShopAgent;
 		
 		public AdventurerShopSystemBehaviour adventurerShopSystem;
         protected override ILastUpdate LastUpdated => shopSubSystem.system.shopSubSubSystem;
@@ -27,7 +25,9 @@ namespace EconomyProject.Scripts.UI.Inventory
 		        toreturn.Add(new ShopItem
 		        {
 			        Seller = item.Item2,
-			        Item=item.Item1
+			        Item=item.Item1,
+			        Price = shopSubSystem.system.shopSubSubSystem.GetPrice(item.Item2, item.Item1.itemDetails),
+			        Number = shopSubSystem.system.shopSubSubSystem.GetNumber(item.Item2, item.Item1.itemDetails)
 		        });
 	        }
 	        return toreturn;

@@ -8,6 +8,7 @@
         public static bool OnSell => true;
         public static readonly float OnSellReward = 0.2f;
 
+        public static bool OnSpend => true;
         public static bool OnWin => true;
         public static readonly float OnWinReward = 0.03f;
 
@@ -42,9 +43,13 @@
 
         public static int MaxPrice => 250;
         
-        public static bool IgnoreResources => false;
+        public static bool IgnoreResources => true;
 
         public static bool SubmitDirectToShop => true;
+
+        public static float SellDiscount => 0.5f;
+
+        public static bool IgnoreCraftTime => true;
     }
 
     public static class UISpec
@@ -68,6 +73,6 @@
     public static class Observations
     {
         public static bool DebugObs => false;
-        public static bool CanViewConstant => false;
+        public static bool CanViewConstant => true;
     }
 }

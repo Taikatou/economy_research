@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Data;
+using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.Experiments;
 using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.GameEconomy.Systems;
+using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
+using EconomyProject.Scripts.GameEconomy.Systems.Shop;
 using EconomyProject.Scripts.Inventory;
 using Inventory;
 using EconomyProject.Scripts.MLAgents.Craftsman;
@@ -55,14 +58,25 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 		public void Start()
 		{
 			wallet.onEarnMoney = OnEarnMoney;
+			wallet.onLoseMoney = OnLoseMoney;
 			agentInventory.onItemAdd += OnCraft;
+		}
+
+		private void OnLoseMoney(float amount)
+		{
+			if (TrainingConfig.OnSpend)
+			{
+				var spendPunishment = amount / TrainingConfig.MaxPrice;
+				AddReward(-(spendPunishment * TrainingConfig.SellDiscount));
+			}
 		}
 
 		private void OnEarnMoney(float amount)
 		{
 			if (TrainingConfig.OnSell)
 			{
-				AddReward(TrainingConfig.OnSellReward);
+				var sellReward = amount / TrainingConfig.MaxPrice;
+				AddReward(sellReward);
 			}
 		}
 
@@ -88,11 +102,11 @@ namespace EconomyProject.Scripts.MLAgents.Shop
         {
             base.OnEpisodeBegin();
             
-            agentInventory.Setup();
             craftingInventory.ResetInventory();
-            agentInventory.Setup();
+            agentInventory.Reset();
             wallet.Setup(shopInput.requestSystem.system.requestSystem, AgentType.Shop);
-            
+            var shopBehaviour = FindObjectOfType<AdventurerShopSubSystem>();
+            shopBehaviour.shopCraftingSystem.system.shopSubSubSystem.RemoveShop(this);
             ResetOnItem.bSetupSystems = true;
         }
 
@@ -125,7 +139,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 	        }
         }
 
-        public int GetAction(EnabledInput[] choices, int maxValue)
+        private int GetAction(EnabledInput[] choices, int maxValue)
         {
 	        var random = new System.Random();
 	        var chosenAction = 0;
@@ -137,7 +151,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 	        return choices[chosenAction].Input;
         }
 
-        public static Dictionary<EShopAgentChoices, EShopAgentChoices> ChoicesMap = new Dictionary<EShopAgentChoices, EShopAgentChoices>
+        private static readonly Dictionary<EShopAgentChoices, EShopAgentChoices> ChoicesMap = new()
         {
 	        { EShopAgentChoices.RemoveRequest, EShopAgentChoices.RemoveRequest },
 	        { EShopAgentChoices.RequestUp, EShopAgentChoices.Up },
@@ -180,7 +194,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 		
 		public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
 		{
-		/*	var craftInputs = shopInput.shopCraftingSystem.system.GetEnabledInputs(this);
+			var craftInputs = shopInput.shopCraftingSystem.system.GetEnabledInputs(this);
 			foreach (var input in craftInputs)
 			{
 				actionMask.SetActionEnabled(0, input.Input, input.Enabled);
@@ -190,7 +204,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 			foreach (var input in requestInputs)
 			{
 				actionMask.SetActionEnabled(1, input.Input, input.Enabled);
-			}*/
+			}
 		}
 
 		public List<EnabledInput[]> GetEnabledInputNew()

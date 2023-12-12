@@ -24,9 +24,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         public CraftingRequirements CraftingRequirements;
         public float CraftingTime { get; set; }
 
-        public float Progress => CraftingTime / CraftingRequirements.timeToCreation;
+        public float Progress => CraftingTime / CraftingRequirements.TimeToCreation;
 
-        public bool Complete => CraftingTime >= CraftingRequirements.timeToCreation;
+        public bool Complete => CraftingTime >= CraftingRequirements.TimeToCreation;
 
         public ObsData GetCraftingProgressionObservation()
         {
@@ -194,11 +194,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 		
 		public override EnabledInput[] GetEnabledInputs(ShopAgent agent)
 		{
-			var inputChoices = new List<EShopAgentChoices>();
+			var inputChoices = new List<EShopAgentChoices> { EShopAgentChoices.Select };
 			if (!craftingSubSubSystem.IsCrafting(agent))
 			{
-				inputChoices.Add(EShopAgentChoices.Select);
-
 				if (CraftingLocationMap.GetCurrentLocation(agent) < CraftingLocationMap.GetLimit(agent) - 1)
 				{
 					inputChoices.Add(EShopAgentChoices.Up);
@@ -230,10 +228,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 							EShopAgentChoices.DecreasePrice
 						});
 				}
-			}
-			else
-			{
-				inputChoices.Add(EShopAgentChoices.Back);
 			}
 
 			var outputs = EconomySystemUtils<EShopAgentChoices>.GetInputOfType(inputChoices);

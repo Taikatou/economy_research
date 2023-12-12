@@ -45,6 +45,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             return _shopSystems[shopAgent];
         }
 
+        public void RemoveShop(ShopAgent shopAgent)
+        {
+            if (_shopSystems.ContainsKey(shopAgent))
+            {
+                _shopSystems.Remove(shopAgent);
+            }
+        }
+
         private List<UsableItem> GetItems(ShopAgent shopAgent)
         {
             var itemList = new List<UsableItem>();

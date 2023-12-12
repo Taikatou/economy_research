@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Data;
 using Inventory;
 using UnityEngine;
 
@@ -39,7 +40,9 @@ namespace EconomyProject.Scripts.MLAgents.Craftsman.Requirements
 
         public float timeToCreation = 3;
 
-        public List<ResourceRequirement> resourcesRequirements = new List<ResourceRequirement>();
+        public float TimeToCreation => TrainingConfig.IgnoreCraftTime? 0 : timeToCreation;
+
+        public List<ResourceRequirement> resourcesRequirements = new();
 
         public string ResultingItemName => resultingItem ? resultingItem.itemDetails.itemName : "";
     }

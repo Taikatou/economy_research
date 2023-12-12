@@ -1,7 +1,8 @@
 {
     "name": "CraftingRequirements",
     "references": [
-        "GUID:64798ee8764e4fa49a52341bc3f45317"
+        "GUID:64798ee8764e4fa49a52341bc3f45317",
+        "GUID:775003b80c85e8744956a6ea54af07d5"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

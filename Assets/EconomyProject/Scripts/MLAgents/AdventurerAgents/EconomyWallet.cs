@@ -10,6 +10,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
     public class EconomyWallet : MonoBehaviour
     {
 	    public OnEarnMoney onEarnMoney;
+	    public OnEarnMoney onLoseMoney;
         public int startMoney;
         private int EarnedMoney { get; set; }
         private int SpentMoney { get; set; }
@@ -42,6 +43,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 			{
 				Money = 0;
 			}
+			onLoseMoney?.Invoke(amount);
         }
 
         public void SpendMoney(int amount)

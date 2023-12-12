@@ -82,6 +82,10 @@ namespace EconomyProject.Scripts.MLAgents.Sensors
                     Array.Copy(d, _data, d.Length);
                 }
             }
+            else
+            {
+                Debug.LogError(GetName() + " sensor has error " + d.Length + "\t" + _data.Length);
+            }
         }
     }
 }

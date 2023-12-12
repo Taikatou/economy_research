@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23bec5fbd5edd9b4ab62e476059b76fd, type: 3}
   m_Name: 2_IntermediateSword
   m_EditorClassIdentifier: 
-  craftChoice: 0
+  craftChoice: 1
   validAdventurer: 02000000
   itemDetails:
     icon: {fileID: -5421027211986494622, guid: 077eb57d7d4406940a76cc89cf6ab2c2, type: 3}
