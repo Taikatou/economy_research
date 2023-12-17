@@ -58,6 +58,8 @@ namespace Inventory
         {
             UniqueId = Guid.NewGuid();
             itemDetails = new UsableItemDetails(item.itemDetails);
+            craftChoice = item.craftChoice;
+            validAdventurer.AddRange(item.validAdventurer);
 
             var containsDamages = ItemData.BaseDamages.ContainsKey(itemDetails.itemName);
             var containsDurabilities = ItemData.BaseDurabilities.ContainsKey(itemDetails.itemName);

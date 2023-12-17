@@ -42,14 +42,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
             var limit = 0;
             foreach (var item in ValuesAsArray)
             {
-                if (agent.AdventurerInventory.EquipedItem.itemDetails.damage >= requiredDamageMap[item])
+                if (TrainingConfig.RestrictMovement)
                 {
-                    limit++;
+                    if (agent.AdventurerInventory.EquipedItem.itemDetails.damage < requiredDamageMap[item])
+                    {
+                        break;
+                    }
                 }
-                else
-                {
-                    break;
-                }
+                limit++;
             }
             return limit;
         }

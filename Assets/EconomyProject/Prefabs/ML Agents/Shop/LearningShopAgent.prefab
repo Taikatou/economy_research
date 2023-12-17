@@ -134,7 +134,7 @@ MonoBehaviour:
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
-  m_BehaviorType: 0
+  m_BehaviorType: 1
   m_BehaviorName: ShopAgent
   TeamId: 0
   m_UseChildSensors: 1
@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5504e22456bb8e48b35b4c25392f92d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 10
+  DecisionPeriod: 1
   DecisionStep: 0
   TakeActionsBetweenDecisions: 0
   adventurer: 0

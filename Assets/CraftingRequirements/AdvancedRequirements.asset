@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AdvancedRequirements
   m_EditorClassIdentifier: 
   resultingItem: {fileID: 11400000, guid: 220a652df168f054b8b6564ab9e67f7f, type: 2}
-  timeToCreation: 3
+  timeToCreation: 0
   resourcesRequirements:
   - type: 1
     number: 2

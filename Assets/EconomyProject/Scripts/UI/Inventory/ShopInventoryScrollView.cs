@@ -69,7 +69,7 @@ namespace EconomyProject.Scripts.UI.Inventory
 	        var count = craftLocationMap.GetCurrentLocation(shopAgent.CurrentAgent);
 	        foreach (var button in buttons)
 	        {
-		        button.UpdateData(count, true);
+		        button.UpdateData(count);
 	        }
         }
     }

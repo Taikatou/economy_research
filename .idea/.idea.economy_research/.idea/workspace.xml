@@ -6,28 +6,31 @@
   <component name="ChangeListManager">
     <list default="true" id="3a9a0144-2920-4427-8d8b-3fddc42186be" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.economy_research/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.economy_research/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CraftingRequirements/CraftingRequirements.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/CraftingRequirements/CraftingRequirements.asmdef" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CraftingRequirements/CraftingRequirements.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/CraftingRequirements/CraftingRequirements.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CraftingRequirements/AdvancedRequirements.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/CraftingRequirements/AdvancedRequirements.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CraftingRequirements/BeginnerCrafting.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/CraftingRequirements/BeginnerCrafting.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CraftingRequirements/EpicRequirements.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/CraftingRequirements/EpicRequirements.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/AdventurerData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/AdventurerData.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Data/Training.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Training.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Prefabs/ML Agents/Adventurer/LearningAdventurerAgent.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Prefabs/ML Agents/Adventurer/LearningAdventurerAgent.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Prefabs/ML Agents/Adventurer/LearningAdventurerAgentIntransitive.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Prefabs/ML Agents/Adventurer/LearningAdventurerAgentIntransitive.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Prefabs/ML Agents/Shop/LearningShopAgent.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Prefabs/ML Agents/Shop/LearningShopAgent.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scenes/TestScenes/EconomyScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scenes/TestScenes/EconomyScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/AgentData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/AgentData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/AgentScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/AgentScreen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/AdventurerLocationSelect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/AdventurerLocationSelect.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/AdventurerSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Adventurer/AdventurerSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/AgentShopSubSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/AgentShopSubSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/ShopCraftingSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/ShopCraftingSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Requests/RequestShopSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Requests/RequestShopSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/Inventory/AgentInventory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/Inventory/AgentInventory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/Inventory/Weapons/Swords/2_IntermediateSword.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/Inventory/Weapons/Swords/2_IntermediateSword.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/Inventory/Weapons/Swords/3_AdvancedSword.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/Inventory/Weapons/Swords/3_AdvancedSword.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/Inventory/Weapons/Swords/4_EpicSword.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/Inventory/Weapons/Swords/4_EpicSword.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/Inventory/Weapons/Swords/5_MasterSword.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/Inventory/Weapons/Swords/5_MasterSword.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/Inventory/Weapons/Swords/6_UltimateSwordOfPower.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/Inventory/Weapons/Swords/6_UltimateSwordOfPower.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/EconomyWallet.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/EconomyWallet.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Sensors/AgentMovementSensor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Sensors/AgentMovementSensor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Shop/Sensors/ShopCraftingSensor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Shop/Sensors/ShopCraftingSensor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/NewAdventurerAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/NewAdventurerAgent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Shop/ShopAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Shop/ShopAgent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Craftsman/CraftsmanUIControls.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Craftsman/CraftsmanUIControls.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Inventory/AdventurerShopScrollView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Inventory/AdventurerShopScrollView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Inventory/ShopInventoryScrollButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Inventory/ShopInventoryScrollButton.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Inventory/ShopInventoryScrollView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Inventory/ShopInventoryScrollView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Inventory/ShopScrollView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/UI/Inventory/ShopScrollView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Inventory/UsableItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Inventory/UsableItem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Timers/EconomyScene_timers.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Timers/EconomyScene_timers.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -412,10 +415,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="32192">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="32192" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -522,7 +525,9 @@
       <workItem from="1701718267892" duration="4698000" />
       <workItem from="1702301224033" duration="7826000" />
       <workItem from="1702336804055" duration="994000" />
-      <workItem from="1702372433709" duration="9257000" />
+      <workItem from="1702372433709" duration="11777000" />
+      <workItem from="1702547321388" duration="4235000" />
+      <workItem from="1702816539473" duration="3067000" />
     </task>
     <servers />
   </component>
@@ -632,42 +637,16 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/NewAdventurerAgent.cs</url>
-          <line>71</line>
+          <line>72</line>
           <properties documentPath="C:\Users\conor\Documents\GitHub\economy_research\Assets\EconomyProject\Scripts\MLAgents\AdventurerAgents\NewAdventurerAgent.cs" initialLine="71" containingFunctionPresentation="Method 'OnItemAddReward'">
             <startOffsets>
-              <option value="2427" />
+              <option value="2458" />
             </startOffsets>
             <endOffsets>
-              <option value="2440" />
+              <option value="2471" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="349" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Shop/ShopAgent.cs</url>
-          <line>130</line>
-          <properties documentPath="C:\Users\conor\Documents\GitHub\economy_research\Assets\EconomyProject\Scripts\MLAgents\Shop\ShopAgent.cs" initialLine="126" containingFunctionPresentation="Method 'Heuristic'">
-            <startOffsets>
-              <option value="3525" />
-            </startOffsets>
-            <endOffsets>
-              <option value="3566" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="377" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/EnvironmentResetter.cs</url>
-          <line>27</line>
-          <properties documentPath="C:\Users\conor\Documents\GitHub\economy_research\Assets\EnvironmentResetter.cs" initialLine="27" containingFunctionPresentation="Method 'Update'">
-            <startOffsets>
-              <option value="741" />
-            </startOffsets>
-            <endOffsets>
-              <option value="781" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="378" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

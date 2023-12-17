@@ -133,9 +133,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         {
 	        switch (input)
 	        {
-		        case EShopAgentChoices.Back:
+		       /* case EShopAgentChoices.Back:
 			        BackButton(agent);
-			        break;
+			        break;*/
 		        case EShopAgentChoices.Select:
 			        Select(agent);
 			        break;
@@ -156,7 +156,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public void PriceUpDown(ShopAgent agent, int increment)
         {
-	        var index = ShopLocationMap.GetCurrentLocation(agent);
+	        var index = CraftingLocationMap.GetCurrentLocation(agent);
 	        var items = shopSubSubSystem.GetShopUsableItems(agent);
 
 	        if (items.Count > index)

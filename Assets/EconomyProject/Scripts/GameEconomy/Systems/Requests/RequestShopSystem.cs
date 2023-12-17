@@ -91,9 +91,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         {
             switch (input)
             {
-                case EShopAgentChoices.Back:
+               /* case EShopAgentChoices.Back:
                     AgentInput.ChangeScreen(agent, EShopScreen.Main);
-                    break;
+                    break;*/
                 case EShopAgentChoices.Down:
                     MakeRequestGetLocation.MovePosition(agent, -1);
                     break;

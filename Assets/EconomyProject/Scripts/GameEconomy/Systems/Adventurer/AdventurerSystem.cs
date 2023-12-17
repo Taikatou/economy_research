@@ -14,14 +14,6 @@ using UnityEngine;
 namespace EconomyProject.Scripts.GameEconomy.Systems
 {
     public enum EAdventureStates { OutOfBattle, InQueue, ConfirmBattle, ConfirmAbilities, InBattle }
-
-    [Serializable]
-    public struct EnvironmentDropTable
-    {
-        public FighterDropTable [] fighterDropTable;
-
-        public EBattleEnvironments battleEnvironment;
-    }
     
     [Serializable]
     public class AdventurerSystem : EconomySystem<BaseAdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>, ISetup
@@ -185,22 +177,33 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             {
                 case EAdventureStates.OutOfBattle:
                     var location = locationSelect.GetBattle(agent);
-                    var getLootBox = travelSubsystem.GetLootBox(location);
-                    
-                    if (getLootBox.HasValue)
+                    CraftingDropReturn? craftingDropReturn = null;
+                    for (var i = 0; i <= agent.AdventurerInventory.EquipedItem.itemDetails.damage; i+=5)
                     {
-                        var requestReceived = agent.RequestTaker.CheckItemAdd(agent, getLootBox.Value.Resource, getLootBox.Value.Count, battleSubSystem.OnItemAdd, battleSubSystem.OnRequestComplete);
+                        var getLootBox = travelSubsystem.GetLootBox(location);
+                        if (getLootBox.HasValue)
+                        {
+                            if (!craftingDropReturn.HasValue ||
+                                getLootBox.Value.Resource > craftingDropReturn.Value.Resource)
+                            {
+                                craftingDropReturn = getLootBox;
+                            }
+                        }
+                    }
+                    
+                    if(craftingDropReturn.HasValue)
+                    {
+                        var requestReceived = agent.RequestTaker.CheckItemAdd(agent, craftingDropReturn.Value.Resource, craftingDropReturn.Value.Count, battleSubSystem.OnItemAdd, battleSubSystem.OnRequestComplete);
                         if (requestReceived)
                         {
                             agent.AdventurerInventory.DecreaseDurability();
                         }
                     }
+                    
                     break;
             }
         }
-
-        public EnvironmentDropTable[] EnvironmentDropTable;
-
+        
         public void UpDown(BaseAdventurerAgent agent, int movement)
         {
             switch (GetAdventureStates(agent))

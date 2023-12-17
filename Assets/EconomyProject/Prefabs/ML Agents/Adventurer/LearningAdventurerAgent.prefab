@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 1401570310200512078}
   - component: {fileID: -4416621978120130695}
   - component: {fileID: 1308730154}
+  - component: {fileID: 8127034746003450137}
   m_Layer: 0
   m_Name: LearningAdventurerAgent
   m_TagString: Untagged
@@ -201,9 +202,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DecisionPeriod: 10
+  DecisionStep: 0
   TakeActionsBetweenDecisions: 0
-  allowDecisions: 1
-  crafter: 0
+  adventurer: 1
+  shopSubSystem: {fileID: 0}
+  requestBehaviour: {fileID: 0}
 --- !u!114 &-4416621978120130695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,3 +239,19 @@ MonoBehaviour:
   brawlerCurve: {fileID: 11400000, guid: b6da8374fcdfc434fb1324cc90f7442a, type: 2}
   healerCurve: {fileID: 11400000, guid: 76499ea89adf8b04dacdb5b3c11039ab, type: 2}
   tankCurve: {fileID: 11400000, guid: 3c55869dc8cbc554590e77c71d49340e, type: 2}
+--- !u!114 &8127034746003450137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7707616417561859250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88b6042bc9a5d4aa58d931eae49442e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0

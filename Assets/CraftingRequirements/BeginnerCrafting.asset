@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BeginnerCrafting
   m_EditorClassIdentifier: 
   resultingItem: {fileID: 11400000, guid: ff61c0520e17b43429b1c5e7c3cd505d, type: 2}
-  timeToCreation: 3
+  timeToCreation: 0
   resourcesRequirements:
   - type: 1
     number: 1

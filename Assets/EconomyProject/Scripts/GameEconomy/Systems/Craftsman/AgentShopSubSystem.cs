@@ -51,6 +51,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             {
                 _shopSystems.Remove(shopAgent);
             }
+            Refresh();
         }
 
         private List<UsableItem> GetItems(ShopAgent shopAgent)

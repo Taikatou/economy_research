@@ -16,10 +16,10 @@ namespace EconomyProject.Scripts.UI.Inventory
         protected override List<ShopItem> GetItemList()
         {
 	        // TODO fix this please
-	        var counter = 0;
 	        var items = shopSubSystem.system.shopSubSubSystem.GetAllUsableItems();
 
-	        List<ShopItem> toreturn = new List<ShopItem>();
+	        var toreturn = new List<ShopItem>();
+	        var i = 0;
 	        foreach (var item in items)
 	        {
 		        toreturn.Add(new ShopItem
@@ -27,8 +27,10 @@ namespace EconomyProject.Scripts.UI.Inventory
 			        Seller = item.Item2,
 			        Item=item.Item1,
 			        Price = shopSubSystem.system.shopSubSubSystem.GetPrice(item.Item2, item.Item1.itemDetails),
-			        Number = shopSubSystem.system.shopSubSubSystem.GetNumber(item.Item2, item.Item1.itemDetails)
+			        Number = shopSubSystem.system.shopSubSubSystem.GetNumber(item.Item2, item.Item1.itemDetails),
+			        Index = i
 		        });
+		        i++;
 	        }
 	        return toreturn;
         }
@@ -37,11 +39,11 @@ namespace EconomyProject.Scripts.UI.Inventory
         {
 	        base.Update();
 
+	        var index = adventurerShopSystem.system.adventurerShopSubSystem.GetCurrentLocation(
+		        currentAdventurerAgent.CurrentAgent);
 	        foreach (var button in buttons)
 	        {
-		        var index = adventurerShopSystem.system.adventurerShopSubSystem.GetCurrentLocation(
-			        currentAdventurerAgent.CurrentAgent);
-		        button.UpdateData(index, true);
+		        button.UpdateData(index);
 	        }
         }
 

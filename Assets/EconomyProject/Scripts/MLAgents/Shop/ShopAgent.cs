@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Data;
-using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.Experiments;
 using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.GameEconomy.Systems;
-using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.GameEconomy.Systems.Shop;
 using EconomyProject.Scripts.Inventory;
 using Inventory;
@@ -15,7 +12,6 @@ using UnityEngine;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Policies;
-using Unity.MLAgents.Sensors;
 
 namespace EconomyProject.Scripts.MLAgents.Shop
 {
@@ -33,8 +29,8 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 		RequestUp,
 		RequestDown,
 		RequestSelect,
-		RemoveRequest,
-		Back
+		RemoveRequest
+		
 	}
 
 	public enum EShopScreen { Main, Request, Craft}
@@ -137,18 +133,6 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 		        actions[1] = GetAction(requestInputs, 7);
 		        
 	        }
-        }
-
-        private int GetAction(EnabledInput[] choices, int maxValue)
-        {
-	        var random = new System.Random();
-	        var chosenAction = 0;
-	        do
-	        {
-		        chosenAction = random.Next(0, maxValue);
-	        } while (!choices[chosenAction].Enabled);
-
-	        return choices[chosenAction].Input;
         }
 
         private static readonly Dictionary<EShopAgentChoices, EShopAgentChoices> ChoicesMap = new()

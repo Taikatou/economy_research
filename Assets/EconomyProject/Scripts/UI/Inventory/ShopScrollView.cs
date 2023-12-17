@@ -44,11 +44,11 @@ namespace EconomyProject.Scripts.UI.Inventory
 
         public void FixedUpdate()
 		{
-			var index = shopSubSystem.shopLocationMap.GetCurrentLocation(Agent);
+			var index = shopSubSystem.craftLocationMap.GetCurrentLocation(Agent);
 
 			foreach (var button in buttons)
 			{
-				button.UpdateData(index, true);
+				button.UpdateData(index);
 			}
 		}
     }

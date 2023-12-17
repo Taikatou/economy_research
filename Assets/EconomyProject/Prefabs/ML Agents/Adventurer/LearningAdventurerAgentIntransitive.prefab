@@ -159,7 +159,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2072330097273742403, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
       propertyPath: m_BehaviorType
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2072330097273742403, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
       propertyPath: m_BrainParameters.VectorActionSize.Array.size
@@ -167,11 +167,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2072330097273742403, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
       propertyPath: m_BrainParameters.VectorActionSize.Array.data[0]
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2072330097273742403, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
       propertyPath: m_BrainParameters.VectorActionSize.Array.data[1]
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2072330097273742403, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
       propertyPath: m_BrainParameters.m_ActionSpec.BranchSizes.Array.size
@@ -179,11 +179,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2072330097273742403, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
       propertyPath: m_BrainParameters.m_ActionSpec.BranchSizes.Array.data[0]
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2072330097273742403, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
       propertyPath: m_BrainParameters.m_ActionSpec.BranchSizes.Array.data[1]
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4250931923004593224, guid: 7f83e2c93df89ce4fbe3760b4b9b045b, type: 3}
       propertyPath: agent
@@ -333,6 +333,21 @@ MonoBehaviour:
   wallet: {fileID: 3209725229979047281}
   requestTaker: {fileID: 4482214546387103370}
   fighterData: {fileID: 1628703270116904896}
+--- !u!114 &7660092453899501270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8706436983826652453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd8dda8ccf647b74fbad1b6d10f75cb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walletParent: {fileID: 8706436983826652453}
+  distributeEvery: 3
+  amount: 10
 --- !u!114 &8714013410508497553
 MonoBehaviour:
   m_ObjectHideFlags: 0

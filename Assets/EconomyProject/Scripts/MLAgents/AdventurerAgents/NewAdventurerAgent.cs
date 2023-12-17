@@ -8,6 +8,7 @@ using EconomyProject.Scripts.Inventory;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes;
 using Inventory;
 using Unity.MLAgents.Actuators;
+using Unity.MLAgents.Policies;
 using UnityEngine;
 
 namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
@@ -125,12 +126,22 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
                 }
                 _choosenAction = ENewAdventurerAgentChoices.None;
             }
+            else if (GetComponent<BehaviorParameters>().BehaviorType == BehaviorType.HeuristicOnly)
+            {
+                var actions = actionsOut.DiscreteActions;
+                var advInputs = AdventurerInput.AdventurerSystem.system.GetEnabledInputs(this);
+
+                actions[0] = GetAction(advInputs, 5);
+		        
+                var shopInputs = AdventurerInput.AdventurerShopSystem.system.GetEnabledInputs(this);
+                actions[1] = GetAction(shopInputs, 5);
+		        
+            }
         }
 
         public static readonly Dictionary<ENewAdventurerAgentChoices, ENewAdventurerAgentChoices> ChoiceMaps =
             new()
             {
-                { ENewAdventurerAgentChoices.ShopBack, ENewAdventurerAgentChoices.AdvBack },
                 { ENewAdventurerAgentChoices.ShopDown, ENewAdventurerAgentChoices.AdvDown },
                 { ENewAdventurerAgentChoices.ShopUp, ENewAdventurerAgentChoices.AdvUp },
                 { ENewAdventurerAgentChoices.ShopSelect, ENewAdventurerAgentChoices.AdvSelect },

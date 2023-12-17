@@ -1,4 +1,5 @@
 ﻿using System;
+using EconomyProject.Scripts.GameEconomy.Systems;
 using Unity.MLAgents;
 using UnityEngine;
 
@@ -56,6 +57,18 @@ namespace EconomyProject.Scripts.GameEconomy
                 
                 return action;   
             }
+        }
+        
+        protected int GetAction(EnabledInput[] choices, int maxValue)
+        {
+            var random = new System.Random();
+            var chosenAction = 0;
+            do
+            {
+                chosenAction = random.Next(0, maxValue);
+            } while (!choices[chosenAction].Enabled);
+
+            return choices[chosenAction].Input;
         }
     }
 }

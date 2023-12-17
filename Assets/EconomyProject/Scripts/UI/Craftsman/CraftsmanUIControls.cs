@@ -32,7 +32,7 @@ namespace EconomyProject.Scripts.UI.Craftsman
 
         public void ReturnToMain()
         {
-			ShopAgent.SetAction(EShopAgentChoices.Back);
+			//ShopAgent.SetAction(EShopAgentChoices.Back);
         }
     }
 }

@@ -43,13 +43,15 @@
 
         public static int MaxPrice => 250;
         
-        public static bool IgnoreResources => true;
+        public static bool IgnoreResources => false;
 
         public static bool SubmitDirectToShop => true;
 
         public static float SellDiscount => 0.5f;
 
         public static bool IgnoreCraftTime => true;
+
+        public static bool RestrictMovement => false;
     }
 
     public static class UISpec
