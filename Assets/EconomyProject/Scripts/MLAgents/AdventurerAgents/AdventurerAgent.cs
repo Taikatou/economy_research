@@ -164,7 +164,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 	        }
         }
 
-        public void SetAction(int input)
+        public void SetAction(int input, bool shop)
         {
 	        _choosenAction = (EAdventurerAgentChoices) input;
         }

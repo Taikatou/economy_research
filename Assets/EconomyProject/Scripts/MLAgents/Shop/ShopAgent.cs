@@ -166,7 +166,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 			RequestDecision();
 		}
 
-		public void SetAction(int action)
+		public void SetAction(int action, bool shop)
 		{
 			SetAction((EShopAgentChoices) action);
 		}

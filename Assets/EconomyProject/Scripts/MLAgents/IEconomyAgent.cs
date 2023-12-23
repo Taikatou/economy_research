@@ -5,7 +5,7 @@ namespace EconomyProject.Scripts.MLAgents
 {
     public interface IEconomyAgent
     {
-        public void SetAction(int action);
+        public void SetAction(int action, bool shop);
         public IEnumerable<EnabledInput> GetEnabledInput();
 
         public List<EnabledInput[]> GetEnabledInputNew();

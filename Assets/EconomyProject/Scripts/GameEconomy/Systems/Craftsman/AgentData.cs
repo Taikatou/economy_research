@@ -61,7 +61,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             var price = GetPrice(item.itemDetails);
  
             ChangeItem(item, price);
-            _enterTimes.Add(item, Time.time);
+            _enterTimes.Add(item, EnvironmentReseter.CurrentTime);
             Debug.LogWarning("Submitted " + price);
         }
 
@@ -85,8 +85,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 					{
 						ItemName = itemDetails.itemName,
 						Price = price,
-						SaleTime = Time.time,
-						EnterTime = _enterTimes[itemRemove]
+						SaleTime = EnvironmentReseter.CurrentTime,
+						EnterTime = _enterTimes[itemRemove],
+						Reset = EnvironmentReseter.Reset
 					});
 					
 					inventory.AddItem(itemRemove);

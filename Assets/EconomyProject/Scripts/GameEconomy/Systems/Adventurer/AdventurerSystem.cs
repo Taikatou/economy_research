@@ -141,6 +141,10 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                         break;
                 }
             }
+            else
+            {
+                Debug.Log(input);
+            }
         }
         
         public void RemoveAgent(BaseAdventurerAgent agent)
@@ -191,6 +195,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                         }
                     }
                     
+                    Debug.Log(craftingDropReturn.Value.Resource);
                     if(craftingDropReturn.HasValue)
                     {
                         var requestReceived = agent.RequestTaker.CheckItemAdd(agent, craftingDropReturn.Value.Resource, craftingDropReturn.Value.Count, battleSubSystem.OnItemAdd, battleSubSystem.OnRequestComplete);

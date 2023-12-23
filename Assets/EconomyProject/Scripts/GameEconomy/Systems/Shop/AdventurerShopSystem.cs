@@ -72,11 +72,25 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
         {
             var inputChoices = new List<EAdventurerAgentChoices>
             {
-                EAdventurerAgentChoices.Down,
-                EAdventurerAgentChoices.Up,
                 EAdventurerAgentChoices.Back,
-                EAdventurerAgentChoices.Select
             };
+
+            var location = adventurerShopSubSystem.GetCurrentLocation(agent);
+            var limit = adventurerShopSubSystem.GetLimit(agent);
+            if (limit > 0)
+            {
+                inputChoices.Add(EAdventurerAgentChoices.Select);
+            }
+
+            if (location > 0)
+            {
+                inputChoices.Add(EAdventurerAgentChoices.Down);
+            }
+
+            if (location + 1 < limit)
+            {
+                inputChoices.Add(EAdventurerAgentChoices.Up);
+            }
 
             var outputs = EconomySystemUtils<EAdventurerAgentChoices>.GetInputOfType(inputChoices);
 

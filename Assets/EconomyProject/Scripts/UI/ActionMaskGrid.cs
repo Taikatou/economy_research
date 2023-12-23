@@ -44,7 +44,7 @@ namespace EconomyProject.Scripts.UI
             }
             else
             {
-                InitMenus<ENewAdventurerAgentChoices>(ENewAdventurerAgentChoices.ShopNone);
+                InitMenus<EAdventurerAgentChoices>(EAdventurerAgentChoices.None);
             }
         }
 
@@ -89,7 +89,7 @@ namespace EconomyProject.Scripts.UI
 
         private void ButtonClicked<T> (T a) where T : Enum
         {
-            getCurrentAgentAggregator.CurrentAgent.SetAction(Convert.ToInt32(a));
+            getCurrentAgentAggregator.CurrentAgent.SetAction(Convert.ToInt32(a), false);
         }
 
         private void Update()
