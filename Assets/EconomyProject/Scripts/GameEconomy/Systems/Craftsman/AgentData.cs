@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Data;
 using EconomyProject.Scripts.GameEconomy.DataLoggers;
 using EconomyProject.Scripts.Inventory;
@@ -118,12 +119,17 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
 			return toReturn;
         }
-        public List<UsableItem> GetShopUsableItems()
+        public Dictionary<ECraftingChoice, List<UsableItem>> GetShopUsableItems()
         {
-            var output = new List<UsableItem>();
+            var output = new Dictionary<ECraftingChoice, List<UsableItem>>();
             foreach(var entry in _shopItems)
             {
-                output.Add(entry.Value[0]);
+	            var craft = entry.Value[0].craftChoice;
+	            if (!output.ContainsKey(craft))
+	            {
+		            output.Add(craft, new List<UsableItem>());
+	            }
+                output[craft].Add(entry.Value[0]);
             }
 
             return output;

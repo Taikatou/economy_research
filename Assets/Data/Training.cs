@@ -6,16 +6,15 @@
         public static readonly float OnPurchaseReward = 0.2f;
 
         public static bool OnSell => true;
-        public static readonly float OnSellReward = 0.2f;
 
-        public static bool OnSpend => true;
+        public static bool OnSpend => false;
         public static bool OnWin => true;
         public static readonly float OnWinReward = 0.03f;
 
         public static bool OnLose => true;
         public static readonly float OnLoseReward = -0.01f;
 
-        public static bool LoseMoney => true;
+        public static bool LoseMoney => false;
         public static readonly int MoneyToLose = 1;
 
         public static bool OnResource => false;

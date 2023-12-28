@@ -29,42 +29,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         {
             switch (input)
             {
-                case EShopAgentChoices.Up:
-                    mainLocationSelect.MovePosition(agent, 1);
-                    break;
-                case EShopAgentChoices.Down:
-                    mainLocationSelect.MovePosition(agent, -1);
-                    break;
-                case EShopAgentChoices.Select:
-                    var environment = mainLocationSelect.GetMenu(agent);
-                    AgentInput.ChangeScreen(agent, environment);
-                    break;
+                
             }
         }
 
-        public override EnabledInput[] GetEnabledInputs(ShopAgent agent)
+        public override EShopAgentChoices[] GetEnabledInputs(ShopAgent agent)
         {
-            var screen = mainLocationSelect.GetMenu(agent);
-
-            EShopAgentChoices[] inputChoices = null;
-            if(screen == EShopScreen.Request)
-            {
-                inputChoices = new[]
-                {
-                    EShopAgentChoices.Down,
-                    EShopAgentChoices.Select
-                };
-            }
-            else
-            {
-                inputChoices = new[]
-                {
-                    EShopAgentChoices.Up,
-                    EShopAgentChoices.Select
-                };
-            }
-            var outputs = EconomySystemUtils<EShopAgentChoices>.GetInputOfType(inputChoices);
-            return outputs;
+            EShopAgentChoices[] inputChoices = new EShopAgentChoices []{};
+            return inputChoices;
         }
     }
 }

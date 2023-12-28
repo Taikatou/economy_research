@@ -20,10 +20,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
 
         private float[] UpdateData()
         {
-            var screen =  _shopAgent.ChosenScreen;
             var walletMoney = _shopAgent.wallet ? _shopAgent.wallet.Money : 0.0f;
-
-            var selectedScreen = ENewShopScreen.Main;
             var obsData = new List<ObsData>
             {
                 new SingleObsData { data=walletMoney, Name="Shop Wallet" },

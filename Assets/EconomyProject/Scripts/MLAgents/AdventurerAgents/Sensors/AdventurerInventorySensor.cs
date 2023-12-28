@@ -21,7 +21,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
         {
             var item = _agent.AdventurerInventory.EquipedItem;
             var damage = item == null? 0 : item.itemDetails.damage;
-            var craft = item == null ? ECraftingChoice.BeginnerSword : item.craftChoice;
+            var craft = item == null ? ECraftingChoice.BeginnerSword-1 : item.craftChoice;
             var obs = new ObsData[]
             {
                 new SingleObsData

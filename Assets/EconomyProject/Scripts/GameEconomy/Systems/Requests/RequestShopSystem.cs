@@ -16,7 +16,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
     public class RequestShopSystem : StateEconomySystem<ShopAgent, EShopScreen, EShopAgentChoices>, ISetup
     {
         public RequestSystem requestSystem;
-        public static int ObservationSize => 5;
+        public static int ObservationSize => 0;
         public override EShopScreen ActionChoice => EShopScreen.Request;
 
         public ShopRequestLocationMap MakeRequestGetLocation { get; set; }
@@ -35,14 +35,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
         public override ObsData[] GetObservations(ShopAgent agent, BufferSensorComponent[] bufferSensorComponent)
         {
-            var item = MakeRequestGetLocation.GetItem(agent);
-
-            var outputSenses = new List<ObsData>
-            {
-                GetItemObs(item, "resource selection"),
-            };
             GetRequestObservations(agent, bufferSensorComponent[0]);
-            return outputSenses.ToArray();
+            return new ObsData[] { };
         }
         
         public void GetRequestObservations(ShopAgent agent, BufferSensorComponent bufferSensorComponent)
@@ -56,16 +50,13 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                 if (request.Resource > ECraftingResources.Nothing)
                 {
                     var index = (int)request.Resource - 1;
-                    if(index < r.Length)
-                        r[index] = 1;
-                    else
-                        Debug.Log(request.Resource);
+                    r[index] = 1;
+                    
+                    outputs.AddRange(r);
+                    outputs.Add(request.Price);
+                    outputs.Add(request.Number);
+                    bufferSensorComponent.AppendObservation(outputs.ToArray());
                 }
-
-                outputs.AddRange(r);
-                outputs.Add(request.Price);
-                outputs.Add(request.Number);
-                bufferSensorComponent.AppendObservation(outputs.ToArray());
             }
         }
 
@@ -86,34 +77,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                 requestSystem.RemoveRequest(resource.Value, agent.craftingInventory);   
             }
         }
-        
-        protected override void SetChoice(ShopAgent agent, EShopAgentChoices input)
-        {
-            switch (input)
-            {
-               /* case EShopAgentChoices.Back:
-                    AgentInput.ChangeScreen(agent, EShopScreen.Main);
-                    break;*/
-                case EShopAgentChoices.Down:
-                    MakeRequestGetLocation.MovePosition(agent, -1);
-                    break;
-                case EShopAgentChoices.Up:
-                    MakeRequestGetLocation.MovePosition(agent, 1);
-                    break;
-                case EShopAgentChoices.Select:
-                    Select(agent);
-                    break;
-                case EShopAgentChoices.IncreasePrice:
-                    ChangePrice(agent, 1);
-                    break;
-                case EShopAgentChoices.DecreasePrice:
-                    ChangePrice(agent, -1);
-                    break;
-            case EShopAgentChoices.RemoveRequest:
-                    RemoveRequest(agent);
-                    break;
-            }
-        }
 
         public void ChangePrice(ShopAgent agent, int value)
         {
@@ -123,61 +86,55 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
                 requestSystem.ChangePrice(resource.Value, agent.craftingInventory, agent.wallet, value);   
             }
         }
+        
+        private readonly ECraftingResources [] _resources = Enum.GetValues(typeof(ECraftingResources)).Cast<ECraftingResources>().ToArray();
 
-        public override EnabledInput[] GetEnabledInputs(ShopAgent agent)
-        {
-            var inputChoices = new List<EShopAgentChoices>
+        private readonly Dictionary<ECraftingResources, EShopAgentChoices> _craftMap =
+            new()
             {
-                EShopAgentChoices.Select
+                { ECraftingResources.Nothing, EShopAgentChoices.None},
+                { ECraftingResources.Wood, EShopAgentChoices.SelectWood },
+                { ECraftingResources.Metal, EShopAgentChoices.SelectMetal },
+                { ECraftingResources.Gem, EShopAgentChoices.SelectGem },
+                { ECraftingResources.DragonScale, EShopAgentChoices.SelectDragonScale }
             };
-            
-            var resource = MakeRequestGetLocation.GetItem(agent);
-            if (resource.HasValue)
+        
+        private readonly Dictionary<ECraftingResources, List<EShopAgentChoices>> _increasePriceMap =
+            new()
             {
-                var canSelect = requestSystem.CanMakeRequest(agent.craftingInventory, resource.Value);
+                { ECraftingResources.Nothing, new List<EShopAgentChoices>()},
+                { ECraftingResources.Wood, new List<EShopAgentChoices> {EShopAgentChoices.RequestIncreaseWood, EShopAgentChoices.RequestDecreaseWood, EShopAgentChoices.RequestRemoveWood} },
+                { ECraftingResources.Metal, new List<EShopAgentChoices> {EShopAgentChoices.RequestIncreaseMetal, EShopAgentChoices.RequestDecreaseMetal, EShopAgentChoices.RequestRemoveMetal} },
+                { ECraftingResources.Gem, new List<EShopAgentChoices> {EShopAgentChoices.RequestIncreaseGem, EShopAgentChoices.RequestDecreaseGem, EShopAgentChoices.RequestRemoveGem} },
+                { ECraftingResources.DragonScale, new List<EShopAgentChoices> {EShopAgentChoices.RequestIncreaseDragonScale, EShopAgentChoices.RequestDecreaseDragonScale, EShopAgentChoices.RequestRemoveDragonScale} }
+            };
+        public override EShopAgentChoices[] GetEnabledInputs(ShopAgent agent)
+        {
+            var options = new HashSet<EShopAgentChoices>();
+            var requests = requestSystem.GetAllCraftingRequests(agent.craftingInventory);
+            foreach (var r in _resources)
+            {
+                var canSelect = requestSystem.CanMakeRequest(agent.craftingInventory, r);
                 if (canSelect)
                 {
-                    inputChoices.Add(EShopAgentChoices.Select);   
-                }
-
-                if (resource != ECraftingResources.Wood)
-                {
-                    inputChoices.Add(EShopAgentChoices.Down);
-                }
-
-                if (resource != ECraftingResources.DragonScale)
-                {
-                    inputChoices.Add(EShopAgentChoices.Up);
+                    options.Add(_craftMap[r]);
                 }
             }
-
-            var requests = requestSystem.GetAllCraftingRequests(agent.craftingInventory);
             
-            if (resource.HasValue)
+            var craftSet = new HashSet<ECraftingResources>();
+            
+            foreach (var req in requests.Values)
             {
-                var foundRequest = false;
-                foreach (var req in requests.Values)
+                if (craftSet.Add(req.Resource)) // returns false if already exists
                 {
-                    if (req.Resource == resource.Value)
+                    foreach (var o in _increasePriceMap[req.Resource])
                     {
-                        foundRequest = true;
-                        break;
+                        options.Add(o);
                     }
                 }
-
-                if (foundRequest)
-                {
-                    inputChoices.AddRange( new []
-                    {
-                        EShopAgentChoices.IncreasePrice,
-                        EShopAgentChoices.DecreasePrice,
-                        EShopAgentChoices.RemoveRequest
-                    });   
-                }   
             }
-
-            var outputs = EconomySystemUtils<EShopAgentChoices>.GetInputOfType(inputChoices);
-            return outputs;
+            
+            return options.ToArray();
         }
 
         public void Setup()

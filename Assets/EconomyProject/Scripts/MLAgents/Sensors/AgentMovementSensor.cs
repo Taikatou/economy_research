@@ -35,9 +35,6 @@ namespace EconomyProject.Scripts.MLAgents.Sensors
         private float[] GetData(BufferSensorComponent[] buffer)
         {
             var obs =  EconomySystem.GetObservations(_agent, buffer);
-            /*var oneHot = new float [(int)EAdventurerScreen.Adventurer];
-            var index = Convert.ToInt32(EconomySystem.ActionChoice);
-            oneHot[index] = 1;*/
             
             var outputData = new List<float>();
             

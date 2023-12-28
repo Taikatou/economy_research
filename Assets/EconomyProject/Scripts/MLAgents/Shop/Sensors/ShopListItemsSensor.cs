@@ -30,17 +30,21 @@ namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
         public override void Update()
         {
             var items = _shopSubSystem.shopSubSubSystem.GetShopUsableItems(_shopAgent);
-            foreach (var item in items)
+            
+            foreach (var itemPairs in items)
             {
-                var obs = new List<float>
+                foreach (var item in itemPairs.Value)
                 {
-                    (float)_shopSubSystem.shopSubSubSystem.GetPrice(_shopAgent, item.itemDetails) / TrainingConfig.MaxPrice,
-                    (float)_shopSubSystem.shopSubSubSystem.GetNumber(_shopAgent, item.itemDetails) / 10
-                };
-                var itemType = new float[Enum.GetValues(typeof(ECraftingChoice)).Length];
-                itemType[(int)item.craftChoice] = 1;
-                obs.AddRange(itemType);
-                _bufferSensorComponent.AppendObservation(obs.ToArray());
+                    var obs = new List<float>
+                    {
+                        (float)_shopSubSystem.shopSubSubSystem.GetPrice(_shopAgent, item.itemDetails) / TrainingConfig.MaxPrice,
+                        (float)_shopSubSystem.shopSubSubSystem.GetNumber(_shopAgent, item.itemDetails) / 10
+                    };
+                    var itemType = new float[Enum.GetValues(typeof(ECraftingChoice)).Length];
+                    itemType[(int)item.craftChoice] = 1;
+                    obs.AddRange(itemType);
+                    _bufferSensorComponent.AppendObservation(obs.ToArray());
+                }
             }
         }
 

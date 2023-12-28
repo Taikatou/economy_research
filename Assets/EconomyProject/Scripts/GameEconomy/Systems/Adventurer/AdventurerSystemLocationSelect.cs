@@ -53,10 +53,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
 
         public ObsData[] GetTravelObservations(BaseAdventurerAgent agent)
         {
-            var obs = new List<ObsData> {
-                new CategoricalObsData<EAdventurerSystem>(GetEnvironment(agent)) { Name="travelLocation" }
-            };
-            return obs.ToArray();
+            return new ObsData[] { };
         }
     }
 }

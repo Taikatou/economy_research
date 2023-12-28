@@ -57,17 +57,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         
         public EnabledInput[] GetEnabledInputs(Agent agent)
         {
-            var inputChoices = new List<EAdventurerAgentChoices>
-            {
-                EAdventurerAgentChoices.Up,
-                EAdventurerAgentChoices.Down,
-                EAdventurerAgentChoices.Select
-            };
-
-            if (SystemTraining.IncludeShop)
-            {
-                inputChoices.Add(EAdventurerAgentChoices.Back);
-            }
+            var inputChoices = new List<EAdventurerAgentChoices>();
 
             var outputs = EconomySystemUtils<EAdventurerAgentChoices>.GetInputOfType(inputChoices);
 

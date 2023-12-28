@@ -3,6 +3,7 @@ using Data;
 using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+using Inventory;
 
 namespace EconomyProject.Scripts.GameEconomy
 {
@@ -79,7 +80,7 @@ namespace EconomyProject.Scripts.GameEconomy
             AdventurerSystem.system.AgentInput = this;
         }
 
-        public IEnumerable<EnabledInput> GetActionMask(BaseAdventurerAgent agent)
+        public EAdventurerAgentChoices[] GetActionMask(BaseAdventurerAgent agent)
         {
             var inputsEnabled = GetEconomySystem(agent).GetEnabledInputs(agent);
             return inputsEnabled;

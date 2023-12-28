@@ -26,7 +26,7 @@ namespace Tests.Economy
 		public void Shop_ShopByDefault()
 		{
 			//ShopEmptyByDefault
-			List<UsableItem> shop = agentShopSubSystem.GetShopUsableItems(shopAgent);
+			Dictionary<ECraftingChoice, List<UsableItem>> shop = agentShopSubSystem.GetShopUsableItems(shopAgent);
 			Assert.IsEmpty(shop, "Should have an empty shop");
 			Assert.AreEqual(0, shop.Count);
 		}
@@ -45,7 +45,7 @@ namespace Tests.Economy
 			//Submit it into the shop
 			agentShopSubSystem.SubmitToShop(shopAgent, sword);
 
-			List<UsableItem> shop = agentShopSubSystem.GetShopUsableItems(shopAgent);
+			Dictionary<ECraftingChoice, List<UsableItem>> shop = agentShopSubSystem.GetShopUsableItems(shopAgent);
 			Assert.NotNull(shop, "Empty shop");
 
 			//Check number
@@ -69,7 +69,7 @@ namespace Tests.Economy
 			//Should not working
 			agentShopSubSystem.SubmitToShop(shopAgent, sword);
 
-			List<UsableItem> shop = agentShopSubSystem.GetShopUsableItems(shopAgent);
+			Dictionary<ECraftingChoice, List<UsableItem>> shop = agentShopSubSystem.GetShopUsableItems(shopAgent);
 			Assert.IsEmpty(shop, "Should have an empty shop");
 			Assert.AreEqual(0, shop.Count);
 			Assert.AreEqual(0, agentShopSubSystem.GetNumber(shopAgent, sword.itemDetails));
@@ -92,7 +92,7 @@ namespace Tests.Economy
 				agentShopSubSystem.SubmitToShop(shopAgent, sword);
 			}
 
-			List<UsableItem> shop = agentShopSubSystem.GetShopUsableItems(shopAgent);
+			Dictionary<ECraftingChoice, List<UsableItem>> shop = agentShopSubSystem.GetShopUsableItems(shopAgent);
 			Assert.NotNull(shop, "Empty shop");
 
 			//Check the number of items in the shop
@@ -121,7 +121,7 @@ namespace Tests.Economy
 				agentShopSubSystem.SubmitToShop(shopAgent, sword);
 			}
 
-			List<UsableItem> shop = agentShopSubSystem.GetShopUsableItems(shopAgent);
+			Dictionary<ECraftingChoice, List<UsableItem>> shop = agentShopSubSystem.GetShopUsableItems(shopAgent);
 			Assert.NotNull(shop, "Empty shop");
 			AgentData aData = agentShopSubSystem.GetShop(shopAgent);
 			Assert.NotNull(aData, "Empty AgentData");
@@ -129,19 +129,26 @@ namespace Tests.Economy
 			//Check the number of items in the shop
 			int nbrSwords = 0;
 			int nbrSwords2 = 0;
-			foreach (UsableItem item in shop)
+			foreach (var itemPairs in shop)
 			{
-				nbrSwords2 += agentShopSubSystem.GetNumber(shopAgent, item.itemDetails);
-				nbrSwords += aData.GetStock(item);
+				foreach (UsableItem item in itemPairs.Value)
+				{
+					nbrSwords2 += agentShopSubSystem.GetNumber(shopAgent, item.itemDetails);
+					nbrSwords += aData.GetStock(item);
+				}
 			}
+			
 			Assert.AreEqual(randomItemNumber, nbrSwords, "Wrong stock in AgentData");
 			Assert.AreEqual(randomItemNumber, nbrSwords2, "Wrong stock in AgentShopSubSystem");
 
 			//Check price
-			foreach (UsableItem item in shop)
+			foreach (var itemPairs in shop)
 			{
-				int basePrice = GetPriceByItemName(item.itemDetails.itemName);
-				Assert.AreEqual(basePrice, agentShopSubSystem.GetPrice(shopAgent, item.itemDetails));
+				foreach (UsableItem item in itemPairs.Value)
+				{
+					int basePrice = GetPriceByItemName(item.itemDetails.itemName);
+					Assert.AreEqual(basePrice, agentShopSubSystem.GetPrice(shopAgent, item.itemDetails));
+				}
 			}
 		}
 
@@ -163,7 +170,7 @@ namespace Tests.Economy
 			agentShopSubSystem.PurchaseItem(shopAgent, sword, BaseAdventurerAgent.Wallet, BaseAdventurerAgent.Inventory);
 
 			//Check if no more sword in the ShopAgent inventory
-			List<UsableItem> shop = agentShopSubSystem.GetShopUsableItems(shopAgent);
+			Dictionary<ECraftingChoice, List<UsableItem>> shop = agentShopSubSystem.GetShopUsableItems(shopAgent);
 			Assert.IsEmpty(shop, "Should have an empty shop");
 			Assert.AreEqual(0, shop.Count);
 			Assert.AreEqual(0, agentShopSubSystem.GetNumber(shopAgent, sword.itemDetails));

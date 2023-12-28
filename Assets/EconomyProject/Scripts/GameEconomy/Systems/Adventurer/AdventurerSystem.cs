@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using Data;
 using EconomyProject.Scripts.GameEconomy.DataLoggers;
 using EconomyProject.Scripts.GameEconomy.Systems.Adventurer;
-using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.Interfaces;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using TurnBased.Scripts;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
@@ -22,7 +22,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public Dictionary<BaseAdventurerAgent, EAdventureStates> AdventureStates;
 
-        public static int ObservationSize => 4;
+        public static int ObservationSize => 5;
         public override EAdventurerScreen ActionChoice => TrainingConfig.StartScreen;
 
         public AdventurerLocationSelect locationSelect;
@@ -80,71 +80,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public override ObsData[] GetObservations(BaseAdventurerAgent agent, BufferSensorComponent[] bufferSensorComponent)
         {
-            ObsData[] GetSubsystemData()
-            {
-                ObsData[] toReturn;
-                
-                var subSystem = battleSubSystem.GetSubSystem(agent);
-                if (subSystem != null)
-                {
-                    var i = battleLocationSelect.GetObs(agent);
-                    var obs = subSystem.GetSubsystemObservations(i, agent.GetHashCode());
-                    toReturn = obs;
-                }
-                else
-                {
-                    toReturn = BlankArray(BattleSubSystemInstance<BaseAdventurerAgent>.SensorCount);
-                }
-
-                return toReturn;
-            }
-            ObsData[] BlankArray(int sensorCount)
-            {
-                var toReturn = new ObsData[sensorCount];
-                for (var i = 0; i < sensorCount; i++)
-                {
-                    toReturn[i] = new SingleObsData();
-                }
-
-                return toReturn;
-            }
-
-            var output2 = locationSelect.GetTravelObservations(agent, this);
-            return output2;
+            var obs = new CategoricalObsData<ECraftingResources>(_craftingResourceAquired);
+            _craftingResourceAquired = ECraftingResources.Nothing;
+            return new ObsData[] { obs };
         }
 
         protected override void SetChoice(BaseAdventurerAgent agent, EAdventurerAgentChoices input)
         {
-            var validInput = ValidInput(agent, input);
-            if (validInput)
-            {
-                switch(input)
-                {
-                    case EAdventurerAgentChoices.Back:
-                        if (GetAdventureStates(agent) == EAdventureStates.InQueue)
-                        {
-                            battleSubSystem.RemoveAgentFromQueue(agent);
-                        }
-                        else if(SystemTraining.IncludeShop)
-                        {
-                            AgentInput.ChangeScreen(agent, EAdventurerScreen.Main);
-                        }
-                        break;
-                    case EAdventurerAgentChoices.Select:
-                        Select(agent);
-                        break;
-                    case EAdventurerAgentChoices.Up:
-                        UpDown(agent, 1);
-                        break;
-                    case EAdventurerAgentChoices.Down:
-                        UpDown(agent, -1);
-                        break;
-                }
-            }
-            else
-            {
-                Debug.Log(input);
-            }
+            
         }
         
         public void RemoveAgent(BaseAdventurerAgent agent)
@@ -174,6 +117,36 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             AdventureStates[agent] = EAdventureStates.OutOfBattle;
         }
 
+        private ECraftingResources _craftingResourceAquired = ECraftingResources.Nothing;
+
+        public void SelectOutOfBattle(BaseAdventurerAgent agent, EBattleEnvironments location)
+        {
+            CraftingDropReturn? craftingDropReturn = null;
+            for (var i = 0; i <= agent.AdventurerInventory.EquipedItem.itemDetails.damage; i+=5)
+            {
+                var getLootBox = travelSubsystem.GetLootBox(location);
+                if (getLootBox.HasValue)
+                {
+                    if (!craftingDropReturn.HasValue ||
+                        getLootBox.Value.Resource > craftingDropReturn.Value.Resource)
+                    {
+                        craftingDropReturn = getLootBox;
+                        _craftingResourceAquired = getLootBox.Value.Resource;
+                    }
+                }
+            }
+                    
+            Debug.Log(craftingDropReturn.Value.Resource);
+            if(craftingDropReturn.HasValue)
+            {
+                var requestReceived = agent.RequestTaker.CheckItemAdd(agent, craftingDropReturn.Value.Resource, craftingDropReturn.Value.Count, battleSubSystem.OnItemAdd, battleSubSystem.OnRequestComplete);
+                if (requestReceived)
+                {
+                    agent.AdventurerInventory.DecreaseDurability();
+                }
+            }
+        }
+
         public void Select(BaseAdventurerAgent agent)
         {
             var adventurerState = GetAdventureStates(agent);
@@ -181,30 +154,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             {
                 case EAdventureStates.OutOfBattle:
                     var location = locationSelect.GetBattle(agent);
-                    CraftingDropReturn? craftingDropReturn = null;
-                    for (var i = 0; i <= agent.AdventurerInventory.EquipedItem.itemDetails.damage; i+=5)
-                    {
-                        var getLootBox = travelSubsystem.GetLootBox(location);
-                        if (getLootBox.HasValue)
-                        {
-                            if (!craftingDropReturn.HasValue ||
-                                getLootBox.Value.Resource > craftingDropReturn.Value.Resource)
-                            {
-                                craftingDropReturn = getLootBox;
-                            }
-                        }
-                    }
-                    
-                    Debug.Log(craftingDropReturn.Value.Resource);
-                    if(craftingDropReturn.HasValue)
-                    {
-                        var requestReceived = agent.RequestTaker.CheckItemAdd(agent, craftingDropReturn.Value.Resource, craftingDropReturn.Value.Count, battleSubSystem.OnItemAdd, battleSubSystem.OnRequestComplete);
-                        if (requestReceived)
-                        {
-                            agent.AdventurerInventory.DecreaseDurability();
-                        }
-                    }
-                    
+
+                    SelectOutOfBattle(agent, location);
                     break;
             }
         }
@@ -247,23 +198,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             return count;
         }
 
-        public override EnabledInput[] GetEnabledInputs(BaseAdventurerAgent agent)
+        public override EAdventurerAgentChoices[] GetEnabledInputs(BaseAdventurerAgent agent)
         {
-            var inputChoices = new List<EAdventurerAgentChoices>
-            {
-                EAdventurerAgentChoices.Up,
-                EAdventurerAgentChoices.Down,
-                EAdventurerAgentChoices.Select
-            };
+            var inputChoices = new[] { EAdventurerAgentChoices.None, EAdventurerAgentChoices.SelectForest, EAdventurerAgentChoices.SelectMountain, EAdventurerAgentChoices.SelectSea, EAdventurerAgentChoices.SelectVolcano };
 
-            if (SystemTraining.IncludeShop)
-            {
-                inputChoices.Add(EAdventurerAgentChoices.Back);
-            }
-
-            var outputs = EconomySystemUtils<EAdventurerAgentChoices>.GetInputOfType(inputChoices);
-
-            return outputs;
+            return inputChoices;
         }
 
         public void Update()

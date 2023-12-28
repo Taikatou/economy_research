@@ -17,16 +17,13 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
         public override ISensor[] CreateSensors()
         {
             var behave = FindObjectOfType<AdventurerSystemBehaviour>();
-            if (behave == null)
-            {
-                return new ISensor[] { };
-            }
 
             if (TrainingConfig.SkipShopSetup)
             {
                 return new ISensor[] { 
                     new AdventurerBaseSensor(agent),
-                    new AgentAdventureSensor(agent, behave.system)
+                    new AgentAdventureSensor(agent, behave.system),
+                    new RequestTakerSensor(requestAvailableBufferComponent, agent.RequestTaker)
                 };
             }
             else
@@ -35,7 +32,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
                 var shop = FindObjectOfType<AdventurerShopSystemBehaviour>();
                 var main = FindObjectOfType<MainMenuSystemBehaviour>();
 
-                var sensors = new List<ISensor> { 
+                var sensors = new ISensor [] { 
                     new AdventurerBaseSensor(agent),
                     new AdventurerInventorySensor(agent), 
                     new RequestTakerSensor(requestAvailableBufferComponent, agent.RequestTaker),
@@ -45,7 +42,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
                     new AgentMenuSensor(agent, main.system)
                 };
 
-                return sensors.ToArray();
+                return sensors;
             }
         }
     }

@@ -8,8 +8,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
 {
     public class RequestTakerSensor : BaseEconomySensor
     {
-        private static readonly int CraftingResourceList = Enum.GetNames(typeof(ECraftingResources)).Length - 1;
-        
         private readonly BufferSensorComponent _requestTakenBufferComponent;
         
         private readonly BufferSensorComponent _requestAvailableBufferComponent;
@@ -33,8 +31,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
         
         public override void Update()
         {
-            // observe current requests
-
             _requestTaker.GetCurrentRequestData(_requestAvailableBufferComponent);
         }
     }

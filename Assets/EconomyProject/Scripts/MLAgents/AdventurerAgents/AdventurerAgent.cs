@@ -134,7 +134,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 
         public IEnumerable<EnabledInput> GetEnabledInput()
         {
-	        return adventurerInput.GetActionMask(this);
+	        return new EnabledInput[] { };
         }
 
         public List<EnabledInput[]> GetEnabledInputNew()

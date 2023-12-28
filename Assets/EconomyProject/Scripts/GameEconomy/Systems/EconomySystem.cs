@@ -69,17 +69,6 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                 _refreshTime[agent] = DateTime.Now;
             }
         }
-        
-        private bool ValidInput(TAgent agent, int input)
-        {
-            var inputs = GetEnabledInputs(agent);
-            return inputs.Any(x => x.Input == input && x.Enabled);
-        }
-
-        public bool ValidInput(TAgent agent, TInput input)
-        {
-            return ValidInput(agent, Convert.ToInt32(input));
-        }
 
         public DateTime GetRefreshTime(TAgent agent)
         {
@@ -98,26 +87,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
 
         public void AgentSetChoice(TAgent agent, TInput input)
         {
-            var inputInt = Convert.ToInt32(input);
-            var enabledInputs = GetEnabledInputs(agent);
-            if (Array.Exists(enabledInputs, e => e.Input == inputInt))
-            {
-                var i = enabledInputs.First(x => x.Input == inputInt);
-                if (i.Enabled)
-                {
-                    SetChoice(agent, input);
-                }
-            }
-        }
-
-        public virtual EnabledInput[] GetEnabledInputs(Agent agent)
-        {
-            return new EnabledInput[] { };
+            
         }
         
-        public virtual EnabledInput[] GetEnabledInputs(TAgent agent)
+        public virtual TInput[] GetEnabledInputs(TAgent agent)
         {
-            return GetEnabledInputs((Agent)agent);
+            return new TInput [] {};
         }
     }
 }

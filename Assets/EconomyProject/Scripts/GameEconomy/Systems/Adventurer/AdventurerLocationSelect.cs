@@ -79,12 +79,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Adventurer
         
         public ObsData[] GetTravelObservations(BaseAdventurerAgent agent)
         {
-            var battle = ObserveAdventurerLocation ? GetBattle(agent) : EBattleEnvironments.Forest;
-            
-            var obs = new List<ObsData> {
-                new CategoricalObsData<EBattleEnvironments>(battle) { Name="travelLocation" }
-            };
-            return obs.ToArray();
+            return new ObsData[] { };
         }
 
         public static int SensorCount => SensorUtils<EBattleEnvironments>.Length + 

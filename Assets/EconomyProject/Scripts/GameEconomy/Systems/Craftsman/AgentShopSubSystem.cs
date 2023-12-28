@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using EconomyProject.Scripts.GameEconomy.DataLoggers;
 using EconomyProject.Scripts.Inventory;
 using Inventory;
@@ -84,20 +85,54 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             return GetShop(shopAgent).GetPrice(item);
         }
 
-        public List<UsableItem> GetShopUsableItems(ShopAgent shopAgent)
+        public Dictionary<ECraftingChoice, List<UsableItem>>  GetShopUsableItems(ShopAgent shopAgent)
         {
             return GetShop(shopAgent).GetShopUsableItems();
         }
-
-        public List<Tuple<UsableItem, ShopAgent>> GetAllUsableItems()
+        
+        public List<Tuple<UsableItem, ShopAgent>> GetAllUsableItems(bool ignore=true, ECraftingChoice choice=ECraftingChoice.BeginnerSword, bool outputImmediate=false)
         {
             var output = new List<Tuple<UsableItem, ShopAgent>>();
             foreach (var shop in _shopSystems)
             {
                 var items = GetShop(shop.Key).GetShopUsableItems();
-                foreach (var item in items)
+                foreach (var itemPair in items)
                 {
-                    output.Add(new Tuple<UsableItem, ShopAgent>(item, shop.Key));
+                    if (ignore || choice == itemPair.Key)
+                    {
+                        foreach (var item in itemPair.Value)
+                        {
+                            output.Add(new Tuple<UsableItem, ShopAgent>(item, shop.Key));
+                            if (outputImmediate)
+                                return output;
+                        }
+                    }
+                }
+            }
+            return output;
+        }
+        
+        public Tuple<UsableItem, ShopAgent> GetLowestPriceOfItem(ECraftingChoice choice)
+        {
+            int price = Int32.MaxValue;
+            Tuple<UsableItem, ShopAgent> output = null;
+            foreach (var shop in _shopSystems)
+            {
+                var items = GetShop(shop.Key).GetShopUsableItems();
+                foreach (var itemPairs in items)
+                {
+                    if (itemPairs.Key == choice)
+                    {
+                        foreach (var item in itemPairs.Value)
+                        {
+                            var itemPrice= GetPrice(shop.Key, item.itemDetails);
+                            if (price > itemPrice)
+                            {
+                                output = new Tuple<UsableItem, ShopAgent>(item, shop.Key);
+                            }
+                        }
+                        
+                    }
                 }
             }
             return output;
@@ -110,26 +145,24 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public void SetCurrentPrice(ShopAgent shopAgent, int item, int increment)
 		{ 
-			var items = GetShopUsableItems(shopAgent);
-            if (item < items.Count)
-            {
-                SetCurrentPrice(shopAgent, items[item].itemDetails, increment);
-            }
-            Refresh();
+            throw new NotImplementedException();
         }
 
-        public void SetCurrentPrice(ShopAgent shopAgent, UsableItem item, int increment)
+        public void SetCurrentPrice(ShopAgent shopAgent, ECraftingChoice craftingChoice, int increment)
         {
             var items = GetShopUsableItems(shopAgent);
-            var itemFound = items.Find(x => x.itemDetails.itemName == item.itemDetails.itemName);
-            if(itemFound)
+            if (items.TryGetValue(craftingChoice, out var item))
             {
-                SetCurrentPrice(shopAgent, itemFound.itemDetails, increment);
+                var itemFound = item.Find(x => x.craftChoice == craftingChoice);
+                if(itemFound)
+                {
+                    SetCurrentPrice(shopAgent, itemFound.itemDetails, increment);
+                }
+                Refresh();   
             }
-            Refresh();
         }
 
-        private void SetCurrentPrice(ShopAgent shopAgent, UsableItemDetails item, int increment)
+        public void SetCurrentPrice(ShopAgent shopAgent, UsableItemDetails item, int increment)
         {
 			GetShop(shopAgent).SetCurrentPrice(item, increment);
             Refresh();
@@ -153,6 +186,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             Refresh();
         }
 
+        // get prices of all items in shop
         public void UpdateShopSenses(ShopAgent shop, BufferSensorComponent bufferSensorComponent)
         {
             var items = GetShop(shop).GetShopItemsObs(shop);
@@ -174,14 +208,26 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
             }
         }
 
+        readonly ECraftingChoice[] _craftingChoices = Enum.GetValues(typeof(ECraftingChoice)).Cast<ECraftingChoice>().ToArray();
+        // TO DO THIS SHOULD BE SMALLEST PRICE
         public void GetItemSenses(BufferSensorComponent bufferSensorComponent, ShopAgent toIgnore)
         {
-            foreach (var shop in _shopSystems)
-                if (shop.Key != toIgnore)
+            foreach (var choice in _craftingChoices)
+            {
+                var lowestPrice = GetLowestPriceOfItem(choice);
+                if (lowestPrice != null)
                 {
-                    UpdateShopSenses(shop.Key, bufferSensorComponent);
+                    var outputs = new float[9];
+                    outputs[(int)choice] = 1;
+                    if (lowestPrice.Item1 != null)
+                    {
+                        outputs[7] = GetPrice(lowestPrice.Item2, lowestPrice.Item1.itemDetails);
+                        outputs[7] = lowestPrice.Item1.itemDetails.damage;
+                        outputs[8] = lowestPrice.Item1.itemDetails.durability;
+                    }
+                    bufferSensorComponent.AppendObservation(outputs);
                 }
-                    
+            }
         }
 
         public static int WeaponList => Enum.GetValues(typeof(ECraftingChoice)).Length;

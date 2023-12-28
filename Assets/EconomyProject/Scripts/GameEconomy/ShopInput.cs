@@ -39,11 +39,5 @@ namespace EconomyProject.Scripts.GameEconomy
             shopCraftingSystem.system.AgentInput = this;
             requestSystem.system.AgentInput = this;
         }
-
-        public IEnumerable<EnabledInput> GetActionMask(ShopAgent agent)
-        {
-            var inputsEnabled = GetEconomySystem(agent).GetEnabledInputs(agent);
-            return inputsEnabled;
-        }
     }
 }

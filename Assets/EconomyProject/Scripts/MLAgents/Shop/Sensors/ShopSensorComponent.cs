@@ -2,7 +2,6 @@ using EconomyProject.Monobehaviours;
 using EconomyProject.Scripts.GameEconomy.Systems.Craftsman;
 using EconomyProject.Scripts.MLAgents.Sensors;
 using Unity.MLAgents.Sensors;
-using UnityEngine;
 
 namespace EconomyProject.Scripts.MLAgents.Shop.Sensors
 {

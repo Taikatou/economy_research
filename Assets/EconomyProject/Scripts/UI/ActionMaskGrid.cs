@@ -14,7 +14,7 @@ namespace EconomyProject.Scripts.UI
         public GridLayoutGroup gridLayout;
         public ActionMaskButton maskUI;
 
-        private Dictionary<int, ActionMaskButton>[] _textBoxes;
+        private Dictionary<int, ActionMaskButton> _textBoxes;
 
         private List<EAdventurerAgentChoices> _actions;
 
@@ -35,12 +35,10 @@ namespace EconomyProject.Scripts.UI
                 Destroy(child.gameObject);
             }
 
-            _textBoxes = new Dictionary<int, ActionMaskButton>[2];
-            _textBoxes[0] = new Dictionary<int, ActionMaskButton>();
-            _textBoxes[1] = new Dictionary<int, ActionMaskButton>();
+            _textBoxes = new Dictionary<int, ActionMaskButton>();
             if (_cachedCraftActive)
             {
-                InitMenus<EShopAgentChoices>(EShopAgentChoices.RequestNone);
+                InitMenus<EShopAgentChoices>(EShopAgentChoices.None);
             }
             else
             {
@@ -65,7 +63,7 @@ namespace EconomyProject.Scripts.UI
                         flipped = true;
                     }
                 }
-                _textBoxes[index].Add(Convert.ToInt32(counter), t);
+                _textBoxes.Add(Convert.ToInt32(counter), t);
                 counter++;
             }
         }
@@ -103,21 +101,13 @@ namespace EconomyProject.Scripts.UI
             }
             else if (getCurrentAgentAggregator.CurrentAgent != null)
             {
-                var inputs= getCurrentAgentAggregator.CurrentAgent.GetEnabledInputNew();
+                var inputs= getCurrentAgentAggregator.CurrentAgent.GetEnabledInput();
                 var j = 0;
-                foreach (var enabledInput in inputs)
+                foreach (var i in inputs)
                 {
-                    foreach (var i in enabledInput)
-                    {
-                        var a = Convert.ToInt32(i.Input);
-                        if (_textBoxes[j].ContainsKey(a))
-                        {
-                            _textBoxes[j][a].textUI.text = i.Enabled.ToString();
-                        }
-                    }
-
-                    j++;
-                }   
+                    var a = Convert.ToInt32(i.Input);
+                    _textBoxes[a].textUI.text = i.Enabled.ToString();
+                }
             }
         }
     }

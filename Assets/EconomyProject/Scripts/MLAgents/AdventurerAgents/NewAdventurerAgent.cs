@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Data;
 using EconomyProject.Scripts.GameEconomy;
 using EconomyProject.Scripts.GameEconomy.Systems;
 using EconomyProject.Scripts.GameEconomy.Systems.Requests;
+using EconomyProject.Scripts.GameEconomy.Systems.TravelSystem;
 using EconomyProject.Scripts.Inventory;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents.AdventurerTypes;
 using Inventory;
+using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Policies;
 using UnityEngine;
@@ -29,25 +32,31 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             RequestDecision();
         }
 
+        private BehaviorParameters _behaviorParameters;
+
         public IEnumerable<EnabledInput> GetEnabledInput()
         {
-            throw new NotImplementedException();
+            var toReturn = new List<EnabledInput>();
+            if (_behaviorParameters.BehaviorType == BehaviorType.HeuristicOnly)
+            {
+                var actions = GetEnabledActions();
+                foreach (var input in ValuesAsArray)
+                {
+                    var enabled = actions[0].Contains(input) || actions[1].Contains(input);
+                    var enabledInput = new EnabledInput
+                    {
+                        Enabled = enabled,
+                        Input = (int)input
+                    };
+                    toReturn.Add(enabledInput);
+                }
+            }
+
+            return toReturn;
         }
 
         private EAdventurerAgentChoices _choosenAction;
         private int _branch;
-
-        public List<EnabledInput[]> GetEnabledInputNew()
-        {
-            var advInputs = AdventurerInput.AdventurerSystem.system.GetEnabledInputs(this);
-            var shopInputs = AdventurerInput.AdventurerShopSystem.system.GetEnabledInputs(this);
-            return new List<EnabledInput[]>
-            {
-                advInputs,
-                shopInputs
-            };
-        }
-
         public int HalfSize => 4;
 
         public virtual void Start()
@@ -56,6 +65,8 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             {
                 inventory.onItemAdd = OnItemAddReward;
             }
+
+            _behaviorParameters = GetComponent<BehaviorParameters>();
         }
         
         private void OnItemAddReward(UsableItem usableItem)
@@ -84,35 +95,55 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
             fighterData.Setup();
         }
         
+        readonly Dictionary<EAdventurerAgentChoices, EBattleEnvironments> _selectLocation = new Dictionary<EAdventurerAgentChoices, EBattleEnvironments>
+        {
+            { EAdventurerAgentChoices.SelectForest, EBattleEnvironments.Forest },
+            { EAdventurerAgentChoices.SelectMountain, EBattleEnvironments.Mountain },
+            { EAdventurerAgentChoices.SelectSea, EBattleEnvironments.Sea },
+            { EAdventurerAgentChoices.SelectVolcano, EBattleEnvironments.Volcano }
+        };
+        
+        readonly Dictionary<EAdventurerAgentChoices, ECraftingChoice> _buyItem = new Dictionary<EAdventurerAgentChoices, ECraftingChoice>
+        {
+            { EAdventurerAgentChoices.BuyBeginnerSword, ECraftingChoice.BeginnerSword },
+            { EAdventurerAgentChoices.BuyIntermediateSword, ECraftingChoice.IntermediateSword },
+            { EAdventurerAgentChoices.BuyAdvancedSword, ECraftingChoice.AdvancedSword },
+            { EAdventurerAgentChoices.BuyEpicSword, ECraftingChoice.EpicSword },
+            { EAdventurerAgentChoices.BuyUltimateSword, ECraftingChoice.UltimateSwordOfPower },
+            { EAdventurerAgentChoices.BuyMasterSword, ECraftingChoice.MasterSword }
+        };
+        
         public override void OnActionReceived(ActionBuffers actions)
         {
             var battleAction = (EAdventurerAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[0]);
-            if(battleAction != EAdventurerAgentChoices.None)
+            if (battleAction is >= EAdventurerAgentChoices.SelectForest and <= EAdventurerAgentChoices.SelectVolcano)
             {
-                AdventurerInput.AdventurerSystem.system.AgentSetChoice(this, battleAction);
+                AdventurerInput.AdventurerSystem.system.SelectOutOfBattle(this, _selectLocation[battleAction]);
             }
-            
-            var shopAction = (EAdventurerAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[1]);
-            if (shopAction != EAdventurerAgentChoices.None)
+            else if (battleAction is >= EAdventurerAgentChoices.BuyBeginnerSword
+                     and <= EAdventurerAgentChoices.BuyUltimateSword)
             {
-                AdventurerInput.AdventurerShopSystem.system.AgentSetChoice(this, shopAction);
+                AdventurerInput.AdventurerShopSystem.system.adventurerShopSubSystem.PurchaseItem(this, _buyItem[battleAction]);
             }
+        }
+        private static readonly EAdventurerAgentChoices [] ValuesAsArray
+            = Enum.GetValues(typeof(EAdventurerAgentChoices)).Cast<EAdventurerAgentChoices>().ToArray();
+
+        public List<EAdventurerAgentChoices[]> GetEnabledActions()
+        {
+            var advInputs = AdventurerInput.AdventurerSystem.system.GetEnabledInputs(this);
+            var shopInputs = AdventurerInput.AdventurerShopSystem.system.GetEnabledInputs(this);
+            return new List<EAdventurerAgentChoices[]> { advInputs, shopInputs };
         }
         
         public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
         {
-            var advInputs = AdventurerInput.AdventurerSystem.system.GetEnabledInputs(this);
-            var output = "";
-            foreach (var input in advInputs)
+            var actions = GetEnabledActions();
+            
+            foreach (var input in ValuesAsArray)
             {
-                output += ((EAdventurerAgentChoices)input.Input).ToString() + "\t" + input.Enabled + "\t";
-                actionMask.SetActionEnabled(0,  input.Input, input.Enabled);
-            }
-            Debug.Log(output);
-            var shopInputs = AdventurerInput.AdventurerShopSystem.system.GetEnabledInputs(this);
-            foreach (var input in shopInputs)
-            {
-                actionMask.SetActionEnabled(1, input.Input, input.Enabled);
+                var enabled = actions[0].Contains(input) || actions[1].Contains(input);
+                actionMask.SetActionEnabled(0, (int) input, enabled);
             }
         }
         
@@ -124,16 +155,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents
 
                 actions[_branch] = (int)_choosenAction;
                 _choosenAction = EAdventurerAgentChoices.None;
-            }
-            else if (GetComponent<BehaviorParameters>().BehaviorType == BehaviorType.HeuristicOnly)
-            {
-                var actions = actionsOut.DiscreteActions;
-                var advInputs = AdventurerInput.AdventurerSystem.system.GetEnabledInputs(this);
-
-                actions[0] = GetAction(advInputs, 5);
-		        
-                var shopInputs = AdventurerInput.AdventurerShopSystem.system.GetEnabledInputs(this);
-                actions[1] = GetAction(shopInputs, 5);
             }
         }
 

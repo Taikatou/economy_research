@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Data;
 using EconomyProject.Scripts.Experiments;
 using EconomyProject.Scripts.GameEconomy;
@@ -10,6 +11,7 @@ using Inventory;
 using EconomyProject.Scripts.MLAgents.Craftsman;
 using UnityEngine;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Policies;
 
@@ -18,19 +20,46 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 	public enum EShopAgentChoices
 	{
 		None,
-		IncreasePrice,
-		DecreasePrice,
-		Up,
-		Down,
-		Select,
-		RequestNone,
-		RequestIncreasePrice,
-		RequestDecreasePrice,
-		RequestUp,
-		RequestDown,
-		RequestSelect,
-		RemoveRequest
+		SelectWood,
+		SelectMetal,
+		SelectGem,
+		SelectDragonScale,
 		
+		RequestIncreaseWood,
+		RequestIncreaseMetal,
+		RequestIncreaseGem,
+		RequestIncreaseDragonScale,
+		
+		RequestDecreaseWood,
+		RequestDecreaseMetal,
+		RequestDecreaseGem,
+		RequestDecreaseDragonScale,
+		
+		RequestRemoveWood,
+		RequestRemoveMetal,
+		RequestRemoveGem,
+		RequestRemoveDragonScale,
+		
+		CraftBeginnerSword,
+		CraftIntermediateSword,
+		CraftAdvancedSword,
+		CraftMasterSword,
+		CraftEpicSword,
+		CraftUltimateSword,
+		
+		IncreasePriceBeginnerSword,
+		IncreasePriceIntermediateSword,
+		IncreasePriceAdvancedSword,
+		IncreasePriceMasterSword,
+		IncreasePriceEpicSword,
+		IncreasePriceUltimateSword,
+		
+		DecreasePriceBeginnerSword,
+		DecreasePriceIntermediateSword,
+		DecreasePriceAdvancedSword,
+		DecreasePriceMasterSword,
+		DecreasePriceEpicSword,
+		DecreasePriceUltimateSword
 	}
 
 	public enum EShopScreen { Main, Request, Craft}
@@ -56,6 +85,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 			wallet.onEarnMoney = OnEarnMoney;
 			wallet.onLoseMoney = OnLoseMoney;
 			agentInventory.onItemAdd += OnCraft;
+			_behaviorParameters = GetComponent<BehaviorParameters>();
 		}
 
 		private void OnLoseMoney(float amount)
@@ -111,51 +141,112 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 	        if (_forcedAction != EShopAgentChoices.None)
 	        {
 		        var actions = actionsOut.DiscreteActions;
-		        if (_forcedAction < EShopAgentChoices.RequestIncreasePrice)
-		        {
-			        actions[0] = (int)_forcedAction;
-		        }
-		        else
-		        {
-			        actions[1] = (int)ChoicesMap[_forcedAction];
-		        }
-
-		        _forcedAction = EShopAgentChoices.None;
-	        }
-	        else if (GetComponent<BehaviorParameters>().BehaviorType == BehaviorType.HeuristicOnly)
-	        {
-		        var actions = actionsOut.DiscreteActions;
-		        var craftInputs = shopInput.shopCraftingSystem.system.GetEnabledInputs(this);
-
-		        actions[0] = GetAction(craftInputs, 6);
-		        
-		        var requestInputs = shopInput.requestSystem.system.GetEnabledInputs(this);
-		        actions[1] = GetAction(requestInputs, 7);
-		        
+		        actions[0] = (int)_forcedAction;
 	        }
         }
-
-        private static readonly Dictionary<EShopAgentChoices, EShopAgentChoices> ChoicesMap = new()
+        
+        readonly Dictionary<EShopAgentChoices, ECraftingResources> _selectRequestMap = new Dictionary<EShopAgentChoices, ECraftingResources>
         {
-	        { EShopAgentChoices.RemoveRequest, EShopAgentChoices.RemoveRequest },
-	        { EShopAgentChoices.RequestUp, EShopAgentChoices.Up },
-	        { EShopAgentChoices.RequestDown, EShopAgentChoices.Down },
-	        { EShopAgentChoices.RequestSelect, EShopAgentChoices.Select },
-	        { EShopAgentChoices.RequestIncreasePrice, EShopAgentChoices.IncreasePrice },
-	        { EShopAgentChoices.RequestDecreasePrice, EShopAgentChoices.DecreasePrice },
+	        { EShopAgentChoices.SelectWood, ECraftingResources.Wood },
+	        { EShopAgentChoices.SelectMetal, ECraftingResources.Metal },
+	        { EShopAgentChoices.SelectGem, ECraftingResources.Gem },
+	        { EShopAgentChoices.SelectDragonScale, ECraftingResources.DragonScale }
+        };
+        
+        readonly Dictionary<EShopAgentChoices, ECraftingResources> _increasePriceRequestMap = new Dictionary<EShopAgentChoices, ECraftingResources>
+        {
+	        { EShopAgentChoices.RequestIncreaseWood, ECraftingResources.Wood },
+	        { EShopAgentChoices.RequestIncreaseMetal, ECraftingResources.Metal },
+	        { EShopAgentChoices.RequestIncreaseGem, ECraftingResources.Gem },
+	        { EShopAgentChoices.RequestIncreaseDragonScale, ECraftingResources.DragonScale }
+        };
+        
+        readonly Dictionary<EShopAgentChoices, ECraftingResources> _decreasePriceRequestMap = new Dictionary<EShopAgentChoices, ECraftingResources>
+        {
+	        { EShopAgentChoices.RequestDecreaseWood, ECraftingResources.Wood },
+	        { EShopAgentChoices.RequestDecreaseMetal, ECraftingResources.Metal },
+	        { EShopAgentChoices.RequestDecreaseGem, ECraftingResources.Gem },
+	        { EShopAgentChoices.RequestDecreaseDragonScale, ECraftingResources.DragonScale }
+        };
+        
+        readonly Dictionary<EShopAgentChoices, ECraftingResources> _removeRequestMap = new Dictionary<EShopAgentChoices, ECraftingResources>
+        {
+	        { EShopAgentChoices.RequestRemoveWood, ECraftingResources.Wood },
+	        { EShopAgentChoices.RequestRemoveMetal, ECraftingResources.Metal },
+	        { EShopAgentChoices.RequestRemoveGem, ECraftingResources.Gem },
+	        { EShopAgentChoices.RequestRemoveDragonScale, ECraftingResources.DragonScale }
+        };
+        
+        readonly Dictionary<EShopAgentChoices, ECraftingChoice> _craftCraftMap = new Dictionary<EShopAgentChoices, ECraftingChoice>
+        {
+	        { EShopAgentChoices.CraftBeginnerSword, ECraftingChoice.BeginnerSword },
+	        { EShopAgentChoices.CraftIntermediateSword, ECraftingChoice.IntermediateSword } ,
+	        { EShopAgentChoices.CraftAdvancedSword, ECraftingChoice.AdvancedSword },
+	        { EShopAgentChoices.CraftEpicSword, ECraftingChoice.EpicSword },
+	        { EShopAgentChoices.CraftUltimateSword, ECraftingChoice.UltimateSwordOfPower }
+        };
+        
+        readonly Dictionary<EShopAgentChoices, ECraftingChoice> _craftIncreaseMap = new Dictionary<EShopAgentChoices, ECraftingChoice>
+        {
+	        { EShopAgentChoices.IncreasePriceBeginnerSword, ECraftingChoice.BeginnerSword },
+	        { EShopAgentChoices.IncreasePriceIntermediateSword, ECraftingChoice.IntermediateSword } ,
+	        { EShopAgentChoices.IncreasePriceAdvancedSword, ECraftingChoice.AdvancedSword },
+	        { EShopAgentChoices.IncreasePriceEpicSword, ECraftingChoice.EpicSword },
+	        { EShopAgentChoices.IncreasePriceUltimateSword, ECraftingChoice.UltimateSwordOfPower }
+        };
+        
+        readonly Dictionary<EShopAgentChoices, ECraftingChoice> _craftDecreaseMap = new Dictionary<EShopAgentChoices, ECraftingChoice>
+        {
+	        { EShopAgentChoices.DecreasePriceBeginnerSword, ECraftingChoice.BeginnerSword },
+	        { EShopAgentChoices.DecreasePriceIntermediateSword, ECraftingChoice.IntermediateSword } ,
+	        { EShopAgentChoices.DecreasePriceAdvancedSword, ECraftingChoice.AdvancedSword },
+	        { EShopAgentChoices.DecreasePriceEpicSword, ECraftingChoice.EpicSword },
+	        { EShopAgentChoices.DecreasePriceUltimateSword, ECraftingChoice.UltimateSwordOfPower }
         };
 
         public override void OnActionReceived(ActionBuffers actions)
         {
 	        var battleAction = (EShopAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[0]);
-	        if (battleAction != EShopAgentChoices.None)
+	        if (battleAction is >= EShopAgentChoices.SelectWood 
+	            and <= EShopAgentChoices.SelectDragonScale)
 	        {
-		        shopInput.shopCraftingSystem.system.AgentSetChoice(this, battleAction);
+		        shopInput.requestSystem.system.requestSystem.MakeRequest(_selectRequestMap[battleAction], craftingInventory, wallet);
 	        }
-	        var requestAction = (EShopAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[1]);
-	        if (requestAction != EShopAgentChoices.None)
+
+	        else if (battleAction is >= EShopAgentChoices.RequestIncreaseWood 
+	                 and <= EShopAgentChoices.RequestIncreaseDragonScale)
 	        {
-		        shopInput.requestSystem.system.AgentSetChoice(this, requestAction);
+		        shopInput.requestSystem.system.requestSystem.ChangePrice(_increasePriceRequestMap[battleAction], craftingInventory, wallet, 1);
+	        }
+	        
+	        else if (battleAction is >= EShopAgentChoices.RequestDecreaseWood 
+	                 and <= EShopAgentChoices.RequestDecreaseDragonScale)
+	        {
+		        shopInput.requestSystem.system.requestSystem.ChangePrice(_decreasePriceRequestMap[battleAction], craftingInventory, wallet, 1);
+	        }
+	        
+	        else if (battleAction is >= EShopAgentChoices.RequestRemoveWood 
+	                 and <= EShopAgentChoices.RequestRemoveDragonScale)
+	        {
+		        shopInput.requestSystem.system.requestSystem.RemoveRequest(_removeRequestMap[battleAction], craftingInventory);
+	        }
+	        
+	        else if (battleAction is >= EShopAgentChoices.CraftBeginnerSword
+	                 and <= EShopAgentChoices.CraftUltimateSword)
+	        {
+		        shopInput.shopCraftingSystem.system.craftingSubSubSystem.MakeCraftRequest(this, _craftCraftMap[battleAction]);
+	        }
+	        
+	        else if (battleAction is >= EShopAgentChoices.IncreasePriceBeginnerSword
+	                 and <= EShopAgentChoices.IncreasePriceUltimateSword)
+	        {
+		        shopInput.shopCraftingSystem.system.shopSubSubSystem.SetCurrentPrice(this, _craftIncreaseMap[battleAction], 1);
+	        }
+	        
+	        else if (battleAction is >= EShopAgentChoices.DecreasePriceBeginnerSword
+	                 and <= EShopAgentChoices.DecreasePriceBeginnerSword)
+	        {
+		        shopInput.shopCraftingSystem.system.shopSubSubSystem.SetCurrentPrice(this, _craftDecreaseMap[battleAction], -1);
 	        }
         }
 
@@ -171,35 +262,56 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 			SetAction((EShopAgentChoices) action);
 		}
 
+		public List<EShopAgentChoices[]> GetEnabledActions()
+		{
+			var craftInputs = shopInput.shopCraftingSystem.system.GetEnabledInputs(this);
+			
+			var requestInputs = shopInput.requestSystem.system.GetEnabledInputs(this);
+
+			return new List<EShopAgentChoices[]> {craftInputs, requestInputs };
+		}
+		
+		private BehaviorParameters _behaviorParameters;
+
 		public IEnumerable<EnabledInput> GetEnabledInput()
 		{
-			throw new NotImplementedException();
+			var toReturn = new List<EnabledInput>();
+			if (_behaviorParameters.BehaviorType == BehaviorType.HeuristicOnly)
+			{
+				var actions = GetEnabledActions();
+				foreach (var input in ValuesAsArray)
+				{
+					var enabled = actions[0].Contains(input) || actions[1].Contains(input);
+					var enabledInput = new EnabledInput
+					{
+						Enabled = enabled,
+						Input = (int)input
+					};
+					toReturn.Add(enabledInput);
+				}
+			}
+
+			return toReturn;
 		}
+		
+		private static readonly EShopAgentChoices [] ValuesAsArray
+			= Enum.GetValues(typeof(EShopAgentChoices)).Cast<EShopAgentChoices>().ToArray();
 		
 		public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
 		{
-			var craftInputs = shopInput.shopCraftingSystem.system.GetEnabledInputs(this);
-			foreach (var input in craftInputs)
+			var actions = GetEnabledActions();
+			foreach (var input in ValuesAsArray)
 			{
-				actionMask.SetActionEnabled(0, input.Input, input.Enabled);
+				var contains = false;
+				foreach (var a in actions)
+				{
+					if (a.Contains(input))
+					{
+						contains = true;
+					}
+				}
+				actionMask.SetActionEnabled(0, (int) input, contains);
 			}
-			
-			var requestInputs = shopInput.requestSystem.system.GetEnabledInputs(this);
-			foreach (var input in requestInputs)
-			{
-				actionMask.SetActionEnabled(1, input.Input, input.Enabled);
-			}
-		}
-
-		public List<EnabledInput[]> GetEnabledInputNew()
-		{
-			var craftInputs = shopInput.shopCraftingSystem.system.GetEnabledInputs(this);
-			var requestInputs = shopInput.requestSystem.system.GetEnabledInputs(this);
-			return new List<EnabledInput[]>()
-			{
-				craftInputs,
-				requestInputs
-			};
 		}
 
 		public int HalfSize => 6;

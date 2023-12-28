@@ -1216,7 +1216,7 @@ MonoBehaviour:
   requestSystem: {fileID: 1429334511}
   shopCraftingBehaviour: {fileID: 473122264}
   TextGameObject: {fileID: 1863337227}
-  maxTime: 50
+  maxTime: 350
 --- !u!1 &417453023 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5057450105845858796, guid: 9ceee204f5dc32646817fe57efe8de76, type: 3}

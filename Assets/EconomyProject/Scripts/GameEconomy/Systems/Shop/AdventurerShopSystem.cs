@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Data;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
+using Inventory;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 
@@ -14,7 +16,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
     public class AdventurerShopSystem : StateEconomySystem<BaseAdventurerAgent, EAdventurerScreen, EAdventurerAgentChoices>
     {
         public AdventurerShopSubSystem adventurerShopSubSystem;
-        public static int ObservationSize => 2;
+        public static int ObservationSize => 0;
         public override EAdventurerScreen ActionChoice => EAdventurerScreen.Shop;
 
         public override bool CanMove(BaseAdventurerAgent agent)
@@ -24,77 +26,44 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Shop
 
         public override ObsData[] GetObservations(BaseAdventurerAgent agent, BufferSensorComponent[] bufferSensorComponent)
         {
-            var obs = new List<ObsData>
-            {
-                new SingleObsData
-                {
-                    data=adventurerShopSubSystem.GetCurrentLocation(agent),
-                    Name="scrollLocation",
-                },
-                new SingleObsData
-                {
-                    data=adventurerShopSubSystem.GetLimit(agent),
-                    Name="scrollLocation",
-                }
-            };
-
             adventurerShopSubSystem.GetObservations(bufferSensorComponent[0]);
             
-            return obs.ToArray();
+            return new ObsData [] {};
         }
 
         protected override void SetChoice(BaseAdventurerAgent agent, EAdventurerAgentChoices input)
         {
             switch (input)
             {
-                case EAdventurerAgentChoices.Down:
-                    adventurerShopSubSystem.MovePosition(agent, -1);
-                    break;
-                
-                case EAdventurerAgentChoices.Up:
-                    adventurerShopSubSystem.MovePosition(agent, 1);
-                    break;
-                
-                case EAdventurerAgentChoices.Back:
-                    BaseAdventurerAgent baseAdventurerAgent = null; //(AdventurerAgent) agent;
-                    if (baseAdventurerAgent)
-                    {
-                        AgentInput.ChangeScreen(baseAdventurerAgent, EAdventurerScreen.Main);
-                    }
-                    break;
-                case EAdventurerAgentChoices.Select:
-                    adventurerShopSubSystem.PurchaseItem(agent);
-                    break;
+         
             }
         }
 
-        public override EnabledInput[] GetEnabledInputs(Agent agent)
-        {
-            var inputChoices = new List<EAdventurerAgentChoices>
+        private readonly Dictionary<ECraftingChoice, EAdventurerAgentChoices> _mapStuff =
+            new()
             {
-                EAdventurerAgentChoices.Back,
+                { ECraftingChoice.BeginnerSword, EAdventurerAgentChoices.BuyBeginnerSword },
+                { ECraftingChoice.IntermediateSword, EAdventurerAgentChoices.BuyIntermediateSword },
+                { ECraftingChoice.AdvancedSword, EAdventurerAgentChoices.BuyAdvancedSword },
+                { ECraftingChoice.EpicSword, EAdventurerAgentChoices.BuyEpicSword},
+                { ECraftingChoice.UltimateSwordOfPower, EAdventurerAgentChoices.BuyUltimateSword}
             };
+        
+        readonly ECraftingChoice[] _craftingChoices = Enum.GetValues(typeof(ECraftingChoice)).Cast<ECraftingChoice>().ToArray();
 
-            var location = adventurerShopSubSystem.GetCurrentLocation(agent);
-            var limit = adventurerShopSubSystem.GetLimit(agent);
-            if (limit > 0)
+        public override EAdventurerAgentChoices[] GetEnabledInputs(BaseAdventurerAgent agent)
+        {
+            var inputChoices = new List<EAdventurerAgentChoices>();
+            foreach (var craftingChoice in _craftingChoices)
             {
-                inputChoices.Add(EAdventurerAgentChoices.Select);
+                var list = adventurerShopSubSystem.shopCraftingSystem.system.shopSubSubSystem.GetAllUsableItems(false, craftingChoice, true);
+                if (list.Count > 0)
+                {
+                    inputChoices.Add(_mapStuff[list[0].Item1.craftChoice]);
+                }
             }
-
-            if (location > 0)
-            {
-                inputChoices.Add(EAdventurerAgentChoices.Down);
-            }
-
-            if (location + 1 < limit)
-            {
-                inputChoices.Add(EAdventurerAgentChoices.Up);
-            }
-
-            var outputs = EconomySystemUtils<EAdventurerAgentChoices>.GetInputOfType(inputChoices);
-
-            return outputs;
+            
+            return inputChoices.ToArray();
         }
         
         

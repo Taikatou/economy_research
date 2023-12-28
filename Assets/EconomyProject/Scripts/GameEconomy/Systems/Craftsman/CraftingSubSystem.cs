@@ -18,7 +18,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         private Dictionary<ShopAgent, CraftingRequest> _shopRequests;
         private List<ShopAgent> _shopAgents;
 
-        public static int SenseCount => CraftingRequest.SenseCount;
+        public static int SenseCount => TrainingConfig.IgnoreCraftTime? 0 : CraftingRequest.SenseCount;
         
         public float Progress(ShopAgent agent)
         {
@@ -111,11 +111,18 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
         public ObsData[] GetObservations(ShopAgent agent, BufferSensorComponent bufferSensorComponent)
         {
-            var hasProgress = new SingleObsData { data = IsCrafting(agent) ? 1.0f : 0.0f };
-            var output = IsCrafting(agent)
-                ? _shopRequests[agent].GetCraftingProgressionObservation()
-                : new SingleObsData { data = 0, Name = "CraftingProgress" };
-            return new[] { hasProgress, output };
+            if (TrainingConfig.IgnoreCraftTime)
+            {
+                return new ObsData[] { };
+            }
+            else
+            {
+                var hasProgress = new SingleObsData { data = IsCrafting(agent) ? 1.0f : 0.0f };
+                var output = IsCrafting(agent)
+                    ? _shopRequests[agent].GetCraftingProgressionObservation()
+                    : new SingleObsData { data = 0, Name = "CraftingProgress" };
+                return new[] { hasProgress, output };   
+            }
         }
 
 		public Dictionary<ShopAgent, CraftingRequest> GetShopRequests()

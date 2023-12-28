@@ -28,7 +28,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
         {
             switch (input)
             {
-                case EAdventurerAgentChoices.Up:
+              /*  case EAdventurerAgentChoices.Up:
                     UpDown(agent, 1);
                     break;
                 case EAdventurerAgentChoices.Down:
@@ -36,7 +36,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
                     break;
                 case EAdventurerAgentChoices.Select:
                     ChooseScreen(agent);
-                    break;
+                    break;*/
             }
         }
         
@@ -55,17 +55,14 @@ namespace EconomyProject.Scripts.GameEconomy.Systems
             }
         }
 
-        public override EnabledInput[] GetEnabledInputs(BaseAdventurerAgent agent)
+        public override EAdventurerAgentChoices[] GetEnabledInputs(BaseAdventurerAgent agent)
         {
             var inputChoices = new[]
             {
-                EAdventurerAgentChoices.Up,
-                EAdventurerAgentChoices.Down,
-                EAdventurerAgentChoices.Select
+                EAdventurerAgentChoices.None
             };
-            var outputs = EconomySystemUtils<EAdventurerAgentChoices>.GetInputOfType(inputChoices);
 
-            return outputs;
+            return inputChoices;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Data;
 using EconomyProject.Scripts.Interfaces;
 using Inventory;
@@ -74,52 +75,19 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 		}
 
 		public override ObsData[] GetObservations(ShopAgent agent, BufferSensorComponent[] bufferSensorComponent)
-        {
-	        var outputs = new List<ObsData>
+		{
+			var outputs = new List<ObsData>(craftingSubSubSystem.GetObservations(agent, null));
+			var resources = Enum.GetValues(typeof(ECraftingResources)).Cast<ECraftingResources>();
+			foreach (var resource in resources)
 			{
-				new SingleObsData
-				{
-					data=CraftingLocationMap.GetLimit(agent),
-					Name="shopLocation"
-				},
-				new SingleObsData
-				{
-					data=CraftingLocationMap.GetCurrentLocation(agent)
-				},
-				new CategoricalObsData<ECraftingChoice> (CraftingLocationMap.GetCraftingChoice(agent)),
-			};
-			
-			var shopItems = craftingSubSubSystem.craftingRequirement;
-			foreach (var item in shopItems)
-			{
-				var craftInfo = new CraftingInfo(item, agent.craftingInventory);
-				foreach (var requirement in craftInfo.craftingMap.resource.resourcesRequirements)
-				{
-					outputs.AddRange(new ObsData [] {
-						new SingleObsData { data = craftInfo.craftingInventory.GetResourceNumber(requirement.type), Name = "resource" },
-						new CategoricalObsData<ECraftingResources>(requirement.type)}
-					);
-				}
+				outputs.Add(
+					new SingleObsData { data = agent.craftingInventory.GetResourceNumber(resource), Name = "resource" });
 			}
 			
 			shopSubSubSystem.UpdateShopSenses(agent, bufferSensorComponent[1]);
 			shopSubSubSystem.GetItemSenses(bufferSensorComponent[0], agent);
-			
-			outputs.AddRange(craftingSubSubSystem.GetObservations(agent, null));
 			return outputs.ToArray();
         }
-
-        public void SetPrice(ShopAgent shopAgent, UsableItem item, int increment)
-		{
-			var index = GetIndexInShopList(shopAgent, item);
-			if (index == -1)
-			{
-				return;
-			}
-
-			var option = increment < 0 ? EShopAgentChoices.DecreasePrice : EShopAgentChoices.IncreasePrice;
-			SetChoice(shopAgent, option);
-		}
 
         public void BackButton(ShopAgent agent)
         {
@@ -129,41 +97,9 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 	        AgentInput.ChangeScreen(agent, EShopScreen.Main);
         }
 
-        protected override void SetChoice(ShopAgent agent, EShopAgentChoices input)
-        {
-	        switch (input)
-	        {
-		       /* case EShopAgentChoices.Back:
-			        BackButton(agent);
-			        break;*/
-		        case EShopAgentChoices.Select:
-			        Select(agent);
-			        break;
-		        case EShopAgentChoices.Down:
-			        CraftingLocationMap.MovePosition(agent, -1);
-			        break;
-		        case EShopAgentChoices.Up:
-			        CraftingLocationMap.MovePosition(agent, 1);
-			        break;
-		        case EShopAgentChoices.IncreasePrice:
-			        PriceUpDown(agent, 1);
-			        break;
-		        case EShopAgentChoices.DecreasePrice:
-			        PriceUpDown(agent, -1);
-			        break;
-	        }
-        }
-
         public void PriceUpDown(ShopAgent agent, int increment)
         {
-	        var index = CraftingLocationMap.GetCurrentLocation(agent);
-	        var items = shopSubSubSystem.GetShopUsableItems(agent);
-
-	        if (items.Count > index)
-	        {
-		        var item = items[index];
-		        shopSubSubSystem.SetCurrentPrice(agent, item, increment);
-	        }
+	        throw new NotImplementedException();
         }
 
         public void Select(ShopAgent agent)
@@ -173,18 +109,8 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         }
 
         public int GetIndexInShopList(ShopAgent shopAgent, UsableItem item)
-		{
-			var items = shopSubSubSystem.GetShopUsableItems(shopAgent);
-			for (var i = 0; i < items.Count; i++)
-			{
-				if (item == items[i])
-				{
-					return i;
-				}
-			}
-
-			Debug.LogError("Item not in shop : " + item.itemDetails.itemName);
-			return -1;
+        {
+	        throw new NotImplementedException();
 		}
 
 		public void FixedUpdate()
@@ -192,46 +118,79 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 	        craftingSubSubSystem.Update();
 		}
 		
-		public override EnabledInput[] GetEnabledInputs(ShopAgent agent)
-		{
-			var inputChoices = new List<EShopAgentChoices> { EShopAgentChoices.Select };
-			if (!craftingSubSubSystem.IsCrafting(agent))
+		private readonly ECraftingChoice [] _craftingChoices = Enum.GetValues(typeof(ECraftingChoice)).Cast<ECraftingChoice>().ToArray();
+
+		private readonly Dictionary<ECraftingChoice, List<EShopAgentChoices>> _values =
+			new Dictionary<ECraftingChoice, List<EShopAgentChoices>>()
 			{
-				if (CraftingLocationMap.GetCurrentLocation(agent) < CraftingLocationMap.GetLimit(agent) - 1)
-				{
-					inputChoices.Add(EShopAgentChoices.Up);
-				}
-
-				if (CraftingLocationMap.GetCurrentLocation(agent) > 0)
-				{
-					inputChoices.Add(EShopAgentChoices.Down);
-				}
-
-				var choice = CraftingLocationMap.GetCraftingChoice(agent);
-				var items = shopSubSubSystem.GetShopUsableItems(agent);
-				var found = false;
-				foreach (var i in items)
-				{
-					if (i.craftChoice == choice)
+				{ ECraftingChoice.BeginnerSword,  new List<EShopAgentChoices>
 					{
-						found = true;
-						break;
+						EShopAgentChoices.IncreasePriceBeginnerSword,
+						EShopAgentChoices.DecreasePriceBeginnerSword
 					}
-				}
-
-				if (found)
+				},
+				{ ECraftingChoice.AdvancedSword,  new List<EShopAgentChoices>
 				{
-					inputChoices.AddRange(
-						new[]
-						{
-							EShopAgentChoices.IncreasePrice,
-							EShopAgentChoices.DecreasePrice
-						});
+					EShopAgentChoices.IncreasePriceAdvancedSword,
+					EShopAgentChoices.DecreasePriceAdvancedSword
+				}},
+				{ ECraftingChoice.IntermediateSword,  new List<EShopAgentChoices>
+				{
+					EShopAgentChoices.IncreasePriceIntermediateSword,
+					EShopAgentChoices.DecreasePriceIntermediateSword
+				}},
+				{ ECraftingChoice.EpicSword,  new List<EShopAgentChoices>
+				{
+					EShopAgentChoices.IncreasePriceEpicSword,
+					EShopAgentChoices.DecreasePriceEpicSword
+				}},
+				{ ECraftingChoice.MasterSword,  new List<EShopAgentChoices>
+				{
+					EShopAgentChoices.IncreasePriceMasterSword,
+					EShopAgentChoices.DecreasePriceMasterSword
+				}},
+				{ ECraftingChoice.UltimateSwordOfPower,  new List<EShopAgentChoices>
+				{
+					EShopAgentChoices.IncreasePriceUltimateSword,
+					EShopAgentChoices.DecreasePriceUltimateSword
 				}
 			}
+			};
 
-			var outputs = EconomySystemUtils<EShopAgentChoices>.GetInputOfType(inputChoices);
-			return outputs;
+		private readonly Dictionary<ECraftingChoice, EShopAgentChoices> craftMap =
+			new()
+			{
+				{ ECraftingChoice.BeginnerSword, EShopAgentChoices.CraftBeginnerSword },
+				{ ECraftingChoice.IntermediateSword, EShopAgentChoices.CraftIntermediateSword },
+				{ ECraftingChoice.AdvancedSword, EShopAgentChoices.CraftAdvancedSword },
+				{ ECraftingChoice.EpicSword, EShopAgentChoices.CraftEpicSword },
+				{ ECraftingChoice.UltimateSwordOfPower, EShopAgentChoices.CraftUltimateSword },
+				{ ECraftingChoice.MasterSword, EShopAgentChoices.CraftMasterSword }
+			};
+		public override EShopAgentChoices[] GetEnabledInputs(ShopAgent agent)
+		{
+			var inputChoices = new HashSet<EShopAgentChoices>();
+
+			foreach (var choice in _craftingChoices)
+			{
+				if (craftingSubSubSystem.CanCraft(agent, choice))
+				{
+					inputChoices.Add(craftMap[choice]);
+				}
+			}
+			
+			
+			var items = shopSubSubSystem.GetShopUsableItems(agent);
+			foreach (var itemPair in items)
+			{
+				foreach (var o in _values[itemPair.Key])
+				{
+					inputChoices.Add(o);
+				}
+			}
+			var found = false;
+			
+			return inputChoices.ToArray();
 		}
 
 		public void Setup()

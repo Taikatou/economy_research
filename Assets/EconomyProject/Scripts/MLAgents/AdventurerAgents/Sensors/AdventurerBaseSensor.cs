@@ -37,10 +37,6 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
                     data = health,
                     Name = "health"
                 },
-                new CategoricalObsData<EAdventurerScreen>((EAdventurerScreen)screen)
-                {
-                    Name="Screen"
-                },
                 new SingleObsData
                 {
                     data=walletMoney,
