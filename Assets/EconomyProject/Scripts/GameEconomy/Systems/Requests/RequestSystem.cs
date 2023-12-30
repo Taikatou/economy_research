@@ -206,23 +206,28 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
         public bool CanMakeRequest(CraftingInventory inventory, ECraftingResources resources)
         {
-            var resourceCount = 0;
-            if (_craftingRequests.ContainsKey(inventory) && _craftingRequests[inventory].ContainsKey(resources))
+            if (_craftingRequests.ContainsKey(inventory))
             {
-                resourceCount = _craftingRequests[inventory][resources].Number;
-            }
-            var canRequest = inventory.GetResourceNumber(resources) + resourceCount < 4;
-            if (canRequest && _craftingRequests.ContainsKey(inventory))
-            {
+                var resourceCount = 0;
                 if (_craftingRequests[inventory].ContainsKey(resources))
                 {
-                    if (_craftingRequests[inventory][resources].Number > 3)
+                    resourceCount = _craftingRequests[inventory][resources].Number;
+                }
+                var canRequest = inventory.GetResourceNumber(resources) + resourceCount < 4;
+                if (canRequest)
+                {
+                    if (_craftingRequests[inventory].ContainsKey(resources))
                     {
-                        canRequest = false;
+                        if (_craftingRequests[inventory][resources].Number > 3)
+                        {
+                            canRequest = false;
+                        }
                     }
                 }
+                return canRequest;
             }
-            return canRequest;
+
+            return inventory.GetResourceNumber(resources) < 5;
         }
         
         public bool MakeRequest(ECraftingResources resources, CraftingInventory inventory, EconomyWallet wallet)

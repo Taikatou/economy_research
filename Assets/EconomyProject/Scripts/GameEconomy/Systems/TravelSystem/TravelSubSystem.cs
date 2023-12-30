@@ -31,14 +31,23 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.TravelSystem
 
         public FighterObject GetBattle(EBattleEnvironments environment)
         {
-            if (_environmentLootTable.ContainsKey(environment))
+            try
             {
-                var battle = _environmentLootTable[environment].PickLootDropItem();
+                if (_environmentLootTable.ContainsKey(environment))
+                {
+                    var battle = _environmentLootTable[environment].PickLootDropItem();
 
-                var newFighter = FighterObject.GenerateItem(battle.item);
-                return newFighter;
+                    var newFighter = FighterObject.GenerateItem(battle.item);
+                    return newFighter;
+                }
+                return null;
             }
-            return null;
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            
         }
 
         public CraftingDropReturn? GetLootBox(EBattleEnvironments environment)

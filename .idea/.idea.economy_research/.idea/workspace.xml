@@ -6,25 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="3a9a0144-2920-4427-8d8b-3fddc42186be" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.economy_research/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.economy_research/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Training.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Training.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Prefabs/ML Agents/Adventurer/LearningAdventurerAgentIntransitive.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Prefabs/ML Agents/Adventurer/LearningAdventurerAgentIntransitive.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scenes/TestScenes/EconomyScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scenes/TestScenes/EconomyScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Requests/AdventurerRequestTaker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Requests/AdventurerRequestTaker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Requests/CraftingResourceRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Requests/CraftingResourceRequest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Requests/RequestAdventurerSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Requests/RequestAdventurerSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/AgentShopSubSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/AgentShopSubSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/CraftingSubSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Craftsman/CraftingSubSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Requests/RequestShopSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Requests/RequestShopSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Requests/RequestSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Requests/RequestSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerTypes/LevelCurve.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/AdventurerTypes/LevelCurve.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/Sensors/AdventurerInventorySensor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/Sensors/AdventurerInventorySensor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/Sensors/AdventurerSensorComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/Sensors/AdventurerSensorComponent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/Sensors/RequestTakerSensor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/Sensors/RequestTakerSensor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/Sensors/SystemSensors/AgentRequestSensor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/AdventurerAgents/Sensors/SystemSensors/AgentRequestSensor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/EconomyDecisionRequester.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/EconomyDecisionRequester.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/TravelSystem/TravelSubSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/TravelSystem/TravelSubSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Shop/ShopAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Shop/ShopAgent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/ML-Agents/Timers/EconomyScene_timers.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ML-Agents/Timers/EconomyScene_timers.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/URP.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/URP.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UniversalRenderPipelineGlobalSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,11 +114,27 @@
     <setting file="file://$PROJECT_DIR$/Assets/TurnBased/Scripts/BattleSubSystemInstance.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TurnBased/Scripts/IBattleSubSystemInstance.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TurnBased/Scripts/PlayerFighterData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ai.navigation@1.1.5/Tests/Runtime/NavMeshSurfaceLinkTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ai.navigation@1.1.5/Tests/Runtime/NavMeshSurfaceModifierTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ai.navigation@1.1.5/Tests/Runtime/NavMeshSurfaceTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.8.9/Editor/BurstDisassembler.Core.ARM64.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.8.9/Editor/BurstPlatformAotSettings.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.8.9/Runtime/BurstCompilerOptions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.8.9/Tests/Editor/BurstInspectorGUITests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.8.9/Tests/Runtime/Shared/040-ControlFlows.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.8.9/Tests/Runtime/Shared/050-TestStructs.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.8.9/Tests/Runtime/Shared/052-TestFixed.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.8.9/Tests/Runtime/Shared/090-Vectors-Indexers.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.collab-proxy@2.1.0/Editor/PlasticSCM/AssetMenu/AssetMenuOperations.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.visualstudio@2.0.21/Editor/Messaging/Messenger.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.vscode@1.2.5/Editor/ProjectGeneration/FileIO.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.vscode@1.2.5/Editor/ProjectGeneration/ProjectGeneration.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.2.6/Tests/Tests/Shared/TestMath.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.2.6/Tests/Tests/TestRandom.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.2.6/Unity.Mathematics/Noise/classicnoise4D.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.2.6/Unity.Mathematics/Noise/noise3D.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.2.6/Unity.Mathematics/float4x4.gen.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.2.6/Unity.Mathematics/math.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Editor/GlyphInfoDrawer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Editor/GlyphMetricsPropertyDrawer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Editor/TMP_BaseEditorPanel.cs" root0="SKIP_HIGHLIGHTING" />
@@ -264,6 +271,16 @@
     <setting file="file://$PROJECT_DIR$/../ml-agents-3/com.unity.ml-agents/Tests/Editor/UtilitiesTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ml-agents-3/com.unity.ml-agents/Tests/Runtime/Sensor/StackingSensorTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ml-agents-3/com.unity.ml-agents/Tests/Runtime/Utils/TestClasses.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../ml-agents-5/com.unity.ml-agents/Tests/Editor/Actuators/ActionSegmentTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../ml-agents-5/com.unity.ml-agents/Tests/Editor/Actuators/ActuatorDiscreteActionMaskTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../ml-agents-5/com.unity.ml-agents/Tests/Editor/Actuators/ActuatorManagerTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../ml-agents-5/com.unity.ml-agents/Tests/Editor/Actuators/VectorActuatorTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../ml-agents-5/com.unity.ml-agents/Tests/Editor/Analytics/TrainingAnalyticsTest.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../ml-agents-5/com.unity.ml-agents/Tests/Editor/Communicator/RpcCommunicatorTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../ml-agents-5/com.unity.ml-agents/Tests/Editor/Inference/EditModeTestInternalBrainTensorGenerator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../ml-agents-5/com.unity.ml-agents/Tests/Editor/InplaceArrayTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../ml-agents-5/com.unity.ml-agents/Tests/Editor/Integrations/Match3/MoveTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../ml-agents-5/com.unity.ml-agents/Tests/Editor/Policies/HeuristicPolicyTest.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ml-agents/com.unity.ml-agents/Runtime/Agent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ml-agents/com.unity.ml-agents/Runtime/Sensors/BufferSensor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ml-agents/com.unity.ml-agents/Runtime/Sensors/BufferSensorComponent.cs" root0="SKIP_HIGHLIGHTING" />
@@ -301,28 +318,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Attach to Unity Editor.Attach to Unity Editor.executor&quot;: &quot;Debug&quot;,
-    &quot;Discover.Launch.Via.Unity&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.46576878&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Attach to Unity Editor.Attach to Unity Editor.executor": "Debug",
+    "Discover.Launch.Via.Unity": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "XThreadsFramesViewSplitterKey": "0.46566164",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\conor\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\conor\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\conor\\AppData\\Local\\Symbols\\src&quot;
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\conor\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
+      "C:\\Users\\conor\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
+      "C:\\Users\\conor\\AppData\\Local\\Symbols\\src"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.11f1\Editor\Unity.exe" />
@@ -358,10 +375,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="23544">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="23544" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -480,7 +497,7 @@
       <workItem from="1703768058124" duration="2382000" />
       <workItem from="1703776580692" duration="147000" />
       <workItem from="1703776750196" duration="2588000" />
-      <workItem from="1703846790350" duration="7875000" />
+      <workItem from="1703846790350" duration="13205000" />
     </task>
     <servers />
   </component>
@@ -600,6 +617,71 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="360" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/TravelSystem/TravelSubSystem.cs</url>
+          <line>46</line>
+          <properties documentPath="C:\Users\conor\Documents\GitHub\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\TravelSystem\TravelSubSystem.cs" initialLine="46" containingFunctionPresentation="Method 'GetBattle'">
+            <startOffsets>
+              <option value="1497" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1518" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="361" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/MLAgents/Shop/ShopAgent.cs</url>
+          <line>280</line>
+          <properties documentPath="C:\Users\conor\Documents\GitHub\economy_research\Assets\EconomyProject\Scripts\MLAgents\Shop\ShopAgent.cs" initialLine="280" containingFunctionPresentation="Method 'GetEnabledActions'">
+            <startOffsets>
+              <option value="10564" />
+            </startOffsets>
+            <endOffsets>
+              <option value="10631" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="366" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Requests/RequestSystem.cs</url>
+          <line>208</line>
+          <properties documentPath="C:\Users\conor\Documents\GitHub\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Requests\RequestSystem.cs" initialLine="208" containingFunctionPresentation="Method 'CanMakeRequest'">
+            <startOffsets>
+              <option value="6710" />
+            </startOffsets>
+            <endOffsets>
+              <option value="6755" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="370" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Requests/RequestSystem.cs</url>
+          <line>211</line>
+          <properties documentPath="C:\Users\conor\Documents\GitHub\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Requests\RequestSystem.cs" initialLine="211" containingFunctionPresentation="Method 'CanMakeRequest'">
+            <startOffsets>
+              <option value="6825" />
+            </startOffsets>
+            <endOffsets>
+              <option value="6881" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="371" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/EconomyProject/Scripts/GameEconomy/Systems/Requests/RequestSystem.cs</url>
+          <line>210</line>
+          <properties documentPath="C:\Users\conor\Documents\GitHub\economy_research\Assets\EconomyProject\Scripts\GameEconomy\Systems\Requests\RequestSystem.cs" initialLine="210" containingFunctionPresentation="Method 'CanMakeRequest'">
+            <startOffsets>
+              <option value="6786" />
+            </startOffsets>
+            <endOffsets>
+              <option value="6808" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="372" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

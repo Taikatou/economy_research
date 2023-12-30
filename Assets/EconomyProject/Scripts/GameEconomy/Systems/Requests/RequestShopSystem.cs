@@ -45,17 +45,15 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
             foreach (var request in items.Values)
             {
-                var outputs = new List<float>();
-                var r = new float[4];
                 if (request.Resource > ECraftingResources.Nothing)
                 {
                     var index = (int)request.Resource - 1;
+                    var r = new float[6];
                     r[index] = 1;
+                    r[4] = request.Price;
+                    r[5] = request.Number;
                     
-                    outputs.AddRange(r);
-                    outputs.Add(request.Price);
-                    outputs.Add(request.Number);
-                    bufferSensorComponent.AppendObservation(outputs.ToArray());
+                    bufferSensorComponent.AppendObservation(r);
                 }
             }
         }

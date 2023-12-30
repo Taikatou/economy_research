@@ -252,9 +252,15 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 	        {
 		        shopInput.shopCraftingSystem.system.shopSubSubSystem.SetCurrentPrice(this, _craftDecreaseMap[battleAction], -1);
 	        }
+
+	        if (wallet.Money < 20)
+	        {
+		        AddReward(-0.5f);
+		        EndEpisode();
+	        }
         }
 
-        public void SetAction(EShopAgentChoices choice)
+        private void SetAction(EShopAgentChoices choice)
 		{
 			_bForcedAction = true;
 			_forcedAction = choice;
@@ -266,7 +272,7 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 			SetAction((EShopAgentChoices) action);
 		}
 
-		public List<EShopAgentChoices[]> GetEnabledActions()
+		private List<EShopAgentChoices[]> GetEnabledActions()
 		{
 			var craftInputs = shopInput.shopCraftingSystem.system.GetEnabledInputs(this);
 			
@@ -285,10 +291,10 @@ namespace EconomyProject.Scripts.MLAgents.Shop
 				var actions = GetEnabledActions();
 				foreach (var input in ValuesAsArray)
 				{
-					var enabled = actions[0].Contains(input) || actions[1].Contains(input);
+					var contains = actions[0].Contains(input) || actions[1].Contains(input);
 					var enabledInput = new EnabledInput
 					{
-						Enabled = enabled,
+						Enabled = contains,
 						Input = (int)input
 					};
 					toReturn.Add(enabledInput);

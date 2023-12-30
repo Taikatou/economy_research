@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Data;
 using Inventory;
 using EconomyProject.Scripts.MLAgents.Craftsman;
@@ -63,7 +65,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
 
                     if (TrainingConfig.SubmitDirectToShop)
                     {
-                        shopSubSubSystem.SubmitToShop(agent, generatedItem);   
+                        Task.Run(delegate
+                        {
+                            SubmitToShop(agent, generatedItem);
+                            return Task.CompletedTask;
+                        });
                     }
                     OverviewVariables.CraftItem();
                       
@@ -76,6 +82,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
                 _shopRequests.Remove(item);
                 _shopAgents.Remove(item);
             }
+        }
+
+        private async Task SubmitToShop(ShopAgent agent, UsableItem generatedItem)
+        {
+            await Task.Delay(1000);
+            shopSubSubSystem.SubmitToShop(agent, generatedItem);
         }
 
         public void MakeCraftRequest(ShopAgent shopAgent, ECraftingChoice input)

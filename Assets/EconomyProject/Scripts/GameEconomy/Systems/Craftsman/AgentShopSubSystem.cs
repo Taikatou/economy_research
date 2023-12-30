@@ -200,7 +200,25 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
                     {
                         outputs[7] = item.Value.Value.Price;
                         outputs[7] = item.Value.Value.Item.itemDetails.damage;
-                        outputs[8] = item.Value.Value.Item.itemDetails.durability;
+                        outputs[8] = 0;
+                    }
+                
+                    bufferSensorComponent.AppendObservation(outputs);   
+                }
+            }
+
+            foreach (var item in shop.agentInventory.Items)
+            {
+                if (item.Key.Contains("Sword"))
+                {
+                    var outputs = new float[9];
+                    outputs[(int)item.Value[0].craftChoice] = 1;
+                    var price = GetPrice(shop, item.Value[0].itemDetails);
+                    if (item.Value != null)
+                    {
+                        outputs[7] = price;
+                        outputs[7] = item.Value.Count;
+                        outputs[8] = 1;
                     }
                 
                     bufferSensorComponent.AppendObservation(outputs);   
@@ -209,7 +227,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Craftsman
         }
 
         readonly ECraftingChoice[] _craftingChoices = Enum.GetValues(typeof(ECraftingChoice)).Cast<ECraftingChoice>().ToArray();
-        // TO DO THIS SHOULD BE SMALLEST PRICE
+        
         public void GetItemSenses(BufferSensorComponent bufferSensorComponent, ShopAgent toIgnore)
         {
             foreach (var choice in _craftingChoices)

@@ -7,7 +7,7 @@
 
         public static bool OnSell => true;
 
-        public static bool OnSpend => false;
+        public static bool OnSpend => true;
         public static bool OnWin => true;
         public static readonly float OnWinReward = 0.03f;
 
@@ -46,7 +46,7 @@
 
         public static bool SubmitDirectToShop => true;
 
-        public static float SellDiscount => 0.5f;
+        public static float SellDiscount => 0.2f;
 
         public static bool IgnoreCraftTime => true;
 
