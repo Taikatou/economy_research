@@ -35,7 +35,7 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
                 },
                 new SingleObsData
                 {
-                    data=_agent.AdventurerInventory.ItemCount / 10,
+                    data=_agent.AdventurerInventory.ItemCount,
                     Name="Item Count"
                 }
             };

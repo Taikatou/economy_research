@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Data;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
@@ -7,7 +6,6 @@ using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
-using UnityEngine.iOS;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 {
@@ -127,24 +125,21 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             return amount;
         }
 
-        public void GetCurrentRequestData(BufferSensorComponent requestTakenBufferComponent)
+        public float[] GetCurrentRequestData()
         {
+            var data = new float[4];
             var resources = CraftingUtils.GetCraftingResources();
+            var index = 0;
             foreach (var r in resources)
             {
-                if (r != ECraftingResources.Nothing && CurrentRequestData != null)
+                if (CurrentRequestData.ContainsKey(r))
                 {
-                    if (CurrentRequestData.ContainsKey(r))
-                    {
-                        var output = new float[4];
-                        output[0] = (float) CurrentRequestData[r].Request.Resource;
-                        output[1] = CurrentRequestData[r].Request.Price;
-                        output[2] = CurrentRequestData[r].Request.Number;
-                        output[3] = CurrentRequestData[r].CurrentAmount;
-                        requestTakenBufferComponent.AppendObservation(output);   
-                    }
+                    data[index] = 1;
                 }
+                index++;
             }
+
+            return data;
         }
     }
 }

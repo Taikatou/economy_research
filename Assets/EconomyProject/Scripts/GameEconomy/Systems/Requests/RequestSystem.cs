@@ -206,7 +206,12 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
 
         public bool CanMakeRequest(CraftingInventory inventory, ECraftingResources resources)
         {
-            var canRequest = inventory.GetResourceNumber(resources) < 6;
+            var resourceCount = 0;
+            if (_craftingRequests.ContainsKey(inventory) && _craftingRequests[inventory].ContainsKey(resources))
+            {
+                resourceCount = _craftingRequests[inventory][resources].Number;
+            }
+            var canRequest = inventory.GetResourceNumber(resources) + resourceCount < 4;
             if (canRequest && _craftingRequests.ContainsKey(inventory))
             {
                 if (_craftingRequests[inventory].ContainsKey(resources))
@@ -373,18 +378,17 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             Refresh();
         }
         
-        public void GetObservations(BufferSensorComponent bufferSensorComponent)
+        public ObsData[] GetObservations(BufferSensorComponent bufferSensorComponent)
         {
             var craftingRequests = GetAllCraftingRequestsObservations();
             
-            CraftingResourceRequest.GetObservations(craftingRequests, bufferSensorComponent);
+            return CraftingResourceRequest.GetObservations(craftingRequests);
         }
         
         public ObsData[] GetObservations(ShopAgent agent, BufferSensorComponent bufferSensorComponent)
         {
             var craftingRequests = GetAllCraftingRequestsObservations(agent.craftingInventory);
-            CraftingResourceRequest.GetObservations(craftingRequests, bufferSensorComponent);
-            return Array.Empty<ObsData>();
+            return CraftingResourceRequest.GetObservations(craftingRequests);
         }
 
         private void UpdateRemove()

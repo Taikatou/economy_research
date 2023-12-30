@@ -48,28 +48,11 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             }
         }
         
-        public static void GetObservations(Dictionary<ECraftingResources, List<CraftingResourceRequest>> craftingRequests, BufferSensorComponent requestBuffer)
-        {
-            foreach (var item in craftingRequests)
-            {
-                foreach (var resource in item.Value)
-                {
-                    var output = new ObsData[3];
-                    ObserveData(resource, output);
-                    requestBuffer.AppendObservation(ObsData.GetEnumerableData(output));
-                }
-            }
-        }
-
         private static void ObserveData(CraftingResourceRequest value, ObsData[] output)
         {
             var resource = value?.Resource ?? ECraftingResources.Nothing;
             var price = value?.Price ?? 0;
             var number = value?.Number ?? 0;
-            output[0] = new CategoricalObsData<ECraftingResources>(resource)
-            {
-                Name="resource",
-            };
             output[1] = new SingleObsData
             {
                 data=price,
@@ -82,16 +65,35 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
             };
             
         }
-
-        public static void GetObservations(Dictionary<ECraftingResources, CraftingResourceRequest> craftingRequests, BufferSensorComponent requestBuffer)
+        
+        public static ObsData[] GetObservations(Dictionary<ECraftingResources, List<CraftingResourceRequest>> craftingRequests)
         {
-            var counter = 0;
-            foreach (var item in craftingRequests)
+            var observations = new ObsData[4];
+            var resources = CraftingUtils.GetCraftingResources();
+            var i = 0;
+            foreach (var resource in resources)
             {
-                var output = new ObsData[3];
-                ObserveData(item.Value, output);
-                requestBuffer.AppendObservation(ObsData.GetEnumerableData(output));
+                var contains = craftingRequests.ContainsKey(resource);
+                observations[i] = new SingleObsData{data = contains? 1: 0};
+                i++;
             }
+
+            return observations;
+        }
+        
+        public static ObsData[] GetObservations(Dictionary<ECraftingResources, CraftingResourceRequest> craftingRequests)
+        {
+            var observations = new ObsData[4];
+            var resources = CraftingUtils.GetCraftingResources();
+            var i = 0;
+            foreach (var resource in resources)
+            {
+                var contains = craftingRequests.ContainsKey(resource);
+                observations[i] = new SingleObsData{data = contains? 1: 0};
+                i++;
+            }
+
+            return observations;
         }
 
         private static int ItemCount => Enum.GetValues(typeof(ECraftingResources)).Length;

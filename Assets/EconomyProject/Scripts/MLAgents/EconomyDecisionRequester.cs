@@ -1,5 +1,6 @@
 using Data;
 using EconomyProject.Monobehaviours;
+using EconomyProject.Scripts.GameEconomy.Systems.Requests;
 using EconomyProject.Scripts.MLAgents.Shop;
 using Unity.MLAgents;
 
@@ -10,6 +11,7 @@ namespace EconomyProject.Scripts.MLAgents
         public bool adventurer;
         public ShopCraftingSystemBehaviour shopSubSystem;
         public RequestShopSystemBehaviour requestBehaviour;
+        public AdventurerRequestTaker requestTaker;
         public void Start()
         {
             shopSubSystem = FindObjectOfType<ShopCraftingSystemBehaviour>();
@@ -24,7 +26,12 @@ namespace EconomyProject.Scripts.MLAgents
                 {
                     return true;
                 }
-
+                var takenRequests = requestBehaviour.system.requestSystem.craftingRequestRecord.GetCurrentRequests(requestTaker);
+                if (takenRequests.Length > 0)
+                {
+                    return true;
+                }
+                
                 var requests = requestBehaviour.system.requestSystem.GetCraftingRequests();
                 if (requests > 0)
                 {

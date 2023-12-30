@@ -8,30 +8,29 @@ namespace EconomyProject.Scripts.MLAgents.AdventurerAgents.Sensors
 {
     public class RequestTakerSensor : BaseEconomySensor
     {
-        private readonly BufferSensorComponent _requestTakenBufferComponent;
-        
         private readonly BufferSensorComponent _requestAvailableBufferComponent;
         
         private readonly AdventurerRequestTaker _requestTaker;
         
-        protected override float[] Data { get; }
+        protected override float[] Data => _data;
+
+        private float[] _data;
 
         public override string GetName() => "RequestTakerSensor";
 
-        private int SensorCount => 0;
+        private int SensorCount => 4;
 
-        public RequestTakerSensor(BufferSensorComponent requestBufferComponent, AdventurerRequestTaker requestTaker) : base(null)
+        public RequestTakerSensor(AdventurerRequestTaker requestTaker) : base(null)
         {
             _requestTaker = requestTaker;
-            _requestAvailableBufferComponent = requestBufferComponent;
 
-            Data = new float[SensorCount];
+            _data = new float[SensorCount];
             MObservationSpec = ObservationSpec.Vector(SensorCount);
         }
         
         public override void Update()
         {
-            _requestTaker.GetCurrentRequestData(_requestAvailableBufferComponent);
+            _data = _requestTaker.GetCurrentRequestData();
         }
     }
 }

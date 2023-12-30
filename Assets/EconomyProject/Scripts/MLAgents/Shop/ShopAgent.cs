@@ -207,7 +207,11 @@ namespace EconomyProject.Scripts.MLAgents.Shop
         public override void OnActionReceived(ActionBuffers actions)
         {
 	        var battleAction = (EShopAgentChoices) Mathf.FloorToInt(actions.DiscreteActions[0]);
-	        if (battleAction is >= EShopAgentChoices.SelectWood 
+	        if (battleAction == EShopAgentChoices.None)
+	        {
+		        AddReward(-0.00001f);
+	        }
+	        else if (battleAction is >= EShopAgentChoices.SelectWood 
 	            and <= EShopAgentChoices.SelectDragonScale)
 	        {
 		        shopInput.requestSystem.system.requestSystem.MakeRequest(_selectRequestMap[battleAction], craftingInventory, wallet);

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Data;
 using EconomyProject.Scripts.MLAgents.AdventurerAgents;
-using EconomyProject.Scripts.MLAgents.Craftsman.Requirements;
 using Unity.MLAgents.Sensors;
 
 namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
@@ -21,8 +20,7 @@ namespace EconomyProject.Scripts.GameEconomy.Systems.Requests
         }
         public override ObsData[] GetObservations(BaseAdventurerAgent agent, BufferSensorComponent[] bufferSensorComponent)
         {
-            requestSystem.GetObservations(bufferSensorComponent[0]);
-            return Array.Empty<ObsData>();
+            return requestSystem.GetObservations(null);
         }
 
         protected override void SetChoice(BaseAdventurerAgent agent, EAdventurerAgentChoices input)
